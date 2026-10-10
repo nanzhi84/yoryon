@@ -22,8 +22,8 @@ services:
     image: axllent/mailpit:latest
     restart: unless-stopped
     ports:
-      - "1025:1025"   # SMTP
-      - "8025:8025"   # Web UI / API
+      - "11025:1025"   # SMTP（避开宿主机常见占用）
+      - "18025:8025"   # Web UI / API
     environment:
       MP_MAX_MESSAGES: "1000"
 
