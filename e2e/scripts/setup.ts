@@ -6,7 +6,7 @@ import { webEnv } from "../helpers/env";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const ROOT = path.resolve(__dirname, "..");
+const ROOT = path.resolve(__dirname, "../..");
 
 console.log("[setup] building web...");
 execFileSync("npx", ["next", "build"], {
