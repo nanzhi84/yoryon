@@ -311,6 +311,16 @@ CLI 发布采用**分阶段、可安全重试**的流程；OSS 与 DB 无共同�
 - 清理对象 ②：`media_assets` 行存在，但零引用（无 `content_media` 边、非任何内容/合集封面）且超过 7 天宽限期。
 - 删除前复核引用计数为零；宽限期保护进行中的发布。
 
+**并发保护（GC ↔ 发布互斥）：**
+
+GC 的“无 DB 记录 → 可删”判断与发布的“HEAD 存在 → 跳过上传 → 提交引用”存在竞态：若 GC 在发布的 HEAD 检查与阶段 B 提交之间删除对象，会产生悬挂引用（DB 引用已删除的对象）。重试场景下两阶段可能相隔数天，任何时间窗都无法消除该竞态，因此采用互斥：
+
+- `blog publish` 与 `blog media gc` 在同一 PostgreSQL 上取**同一把会话级 advisory lock**（`pg_advisory_lock(hashtextextended('yoryon.media_publish_gc', 0))`）；发布从阶段 A 开始到阶段 B 提交全程持有。
+- GC 使用 `pg_try_advisory_lock`：获取失败说明发布进行中，记录日志并跳过本轮（等待下轮 cron），不阻塞等待。
+- 会话级锁随进程退出/连接断开自动释放，无残留锁；两进程本就连同一数据库，不引入新基础设施。
+- 效果：发布与 GC 完全串行——要么发布先完成（GC 扫描时 `media_assets` 行已存在，不判为孤儿），要么 GC 先完成（发布 HEAD 未命中，重新上传）。两种顺序均无悬挂引用。
+- unpublish / 删除内容只动 DB 边、不碰 OSS，与 GC 无竞态（7 天宽限期兜底），无需持锁。
+
 ## 7. API 契约（v1，仅用户侧；全部经 www 同源 BFF 代理）
 
 ```
@@ -496,7 +506,7 @@ published_at: 2026-01-01
 
 ## 13. E2E 验收策略（唯一测试机制）
 
-环境：本地 `docker compose`（api + postgres + Mailpit + web dev server）+ seed 数据隔离；Playwright 走真实浏览器路径；产出 HTML 报告、截图、trace 作为验收工件（不含敏感信息）。
+环境：本地 `docker compose`（api + postgres + Mailpit + web dev server）+ seed 数据隔离；Playwright 走真实浏览器路径；产出 HTML 报告、截图、trace 作为验收工件（不含敏感信息）。对象存储经 packages/core 的存储接口抽象（生产 = ali-oss；E2E = 文件系统实现 + 本地模拟签名 URL），媒体路径可在本地完整验收——该接口仅服务可测试性，不是插件机制。
 
 验收路径：
 
@@ -515,6 +525,7 @@ published_at: 2026-01-01
 13. **缓存隔离**：授权用户访问详情页后，匿名请求同 URL 仍为预览版，并断言响应头；付费媒体 302 无共享缓存头；免费媒体 302 公共缓存头 max-age < 签名 TTL。
 14. 撤销兑换 → 用户回落预览态，媒体同步 403。
 15. 限流触发：login/redeem 超阈值返回 429，恢复窗口后可正常操作。
+16. **GC 与发布并发**：构造年龄 >24h 的孤儿对象，同时执行 `blog publish`（命中 HEAD 跳过上传的路径）与 `blog media gc --apply` → 两者经 advisory lock 串行；断言最终已发布内容引用的全部媒体经 `/api/media/:id` 可访问，无悬挂引用。
 
 ## 14. ADR 索引
 
@@ -525,4 +536,4 @@ published_at: 2026-01-01
 | [ADR-0003](adr/0003-cache-separation.md) | 缓存分线：付费内容不进共享缓存 | 已接受（2026-10-11 补充修订） |
 | [ADR-0004](adr/0004-media-exposure-contract.md) | 媒体曝光合同：发布期计算 exposure 字段 | 已接受（桶策略由 ADR-0006 取代） |
 | [ADR-0005](adr/0005-frontend-stack.md) | 前端技术选型：shadcn/ui + Tailwind v4 + Video.js 10 | 已接受 |
-| [ADR-0006](adr/0006-media-lifecycle.md) | 媒体存储与发布生命周期：统一私有桶、内容寻址、分阶段发布、延迟 GC | 已接受 |
+| [ADR-0006](adr/0006-media-lifecycle.md) | 媒体存储与发布生命周期：统一私有桶、内容寻址、分阶段发布、延迟 GC | 已接受（2026-10-11 补充修订：GC 并发互斥） |
