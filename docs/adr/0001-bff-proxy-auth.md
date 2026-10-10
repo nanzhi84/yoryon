@@ -1,6 +1,6 @@
 # ADR-0001：BFF 代理 + Bearer 转换的身份传递方案
 
-状态：已接受
+状态：已接受（2026-10-11 补充修订）
 
 ## 背景
 
@@ -26,3 +26,13 @@
 - 代价：API 请求多一跳 Vercel 中转（仅 JSON 与 302，媒体字节由浏览器直连 OSS，不过 Vercel）。
 - 可逆性：若未来 web 迁回阿里云与 API 同机部署，摘掉代理层改为浏览器直连 API（重新启用 CORS + Cookie 方案）即可，API 契约不变。
 - 约束：不得在 `example.com` 其他子域托管不可信内容的假设被移除（Cookie 本来就不出 www）。
+
+## 修订记录（2026-10-11）：CSRF 边界、会话生命周期与 IP 信任细化
+
+核心决策不变（同源 BFF + Bearer 转换）。变更原因：原设计未定义 Origin 缺失时的处理、会话撤销时机与 XFF 信任边界，存在伪造 IP 绕过限流与污染审计日志的风险。补充以下规则：
+
+1. **CSRF**：BFF 对所有 mutating 方法（POST/PUT/PATCH/DELETE）执行 Origin 白名单校验（生产仅 `https://www.example.com`）；`Origin` 缺失时要求 `Sec-Fetch-Site ∈ {same-origin, none}`；其余一律 403 并记日志。GET/HEAD 豁免（系统无可变更状态的 GET）。SameSite=Lax 为浏览器默认防线，Origin 校验为纵深防御。
+2. **会话生命周期**：登录创建 30 天滑动会话（剩余 <15 天续期）；登出删除会话行；密码重置/修改撤销该用户全部会话；禁用用户经 `users.status` 联查即时失效。
+3. **IP 信任链**：Caddy 覆写 `X-Forwarded-For` 为连接方真实 IP（丢弃客户端传入值）；BFF 从 Vercel 平台来源取客户端 IP，以 `X-Client-IP` 传递并附 `X-BFF-Token` 共享密钥标识来源，绝不透传浏览器提供的转发头；API 仅在 `X-BFF-Token` 校验通过时采用 `X-Client-IP`，否则使用 Caddy 覆写后的 XFF；均不可用归入阈值更严的 `unknown` 限流桶。`X-BFF-Token` 只影响 IP 归因，绝不参与授权；直连 API 与经 BFF 持同一 Bearer 等效。
+4. **鉴权一致性**：SSR `apiFetch` 与浏览器 Route Handler 共用同一 Cookie→Bearer 转发模块；web 层不做任何授权判断，授权只在 API（packages/core 单实现）。
+5. **限流边界**：内存令牌桶仅保证单实例一致性（重启清零、多实例不共享），v1 单实例部署可接受；水平扩展时需外置存储并重新评估。
