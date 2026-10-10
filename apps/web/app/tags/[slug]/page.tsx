@@ -1,0 +1,47 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { apiFetch } from "@/lib/api";
+import type { FeedItem, TagDetailResponse } from "@/lib/types";
+import { SiteHeader } from "@/components/site-header";
+import { FeedTimeline } from "@/components/feed-timeline";
+
+const revalidateSec = Number(process.env.FEED_REVALIDATE_SEC ?? 60);
+export const revalidate = 60;
+
+interface Props {
+  params: Promise<{ slug: string }>;
+}
+
+async function getTag(slug: string): Promise<TagDetailResponse | null> {
+  const res = await apiFetch(`/api/tags/${slug}`, { revalidate: revalidateSec });
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`API error ${res.status}`);
+  return (await res.json()) as TagDetailResponse;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const data = await getTag(slug);
+  if (!data) return { title: "标签不存在" };
+  return { title: `#${data.tag.name}` };
+}
+
+export default async function TagPage({ params }: Props) {
+  const { slug } = await params;
+  const data = await getTag(slug);
+  if (!data) notFound();
+
+  const items: FeedItem[] = data.items.map((i) => ({ ...i, kind: "content", tags: [] }));
+
+  return (
+    <>
+      <SiteHeader />
+      <main className="py-8">
+        <h1 className="text-2xl font-semibold">#{data.tag.name}</h1>
+        <div className="mt-4">
+          <FeedTimeline items={items} />
+        </div>
+      </main>
+    </>
+  );
+}
