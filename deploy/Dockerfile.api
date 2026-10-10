@@ -1,0 +1,28 @@
+# 构建上下文 = 仓库根目录
+FROM node:24-bookworm-slim AS build
+RUN corepack enable && corepack prepare pnpm@11.8.0 --activate
+WORKDIR /app
+
+# 先拷贝依赖清单以利用层缓存
+COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
+COPY packages/config/package.json packages/config/package.json
+COPY packages/db/package.json packages/db/package.json
+COPY packages/core/package.json packages/core/package.json
+COPY apps/api/package.json apps/api/package.json
+RUN pnpm install --frozen-lockfile
+
+COPY packages ./packages
+COPY apps/api ./apps/api
+RUN pnpm --filter @yoryon/api build
+
+# 生产依赖（argon2 原生模块；proxy-agent 为 ali-oss/urllib 可选依赖，不装）
+RUN pnpm --filter @yoryon/api --prod deploy /out --legacy
+
+FROM node:24-bookworm-slim
+ENV NODE_ENV=production
+WORKDIR /app
+COPY --from=build /out/node_modules ./node_modules
+COPY --from=build /app/apps/api/dist ./dist
+USER node
+EXPOSE 4000
+CMD ["node", "dist/index.js"]

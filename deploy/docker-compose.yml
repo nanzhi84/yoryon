@@ -1,0 +1,75 @@
+# 生产编排：api + postgres + caddy（架构 §12）。
+# Postgres 仅 docker 内网；Caddy 终止 TLS 并覆写 X-Forwarded-For。
+services:
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: yoryon
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
+      POSTGRES_DB: yoryon
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - internal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U yoryon -d yoryon"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.api
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: "4000"
+      DATABASE_URL: postgres://yoryon:${POSTGRES_PASSWORD:?}@postgres:5432/yoryon
+      BFF_SHARED_SECRET: ${BFF_SHARED_SECRET:?}
+      SITE_URL: ${SITE_URL:?}
+      API_PUBLIC_URL: ${API_PUBLIC_URL:?}
+      STORAGE_BACKEND: oss
+      OSS_REGION: ${OSS_REGION:?}
+      OSS_BUCKET: ${OSS_BUCKET:?}
+      OSS_ACCESS_KEY_ID: ${OSS_ACCESS_KEY_ID:?}
+      OSS_ACCESS_KEY_SECRET: ${OSS_ACCESS_KEY_SECRET:?}
+      MEDIA_SIGN_TTL: "900"
+      MAIL_SMTP_HOST: ${MAIL_SMTP_HOST:?}
+      MAIL_SMTP_PORT: ${MAIL_SMTP_PORT:?}
+      MAIL_SMTP_USER: ${MAIL_SMTP_USER:?}
+      MAIL_SMTP_PASS: ${MAIL_SMTP_PASS:?}
+      MAIL_FROM: ${MAIL_FROM:?}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - internal
+      - web
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      API_DOMAIN: ${API_DOMAIN:?}
+    depends_on:
+      - api
+    networks:
+      - web
+
+volumes:
+  pgdata:
+  caddy_data:
+  caddy_config:
+
+networks:
+  internal:  # 5432 不出网
+  web:

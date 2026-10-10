@@ -1,0 +1,12 @@
+# Caddy：自动 TLS；覆写 X-Forwarded-For 为连接方真实 IP（丢弃客户端传入值，ADR-0001 §9.5）
+{$API_DOMAIN} {
+	reverse_proxy api:4000 {
+		header_up X-Forwarded-For {remote_host}
+		header_up -X-Real-Ip
+	}
+	encode zstd gzip
+	log {
+		output stdout
+		format json
+	}
+}
