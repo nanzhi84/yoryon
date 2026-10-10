@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx watch --env-file=../../.env src/index.ts",
     "start": "tsx --env-file=../../.env src/index.ts",
-    "build": "tsup src/index.ts --format esm --out-dir dist --clean",
+    "build": "tsup",
     "start:prod": "node dist/index.js",
     "typecheck": "tsc --noEmit"
   },
@@ -15,6 +15,7 @@
     "@yoryon/config": "workspace:*",
     "@yoryon/core": "workspace:*",
     "@yoryon/db": "workspace:*",
+    "argon2": "^0.44.0",
     "drizzle-orm": "^0.45.1",
     "hono": "^4.10.6",
     "pg": "^8.16.3",

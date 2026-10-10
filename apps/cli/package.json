@@ -9,13 +9,14 @@
   "scripts": {
     "start": "tsx --env-file=../../.env src/index.ts",
     "dev": "tsx --env-file=../../.env src/index.ts",
-    "build": "tsup src/index.ts --format esm --out-dir dist --clean --banner.js='#!/usr/bin/env node'",
+    "build": "tsup",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@yoryon/config": "workspace:*",
     "@yoryon/core": "workspace:*",
     "@yoryon/db": "workspace:*",
+    "argon2": "^0.44.0",
     "commander": "^14.0.2",
     "drizzle-orm": "^0.45.1",
     "pg": "^8.16.3"
