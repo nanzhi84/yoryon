@@ -42,10 +42,11 @@ async function proxy(req: NextRequest): Promise<Response> {
     cache: "no-store",
   });
 
-  // 复制响应（过滤 hop-by-hop 头）
+  // 复制响应（过滤 hop-by-hop 头；content-length/content-encoding 由 Next 依据实际响应体重算——
+  // 登录分支会剥离 token 改写 body，透传原 content-length 会导致浏览器 CONTENT_LENGTH_MISMATCH）
   const resHeaders = new Headers();
   for (const [k, v] of apiRes.headers) {
-    if (["transfer-encoding", "connection", "keep-alive"].includes(k.toLowerCase())) continue;
+    if (["transfer-encoding", "connection", "keep-alive", "content-length", "content-encoding"].includes(k.toLowerCase())) continue;
     resHeaders.set(k, v);
   }
 

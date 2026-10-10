@@ -1,14 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 /** 密码重置两步：发码 → 验证码 + 新密码（成功后全部会话被撤销，回到登录页）。 */
 export function ResetPasswordForm() {
-  const router = useRouter();
   const [step, setStep] = useState<"request" | "reset">("request");
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
@@ -56,7 +54,7 @@ export function ResetPasswordForm() {
         setError(r.message ?? "重置失败");
         return;
       }
-      router.replace("/login");
+      window.location.assign("/login");
     } catch {
       setError("网络错误，请重试");
     } finally {

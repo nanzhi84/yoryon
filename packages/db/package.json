@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit",
     "build": "echo 'db is source-only; nothing to build'",
     "generate": "drizzle-kit generate",
-    "migrate": "tsx src/migrate-cli.ts"
+    "migrate": "tsx --env-file=../../.env src/migrate-cli.ts"
   },
   "dependencies": {
     "@yoryon/config": "workspace:*",

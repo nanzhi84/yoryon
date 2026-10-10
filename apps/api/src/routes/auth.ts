@@ -51,7 +51,7 @@ type Ctx = Context<{ Variables: AppVariables }>;
 /** 限流检查：unknown IP 桶阈值减半（ADR-0001 §9.5）。 */
 export function checkRate(deps: AppDeps, c: Ctx, buckets: { key: string; limit: number; windowMs: number }[]): Response | null {
   const { ip } = c.get("clientIp");
-  const factor = ip === "unknown" ? 0.5 : 1;
+  const factor = (ip === "unknown" ? 0.5 : 1) * deps.env.RATE_LIMIT_SCALE;
   for (const b of buckets) {
     const limit = Math.max(1, Math.floor(b.limit * factor));
     const retryAfter = deps.rateLimiter.consume(b.key, limit, b.windowMs);

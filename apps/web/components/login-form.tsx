@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,7 +10,6 @@ interface ApiError {
 }
 
 export function LoginForm() {
-  const router = useRouter();
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -32,8 +30,8 @@ export function LoginForm() {
         setError(data.error?.message ?? "登录失败");
         return;
       }
-      router.replace("/");
-      router.refresh();
+      // 硬导航：登录后需要完整重建服务端渲染状态（Cookie 已种）
+      window.location.assign("/");
     } catch {
       setError("网络错误，请重试");
     } finally {

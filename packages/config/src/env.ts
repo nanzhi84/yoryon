@@ -41,6 +41,8 @@ const apiEnvSchema = z
     MAIL_SMTP_USER: z.string().optional(),
     MAIL_SMTP_PASS: z.string().optional(),
     MAIL_FROM: z.string().default("Yoryon Blog <no-reply@example.com>"),
+    /** 限流阈值放大倍数（默认 1；E2E 环境放大以避免共享 IP 桶互相干扰） */
+    RATE_LIMIT_SCALE: z.coerce.number().int().min(1).default(1),
   })
   .superRefine((env, ctx) => {
     if (env.STORAGE_BACKEND === "oss") {

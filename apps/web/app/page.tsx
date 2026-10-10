@@ -10,8 +10,13 @@ export const revalidate = 60;
 const revalidateSec = Number(process.env.FEED_REVALIDATE_SEC ?? 60);
 
 export default async function HomePage() {
-  const res = await apiFetch("/api/feed", { revalidate: revalidateSec });
-  const data = res.ok ? ((await res.json()) as FeedResponse) : { items: [], nextCursor: null };
+  let data: FeedResponse = { items: [], nextCursor: null };
+  try {
+    const res = await apiFetch("/api/feed", { revalidate: revalidateSec });
+    if (res.ok) data = (await res.json()) as FeedResponse;
+  } catch {
+    // API 暂不可达（如构建期预渲染）：展示空态，运行时请求会重试
+  }
 
   return (
     <>

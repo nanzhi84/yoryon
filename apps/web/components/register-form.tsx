@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,7 +11,6 @@ interface ApiError {
 
 /** 注册两步：填写资料发码 → 输入验证码完成注册（验证成功即登录，BFF 已种 Cookie）。 */
 export function RegisterForm() {
-  const router = useRouter();
   const [step, setStep] = useState<"form" | "code">("form");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -61,8 +59,7 @@ export function RegisterForm() {
         setError(r.message ?? "验证失败");
         return;
       }
-      router.replace("/");
-      router.refresh();
+      window.location.assign("/");
     } catch {
       setError("网络错误，请重试");
     } finally {
