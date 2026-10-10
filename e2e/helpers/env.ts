@@ -11,10 +11,10 @@ export const E2E = {
   mailpitApiUrl: "http://localhost:11126",
   bffSecret: "e2e-bff-secret-0123456789abcdef0123456789",
   fsSigningSecret: "e2e-fs-signing-secret-0123456789",
-  storageRoot: new URL("./.data/storage", import.meta.url).pathname,
-  postsRoot: new URL("./.data/posts", import.meta.url).pathname,
-  assetsRoot: new URL("./.data/assets", import.meta.url).pathname,
-  signalDir: new URL("./.data/signals", import.meta.url).pathname,
+  storageRoot: new URL("../.data/storage", import.meta.url).pathname,
+  postsRoot: new URL("../.data/posts", import.meta.url).pathname,
+  assetsRoot: new URL("../.data/assets", import.meta.url).pathname,
+  signalDir: new URL("../.data/signals", import.meta.url).pathname,
 };
 
 /** 本次运行的稳定标识（globalSetup 写入，worker 重载也不变） */
