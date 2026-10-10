@@ -1,0 +1,23 @@
+node_modules/
+dist/
+.next/
+.turbo/
+coverage/
+*.log
+.DS_Store
+
+# env / secrets
+.env
+.env.*
+!.env.example
+
+# e2e artifacts
+e2e/test-results/
+e2e/playwright-report/
+e2e/.data/
+
+# local media storage (dev/e2e filesystem storage)
+.storage/
+
+# CLI publish scratch
+*.tmp

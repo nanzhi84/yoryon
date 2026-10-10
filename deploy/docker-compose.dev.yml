@@ -1,0 +1,31 @@
+# 本地开发依赖：PostgreSQL + Mailpit（邮件捕获）。
+# api / web 以 dev 模式跑在宿主机（tsx watch / next dev）。
+services:
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: yoryon
+    ports:
+      - "54320:5432"   # 宿主机 5432 常被本地隧道占用，开发库映射到 54320
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d yoryon"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+
+  mailpit:
+    image: axllent/mailpit:latest
+    restart: unless-stopped
+    ports:
+      - "1025:1025"   # SMTP
+      - "8025:8025"   # Web UI / API
+    environment:
+      MP_MAX_MESSAGES: "1000"
+
+volumes:
+  pgdata:

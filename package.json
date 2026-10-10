@@ -1,0 +1,23 @@
+{
+  "name": "yoryon",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "pnpm -r --filter='./packages/*' --filter='./apps/*' build",
+    "typecheck": "pnpm -r typecheck",
+    "dev:api": "pnpm --filter @yoryon/api dev",
+    "dev:web": "pnpm --filter @yoryon/web dev",
+    "cli": "pnpm --filter @yoryon/cli start",
+    "db:generate": "pnpm --filter @yoryon/db generate",
+    "db:migrate": "pnpm --filter @yoryon/db migrate",
+    "e2e": "pnpm --filter @yoryon/e2e test"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "tsx": "^4.20.6"
+  },
+  "packageManager": "pnpm@11.8.0"
+}
