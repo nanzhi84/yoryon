@@ -3,7 +3,6 @@ import { SiteHeader } from "@/components/site-header";
 import { RedeemClient } from "@/components/redeem-client";
 
 export const metadata: Metadata = { title: "兑换激活码" };
-export const dynamic = "force-dynamic";
 
 export default function RedeemPage() {
   return (

@@ -1,7 +1,7 @@
-/** blog media gc / blog db tunnel */
+/** blog media gc / blog media probe-dimensions / blog db tunnel */
 import { spawn } from "node:child_process";
 import type { Command } from "commander";
-import { runMediaGc } from "@yoryon/core";
+import { backfillImageDimensions, runMediaGc } from "@yoryon/core";
 import { closeContext, getContext, withLockClient } from "../context";
 
 export function registerMediaCommands(program: Command) {
@@ -34,6 +34,25 @@ export function registerMediaCommands(program: Command) {
             for (const e of report.errors) console.log(`  ${e}`);
           }
         });
+      } finally {
+        await closeContext();
+      }
+    });
+
+  media
+    .command("probe-dimensions")
+    .option("--apply", "实际执行回填（默认 dry-run）", false)
+    .description("旧素材尺寸补刷：扫描缺 width/height 的图片资产，从存储读字节探测并回填（F08）")
+    .action(async (opts: { apply: boolean }) => {
+      const ctx = getContext();
+      try {
+        const report = await backfillImageDimensions({ db: ctx.db, storage: ctx.storage }, { apply: opts.apply });
+        console.log(opts.apply ? "== 尺寸补刷 applied ==" : "== 尺寸补刷 dry-run（加 --apply 执行回填）==");
+        console.log(`缺尺寸图片资产: ${report.missing}，可回填: ${report.updated}`);
+        if (report.failed.length > 0) {
+          console.log("失败（可安全重跑）:");
+          for (const f of report.failed) console.log(`  ${f.ossKey}\t${f.reason}`);
+        }
       } finally {
         await closeContext();
       }

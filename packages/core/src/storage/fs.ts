@@ -45,6 +45,10 @@ export class FsStorage implements MediaStorage {
     await fs.rm(this.resolve(key), { force: true });
   }
 
+  async get(key: string): Promise<Buffer | null> {
+    return this.read(key);
+  }
+
   async list(prefix: string): Promise<ListedObject[]> {
     const dir = this.resolve(prefix);
     const out: ListedObject[] = [];

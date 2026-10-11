@@ -3,7 +3,6 @@ import { SiteHeader } from "@/components/site-header";
 import { LoginForm } from "@/components/login-form";
 
 export const metadata: Metadata = { title: "登录" };
-export const dynamic = "force-dynamic";
 
 export default function LoginPage() {
   return (

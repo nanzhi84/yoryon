@@ -2,12 +2,28 @@
 import { Hono } from "hono";
 import { and, desc, eq, inArray, lt, or, sql, type SQL } from "drizzle-orm";
 import { collectionItems, collections, contents, contentMedia, contentTags, mediaAssets, tags, type Content } from "@yoryon/db";
-import { canAccess, truncateForPreview } from "@yoryon/core";
+import { canAccess, canAccessMany, truncateForPreview } from "@yoryon/core";
 import type { AppDeps } from "../deps";
 import { errorResponse } from "../errors";
 import type { AppVariables } from "../middleware/auth";
 
 const FEED_PAGE_SIZE = 20;
+
+/**
+ * 列表查询显式投影（F07）：排除 body_markdown 全文等列表不需要的列，避免 DB→API 传输放大。
+ * createdAt 保留：排序键为 coalesce(published_at, created_at)，游标编码需要。
+ */
+const listContentColumns = {
+  id: contents.id,
+  type: contents.type,
+  slug: contents.slug,
+  title: contents.title,
+  description: contents.description,
+  visibility: contents.visibility,
+  coverMediaId: contents.coverMediaId,
+  publishedAt: contents.publishedAt,
+  createdAt: contents.createdAt,
+} as const;
 
 interface FeedCursor {
   t: Date;
@@ -54,7 +70,7 @@ export function contentRoutes(deps: AppDeps) {
     const cursor = decodeCursor(c.req.query("cursor"));
     const contentSortKey = sql`date_trunc('milliseconds', coalesce(${contents.publishedAt}, ${contents.createdAt}))`;
     const rows = await deps.db
-      .select()
+      .select(listContentColumns)
       .from(contents)
       .where(and(eq(contents.status, "published"), keyset(cursor, contentSortKey, contents.id)))
       .orderBy(desc(contentSortKey), desc(contents.id))
@@ -97,34 +113,34 @@ export function contentRoutes(deps: AppDeps) {
     if (!content) return errorResponse(c, 404, "not_found", "内容不存在");
 
     const auth = c.get("auth");
-    const fullAccess = await canAccess(deps.db, auth?.user ?? null, content, new Date());
-
-    const tagRows = await deps.db
-      .select({ slug: tags.slug, name: tags.name })
-      .from(contentTags)
-      .innerJoin(tags, eq(contentTags.tagId, tags.id))
-      .where(eq(contentTags.contentId, content.id));
-
-    const mediaRows = await deps.db
-      .select({
-        mediaId: contentMedia.mediaId,
-        position: contentMedia.position,
-        exposure: contentMedia.exposure,
-        mimeType: mediaAssets.mimeType,
-        width: mediaAssets.width,
-        height: mediaAssets.height,
-        durationSec: mediaAssets.durationSec,
-      })
-      .from(contentMedia)
-      .innerJoin(mediaAssets, eq(contentMedia.mediaId, mediaAssets.id))
-      .where(eq(contentMedia.contentId, content.id))
-      .orderBy(contentMedia.position);
-
-    const collectionRows = await deps.db
-      .select({ slug: collections.slug, title: collections.title })
-      .from(collectionItems)
-      .innerJoin(collections, eq(collectionItems.collectionId, collections.id))
-      .where(eq(collectionItems.contentId, content.id));
+    // 关联查询并行化（F10a）：权益判定与 tags/media/collections 互不依赖，一个往返窗口完成
+    const [fullAccess, tagRows, mediaRows, collectionRows] = await Promise.all([
+      canAccess(deps.db, auth?.user ?? null, content, new Date()),
+      deps.db
+        .select({ slug: tags.slug, name: tags.name })
+        .from(contentTags)
+        .innerJoin(tags, eq(contentTags.tagId, tags.id))
+        .where(eq(contentTags.contentId, content.id)),
+      deps.db
+        .select({
+          mediaId: contentMedia.mediaId,
+          position: contentMedia.position,
+          exposure: contentMedia.exposure,
+          mimeType: mediaAssets.mimeType,
+          width: mediaAssets.width,
+          height: mediaAssets.height,
+          durationSec: mediaAssets.durationSec,
+        })
+        .from(contentMedia)
+        .innerJoin(mediaAssets, eq(contentMedia.mediaId, mediaAssets.id))
+        .where(eq(contentMedia.contentId, content.id))
+        .orderBy(contentMedia.position),
+      deps.db
+        .select({ slug: collections.slug, title: collections.title })
+        .from(collectionItems)
+        .innerJoin(collections, eq(collectionItems.collectionId, collections.id))
+        .where(eq(collectionItems.contentId, content.id)),
+    ]);
 
     let bodyMarkdown: string;
     let access: "full" | "preview";
@@ -189,39 +205,32 @@ export function contentRoutes(deps: AppDeps) {
     });
   });
 
-  /** 合集页：成员按 sort_order；逐项权益裁剪（no-store） */
+  /** 合集页：成员按 sort_order；批量权益判定（F09b，消除逐项 canAccess 的 N+1）；no-store */
   app.get("/collections/:slug", async (c) => {
     const rows = await deps.db.select().from(collections).where(eq(collections.slug, c.req.param("slug"))).limit(1);
     const collection = rows[0];
     if (!collection) return errorResponse(c, 404, "not_found", "合集不存在");
 
     const items = await deps.db
-      .select({ content: contents, sortOrder: collectionItems.sortOrder })
+      .select({ ...listContentColumns, sortOrder: collectionItems.sortOrder })
       .from(collectionItems)
       .innerJoin(contents, eq(collectionItems.contentId, contents.id))
       .where(and(eq(collectionItems.collectionId, collection.id), eq(contents.status, "published")))
       .orderBy(collectionItems.sortOrder);
 
     const auth = c.get("auth");
-    const now = new Date();
-    const renderedItems = [] as {
-      slug: string; title: string; description: string; type: string; visibility: string;
-      publishedAt: string | null; coverMediaId: string | null; access: "full" | "preview"; sortOrder: number;
-    }[];
-    for (const { content, sortOrder } of items) {
-      const ok = await canAccess(deps.db, auth?.user ?? null, content, now);
-      renderedItems.push({
-        slug: content.slug,
-        title: content.title,
-        description: content.description,
-        type: content.type,
-        visibility: content.visibility,
-        publishedAt: content.publishedAt?.toISOString() ?? null,
-        coverMediaId: content.coverMediaId,
-        access: ok ? "full" : "preview",
-        sortOrder,
-      });
-    }
+    const accessMap = await canAccessMany(deps.db, auth?.user ?? null, items, new Date());
+    const renderedItems = items.map((content) => ({
+      slug: content.slug,
+      title: content.title,
+      description: content.description,
+      type: content.type,
+      visibility: content.visibility,
+      publishedAt: content.publishedAt?.toISOString() ?? null,
+      coverMediaId: content.coverMediaId,
+      access: (accessMap.get(content.id) ? "full" : "preview") as "full" | "preview",
+      sortOrder: content.sortOrder,
+    }));
 
     c.header("Cache-Control", "private, no-store");
     return c.json({
@@ -243,14 +252,14 @@ export function contentRoutes(deps: AppDeps) {
     const cursor = decodeCursor(c.req.query("cursor"));
     const contentSortKey = sql`date_trunc('milliseconds', coalesce(${contents.publishedAt}, ${contents.createdAt}))`;
     const rows = await deps.db
-      .select({ content: contents })
+      .select(listContentColumns)
       .from(contentTags)
       .innerJoin(contents, eq(contentTags.contentId, contents.id))
       .where(and(eq(contentTags.tagId, tag.id), eq(contents.status, "published"), keyset(cursor, contentSortKey, contents.id)))
       .orderBy(desc(contentSortKey), desc(contents.id))
       .limit(FEED_PAGE_SIZE + 1);
     const page = rows.slice(0, FEED_PAGE_SIZE);
-    const pageIds = page.map((r) => r.content.id);
+    const pageIds = page.map((r) => r.id);
     const pageTagRows = pageIds.length
       ? await deps.db
           .select({ contentId: contentTags.contentId, slug: tags.slug, name: tags.name })
@@ -262,7 +271,7 @@ export function contentRoutes(deps: AppDeps) {
     c.header("Cache-Control", "public, max-age=60, stale-while-revalidate");
     return c.json({
       tag: { slug: tag.slug, name: tag.name },
-      items: page.map(({ content: r }) => ({
+      items: page.map((r) => ({
         kind: "content" as const,
         id: r.id,
         type: r.type,
@@ -275,7 +284,7 @@ export function contentRoutes(deps: AppDeps) {
         tags: pageTagRows.filter((t) => t.contentId === r.id).map((t) => ({ slug: t.slug, name: t.name })),
       })),
       // 与 feed 同一终止条件：多拉 1 条才说明有下一页
-      nextCursor: rows.length > FEED_PAGE_SIZE && last ? encodeCursor(last.content.publishedAt ?? last.content.createdAt, last.content.id) : null,
+      nextCursor: rows.length > FEED_PAGE_SIZE && last ? encodeCursor(last.publishedAt ?? last.createdAt, last.id) : null,
     });
   });
 

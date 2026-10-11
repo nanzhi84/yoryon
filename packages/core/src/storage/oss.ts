@@ -56,6 +56,16 @@ export class OssStorage implements MediaStorage {
     await this.client.delete(key);
   }
 
+  async get(key: string): Promise<Buffer | null> {
+    try {
+      const res = await this.client.get(key);
+      return Buffer.isBuffer(res.content) ? res.content : Buffer.from(res.content as ArrayBuffer);
+    } catch (err: any) {
+      if (err?.code === "NoSuchKey" || err?.status === 404) return null;
+      throw err;
+    }
+  }
+
   async list(prefix: string): Promise<ListedObject[]> {
     const out: ListedObject[] = [];
     let marker: string | undefined;

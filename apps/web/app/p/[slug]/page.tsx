@@ -49,6 +49,11 @@ export default async function ContentPage({ params }: Props) {
 
   const primaryMedia = content.type !== "article" ? content.media[0] : undefined;
   const galleryMedia = content.type === "image" ? content.media.filter((m) => m.mimeType.startsWith("image/")) : [];
+  /** 正文图片尺寸表（F08）：消费媒体尺寸元数据，img 预留纵横比避免加载撑开页面 */
+  const mediaSizes: Record<string, { width: number; height: number }> = {};
+  for (const m of content.media) {
+    if (m.width && m.height) mediaSizes[m.mediaId] = { width: m.width, height: m.height };
+  }
 
   return (
     <>
@@ -100,8 +105,15 @@ export default async function ContentPage({ params }: Props) {
             <Carousel>
               {galleryMedia.map((m, i) => (
                 <CarouselItem key={m.mediaId}>
+                  {/* 保留原始纵横比：真实 width/height 预留空间（F08）；非首张 lazy */}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={`/api/media/${m.mediaId}`} alt={`${content.title} ${i + 1}`} className="w-full rounded-lg object-contain" />
+                  <img
+                    src={`/api/media/${m.mediaId}`}
+                    alt={`${content.title} ${i + 1}`}
+                    {...(m.width && m.height ? { width: m.width, height: m.height } : {})}
+                    loading={i === 0 ? "eager" : "lazy"}
+                    className="h-auto w-full rounded-lg object-contain"
+                  />
                 </CarouselItem>
               ))}
               {galleryMedia.length > 1 && (
@@ -117,7 +129,7 @@ export default async function ContentPage({ params }: Props) {
         {/* 正文（已按权益裁剪） */}
         {content.bodyMarkdown && (
           <div className="mt-8">
-            <MarkdownBody markdown={content.bodyMarkdown} />
+            <MarkdownBody markdown={content.bodyMarkdown} mediaSizes={mediaSizes} />
           </div>
         )}
 

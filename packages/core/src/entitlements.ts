@@ -7,7 +7,7 @@
  * - 防超发：条件更新 used_count < max_uses；
  * - 并发串行化：先锁用户行（串行化同一用户所有兑换），再锁码行。
  */
-import { and, eq, gt, isNull, lte, or, sql, type SQL } from "drizzle-orm";
+import { and, eq, gt, inArray, isNull, lte, or, sql, type SQL } from "drizzle-orm";
 import {
   activationCodes,
   collectionItems,
@@ -62,6 +62,62 @@ export async function canAccess(tx: Tx, user: AccessUser | null, content: Pick<C
     )
     .limit(1);
   return rows.length > 0;
+}
+
+/**
+ * 批量权益判定（F09b）——与 canAccess 同一套语义（三种权益形态 + validFrom/validUntil/revokedAt + admin 特权），
+ * 最多 2 次查询（权益行 + 合集成员映射），与内容数 N 无关；禁止 Promise.all(N × canAccess)（连接池挤占）。
+ * 注意：调用方需保证 contents 已按 status='published' 过滤。
+ */
+export async function canAccessMany(
+  tx: Tx,
+  user: AccessUser | null,
+  list: Pick<Content, "id" | "visibility">[],
+  now: Date,
+): Promise<Map<string, boolean>> {
+  const result = new Map<string, boolean>();
+  const paidIds: string[] = [];
+  for (const c of list) {
+    if (c.visibility === "public") result.set(c.id, true);
+    else paidIds.push(c.id);
+  }
+  if (paidIds.length === 0) return result;
+  if (!user) {
+    for (const id of paidIds) result.set(id, false);
+    return result;
+  }
+  if (user.role === "admin") {
+    for (const id of paidIds) result.set(id, true);
+    return result;
+  }
+
+  const entRows = await tx
+    .select({ scopeType: entitlements.scopeType, scopeId: entitlements.scopeId })
+    .from(entitlements)
+    .where(
+      and(
+        eq(entitlements.userId, user.id),
+        isNull(entitlements.revokedAt),
+        lte(entitlements.validFrom, now),
+        or(isNull(entitlements.validUntil), gt(entitlements.validUntil, now)),
+      ),
+    );
+  if (entRows.some((r) => r.scopeType === "subscription")) {
+    for (const id of paidIds) result.set(id, true);
+    return result;
+  }
+  const contentScope = new Set(entRows.filter((r) => r.scopeType === "content" && r.scopeId !== null).map((r) => r.scopeId!));
+  const collectionScopeIds = entRows.filter((r) => r.scopeType === "collection" && r.scopeId !== null).map((r) => r.scopeId!);
+  const collectionCovered = new Set<string>();
+  if (collectionScopeIds.length > 0) {
+    const ciRows = await tx
+      .select({ contentId: collectionItems.contentId })
+      .from(collectionItems)
+      .where(and(inArray(collectionItems.collectionId, collectionScopeIds), inArray(collectionItems.contentId, paidIds)));
+    for (const r of ciRows) collectionCovered.add(r.contentId);
+  }
+  for (const id of paidIds) result.set(id, contentScope.has(id) || collectionCovered.has(id));
+  return result;
 }
 
 export type RedeemError =

@@ -30,8 +30,11 @@ function ContentEntry({ item }: { item: FeedContentItem }) {
         </div>
         {item.coverMediaId && (
           <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="mt-3 block">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={`/api/media/${item.coverMediaId}`} alt={item.title} loading="lazy" className="max-h-64 w-full rounded-lg object-cover" />
+            {/* 受控比例容器（明确的 UI 裁切选择）+ 加载前占位，消除封面 CLS（F08） */}
+            <div className="aspect-video w-full overflow-hidden rounded-lg bg-muted">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={`/api/media/${item.coverMediaId}`} alt={item.title} loading="lazy" className="h-full w-full object-cover" />
+            </div>
           </TrackClickLink>
         )}
       {item.description && <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{item.description}</p>}

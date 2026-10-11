@@ -12,7 +12,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import yaml from "js-yaml";
 import { z } from "zod";
-import { and, eq, notInArray, sql } from "drizzle-orm";
+import { and, eq, isNull, notInArray, or, sql } from "drizzle-orm";
 import {
   collectionItems,
   collections,
@@ -27,6 +27,7 @@ import { PUBLISH_GC_LOCK_NAME } from "@yoryon/config";
 import { collectRelativeMediaRefs, collectStoredMediaIds, parseMarkdown, rewriteMediaRefs } from "./markdown";
 import { hasPreviewMarker, stringifyMarkdown, truncateForPreview } from "./preview";
 import { contentAddressedKey, type MediaStorage } from "./storage";
+import { probeImageDimensions } from "./image";
 import { acquirePublishGcLock, type LockClient } from "./locks";
 import type pg from "pg";
 import { drizzle } from "drizzle-orm/node-postgres";
@@ -155,15 +156,18 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
     const extraRefs = [fm.media, fm.cover].filter((x): x is string => typeof x === "string" && x.length > 0);
     const allRefs = [...new Set([...bodyRefs, ...extraRefs])];
 
-    // 相对引用 → 本地文件 + sha256 + oss key
-    const files = new Map<string, { absPath: string; sha256: string; ossKey: string; mime: string; size: number }>();
+    // 相对引用 → 本地文件 + sha256 + oss key（图片同步探测尺寸，入库一次、展示处处复用）
+    const files = new Map<
+      string,
+      { absPath: string; sha256: string; ossKey: string; mime: string; size: number; dims: { width: number; height: number } | null }
+    >();
     for (const ref of allRefs) {
       const absPath = path.resolve(post.dir, ref);
       if (!absPath.startsWith(path.resolve(post.dir) + path.sep)) throw new Error(`媒体引用越出发布目录: ${ref}`);
       const data = await fs.readFile(absPath);
       const sha256 = createHash("sha256").update(data).digest("hex");
       const ossKey = await contentAddressedKey(sha256, absPath);
-      files.set(ref, { absPath, sha256, ossKey, mime: mimeForFile(absPath), size: data.byteLength });
+      files.set(ref, { absPath, sha256, ossKey, mime: mimeForFile(absPath), size: data.byteLength, dims: probeImageDimensions(data, mimeForFile(absPath)) });
     }
 
     const uploaded: string[] = [];
@@ -211,8 +215,15 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
       for (const [ref, f] of files) {
         await tx
           .insert(mediaAssets)
-          .values({ ossKey: f.ossKey, mimeType: f.mime, sizeBytes: f.size })
+          .values({ ossKey: f.ossKey, mimeType: f.mime, sizeBytes: f.size, width: f.dims?.width ?? null, height: f.dims?.height ?? null })
           .onConflictDoNothing({ target: mediaAssets.ossKey });
+        // 旧资产补刷：已存在但缺尺寸记录且本次探测成功时回填（内容寻址不可变，尺寸不会过期）
+        if (f.dims) {
+          await tx
+            .update(mediaAssets)
+            .set({ width: f.dims.width, height: f.dims.height })
+            .where(and(eq(mediaAssets.ossKey, f.ossKey), or(isNull(mediaAssets.width), isNull(mediaAssets.height))));
+        }
         const rows = await tx.select({ id: mediaAssets.id }).from(mediaAssets).where(eq(mediaAssets.ossKey, f.ossKey)).limit(1);
         mediaIdByRef.set(ref, rows[0]!.id);
       }
