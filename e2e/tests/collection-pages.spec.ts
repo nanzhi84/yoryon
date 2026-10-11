@@ -31,6 +31,18 @@ test.describe("合集页面", () => {
       body: "系列第一篇正文。",
     });
     await runCliOk(["publish", dir]);
+
+    // /c 为 force-dynamic + 内部 fetch Data Cache（revalidate=1s，SWR 语义）：
+    // 缓存过期后的首个请求仍返回陈旧内容并后台重取，需轮询预热直至新合集出现在渲染结果中
+    await expect
+      .poll(
+        async () => {
+          const res = await fetch(`${E2E.webUrl}/c`);
+          return res.ok && (await res.text()).includes(COLL_TITLE);
+        },
+        { timeout: 30_000, intervals: [1_500] },
+      )
+      .toBe(true);
   });
 
   test("BFF 放行 /api/collections 且为公开缓存线", async ({ request }) => {
