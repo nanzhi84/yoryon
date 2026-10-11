@@ -9,7 +9,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { buildApiHeaders, csrfCheck, getBffConfig, readSessionCookie, resolvePlatformClientIp, clearSessionCookie, setSessionCookie } from "@/lib/bff";
 
-const ALLOWED_PATH = /^\/api\/(auth\/[a-z-]+|feed|contents\/[^/]+|collections(?:\/[^/]+)?|tags\/[^/]+|media\/[0-9a-fA-F-]{36}|redemptions|me\/entitlements)$/;
+const ALLOWED_PATH = /^\/api\/(auth\/[a-z-]+|feed|contents\/[^/]+|collections(?:\/[^/]+)?|tags\/[^/]+|media\/[0-9a-fA-F-]{36}|redemptions|me\/entitlements|analytics\/events)$/;
 
 async function proxy(req: NextRequest): Promise<Response> {
   const config = getBffConfig();

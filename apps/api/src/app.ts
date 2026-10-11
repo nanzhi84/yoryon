@@ -13,6 +13,7 @@ import { authRoutes } from "./routes/auth";
 import { contentRoutes } from "./routes/contents";
 import { mediaRoutes } from "./routes/media";
 import { redemptionRoutes } from "./routes/redemptions";
+import { analyticsRoutes } from "./routes/analytics";
 
 export function createApp(deps: AppDeps) {
   const app = new Hono<{ Variables: AppVariables }>();
@@ -56,6 +57,7 @@ export function createApp(deps: AppDeps) {
   app.route("/api", contentRoutes(deps));
   app.route("/api", mediaRoutes(deps));
   app.route("/api", redemptionRoutes(deps));
+  app.route("/api", analyticsRoutes(deps));
 
   app.notFound((c) => errorResponse(c, 404, "not_found", "接口不存在"));
 
