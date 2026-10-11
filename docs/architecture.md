@@ -203,6 +203,21 @@ entitlements(
   created_at timestamptz
 )
 create index on entitlements (user_id, scope_type, scope_id);
+
+-- Analytics 原始事件（ADR-0007，口径见 docs/analytics.md）
+analytics_events(
+  id uuid pk,
+  event_id uuid unique not null,          -- 幂等键：客户端生成，重试去重
+  event_type text not null check (event_type in ('impression','click','view','read')),
+  target_kind text not null check (target_kind in ('work','collection')),
+  target_id uuid not null,                -- 多态引用，无 FK：目标删除后历史统计保留
+  placement text check (placement in ('home_feed','collection_list')),  -- 仅 impression/click
+  page_view_id uuid not null,
+  session_id uuid,                        -- sessionStorage 级匿名标识；不存 IP/UA/URL
+  received_at timestamptz not null default now()   -- 服务端可信接收时间
+)
+create index on analytics_events (target_kind, target_id, received_at);
+create index on analytics_events (received_at);
 ```
 
 语义约定：
@@ -348,6 +363,9 @@ GET  /api/media/:id                媒体验权 → 302 签名 URL（缓存策�
 
 POST /api/redemptions              { code } → 兑换（幂等）
 GET  /api/me/entitlements          我的权益列表（含来源、区间与撤销状态）
+
+POST /api/analytics/events         Analytics 批量 ingest（≤20 条/批；Zod 白名单 + IP 限流；
+                                   event_id 幂等去重；work 目标必须已发布，非法目标静默丢弃；ADR-0007）
 ```
 
 约定：
@@ -483,6 +501,8 @@ blog entitlement grant --user ... --scope ... [--days N]   # 手动补偿授予�
 blog user list|disable|promote
 blog db tunnel                   # 建立到生产库的 SSH 隧道（用完自动断开）
 blog media gc [--apply]          # 默认 dry-run：孤儿对象 / 零引用资产清理（§6.5）
+blog analytics overview|top|content <slug>|collection <slug> [--days N]   # 内容表现统计（docs/analytics.md）
+blog analytics prune --days N    # 清理早于 N 天的原始事件（保留策略 365 天）
 ```
 
 发布目录约定（frontmatter 驱动，对应"本地文档直接上传"场景）：
@@ -540,6 +560,7 @@ published_at: 2026-01-01
 14. 撤销兑换 → 用户回落预览态，媒体同步 403。
 15. 限流触发：login/redeem 超阈值返回 429，恢复窗口后可正常操作。
 16. **GC 与发布并发**：构造年龄 >24h 的孤儿对象，同时执行 `blog publish`（命中 HEAD 跳过上传的路径）与 `blog media gc --apply` → 两者经 advisory lock 串行；断言最终已发布内容引用的全部媒体经 `/api/media/:id` 可访问，无悬挂引用。
+17. **Analytics V1**（docs/analytics.md）：首页卡片 ≥50% 可视且连续 1s 记一次 impression（重复进出视口/后台不重复计数）；标题/封面点击记 click 且预取不产生事件；站外直达详情页只有 view 无 click；刷新/客户端导航各计一个 view 实例；前台累计 10s 记一次 read（切后台暂停）；合集与作品独立统计；非法/超批/重放事件被校验、幂等去重；CLI 四项指标与 CTR/Read Rate（分母零 N/A）正确。
 
 ## 14. ADR 索引
 
@@ -551,3 +572,4 @@ published_at: 2026-01-01
 | [ADR-0004](adr/0004-media-exposure-contract.md) | 媒体曝光合同：发布期计算 exposure 字段 | 已接受（桶策略由 ADR-0006 取代） |
 | [ADR-0005](adr/0005-frontend-stack.md) | 前端技术选型：shadcn/ui + Tailwind v4 + Video.js 10 | 已接受 |
 | [ADR-0006](adr/0006-media-lifecycle.md) | 媒体存储与发布生命周期：统一私有桶、内容寻址、分阶段发布、延迟 GC | 已接受（2026-10-11 补充修订：GC 并发互斥） |
+| [ADR-0007](adr/0007-analytics-v1.md) | Content Analytics V1：单事件表、多态 target 无 FK、event_id 幂等、隐私最小化 | 已接受 |
