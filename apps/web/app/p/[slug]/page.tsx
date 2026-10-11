@@ -11,6 +11,7 @@ import { SiteHeader } from "@/components/site-header";
 import { Carousel, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { AudioFeature, VideoPlayerLazy } from "@/components/media-player";
 import { formatDate, TYPE_LABEL } from "@/components/feed-timeline";
+import { DetailTracker } from "@/components/analytics";
 
 export const dynamic = "force-dynamic";
 
@@ -54,6 +55,7 @@ export default async function ContentPage({ params }: Props) {
       <SiteHeader />
       {/* 正文与页头同栏（布局容器 max-w-3xl），不再收窄 */}
       <main className="py-8">
+        <DetailTracker targetKind="work" targetId={content.id} />
         <header>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <span>{TYPE_LABEL[content.type]}</span>

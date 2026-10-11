@@ -7,9 +7,12 @@
  * - 透传 302 Location（媒体字节不经过 Vercel）。
  */
 import { type NextRequest, NextResponse } from "next/server";
-import { buildApiHeaders, csrfCheck, getBffConfig, readSessionCookie, resolvePlatformClientIp, clearSessionCookie, setSessionCookie } from "@/lib/bff";
+import { buildApiHeaders, csrfCheck, getBffConfig, readBodyCapped, readSessionCookie, resolvePlatformClientIp, clearSessionCookie, setSessionCookie } from "@/lib/bff";
 
-const ALLOWED_PATH = /^\/api\/(auth\/[a-z-]+|feed|contents\/[^/]+|collections(?:\/[^/]+)?|tags\/[^/]+|media\/[0-9a-fA-F-]{36}|redemptions|me\/entitlements)$/;
+const ALLOWED_PATH = /^\/api\/(auth\/[a-z-]+|feed|contents\/[^/]+|collections(?:\/[^/]+)?|tags\/[^/]+|media\/[0-9a-fA-F-]{36}|redemptions|me\/entitlements|analytics\/events)$/;
+
+/** analytics ingest 请求体字节上限（与 API 侧 MAX_BODY_BYTES 一致） */
+const ANALYTICS_MAX_BODY_BYTES = 32 * 1024;
 
 async function proxy(req: NextRequest): Promise<Response> {
   const config = getBffConfig();
@@ -26,6 +29,9 @@ async function proxy(req: NextRequest): Promise<Response> {
     return NextResponse.json({ error: { code: "csrf_rejected", message: "请求来源非法" } }, { status: 403 });
   }
 
+  // analytics ingest：有上限流式读取（chunked 无 Content-Length 也能在 EOF 前拒绝）
+  const isAnalyticsIngest = path === "/api/analytics/events";
+
   const sessionToken = readSessionCookie(req.headers.get("cookie"));
   const clientIp = resolvePlatformClientIp(req.headers);
   const headers = buildApiHeaders({ sessionToken, clientIp, contentType: req.headers.get("content-type") });
@@ -34,10 +40,17 @@ async function proxy(req: NextRequest): Promise<Response> {
   if (range) headers.set("range", range);
 
   const hasBody = req.method !== "GET" && req.method !== "HEAD";
+  let bodyText: string | null = null;
+  if (hasBody) {
+    bodyText = isAnalyticsIngest ? await readBodyCapped(req, ANALYTICS_MAX_BODY_BYTES) : await req.text();
+    if (bodyText === null) {
+      return NextResponse.json({ error: { code: "payload_too_large", message: "请求体过大" } }, { status: 413 });
+    }
+  }
   const apiRes = await fetch(`${config.apiInternalUrl}${path}${url.search}`, {
     method: req.method,
     headers,
-    body: hasBody ? await req.text() : null,
+    body: bodyText,
     redirect: "manual",
     cache: "no-store",
   });

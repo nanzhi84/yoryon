@@ -177,6 +177,7 @@ export function contentRoutes(deps: AppDeps) {
     c.header("Cache-Control", "public, max-age=60, stale-while-revalidate");
     return c.json({
       items: rows.map((r) => ({
+        id: r.id,
         slug: r.slug,
         title: r.title,
         description: r.description,
@@ -224,6 +225,7 @@ export function contentRoutes(deps: AppDeps) {
 
     c.header("Cache-Control", "private, no-store");
     return c.json({
+      id: collection.id,
       slug: collection.slug,
       title: collection.title,
       description: collection.description,

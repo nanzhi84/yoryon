@@ -11,7 +11,7 @@ Monorepo（pnpm workspaces）：
 | --- | --- |
 | `apps/web` | Next.js 15（App Router）前端 + 同源 BFF 代理（Route Handler） |
 | `apps/api` | Hono API（认证 / 内容 / 媒体 / 兑换），唯一授权决策点 |
-| `apps/cli` | 本地管理 CLI（发布、合集、标签、激活码、权益、用户、GC、SSH 隧道） |
+| `apps/cli` | 本地管理 CLI（发布、合集、标签、激活码、权益、用户、GC、Analytics、SSH 隧道） |
 | `packages/core` | 领域逻辑：预览截断、权益判定、兑换事务、媒体访问、发布两阶段、GC |
 | `packages/db` | Drizzle schema + 迁移 |
 | `packages/config` | zod 环境变量校验（启动即失败） |
@@ -87,6 +87,14 @@ blog user promote <email|username>   # 提升为 admin（绕过付费墙）
 # 媒体 GC（默认 dry-run；与发布经 PG Advisory Lock 互斥）
 blog media gc
 blog media gc --apply
+
+# 内容表现统计（指标口径与保留策略见 docs/analytics.md）
+blog analytics overview --days 7
+blog analytics top --metric views --days 30        # impressions|clicks|views|reads|ctr
+blog analytics top --metric ctr --min-impressions 20
+blog analytics content <slug> --days 30
+blog analytics collection <slug> --days 30
+blog analytics prune --days 365                    # 清理过期原始事件
 
 # 生产访问：先开隧道（本地 127.0.0.1:55432 → 宿主机回环 5432 → compose postgres）
 blog db tunnel

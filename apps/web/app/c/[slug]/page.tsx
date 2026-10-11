@@ -7,6 +7,7 @@ import type { CollectionDetail } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { SiteHeader } from "@/components/site-header";
 import { formatDate, TYPE_LABEL } from "@/components/feed-timeline";
+import { DetailTracker } from "@/components/analytics";
 
 export const dynamic = "force-dynamic";
 
@@ -38,6 +39,7 @@ export default async function CollectionPage({ params }: Props) {
       <SiteHeader />
       {/* 与文章页同一阅读栏（布局容器 max-w-3xl） */}
       <main className="py-8">
+        <DetailTracker targetKind="collection" targetId={collection.id} />
         <header>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <span>合集</span>

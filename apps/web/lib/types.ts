@@ -54,6 +54,7 @@ export interface ContentDetail {
 }
 
 export interface CollectionListItem {
+  id: string;
   slug: string;
   title: string;
   description: string;
@@ -64,6 +65,7 @@ export interface CollectionListItem {
 }
 
 export interface CollectionDetail {
+  id: string;
   slug: string;
   title: string;
   description: string;

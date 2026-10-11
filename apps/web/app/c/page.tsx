@@ -3,6 +3,7 @@ import { publicFetch } from "@/lib/api";
 import type { CollectionListItem } from "@/lib/types";
 import { SiteHeader } from "@/components/site-header";
 import { CollectionEntry } from "@/components/feed-timeline";
+import { AnalyticsListProvider } from "@/components/analytics";
 
 export const metadata: Metadata = { title: "合集" };
 
@@ -31,11 +32,14 @@ export default async function CollectionsPage() {
         {items.length === 0 ? (
           <p className="py-16 text-center text-sm text-muted-foreground">还没有合集。</p>
         ) : (
-          <div className="divide-y divide-border">
-            {items.map((c) => (
-              <CollectionEntry key={c.slug} item={c} />
-            ))}
-          </div>
+          // 合集列表是合集的唯一列表曝光面（feed 纯内容流），placement=collection_list
+          <AnalyticsListProvider placement="collection_list">
+            <div className="divide-y divide-border">
+              {items.map((c) => (
+                <CollectionEntry key={c.slug} item={c} />
+              ))}
+            </div>
+          </AnalyticsListProvider>
         )}
       </main>
     </>

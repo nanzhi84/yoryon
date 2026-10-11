@@ -8,3 +8,4 @@ export * from "./mail";
 export * from "./publish";
 export * from "./gc";
 export * from "./locks";
+export * from "./http";

@@ -49,6 +49,11 @@ export const RATE_LIMITS = {
   redeemPerIpPerMinute: 20,
   passwordResetPerIpPerHour: 3,
   passwordResetPerAccountPerHour: 3,
+  /** analytics 批量 ingest：每 IP 每分钟批次数（每批 ≤ ANALYTICS_MAX_BATCH 事件） */
+  analyticsBatchPerIpPerMinute: 60,
 } as const;
+
+/** analytics 单批事件上限（ADR-0007） */
+export const ANALYTICS_MAX_BATCH = 20;
 
 export type RateLimitName = keyof typeof RATE_LIMITS;

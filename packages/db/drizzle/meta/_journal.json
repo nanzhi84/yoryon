@@ -15,6 +15,13 @@
       "when": 1791684271076,
       "tag": "0001_foamy_archangel",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791723226245,
+      "tag": "0002_wonderful_hawkeye",
+      "breakpoints": true
     }
   ]
 }

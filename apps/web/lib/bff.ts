@@ -22,6 +22,44 @@ export function getBffConfig(): BffConfig {
 }
 
 /**
+ * 有上限的流式请求体读取：Content-Length 预检 + 逐 chunk 字节累计，超限立即中止并取消流。
+ * （analytics ingest 匿名入口的大载荷防线；字符串 length 是 UTF-16 码元数，不能当字节数用）
+ *
+ * 与 packages/core/src/http.ts 的 readBodyCapped 有意重复：@yoryon/core 为 source-only 且
+ * 依赖 argon2/ali-oss/pg 等 Node 重依赖，web 侧不引入该包；两侧实现独立演进，修改时请同步。
+ */
+export async function readBodyCapped(req: Request, maxBytes: number): Promise<string | null> {
+  const declared = Number(req.headers.get("content-length") ?? 0);
+  if (declared > maxBytes) return null;
+  if (!req.body) return "";
+  const reader = req.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  let exceeded = false;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    total += value.byteLength;
+    if (total > maxBytes) {
+      exceeded = true;
+      break;
+    }
+    chunks.push(value);
+  }
+  if (exceeded) {
+    await reader.cancel().catch(() => {});
+    return null;
+  }
+  const buf = new Uint8Array(total);
+  let offset = 0;
+  for (const chunk of chunks) {
+    buf.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return new TextDecoder().decode(buf);
+}
+
+/**
  * 从平台可信来源解析客户端 IP（ADR-0001 修订）：
  * - x-real-ip / x-vercel-forwarded-for 由 Vercel 平台设置；
  * - 绝不原样透传浏览器提供的 X-Forwarded-For 整链；本地开发退化为 127.0.0.1。
