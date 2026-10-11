@@ -9,7 +9,7 @@ if (!connectionString) {
   process.exit(1);
 }
 
-const migrationsFolder = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../drizzle");
+const migrationsFolder = process.env.MIGRATIONS_FOLDER ?? path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../drizzle");
 
 await runMigrations(connectionString, migrationsFolder);
 console.log("migrations applied");

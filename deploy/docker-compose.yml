@@ -1,5 +1,5 @@
 # 生产编排：api + postgres + caddy（架构 §12）。
-# Postgres 仅 docker 内网；Caddy 终止 TLS 并覆写 X-Forwarded-For。
+# Postgres 仅容器内网及宿主机回环（SSH 隧道）；Caddy 为唯一公网入口。
 services:
   postgres:
     image: postgres:16
@@ -8,6 +8,8 @@ services:
       POSTGRES_USER: yoryon
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
       POSTGRES_DB: yoryon
+    ports:
+      - "127.0.0.1:5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
@@ -17,6 +19,20 @@ services:
       interval: 5s
       timeout: 3s
       retries: 20
+
+  migrate:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.api
+    command: ["node", "dist/migrate.js"]
+    restart: "no"
+    environment:
+      DATABASE_URL: postgres://yoryon:${POSTGRES_PASSWORD:?}@postgres:5432/yoryon
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - internal
 
   api:
     build:
@@ -42,8 +58,8 @@ services:
       MAIL_SMTP_PASS: ${MAIL_SMTP_PASS:?}
       MAIL_FROM: ${MAIL_FROM:?}
     depends_on:
-      postgres:
-        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
     networks:
       - internal
       - web
@@ -71,5 +87,5 @@ volumes:
   caddy_config:
 
 networks:
-  internal:  # 5432 不出网
+  internal:  # 5432 不绑定公网网卡
   web:

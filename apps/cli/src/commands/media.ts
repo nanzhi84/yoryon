@@ -51,8 +51,9 @@ export function registerDbCommands(program: Command) {
       if (!SSH_HOST) throw new Error("SSH_HOST 未配置");
       const args = [
         "-N",
+        "-o", "ExitOnForwardFailure=yes",
         "-L",
-        `${TUNNEL_LOCAL_PORT}:127.0.0.1:5432`,
+        `127.0.0.1:${TUNNEL_LOCAL_PORT}:127.0.0.1:5432`,
         "-p",
         String(SSH_PORT),
         ...(SSH_KEY_PATH ? ["-i", SSH_KEY_PATH.replace(/^~/, process.env.HOME ?? "~")] : []),
@@ -64,6 +65,6 @@ export function registerDbCommands(program: Command) {
         console.log(`tunnel closed (code ${code})`);
         process.exit(code ?? 0);
       });
-      console.log(`tunnel ready: postgres://...@localhost:${TUNNEL_LOCAL_PORT}/yoryon`);
+      console.log(`tunnel starting (SSH 就绪后可连接): postgres://...@localhost:${TUNNEL_LOCAL_PORT}/yoryon`);
     });
 }
