@@ -1,0 +1,66 @@
+# Neon + existing single host. Secrets live outside the checkout, in /etc/yoryon.
+name: yoryon
+services:
+  api:
+    image: ${YORYON_IMAGE:?Set an immutable release image tag}
+    restart: unless-stopped
+    env_file: /etc/yoryon/api.env
+    mem_limit: 384m
+    pids_limit: 100
+    read_only: true
+    tmpfs: /tmp:size=16m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    volumes:
+      - /var/lib/yoryon/media:/media:ro
+    networks: [backend]
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:4000/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging: &logging
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: "3"
+
+  caddy:
+    image: caddy:2@sha256:f2a1290d0463aad60660d4ec134943f183ee2a5f6c3eb7bf32dd984f2f020772
+    restart: unless-stopped
+    ports: ["80:80", "443:443"]
+    mem_limit: 128m
+    pids_limit: 100
+    environment:
+      API_DOMAIN: api.yoryon.com
+    volumes:
+      - ./Caddyfile.production:/etc/caddy/Caddyfile:ro
+      - /var/lib/yoryon/caddy/data:/data
+      - /var/lib/yoryon/caddy/config:/config
+    networks: [backend]
+    depends_on:
+      api:
+        condition: service_healthy
+    logging: *logging
+
+  migrate:
+    profiles: [ops]
+    image: ${YORYON_IMAGE:?}
+    env_file: /etc/yoryon/migrate.env
+    command: [node, dist/migrate.js]
+    networks: [backend]
+    logging: *logging
+
+  cli:
+    profiles: [ops]
+    image: ${YORYON_IMAGE:?}
+    env_file: /etc/yoryon/cli.env
+    entrypoint: [node, /cli/dist/index.js]
+    volumes:
+      - /var/lib/yoryon/media:/media
+      - /opt/yoryon/posts:/posts:ro
+    networks: [backend]
+    logging: *logging
+
+networks:
+  backend:

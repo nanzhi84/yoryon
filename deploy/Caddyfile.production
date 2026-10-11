@@ -1,0 +1,8 @@
+{$API_DOMAIN} {
+	reverse_proxy api:4000 {
+		header_up X-Forwarded-For {remote_host}
+		header_up -X-Real-Ip
+	}
+	encode zstd gzip
+	# No access log: signed media URLs and authentication query values are sensitive.
+}

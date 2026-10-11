@@ -1,0 +1,14 @@
+.git
+.vercel
+**/node_modules
+**/dist
+**/.next
+**/.env
+**/.env.*
+**/.data
+**/test-results
+**/playwright-report
+artifacts
+.storage
+*.log
+**/*.tsbuildinfo
