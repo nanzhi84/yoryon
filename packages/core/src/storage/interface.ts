@@ -18,6 +18,8 @@ export interface MediaStorage {
   head(key: string): Promise<StoredObjectMeta | null>;
   /** 上传幂等（同 key 覆盖）。写入 Cache-Control: private, max-age=604800（内容寻址不可变）。 */
   put(key: string, data: Buffer, opts: { contentType: string }): Promise<void>;
+  /** 读取对象字节（尺寸补刷等管理路径用；对象不存在返回 null） */
+  get(key: string): Promise<Buffer | null>;
   delete(key: string): Promise<void>;
   /** 分页列举 prefix 下全部对象（GC 用） */
   list(prefix: string): Promise<ListedObject[]>;

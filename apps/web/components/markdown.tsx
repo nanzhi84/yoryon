@@ -30,17 +30,36 @@ function mediaIdFromSrc(src: unknown): string | null {
   return m ? m[1]! : null;
 }
 
-export function MarkdownBody({ markdown, className }: { markdown: string; className?: string }) {
+export function MarkdownBody({
+  markdown,
+  className,
+  mediaSizes,
+}: {
+  markdown: string;
+  className?: string;
+  /** mediaId → 尺寸（F08）：正文图片预留纵横比，避免加载撑开页面 */
+  mediaSizes?: Record<string, { width: number; height: number }>;
+}) {
   return (
     <div className={cn("prose prose-zinc dark:prose-invert prose-yoryon max-w-none", className)}>
       <ReactMarkdown
         remarkPlugins={[remarkDirective, remarkMediaDirectives]}
         components={
           {
-            img: ({ src, alt, ...props }) => (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={typeof src === "string" ? src : ""} alt={alt ?? ""} loading="lazy" className="rounded-lg" {...props} />
-            ),
+            img: ({ src, alt, ...props }) => {
+              const size = mediaSizes ? mediaSizes[mediaIdFromSrc(src) ?? ""] : undefined;
+              return (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={typeof src === "string" ? src : ""}
+                  alt={alt ?? ""}
+                  loading="lazy"
+                  {...(size ? { width: size.width, height: size.height } : {})}
+                  className="h-auto max-w-full rounded-lg"
+                  {...props}
+                />
+              );
+            },
             "video-player": ({ src }: { src?: string }) => {
               const id = mediaIdFromSrc(src);
               if (!id) return null;

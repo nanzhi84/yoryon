@@ -7,6 +7,8 @@
 export const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000;
 /** 剩余有效期低于该值时滑动续期（毫秒）：15 天 */
 export const SESSION_RENEW_BELOW_MS = 15 * 24 * 60 * 60 * 1000;
+/** lastUsedAt 写入节流（毫秒）：距上次记录低于该间隔则不写库，消除高频请求的写放大（F05a） */
+export const SESSION_TOUCH_MIN_INTERVAL_MS = 60 * 1000;
 /** Session Cookie 名称（host-only，BFF 设置） */
 export const SESSION_COOKIE = "yoryon_session";
 

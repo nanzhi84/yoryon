@@ -3,7 +3,6 @@ import { SiteHeader } from "@/components/site-header";
 import { ResetPasswordForm } from "@/components/reset-password-form";
 
 export const metadata: Metadata = { title: "重置密码" };
-export const dynamic = "force-dynamic";
 
 export default function ResetPasswordPage() {
   return (

@@ -6,7 +6,7 @@
  */
 import { and, eq, gt } from "drizzle-orm";
 import { sessions, users, type Database } from "@yoryon/db";
-import { SESSION_RENEW_BELOW_MS, SESSION_TTL_MS } from "@yoryon/config";
+import { SESSION_RENEW_BELOW_MS, SESSION_TOUCH_MIN_INTERVAL_MS, SESSION_TTL_MS } from "@yoryon/config";
 import { hashSessionToken, type AccessUser } from "@yoryon/core";
 import type { Context, Next } from "hono";
 import { errorResponse } from "../errors";
@@ -44,14 +44,18 @@ export function authMiddleware(db: Database) {
           user: { id: row.user.id, role: row.user.role, email: row.user.email, username: row.user.username, status: row.user.status },
           sessionId: row.session.id,
         });
-        // 滑动续期
+        // 滑动续期（续期必写，同时刷新 lastUsedAt）
         const remaining = row.session.expiresAt.getTime() - now.getTime();
         if (remaining < SESSION_RENEW_BELOW_MS) {
           const newExpires = new Date(now.getTime() + SESSION_TTL_MS);
           await db.update(sessions).set({ expiresAt: newExpires, lastUsedAt: now }).where(eq(sessions.id, row.session.id));
           c.set("sessionRenewedExpiresAt", newExpires);
         } else {
-          await db.update(sessions).set({ lastUsedAt: now }).where(eq(sessions.id, row.session.id));
+          // lastUsedAt 条件写入：距上次记录超过阈值才写，保留登录活动记录同时消除高频写放大（F05a）
+          const lastUsed = row.session.lastUsedAt;
+          if (!lastUsed || now.getTime() - lastUsed.getTime() >= SESSION_TOUCH_MIN_INTERVAL_MS) {
+            await db.update(sessions).set({ lastUsedAt: now }).where(eq(sessions.id, row.session.id));
+          }
         }
       }
     }
