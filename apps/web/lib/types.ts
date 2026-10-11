@@ -84,7 +84,8 @@ export interface CollectionDetail {
 
 export interface TagDetailResponse {
   tag: FeedTag;
-  items: Omit<FeedContentItem, "tags">[];
+  /** 与 feed 的内容项同一合同（含 tags），LoadMore 可直接渲染 */
+  items: FeedContentItem[];
   nextCursor: string | null;
 }
 

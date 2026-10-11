@@ -55,7 +55,8 @@ export function webEnv(): NodeJS.ProcessEnv {
     BFF_SHARED_SECRET: E2E.bffSecret,
     ALLOWED_ORIGINS: E2E.webUrl,
     SITE_URL: E2E.webUrl,
-    FEED_REVALIDATE_SEC: "60",
+    // 缩短公开数据缓存窗口，保证 sitemap/标签页等 ISR 断言不受旧缓存干扰
+    FEED_REVALIDATE_SEC: "1",
   };
 }
 

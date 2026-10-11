@@ -499,7 +499,11 @@ published_at: 2026-01-01
 
 - **域名**：`www.example.com` → Vercel；`api.example.com` → ECS（Caddy 自动 TLS）。需自有域名；ECS 在境内需备案。Vercel 境内访问不稳定，若读者主要在境内，web 层可整体平移阿里云（前后端已解耦，BFF 代理摘掉即可直连）。
 - **Caddy**：终止 TLS；`reverse_proxy` 覆写 `X-Forwarded-For` 为连接方真实 IP（丢弃客户端传入值）。
-- **docker-compose**：`api` + `postgres`（数据卷）+ `caddy`。Postgres 仅内网；迁移用独立 migrator 用户在部署期执行。
+- **docker-compose**：`postgres`（数据卷）+ `migrate`（建表/迁移，`service_completed_successfully` 后才启动 `api`）+ `api` + `caddy`。Postgres 仅容器内网与宿主机回环（SSH 隧道）；Caddy 为唯一公网入口。
+- **存量库升级预检**：0001 迁移把 `users.username` 转为 citext（大小写不敏感唯一）。若历史库已存在仅大小写不同的用户名（如 Alice / alice），迁移会因唯一约束冲突失败——迁移在单事务中执行，失败即整体回滚，数据库保持一致（E2E `migration.spec.ts` 锁定）。升级前先执行预检并人工合并冲突账号：
+  ```sql
+  SELECT lower(username), count(*) FROM users GROUP BY 1 HAVING count(*) > 1;
+  ```
 - **凭证分离**：api 运行时 DB 用户（无 DDL）/ migrator / CLI 管理用户三者分离；OSS 两个 RAM 身份——api 仅私有桶 GetObject/签名，CLI 发布身份才有 Put/Delete；桶级管理权限不授予任何一方。所有密钥只存在于环境变量，不进仓库。
 - **关键环境变量**：web 侧 `API_INTERNAL_URL`、`BFF_SHARED_SECRET`；api 侧 `DATABASE_URL`、`OSS_*`、`MAIL_SMTP_*`、`BFF_SHARED_SECRET`、`MEDIA_SIGN_TTL=900`；cli 侧 `DATABASE_URL`（经隧道）、`SSH_HOST`、`OSS_*`（发布身份）。
 - **CLI 连接生产**：默认 SSH 隧道（`blog db tunnel`）；已使用 Tailscale 时可走私有网段直连。5432 永不暴露公网。

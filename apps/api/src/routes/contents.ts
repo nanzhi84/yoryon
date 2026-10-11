@@ -9,44 +9,81 @@ import type { AppVariables } from "../middleware/auth";
 
 const FEED_PAGE_SIZE = 20;
 
-function encodeCursor(t: Date, id: string): string {
-  return Buffer.from(JSON.stringify({ t: t.toISOString(), id }), "utf8").toString("base64url");
+/** 混排条目类别（游标全序的第三级 tie-break：同 sortKey 同 id 时按 kind 字典序 desc，content 在前）。 */
+type FeedKind = "content" | "collection";
+
+interface FeedCursor {
+  t: Date;
+  id: string;
+  k: FeedKind;
 }
 
-function decodeCursor(raw: string | undefined): { t: Date; id: string } | null {
+function encodeCursor(t: Date, id: string, k: FeedKind): string {
+  return Buffer.from(JSON.stringify({ t: t.toISOString(), id, k }), "utf8").toString("base64url");
+}
+
+function decodeCursor(raw: string | undefined): FeedCursor | null {
   if (!raw) return null;
   try {
-    const v = JSON.parse(Buffer.from(raw, "base64url").toString("utf8")) as { t: string; id: string };
+    const v = JSON.parse(Buffer.from(raw, "base64url").toString("utf8")) as { t: string; id: string; k?: string };
     const t = new Date(v.t);
     if (Number.isNaN(t.getTime()) || typeof v.id !== "string") return null;
-    return { t, id: v.id };
+    if (v.k !== "content" && v.k !== "collection") return null;
+    return { t, id: v.id, k: v.k };
   } catch {
     return null;
   }
 }
 
-function keyset(cursor: { t: Date; id: string } | null, timeCol: SQL | any, idCol: any): SQL | undefined {
+/**
+ * keyset 过滤：严格匹配合并排序的全序 (sortKey desc, id desc, kind desc)。
+ * kind 参与第三级比较，保证文章与合集 id 相同的极端边界下过滤与排序一致。
+ */
+function keyset(cursor: FeedCursor | null, timeCol: SQL | any, idCol: any, kind: FeedKind): SQL | undefined {
   if (!cursor) return undefined;
-  return or(lt(timeCol, cursor.t), and(eq(timeCol, cursor.t), lt(idCol, cursor.id))) as SQL;
+  return or(
+    lt(timeCol, cursor.t),
+    and(eq(timeCol, cursor.t), lt(idCol, cursor.id)),
+    // 同时间同 id：本侧 kind 排在游标 kind 之后（desc）才纳入下一页
+    and(eq(timeCol, cursor.t), eq(idCol, cursor.id), sql`${kind} < ${cursor.k}`),
+  ) as SQL;
+}
+
+/** 混排合并排序：与 keyset 严格同一全序。 */
+function compareFeedItems(a: { sortKey: Date; id: string; kind: FeedKind }, b: { sortKey: Date; id: string; kind: FeedKind }): number {
+  const dt = b.sortKey.getTime() - a.sortKey.getTime();
+  if (dt !== 0) return dt;
+  if (a.id !== b.id) return b.id < a.id ? -1 : 1;
+  return a.kind === b.kind ? 0 : a.kind === "content" ? -1 : 1;
 }
 
 export function contentRoutes(deps: AppDeps) {
   const app = new Hono<{ Variables: AppVariables }>();
 
-  /** 首屏信息流：内容 + 合集混排（公开缓存；不读 session —— ADR-0003 公开线） */
+  /**
+   * 首屏信息流：内容 + 合集混排（公开缓存；不读 session —— ADR-0003 公开线）
+   *
+   * 分页不变量：
+   * - 统一排序键：内容 = coalesce(published_at, created_at)，合集 = updated_at；
+   *   SQL 排序、keyset 过滤、合并排序与游标编码使用完全相同的键与 (key desc, id desc) 全序。
+   *   前提：时间字段毫秒精度（publish 只写 new Date()），游标 ISO 编码无损往返。
+   * - 每侧多取 1 条（N+1）：全局前 N 必然包含于两侧前 N+1 的并集；
+   *   hasMore 仅当两侧拉取总数 > N（截断后仍有剩余），无更多时 nextCursor = null。
+   */
   app.get("/feed", async (c) => {
     const cursor = decodeCursor(c.req.query("cursor"));
+    const contentSortKey = sql`coalesce(${contents.publishedAt}, ${contents.createdAt})`;
     const [contentRows, collectionRows] = await Promise.all([
       deps.db
         .select()
         .from(contents)
-        .where(and(eq(contents.status, "published"), keyset(cursor, contents.publishedAt, contents.id)))
-        .orderBy(desc(contents.publishedAt), desc(contents.id))
+        .where(and(eq(contents.status, "published"), keyset(cursor, contentSortKey, contents.id, "content")))
+        .orderBy(desc(contentSortKey), desc(contents.id))
         .limit(FEED_PAGE_SIZE + 1),
       deps.db
         .select()
         .from(collections)
-        .where(keyset(cursor, collections.updatedAt, collections.id))
+        .where(keyset(cursor, collections.updatedAt, collections.id, "collection"))
         .orderBy(desc(collections.updatedAt), desc(collections.id))
         .limit(FEED_PAGE_SIZE + 1),
     ]);
@@ -75,6 +112,7 @@ export function contentRoutes(deps: AppDeps) {
     const items: FeedItem[] = [
       ...contentRows.map((r): FeedItem => ({
         kind: "content",
+        // 与 SQL contentSortKey 严格同一键
         sortKey: r.publishedAt ?? r.createdAt,
         id: r.id,
         type: r.type,
@@ -98,11 +136,13 @@ export function contentRoutes(deps: AppDeps) {
         itemCount: itemCounts.find((x) => x.collectionId === r.id)?.count ?? 0,
       })),
     ]
-      .sort((a, b) => b.sortKey.getTime() - a.sortKey.getTime() || (b.id < a.id ? -1 : 1))
+      .sort(compareFeedItems)
       .slice(0, FEED_PAGE_SIZE);
 
+    // 终止条件：两侧拉取总数超过页大小（即截断后仍有剩余）才有下一页
+    const hasMore = contentRows.length + collectionRows.length > FEED_PAGE_SIZE;
     const last = items[items.length - 1];
-    const nextCursor = items.length > 0 && last ? encodeCursor(last.sortKey, last.id) : null;
+    const nextCursor = hasMore && last ? encodeCursor(last.sortKey, last.id, last.kind) : null;
     c.header("Cache-Control", "public, max-age=60, stale-while-revalidate");
     return c.json({ items: items.map(({ sortKey: _sk, ...rest }) => rest), nextCursor });
   });
@@ -225,20 +265,29 @@ export function contentRoutes(deps: AppDeps) {
     });
   });
 
-  /** 标签筛选（公开缓存） */
+  /** 标签筛选（公开缓存）；items 与 feed 的内容项同一合同（含 tags），供 LoadMore 直接渲染 */
   app.get("/tags/:slug", async (c) => {
     const tagRows = await deps.db.select().from(tags).where(eq(tags.slug, c.req.param("slug"))).limit(1);
     const tag = tagRows[0];
     if (!tag) return errorResponse(c, 404, "not_found", "标签不存在");
     const cursor = decodeCursor(c.req.query("cursor"));
+    const contentSortKey = sql`coalesce(${contents.publishedAt}, ${contents.createdAt})`;
     const rows = await deps.db
       .select({ content: contents })
       .from(contentTags)
       .innerJoin(contents, eq(contentTags.contentId, contents.id))
-      .where(and(eq(contentTags.tagId, tag.id), eq(contents.status, "published"), keyset(cursor, contents.publishedAt, contents.id)))
-      .orderBy(desc(contents.publishedAt), desc(contents.id))
+      .where(and(eq(contentTags.tagId, tag.id), eq(contents.status, "published"), keyset(cursor, contentSortKey, contents.id, "content")))
+      .orderBy(desc(contentSortKey), desc(contents.id))
       .limit(FEED_PAGE_SIZE + 1);
     const page = rows.slice(0, FEED_PAGE_SIZE);
+    const pageIds = page.map((r) => r.content.id);
+    const pageTagRows = pageIds.length
+      ? await deps.db
+          .select({ contentId: contentTags.contentId, slug: tags.slug, name: tags.name })
+          .from(contentTags)
+          .innerJoin(tags, eq(contentTags.tagId, tags.id))
+          .where(inArray(contentTags.contentId, pageIds))
+      : [];
     const last = page[page.length - 1];
     c.header("Cache-Control", "public, max-age=60, stale-while-revalidate");
     return c.json({
@@ -253,8 +302,10 @@ export function contentRoutes(deps: AppDeps) {
         visibility: r.visibility,
         coverMediaId: r.coverMediaId,
         publishedAt: r.publishedAt?.toISOString() ?? null,
+        tags: pageTagRows.filter((t) => t.contentId === r.id).map((t) => ({ slug: t.slug, name: t.name })),
       })),
-      nextCursor: rows.length > FEED_PAGE_SIZE && last ? encodeCursor(last.content.publishedAt ?? last.content.createdAt, last.content.id) : null,
+      // 与 feed 同一终止条件：多拉 1 条才说明有下一页
+      nextCursor: rows.length > FEED_PAGE_SIZE && last ? encodeCursor(last.content.publishedAt ?? last.content.createdAt, last.content.id, "content") : null,
     });
   });
 

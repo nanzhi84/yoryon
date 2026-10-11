@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { publicFetch } from "@/lib/api";
-import type { FeedItem, TagDetailResponse } from "@/lib/types";
+import type { TagDetailResponse } from "@/lib/types";
 import { SiteHeader } from "@/components/site-header";
 import { FeedTimeline } from "@/components/feed-timeline";
 import { LoadMore } from "@/components/load-more";
@@ -32,15 +32,13 @@ export default async function TagPage({ params }: Props) {
   const data = await getTag(slug);
   if (!data) notFound();
 
-  const items: FeedItem[] = data.items.map((i) => ({ ...i, kind: "content", tags: [] }));
-
   return (
     <>
       <SiteHeader />
       <main className="py-8">
         <h1 className="text-2xl font-semibold">#{data.tag.name}</h1>
         <div className="mt-4">
-          <FeedTimeline items={items} />
+          <FeedTimeline items={data.items} />
           {data.nextCursor && <LoadMore basePath={`/api/tags/${slug}`} initialCursor={data.nextCursor} />}
         </div>
       </main>
