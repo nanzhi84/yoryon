@@ -13,6 +13,18 @@ import { E2E } from "../helpers/env";
 
 const stamp = runId();
 
+/** 解析 GC 输出中某节的条目（条目行以两个空格缩进，直到下一个非缩进行）。 */
+function parseGcSection(output: string, header: string): string[] {
+  const lines = output.split("\n");
+  const start = lines.findIndex((l) => l.includes(header));
+  expect(start, `GC 输出缺少节: ${header}\n${output}`).toBeGreaterThanOrEqual(0);
+  const items: string[] = [];
+  for (let i = start + 1; i < lines.length && lines[i]!.startsWith("  "); i++) {
+    items.push(lines[i]!.trim().split("\t")[0]!);
+  }
+  return items.sort();
+}
+
 test.describe("发布管线与 GC", () => {
   test("发布失败（注入 DB 前失败）→ 重跑幂等收敛，媒体不重复上传", async () => {
     const slug = `retry-${stamp}`;
@@ -104,15 +116,25 @@ test.describe("发布管线与 GC", () => {
       if (!hasRow) await fs.utimes(path.join(E2E.storageRoot, "media", key), old, old);
     }
 
-    // dry-run：报告孤儿但不删除
+    // 预期孤儿集合 = 存储中无 DB 行的对象（mtime 已调至 25h 前，越过宽限期）
+    const expectedOrphans: string[] = [];
+    for (const key of objects) {
+      const hasRow = await withDb(async (db) => (await db.query(`select 1 from media_assets where oss_key = $1`, [`media/${key}`])).rows.length > 0);
+      if (!hasRow) expectedOrphans.push(`media/${key}`);
+    }
+    expect(expectedOrphans.length).toBeGreaterThan(0);
+
+    // dry-run：报告的孤儿集合与预期完全一致，且不删除任何文件
     const dry = await runCliOk(["media", "gc"]);
     expect(dry).toContain("dry-run");
-    const orphanKeys = objects.filter(async () => true);
-    void orphanKeys;
+    const dryOrphans = parseGcSection(dry, "孤儿对象");
+    expect(dryOrphans).toEqual(expectedOrphans.sort());
+    expect((await fs.readdir(path.join(E2E.storageRoot, "media"))).sort()).toEqual(objects.sort());
 
-    // apply：孤儿被删除
+    // apply：报告与 dry-run 一致，孤儿被实际删除
     const apply = await runCliOk(["media", "gc", "--apply"]);
     expect(apply).toContain("== GC applied ==");
+    expect(parseGcSection(apply, "孤儿对象")).toEqual(dryOrphans);
     const remaining = await fs.readdir(path.join(E2E.storageRoot, "media"));
     const orphanLeft = [];
     for (const key of remaining) {

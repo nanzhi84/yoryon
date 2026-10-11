@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "bin": {
-    "blog": "./dist/cli.js"
+    "blog": "./dist/index.js"
   },
   "scripts": {
     "start": "tsx --env-file=../../.env src/index.ts",

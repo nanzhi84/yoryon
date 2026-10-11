@@ -29,6 +29,7 @@ async function waitFor(url: string, timeoutMs = 60_000): Promise<void> {
 }
 
 export default async function globalSetup() {
+  fs.mkdirSync(path.join(__dirname, ".data"), { recursive: true });
   fs.writeFileSync(path.join(__dirname, ".data/run-id"), String(Date.now()));
   fs.rmSync(E2E.storageRoot, { recursive: true, force: true });
   fs.rmSync(E2E.postsRoot, { recursive: true, force: true });

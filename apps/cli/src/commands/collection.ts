@@ -39,50 +39,7 @@ export function registerCollectionCommands(program: Command) {
       }
     });
 
-  collection
-    .command("add")
-    .argument("<collection-slug>")
-    .argument("<content-slug>")
-    .description("把内容加入合集（追加到末尾）")
-    .action(async (collectionSlug: string, contentSlug: string) => {
-      const ctx = getContext();
-      try {
-        const coll = await ctx.db.select().from(collections).where(eq(collections.slug, collectionSlug)).limit(1);
-        if (!coll[0]) throw new Error(`合集不存在: ${collectionSlug}`);
-        const cont = await ctx.db.select().from(contents).where(eq(contents.slug, contentSlug)).limit(1);
-        if (!cont[0]) throw new Error(`内容不存在: ${contentSlug}`);
-        await ctx.db.transaction(async (tx) => {
-          const max = await tx.select({ max: collectionItems.sortOrder }).from(collectionItems).where(eq(collectionItems.collectionId, coll[0]!.id));
-          const next = Math.max(0, ...max.map((m) => m.max)) + 1;
-          await tx.insert(collectionItems).values({ collectionId: coll[0]!.id, contentId: cont[0]!.id, sortOrder: next }).onConflictDoNothing();
-          await tx.update(collections).set({ updatedAt: new Date() }).where(eq(collections.id, coll[0]!.id));
-        });
-        console.log(`✓ ${contentSlug} → ${collectionSlug}`);
-      } finally {
-        await closeContext();
-      }
-    });
-
-  collection
-    .command("remove")
-    .argument("<collection-slug>")
-    .argument("<content-slug>")
-    .description("把内容移出合集")
-    .action(async (collectionSlug: string, contentSlug: string) => {
-      const ctx = getContext();
-      try {
-        const coll = await ctx.db.select().from(collections).where(eq(collections.slug, collectionSlug)).limit(1);
-        if (!coll[0]) throw new Error(`合集不存在: ${collectionSlug}`);
-        const cont = await ctx.db.select().from(contents).where(eq(contents.slug, contentSlug)).limit(1);
-        if (!cont[0]) throw new Error(`内容不存在: ${contentSlug}`);
-        await ctx.db
-          .delete(collectionItems)
-          .where(and(eq(collectionItems.collectionId, coll[0]!.id), eq(collectionItems.contentId, cont[0]!.id)));
-        console.log(`✓ ${contentSlug} removed from ${collectionSlug}`);
-      } finally {
-        await closeContext();
-      }
-    });
+  // 成员增删只通过文章 frontmatter.collections + publish；CLI 仅管理合集元数据和排序。
 
   collection
     .command("sort")

@@ -91,7 +91,10 @@ test.describe("内容展示与预览截断", () => {
     expect(res.json.hasPaidContent).toBe(true);
     expect(res.json.bodyMarkdown).toContain("段落内容 1");
     expect(res.json.bodyMarkdown).not.toContain(SECRET_PERCENT);
-    expect(res.json.bodyMarkdown).not.toContain("段落内容 2");
+    // 边界段落按字符截断（#14）：免费区含段落 2 的字符级前缀，但不含完整段落
+    const p2Reps = res.json.bodyMarkdown.split("段落内容 2。").length - 1;
+    expect(p2Reps).toBeGreaterThan(0);
+    expect(p2Reps).toBeLessThan(30);
     // 付费媒体不出现在未授权响应（media 列表只含 free）
     for (const m of res.json.media) expect(m.exposure).toBe("free");
     expect(res.headers.get("cache-control")).toContain("no-store");

@@ -242,7 +242,8 @@ canAccess(user, content, now):
 
 - `full`：全部免费；`none`：正文全付费（仅标题/描述可见）。
 - `marker`：正文中的 `<!-- more -->` 注释为分界，之前免费。
-- `percent`：按顶层块权重累计。文本块按字符数计权；媒体块（图片/视频/音频）为**原子单位**，按固定等价字符数计权（默认 300，可配置），要么整块在免费区、要么整块在付费区，绝不截断一半。
+- 缺省值 fail-closed：付费文章未配置 preview 时按 `none` 处理（公开文章缺省 `full`）；`marker` 模式找不到标记时正文整体视为付费区，且发布入口直接拒绝缺少标记的内容。全篇免费预览必须显式声明 `full`。
+- `percent`：按顶层块权重累计。文本块按字符数计权；媒体块（图片/视频/音频）为**原子单位**，按固定等价字符数计权（默认 300，可配置），要么整块在免费区、要么整块在付费区，绝不截断一半。预算落在纯文本段落/标题内部时，按字符进一步截取其前缀（媒体、HTML 等原子节点所在的段落保守归入付费区）。
 - 截断在 AST 层进行，绝不直接切割 Markdown 源码。
 
 ### 6.3 媒体访问控制（ADR-0004 + ADR-0006）
@@ -260,6 +261,7 @@ canAccess(user, content, now):
 - 签名 URL TTL 15 分钟；媒体字节响应在上传时设置 `Cache-Control: private, max-age=604800`（内容寻址、不可变，浏览器私有缓存 7 天）。
 - 同一媒体被多个内容引用时 `free` 优先（它事实上已公开）。
 - 媒体 ID 使用不可枚举 UUID；任何代码路径不得生成长期有效的媒体 URL。
+- **撤销时效边界（媒体访问合同的一部分）**：媒体从免费转为付费（或权益撤销）后，`/api/media/:id` 的验权立即生效——后续请求不再命中规则 1/2，新签名 URL 停止签发。但已签发的 302/签名 URL 在 TTL（最长 15 分钟）内仍可直接从 OSS 取回字节；这是签名 URL 分发的固有特性，系统不承诺追回已投递到客户端的字节。免费 302 的共享缓存 `max-age=300` 小于签名 TTL，保证共享缓存先于签名过期。运营上若需紧急下架，应直接删除/替换 OSS 对象（GC 或手动），而不是依赖验权。
 - 独立付费图片/视频/音频内容：标题与描述免费，媒体本体恒为 paid，不参与百分比预览（v1 语义）。
 
 ### 6.4 激活码兑换（幂等 + 防超发 + 订阅接续，ADR-0002）
@@ -459,7 +461,7 @@ IP 解析优先级（API 侧）：
 ```
 blog publish <dir|file>          # 两阶段发布（§6.5）：解析 → 上传媒体 → 单事务提交；按 slug upsert，可安全重试
 blog unpublish <slug>            # status → draft（不动 OSS 对象）
-blog collection create|add|remove|sort ...
+blog collection create|list|sort ...    # 成员增删只经文章 frontmatter collections + 发布（唯一事实源）
 blog tag list
 blog code create --grant-type content|collection|subscription
                  [--content slug | --collection slug]
@@ -486,7 +488,7 @@ title: 标题
 slug: my-article
 type: article
 visibility: paid
-preview: { mode: percent, percent: 30 }   # full | percent | marker | none
+preview: { mode: percent, percent: 30 }   # full | percent | marker | none；付费文章缺省 = none，公开文章缺省 = full；marker 缺失 <!-- more --> 拒绝发布
 tags: [tag-a, tag-b]
 collections: [collection-slug]
 published_at: 2026-01-01

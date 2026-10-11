@@ -1,10 +1,12 @@
 import { defineConfig } from "@playwright/test";
 import path from "node:path";
+import fs from "node:fs";
 import { fileURLToPath } from "node:url";
 import { apiEnv, webEnv, E2E } from "./helpers/env";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
+fs.mkdirSync(path.join(__dirname, ".data"), { recursive: true });
 
 export default defineConfig({
   testDir: "./tests",
@@ -23,7 +25,7 @@ export default defineConfig({
   },
   webServer: [
     {
-      command: `sh -c "npx tsx apps/api/src/index.ts > /Users/yoryon/Projects/yoryon/e2e/.data/api.log 2>&1"`,
+      command: `npx tsx apps/api/src/index.ts > e2e/.data/api.log 2>&1`,
       cwd: ROOT,
       env: { ...process.env, ...apiEnv() } as Record<string, string>,
       port: E2E.apiPort,
@@ -31,7 +33,7 @@ export default defineConfig({
       timeout: 60_000,
     },
     {
-      command: `sh -c "npx next start -p ${E2E.webPort} > /Users/yoryon/Projects/yoryon/e2e/.data/web.log 2>&1"`,
+      command: `npx next start -p ${E2E.webPort} > ../../e2e/.data/web.log 2>&1`,
       cwd: path.join(ROOT, "apps/web"),
       env: { ...process.env, ...webEnv() } as Record<string, string>,
       port: E2E.webPort,
