@@ -17,7 +17,7 @@
 
 - 平台不碰支付：收款在第三方平台完成，站内只做激活码兑换与权益校验。
 - v1 不含：评论、点赞、关注、推荐、站内支付、自动续费、Web 管理后台（管理操作全部由 CLI 承担）。
-- 内容类型：文章（Markdown，可嵌入图片/视频/音频）、图片、视频、音频，四类均有独立 URL。
+- 内容类型：文章（Markdown，可组合嵌入图片/视频/音频）、图片、视频、音频，均有独立 URL。
 - 付费预览策略（按内容独立配置）：全文公开 / 百分比预览 / 自定义截断标记 / 完全付费。
 
 ## 2. 总体架构
@@ -47,6 +47,7 @@
 - **所有管理操作不经 Web API**。v1 的 API 仅暴露用户侧端点，攻击面最小。
 - **权限校验全部在服务端**，且只在 API 层实现一次（packages/core）。付费正文不进入未授权响应；web 层只转发身份，不做授权判断。
 - 三种付费形态（单篇/合集/订阅）共用一套 Entitlement 模型与 `canAccess` 校验，见 ADR-0002。
+- **统一商品**：对外只售标准订阅（¥29.9/月，全站解锁，到期回落锁定），唯一入口为激活码兑换；单篇/合集 grant 不出售，仅保留模型与 CLI 能力用于存量兼容和运营赠送。
 
 ## 3. 技术选型
 
@@ -334,11 +335,13 @@ POST /api/auth/logout
 POST /api/auth/password-reset      { email } → 发码；{ email, code, newPassword } → 重置并撤销全部会话
 GET  /api/auth/me
 
-GET  /api/feed?cursor=             首屏信息流（内容+合集混排，游标分页；不读 session，公开缓存）
-                                   排序键：内容 coalesce(published_at, created_at)、合集 updated_at，统一
-                                   date_trunc('milliseconds',·)（与 JS Date/游标毫秒精度对齐，微秒写入不分页错乱）；
-                                   全序 (sortKey desc, id desc, kind desc)，kind 编入游标；N+1 探测终止
+GET  /api/feed?cursor=             首屏信息流（仅内容条目，游标分页；不读 session，公开缓存；
+                                   合集是顶层结构，只经 /api/collections → /c 列表曝光，不混排）
+                                   排序键：coalesce(published_at, created_at) 经 date_trunc('milliseconds',·)
+                                   截断（与 JS Date/游标毫秒精度对齐，微秒写入不分页错乱）；
+                                   全序 (sortKey desc, id desc)；N+1 探测终止
 GET  /api/contents/:slug           内容详情（按权益返回 full | preview；no-store）
+GET  /api/collections              合集列表（不读 session，公开缓存；个人站量级不分页）
 GET  /api/collections/:slug        合集页（成员按权益裁剪正文；no-store）
 GET  /api/tags/:slug?cursor=       标签筛选（公开缓存）
 GET  /api/media/:id                媒体验权 → 302 签名 URL（缓存策略见 §10）
@@ -369,12 +372,12 @@ GET  /api/me/entitlements          我的权益列表（含来源、区间与撤
 
 ### 8.3 正文排版
 
-- Markdown 渲染结果统一套 `prose`（dark 下 `prose-invert`），经 `--tw-prose-*` 变量做中文排印调优：CJK 系统字体栈（PingFang SC / Hiragino Sans GB / Microsoft YaHei / Noto Sans SC）、`line-height ≈ 1.8`、段落间距、内容宽度 ≈ 42rem 居中。
+- Markdown 渲染结果统一套 `prose`（dark 下 `prose-invert`），经 `--tw-prose-*` 变量做中文排印调优：CJK 系统字体栈（PingFang SC / Hiragino Sans GB / Microsoft YaHei / Noto Sans SC）、`line-height ≈ 1.8`、段落间距；阅读栏与站点页头同宽（布局容器 `max-w-3xl`），不再单独收窄。
 
 ### 8.4 多媒体播放
 
 - Video.js 10：使用 `@videojs/react` 的模块化 API（`createPlayer({ features })` 按需组合），**不使用 v8 的全局 `videojs()` / id 注册表 API**；实现时以安装版本官方文档为准并锁定版本。
-- **按需加载**：播放器组件经 `next/dynamic` 懒加载，首页信息流不含播放器代码；音频复用同一播放器。
+- **按需加载**：播放器组件经 `next/dynamic` 懒加载，首页信息流不含播放器代码——信息流中的视频/音频一律降级为占位卡（点击进详情播放，`MarkdownBody variant="feed"`）；音频复用同一播放器。音频类型内容页的主媒体以播客式卡片呈现（封面 + Now Playing + 标题/简介 + 播放器，`AudioFeature`），shownotes 走正文 Markdown；正文内联 `::audio` 仍用裸播放器。
 - 私有媒体播放：播放器 `src` 恒指向 `/api/media/:id`（302 → 15 分钟签名 URL）。签名 URL 过期或网络错误时，播放器捕获 error，重新请求端点获取新 URL、重置 `src` 并恢复 `currentTime`。
 - OSS 签名 GET 原生支持 HTTP Range（206 断点/拖拽）；v1 仅直接文件播放，无需桶级 CORS 配置（不启用 HLS/字幕/画布能力；未来需要时再开白名单）。
 
@@ -382,8 +385,10 @@ GET  /api/me/entitlements          我的权益列表（含来源、区间与撤
 
 | 路由 | 说明 |
 |---|---|
-| `/` | 首屏信息流：最新内容 + 合集条目混排；对所有人一致（不含"已解锁"角标），可公开缓存 |
+| `/` | 首页：纯内容信息流（条目 = 标题/封面/简介 + 类型/标签，点进详情）；对所有人一致，可公开缓存 |
+| `/about` | 关于页：头像 + 名字 + 多段简介 + 社交账号罗列（site.config.ts 配置） |
 | `/p/[slug]` | 内容详情（文章/图集/视频/音频）；按权益渲染全文或预览 + 解锁引导 |
+| `/c` | 合集列表页：全部合集（公开缓存） |
 | `/c/[slug]` | 合集页：合集信息 + 成员内容流（按 sort_order） |
 | `/tags/[slug]` | 标签筛选结果 |
 | `/login` `/register` | 认证页（注册含邮箱验证码步骤） |
@@ -452,7 +457,7 @@ IP 解析优先级（API 侧）：
 
 | 响应 | 策略 |
 |---|---|
-| `/api/feed`、`/api/tags/:slug`、合集元信息（对所有人一致） | `Cache-Control: public, max-age=60, stale-while-revalidate`；端点实现中**不允许读 session** |
+| `/api/feed`、`/api/tags/:slug`、`/api/collections`（对所有人一致） | `Cache-Control: public, max-age=60, stale-while-revalidate`；端点实现中**不允许读 session** |
 | 内容详情、`/api/me/*`、兑换 | 页面 `force-dynamic` + fetch `no-store`；响应 `Cache-Control: private, no-store` |
 | `/api/media/:id` 302 — 命中免费规则（§6.3 规则 1/2，身份无关） | `Cache-Control: public, max-age=300`（必须 < 签名 TTL 900s） |
 | `/api/media/:id` 302 — 命中权益规则（§6.3 规则 3） | `Cache-Control: private, no-store`（缓存付费 302 = 签名 URL 泄露） |

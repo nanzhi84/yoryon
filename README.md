@@ -1,6 +1,9 @@
 # Yoryon Blog
 
-个人多媒体博客（文章 / 图片 / 视频 / 音频），支持付费阅读（单篇 / 合集 / 订阅）与本地 CLI 管理。
+个人多媒体博客（文章 / 图片 / 视频 / 音频），支持付费阅读与本地 CLI 管理。
+
+商业规则：对外统一只售**标准订阅**（¥29.9/月，全站付费内容解锁，到期自动失效），唯一兑换入口为 `/redeem`。
+单篇/合集权益不作为商品售卖，其模型与 CLI 能力保留（存量兼容与运营赠送）。
 
 Monorepo（pnpm workspaces）：
 
@@ -48,7 +51,7 @@ pnpm --filter @yoryon/cli build        # 产物 apps/cli/dist/index.js
 node apps/cli/dist/index.js --help
 ```
 
-内容包约定：`index.md`（frontmatter + 正文）+ `media/`（相对引用 `./media/x.png`）。正文媒体语法：图片 `![alt](./media/x.png)`；视频/音频 `::video{src="./media/x.mp4"}` / `::audio{src="./media/x.mp3"}`；付费预览标记 `<!-- more -->`（`preview.mode=marker` 时必需，缺失拒绝发布）。付费文章省略 preview 配置时默认 `none`（正文全付费）；需要全篇免费预览必须显式声明 `preview.mode: full`。
+内容包约定：`index.md`（frontmatter + 正文）+ `media/`（相对引用 `./media/x.png`）。`type` 支持 `article`（Markdown 长文，可组合嵌入多媒体）、`image` / `video` / `audio`。正文媒体语法：图片 `![alt](./media/x.png)`；视频/音频 `::video{src="./media/x.mp4"}` / `::audio{src="./media/x.mp3"}`；付费预览标记 `<!-- more -->`（`preview.mode=marker` 时必需，缺失拒绝发布）。付费文章省略 preview 配置时默认 `none`（正文全付费）；需要全篇免费预览必须显式声明 `preview.mode: full`。
 
 ```bash
 # 发布 / 更新 / 取消发布（幂等，可安全重跑）

@@ -8,8 +8,14 @@ export function SiteHeader() {
         Yoryon
       </Link>
       <nav className="flex items-center gap-1">
+        <Link href="/about" className="rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground">
+          关于
+        </Link>
+        <Link href="/c" className="rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground">
+          合集
+        </Link>
         <Link href="/redeem" className="rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground">
-          兑换
+          订阅
         </Link>
         <Link href="/login" className="rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground">
           登录

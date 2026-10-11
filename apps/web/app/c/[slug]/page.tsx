@@ -36,7 +36,8 @@ export default async function CollectionPage({ params }: Props) {
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-2xl py-8">
+      {/* 与文章页同一阅读栏（布局容器 max-w-3xl） */}
+      <main className="py-8">
         <header>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <span>合集</span>

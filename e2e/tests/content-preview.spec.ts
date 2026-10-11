@@ -101,7 +101,7 @@ test.describe("内容展示与预览截断", () => {
 
     await page.goto(`/p/${PERCENT_SLUG}`);
     await expect(page.getByText(SECRET_PERCENT)).toHaveCount(0);
-    await expect(page.getByText("以上内容仅为预览")).toBeVisible();
+    await expect(page.getByText("本内容为订阅专享")).toBeVisible();
   });
 
   test("marker 模式：<!-- more --> 之前免费、之后付费", async ({ page }) => {

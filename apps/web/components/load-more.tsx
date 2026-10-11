@@ -17,7 +17,7 @@ export function LoadMore({ initialCursor, basePath = "/api/feed" }: { initialCur
     setLoading(true);
     setError(false);
     try {
-      const res = await fetch(`${basePath}?cursor=${encodeURIComponent(cursor)}`);
+      const res = await fetch(`${basePath}${basePath.includes("?") ? "&" : "?"}cursor=${encodeURIComponent(cursor)}`);
       if (!res.ok) throw new Error(String(res.status));
       const data = (await res.json()) as FeedResponse;
       setItems((prev) => [...prev, ...data.items]);

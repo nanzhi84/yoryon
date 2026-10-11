@@ -23,7 +23,7 @@ v1 需要定稿 UI 组件、正文排版与多媒体播放器方案。约束：�
 细则：
 
 1. **设计系统**：Zinc 中性色，Light/Dark Mode（class 策略，dark 变量经 `:root[class~="dark"]`）。
-2. **中文排版**：正文统一 `prose`（dark 下 `prose-invert`），经 `--tw-prose-*` 变量调优：CJK 系统字体栈（PingFang SC / Hiragino Sans GB / Microsoft YaHei / Noto Sans SC）、`line-height ≈ 1.8`、段落间距、内容宽度 ≈ 42rem 居中。
+2. **中文排版**：正文统一 `prose`（dark 下 `prose-invert`），经 `--tw-prose-*` 变量调优：CJK 系统字体栈（PingFang SC / Hiragino Sans GB / Microsoft YaHei / Noto Sans SC）、`line-height ≈ 1.8`、段落间距；阅读栏与站点页头同宽（布局容器 `max-w-3xl`；初版曾为 ≈42rem 居中收窄，后应作者要求取消）。
 3. **信息流**：轻量时间线形态，以分隔线与留白组织条目；文章不强制封面；不套用企业后台风格的 Card。
 4. **播放器**：使用 Video.js 10 模块化 API（`createPlayer({ features })` 按需组合），不使用 v8 的全局 `videojs()` / id 注册表 API；经 `next/dynamic` 按需加载，首页信息流不含播放器代码；音频复用同一播放器。
 5. **私有媒体兼容**：播放器 `src` 恒指向 `/api/media/:id`（302 → 15 分钟签名 URL）；签名过期或网络错误时重新请求端点、重置 `src` 并恢复 `currentTime`；OSS 签名 GET 原生支持 HTTP Range（206）；v1 仅直接文件播放，无需桶级 CORS 配置（未来启用 HLS/字幕时再开白名单）。

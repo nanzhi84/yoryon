@@ -1,7 +1,8 @@
 /**
  * 评审 P1/P2 回归：feed/tags 游标分页正确性与 sitemap 完整收录。
- * - 混排多页遍历：统一排序键 + (key desc, id desc, kind desc) 全序下无重复、无遗漏；
- *   同 sortKey、跨类型同 id 碰撞边界；不足一页时 nextCursor 必须为 null（正确终止）。
+ * - 纯内容流多页遍历：统一排序键 + (key desc, id desc) 全序下无重复、无遗漏；
+ *   同毫秒多条的碰撞边界；不足一页时 nextCursor 必须为 null（正确终止）；
+ *   合集为顶层结构，不得出现在 feed（独立 /c 入口）。
  * - 标签页 >20 条：浏览器端"加载更多"渲染后续条目（tags 合同统一），无运行时错误。
  * - sitemap 全量翻页：21+ 条内容全部收录。
  *
@@ -21,7 +22,6 @@ const POST_COUNT = 25; // > FEED_PAGE_SIZE(20)，触发多页
 const TAG = `pgtag-${stamp}`;
 const postSlug = (i: number) => `pg-${stamp}-${String(i).padStart(2, "0")}`;
 const collSlug = (i: number) => `pgcoll-${stamp}-${i}`;
-const COLLIDE_SLUG = `pgcoll-collide-${stamp}`;
 
 test.describe.configure({ mode: "serial" });
 
@@ -40,7 +40,7 @@ test.describe("feed 游标分页正确性", () => {
     }
     await runCliOk(["publish", batchDir]);
 
-    // 2 个普通合集 + 1 个与文章同 id 的碰撞合集（同 updated_at，强测全序 tie-break）
+    // 2 个合集（供 sitemap 收录断言；feed 不应收录合集）
     await runCliOk(["collection", "create", collSlug(1), "--title", "分页合集一"]);
     await runCliOk(["collection", "create", collSlug(2), "--title", "分页合集二"]);
     await withDb(async (db) => {
@@ -52,17 +52,10 @@ test.describe("feed 游标分页正确性", () => {
            from contents where slug like 'pg-${stamp}-%'
          ) t where c.id = t.id`,
       );
-      await db.query(`update collections set updated_at = timestamp '2020-01-01 00:00:00.003500' where slug like 'pgcoll-${stamp}-%'`);
-      // 碰撞合集：与 postSlug(1) 同 id、同 updated_at（trunc 后同键同 id，仅剩 kind 决定顺序）
-      await db.query(
-        `insert into collections (id, slug, title, description, visibility, created_at, updated_at)
-         select id, $1, '碰撞合集', '', 'public', published_at, published_at from contents where slug = $2`,
-        [COLLIDE_SLUG, postSlug(1)],
-      );
     });
   });
 
-  test("多页混排遍历：无重复、无遗漏、正确终止", async () => {
+  test("多页遍历：无重复、无遗漏、正确终止，且不混入合集", async () => {
     // 数据前提：published_at 确实含微秒（非毫秒对齐），否则本用例未覆盖精度场景
     const offGrid = await withDb(
       async (db) =>
@@ -74,7 +67,7 @@ test.describe("feed 游标分页正确性", () => {
     );
     expect(offGrid, "测试数据未包含微秒级时间戳").toBeGreaterThan(0);
 
-    const seen = new Map<string, string>(); // `${kind}:${id}` → slug
+    const seen = new Map<string, string>(); // id → slug
     let cursor: string | null = null;
     let pages = 0;
     for (;;) {
@@ -84,9 +77,10 @@ test.describe("feed 游标分页正确性", () => {
       expect(pages, "翻页未在预期页数内终止（nextCursor 未收敛为 null）").toBeLessThanOrEqual(50);
       const items = res.json.items as { kind: string; id: string; slug: string }[];
       for (const item of items) {
-        const key = `${item.kind}:${item.id}`;
-        expect(seen.has(key), `条目重复出现: ${item.kind} ${item.slug}`).toBe(false);
-        seen.set(key, item.slug);
+        // 合集是顶层结构，只经 /api/collections → /c 入口曝光，不得混入 feed
+        expect(item.kind, `feed 混入非内容条目: ${item.slug}`).toBe("content");
+        expect(seen.has(item.id), `条目重复出现: ${item.slug}`).toBe(false);
+        seen.set(item.id, item.slug);
       }
       // 终止条件契约：不足一整页时 nextCursor 必须为 null（不允许"空跑一页才发现没有更多"）
       if (items.length < 20) expect(res.json.nextCursor, `第 ${pages} 页 ${items.length} 条但仍返回游标`).toBeNull();
@@ -98,15 +92,9 @@ test.describe("feed 游标分页正确性", () => {
     for (let i = 1; i <= POST_COUNT; i++) {
       expect(slugs.has(postSlug(i)), `feed 遍历遗漏 ${postSlug(i)}`).toBe(true);
     }
-    for (const s of [collSlug(1), collSlug(2), COLLIDE_SLUG]) {
-      expect(slugs.has(s), `feed 遍历遗漏合集 ${s}`).toBe(true);
+    for (const s of [collSlug(1), collSlug(2)]) {
+      expect(slugs.has(s), `feed 不应收录合集 ${s}`).toBe(false);
     }
-    // 碰撞边界：同 sortKey 同 id 的文章与合集都必须出现（kind 参与全序，互不遮蔽）
-    const collideId = [...seen.entries()].find(([, slug]) => slug === postSlug(1))?.[0];
-    const collideCollId = [...seen.entries()].find(([, slug]) => slug === COLLIDE_SLUG)?.[0];
-    expect(collideId?.split(":")[1]).toBe(collideCollId?.split(":")[1]);
-    expect(collideId?.startsWith("content:")).toBe(true);
-    expect(collideCollId?.startsWith("collection:")).toBe(true);
   });
 
   test("标签页超过 20 条：加载更多渲染后续条目且无运行时错误", async ({ page }) => {
@@ -131,7 +119,7 @@ test.describe("feed 游标分页正确性", () => {
     for (let i = 1; i <= POST_COUNT; i++) {
       expect(xml, `sitemap 缺少 ${postSlug(i)}`).toContain(`/p/${postSlug(i)}`);
     }
-    for (const s of [collSlug(1), collSlug(2), COLLIDE_SLUG]) {
+    for (const s of [collSlug(1), collSlug(2)]) {
       expect(xml, `sitemap 缺少合集 ${s}`).toContain(`/c/${s}`);
     }
   });

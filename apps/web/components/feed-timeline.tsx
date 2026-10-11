@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import type { FeedContentItem, FeedItem } from "@/lib/types";
+import type { CollectionListItem, FeedContentItem, FeedItem } from "@/lib/types";
 
-export const TYPE_LABEL: Record<string, string> = {
+export const TYPE_LABEL: Record<FeedContentItem["type"], string> = {
   article: "文章",
-  image: "图片",
+  image: "图集",
   video: "视频",
   audio: "音频",
 };
@@ -14,6 +14,7 @@ export function formatDate(iso: string | null): string {
   return new Date(iso).toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric" });
 }
 
+/** 信息流内容条目：标题 + 日期 / 封面 + 简介 / 类型 + 标签，点进详情。 */
 function ContentEntry({ item }: { item: FeedContentItem }) {
   return (
     <article className="group py-6">
@@ -45,40 +46,34 @@ function ContentEntry({ item }: { item: FeedContentItem }) {
   );
 }
 
-/** 轻量时间线条目：分隔线 + 留白，不套 Card（ADR-0005 §8.3）。 */
-export function FeedTimeline({ items }: { items: FeedItem[] }) {
-  if (items.length === 0) {
-    return <p className="py-16 text-center text-sm text-muted-foreground">还没有内容。</p>;
-  }
+/** 合集条目：仅用于 /c 合集列表页（首页 feed 不混入合集）。 */
+export function CollectionEntry({ item }: { item: CollectionListItem }) {
   return (
-    <div className="divide-y divide-border">
-      {items.map((item) =>
-        item.kind === "content" ? (
-          <ContentEntry key={`c-${item.id}`} item={item} />
-        ) : (
-          <article key={`col-${item.id}`} className="group py-6">
-            <div className="flex items-baseline justify-between gap-4">
-              <Link href={`/c/${item.slug}`} className="min-w-0">
-                <h2 className="truncate text-lg font-medium leading-snug group-hover:underline underline-offset-4">
-                  合集 · {item.title}
-                </h2>
-              </Link>
-              <span className="shrink-0 text-sm text-muted-foreground">{item.itemCount} 篇</span>
-            </div>
-            {item.coverMediaId && (
-              <Link href={`/c/${item.slug}`} className="mt-3 block">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`/api/media/${item.coverMediaId}`} alt={item.title} loading="lazy" className="max-h-64 w-full rounded-lg object-cover" />
-              </Link>
-            )}
-            {item.description && <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{item.description}</p>}
-            <div className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
-              <span>合集</span>
-              {item.visibility === "paid" && <Badge variant="secondary">付费</Badge>}
-            </div>
-          </article>
-        ),
-      )}
-    </div>
+    <article className="group py-6">
+      <div className="flex items-baseline justify-between gap-4">
+        <Link href={`/c/${item.slug}`} className="min-w-0">
+          <h2 className="truncate text-lg font-medium leading-snug group-hover:underline underline-offset-4">
+            {item.title}
+          </h2>
+        </Link>
+        <time className="shrink-0 text-sm text-muted-foreground">{formatDate(item.updatedAt)}</time>
+      </div>
+      {item.description && <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{item.description}</p>}
+      <div className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
+        <span>合集 · {item.itemCount} 篇内容</span>
+        {item.visibility === "paid" && <Badge variant="secondary">付费</Badge>}
+      </div>
+    </article>
+  );
+}
+
+/** 时间线：按 publishedAt 排序的内容列表，极简分隔线风格（父容器加 divide-y divide-border）。 */
+export function FeedTimeline({ items }: { items: FeedItem[] }) {
+  return (
+    <>
+      {items.map((item) => (
+        <ContentEntry key={item.id} item={item} />
+      ))}
+    </>
   );
 }

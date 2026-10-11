@@ -35,6 +35,11 @@
   --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Segoe UI", sans-serif;
 }
 
+/* 页面宽度稳定：始终预留滚动条槽位，避免长短页面切换时居中容器横向跳动 */
+html {
+  scrollbar-gutter: stable;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

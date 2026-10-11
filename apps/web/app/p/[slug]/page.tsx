@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { MarkdownBody } from "@/components/markdown";
 import { SiteHeader } from "@/components/site-header";
 import { Carousel, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { AudioPlayerLazy, VideoPlayerLazy } from "@/components/media-player";
+import { AudioFeature, VideoPlayerLazy } from "@/components/media-player";
 import { formatDate, TYPE_LABEL } from "@/components/feed-timeline";
 
 export const dynamic = "force-dynamic";
@@ -52,7 +52,8 @@ export default async function ContentPage({ params }: Props) {
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-2xl py-8">
+      {/* 正文与页头同栏（布局容器 max-w-3xl），不再收窄 */}
+      <main className="py-8">
         <header>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <span>{TYPE_LABEL[content.type]}</span>
@@ -84,7 +85,12 @@ export default async function ContentPage({ params }: Props) {
         )}
         {content.type === "audio" && primaryMedia && (
           <div className="mt-6">
-            <AudioPlayerLazy mediaId={primaryMedia.mediaId} />
+            <AudioFeature
+              mediaId={primaryMedia.mediaId}
+              title={content.title}
+              description={content.description}
+              coverMediaId={content.coverMediaId}
+            />
           </div>
         )}
         {content.type === "image" && galleryMedia.length > 0 && (
@@ -113,13 +119,16 @@ export default async function ContentPage({ params }: Props) {
           </div>
         )}
 
-        {/* 付费墙 */}
+        {/* 付费墙：统一商品为标准订阅（¥29.9/月全站解锁，到期回落锁定），唯一入口为激活码兑换 */}
         {content.access === "preview" && content.hasPaidContent && (
           <div className="mt-10 rounded-lg border border-dashed border-border p-6 text-center">
             <Lock className="mx-auto h-5 w-5 text-muted-foreground" />
-            <p className="mt-2 text-sm text-muted-foreground">以上内容仅为预览，解锁后可阅读全文。</p>
+            <p className="mt-2 text-sm text-muted-foreground">本内容为订阅专享，以上为免费预览。</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              标准订阅 ¥29.9/月：解锁站内全部付费内容，到期自动恢复锁定。
+            </p>
             <Button asChild className="mt-4">
-              <Link href="/redeem">使用激活码解锁</Link>
+              <Link href="/redeem">兑换订阅激活码</Link>
             </Button>
           </div>
         )}

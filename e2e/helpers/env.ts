@@ -7,8 +7,9 @@ export const E2E = {
   webUrl: "http://localhost:3100",
   caddyUrl: "http://localhost:4199",
   databaseUrl: "postgres://postgres:postgres@localhost:54329/yoryon_test",
+  // 显式 IPv4：localhost 在本机可能优先解析到 ::1，而 Docker 的 IPv6 端口映射在 macOS 上不可靠
   mailpitSmtpPort: 11125,
-  mailpitApiUrl: "http://localhost:11126",
+  mailpitApiUrl: "http://127.0.0.1:11126",
   bffSecret: "e2e-bff-secret-0123456789abcdef0123456789",
   fsSigningSecret: "e2e-fs-signing-secret-0123456789",
   storageRoot: new URL("../.data/storage", import.meta.url).pathname,
@@ -39,7 +40,7 @@ export function apiEnv(): NodeJS.ProcessEnv {
     FS_STORAGE_ROOT: E2E.storageRoot,
     FS_STORAGE_SIGNING_SECRET: E2E.fsSigningSecret,
     MEDIA_SIGN_TTL: "900",
-    MAIL_SMTP_HOST: "localhost",
+    MAIL_SMTP_HOST: "127.0.0.1",
     MAIL_SMTP_PORT: String(E2E.mailpitSmtpPort),
     MAIL_FROM: "Yoryon Test <test@example.com>",
     // 放大限流阈值，避免同一 IP（::1）上多个用例共享桶互相干扰；精确计数由限流用例按 scale 计算

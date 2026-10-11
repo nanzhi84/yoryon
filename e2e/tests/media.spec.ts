@@ -15,6 +15,7 @@ const stamp = runId();
 const FLIP_SLUG = `flip-${stamp}`;
 const PAID_IMG_SLUG = `paidimg-${stamp}`;
 const VIDEO_SLUG = `video-${stamp}`;
+const AUDIO_SLUG = `audio-${stamp}`;
 
 async function createCode(args: string[]): Promise<string> {
   const out = await runCliOk(["code", "create", ...args]);
@@ -60,6 +61,22 @@ test.describe("媒体访问控制与缓存隔离", () => {
       description: "付费视频",
       body: "",
     });
+    // 公开音频内容（含封面，验播客式音频卡片）。封面必须用唯一文件：
+    // 封面恒为 free 曝光，若复用 photo.png 会把曝光翻转用例的付费媒体抬为免费。
+    const audioCover = `audiocover-${stamp}.svg`;
+    await createPost({
+      slug: AUDIO_SLUG,
+      title: "音频卡片演示",
+      type: "audio",
+      visibility: "public",
+      previewMode: "full",
+      primaryMedia: "./media/audio.mp3",
+      cover: `./media/${audioCover}`,
+      description: "音频卡片简介文案",
+      body: "",
+      extraFiles: { [audioCover]: `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"/>` },
+    });
+    await runCliOk(["publish", path.join(E2E.postsRoot, AUDIO_SLUG)]);
     await runCliOk(["publish", path.join(E2E.postsRoot, FLIP_SLUG)]);
     await runCliOk(["publish", path.join(E2E.postsRoot, PAID_IMG_SLUG)]);
     await runCliOk(["publish", path.join(E2E.postsRoot, VIDEO_SLUG)]);
@@ -177,6 +194,24 @@ test.describe("媒体访问控制与缓存隔离", () => {
     });
     await runCliOk(["publish", path.join(E2E.postsRoot, FLIP_SLUG)]);
     expect((await apiCall(`/api/media/${freeMediaId}`)).status).toBe(403);
+  });
+
+  test("音频内容页：播客式卡片（封面 + 标题/简介 + 播放器）且音频可加载", async ({ page }) => {
+    await page.goto(`/p/${AUDIO_SLUG}`);
+    // 卡片文字：Now Playing 标签 + 标题 + 简介
+    await expect(page.getByText("Now Playing")).toBeVisible();
+    const card = page.locator("main div.rounded-xl").first();
+    await expect(card.getByText("音频卡片演示")).toBeVisible();
+    await expect(card.getByText("音频卡片简介文案")).toBeVisible();
+    // 封面图经 /api/media 加载
+    await expect(card.locator(`img[src^="/api/media/"]`)).toBeVisible();
+    // 播放器可加载元数据（公开音频经 302 → 签名 URL）
+    const audio = page.locator("audio");
+    await expect(audio).toBeAttached();
+    await page.waitForFunction(() => {
+      const a = document.querySelector("audio");
+      return a && a.readyState >= 1 && a.duration > 0;
+    });
   });
 
   test("视频播放：浏览器加载私有视频（302→签名 URL），Range 206，签名失败自动重取恢复", async ({ page }) => {

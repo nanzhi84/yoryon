@@ -1,29 +1,38 @@
 import { publicFetch } from "@/lib/api";
 import type { FeedResponse } from "@/lib/types";
-import { SiteHeader } from "@/components/site-header";
 import { FeedTimeline } from "@/components/feed-timeline";
+import { SiteHeader } from "@/components/site-header";
 import { LoadMore } from "@/components/load-more";
-
-/** 公开线：信息流可公开缓存（ADR-0003）。 */
-export const revalidate = 60;
 
 const revalidateSec = Number(process.env.FEED_REVALIDATE_SEC ?? 60);
 
-export default async function HomePage() {
-  let data: FeedResponse = { items: [], nextCursor: null };
+async function getFeed(): Promise<FeedResponse | null> {
   try {
     const res = await publicFetch("/api/feed", { revalidate: revalidateSec });
-    if (res.ok) data = (await res.json()) as FeedResponse;
+    if (!res.ok) return null;
+    return (await res.json()) as FeedResponse;
   } catch {
-    // API 暂不可达（如构建期预渲染）：展示空态，运行时请求会重试
+    return null;
   }
+}
+
+/** 首页：纯内容信息流（合集为顶层结构，仅在 /c 列表展示，不混入 feed）。容器宽度由 layout 统一控制。 */
+export default async function HomePage() {
+  const feed = await getFeed();
+  const items = feed?.items ?? [];
 
   return (
     <>
       <SiteHeader />
-      <main>
-        <FeedTimeline items={data.items} />
-        {data.nextCursor && <LoadMore initialCursor={data.nextCursor} />}
+      <main className="pb-20">
+        {items.length === 0 ? (
+          <p className="py-20 text-center text-sm text-muted-foreground">还没有内容，敬请期待。</p>
+        ) : (
+          <div className="divide-y divide-border">
+            <FeedTimeline items={items} />
+          </div>
+        )}
+        {feed?.nextCursor && <LoadMore initialCursor={feed.nextCursor} basePath="/" />}
       </main>
     </>
   );

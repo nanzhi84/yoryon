@@ -18,18 +18,8 @@ export interface FeedContentItem {
   tags: FeedTag[];
 }
 
-export interface FeedCollectionItem {
-  kind: "collection";
-  id: string;
-  slug: string;
-  title: string;
-  description: string;
-  visibility: "public" | "paid";
-  coverMediaId: string | null;
-  itemCount: number;
-}
-
-export type FeedItem = FeedContentItem | FeedCollectionItem;
+/** feed 仅含内容条目；合集是顶层结构，只经 /api/collections 列表曝光，不参与混排。 */
+export type FeedItem = FeedContentItem;
 
 export interface FeedResponse {
   items: FeedItem[];
@@ -61,6 +51,16 @@ export interface ContentDetail {
   tags: FeedTag[];
   collections: { slug: string; title: string }[];
   media: ContentMediaItem[];
+}
+
+export interface CollectionListItem {
+  slug: string;
+  title: string;
+  description: string;
+  visibility: "public" | "paid";
+  coverMediaId: string | null;
+  itemCount: number;
+  updatedAt: string;
 }
 
 export interface CollectionDetail {
