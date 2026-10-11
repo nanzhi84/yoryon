@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { apiFetch } from "@/lib/api";
+import { publicFetch } from "@/lib/api";
 import type { FeedItem, TagDetailResponse } from "@/lib/types";
 import { SiteHeader } from "@/components/site-header";
 import { FeedTimeline } from "@/components/feed-timeline";
+import { LoadMore } from "@/components/load-more";
 
 const revalidateSec = Number(process.env.FEED_REVALIDATE_SEC ?? 60);
 export const revalidate = 60;
@@ -13,7 +14,7 @@ interface Props {
 }
 
 async function getTag(slug: string): Promise<TagDetailResponse | null> {
-  const res = await apiFetch(`/api/tags/${slug}`, { revalidate: revalidateSec });
+  const res = await publicFetch(`/api/tags/${slug}`, { revalidate: revalidateSec });
   if (res.status === 404) return null;
   if (!res.ok) throw new Error(`API error ${res.status}`);
   return (await res.json()) as TagDetailResponse;
@@ -40,6 +41,7 @@ export default async function TagPage({ params }: Props) {
         <h1 className="text-2xl font-semibold">#{data.tag.name}</h1>
         <div className="mt-4">
           <FeedTimeline items={items} />
+          {data.nextCursor && <LoadMore basePath={`/api/tags/${slug}`} initialCursor={data.nextCursor} />}
         </div>
       </main>
     </>

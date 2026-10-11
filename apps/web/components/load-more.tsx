@@ -5,8 +5,8 @@ import type { FeedItem, FeedResponse } from "@/lib/types";
 import { FeedTimeline } from "./feed-timeline";
 import { Button } from "./ui/button";
 
-/** 信息流"加载更多"（游标分页，经同源 BFF）。 */
-export function LoadMore({ initialCursor }: { initialCursor: string }) {
+/** 信息流/标签页"加载更多"（游标分页，经同源 BFF）。 */
+export function LoadMore({ initialCursor, basePath = "/api/feed" }: { initialCursor: string; basePath?: string }) {
   const [cursor, setCursor] = useState<string | null>(initialCursor);
   const [items, setItems] = useState<FeedItem[]>([]);
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,7 @@ export function LoadMore({ initialCursor }: { initialCursor: string }) {
     setLoading(true);
     setError(false);
     try {
-      const res = await fetch(`/api/feed?cursor=${encodeURIComponent(cursor)}`);
+      const res = await fetch(`${basePath}?cursor=${encodeURIComponent(cursor)}`);
       if (!res.ok) throw new Error(String(res.status));
       const data = (await res.json()) as FeedResponse;
       setItems((prev) => [...prev, ...data.items]);

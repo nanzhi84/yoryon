@@ -49,7 +49,7 @@ export function buildApiHeaders(opts: { sessionToken: string | null; clientIp: s
 
 /**
  * CSRF 防线（ADR-0001 修订）：对所有 mutating 方法执行 Origin 白名单校验；
- * Origin 缺失时要求 Sec-Fetch-Site ∈ {same-origin, none}；其余一律拒绝。
+ * Origin 缺失时要求 Sec-Fetch-Site = same-origin（非浏览器客户端使用 API Bearer，不使用 Cookie BFF）；其余一律拒绝。
  */
 export function csrfCheck(req: Request): { ok: true } | { ok: false; reason: string } {
   const method = req.method.toUpperCase();
@@ -61,7 +61,7 @@ export function csrfCheck(req: Request): { ok: true } | { ok: false; reason: str
     return { ok: false, reason: `origin not allowed: ${origin}` };
   }
   const fetchSite = req.headers.get("sec-fetch-site");
-  if (fetchSite === null || fetchSite === "same-origin" || fetchSite === "none") return { ok: true };
+  if (fetchSite === "same-origin") return { ok: true };
   return { ok: false, reason: `sec-fetch-site rejected: ${fetchSite}` };
 }
 
