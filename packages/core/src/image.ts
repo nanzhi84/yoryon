@@ -15,8 +15,13 @@ export interface ImageDimensions {
 export function probeImageDimensions(data: Buffer, mimeType: string): ImageDimensions | null {
   if (!mimeType.startsWith("image/")) return null;
   try {
-    const { width, height } = imageSize(new Uint8Array(data));
+    const { width, height, orientation } = imageSize(new Uint8Array(data));
     if (!width || !height || width <= 0 || height <= 0) return null;
+    // EXIF orientation 5-8（90°/270° 旋转变换）：浏览器按旋转后方向展示，展示尺寸需交换宽高，
+    // 否则预留的纵横比与解码后实际方向相反（image-size 返回原始像素尺寸，不代为交换）
+    if (orientation !== undefined && orientation >= 5 && orientation <= 8) {
+      return { width: height, height: width };
+    }
     return { width, height };
   } catch {
     return null;

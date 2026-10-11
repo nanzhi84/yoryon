@@ -4,7 +4,7 @@
  * - 联查 users.status：禁用用户即时失效；
  * - 30 天滑动过期：剩余 <15 天时续期，并经 X-Session-Expires 响应头通知 BFF 重设 Cookie。
  */
-import { and, eq, gt } from "drizzle-orm";
+import { and, eq, gt, isNull, lte, or } from "drizzle-orm";
 import { sessions, users, type Database } from "@yoryon/db";
 import { SESSION_RENEW_BELOW_MS, SESSION_TOUCH_MIN_INTERVAL_MS, SESSION_TTL_MS } from "@yoryon/config";
 import { hashSessionToken, type AccessUser } from "@yoryon/core";
@@ -51,10 +51,16 @@ export function authMiddleware(db: Database) {
           await db.update(sessions).set({ expiresAt: newExpires, lastUsedAt: now }).where(eq(sessions.id, row.session.id));
           c.set("sessionRenewedExpiresAt", newExpires);
         } else {
-          // lastUsedAt 条件写入：距上次记录超过阈值才写，保留登录活动记录同时消除高频写放大（F05a）
+          // lastUsedAt 条件写入：距上次记录超过阈值才写，保留登录活动记录同时消除高频写放大（F05a）。
+          // 应用层预检跳过窗口内的 UPDATE 语句；阈值条件同时下沉到 WHERE，并发请求在窗口边界
+          // 同读旧值时由数据库对更新后的行重判，抑制并发重复写
           const lastUsed = row.session.lastUsedAt;
           if (!lastUsed || now.getTime() - lastUsed.getTime() >= SESSION_TOUCH_MIN_INTERVAL_MS) {
-            await db.update(sessions).set({ lastUsedAt: now }).where(eq(sessions.id, row.session.id));
+            const touchCutoff = new Date(now.getTime() - SESSION_TOUCH_MIN_INTERVAL_MS);
+            await db
+              .update(sessions)
+              .set({ lastUsedAt: now })
+              .where(and(eq(sessions.id, row.session.id), or(isNull(sessions.lastUsedAt), lte(sessions.lastUsedAt, touchCutoff))));
           }
         }
       }

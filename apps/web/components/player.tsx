@@ -38,17 +38,22 @@ function useRefreshableSource(mediaId: string) {
   const resumeAtRef = useRef(0);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const detachRef = useRef<(() => void) | null>(null);
+  /** failed 的 ref 镜像（handleError 不依赖 state 闭包） */
+  const failedRef = useRef(false);
 
   const handleError = useCallback(() => {
     const el = mediaRef.current;
     if (el) resumeAtRef.current = el.currentTime;
+    // 同一次失败可能被重复通知（attach 时的 el.error 竞态补处理 + 已排队的原生 error 事件）：
+    // 重试已排期或已判终时直接忽略，否则会提前进入 failed 而跳过实际自动重试
+    if (timerRef.current !== null || failedRef.current) return;
     if (autoRetriesRef.current >= AUTO_RETRY_MAX) {
-      setState((s) => (s.failed ? s : { ...s, failed: true }));
+      failedRef.current = true;
+      setState((s) => ({ ...s, failed: true }));
       return;
     }
     // 有界退避后自动重试（重签名刷新）
     autoRetriesRef.current += 1;
-    if (timerRef.current !== null) clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
       timerRef.current = null;
       setState((s) => ({ ...s, retry: s.retry + 1 }));
@@ -56,7 +61,14 @@ function useRefreshableSource(mediaId: string) {
   }, []);
 
   const handleLoadedMetadata = useCallback(() => {
+    // 已成功加载：取消可能挂起的重试（错误后元数据又到达的瞬态）并退还该次额度
+    if (timerRef.current !== null) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+      autoRetriesRef.current = Math.max(0, autoRetriesRef.current - 1);
+    }
     // 加载成功：清除失败态并恢复播放进度
+    failedRef.current = false;
     setState((s) => (s.failed ? { ...s, failed: false } : s));
     const el = mediaRef.current;
     if (el && resumeAtRef.current > 0) {
@@ -86,8 +98,10 @@ function useRefreshableSource(mediaId: string) {
         el.removeEventListener("error", handleError);
         el.removeEventListener("loadedmetadata", handleLoadedMetadata);
       };
-      // 提交竞态兜底：错误/元数据事件可能先于监听绑定（本地快速失败时），以元素当前状态为准
-      if (el.error || el.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) {
+      // 提交竞态兜底：错误/元数据事件可能先于监听绑定（本地快速失败时），以元素当前状态为准。
+      // 只认 error/readyState：networkState 不能作为判据——实测设置 src 后到资源选择完成前
+      // 正常会短暂处于 NETWORK_NO_SOURCE（error=null），误判会白耗唯一的自动重试。
+      if (el.error) {
         handleError();
       } else if (el.readyState >= HTMLMediaElement.HAVE_METADATA) {
         handleLoadedMetadata();
@@ -103,6 +117,7 @@ function useRefreshableSource(mediaId: string) {
       timerRef.current = null;
     }
     autoRetriesRef.current = 0;
+    failedRef.current = false;
     setState((s) => ({ retry: s.retry + 1, failed: false }));
   }, []);
 

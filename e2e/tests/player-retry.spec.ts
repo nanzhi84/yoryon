@@ -40,13 +40,14 @@ test("媒体持续失败：自动重试最多 1 次后停止，手动重试才�
 
   await page.goto(`/p/${SLUG}`);
 
-  // 自动重试上限 1：初始加载 + 1 次自动重试 = 端点请求数封顶在 2，随后停止并展示手动重试
+  // 自动重试上限 1：初始加载 + 1 次自动重试 = 恰好 2 次端点请求（等值断言同时排除
+  // “同一失败被重复通知→提前 failed、实际自动重试未发生”的少发情况），随后停止并展示手动重试
   await expect(page.getByText("媒体加载失败")).toBeVisible({ timeout: 20_000 });
-  expect(mediaRequests).toBeLessThanOrEqual(2);
+  expect(mediaRequests).toBe(2);
 
   // 停止后不再产生新的端点请求（无后台轮询/无限循环）
   await page.waitForTimeout(3_000);
-  expect(mediaRequests).toBeLessThanOrEqual(2);
+  expect(mediaRequests).toBe(2);
 
   // 手动重试才发起新一轮请求
   await page.getByRole("button", { name: "重试" }).click();
