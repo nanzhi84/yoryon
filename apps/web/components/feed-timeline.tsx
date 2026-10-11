@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { TrackClickLink, TrackImpression } from "@/components/analytics";
 import type { CollectionListItem, FeedContentItem, FeedItem } from "@/lib/types";
 
 export const TYPE_LABEL: Record<FeedContentItem["type"], string> = {
@@ -17,21 +18,22 @@ export function formatDate(iso: string | null): string {
 /** 信息流内容条目：标题 + 日期 / 封面 + 简介 / 类型 + 标签，点进详情。 */
 function ContentEntry({ item }: { item: FeedContentItem }) {
   return (
-    <article className="group py-6">
-      <div className="flex items-baseline justify-between gap-4">
-        <Link href={`/p/${item.slug}`} className="min-w-0">
-          <h2 className="truncate text-lg font-medium leading-snug group-hover:underline underline-offset-4">
-            {item.title}
-          </h2>
-        </Link>
-        <time className="shrink-0 text-sm text-muted-foreground">{formatDate(item.publishedAt)}</time>
-      </div>
-      {item.coverMediaId && (
-        <Link href={`/p/${item.slug}`} className="mt-3 block">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={`/api/media/${item.coverMediaId}`} alt={item.title} loading="lazy" className="max-h-64 w-full rounded-lg object-cover" />
-        </Link>
-      )}
+    <TrackImpression targetKind="work" targetId={item.id}>
+      <article className="group py-6">
+        <div className="flex items-baseline justify-between gap-4">
+          <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="min-w-0">
+            <h2 className="truncate text-lg font-medium leading-snug group-hover:underline underline-offset-4">
+              {item.title}
+            </h2>
+          </TrackClickLink>
+          <time className="shrink-0 text-sm text-muted-foreground">{formatDate(item.publishedAt)}</time>
+        </div>
+        {item.coverMediaId && (
+          <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="mt-3 block">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={`/api/media/${item.coverMediaId}`} alt={item.title} loading="lazy" className="max-h-64 w-full rounded-lg object-cover" />
+          </TrackClickLink>
+        )}
       {item.description && <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{item.description}</p>}
       <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
         <span>{TYPE_LABEL[item.type]}</span>
@@ -42,28 +44,31 @@ function ContentEntry({ item }: { item: FeedContentItem }) {
           </Link>
         ))}
       </div>
-    </article>
+      </article>
+    </TrackImpression>
   );
 }
 
 /** 合集条目：仅用于 /c 合集列表页（首页 feed 不混入合集）。 */
 export function CollectionEntry({ item }: { item: CollectionListItem }) {
   return (
-    <article className="group py-6">
-      <div className="flex items-baseline justify-between gap-4">
-        <Link href={`/c/${item.slug}`} className="min-w-0">
-          <h2 className="truncate text-lg font-medium leading-snug group-hover:underline underline-offset-4">
-            {item.title}
-          </h2>
-        </Link>
-        <time className="shrink-0 text-sm text-muted-foreground">{formatDate(item.updatedAt)}</time>
-      </div>
+    <TrackImpression targetKind="collection" targetId={item.id}>
+      <article className="group py-6">
+        <div className="flex items-baseline justify-between gap-4">
+          <TrackClickLink targetKind="collection" targetId={item.id} href={`/c/${item.slug}`} className="min-w-0">
+            <h2 className="truncate text-lg font-medium leading-snug group-hover:underline underline-offset-4">
+              {item.title}
+            </h2>
+          </TrackClickLink>
+          <time className="shrink-0 text-sm text-muted-foreground">{formatDate(item.updatedAt)}</time>
+        </div>
       {item.description && <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{item.description}</p>}
       <div className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
         <span>合集 · {item.itemCount} 篇内容</span>
         {item.visibility === "paid" && <Badge variant="secondary">付费</Badge>}
       </div>
-    </article>
+      </article>
+    </TrackImpression>
   );
 }
 
