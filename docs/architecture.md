@@ -205,13 +205,14 @@ entitlements(
 create index on entitlements (user_id, scope_type, scope_id);
 
 -- Analytics 原始事件（ADR-0007，口径见 docs/analytics.md）
+-- event_type/target_kind/placement 的枚举约束在应用层（ingest Zod 白名单），DB 为 text 列
 analytics_events(
   id uuid pk,
   event_id uuid unique not null,          -- 幂等键：客户端生成，重试去重
-  event_type text not null check (event_type in ('impression','click','view','read')),
-  target_kind text not null check (target_kind in ('work','collection')),
+  event_type text not null,               -- impression | click | view | read
+  target_kind text not null,              -- work | collection
   target_id uuid not null,                -- 多态引用，无 FK：目标删除后历史统计保留
-  placement text check (placement in ('home_feed','collection_list')),  -- 仅 impression/click
+  placement text,                         -- home_feed | collection_list，仅 impression/click
   page_view_id uuid not null,
   session_id uuid,                        -- sessionStorage 级匿名标识；不存 IP/UA/URL
   received_at timestamptz not null default now()   -- 服务端可信接收时间
@@ -364,7 +365,7 @@ GET  /api/media/:id                媒体验权 → 302 签名 URL（缓存策�
 POST /api/redemptions              { code } → 兑换（幂等）
 GET  /api/me/entitlements          我的权益列表（含来源、区间与撤销状态）
 
-POST /api/analytics/events         Analytics 批量 ingest（≤20 条/批；Zod 白名单 + IP 限流；
+POST /api/analytics/events         Analytics 批量 ingest（≤20 条/批且请求体 ≤32KB；Zod 白名单 + IP 限流；
                                    event_id 幂等去重；work 目标必须已发布，非法目标静默丢弃；ADR-0007）
 ```
 

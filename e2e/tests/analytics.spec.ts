@@ -104,6 +104,39 @@ test("首页曝光：≥50% 可视连续 1s 记一次 impression，重复进出�
   expect(await countEvents(articleId, "impression")).toBe(1);
 });
 
+test("连续滚动跨越更高可见阈值不重置曝光计时（回归：60% → 100% 连续可见不重新计时）", async ({ page }) => {
+  // 拦截采集请求以观测 impression 的真实入队时间（flush 有 2s 间隔，直接查库无法区分计时起点）
+  let impSentAt: number | null = null;
+  await page.route("**/api/analytics/events", async (route) => {
+    const body = route.request().postData() ?? "";
+    if (body.includes('"impression"') && body.includes(articleId)) impSentAt ??= Date.now();
+    await route.continue();
+  });
+  await page.goto("/");
+  const card = page.locator("article", { hasText: ARTICLE_TITLE }).first();
+  await card.waitFor({ state: "attached" });
+
+  // t0：卡片约 60% 可见（顶部滑出视口），进入合格状态开始计时
+  await page.evaluate((title) => {
+    const el = [...document.querySelectorAll("article")].find((a) => a.textContent?.includes(title))!;
+    window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY + el.offsetHeight * 0.4);
+  }, ARTICLE_TITLE);
+  const t0 = Date.now();
+  await page.waitForTimeout(600);
+  // t0+0.6s：滚回完全可见，跨越 100% 阈值——连续可见不中断，计时不得重置
+  await page.evaluate((title) => {
+    const el = [...document.querySelectorAll("article")].find((a) => a.textContent?.includes(title))!;
+    window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 20);
+  }, ARTICLE_TITLE);
+  await page.waitForTimeout(800);
+  // t0+1.4s：连续可见已累计 1.4s（>1s），impression 应已入队；切后台触发 beacon 立即冲刷
+  await setHidden(page, true);
+  await expect.poll(() => impSentAt !== null, { timeout: 3_000 }).toBe(true);
+  // 若计时在跨阈值时重置（t0+0.6s 才重新开始），此刻事件尚未产生或被切后台取消
+  expect(impSentAt! - t0).toBeLessThan(2_500);
+  await setHidden(page, false);
+});
+
 test("页面后台不触发 impression；回前台后才计时", async ({ page }) => {
   const before = await countEvents(articleId, "impression");
   await page.goto("/");
@@ -255,6 +288,27 @@ test("ingest：白名单校验、单批上限、placement 语义、非法目标�
   expect(r.json.accepted).toBe(1);
   const placement = await withDb(async (db) => (await db.query(`select placement from analytics_events where event_id = $1`, [evtWithPlacement.eventId])).rows[0].placement);
   expect(placement).toBeNull();
+
+  // 跨表面事件（placement 与 target kind 的唯一列表表面不一致，ADR-0007 §4）：静默丢弃
+  for (const bad of [
+    { targetKind: "work", targetId: articleId, placement: "collection_list" },
+    { targetKind: "collection", targetId: collId, placement: "home_feed" },
+  ]) {
+    const r = await apiCall("/api/analytics/events", { events: [{ ...base, ...bad, eventType: "impression", eventId: randomUUID() }] }, { asBff });
+    expect(r.status).toBe(200);
+    expect(r.json.accepted).toBe(0);
+  }
+
+  // 大载荷（>32KB）：BFF 按 Content-Length 预拦截，API 按声明值+实际长度双检查，均 413
+  const big = { events: [{ ...base, eventType: "view", eventId: randomUUID(), pad: "x".repeat(40 * 1024) }] };
+  const bigApi = await apiCall("/api/analytics/events", big, { asBff });
+  expect(bigApi.status).toBe(413);
+  const bigBff = await fetch(`${E2E.webUrl}/api/analytics/events`, {
+    method: "POST",
+    headers: { "content-type": "application/json", origin: E2E.webUrl },
+    body: JSON.stringify(big),
+  });
+  expect(bigBff.status).toBe(413);
 });
 
 test("CLI：overview/top/content/collection 输出四项指标与 N/A；prune 清理过期事件", async () => {
@@ -278,6 +332,31 @@ test("CLI：overview/top/content/collection 输出四项指标与 N/A；prune �
   const topCtr = await runCliOk(["analytics", "top", "--metric", "ctr", "--days", "7", "--min-impressions", "1"]);
   expect(topCtr).toContain(ARTICLE);
 
+  // 精确数值：合成已知事件（10 impressions / 3 clicks / 4 views / 2 reads），
+  // 核对 CTR=30.0%、Read Rate=50.0%，并验证最小曝光阈值的排除行为
+  const EXACT = `an-${stamp}-exact`;
+  await runCliOk(["publish", await createPost({ slug: EXACT, title: `Analytics 精确 ${stamp}`, body: TINY_TEXT(4) })]);
+  const exactId = await withDb(async (db) => (await db.query(`select id from contents where slug = $1`, [EXACT])).rows[0].id as string);
+  await withDb(async (db) => {
+    await db.query(
+      `insert into analytics_events (event_id, event_type, target_kind, target_id, placement, page_view_id)
+       select gen_random_uuid(), t, 'work', $1::uuid,
+              case when t in ('impression','click') then 'home_feed' end,
+              gen_random_uuid()
+       from unnest(array['impression','click','view','read']) as t,
+            generate_series(1, case t when 'impression' then 10 when 'click' then 3 when 'view' then 4 else 2 end)`,
+      [exactId],
+    );
+  });
+  const exact = await runCliOk(["analytics", "content", EXACT, "--days", "7"]);
+  expect(exact).toContain("30.0%"); // CTR = 3 clicks / 10 impressions
+  expect(exact).toContain("50.0%"); // Read Rate = 2 reads / 4 views
+  // 最小曝光阈值：10 次曝光的目标应被 --min-impressions 20 排除、被 10 纳入
+  const topExcluded = await runCliOk(["analytics", "top", "--metric", "ctr", "--days", "7", "--min-impressions", "20"]);
+  expect(topExcluded).not.toContain(EXACT);
+  const topIncluded = await runCliOk(["analytics", "top", "--metric", "ctr", "--days", "7", "--min-impressions", "10"]);
+  expect(topIncluded).toContain(EXACT);
+
   // 分母为零 → N/A：新建无事件的合集（此前浏览器用例均未访问），ctr 与 read_rate 均为 N/A
   const quiet = `an-${stamp}-quiet`;
   await runCliOk(["collection", "create", quiet, "--title", `静默合集 ${stamp}`]);
@@ -297,6 +376,8 @@ test("CLI：overview/top/content/collection 输出四项指标与 N/A；prune �
   expect(prune).toContain("已删除");
   const remaining = await withDb(async (db) => (await db.query(`select count(*)::int as n from analytics_events where event_id = $1`, [oldEventId])).rows[0].n);
   expect(remaining).toBe(0);
+  // 近期事件不受 prune 影响
+  expect(await countEvents(exactId, "view")).toBe(4);
 });
 
 test("限流：单 IP 超阈值返回 429", async () => {

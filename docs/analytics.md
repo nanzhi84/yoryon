@@ -34,7 +34,7 @@
 | `home_feed` | 首页 `/`（含"加载更多"追加的条目） | Work |
 | `collection_list` | 合集列表 `/c` | Collection |
 
-CTR 只在同一 placement 内计算；由于每个 Target 只出现在一个列表表面，单 Target 的 CTR 无歧义。标签页等其他表面不采集 impression/click（无 Provider），其入口点击不混入 CTR。
+CTR 只在同一 placement 内计算；ingest 在服务端强制 placement 与 Target kind 的唯一对应（work ↔ home_feed、collection ↔ collection_list），不一致的事件静默丢弃，因此单 Target 的 CTR 无歧义。标签页等其他表面不采集 impression/click（无 Provider），其入口点击不混入 CTR。
 
 ## 4. 事件合同
 
@@ -53,6 +53,7 @@ POST /api/analytics/events        （经同源 BFF；批量，单批 ≤ 20 条�
 }
 → 200 { accepted: n }              // 非法目标（不存在/未发布）静默丢弃，不视为错误
 → 400 invalid_json | invalid_events
+→ 413 payload_too_large            // 请求体 > 32KB（BFF 按 Content-Length 预拦截，API 双检查）
 → 429 rate_limited                 // IP 维度限流（60 批/分钟，E2E 可经 RATE_LIMIT_SCALE 放大）
 ```
 

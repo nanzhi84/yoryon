@@ -56,14 +56,14 @@ export function TrackImpression({ targetKind, targetId, children }: TrackablePro
     let intersecting = false;
     let timer: number | null = null;
 
-    const clearTimer = () => {
+    const cancelTimer = () => {
       if (timer !== null) {
         window.clearTimeout(timer);
         timer = null;
       }
     };
     const tryArm = () => {
-      clearTimer();
+      if (timer !== null) return; // 计时中不重置：跨越更高阈值（如 0.6 → 1.0）不重新开始计时
       if (!intersecting || document.visibilityState !== "visible") return;
       timer = window.setTimeout(() => {
         timer = null;
@@ -83,18 +83,22 @@ export function TrackImpression({ targetKind, targetId, children }: TrackablePro
     const io = new IntersectionObserver(
       (entries) => {
         intersecting = entries.some((e) => e.intersectionRatio >= IMPRESSION_MIN_RATIO);
-        tryArm();
+        if (intersecting) tryArm();
+        else cancelTimer(); // 低于 50% 才取消计时
       },
-      { threshold: [0, IMPRESSION_MIN_RATIO, 1] },
+      { threshold: [0, IMPRESSION_MIN_RATIO] },
     );
     io.observe(el);
 
-    const onVisibility = () => tryArm();
+    const onVisibility = () => {
+      if (document.visibilityState === "visible") tryArm();
+      else cancelTimer();
+    };
     document.addEventListener("visibilitychange", onVisibility);
     return () => {
       io.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
-      clearTimer();
+      cancelTimer();
     };
   }, [ctx, targetKind, targetId]);
 
@@ -110,13 +114,18 @@ export function TrackClickLink({
   children,
 }: TrackableProps & { href: string; className?: string }) {
   const ctx = useContext(AnalyticsListContext);
+  const send = () => {
+    if (!ctx) return;
+    trackEvent({ eventType: "click", targetKind, targetId, placement: ctx.placement, pageViewId: ctx.listViewId });
+  };
   return (
     <Link
       href={href}
       className={className}
-      onClick={() => {
-        if (!ctx) return;
-        trackEvent({ eventType: "click", targetKind, targetId, placement: ctx.placement, pageViewId: ctx.listViewId });
+      onClick={send}
+      // 鼠标中键新标签打开走 auxclick（button=1），同样是主动点击入口；右键（button=2）不计
+      onAuxClick={(e) => {
+        if (e.button === 1) send();
       }}
     >
       {children}

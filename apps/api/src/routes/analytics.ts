@@ -29,6 +29,15 @@ const batchSchema = z.object({
   events: z.array(eventSchema).min(1).max(ANALYTICS_MAX_BATCH),
 });
 
+/** 请求体字节上限：批量条数上限不能约束单条体积，匿名入口必须在解析前拦截大载荷 */
+const MAX_BODY_BYTES = 32 * 1024;
+
+/**
+ * 列表表面与 Target 的唯一对应（ADR-0007 §4）：首页 feed 只有 Work，合集只在 /c 列表曝光。
+ * impression/click 的 placement 不一致 = 伪造/异常事件，静默丢弃（采集不是关键路径）。
+ */
+const CANONICAL_PLACEMENT = { work: "home_feed", collection: "collection_list" } as const;
+
 export function analyticsRoutes(deps: AppDeps) {
   const app = new Hono<{ Variables: AppVariables }>();
 
@@ -45,23 +54,31 @@ export function analyticsRoutes(deps: AppDeps) {
       return errorResponse(c, 429, "rate_limited", "请求过于频繁，请稍后再试");
     }
 
+    // 字节上限双检查：Content-Length 声明值 + 实际读取值（覆盖 chunked 缺声明的场景）
+    const declared = Number(c.req.header("content-length") ?? 0);
+    if (declared > MAX_BODY_BYTES) return errorResponse(c, 413, "payload_too_large", "请求体过大");
+    const raw = await c.req.text();
+    if (raw.length > MAX_BODY_BYTES) return errorResponse(c, 413, "payload_too_large", "请求体过大");
     let body: unknown;
     try {
-      body = await c.req.json();
+      body = JSON.parse(raw);
     } catch {
       return errorResponse(c, 400, "invalid_json", "请求体不是合法 JSON");
     }
     const parsed = batchSchema.safeParse(body);
     if (!parsed.success) return errorResponse(c, 400, "invalid_events", "事件格式不合法");
 
-    // 语义归一：impression/click 必须声明列表来源；view/read 不属于任何列表，placement 恒为 null
+    // 语义归一：impression/click 必须声明列表来源且与 target kind 的唯一表面对应；
+    // view/read 不属于任何列表，placement 恒为 null。uuid 归一小写（z.uuid 接受大写，与库返回的小写 id 比较需一致）
     const events = [];
     for (const e of parsed.data.events) {
+      const normalized = { ...e, targetId: e.targetId.toLowerCase() };
       if (e.eventType === "impression" || e.eventType === "click") {
         if (!e.placement) return errorResponse(c, 400, "invalid_events", "impression/click 必须携带 placement");
-        events.push({ ...e, placement: e.placement });
+        if (e.placement !== CANONICAL_PLACEMENT[e.targetKind]) continue; // 跨表面事件静默丢弃
+        events.push({ ...normalized, placement: e.placement });
       } else {
-        events.push({ ...e, placement: null });
+        events.push({ ...normalized, placement: null });
       }
     }
 

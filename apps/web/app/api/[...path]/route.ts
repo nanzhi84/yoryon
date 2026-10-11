@@ -26,6 +26,14 @@ async function proxy(req: NextRequest): Promise<Response> {
     return NextResponse.json({ error: { code: "csrf_rejected", message: "请求来源非法" } }, { status: 403 });
   }
 
+  // analytics ingest 在缓冲请求体之前按声明大小拦截大载荷（API 侧还有实际长度兜底）
+  if (path === "/api/analytics/events") {
+    const declared = Number(req.headers.get("content-length") ?? 0);
+    if (declared > 32 * 1024) {
+      return NextResponse.json({ error: { code: "payload_too_large", message: "请求体过大" } }, { status: 413 });
+    }
+  }
+
   const sessionToken = readSessionCookie(req.headers.get("cookie"));
   const clientIp = resolvePlatformClientIp(req.headers);
   const headers = buildApiHeaders({ sessionToken, clientIp, contentType: req.headers.get("content-type") });

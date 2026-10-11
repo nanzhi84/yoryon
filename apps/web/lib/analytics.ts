@@ -108,9 +108,12 @@ function flush(mode: "fetch" | "beacon"): void {
   const body = JSON.stringify({ events: batch.map(({ requeues: _r, ...e }) => e) });
 
   if (mode === "beacon") {
-    // sendBeacon 在页面卸载路径上最可靠；失败（返回 false）走有界重投
+    // sendBeacon 在页面卸载路径上最可靠；失败（返回 false）重入队并调度一次 fetch 重投（有界）
     const ok = navigator.sendBeacon(ENDPOINT, new Blob([body], { type: "application/json" }));
-    if (!ok) requeue(batch);
+    if (!ok) {
+      requeue(batch);
+      scheduleFlush();
+    }
     return;
   }
 
