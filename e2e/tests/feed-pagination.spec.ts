@@ -5,8 +5,9 @@
  * - 标签页 >20 条：浏览器端"加载更多"渲染后续条目（tags 合同统一），无运行时错误。
  * - sitemap 全量翻页：21+ 条内容全部收录。
  *
- * 数据策略：本用例内容 published_at 统一设为固定的过去时间，排序上沉到全库末尾，
- * 遍历断言必须翻到最后一页才能集齐——真正覆盖跨页无遗漏。
+ * 数据策略：本用例内容 published_at 统一设为过去的微秒级时间戳（相邻 700μs，同一毫秒
+ * 内含多篇且跨越毫秒边界），排序上沉到全库末尾，遍历断言必须翻到最后一页才能集齐——
+ * 同时验证毫秒截断排序键在微秒写入路径下的一致性。
  */
 import { test, expect } from "@playwright/test";
 import fs from "node:fs/promises";
@@ -18,7 +19,6 @@ import { E2E, runId } from "../helpers/env";
 const stamp = runId();
 const POST_COUNT = 25; // > FEED_PAGE_SIZE(20)，触发多页
 const TAG = `pgtag-${stamp}`;
-const FIXED_TIME = "2020-01-01T00:00:00.000Z";
 const postSlug = (i: number) => `pg-${stamp}-${String(i).padStart(2, "0")}`;
 const collSlug = (i: number) => `pgcoll-${stamp}-${i}`;
 const COLLIDE_SLUG = `pgcoll-collide-${stamp}`;
@@ -44,17 +44,36 @@ test.describe("feed 游标分页正确性", () => {
     await runCliOk(["collection", "create", collSlug(1), "--title", "分页合集一"]);
     await runCliOk(["collection", "create", collSlug(2), "--title", "分页合集二"]);
     await withDb(async (db) => {
-      await db.query(`update contents set published_at = $1 where slug like 'pg-${stamp}-%'`, [FIXED_TIME]);
-      await db.query(`update collections set updated_at = $1 where slug like 'pgcoll-${stamp}-%'`, [FIXED_TIME]);
+      // 微秒级时间戳：相邻文章相差 700μs（同一毫秒内有多篇、且跨越毫秒边界），
+      // 模拟 SQL 导入/修复脚本等绕过 JS Date 的写入路径，验证毫秒截断排序键的一致性。
+      await db.query(
+        `update contents c set published_at = t.ts from (
+           select id, timestamp '2020-01-01 00:00:00' + (row_number() over (order by slug) * 700) * interval '1 microsecond' as ts
+           from contents where slug like 'pg-${stamp}-%'
+         ) t where c.id = t.id`,
+      );
+      await db.query(`update collections set updated_at = timestamp '2020-01-01 00:00:00.003500' where slug like 'pgcoll-${stamp}-%'`);
+      // 碰撞合集：与 postSlug(1) 同 id、同 updated_at（trunc 后同键同 id，仅剩 kind 决定顺序）
       await db.query(
         `insert into collections (id, slug, title, description, visibility, created_at, updated_at)
-         select id, $1, '碰撞合集', '', 'public', $2, $2 from contents where slug = $3`,
-        [COLLIDE_SLUG, FIXED_TIME, postSlug(1)],
+         select id, $1, '碰撞合集', '', 'public', published_at, published_at from contents where slug = $2`,
+        [COLLIDE_SLUG, postSlug(1)],
       );
     });
   });
 
   test("多页混排遍历：无重复、无遗漏、正确终止", async () => {
+    // 数据前提：published_at 确实含微秒（非毫秒对齐），否则本用例未覆盖精度场景
+    const offGrid = await withDb(
+      async (db) =>
+        (
+          await db.query(
+            `select count(*)::int as n from contents where slug like 'pg-${stamp}-%' and published_at <> date_trunc('milliseconds', published_at)`,
+          )
+        ).rows[0].n,
+    );
+    expect(offGrid, "测试数据未包含微秒级时间戳").toBeGreaterThan(0);
+
     const seen = new Map<string, string>(); // `${kind}:${id}` → slug
     let cursor: string | null = null;
     let pages = 0;

@@ -6,6 +6,7 @@
  * 在独立临时数据库中执行，与主测试库完全隔离。
  */
 import { test, expect } from "@playwright/test";
+import { spawn } from "node:child_process";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -13,7 +14,10 @@ import pg from "pg";
 import { E2E, runId } from "../helpers/env";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const MIGRATIONS_DIR = path.resolve(__dirname, "../../packages/db/drizzle");
+const ROOT = path.resolve(__dirname, "../..");
+const MIGRATIONS_DIR = path.join(ROOT, "packages/db/drizzle");
+const MIGRATE_CLI = path.join(ROOT, "packages/db/src/migrate-cli.ts");
+const TSX = path.join(ROOT, "node_modules/.bin/tsx");
 
 function splitStatements(sql: string): string[] {
   return sql
@@ -28,9 +32,38 @@ function dbUrl(name: string): string {
   return url.toString();
 }
 
+/** 生产迁移入口（与 compose migrate 服务同一命令行）。 */
+function runMigrateCli(dbName: string, migrationsFolder: string): Promise<{ code: number; output: string }> {
+  return new Promise((resolve) => {
+    const child = spawn(TSX, [MIGRATE_CLI], {
+      env: { ...process.env, DATABASE_URL: dbUrl(dbName), MIGRATIONS_FOLDER: migrationsFolder },
+      stdio: ["ignore", "pipe", "pipe"],
+    });
+    let output = "";
+    child.stdout.on("data", (d) => (output += d));
+    child.stderr.on("data", (d) => (output += d));
+    child.on("close", (code) => resolve({ code: code ?? 1, output }));
+  });
+}
+
+/** 复制迁移目录到临时位置，并可只保留 0000（模拟"历史库只应用过 0000"）。 */
+async function stageMigrations(dir: string, onlyFirst: boolean): Promise<string[]> {
+  await fs.rm(dir, { recursive: true, force: true });
+  await fs.cp(MIGRATIONS_DIR, dir, { recursive: true });
+  const files = (await fs.readdir(dir)).filter((f) => f.endsWith(".sql")).sort();
+  expect(files.length).toBeGreaterThanOrEqual(2);
+  if (onlyFirst) {
+    const journalPath = path.join(dir, "meta/_journal.json");
+    const journal = JSON.parse(await fs.readFile(journalPath, "utf8"));
+    journal.entries = journal.entries.slice(0, 1);
+    await fs.writeFile(journalPath, JSON.stringify(journal, null, 2));
+    for (const f of files.slice(1)) await fs.rm(path.join(dir, f));
+  }
+  return files;
+}
+
 test("citext 迁移遇历史大小写冲突：原子失败；清理冲突后成功", async () => {
-  const dbName = `mig_${runId()}`.replace(/[^a-z0-9_]/gi, "_");
-  const admin = new pg.Client({ connectionString: dbUrl("postgres") });
+  const dbName = `mig_${runId()}`.replace(/[^a-z0-9_]/gi, "_");  const admin = new pg.Client({ connectionString: dbUrl("postgres") });
   await admin.connect();
   await admin.query(`CREATE DATABASE ${dbName}`);
   const client = new pg.Client({ connectionString: dbUrl(dbName) });
@@ -86,5 +119,59 @@ test("citext 迁移遇历史大小写冲突：原子失败；清理冲突后成�
     await client.end();
     await admin.query(`DROP DATABASE IF EXISTS ${dbName} WITH (FORCE)`);
     await admin.end();
+  }
+});
+
+/** 生产 Migrator（drizzle migrate-cli → runMigrations）的失败恢复：失败后重跑能正确收敛。 */
+test("生产 Migrator：冲突失败不留下半截状态，清理后重跑恢复", async () => {
+  const dbName = `mig2_${runId()}`.replace(/[^a-z0-9_]/gi, "_");
+  const stageDir = path.join(ROOT, "e2e/.data", `migrations-${dbName}`);
+  const admin = new pg.Client({ connectionString: dbUrl("postgres") });
+  await admin.connect();
+  await admin.query(`CREATE DATABASE ${dbName}`);
+  const client = new pg.Client({ connectionString: dbUrl(dbName) });
+  await client.connect();
+  try {
+    // 场景：历史库只应用过 0000（经生产 migrate-cli 应用，含 drizzle.__drizzle_migrations 记录）
+    const files = await stageMigrations(stageDir, true);
+    const first = await runMigrateCli(dbName, stageDir);
+    expect(first.code, first.output).toBe(0);
+    await client.query(
+      `insert into users (email, username, password_hash) values ('a@example.com', 'Alice', 'x'), ('b@example.com', 'alice', 'x')`,
+    );
+
+    // 补齐 0001 后重跑生产迁移 → 唯一冲突失败
+    await stageMigrations(stageDir, false);
+    const failed = await runMigrateCli(dbName, stageDir);
+    expect(failed.code, "冲突数据下迁移必须失败").not.toBe(0);
+    expect(failed.output).toMatch(/unique|duplicate/i);
+
+    // 失败原子性：迁移记录仍只有 0000，半截 DDL 不可见，数据完好
+    const recorded = await client.query(`select count(*)::int as n from drizzle."__drizzle_migrations"`);
+    expect(recorded.rows[0].n).toBe(1);
+    const userType = await client.query(
+      `select udt_name from information_schema.columns where table_name = 'users' and column_name = 'username'`,
+    );
+    expect(userType.rows[0]?.udt_name).toBe("text");
+    expect((await client.query(`select count(*)::int as n from users`)).rows[0].n).toBe(2);
+
+    // 清理冲突后重跑：恢复成功，迁移记录收敛为 2 条，citext 生效
+    await client.query(`delete from users where username = 'alice'`);
+    const recovered = await runMigrateCli(dbName, stageDir);
+    expect(recovered.code, recovered.output).toBe(0);
+    expect((await client.query(`select count(*)::int as n from drizzle."__drizzle_migrations"`)).rows[0].n).toBe(files.length);
+    const after = await client.query(
+      `select udt_name from information_schema.columns where table_name = 'users' and column_name = 'username'`,
+    );
+    expect(after.rows[0]?.udt_name).toBe("citext");
+
+    // 收敛后重跑幂等（全部已应用，退出码 0）
+    const noop = await runMigrateCli(dbName, stageDir);
+    expect(noop.code, noop.output).toBe(0);
+  } finally {
+    await client.end();
+    await admin.query(`DROP DATABASE IF EXISTS ${dbName} WITH (FORCE)`);
+    await admin.end();
+    await fs.rm(stageDir, { recursive: true, force: true });
   }
 });

@@ -335,6 +335,9 @@ POST /api/auth/password-reset      { email } → 发码；{ email, code, newPass
 GET  /api/auth/me
 
 GET  /api/feed?cursor=             首屏信息流（内容+合集混排，游标分页；不读 session，公开缓存）
+                                   排序键：内容 coalesce(published_at, created_at)、合集 updated_at，统一
+                                   date_trunc('milliseconds',·)（与 JS Date/游标毫秒精度对齐，微秒写入不分页错乱）；
+                                   全序 (sortKey desc, id desc, kind desc)，kind 编入游标；N+1 探测终止
 GET  /api/contents/:slug           内容详情（按权益返回 full | preview；no-store）
 GET  /api/collections/:slug        合集页（成员按权益裁剪正文；no-store）
 GET  /api/tags/:slug?cursor=       标签筛选（公开缓存）

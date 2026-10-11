@@ -64,15 +64,18 @@ export function contentRoutes(deps: AppDeps) {
    * 首屏信息流：内容 + 合集混排（公开缓存；不读 session —— ADR-0003 公开线）
    *
    * 分页不变量：
-   * - 统一排序键：内容 = coalesce(published_at, created_at)，合集 = updated_at；
-   *   SQL 排序、keyset 过滤、合并排序与游标编码使用完全相同的键与 (key desc, id desc) 全序。
-   *   前提：时间字段毫秒精度（publish 只写 new Date()），游标 ISO 编码无损往返。
+   * - 统一排序键：内容 = coalesce(published_at, created_at)，合集 = updated_at，
+   *   全部经 date_trunc('milliseconds', ...) 截断——JS Date 与游标 ISO 编码只有毫秒精度，
+   *   SQL 侧同步截断后三方（排序/过滤/游标）在同一精度上比较，微秒级写入（SQL 导入、
+   *   修复脚本）不会导致跨页遗漏或重复。
+   * - 全序 (sortKey desc, id desc, kind desc)：kind 编入游标，同时间同 id 跨类型不丢不重。
    * - 每侧多取 1 条（N+1）：全局前 N 必然包含于两侧前 N+1 的并集；
    *   hasMore 仅当两侧拉取总数 > N（截断后仍有剩余），无更多时 nextCursor = null。
    */
   app.get("/feed", async (c) => {
     const cursor = decodeCursor(c.req.query("cursor"));
-    const contentSortKey = sql`coalesce(${contents.publishedAt}, ${contents.createdAt})`;
+    const contentSortKey = sql`date_trunc('milliseconds', coalesce(${contents.publishedAt}, ${contents.createdAt}))`;
+    const collectionSortKey = sql`date_trunc('milliseconds', ${collections.updatedAt})`;
     const [contentRows, collectionRows] = await Promise.all([
       deps.db
         .select()
@@ -83,8 +86,8 @@ export function contentRoutes(deps: AppDeps) {
       deps.db
         .select()
         .from(collections)
-        .where(keyset(cursor, collections.updatedAt, collections.id, "collection"))
-        .orderBy(desc(collections.updatedAt), desc(collections.id))
+        .where(keyset(cursor, collectionSortKey, collections.id, "collection"))
+        .orderBy(desc(collectionSortKey), desc(collections.id))
         .limit(FEED_PAGE_SIZE + 1),
     ]);
 
@@ -271,7 +274,7 @@ export function contentRoutes(deps: AppDeps) {
     const tag = tagRows[0];
     if (!tag) return errorResponse(c, 404, "not_found", "标签不存在");
     const cursor = decodeCursor(c.req.query("cursor"));
-    const contentSortKey = sql`coalesce(${contents.publishedAt}, ${contents.createdAt})`;
+    const contentSortKey = sql`date_trunc('milliseconds', coalesce(${contents.publishedAt}, ${contents.createdAt}))`;
     const rows = await deps.db
       .select({ content: contents })
       .from(contentTags)

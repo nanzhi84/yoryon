@@ -116,7 +116,7 @@ pnpm e2e          # 或 cd e2e && pnpm exec playwright test
 - 每次运行：`global-setup.ts` 重建库（drop schema + migrate）、清空存储目录、用 ffmpeg 生成真实媒体 fixture、写 run-id。
 - 存储用文件系统模拟私有桶（`STORAGE_BACKEND=fs`），签名 URL 语义与 OSS 一致（HMAC + expires + 302 + Range）。
 - 可控同步点：`BLOG_PUBLISH_TEST_HOOK=signal-after-upload` + `BLOG_TEST_SIGNAL_DIR` 让发布进程在“已上传未入库”处停住，验证 GC/发布互斥与失败恢复。
-- 49 个用例覆盖全部 16 项验收与 PR 评审安全回归（`e2e/tests/`，用例头注释标注对应验收编号）。工件：`.data/`（api/web 日志、存储、posts）、`test-results/`（失败时 trace/截图）。
+- 50 个用例覆盖全部 16 项验收与 PR 评审安全回归（`e2e/tests/`，用例头注释标注对应验收编号）。工件：`.data/`（api/web 日志、存储、posts）、`test-results/`（失败时 trace/截图）。
 
 ## 关键不变量（实现与测试共同锁定）
 
