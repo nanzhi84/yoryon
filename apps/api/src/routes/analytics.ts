@@ -10,6 +10,7 @@ import { Hono } from "hono";
 import { and, eq, inArray } from "drizzle-orm";
 import { z } from "zod";
 import { ANALYTICS_MAX_BATCH, RATE_LIMITS } from "@yoryon/config";
+import { readBodyCapped } from "@yoryon/core";
 import { analyticsEvents, collections, contents } from "@yoryon/db";
 import type { AppDeps } from "../deps";
 import { errorResponse } from "../errors";
@@ -54,11 +55,10 @@ export function analyticsRoutes(deps: AppDeps) {
       return errorResponse(c, 429, "rate_limited", "请求过于频繁，请稍后再试");
     }
 
-    // 字节上限双检查：Content-Length 声明值 + 实际读取值（覆盖 chunked 缺声明的场景）
-    const declared = Number(c.req.header("content-length") ?? 0);
-    if (declared > MAX_BODY_BYTES) return errorResponse(c, 413, "payload_too_large", "请求体过大");
-    const raw = await c.req.text();
-    if (raw.length > MAX_BODY_BYTES) return errorResponse(c, 413, "payload_too_large", "请求体过大");
+    // 字节上限：有上限流式读取（Content-Length 预检 + 逐 chunk 字节累计），
+    // chunked 无声明长度也能在 EOF 前中止；多字节字符不会绕过（按 byteLength 计）
+    const raw = await readBodyCapped(c.req.raw, MAX_BODY_BYTES);
+    if (raw === null) return errorResponse(c, 413, "payload_too_large", "请求体过大");
     let body: unknown;
     try {
       body = JSON.parse(raw);

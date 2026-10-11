@@ -53,7 +53,8 @@ POST /api/analytics/events        （经同源 BFF；批量，单批 ≤ 20 条�
 }
 → 200 { accepted: n }              // 非法目标（不存在/未发布）静默丢弃，不视为错误
 → 400 invalid_json | invalid_events
-→ 413 payload_too_large            // 请求体 > 32KB（BFF 按 Content-Length 预拦截，API 双检查）
+→ 413 payload_too_large            // 请求体 > 32KB（BFF 与 API 双侧有上限流式读取：
+                                   // Content-Length 预检 + 逐 chunk 字节累计，chunked/多字节不绕过）
 → 429 rate_limited                 // IP 维度限流（60 批/分钟，E2E 可经 RATE_LIMIT_SCALE 放大）
 ```
 

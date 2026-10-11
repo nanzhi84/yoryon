@@ -299,16 +299,39 @@ test("ingest：白名单校验、单批上限、placement 语义、非法目标�
     expect(r.json.accepted).toBe(0);
   }
 
-  // 大载荷（>32KB）：BFF 按 Content-Length 预拦截，API 按声明值+实际长度双检查，均 413
+  // 大载荷（>32KB）三条路径均 413：
+  // 1) 有 Content-Length 的 ASCII 体（预检拒绝）；2) 多字节字符体（字符串 length < 32K 但字节数 > 32KB，不能绕过）；
+  // 3) chunked 无 Content-Length 的流式体（EOF 前中止）。BFF 与 API 双侧各自验证。
   const big = { events: [{ ...base, eventType: "view", eventId: randomUUID(), pad: "x".repeat(40 * 1024) }] };
-  const bigApi = await apiCall("/api/analytics/events", big, { asBff });
-  expect(bigApi.status).toBe(413);
+  const bigMultibyte = { events: [{ ...base, eventType: "view", eventId: randomUUID(), pad: "中".repeat(12 * 1024) }] }; // ≈36KB UTF-8
+  const chunkedPost = (url: string, payload: unknown, headers: Record<string, string>) =>
+    fetch(url, {
+      method: "POST",
+      headers: { "content-type": "application/json", ...headers },
+      body: new ReadableStream({
+        start(c) {
+          c.enqueue(new TextEncoder().encode(JSON.stringify(payload)));
+          c.close();
+        },
+      }),
+      // @ts-expect-error Node fetch 流式请求体要求 duplex
+      duplex: "half",
+    });
+  expect((await apiCall("/api/analytics/events", big, { asBff })).status).toBe(413);
+  expect((await apiCall("/api/analytics/events", bigMultibyte, { asBff })).status).toBe(413);
+  const chunkedApi = await chunkedPost(`${E2E.apiUrl}/api/analytics/events`, big, {
+    "x-bff-token": E2E.bffSecret,
+    "x-client-ip": "203.0.113.10",
+  });
+  expect(chunkedApi.status).toBe(413);
   const bigBff = await fetch(`${E2E.webUrl}/api/analytics/events`, {
     method: "POST",
     headers: { "content-type": "application/json", origin: E2E.webUrl },
     body: JSON.stringify(big),
   });
   expect(bigBff.status).toBe(413);
+  const chunkedBff = await chunkedPost(`${E2E.webUrl}/api/analytics/events`, bigMultibyte, { origin: E2E.webUrl });
+  expect(chunkedBff.status).toBe(413);
 });
 
 test("CLI：overview/top/content/collection 输出四项指标与 N/A；prune 清理过期事件", async () => {
