@@ -36,7 +36,7 @@ export const users = pgTable(
   {
     id: uuid("id").primaryKey().defaultRandom(),
     email: citext("email").notNull(),
-    username: text("username").notNull(),
+    username: citext("username").notNull(),
     passwordHash: text("password_hash").notNull(),
     role: text("role", { enum: ["admin", "user"] }).notNull().default("user"),
     status: text("status", { enum: ["pending", "active", "disabled"] }).notNull().default("pending"),
@@ -84,7 +84,7 @@ export const contents = pgTable(
     bodyMarkdown: text("body_markdown").notNull().default(""),
     status: text("status", { enum: ["draft", "published"] }).notNull().default("draft"),
     visibility: text("visibility", { enum: ["public", "paid"] }).notNull().default("public"),
-    previewMode: text("preview_mode", { enum: ["full", "percent", "marker", "none"] }).notNull().default("full"),
+    previewMode: text("preview_mode", { enum: ["full", "percent", "marker", "none"] }).notNull().default("none"),
     previewPercent: integer("preview_percent"),
     coverMediaId: uuid("cover_media_id").references((): any => mediaAssets.id),
     publishedAt: timestamp("published_at", { withTimezone: true, mode: "date" }),

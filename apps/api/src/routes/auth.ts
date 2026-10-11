@@ -3,7 +3,7 @@
  * API 只认 Bearer；Cookie 的设置与清除由 BFF 完成（login/verify-email 返回 token，由 BFF 转 Set-Cookie）。
  */
 import { Hono } from "hono";
-import { and, desc, eq, gt, isNull, or, sql } from "drizzle-orm";
+import { and, desc, eq, gt, isNull, or } from "drizzle-orm";
 import { z } from "zod";
 import { emailVerifications, sessions, users } from "@yoryon/db";
 import {
@@ -47,6 +47,7 @@ const resetSchema = z.object({
 });
 
 type Ctx = Context<{ Variables: AppVariables }>;
+type AuthDeps = Omit<AppDeps, "db"> & { db: Pick<AppDeps["db"], "select" | "insert" | "update" | "delete"> };
 
 /** 限流检查：unknown IP 桶阈值减半（ADR-0001 §9.5）。 */
 export function checkRate(deps: AppDeps, c: Ctx, buckets: { key: string; limit: number; windowMs: number }[]): Response | null {
@@ -63,7 +64,7 @@ export function checkRate(deps: AppDeps, c: Ctx, buckets: { key: string; limit: 
   return null;
 }
 
-async function createSession(deps: AppDeps, c: Ctx, userId: string) {
+async function createSession(deps: AuthDeps, c: Ctx, userId: string) {
   const { token, tokenHash } = generateSessionToken();
   const expiresAt = new Date(Date.now() + SESSION_TTL_MS);
   await deps.db.insert(sessions).values({
@@ -100,13 +101,14 @@ type CodeCheck =
   | { ok: true; verificationId: string }
   | { ok: false; status: 400 | 429; code: string; message: string };
 
-async function checkVerificationCode(deps: AppDeps, email: string, purpose: "register" | "password_reset", code: string): Promise<CodeCheck> {
+async function checkVerificationCode(deps: AuthDeps, email: string, purpose: "register" | "password_reset", code: string): Promise<CodeCheck> {
   const rows = await deps.db
     .select()
     .from(emailVerifications)
     .where(and(eq(emailVerifications.email, email), eq(emailVerifications.purpose, purpose), isNull(emailVerifications.consumedAt)))
     .orderBy(desc(emailVerifications.createdAt))
-    .limit(1);
+    .limit(1)
+    .for("update");
   const v = rows[0];
   if (!v) return { ok: false, status: 400, code: "invalid_code", message: "验证码无效或已使用" };
   if (v.expiresAt <= new Date()) return { ok: false, status: 400, code: "code_expired", message: "验证码已过期，请重新获取" };
@@ -121,7 +123,7 @@ async function checkVerificationCode(deps: AppDeps, email: string, purpose: "reg
   return { ok: true, verificationId: v.id };
 }
 
-async function consumeVerification(deps: AppDeps, id: string) {
+async function consumeVerification(deps: AuthDeps, id: string) {
   await deps.db.update(emailVerifications).set({ consumedAt: new Date() }).where(eq(emailVerifications.id, id));
 }
 
@@ -146,10 +148,21 @@ export function authRoutes(deps: AppDeps) {
     }
 
     const passwordHash = await hashPassword(password);
-    if (existing) {
-      await deps.db.update(users).set({ username, passwordHash, updatedAt: new Date() }).where(eq(users.id, existing.id));
-    } else {
-      await deps.db.insert(users).values({ email, username, passwordHash });
+    try {
+      if (existing) {
+        await deps.db.update(users).set({ username, passwordHash, updatedAt: new Date() }).where(eq(users.id, existing.id));
+      } else {
+        await deps.db.insert(users).values({ email, username, passwordHash });
+      }
+    } catch (error) {
+      // 唯一索引是并发注册的最终防线；Drizzle 可能包装驱动错误。
+      const wrapped = error as { cause?: { code?: string; constraint?: string }; code?: string; constraint?: string };
+      const pgError = wrapped.cause ?? wrapped;
+      if (pgError.code === "23505") {
+        const usernameConflict = pgError.constraint === "users_username_unique";
+        return errorResponse(c, 409, usernameConflict ? "username_taken" : "email_taken", "邮箱或用户名已被使用");
+      }
+      throw error;
     }
     await issueVerificationCode(deps, email, "register");
     return c.json({ ok: true });
@@ -160,18 +173,21 @@ export function authRoutes(deps: AppDeps) {
     if (!body.success) return errorResponse(c, 400, "invalid_request", "参数错误");
     const { email, code } = body.data;
 
-    const userRows = await deps.db.select().from(users).where(eq(users.email, email)).limit(1);
-    const user = userRows[0];
-    if (!user || user.status !== "pending") {
-      return errorResponse(c, 400, "invalid_code", "验证码无效或账号状态异常");
-    }
-    const check = await checkVerificationCode(deps, email, "register", code);
-    if (!check.ok) return errorResponse(c, check.status, check.code, check.message);
-    await consumeVerification(deps, check.verificationId);
-    await deps.db.update(users).set({ status: "active", updatedAt: new Date() }).where(eq(users.id, user.id));
-
-    const session = await createSession(deps, c, user.id);
-    return c.json({ token: session.token, expiresAt: session.expiresAt.toISOString(), user: publicUser({ ...user, status: "active" }) });
+    return deps.db.transaction(async (tx) => {
+      const txDeps = { ...deps, db: tx };
+      const userRows = await tx.select().from(users).where(eq(users.email, email)).limit(1);
+      const user = userRows[0];
+      if (!user || user.status !== "pending") {
+        return errorResponse(c, 400, "invalid_code", "验证码无效或账号状态异常");
+      }
+      const check = await checkVerificationCode(txDeps, email, "register", code);
+      if (!check.ok) return errorResponse(c, check.status, check.code, check.message);
+      await consumeVerification(txDeps, check.verificationId);
+      await tx.update(users).set({ status: "active", updatedAt: new Date() }).where(eq(users.id, user.id));
+  
+      const session = await createSession(txDeps, c, user.id);
+      return c.json({ token: session.token, expiresAt: session.expiresAt.toISOString(), user: publicUser({ ...user, status: "active" }) });
+    });
   });
 
   app.post("/resend-code", async (c) => {
@@ -216,7 +232,8 @@ export function authRoutes(deps: AppDeps) {
     const rows = await deps.db
       .select()
       .from(users)
-      .where(or(eq(users.email, emailOrUsername), sql`lower(${users.username}) = lower(${emailOrUsername})`))
+      // email 与 username 均为 citext：等值比较天然不区分大小写，且可走唯一索引
+      .where(or(eq(users.email, emailOrUsername), eq(users.username, emailOrUsername)))
       .limit(1);
     const user = rows[0];
     // 用户不存在时也执行一次校验，钝化时间侧信道
@@ -259,16 +276,20 @@ export function authRoutes(deps: AppDeps) {
 
     // 阶段二：重置
     if (!code || !newPassword) return errorResponse(c, 400, "invalid_request", "参数错误");
-    const userRows = await deps.db.select().from(users).where(eq(users.email, email)).limit(1);
-    const user = userRows[0];
-    if (!user || user.status !== "active") return errorResponse(c, 400, "invalid_code", "验证码无效或账号状态异常");
-    const check = await checkVerificationCode(deps, email, "password_reset", code);
-    if (!check.ok) return errorResponse(c, check.status, check.code, check.message);
-    await consumeVerification(deps, check.verificationId);
-    await deps.db.update(users).set({ passwordHash: await hashPassword(newPassword), updatedAt: new Date() }).where(eq(users.id, user.id));
-    // 重置密码 → 撤销该用户全部会话（ADR §9.3）
-    await deps.db.delete(sessions).where(eq(sessions.userId, user.id));
-    return c.json({ ok: true });
+    const passwordHash = await hashPassword(newPassword);
+    return deps.db.transaction(async (tx) => {
+      const txDeps = { ...deps, db: tx };
+      const userRows = await tx.select().from(users).where(eq(users.email, email)).limit(1);
+      const user = userRows[0];
+      if (!user || user.status !== "active") return errorResponse(c, 400, "invalid_code", "验证码无效或账号状态异常");
+      const check = await checkVerificationCode(txDeps, email, "password_reset", code);
+      if (!check.ok) return errorResponse(c, check.status, check.code, check.message);
+      await consumeVerification(txDeps, check.verificationId);
+      await tx.update(users).set({ passwordHash: passwordHash, updatedAt: new Date() }).where(eq(users.id, user.id));
+      // 重置密码 → 撤销该用户全部会话（ADR §9.3）
+      await tx.delete(sessions).where(eq(sessions.userId, user.id));
+      return c.json({ ok: true });
+    });
   });
 
   app.get("/me", async (c) => {

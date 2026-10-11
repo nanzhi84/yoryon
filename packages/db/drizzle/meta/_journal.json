@@ -8,6 +8,13 @@
       "when": 1791655080601,
       "tag": "0000_long_lockjaw",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791684271076,
+      "tag": "0001_foamy_archangel",
+      "breakpoints": true
     }
   ]
 }

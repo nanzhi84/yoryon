@@ -8,7 +8,7 @@
  *
  * 截断在 AST 层进行，绝不直接切割 Markdown 源码；媒体块为原子单位。
  */
-import type { Root, RootContent } from "mdast";
+import type { Root, RootContent, PhrasingContent } from "mdast";
 import { toMarkdown } from "mdast-util-to-markdown";
 import { directiveToMarkdown } from "mdast-util-directive";
 import { collectStoredMediaIds, isMediaBlock, parseMarkdown } from "./markdown";
@@ -27,7 +27,11 @@ export interface PreviewResult {
   allMediaIds: string[];
 }
 
-const MARKER_RE = /<!--\s*more\s*-->/i;
+const MARKER_RE = /^<!--\s*more\s*-->$/i;
+
+export function hasPreviewMarker(markdown: string): boolean {
+  return parseMarkdown(markdown).children.some((b) => b.type === "html" && MARKER_RE.test(b.value.trim()));
+}
 
 /** 文本块按字符数计权：取块在源文中的原始片段长度。 */
 function blockWeight(node: RootContent, source: string, mediaBlockWeight: number): number {
@@ -38,6 +42,31 @@ function blockWeight(node: RootContent, source: string, mediaBlockWeight: number
   }
   // 无位置信息时退化为固定权重（remark-parse 总是带 position）
   return 32;
+}
+
+/** 只细分纯文本/强调/链接段落；含媒体、HTML 或其它原子节点的段落保守保留到付费区。 */
+function textPrefix<T extends RootContent & { children: PhrasingContent[] }>(node: T, budget: number): T | null {
+  const supported = (n: PhrasingContent): boolean =>
+    n.type === "text" || ((n.type === "strong" || n.type === "emphasis" || n.type === "link") && n.children.every(supported));
+  if (budget <= 0 || !node.children.every(supported)) return null;
+  const take = (children: PhrasingContent[]): PhrasingContent[] => {
+    const out: PhrasingContent[] = [];
+    for (const child of children) {
+      if (budget <= 0) break;
+      if (child.type === "text") {
+        const chars = Array.from(child.value);
+        const value = chars.slice(0, budget).join("");
+        budget -= Math.min(budget, chars.length);
+        if (value) out.push({ ...child, value });
+      } else if (child.type === "strong" || child.type === "emphasis" || child.type === "link") {
+        const nested = take(child.children);
+        if (nested.length) out.push({ ...child, children: nested });
+      }
+    }
+    return out;
+  };
+  const children = take(node.children);
+  return children.length ? { ...node, children } : null;
 }
 
 export interface TruncateOptions {
@@ -69,11 +98,12 @@ export function truncateForPreview(
       break;
     case "marker": {
       const idx = blocks.findIndex(
-        (b) => b.type === "html" && MARKER_RE.test((b as { value: string }).value),
+        (b) => b.type === "html" && MARKER_RE.test((b as { value: string }).value.trim()),
       );
       if (idx === -1) {
-        freeBlocks = blocks;
-        paidBlocks = [];
+        // 历史异常内容也 fail closed；发布入口会拒绝缺失标记。
+        freeBlocks = [];
+        paidBlocks = blocks;
       } else {
         freeBlocks = blocks.slice(0, idx);
         paidBlocks = blocks.slice(idx + 1);
@@ -97,6 +127,11 @@ export function truncateForPreview(
       }
       freeBlocks = blocks.slice(0, cut);
       paidBlocks = blocks.slice(cut);
+      const boundary = blocks[cut];
+      if (boundary?.type === "paragraph" || boundary?.type === "heading") {
+        const partial = textPrefix(boundary, Math.floor(budget - acc));
+        if (partial) freeBlocks.push(partial);
+      }
       break;
     }
   }

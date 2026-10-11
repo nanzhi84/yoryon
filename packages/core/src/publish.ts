@@ -25,7 +25,7 @@ import {
 } from "@yoryon/db";
 import { PUBLISH_GC_LOCK_NAME } from "@yoryon/config";
 import { collectRelativeMediaRefs, collectStoredMediaIds, parseMarkdown, rewriteMediaRefs } from "./markdown";
-import { stringifyMarkdown, truncateForPreview } from "./preview";
+import { hasPreviewMarker, stringifyMarkdown, truncateForPreview } from "./preview";
 import { contentAddressedKey, type MediaStorage } from "./storage";
 import { acquirePublishGcLock, type LockClient } from "./locks";
 import type pg from "pg";
@@ -42,16 +42,19 @@ const frontmatterSchema = z.object({
   visibility: z.enum(["public", "paid"]).default("public"),
   preview: z
     .object({
-      mode: z.enum(["full", "percent", "marker", "none"]).default("full"),
+      mode: z.enum(["full", "percent", "marker", "none"]).optional(),
       percent: z.number().int().min(1).max(99).optional(),
     })
-    .default({ mode: "full" }),
+    .default({}),
   tags: z.array(z.string()).default([]),
   collections: z.array(z.string()).default([]),
   published_at: z.coerce.date().optional(),
   cover: z.string().optional(),
   media: z.string().optional(),
-});
+}).transform((fm) => ({
+  ...fm,
+  preview: { ...fm.preview, mode: fm.preview.mode ?? (fm.visibility === "paid" ? "none" as const : "full" as const) },
+}));
 
 export type PostFrontmatter = z.infer<typeof frontmatterSchema>;
 
@@ -74,6 +77,9 @@ export async function parsePostDir(dir: string): Promise<ParsedPost> {
   }
   if (fm.preview.mode === "percent" && fm.preview.percent === undefined) {
     throw new Error(`${indexPath}: preview.mode=percent 需要 percent（1-99）`);
+  }
+  if (fm.preview.mode === "marker" && !hasPreviewMarker(m[2]!)) {
+    throw new Error(`${indexPath}: preview.mode=marker 需要独立的 <!-- more --> 标记`);
   }
   return { frontmatter: fm, bodyMarkdown: m[2]!, dir };
 }
@@ -270,7 +276,7 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
       }
       for (const mid of bodyIds) {
         if (rows.some((r) => r.mediaId === mid)) continue; // 同一媒体多引用合并为一条边
-        rows.push({ contentId, mediaId: mid, position: position++, exposure: freeSet.has(mid) ? "free" : "paid" });
+        rows.push({ contentId, mediaId: mid, position: position++, exposure: fm.visibility === "public" || freeSet.has(mid) ? "free" : "paid" });
       }
       if (rows.length > 0) await tx.insert(contentMedia).values(rows);
 
