@@ -1,0 +1,11 @@
+DELETE 46
+DELETE 184
+ remaining_audit_contents
+--------------------------
+                        0
+(1 row)
+
+ remaining_audit_events
+------------------------
+                      0
+(1 row)

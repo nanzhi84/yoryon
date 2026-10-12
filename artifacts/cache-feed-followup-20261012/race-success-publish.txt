@@ -1,0 +1,5 @@
+$ pnpm --filter @yoryon/cli start publish /tmp/yoryon-race/race-success
+$ tsx --env-file=../../.env src/index.ts publish /tmp/yoryon-race/race-success
+  published: race-success (content 5f2b6d6f-afe9-4b05-ae31-7333376448e6)
+  cache fad4435f-03b4-46ee-a8ac-b5a4f2060b77: pending (retry exhausted; blog cache retry)
+✓ race-success database committed (0 uploaded, 0 reused); page state is reported by cache event above

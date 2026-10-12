@@ -1,0 +1,7 @@
+{
+  "git": {
+    "deploymentEnabled": {
+      "fix/cache-permission-feed-recovery": false
+    }
+  }
+}

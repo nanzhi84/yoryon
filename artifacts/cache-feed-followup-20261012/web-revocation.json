@@ -1,0 +1,44 @@
+[
+  {
+    "path": "/p/audit-00",
+    "status": 200,
+    "cache": null,
+    "visible": true,
+    "restricted": false
+  },
+  {
+    "path": "/render/1659b9c8-756c-4061-8c06-94506098f743/audit-00",
+    "status": 404,
+    "cache": null,
+    "visible": false,
+    "restricted": false
+  },
+  {
+    "path": "/p/audit-01",
+    "status": 200,
+    "cache": null,
+    "visible": true,
+    "restricted": false
+  },
+  {
+    "path": "/render/9f718f17-679f-4f83-982b-7653575f5826/audit-01",
+    "status": 404,
+    "cache": null,
+    "visible": false,
+    "restricted": false
+  },
+  {
+    "path": "/p/audit-02",
+    "status": 200,
+    "cache": null,
+    "visible": true,
+    "restricted": false
+  },
+  {
+    "path": "/render/1388c94f-5ca5-4886-9359-3fcb7f0dd2fe/audit-02",
+    "status": 404,
+    "cache": null,
+    "visible": false,
+    "restricted": false
+  }
+]

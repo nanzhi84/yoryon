@@ -1,0 +1,13 @@
+{
+  "beforeMarker": false,
+  "apiMarker": true,
+  "cachedCanonicalMarker": false,
+  "cache": [
+    {
+      "kind": "FETCH",
+      "revalidate": 86400,
+      "url": "http://127.0.0.1:4439/api/public/contents/audit-03?revision=4de71379-f5d9-4e23-9d2b-10a5fb1c329e",
+      "status": 200
+    }
+  ]
+}

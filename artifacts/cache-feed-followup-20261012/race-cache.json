@@ -1,0 +1,22 @@
+[
+  {
+    "file": "apps/web/.next/cache/fetch-cache/0768409e3e50c442f7f86816158b7eddbff183e9c23d2893bbfd5416bc25a53b",
+    "sha256": "683762e235baf60a4d59adcf2ae4b030b0a45de0602555c766ece8a29dd99806",
+    "mtime_ns": 1791820009048334281,
+    "revalidate": 86400,
+    "url": "http://127.0.0.1:4439/api/public/contents/race-refresh?revision=17cc820d-e649-47e1-970f-3f5c531038d9",
+    "revision": "17cc820d-e649-47e1-970f-3f5c531038d9",
+    "access": "preview",
+    "restricted": false
+  },
+  {
+    "file": "apps/web/.next/cache/fetch-cache/f3831ed7cfa43d37eaadb02c6ba1029fd909c314b55f360588a468c86efe1b28",
+    "sha256": "1bf702658e7efc1137744bfea1fe3c20a8b74b7f43542122cdd1cbf056c563d0",
+    "mtime_ns": 1791820008900341051,
+    "revalidate": 86400,
+    "url": "http://127.0.0.1:4439/api/public/contents/race-refresh?revision=f124123b-1e84-4a52-8096-d8015b316cd7",
+    "revision": "f124123b-1e84-4a52-8096-d8015b316cd7",
+    "access": "full",
+    "restricted": true
+  }
+]
