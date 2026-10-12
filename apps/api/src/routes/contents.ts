@@ -143,8 +143,8 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
    * 只出元数据（标题/摘要/时间/封面）——正文访问仍由 /api/contents/:slug 逐篇判定权益；
    * 排序无置顶（置顶是首页概念），二元游标 (sortKey, id)。
    */
-  app.get("/paid-feed", async (c) => {
-    const version = await policy.version();
+  app.get("/paid-feed", async (c) => deps.db.transaction(async tx => {
+    const version = await policy.version(tx);
     if (c.req.query("version") && c.req.query("version") !== version) return errorResponse(c, 409, "snapshot_expired", "列表已更新，请刷新页面");
     const rawCursor = c.req.query("cursor");
     const cursor = decodeTagCursor(rawCursor);
@@ -159,7 +159,7 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
         )!,
       );
     }
-    const rows = await deps.db
+    const rows = await tx
       .select(listContentColumns)
       .from(contents)
       .where(and(...conds))
@@ -168,7 +168,7 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
     const page = rows.slice(0, FEED_PAGE_SIZE);
     const pageIds = page.map((r) => r.id);
     const tagRows = pageIds.length
-      ? await deps.db
+      ? await tx
           .select({ contentId: contentTags.contentId, slug: tags.slug, name: tags.name })
           .from(contentTags)
           .innerJoin(tags, eq(contentTags.tagId, tags.id))
@@ -193,7 +193,7 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
       })),
       nextCursor: rows.length > FEED_PAGE_SIZE && last ? encodeTagCursor(last.publishedAt ?? last.createdAt, last.id) : null,
     });
-  });
+  }, { isolationLevel: "repeatable read", accessMode: "read only" }));
 
   /** 标签总览（公开线；探索页用）：含已发布内容数，按数量降序。 */
   app.get("/tags", async (c) => {

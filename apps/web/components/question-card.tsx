@@ -1,9 +1,11 @@
 "use client";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { QuestionItem } from "@/lib/types";
 import { Avatar } from "./avatar";
 export function QuestionCard({ item, onPrivacyChanged }: { item: QuestionItem; onPrivacyChanged?: () => void }) {
+  const router = useRouter();
   const [question, setQuestion] = useState(item);
   useEffect(() => setQuestion(item), [item]);
   const [busy, setBusy] = useState(false);
@@ -15,7 +17,7 @@ export function QuestionCard({ item, onPrivacyChanged }: { item: QuestionItem; o
       const res = await fetch(`/api/questions/${question.id}`, { method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify({ visibility: question.visibility === "private" ? "public" : "private" }) });
       const data = await res.json() as { item?: QuestionItem; error?: { message?: string } };
       if (!res.ok || !data.item) throw new Error(data.error?.message ?? "隐私修改失败");
-      setQuestion(data.item); onPrivacyChanged?.();
+      setQuestion(data.item); if (onPrivacyChanged) onPrivacyChanged(); else router.refresh();
     } catch (e) { setError(e instanceof Error ? e.message : "网络错误，请重试"); } finally { setBusy(false); }
   }
   return <article id={`question-${question.id}`} className="space-y-3 py-6">

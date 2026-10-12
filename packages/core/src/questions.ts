@@ -4,8 +4,8 @@
  * - 月度配额：每自然月（Asia/Shanghai）1 问，唯一索引 (user_id, month_key) 兜底并发；不累积、续订不重复发放。
  * - 可见性：公开问答的问题全员可读；回答仅有效订阅会员与提问者本人可读；私密问答仅提问者与管理员（CLI）可见。
  */
-import { and, eq } from "drizzle-orm";
-import { entitlements, memberQuestions, notifications, users, type Database, type MemberQuestion } from "@yoryon/db";
+import { eq, sql } from "drizzle-orm";
+import { memberQuestions, notifications, users, type Database, type MemberQuestion } from "@yoryon/db";
 import { deterministicUuid } from "./notification-events";
 import { hasActiveSubscription, monthKeyShanghai } from "./membership";
 import type { AccessUser } from "./entitlements";
@@ -63,15 +63,15 @@ export async function askQuestion(
  */
 export async function answerQuestion(
   db: Database,
-  params: { id: string; answer: string; answeredBy: string; now?: Date },
+  params: { id: string; answer: string; answeredBy: string },
 ): Promise<QuestionResult<{ question: MemberQuestion; firstAnswer: boolean }>> {
   if (typeof params.answer !== "string" || !params.answer.trim() || [...params.answer.trim()].length > 20000) return { ok: false, error: "invalid_question" };
-  const now = params.now ?? new Date();
   return db.transaction(async (tx) => {
     const rows = await tx.select().from(memberQuestions).where(eq(memberQuestions.id, params.id)).limit(1).for("update");
     const q = rows[0];
     if (!q) return { ok: false, error: "not_found" };
     if (q.status === "hidden") return { ok: false, error: "forbidden" }; // 已隐藏不回答
+    const now = new Date();
     const firstAnswer = q.status !== "answered";
     const updated = await tx
       .update(memberQuestions)
@@ -98,11 +98,10 @@ export async function answerQuestion(
 }
 
 /** 隐藏不适当问答（CLI）：任何状态 → hidden；不出现在公开问答流，会员互动由接口层拒绝。 */
-export async function hideQuestion(db: Database, params: { id: string; now?: Date }): Promise<QuestionResult<MemberQuestion>> {
-  const now = params.now ?? new Date();
+export async function hideQuestion(db: Database, params: { id: string }): Promise<QuestionResult<MemberQuestion>> {
   const rows = await db
     .update(memberQuestions)
-    .set({ status: "hidden", updatedAt: now })
+    .set({ status: "hidden", updatedAt: sql`greatest(${memberQuestions.updatedAt}, date_trunc('milliseconds', clock_timestamp()))` })
     .where(eq(memberQuestions.id, params.id))
     .returning();
   return rows[0] ? { ok: true, value: rows[0] } : { ok: false, error: "not_found" };

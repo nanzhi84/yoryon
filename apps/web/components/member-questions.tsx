@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import type { QuestionItem, QuestionPage } from "@/lib/types";
 import { Button } from "./ui/button";
@@ -16,16 +16,24 @@ export function MemberQuestions({ active, remaining, authenticated, onAsked }: {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [receipt, setReceipt] = useState<string | null>(null);
+  const scopeRef = useRef(scope); scopeRef.current = scope;
+  const requests = useRef<AbortController | null>(null);
   const load = useCallback(async (next: string | null, signal?: AbortSignal) => {
-    const res = await fetch(`/api/questions/${scope}${next ? `?cursor=${encodeURIComponent(next)}` : ""}`, { cache: "no-store", ...(signal ? { signal } : {}) });
+    if (scopeRef.current !== scope) return;
+    const requestSignal = signal ?? requests.current?.signal;
+    let res: Response;
+    try { res = await fetch(`/api/questions/${scope}${next ? `?cursor=${encodeURIComponent(next)}` : ""}`, { cache: "no-store", signal: requestSignal ?? null }); }
+    catch (e) { if (requestSignal?.aborted) return; throw e; }
+    if (requestSignal?.aborted || scopeRef.current !== scope) return;
     if (res.status === 409) { setError("问答有新活动，请刷新列表"); setCursor(null); return; }
     if (!res.ok) throw new Error("问答加载失败，请重试");
     const data = await res.json() as QuestionPage;
+    if (requestSignal?.aborted || scopeRef.current !== scope) return;
     setItems(old => next ? [...new Map([...old, ...data.items].map(q => [q.id, q])).values()] : data.items);
     setCursor(data.nextCursor); setError(null);
   }, [scope]);
   useEffect(() => {
-    const abort = new AbortController(); setItems([]); setCursor(null); setLoading(true);
+    const abort = new AbortController(); requests.current = abort; setItems([]); setCursor(null); setError(null); setLoading(true); setPaging(false);
     load(null, abort.signal).catch(e => { if (!abort.signal.aborted) setError(e.message); }).finally(() => { if (!abort.signal.aborted) setLoading(false); });
     return () => abort.abort();
   }, [load]);
@@ -36,10 +44,16 @@ export function MemberQuestions({ active, remaining, authenticated, onAsked }: {
       const res = await fetch("/api/questions", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ question: draft, visibility: privateQuestion ? "private" : "public" }) });
       const data = await res.json() as { item?: QuestionItem; error?: { message?: string } };
       if (!res.ok) throw new Error(data.error?.message ?? "提交失败，请重试");
-      setDraft(""); setReceipt("问题已提交，等待创作者回答"); await onAsked(); await load(null);
+      setDraft(""); setReceipt("问题已提交，等待创作者回答"); await onAsked(); await refresh();
     } catch (e) { setSubmitError(e instanceof Error ? e.message : "网络错误，请重试"); } finally { setSubmitting(false); }
   }
-  async function refresh() { setLoading(true); try { await load(null); } catch (e) { setError(e instanceof Error ? e.message : "网络错误"); } finally { setLoading(false); } }
+  async function refresh() {
+    if (scopeRef.current !== scope) return;
+    requests.current?.abort(); const abort = new AbortController(); requests.current = abort;
+    setLoading(true); setPaging(false);
+    try { await load(null, abort.signal); } catch (e) { if (!abort.signal.aborted) setError(e instanceof Error ? e.message : "网络错误"); }
+    finally { if (!abort.signal.aborted) setLoading(false); }
+  }
   return <section aria-label="会员问答"><h2 className="text-xl font-medium">会员问答</h2><p className="mt-2 text-sm text-muted-foreground">公开问题所有人可读，回答和讨论向会员开放。每个自然月可提问一次。</p>
     {active && remaining > 0 ? <form onSubmit={submit} className="mt-5 space-y-3">
       <label htmlFor="member-question" className="text-sm font-medium">向创作者提问</label>

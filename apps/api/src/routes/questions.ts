@@ -1,5 +1,6 @@
 /** 私有 no-store：公共问题和会员回答分别投影，答案不会进入公共缓存。 */
 import { and, desc, eq, lt, ne, or, sql, type SQL } from "drizzle-orm";
+import { bodyLimit } from "hono/body-limit";
 import { Hono } from "hono";
 import { memberQuestions, users, type MemberQuestion } from "@yoryon/db";
 import { askQuestion, hasActiveSubscription, monthKeyShanghai, remainingQuestionQuota, subscriptionValidUntil, toAuthorDto, validateQuestionText } from "@yoryon/core";
@@ -39,6 +40,7 @@ export function questionItem(q: MemberQuestion, author: Parameters<typeof toAuth
 export function questionRoutes(deps: AppDeps) {
   const app = new Hono<{ Variables: AppVariables }>();
   app.use("*", async (c, next) => { c.header("Cache-Control", "private, no-store"); await next(); });
+  app.use("*", bodyLimit({ maxSize: 32 * 1024, onError: c => errorResponse(c, 413, "payload_too_large", "请求体过大") }));
   for (const scope of ["public", "mine"] as const) {
     app.get(`/questions/${scope}`, async c => {
       const auth = c.get("auth");
@@ -91,7 +93,7 @@ export function questionRoutes(deps: AppDeps) {
     if (!uuidRe.test(c.req.param("id"))) return errorResponse(c, 404, "not_found", "问答不存在");
     const body = await c.req.json().catch(() => null) as { visibility?: unknown } | null;
     if (!body || (body.visibility !== "public" && body.visibility !== "private")) return errorResponse(c, 400, "invalid_request", "隐私只能是 public 或 private");
-    const rows = await deps.db.update(memberQuestions).set({ visibility: body.visibility, updatedAt: new Date() })
+    const rows = await deps.db.update(memberQuestions).set({ visibility: body.visibility, updatedAt: sql`greatest(${memberQuestions.updatedAt}, date_trunc('milliseconds', clock_timestamp()))` })
       .where(and(eq(memberQuestions.id, c.req.param("id")), eq(memberQuestions.userId, auth.user.id), ne(memberQuestions.status, "hidden"))).returning();
     if (!rows[0]) return errorResponse(c, 404, "not_found", "问答不存在或不可修改");
     return c.json({ item: questionItem(rows[0], auth.user, auth.user, false) });

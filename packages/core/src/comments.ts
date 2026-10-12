@@ -86,7 +86,6 @@ async function resolveInteractableTarget(
   tx: Tx,
   user: AccessUser,
   target: CommentTarget,
-  now: Date,
 ): Promise<CommentResult<ResolvedTarget>> {
   if (target.kind === "content") {
     const rows = await tx
@@ -103,7 +102,7 @@ async function resolveInteractableTarget(
     .select({ id: memberQuestions.id, visibility: memberQuestions.visibility, status: memberQuestions.status })
     .from(memberQuestions)
     .where(eq(memberQuestions.id, target.questionId))
-    .limit(1).for("share");
+    .limit(1).for("update");
   const question = rows[0];
   if (!question) return { ok: false, error: "content_not_found" };
   // 私密问答不允许其他会员参与；隐藏问答关闭互动
@@ -117,17 +116,22 @@ async function resolveInteractableTarget(
  */
 export async function createComment(
   tx: Tx,
-  params: { user: AccessUser; target?: CommentTarget; contentSlug?: string; body: string; replyToId?: string | null },
+  params: { user: AccessUser; target: CommentTarget; body: string; replyToId?: string | null },
 ): Promise<CommentResult<Comment>> {
   if (!validateCommentBody(params.body)) return { ok: false, error: "invalid_body" };
+  // 问答先锁实体再锁评论：触发器会更新问答活动，固定锁顺序避免共享锁升级或回复外键死锁。
+  if (params.target.kind === "question") {
+    await tx.select({ id: memberQuestions.id }).from(memberQuestions)
+      .where(eq(memberQuestions.id, params.target.questionId)).for("update");
+  }
   let replyTarget: Pick<Comment, "id" | "parentId" | "contentId" | "questionId" | "deletedAt" | "userId"> | undefined;
   if (params.replyToId) {
     const rows = await tx.select({ id: comments.id, parentId: comments.parentId, contentId: comments.contentId, questionId: comments.questionId, deletedAt: comments.deletedAt, userId: comments.userId })
       .from(comments).where(eq(comments.id, params.replyToId)).limit(1).for("update");
     replyTarget = rows[0];
   }
-  // 锁等待结束后重新判断当前资格；目标问答共享锁与隐私切换/隐藏串行化。
-  const target = await resolveInteractableTarget(tx, params.user, params.target ?? { kind: "content", slug: params.contentSlug! }, new Date());
+  // 锁等待结束后重新判断当前资格，隐私切换/隐藏也取得同一问答行锁。
+  const target = await resolveInteractableTarget(tx, params.user, params.target);
   if (!target.ok) return target;
   let parentId: string | null = null;
   let replyToId: string | null = null;
@@ -175,8 +179,8 @@ async function lockInteractable(
   tx: Tx,
   user: AccessUser,
   commentId: string,
-  now: Date,
 ): Promise<CommentResult<{ comment: Comment }>> {
+  await lockQuestionForComment(tx, commentId);
   const rows = await tx.select().from(comments).where(eq(comments.id, commentId)).limit(1).for("update");
   const comment = rows[0];
   if (!comment || comment.deletedAt) return { ok: false, error: "comment_not_found" };
@@ -185,7 +189,7 @@ async function lockInteractable(
       .select({ id: memberQuestions.id, visibility: memberQuestions.visibility, status: memberQuestions.status })
       .from(memberQuestions)
       .where(eq(memberQuestions.id, comment.questionId!))
-      .limit(1).for("share");
+      .limit(1).for("update");
     if (!q[0]) return { ok: false, error: "content_not_found" };
     if (q[0].visibility !== "public" || q[0].status === "hidden") return { ok: false, error: "forbidden" };
     if (user.role !== "admin" && !(await hasActiveSubscription(tx, user.id, new Date()))) return { ok: false, error: "forbidden" };
@@ -206,7 +210,7 @@ export async function likeComment(
   tx: Tx,
   params: { user: AccessUser; commentId: string },
 ): Promise<CommentResult<{ likeCount: number }>> {
-  const locked = await lockInteractable(tx, params.user, params.commentId, new Date());
+  const locked = await lockInteractable(tx, params.user, params.commentId);
   if (!locked.ok) return locked;
 
   const inserted = await tx
@@ -240,7 +244,7 @@ export async function unlikeComment(
   tx: Tx,
   params: { user: AccessUser; commentId: string },
 ): Promise<CommentResult<{ likeCount: number }>> {
-  const locked = await lockInteractable(tx, params.user, params.commentId, new Date());
+  const locked = await lockInteractable(tx, params.user, params.commentId);
   if (!locked.ok) return locked;
 
   const deleted = await tx
@@ -263,6 +267,7 @@ export async function unlikeComment(
  * 权益过期或作品下线后作者仍可撤回自己的评论。
  */
 export async function softDeleteComment(tx: Tx, params: { commentId: string; now?: Date }): Promise<CommentResult<Comment>> {
+  await lockQuestionForComment(tx, params.commentId);
   const updated = await tx
     .update(comments)
     .set({ deletedAt: params.now ?? new Date() })
@@ -273,6 +278,15 @@ export async function softDeleteComment(tx: Tx, params: { commentId: string; now
     return rows[0] ? { ok: false, error: "already_deleted" } : { ok: false, error: "comment_not_found" };
   }
   return { ok: true, value: updated[0] };
+}
+
+/** 所有问答讨论写操作都按 question → comment 取得锁，包括无需会员资格的撤回。 */
+async function lockQuestionForComment(tx: Tx, commentId: string): Promise<void> {
+  const rows = await tx.select({ questionId: comments.questionId }).from(comments)
+    .where(eq(comments.id, commentId)).limit(1);
+  const questionId = rows[0]?.questionId;
+  if (questionId) await tx.select({ id: memberQuestions.id }).from(memberQuestions)
+    .where(eq(memberQuestions.id, questionId)).for("update");
 }
 
 /** 互动权益：已发布内容 + canAccess。写操作统一入口（评论/回复/点赞；删除除外，见 softDeleteComment）。 */

@@ -5,13 +5,15 @@ import type { Membership } from "@/lib/types";
 import { MemberQuestions } from "./member-questions";
 
 export function MembershipPanel({ initial, authenticated, unavailable = false }: { initial: Membership | null; authenticated: boolean; unavailable?: boolean }) {
+  const [logged, setLogged] = useState(authenticated);
   const [membership, setMembership] = useState(initial);
   const [error, setError] = useState(unavailable);
   async function refresh() {
     try {
       const res = await fetch("/api/me/membership", { cache: "no-store" });
+      if (res.status === 401) { setLogged(false); setMembership(null); setError(false); return; }
       if (!res.ok) throw new Error(String(res.status));
-      setMembership(await res.json() as Membership); setError(false);
+      setLogged(true); setMembership(await res.json() as Membership); setError(false);
     } catch { setError(true); }
   }
   return <>
@@ -24,6 +26,6 @@ export function MembershipPanel({ initial, authenticated, unavailable = false }:
           <Link href="/redeem?returnTo=%2Fsubscription%23membership" prefetch={false} className="mt-5 inline-flex rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground">兑换激活码，开通会员</Link>
           <p className="mt-2 text-xs text-muted-foreground">使用已有激活码兑换会员权益。</p></>}
     </section>
-    <MemberQuestions active={!!membership?.active} remaining={membership?.questionsRemaining ?? 0} authenticated={authenticated} onAsked={refresh} />
+    <MemberQuestions active={!!membership?.active} remaining={membership?.questionsRemaining ?? 0} authenticated={logged} onAsked={refresh} />
   </>;
 }

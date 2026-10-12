@@ -18,6 +18,7 @@ const types: Record<string, string> = { "image/png": "png", "image/jpeg": "jpeg"
 export function profileRoutes(deps: AppDeps) {
   const app = new Hono<{ Variables: AppVariables }>();
   app.use("*", async (c, next) => { c.header("Cache-Control", "private, no-store"); await next(); });
+  app.use("/me/profile", bodyLimit({ maxSize: 32 * 1024, onError: c => errorResponse(c, 413, "payload_too_large", "请求体过大") }));
   app.get("/users/:id/profile", async c => {
     if (!uuidRe.test(c.req.param("id"))) return errorResponse(c, 404, "not_found", "用户不存在");
     const rows = await deps.db.select({ username: users.username, displayName: users.displayName, avatarMediaId: users.avatarMediaId })
@@ -58,6 +59,7 @@ export function profileRoutes(deps: AppDeps) {
     } catch { return errorResponse(c, 400, "invalid_image", "图片无法解码或尺寸过大"); }
     const key = `avatars/${createHash("sha256").update(output).digest("hex")}.webp`;
     const profile = await deps.db.transaction(async tx => {
+      await tx.execute(sql`set local lock_timeout = '5s'`);
       await tx.execute(sql`select pg_advisory_xact_lock(hashtextextended(${PUBLISH_GC_LOCK_NAME}, 0))`);
       await deps.storage.put(key, output, { contentType: "image/webp" });
       await tx.select({ id: users.id }).from(users).where(eq(users.id, auth.user.id)).for("update");

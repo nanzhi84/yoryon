@@ -45,7 +45,7 @@ export function RedeemClient({ returnTo }: { returnTo?: string | null }) {
     if (listRes.ok) {
       const data = (await listRes.json()) as { items: EntitlementItem[] };
       setItems(data.items);
-    }
+    } else throw new Error("权益加载失败");
   }, []);
 
   useEffect(() => {
@@ -69,8 +69,8 @@ export function RedeemClient({ returnTo }: { returnTo?: string | null }) {
       }
       setMessage({ kind: "ok", text: data.idempotent ? "该激活码此前已兑换，权益已生效。" : "兑换成功，权益已生效！" });
       setCode("");
-      await load();
       if (target) { window.location.assign(target); return; }
+      await load();
       router.refresh();
     } catch {
       setMessage({ kind: "err", text: "网络错误，请重试" });
@@ -82,8 +82,7 @@ export function RedeemClient({ returnTo }: { returnTo?: string | null }) {
   if (me === undefined) {
     return (
       <div className="space-y-3">
-        <Skeleton className="h-9 w-full" />
-        <Skeleton className="h-24 w-full" />
+        {message?.kind === "err" ? <p role="alert" className="text-sm text-red-500">{message.text} <button className="underline" onClick={() => { setMessage(null); void load().catch(() => setMessage({ kind: "err", text: "加载失败，请重试" })); }}>重试</button></p> : <><Skeleton className="h-9 w-full" /><Skeleton className="h-24 w-full" /></>}
       </div>
     );
   }

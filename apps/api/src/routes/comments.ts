@@ -6,9 +6,9 @@
  */
 import { Hono } from "hono";
 import { bodyLimit } from "hono/body-limit";
-import { and, asc, desc, eq, gt, inArray, isNull, lt, or, sql, type SQL } from "drizzle-orm";
+import { and, asc, desc, eq, gt, inArray, isNull, lt, ne, or, sql, type SQL } from "drizzle-orm";
 import { z } from "zod";
-import { comments, commentFeedVersions, commentLikes, contents, users } from "@yoryon/db";
+import { comments, commentFeedVersions, commentLikes, contents, memberQuestions, users } from "@yoryon/db";
 import {
   COMMENT_BODY_MAX,
   COMMENT_PAGE_SIZE,
@@ -19,6 +19,7 @@ import {
   unlikeComment,
   canAccess,
   toAuthorDto,
+  hasActiveSubscription,
   type CommentError,
 } from "@yoryon/core";
 import { RATE_LIMITS } from "@yoryon/config";
@@ -221,10 +222,12 @@ export function commentRoutes(deps: AppDeps) {
     const parsed = likedSchema.safeParse({ ids: (c.req.query("ids") ?? "").split(",").filter(Boolean) });
     if (!parsed.success) return errorResponse(c, 400, "invalid_request", "参数错误");
     if (parsed.data.ids.length === 0) return c.json({ liked: [] as string[] });
+    const member = auth.user.role === "admin" || await hasActiveSubscription(deps.db, auth.user.id, new Date());
     const rows = await deps.db
-      .select({ commentId: commentLikes.commentId })
-      .from(commentLikes)
-      .where(and(inArray(commentLikes.commentId, parsed.data.ids), eq(commentLikes.userId, auth.user.id)));
+      .select({ commentId: commentLikes.commentId }).from(commentLikes)
+      .innerJoin(comments, eq(comments.id, commentLikes.commentId))
+      .leftJoin(memberQuestions, eq(memberQuestions.id, comments.questionId))
+      .where(and(inArray(commentLikes.commentId, parsed.data.ids), eq(commentLikes.userId, auth.user.id), or(eq(comments.targetKind, "content"), member ? and(eq(memberQuestions.visibility, "public"), ne(memberQuestions.status, "hidden")) : sql`false`)));
     return c.json({ liked: rows.map((r) => r.commentId) });
   });
 
@@ -245,7 +248,7 @@ export function commentRoutes(deps: AppDeps) {
     if (!body.success) return errorResponse(c, 400, "invalid_request", "参数错误");
 
     const result = await deps.db.transaction(async (tx) =>
-      createComment(tx, { user: auth.user, contentSlug: c.req.param("slug"), body: body.data.body, replyToId: body.data.replyToId ?? null }),
+      createComment(tx, { user: auth.user, target: { kind: "content", slug: c.req.param("slug") }, body: body.data.body, replyToId: body.data.replyToId ?? null }),
     );
     c.header("Cache-Control", "private, no-store");
     if (!result.ok) return mapCommentError(c, result.error);
