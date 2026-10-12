@@ -126,7 +126,8 @@ contents(
   preview_mode text not null default 'full' check (preview_mode in ('full','percent','marker','none')),
   preview_percent int check (preview_percent between 1 and 99),
   cover_media_id uuid references media_assets,
-  published_at timestamptz, created_at timestamptz, updated_at timestamptz
+  published_at timestamptz, created_at timestamptz, updated_at timestamptz,
+  is_pinned boolean not null default false   -- 首页置顶（仅 article，CLI 管理；仅影响 /api/feed 排序）
 )
 create index on contents (status, published_at desc);
 

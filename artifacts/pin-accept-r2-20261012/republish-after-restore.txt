@@ -1,0 +1,5 @@
+$ pnpm --filter @yoryon/cli start publish /tmp/yoryon-accept-pin/posts/post-alpha
+$ tsx --env-file=../../.env src/index.ts publish /tmp/yoryon-accept-pin/posts/post-alpha
+  published: pin-accept-alpha (content 72bb0a68-e0b3-4592-8483-036ce1a18e67)
+  cache b52de57f-8718-4d9c-b677-22fbae9c59b2: pending (retry exhausted; blog cache retry)
+✓ pin-accept-alpha database committed (0 uploaded, 0 reused); page state is reported by cache event above

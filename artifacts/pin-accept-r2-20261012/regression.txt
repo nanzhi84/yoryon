@@ -1,0 +1,13 @@
+== feed 第一页首项 ==
+version: b9cad7f8-47ec-41c7-bcf7-3a5a1dd4259a
+first: pin-accept-alpha isPinned= True publishedAt= 2026-10-01T00:00:00.000Z
+== tag 页纯时间倒序断言 ==
+(publishedAt desc, id desc) 全序单调: True
+alpha(置顶) 在标签页位置: 8
+== 旧 version 请求 /api/feed（第一轮 e4c926c4 前缀） ==
+old version: e4c926c4-c975-4b7c-b95a-cc0922d6889b
+{"error":{"code":"snapshot_expired","message":"列表已更新，请刷新页面"}}
+HTTP:409
+== 带旧 version + 旧 cursor ==
+{"error":{"code":"snapshot_expired","message":"列表已更新，请刷新页面"}}
+HTTP:409

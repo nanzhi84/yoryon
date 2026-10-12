@@ -1,0 +1,8 @@
+$ pnpm --filter @yoryon/cli start publish /tmp/yoryon-accept-pin/posts/post-alpha
+$ tsx --env-file=../../.env src/index.ts publish /tmp/yoryon-accept-pin/posts/post-alpha
+  skip (exists): pixel.png → media/1b23027d85e3f318241bddf84c9021529d79d3d437452d263c238e01c35a71e2.png
+error: pin-accept-alpha 处于置顶状态，仅 article 可置顶；变更类型前请先 blog content unpin pin-accept-alpha
+/Users/yoryon/Projects/yoryon/apps/cli:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @yoryon/cli@0.1.0 start: `tsx --env-file=../../.env src/index.ts publish /tmp/yoryon-accept-pin/posts/post-alpha`
+Exit status 1
+[ELIFECYCLE] Command failed with exit code 1.

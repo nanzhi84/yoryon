@@ -28,9 +28,9 @@ export default async function HomePage() {
           // 首页列表浏览实例：其下所有卡片共享 placement=home_feed 与实例 id（含 LoadMore 追加部分）
           <AnalyticsListProvider placement="home_feed">
             <div className="divide-y divide-border">
-              <FeedTimeline items={items} />
+              <FeedTimeline items={items} showPinnedBadge />
             </div>
-            {feed?.nextCursor && <LoadMore version={feed.version} initialCursor={feed.nextCursor} />}
+            {feed?.nextCursor && <LoadMore version={feed.version} initialCursor={feed.nextCursor} showPinnedBadge />}
           </AnalyticsListProvider>
         )}
       </main>
