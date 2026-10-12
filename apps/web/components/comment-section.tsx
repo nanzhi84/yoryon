@@ -10,11 +10,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import type { CommentContext, CommentItem, CommentListResponse, ReplyItem, ReplyListResponse } from "@/lib/types";
+import type { CommentContext, CommentItem, ReplyItem } from "@/lib/types";
+import { useCommentData } from "@/components/use-comment-data";
 
 const BODY_MAX = 2000;
-/** 锚点定位时向后翻页的上界（防御：目标在很深页时不无限加载） */
-const LOCATE_MAX_PAGES = 10;
 
 function fmtTime(iso: string): string {
   return new Date(iso).toLocaleString("zh-CN", { timeZone: "Asia/Singapore", hour12: false });
@@ -25,25 +24,13 @@ function CommentBody({ text }: { text: string }) {
   return <p className="mt-1 whitespace-pre-wrap break-words text-sm leading-relaxed">{text}</p>;
 }
 
-interface ReplyState {
-  items: ReplyItem[];
-  nextCursor: string | null;
-  expanded: boolean;
-  loading: boolean;
-}
-
-function dedupeById<T extends { id: string }>(list: T[]): T[] {
-  const seen = new Set<string>();
-  return list.filter((x) => (seen.has(x.id) ? false : (seen.add(x.id), true)));
-}
-
 export function CommentSection({ slug }: { slug: string }) {
   const [ctx, setCtx] = useState<CommentContext | null>(null);
-  const [roots, setRoots] = useState<CommentItem[]>([]);
-  const [total, setTotal] = useState(0);
-  const [nextCursor, setNextCursor] = useState<string | null>(null);
-  const [liked, setLiked] = useState<Set<string>>(new Set());
-  const [replies, setReplies] = useState<Record<string, ReplyState>>({});
+  const {
+    roots, total, nextCursor, liked, replies, setReplies, locating, locateError,
+    loadRoots, loadReplies, locateHash, beginLike, commitLike, endLike,
+    cancelRequests, currentGeneration, isCurrent,
+  } = useCommentData(slug);
   const [replyTarget, setReplyTarget] = useState<{ id: string; username: string } | null>(null);
   const [draft, setDraft] = useState("");
   const [loading, setLoading] = useState(true);
@@ -53,134 +40,54 @@ export function CommentSection({ slug }: { slug: string }) {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [likePending, setLikePending] = useState<Set<string>>(new Set());
   const [deletedIds, setDeletedIds] = useState<Set<string>>(new Set());
-  const active = useRef(false);
-  const located = useRef(false);
+  const pagingRequest = useRef(false);
 
   const loginHref = `/login?returnTo=${encodeURIComponent(`/p/${slug}`)}`;
-
-  /** 点赞状态：以本批查询结果替换这批 id 的旧值（另一标签页取消点赞后可被纠正）。 */
-  const loadLiked = useCallback(async (ids: string[]) => {
-    if (ids.length === 0) return;
-    try {
-      const res = await fetch(`/api/comments/liked?ids=${ids.join(",")}`, { cache: "no-store", credentials: "same-origin" });
-      if (!res.ok) return;
-      const data = (await res.json()) as { liked: string[] };
-      setLiked((prev) => {
-        const next = new Set(prev);
-        for (const id of ids) next.delete(id);
-        for (const id of data.liked) next.add(id);
-        return next;
-      });
-    } catch {
-      /* 点赞状态失败不阻塞阅读 */
-    }
-  }, []);
-
-  const loadRoots = useCallback(
-    async (cursor: string | null) => {
-      const res = await fetch(`/api/contents/${slug}/comments${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`, { cache: "no-store" });
-      if (!res.ok) throw new Error(String(res.status));
-      const data = (await res.json()) as CommentListResponse;
-      setRoots((prev) => dedupeById(cursor ? [...prev, ...data.items] : data.items));
-      setTotal(data.total);
-      setNextCursor(data.nextCursor);
-      void loadLiked(data.items.filter((i) => !i.deleted).map((i) => i.id));
-      return data;
-    },
-    [slug, loadLiked],
-  );
-
-  const loadReplies = useCallback(
-    async (rootId: string, cursor: string | null, existing: ReplyItem[]) => {
-      const res = await fetch(`/api/comments/${rootId}/replies${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`, { cache: "no-store" });
-      if (!res.ok) throw new Error(String(res.status));
-      const data = (await res.json()) as ReplyListResponse;
-      const items = dedupeById(cursor ? [...existing, ...data.items] : data.items);
-      setReplies((p) => ({ ...p, [rootId]: { items, nextCursor: data.nextCursor, expanded: true, loading: false } }));
-      void loadLiked(data.items.filter((i) => !i.deleted).map((i) => i.id));
-      return data;
-    },
-    [loadLiked],
-  );
-
-  /** 通知锚点定位：根评论翻页直到出现 / 回复展开所属根并翻回复页，随后滚动到锚点。 */
-  const locateHash = useCallback(
-    async (firstCursor: string | null) => {
-      if (located.current) return;
-      located.current = true;
-      const match = /^#comment-([0-9a-fA-F-]{36})$/.exec(window.location.hash);
-      if (!match) return;
-      const commentId = match[1];
-      try {
-        const res = await fetch(`/api/comments/${commentId}/locate`, { cache: "no-store" });
-        if (!res.ok) return;
-        const loc = (await res.json()) as { id: string; rootId: string; contentSlug: string };
-        if (loc.contentSlug !== slug) return;
-        if (loc.rootId !== loc.id) {
-          // 目标为回复：展开所属根并翻回复页直到目标出现
-          let cursor: string | null = null;
-          let found = false;
-          for (let i = 0; i < LOCATE_MAX_PAGES && !found; i++) {
-            const data = await loadReplies(loc.rootId, cursor, []);
-            found = data.items.some((x) => x.id === loc.id);
-            cursor = data.nextCursor;
-            if (!cursor) break;
-          }
-        } else {
-          // 目标为根评论：向后翻页直到出现
-          let cursor: string | null = firstCursor;
-          let found = false;
-          for (let i = 0; i < LOCATE_MAX_PAGES && !found && cursor; i++) {
-            const data = await loadRoots(cursor);
-            found = data.items.some((x) => x.id === loc.id);
-            cursor = data.nextCursor;
-          }
-        }
-        requestAnimationFrame(() => document.getElementById(`comment-${commentId}`)?.scrollIntoView({ block: "center" }));
-      } catch {
-        /* 定位失败不影响评论区常规使用 */
-      }
-    },
-    [slug, loadReplies, loadRoots],
-  );
 
   const loadAll = useCallback(async () => {
     setLoading(true);
     setError(false);
+    setCtx(null);
+    const firstRequest = loadRoots(null);
+    const generation = currentGeneration();
     try {
       const [ctxRes, firstPage] = await Promise.all([
-        fetch(`/api/contents/${slug}/comments/context`, { cache: "no-store", credentials: "same-origin" }),
-        loadRoots(null),
+        fetch(`/api/contents/${slug}/comments/context`, { cache: "no-store", credentials: "same-origin", signal: AbortSignal.timeout(15_000) }),
+        firstRequest,
       ]);
-      if (ctxRes.ok) setCtx((await ctxRes.json()) as CommentContext);
-      void locateHash(firstPage?.nextCursor ?? null);
+      const context = ctxRes.ok ? await ctxRes.json() as CommentContext : null;
+      if (!isCurrent(generation) || !firstPage) return;
+      setCtx(context);
+      void locateHash(firstPage, generation);
     } catch {
-      setError(true);
+      if (isCurrent(generation)) setError(true);
     } finally {
-      setLoading(false);
+      if (isCurrent(generation)) setLoading(false);
     }
-  }, [slug, loadRoots, locateHash]);
+  }, [slug, loadRoots, locateHash, currentGeneration, isCurrent]);
 
   useEffect(() => {
-    if (active.current) return;
-    active.current = true;
     void loadAll();
-  }, [loadAll]);
+    return cancelRequests;
+  }, [loadAll, cancelRequests]);
 
   async function loadMoreRoots() {
-    if (!nextCursor || paging) return;
+    if (!nextCursor || pagingRequest.current || locating) return;
+    pagingRequest.current = true;
     setPaging(true);
     try {
       await loadRoots(nextCursor);
     } catch {
-      /* 保留光标，下次可重试 */
+      setSubmitError("评论翻页失败，请重试。");
     } finally {
+      pagingRequest.current = false;
       setPaging(false);
     }
   }
 
   async function toggleReplies(rootId: string) {
     const cur = replies[rootId];
+    if (locating || cur?.loading) return;
     if (cur?.expanded) {
       setReplies((p) => ({ ...p, [rootId]: { ...cur, expanded: false } }));
       return;
@@ -237,19 +144,15 @@ export function CommentSection({ slug }: { slug: string }) {
       window.location.assign(loginHref);
       return;
     }
-    if (!ctx.canInteract || likePending.has(item.id)) return;
+    if (!ctx.canInteract || !beginLike(item.id)) return;
     setLikePending((prev) => new Set(prev).add(item.id));
+    setSubmitError(null);
     try {
       const isLiked = liked.has(item.id);
       const res = await fetch(`/api/comments/${item.id}/like`, { method: isLiked ? "DELETE" : "PUT", credentials: "same-origin" });
-      if (!res.ok) return;
+      if (!res.ok) throw new Error(String(res.status));
       const data = (await res.json()) as { likeCount: number };
-      setLiked((prev) => {
-        const next = new Set(prev);
-        if (isLiked) next.delete(item.id);
-        else next.add(item.id);
-        return next;
-      });
+      commitLike(item.id, !isLiked);
       const isRoot = roots.some((r) => r.id === item.id);
       if (isRoot) {
         // 根列表按赞数排序：点赞后重载首页并重置分页，避免活排序下游标漂移
@@ -261,7 +164,10 @@ export function CommentSection({ slug }: { slug: string }) {
           ),
         );
       }
+    } catch {
+      setSubmitError("点赞或列表刷新失败，请重试。");
     } finally {
+      endLike(item.id);
       setLikePending((prev) => {
         const next = new Set(prev);
         next.delete(item.id);
@@ -272,11 +178,14 @@ export function CommentSection({ slug }: { slug: string }) {
 
   async function remove(id: string) {
     if (!window.confirm("确定删除这条评论吗？")) return;
-    const res = await fetch(`/api/comments/${id}`, { method: "DELETE", credentials: "same-origin" });
-    if (!res.ok) return;
-    // 本地即时转占位（根与回复两处的展示同步），随后刷新根列表校正回复数
-    setDeletedIds((prev) => new Set(prev).add(id));
-    await loadRoots(null);
+    try {
+      const res = await fetch(`/api/comments/${id}`, { method: "DELETE", credentials: "same-origin" });
+      if (!res.ok) throw new Error(String(res.status));
+      setDeletedIds((prev) => new Set(prev).add(id));
+      await loadRoots(null);
+    } catch {
+      setSubmitError("删除或列表刷新失败，请重试。");
+    }
   }
 
   function canManage(item: CommentItem | ReplyItem): boolean {
@@ -314,7 +223,7 @@ export function CommentSection({ slug }: { slug: string }) {
         )}
         {/* 已删除根评论的回复仍可展开阅读（占位之外仅保留只读入口） */}
         {isRoot && (item as CommentItem).replyCount > 0 && (
-          <button type="button" className="hover:text-foreground" onClick={() => void toggleReplies(item.id)}>
+          <button type="button" disabled={locating || replies[item.id]?.loading} className="hover:text-foreground" onClick={() => void toggleReplies(item.id)}>
             {replies[item.id]?.expanded ? "收起回复" : `查看 ${(item as CommentItem).replyCount} 条回复`}
           </button>
         )}
@@ -382,14 +291,12 @@ export function CommentSection({ slug }: { slug: string }) {
                 {submitting ? "发送中…" : "发送"}
               </Button>
             </div>
-            {submitError && (
-              <p role="alert" className="text-sm text-red-500">
-                {submitError}
-              </p>
-            )}
           </div>
         )}
       </div>
+      {submitError && <p role="alert" className="mt-2 text-sm text-red-500">{submitError}</p>}
+      {locating && <p role="status" className="mt-2 text-sm text-muted-foreground">正在定位评论…</p>}
+      {locateError && <p role="status" className="mt-2 text-sm text-muted-foreground">{locateError}</p>}
 
       {/* 列表 */}
       {loading ? (
@@ -425,7 +332,7 @@ export function CommentSection({ slug }: { slug: string }) {
                   <div className="ml-4 mt-2 border-l pl-4">
                     {(replies[item.id]?.items ?? []).map((r) => renderReply(r))}
                     {replies[item.id]?.loading && <p className="py-2 text-xs text-muted-foreground">加载中…</p>}
-                    {replies[item.id]?.nextCursor && !replies[item.id]?.loading && (
+                    {replies[item.id]?.nextCursor && !replies[item.id]?.loading && !locating && (
                       <button
                         type="button"
                         className="py-1 text-xs text-muted-foreground underline"
@@ -451,7 +358,7 @@ export function CommentSection({ slug }: { slug: string }) {
       )}
       {nextCursor && !loading && (
         <div className="mt-4 flex justify-center">
-          <Button variant="outline" size="sm" disabled={paging} onClick={() => void loadMoreRoots()}>
+          <Button variant="outline" size="sm" disabled={paging || locating} onClick={() => void loadMoreRoots()}>
             {paging ? "加载中…" : "加载更多评论"}
           </Button>
         </div>

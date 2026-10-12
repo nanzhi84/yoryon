@@ -317,7 +317,8 @@ export const comments = pgTable(
     replyToId: uuid("reply_to_id").references((): any => comments.id),
     body: text("body").notNull(),
     likeCount: integer("like_count").notNull().default(0),
-    createdAt: timestamp("created_at", { withTimezone: true, mode: "date" }).notNull().defaultNow(),
+    // 与 JS Date 游标同一毫秒精度；DB 直接写入也不得留下微秒边界。
+    createdAt: timestamp("created_at", { withTimezone: true, mode: "date", precision: 3 }).notNull().default(sql`date_trunc('milliseconds', now())`),
     deletedAt: timestamp("deleted_at", { withTimezone: true, mode: "date" }),
   },
   (t) => [
@@ -365,7 +366,7 @@ export const notifications = pgTable(
     commentId: uuid("comment_id"),
     /** 幂等键：同一互动事件重复插入由唯一索引拒绝 */
     eventId: uuid("event_id").notNull(),
-    createdAt: timestamp("created_at", { withTimezone: true, mode: "date" }).notNull().defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true, mode: "date", precision: 3 }).notNull().default(sql`date_trunc('milliseconds', now())`),
     readAt: timestamp("read_at", { withTimezone: true, mode: "date" }),
   },
   (t) => [

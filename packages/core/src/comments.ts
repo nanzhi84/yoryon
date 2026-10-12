@@ -80,26 +80,28 @@ async function insertNotification(
  */
 export async function createComment(
   tx: Tx,
-  params: { user: AccessUser; contentSlug: string; body: string; replyToId?: string | null; now?: Date },
+  params: { user: AccessUser; contentSlug: string; body: string; replyToId?: string | null },
 ): Promise<CommentResult<Comment>> {
   if (!validateCommentBody(params.body)) return { ok: false, error: "invalid_body" };
-  const target = await checkCommentable(tx, params.user, params.contentSlug, params.now ?? new Date());
+  let replyTarget: Pick<Comment, "id" | "parentId" | "contentId" | "deletedAt" | "userId"> | undefined;
+  if (params.replyToId) {
+    // 等待目标行锁结束后再校验权益/发布状态，不能沿用等待前的时间或判定。
+    const rows = await tx
+      .select({ id: comments.id, parentId: comments.parentId, contentId: comments.contentId, deletedAt: comments.deletedAt, userId: comments.userId })
+      .from(comments)
+      .where(eq(comments.id, params.replyToId))
+      .limit(1)
+      .for("update");
+    replyTarget = rows[0];
+  }
+  const target = await checkCommentable(tx, params.user, params.contentSlug);
   if (!target.ok) return target;
 
   let parentId: string | null = null;
   let replyToId: string | null = null;
   if (params.replyToId) {
-    // 锁目标行：与并发软删除串行化，取得锁后再判定删除态
-    const rows = await tx
-      .select({ id: comments.id, parentId: comments.parentId, contentId: comments.contentId, deletedAt: comments.deletedAt })
-      .from(comments)
-      .where(eq(comments.id, params.replyToId))
-      .limit(1)
-      .for("update");
-    const replyTarget = rows[0];
-    if (!replyTarget || replyTarget.contentId !== target.value.id) return { ok: false, error: "reply_target_invalid" };
-    if (replyTarget.deletedAt) return { ok: false, error: "reply_target_invalid" };
-    // 扁平化：挂在目标所在根评论下；禁止把回复挂到回复的回复形成深层嵌套
+    if (!replyTarget || replyTarget.contentId !== target.value.id || replyTarget.deletedAt) return { ok: false, error: "reply_target_invalid" };
+    // 扁平化：挂在目标所在根评论下；禁止无限嵌套。
     parentId = replyTarget.parentId ?? replyTarget.id;
     replyToId = replyTarget.id;
   }
@@ -112,8 +114,7 @@ export async function createComment(
 
   // 回复通知被回复者（一级评论通知评论作者；本人操作不通知）
   if (replyToId) {
-    const targetRows = await tx.select({ userId: comments.userId }).from(comments).where(eq(comments.id, replyToId)).limit(1);
-    const recipient = targetRows[0]?.userId;
+    const recipient = replyTarget?.userId;
     if (recipient) {
       await insertNotification(tx, {
         recipientUserId: recipient,
@@ -133,7 +134,6 @@ async function lockInteractable(
   tx: Tx,
   user: AccessUser,
   commentId: string,
-  now: Date,
 ): Promise<CommentResult<{ comment: Comment; content: Pick<Content, "id" | "slug" | "visibility"> }>> {
   const rows = await tx.select().from(comments).where(eq(comments.id, commentId)).limit(1).for("update");
   const comment = rows[0];
@@ -144,17 +144,17 @@ async function lockInteractable(
     .where(and(eq(contents.id, comment.contentId), eq(contents.status, "published")))
     .limit(1);
   if (!content[0]) return { ok: false, error: "content_not_found" };
-  if (!(await canAccess(tx, user, content[0], now))) return { ok: false, error: "forbidden" };
+  // 权益时间在行锁与内容查询之后取得，锁等待跨过到期时也必须拒绝。
+  if (!(await canAccess(tx, user, content[0], new Date()))) return { ok: false, error: "forbidden" };
   return { ok: true, value: { comment, content: content[0] } };
 }
 
 /** 幂等点赞：已赞时无操作成功。评论行锁串行化并发点赞，返回计数恒为提交后真值。 */
 export async function likeComment(
   tx: Tx,
-  params: { user: AccessUser; commentId: string; now?: Date },
+  params: { user: AccessUser; commentId: string },
 ): Promise<CommentResult<{ likeCount: number }>> {
-  const now = params.now ?? new Date();
-  const locked = await lockInteractable(tx, params.user, params.commentId, now);
+  const locked = await lockInteractable(tx, params.user, params.commentId);
   if (!locked.ok) return locked;
 
   const inserted = await tx
@@ -185,10 +185,9 @@ export async function likeComment(
 /** 幂等取消点赞：未赞时无操作成功。取消不撤销已发通知（V1 明确策略）。 */
 export async function unlikeComment(
   tx: Tx,
-  params: { user: AccessUser; commentId: string; now?: Date },
+  params: { user: AccessUser; commentId: string },
 ): Promise<CommentResult<{ likeCount: number }>> {
-  const now = params.now ?? new Date();
-  const locked = await lockInteractable(tx, params.user, params.commentId, now);
+  const locked = await lockInteractable(tx, params.user, params.commentId);
   if (!locked.ok) return locked;
 
   const deleted = await tx
@@ -228,7 +227,6 @@ export async function checkCommentable(
   tx: Tx,
   user: AccessUser,
   contentSlug: string,
-  now: Date,
 ): Promise<CommentResult<Pick<Content, "id" | "slug" | "visibility">>> {
   const rows = await tx
     .select({ id: contents.id, slug: contents.slug, visibility: contents.visibility })
@@ -237,6 +235,6 @@ export async function checkCommentable(
     .limit(1);
   const content = rows[0];
   if (!content) return { ok: false, error: "content_not_found" };
-  if (!(await canAccess(tx, user, content, now))) return { ok: false, error: "forbidden" };
+  if (!(await canAccess(tx, user, content, new Date()))) return { ok: false, error: "forbidden" };
   return { ok: true, value: content };
 }

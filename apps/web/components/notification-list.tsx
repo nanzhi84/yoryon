@@ -1,7 +1,7 @@
 "use client";
 
 /** 通知列表（Issue #14）：分页、标记已读、全部已读、评论锚点定位；全部私有 no-store。 */
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import type { NotificationItem, NotificationListResponse } from "@/lib/types";
@@ -18,6 +18,10 @@ export function NotificationList() {
   const [paging, setPaging] = useState(false);
   const [error, setError] = useState(false);
   const [actionError, setActionError] = useState(false);
+  const [reading, setReading] = useState(false);
+  const readRequest = useRef(false);
+  const pageRequest = useRef(false);
+  const readAllStamp = useRef<string | null>(null);
 
   const load = useCallback(async (cursor: string | null) => {
     const res = await fetch(`/api/notifications${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`, { cache: "no-store", credentials: "same-origin" });
@@ -27,7 +31,12 @@ export function NotificationList() {
     }
     if (!res.ok) throw new Error(String(res.status));
     const data = (await res.json()) as NotificationListResponse;
-    setItems((prev) => (cursor ? [...prev, ...data.items] : data.items));
+    setItems((prev) => {
+      const page = cursor && readAllStamp.current
+        ? data.items.map((item) => ({ ...item, readAt: item.readAt ?? readAllStamp.current }))
+        : data.items;
+      return cursor ? [...prev, ...page] : page;
+    });
     setNextCursor(data.nextCursor);
   }, [router]);
 
@@ -46,26 +55,42 @@ export function NotificationList() {
   }, [load]);
 
   async function markRead(item: NotificationItem) {
-    if (!item.readAt) {
-      // 乐观更新 + 失败回滚
-      setItems((prev) => prev.map((x) => (x.id === item.id ? { ...x, readAt: new Date().toISOString() } : x)));
-      const res = await fetch(`/api/notifications/${item.id}/read`, { method: "PATCH", credentials: "same-origin" }).catch(() => null);
-      if (!res?.ok) {
-        setItems((prev) => prev.map((x) => (x.id === item.id ? { ...x, readAt: null } : x)));
-        setActionError(true);
-        return;
+    if (readRequest.current) return;
+    readRequest.current = true;
+    setReading(true);
+    setActionError(false);
+    try {
+      if (!item.readAt) {
+        const res = await fetch(`/api/notifications/${item.id}/read`, { method: "PATCH", credentials: "same-origin", signal: AbortSignal.timeout(15_000) });
+        if (!res.ok) throw new Error(String(res.status));
+        setItems((prev) => prev.map((x) => x.id === item.id ? { ...x, readAt: x.readAt ?? new Date().toISOString() } : x));
       }
+      if (item.link) router.push(item.link);
+    } catch {
+      setActionError(true);
+    } finally {
+      readRequest.current = false;
+      setReading(false);
     }
-    if (item.link) router.push(item.link);
   }
 
   async function readAll() {
-    const backup = items;
-    setItems((prev) => prev.map((x) => ({ ...x, readAt: x.readAt ?? new Date().toISOString() })));
-    const res = await fetch("/api/notifications/read-all", { method: "POST", credentials: "same-origin" }).catch(() => null);
-    if (!res?.ok) {
-      setItems(backup);
+    if (readRequest.current) return;
+    readRequest.current = true;
+    setReading(true);
+    setActionError(false);
+    try {
+      // 仅成功后更新已读；无快照回滚，不会删除等待期间追加的通知页。
+      // 并发追加的是现有列表的更旧通知，亦在本次服务端 read-all 的范围内。
+      const res = await fetch("/api/notifications/read-all", { method: "POST", credentials: "same-origin", signal: AbortSignal.timeout(15_000) });
+      if (!res.ok) throw new Error(String(res.status));
+      readAllStamp.current = new Date().toISOString();
+      setItems((prev) => prev.map((x) => ({ ...x, readAt: x.readAt ?? readAllStamp.current })));
+    } catch {
       setActionError(true);
+    } finally {
+      readRequest.current = false;
+      setReading(false);
     }
   }
 
@@ -89,8 +114,8 @@ export function NotificationList() {
         </p>
       )}
       <div className="mb-4 flex justify-end">
-        <Button variant="outline" size="sm" onClick={() => void readAll()}>
-          全部标为已读
+        <Button variant="outline" size="sm" disabled={reading} onClick={() => void readAll()}>
+          {reading ? "处理中…" : "全部标为已读"}
         </Button>
       </div>
       <ul className="divide-y divide-border">
@@ -99,6 +124,7 @@ export function NotificationList() {
             <button
               type="button"
               onClick={() => void markRead(n)}
+              disabled={reading}
               className={`block w-full py-3 text-left ${n.link ? "" : "cursor-default"}`}
             >
               <span className="flex items-baseline justify-between gap-4">
@@ -121,9 +147,13 @@ export function NotificationList() {
             size="sm"
             disabled={paging}
             onClick={() => {
-              if (paging) return;
+              if (pageRequest.current) return;
+              pageRequest.current = true;
               setPaging(true);
-              void load(nextCursor).catch(() => {}).finally(() => setPaging(false));
+              void load(nextCursor).catch(() => setActionError(true)).finally(() => {
+                pageRequest.current = false;
+                setPaging(false);
+              });
             }}
           >
             {paging ? "加载中…" : "加载更多"}
