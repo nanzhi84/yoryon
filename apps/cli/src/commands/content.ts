@@ -5,7 +5,8 @@ import path from "node:path";
 import type { Command } from "commander";
 import { desc, eq } from "drizzle-orm";
 import { contents } from "@yoryon/db";
-import { publishPost } from "@yoryon/core";
+import { associations, contentTargets, enqueueCacheEvent, publishPost } from "@yoryon/core";
+import { withCacheTransaction } from "../cache";
 import { closeContext, getContext, withLockClient } from "../context";
 
 async function resolvePostDirs(target: string): Promise<string[]> {
@@ -78,6 +79,7 @@ export function registerContentCommands(program: Command) {
             type: contents.type,
             status: contents.status,
             visibility: contents.visibility,
+            isPinned: contents.isPinned,
             title: contents.title,
             publishedAt: contents.publishedAt,
           })
@@ -85,8 +87,58 @@ export function registerContentCommands(program: Command) {
           .orderBy(desc(contents.createdAt));
         for (const r of rows) {
           if (!opts.all && r.status !== "published") continue;
-          console.log(`${r.status}\t${r.visibility}\t${r.type}\t${r.slug}\t${r.title}`);
+          console.log(`${r.status}\t${r.visibility}\t${r.type}\t${r.isPinned ? "pinned" : "-"}\t${r.slug}\t${r.title}`);
         }
+      } finally {
+        await closeContext();
+      }
+    });
+
+  /** pin/unpin 共用：事务内更新置顶标记 + 缓存事件（feed 排序是公开缓存，必须失效并使旧游标 409）。 */
+  async function setPinned(slug: string, pinned: boolean) {
+    await withCacheTransaction(async (tx) => {
+      const rows = await tx
+        .select({ id: contents.id, type: contents.type, status: contents.status, isPinned: contents.isPinned })
+        .from(contents)
+        .where(eq(contents.slug, slug));
+      const row = rows[0];
+      if (!row) throw new Error(`内容不存在: ${slug}`);
+      if (pinned) {
+        if (row.type !== "article") throw new Error(`仅支持置顶 article，当前类型: ${row.type}`);
+        if (row.status !== "published") throw new Error(`仅支持置顶已发布内容，当前状态: ${row.status}`);
+      }
+      if (row.isPinned === pinned) {
+        console.log(`- ${slug} 已是${pinned ? "置顶" : "非置顶"}状态，无需变更`);
+        return;
+      }
+      await tx.update(contents).set({ isPinned: pinned }).where(eq(contents.id, row.id));
+      // 不动 revision/updated_at/published_at：正文与发布时间未变，重新发布也不清除置顶。
+      const related = await associations(tx, row.id);
+      await enqueueCacheEvent(tx, contentTargets(slug, related.tags, related.collections), slug);
+    });
+  }
+
+  content
+    .command("pin")
+    .argument("<slug>")
+    .description("置顶已发布文章（仅 article；首页 feed 优先显示）")
+    .action(async (slug: string) => {
+      try {
+        await setPinned(slug, true);
+        console.log(`✓ ${slug} pinned`);
+      } finally {
+        await closeContext();
+      }
+    });
+
+  content
+    .command("unpin")
+    .argument("<slug>")
+    .description("取消置顶（幂等）")
+    .action(async (slug: string) => {
+      try {
+        await setPinned(slug, false);
+        console.log(`✓ ${slug} unpinned`);
       } finally {
         await closeContext();
       }

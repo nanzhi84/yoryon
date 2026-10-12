@@ -5,6 +5,7 @@
 import { sql } from "drizzle-orm";
 import {
   bigint,
+  boolean,
   check,
   index,
   inet,
@@ -13,8 +14,7 @@ import {
   primaryKey,
   text,
   timestamp,
-  unique,
-  uniqueIndex,
+  unique,  uniqueIndex,
   uuid,
 } from "drizzle-orm/pg-core";
 import { customType } from "drizzle-orm/pg-core";
@@ -89,6 +89,8 @@ export const contents = pgTable(
     previewPercent: integer("preview_percent"),
     coverMediaId: uuid("cover_media_id").references((): any => mediaAssets.id),
     publishedAt: timestamp("published_at", { withTimezone: true, mode: "date" }),
+    /** 首页置顶：仅 article 可置顶（CLI 校验）；仅影响 /api/feed 排序，不参与发布 upsert，重新发布保留。 */
+    isPinned: boolean("is_pinned").notNull().default(false),
     ...timestamps,
   },
   (t) => [

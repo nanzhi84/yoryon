@@ -15,6 +15,8 @@ export interface FeedContentItem {
   visibility: "public" | "paid";
   coverMediaId: string | null;
   publishedAt: string | null;
+  /** 首页置顶标记（仅 feed 排序使用；标签页同一合同但排序不置顶） */
+  isPinned: boolean;
   tags: FeedTag[];
 }
 

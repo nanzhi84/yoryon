@@ -27,6 +27,7 @@ function ContentEntry({ item }: { item: FeedContentItem }) {
               {item.title}
             </h2>
           </TrackClickLink>
+          {item.isPinned && <Badge variant="secondary" className="shrink-0">置顶</Badge>}
           <time className="shrink-0 text-sm text-muted-foreground">{formatDate(item.publishedAt)}</time>
         </div>
         {item.coverMediaId && (
