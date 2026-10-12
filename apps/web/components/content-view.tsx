@@ -40,8 +40,8 @@ export function ContentView({ initial: content }: { initial: ContentDetail }) {
 
         {content.visibility === "paid" ? <PrivateReader initial={content} preview={<ContentBody content={content} publicImages />} /> : <ContentBody content={content} publicImages />}
 
-        {/* 评论区仅文章类型展示；客户端加载，不进入公开缓存页面（Issue #14） */}
-        {content.type === "article" && <CommentSection slug={content.slug} />}
+        {/* post/article 共用互动；客户端加载，不进入公开缓存页面。 */}
+        <CommentSection slug={content.slug} />
       </main>
     </>
   );

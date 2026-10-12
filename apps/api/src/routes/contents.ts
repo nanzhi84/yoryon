@@ -177,6 +177,7 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
           .innerJoin(tags, eq(contentTags.tagId, tags.id))
           .where(inArray(contentTags.contentId, pageIds))
       : [];
+    const postBodies = await postFeedBodies(tx, page.filter(r => r.type === "post").map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
     const last = page[page.length - 1];
     c.header("Cache-Control", "public, max-age=0, must-revalidate");
     return c.json({
@@ -192,6 +193,7 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
         coverMediaId: r.coverMediaId,
         publishedAt: r.publishedAt?.toISOString() ?? null,
         isPinned: r.isPinned,
+        post: postBodies.get(r.id) ?? null,
         tags: tagRows.filter((t) => t.contentId === r.id).map((t) => ({ slug: t.slug, name: t.name })),
       })),
       nextCursor: rows.length > FEED_PAGE_SIZE && last ? encodeTagCursor(last.publishedAt ?? last.createdAt, last.id) : null,
