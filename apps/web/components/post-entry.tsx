@@ -31,6 +31,7 @@ export function PostEntry({ item }: { item: FeedContentItem }) {
       const response = await fetch(`/api/contents/${item.slug}`, { credentials: "same-origin", cache: "no-store", signal: controller.signal });
       if (!response.ok) throw new Error("post unavailable");
       const data = await response.json() as ContentDetail;
+      if (data.type !== "post") throw new Error("content type changed");
       if (!controller.signal.aborted) setExpanded(data);
     } catch { if (!controller.signal.aborted) setError(true); }
     finally { if (!controller.signal.aborted) setLoading(false); }

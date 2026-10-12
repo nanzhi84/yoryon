@@ -34,7 +34,7 @@ export function MarkdownSurface({ markdown, className, mediaSizes, publicImages 
 }) {
   return <div className={cn("prose prose-zinc dark:prose-invert prose-yoryon max-w-none", className)}>
     <ReactMarkdown remarkPlugins={[remarkCjkFriendly, remarkDirective, remarkMediaDirectives]} components={{
-            img: ({ src, alt, ...props }) => {
+            img: ({ src, alt, node: _node, ...props }) => {
               const size = mediaSizes ? mediaSizes[mediaIdFromSrc(src) ?? ""] : undefined;
               const id = mediaIdFromSrc(src);
               const svg = size?.mimeType === "image/svg+xml";
