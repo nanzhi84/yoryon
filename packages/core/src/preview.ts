@@ -11,6 +11,7 @@
 import type { Root, RootContent, PhrasingContent } from "mdast";
 import { toMarkdown } from "mdast-util-to-markdown";
 import { directiveToMarkdown } from "mdast-util-directive";
+import { cjkFriendlyToMarkdown } from "mdast-util-to-markdown-cjk-friendly";
 import { collectStoredMediaIds, isMediaBlock, parseMarkdown } from "./markdown";
 import { DEFAULT_MEDIA_BLOCK_WEIGHT } from "@yoryon/config";
 
@@ -151,5 +152,5 @@ export function truncateForPreview(
 
 /** 归一化序列化 AST 为 Markdown（含 directive 支持）。 */
 export function stringifyMarkdown(tree: Root): string {
-  return toMarkdown(tree, { extensions: [directiveToMarkdown()] }).trim();
+  return toMarkdown(tree, { extensions: [directiveToMarkdown(), cjkFriendlyToMarkdown()] }).trim();
 }

@@ -6,12 +6,12 @@ import { MarkdownBody } from "@/components/markdown";
 import { GalleryLazy } from "./gallery-lazy";
 import { AudioFeature, VideoPlayerLazy } from "@/components/media-player";
 
-export function ContentBody({ content }: { content: ContentDetail }) {
+export function ContentBody({ content, publicImages = false }: { content: ContentDetail; publicImages?: boolean }) {
   const primaryMedia = content.type !== "article" ? content.media[0] : undefined;
   /** 正文图片尺寸表（F08）：消费媒体尺寸元数据，img 预留纵横比避免加载撑开页面 */
-  const mediaSizes: Record<string, { width: number; height: number }> = {};
+  const mediaSizes: Record<string, { width: number; height: number; mimeType?: string }> = {};
   for (const m of content.media) {
-    if (m.width && m.height) mediaSizes[m.mediaId] = { width: m.width, height: m.height };
+    if (m.width && m.height) mediaSizes[m.mediaId] = { width: m.width, height: m.height, mimeType: m.mimeType };
   }
 
   return <>
@@ -31,12 +31,12 @@ export function ContentBody({ content }: { content: ContentDetail }) {
             />
           </div>
         )}
-        {content.type === "image" && <GalleryLazy content={content} />}
+        {content.type === "image" && <GalleryLazy content={content} publicImages={publicImages} />}
 
         {/* 正文（已按权益裁剪） */}
         {content.bodyMarkdown && (
           <div className="mt-8">
-            <MarkdownBody markdown={content.bodyMarkdown} mediaSizes={mediaSizes} />
+            <MarkdownBody markdown={content.bodyMarkdown} mediaSizes={mediaSizes} publicImages={publicImages} />
           </div>
         )}
 

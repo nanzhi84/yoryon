@@ -67,20 +67,20 @@ export class FsStorage implements MediaStorage {
   }
 
   /** 验签逻辑与签发同置于此，API 的 storage-object 路由复用（同源不漂移）。 */
-  static sign(secret: string, key: string, expiresEpochSec: number, width?: number): string {
-    return createHmac("sha256", secret).update(`${key}\n${expiresEpochSec}${width ? `\n${width}` : ""}`).digest("hex");
+  static sign(secret: string, key: string, expiresEpochSec: number, width?: number, format?: "webp"): string {
+    return createHmac("sha256", secret).update(`${key}\n${expiresEpochSec}${width ? `\n${width}` : ""}${format ? `\n${format}` : ""}`).digest("hex");
   }
 
-  async signGetUrl(key: string, ttlSec: number, width?: number): Promise<string> {
+  async signGetUrl(key: string, ttlSec: number, width?: number, format?: "webp"): Promise<string> {
     const expires = Math.floor(Date.now() / 1000) + ttlSec;
-    const sig = FsStorage.sign(this.opts.signingSecret, key, expires, width);
+    const sig = FsStorage.sign(this.opts.signingSecret, key, expires, width, format);
     const base = this.opts.publicBaseUrl.replace(/\/$/, "");
-    return `${base}/api/storage-object/${encodeURIComponent(key)}?expires=${expires}&sig=${sig}${width ? `&width=${width}` : ""}`;
+    return `${base}/api/storage-object/${encodeURIComponent(key)}?expires=${expires}&sig=${sig}${width ? `&width=${width}` : ""}${format ? `&format=${format}` : ""}`;
   }
 
-  verifyGetSignature(key: string, expiresEpochSec: number, sig: string, width?: number): boolean {
+  verifyGetSignature(key: string, expiresEpochSec: number, sig: string, width?: number, format?: "webp"): boolean {
     if (expiresEpochSec * 1000 < Date.now()) return false;
-    const expected = FsStorage.sign(this.opts.signingSecret, key, expiresEpochSec, width);
+    const expected = FsStorage.sign(this.opts.signingSecret, key, expiresEpochSec, width, format);
     return expected === sig;
   }
 

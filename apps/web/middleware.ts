@@ -1,10 +1,12 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { imageMiddleware } from "./lib/image-middleware";
 
 /** Middleware 先于共享正文缓存；revision key 隔离生成竞态，失败关闭。
  * 门禁只取单进程 API 的内存策略，不触发正文/权益读取和每请求 DB 查询。
  */
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
+  if (path.startsWith("/api/images/")) return imageMiddleware(request);
   const match = /^\/p\/([a-z0-9][a-z0-9-]*)$/.exec(path) ?? /^\/render\/([a-f0-9-]{36})\/([a-z0-9][a-z0-9-]*)$/.exec(path);
   const privateHeaders = { "Cache-Control": "private, no-store" };
   if (path.startsWith("/api/pages/")) {
@@ -35,4 +37,4 @@ export async function middleware(request: NextRequest) {
     return new NextResponse("内容暂时无法验证，请稍后重试。", { status: 503, headers: privateHeaders });
   }
 }
-export const config = { matcher: ["/p/:path*", "/render/:path*", "/api/pages/:path*"] };
+export const config = { matcher: ["/p/:path*", "/render/:path*", "/api/pages/:path*", "/api/images/:path*"] };

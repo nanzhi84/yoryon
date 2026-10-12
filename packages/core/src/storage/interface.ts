@@ -24,7 +24,7 @@ export interface MediaStorage {
   /** 分页列举 prefix 下全部对象（GC 用） */
   list(prefix: string): Promise<ListedObject[]>;
   /** 生成短期签名 GET URL（TTL 秒）。 */
-  signGetUrl(key: string, ttlSec: number, width?: number): Promise<string>;
+  signGetUrl(key: string, ttlSec: number, width?: number, format?: "webp"): Promise<string>;
 }
 
 export const BYTES_CACHE_CONTROL = MEDIA_BYTES_CACHE_CONTROL;

@@ -38,3 +38,16 @@ baseline/after 会在公开站点短暂创建唯一前缀合成文章，cleanup 
 缓存工件在 `artifacts/performance-20261012/`；文章工件在 `artifacts/notion-publication-20261012/`。请求日志统计 `serverless` 与 `edge-middleware/static`，结合相同 slug 的 API 正文/门禁调用计数；两类调用不能合并为“零函数调用”。免费计划聚合指标查询会返回 payment_required，不能据此声称平台总体用量下降。
 
 回滚必须先把 web 切回全动态详情，再回滚 API 镜像；新增字段/表留存，恢复新版本时 cache retry。当前门禁每次新请求均检查策略，API 故障 503；旧正文不能作权限收紧的故障回退。已打开/保存副本与最长 900s 既有 OSS 签名 URL 不在可召回范围。
+
+## 公开图片字节缓存（ADR-0011）
+
+`/api/images/v1/<mediaId>/<320|640|960|1280|original>` 的 Edge 门禁读取当前免费 exposure，匿名冷请求通过 API 获取私有 OSS 变体，不暴露签名 URL。PNG/JPEG/WebP 使用质量 72 的 WebP，SVG 保留矢量；图片填充函数在 sin1。缓存规则变更须增加路径版本，宽度/查询参数不得任意扩展。
+
+Vercel 字节 TTL 86400 秒；浏览器每次校验，合法 ETag 返回 304。转付费或下架后的新请求（含旧 ETag）拒绝，暖 CDN 字节不得旁路门禁。原图/付费媒体继续通过 `/api/media/` 私有鉴权链路；浏览器已取得的副本不在可召回范围。
+
+```sh
+pnpm --dir e2e test tests/article-formatting.spec.ts tests/public-image-cache.spec.ts
+node deploy/verify-public-image-cache.mjs  # 串行唯一生产 fixture；创建后自动清理
+pnpm exec tsx deploy/verify-notion-publication.ts
+node deploy/verify-article-images.mjs     # 三篇真实文章、压缩/缓存/浏览器证据
+```

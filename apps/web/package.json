@@ -10,12 +10,12 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@yoryon/config": "workspace:*",
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-dropdown-menu": "^2.1.16",
     "@radix-ui/react-slot": "^1.2.4",
     "@types/mdast": "^4.0.4",
     "@videojs/react": "10.0.1",
+    "@yoryon/config": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.6.0",
@@ -26,6 +26,7 @@
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-markdown": "^10.1.0",
+    "remark-cjk-friendly": "2.3.2",
     "remark-directive": "^3.0.1",
     "remark-parse": "^11.0.0",
     "tailwind-merge": "^3.4.0",

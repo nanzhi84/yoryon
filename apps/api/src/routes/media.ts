@@ -5,7 +5,7 @@
  */
 import { Hono } from "hono";
 import { MEDIA_FREE_CACHE_MAX_AGE_SEC } from "@yoryon/config";
-import { IMAGE_WIDTHS } from "@yoryon/config/image-variants";
+import { IMAGE_WIDTHS, IMAGE_WEBP_QUALITY } from "@yoryon/config/image-variants";
 import { findMediaById, FsStorage, isValidMediaKey, mimeForFile, resolveMediaAccess } from "@yoryon/core";
 import type { AppDeps } from "../deps";
 import { errorResponse } from "../errors";
@@ -53,18 +53,24 @@ export function mediaRoutes(deps: AppDeps) {
       const expires = Number(c.req.query("expires"));
       const sig = c.req.query("sig") ?? "";
       const width = c.req.query("width") === undefined ? undefined : Number(c.req.query("width"));
+      const rawFormat = c.req.query("format");
+      if (rawFormat !== undefined && rawFormat !== "webp") return errorResponse(c, 403, "invalid_signature", "派生格式无效");
+      const format = rawFormat as "webp" | undefined;
       if (width !== undefined && !IMAGE_WIDTHS.includes(width as typeof IMAGE_WIDTHS[number])) return errorResponse(c, 403, "invalid_signature", "派生宽度无效");
-      if (!Number.isFinite(expires) || !fsStorage.verifyGetSignature(key, expires, sig, width)) {
+      if (!Number.isFinite(expires) || !fsStorage.verifyGetSignature(key, expires, sig, width, format)) {
         return errorResponse(c, 403, "invalid_signature", "签名无效或已过期");
       }
       let data = await fsStorage.read(key);
       if (data === null) return errorResponse(c, 404, "not_found", "对象不存在");
-      if (width) {
+      if (width || format) {
         const { default: sharp } = await import("sharp");
-        data = await sharp(data, { limitInputPixels: 40_000_000 }).rotate().resize({ width, withoutEnlargement: true }).toBuffer();
+        let image = sharp(data, { limitInputPixels: 40_000_000 }).rotate();
+        if (width) image = image.resize({ width, withoutEnlargement: true });
+        if (format) image = image.webp({ quality: IMAGE_WEBP_QUALITY, effort: 6 });
+        data = await image.toBuffer();
       }
 
-      const contentType = mimeForFile(key);
+      const contentType = format ? "image/webp" : mimeForFile(key);
       const range = c.req.header("range");
       c.header("Accept-Ranges", "bytes");
       c.header("Cache-Control", "private, max-age=604800");

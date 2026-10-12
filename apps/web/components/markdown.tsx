@@ -1,12 +1,13 @@
 /**
  * Markdown 正文渲染：react-markdown + remark-directive。
- * - 图片 → <img>（/api/media/<id> 经 BFF 302）；
+ * - 公开图片 → 门禁后的字节缓存；私有图片 → BFF 鉴权 302；
  * - ::video / ::audio 指令 → 按需加载的播放器；
  * - 统一 prose 中文排印。
  */
-import { imageSrcSet } from "@yoryon/config/image-variants";
+import { imageSrcSet, publicImageUrl } from "@yoryon/config/image-variants";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkDirective from "remark-directive";
+import remarkCjkFriendly from "remark-cjk-friendly/parseOnly";
 import { visit } from "unist-util-visit";
 import type { Root } from "mdast";
 import { AudioPlayerLazy, VideoPlayerLazy } from "./media-player";
@@ -35,28 +36,34 @@ export function MarkdownBody({
   markdown,
   className,
   mediaSizes,
+  publicImages = false,
 }: {
   markdown: string;
   className?: string;
   /** mediaId → 尺寸（F08）：正文图片预留纵横比，避免加载撑开页面 */
-  mediaSizes?: Record<string, { width: number; height: number }>;
+  mediaSizes?: Record<string, { width: number; height: number; mimeType?: string }>;
+  /** Only the anonymous public DTO may use the gated shared byte cache. */
+  publicImages?: boolean;
 }) {
   return (
     <div className={cn("prose prose-zinc dark:prose-invert prose-yoryon max-w-none", className)}>
       <ReactMarkdown
-        remarkPlugins={[remarkDirective, remarkMediaDirectives]}
+        remarkPlugins={[remarkCjkFriendly, remarkDirective, remarkMediaDirectives]}
         components={
           {
             img: ({ src, alt, ...props }) => {
               const size = mediaSizes ? mediaSizes[mediaIdFromSrc(src) ?? ""] : undefined;
+              const id = mediaIdFromSrc(src);
+              const svg = size?.mimeType === "image/svg+xml";
               return (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
-                  src={typeof src === "string" ? src : ""}
-                  srcSet={size && mediaIdFromSrc(src) ? imageSrcSet(mediaIdFromSrc(src)!, size.width) : undefined}
+                  src={id && publicImages ? publicImageUrl(id, svg ? "original" : 1280) : typeof src === "string" ? src : ""}
+                  srcSet={size && id && !svg ? imageSrcSet(id, size.width, publicImages) : undefined}
                   sizes="(max-width: 768px) 100vw, 768px"
                   alt={alt ?? ""}
                   loading="lazy"
+                  decoding="async"
                   {...(size ? { width: size.width, height: size.height } : {})}
                   className="h-auto max-w-full rounded-lg"
                   {...props}
