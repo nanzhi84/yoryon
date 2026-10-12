@@ -15,6 +15,8 @@ import { mediaRoutes } from "./routes/media";
 import { redemptionRoutes } from "./routes/redemptions";
 import { analyticsRoutes } from "./routes/analytics";
 import { cacheRoutes } from "./routes/cache";
+import { commentRoutes } from "./routes/comments";
+import { notificationRoutes } from "./routes/notifications";
 import { sitemapRoutes } from "./routes/sitemap";
 import { createPublicPolicy } from "./public-policy";
 import { publicImageRoutes } from "./routes/public-images";
@@ -63,6 +65,8 @@ export function createApp(deps: AppDeps) {
   app.route("/api", mediaRoutes(deps));
   app.route("/api", publicImageRoutes(deps, policy));
   app.route("/api", redemptionRoutes(deps));
+  app.route("/api", commentRoutes(deps));
+  app.route("/api", notificationRoutes(deps));
   app.route("/api", analyticsRoutes(deps));
   app.route("/api", cacheRoutes(deps, policy));
   app.route("/api", sitemapRoutes(deps));

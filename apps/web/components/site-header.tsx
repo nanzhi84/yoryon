@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
+import { NotificationBell } from "./notification-bell";
 
 export function SiteHeader() {
   return (
@@ -17,6 +18,7 @@ export function SiteHeader() {
         <Link prefetch={false} href="/redeem" className="rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground">
           订阅
         </Link>
+        <NotificationBell />
         <Link prefetch={false} href="/login" className="rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground">
           登录
         </Link>

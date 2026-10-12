@@ -11,3 +11,4 @@ export * from "./gc";
 export * from "./locks";
 export * from "./http";
 export * from "./cache-events";
+export * from "./comments";

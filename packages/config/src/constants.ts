@@ -53,6 +53,11 @@ export const RATE_LIMITS = {
   passwordResetPerAccountPerHour: 3,
   /** analytics 批量 ingest：每 IP 每分钟批次数（每批 ≤ ANALYTICS_MAX_BATCH 事件） */
   analyticsBatchPerIpPerMinute: 60,
+  /** 评论/回复写入：每用户每分钟（Issue #14 防刷） */
+  commentWritePerUserPerMinute: 10,
+  commentWritePerIpPerMinute: 30,
+  /** 点赞/取消：每用户每分钟 */
+  commentLikePerUserPerMinute: 30,
 } as const;
 
 /** analytics 单批事件上限（ADR-0007） */

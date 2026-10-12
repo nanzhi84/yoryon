@@ -43,6 +43,13 @@
       "when": 1791811056565,
       "tag": "0005_motionless_lifeguard",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1791814042027,
+      "tag": "0006_low_bedlam",
+      "breakpoints": true
     }
   ]
 }

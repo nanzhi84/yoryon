@@ -28,7 +28,12 @@ export function authMiddleware(db: Database) {
     c.set("auth", null);
     c.set("sessionRenewedExpiresAt", null);
     // 公开线和匿名分析不执行 session 查询/续期；公开 DTO 不能随身份变化。
-    if (/^\/api\/(?:public\/|feed$|tags\/|collections$|sitemap$|cache\/|analytics\/events$)/.test(c.req.path)) { await next(); return; }
+    // 评论/回复列表是公开只读接口（写路径不在此列）；其余 contents/comments 端点仍需 session。
+    const path = c.req.path;
+    const publicLine =
+      /^\/api\/(?:public\/|feed$|tags\/|collections$|sitemap$|cache\/|analytics\/events$)/.test(path) ||
+      (c.req.method === "GET" && /^\/api\/(?:contents\/[^/]+\/comments|comments\/[0-9a-fA-F-]{36}\/replies)$/.test(path));
+    if (publicLine) { await next(); return; }
     const header = c.req.header("authorization");
     if (header?.startsWith("Bearer ")) {
       const token = header.slice("Bearer ".length).trim();

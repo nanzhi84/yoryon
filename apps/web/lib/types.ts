@@ -113,3 +113,59 @@ export interface EntitlementItem {
 export interface MeResponse {
   user: { id: string; email: string; username: string; role: "admin" | "user" };
 }
+
+/* ===== 评论 / 通知（Issue #14）===== */
+
+export interface CommentAuthor {
+  username: string;
+}
+
+/** 根评论/回复共用条目；deleted=true 时 body/author/likeCount 为空占位。 */
+export interface CommentItem {
+  id: string;
+  deleted: boolean;
+  body: string | null;
+  likeCount: number;
+  createdAt: string;
+  author: CommentAuthor | null;
+  replyCount: number;
+}
+
+export interface ReplyItem extends Omit<CommentItem, "replyCount"> {
+  parentId: string | null;
+  replyTo: { id: string; username: string | null } | null;
+}
+
+export interface CommentListResponse {
+  items: CommentItem[];
+  total: number;
+  nextCursor: string | null;
+}
+
+export interface ReplyListResponse {
+  items: ReplyItem[];
+  nextCursor: string | null;
+}
+
+export interface CommentContext {
+  authenticated: boolean;
+  canInteract: boolean;
+  me: { id: string; username: string; role: "admin" | "user" } | null;
+}
+
+export interface NotificationItem {
+  id: string;
+  type: "reply" | "like";
+  createdAt: string;
+  readAt: string | null;
+  actor: CommentAuthor;
+  /** 作品下线或评论删除时为 null（不提供跳转） */
+  link: string | null;
+  contentTitle: string | null;
+  commentId: string | null;
+}
+
+export interface NotificationListResponse {
+  items: NotificationItem[];
+  nextCursor: string | null;
+}
