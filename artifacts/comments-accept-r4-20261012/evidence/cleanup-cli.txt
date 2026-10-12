@@ -1,0 +1,4 @@
+$ pnpm --filter @yoryon/cli start content delete r4-free
+$ tsx --env-file=../../.env src/index.ts content delete r4-free
+cache 99798045-18c6-4ead-b3bf-1ea5950a56cd: verified
+✓ r4-free deleted

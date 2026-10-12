@@ -1,0 +1,30 @@
+{
+  "observedAt": "2026-10-12T16:21:57.425Z",
+  "authorization": "Supervisor permitted read-only SQL after Protocol error; no PATCH replay",
+  "sql": "select id,type,created_at,read_at,read_at is not null as is_read from notifications where id='a4200000-0000-4000-8000-000000000099' and recipient_user_id=(select id from users where username='r4_reader')",
+  "rows": [
+    {
+      "id": "a4200000-0000-4000-8000-000000000099",
+      "type": "like",
+      "created_at": "2026-10-12T12:01:00.333Z",
+      "read_at": "2026-10-12T16:19:57.430Z",
+      "is_read": true
+    }
+  ],
+  "relatedRequest": [
+    {
+      "at": "2026-10-12T16:19:57.425Z",
+      "method": "PATCH",
+      "url": "/api/notifications/a4200000-0000-4000-8000-000000000099/read"
+    }
+  ],
+  "beforePatchReadAt": null,
+  "result": "PASS (SQL terminal state + real PATCH request)",
+  "unverified": [
+    "PATCH response body and status were not retained because response.json failed",
+    "Post-PATCH DOM was not saved; no browser replay performed"
+  ]
+}
+
+Existing service log filtered only for own target ID:
+{"level":"info","msg":"request","requestId":"07d49920-1945-436f-a9d1-66b14d246c60","method":"PATCH","path":"/api/notifications/a4200000-0000-4000-8000-000000000099/read","status":200,"userId":"f5554b7a-a84a-4b71-870f-7307e387be5e","ip":"::ffff:127.0.0.1","ipSource":"bff","durationMs":2}

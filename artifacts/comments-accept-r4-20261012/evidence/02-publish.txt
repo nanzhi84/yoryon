@@ -1,0 +1,5 @@
+$ pnpm --filter @yoryon/cli start publish /tmp/r4-publish-source/r4-free
+$ tsx --env-file=../../.env src/index.ts publish /tmp/r4-publish-source/r4-free
+  published: r4-free (content cd410b5a-7623-43e6-9a6d-f704f372b442)
+  cache ae3f662a-d6e6-46a6-8a49-60df00a30a7a: verified
+✓ r4-free database committed (0 uploaded, 0 reused); page state is reported by cache event above

@@ -25,9 +25,14 @@ export function NotificationList() {
   const pageRequest = useRef(false);
   const generation = useRef(0);
   const pageCursor = useRef<{ value: string | null; generation: number } | null>(null);
+  // 列表代次可由刷新重新创建，不能代替组件生命周期；卸载后任何响应都不得导航。
+  const lifecycle = useRef<symbol | null>(null);
+  const isActive = useCallback((scope: symbol | null) => scope !== null && lifecycle.current === scope, []);
 
   /** 重载后只接受新列表序列；每页的 readAt 始终来自服务端，不推断 UPDATE 的可见范围。 */
   const load = useCallback(async (cursor: string | null) => {
+    const scope = lifecycle.current;
+    if (!isActive(scope)) return;
     const owner = pageCursor.current;
     const current = cursor ? owner?.generation : ++generation.current;
     if (current === undefined || current !== generation.current || (cursor && owner?.value !== cursor)) return;
@@ -41,84 +46,97 @@ export function NotificationList() {
       const res = await fetch(`/api/notifications${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`, {
         cache: "no-store", credentials: "same-origin", signal: AbortSignal.timeout(15_000),
       });
-      if (current !== generation.current) return;
+      if (!isActive(scope) || current !== generation.current) return;
       if (res.status === 401) {
         router.replace("/login?returnTo=%2Fnotifications");
         return;
       }
       if (!res.ok) throw new Error(String(res.status));
       const data = await res.json() as NotificationListResponse;
-      if (current !== generation.current) return;
+      if (!isActive(scope) || current !== generation.current) return;
       pageCursor.current = { value: data.nextCursor, generation: current };
-      setItems((prev) => current === generation.current ? (cursor ? [...prev, ...data.items] : data.items) : prev);
+      setItems((prev) => isActive(scope) && current === generation.current ? (cursor ? [...prev, ...data.items] : data.items) : prev);
       setNextCursor(data.nextCursor);
     } catch (error) {
-      if (current !== generation.current) return;
+      if (!isActive(scope) || current !== generation.current) return;
       if (!cursor) setRefreshError(true);
       throw error;
     } finally {
-      if (!cursor && current === generation.current) setRefreshing(false);
+      if (isActive(scope) && !cursor && current === generation.current) setRefreshing(false);
     }
-  }, [router]);
+  }, [router, isActive]);
 
   useEffect(() => {
-    let active = true;
+    const scope = Symbol("notification-list");
+    lifecycle.current = scope;
+    readRequest.current = false;
+    pageRequest.current = false;
+    setReading(false);
+    setPaging(false);
     (async () => {
       setLoading(true);
       setError(false);
       try {
         await load(null);
       } catch {
-        if (active) setError(true);
+        if (isActive(scope)) setError(true);
       } finally {
-        if (active) setLoading(false);
+        if (isActive(scope)) setLoading(false);
       }
     })();
     return () => {
-      active = false;
+      lifecycle.current = null;
       generation.current++;
       pageCursor.current = null;
     };
-  }, [load]);
+  }, [load, isActive]);
 
   async function markRead(item: NotificationItem) {
-    if (readRequest.current) return;
+    const scope = lifecycle.current;
+    if (!isActive(scope) || readRequest.current) return;
     readRequest.current = true;
     setReading(true);
     setActionError(false);
     try {
       if (!item.readAt) {
         const res = await fetch(`/api/notifications/${item.id}/read`, { method: "PATCH", credentials: "same-origin", signal: AbortSignal.timeout(15_000) });
+        if (!isActive(scope)) return;
         if (!res.ok) throw new Error(String(res.status));
-        setItems((prev) => prev.map((x) => x.id === item.id ? { ...x, readAt: x.readAt ?? new Date().toISOString() } : x));
+        setItems((prev) => isActive(scope) ? prev.map((x) => x.id === item.id ? { ...x, readAt: x.readAt ?? new Date().toISOString() } : x) : prev);
       }
-      if (item.link) router.push(item.link);
+      if (isActive(scope) && item.link) router.push(item.link);
     } catch {
-      setActionError(true);
+      if (isActive(scope)) setActionError(true);
     } finally {
-      readRequest.current = false;
-      setReading(false);
+      if (isActive(scope)) {
+        readRequest.current = false;
+        setReading(false);
+      }
     }
   }
 
   async function readAll() {
-    if (readRequest.current) return;
+    const scope = lifecycle.current;
+    if (!isActive(scope) || readRequest.current) return;
     readRequest.current = true;
     setReading(true);
     setActionError(false);
     let updated = false;
     try {
       const res = await fetch("/api/notifications/read-all", { method: "POST", credentials: "same-origin", signal: AbortSignal.timeout(15_000) });
+      if (!isActive(scope)) return; // POST 可在服务端完成，但卸载后不再启动 GET 或导航。
       if (!res.ok) throw new Error(String(res.status));
       updated = true;
       // 成功后从首页重读权威状态，作废旧页；之后才提交的通知仍按服务端显示未读。
       // POST 失败不触碰列表/游标；GET 刷新失败单独提示并允许只重试读取。
       await load(null);
     } catch {
-      if (!updated) setActionError(true);
+      if (isActive(scope) && !updated) setActionError(true);
     } finally {
-      readRequest.current = false;
-      setReading(false);
+      if (isActive(scope)) {
+        readRequest.current = false;
+        setReading(false);
+      }
     }
   }
 
@@ -145,7 +163,10 @@ export function NotificationList() {
       {refreshError && (
         <p role="alert" className="mb-3 text-sm text-red-500">
           通知列表刷新失败。
-          <button className="underline" disabled={reading || refreshing} onClick={() => void load(null).catch(() => setRefreshError(true))}>重试刷新</button>
+          <button className="underline" disabled={reading || refreshing} onClick={() => {
+            const scope = lifecycle.current;
+            void load(null).catch(() => { if (isActive(scope)) setRefreshError(true); });
+          }}>重试刷新</button>
         </p>
       )}
       <div className="mb-4 flex justify-end">
@@ -182,12 +203,15 @@ export function NotificationList() {
             size="sm"
             disabled={paging || refreshing}
             onClick={() => {
-              if (pageRequest.current) return;
+              const scope = lifecycle.current;
+              if (!isActive(scope) || pageRequest.current) return;
               pageRequest.current = true;
               setPaging(true);
-              void load(nextCursor).catch(() => setActionError(true)).finally(() => {
-                pageRequest.current = false;
-                setPaging(false);
+              void load(nextCursor).catch(() => { if (isActive(scope)) setActionError(true); }).finally(() => {
+                if (isActive(scope)) {
+                  pageRequest.current = false;
+                  setPaging(false);
+                }
               });
             }}
           >

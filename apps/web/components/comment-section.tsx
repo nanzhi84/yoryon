@@ -47,6 +47,7 @@ export function CommentSection({ slug }: { slug: string }) {
   const loadAll = useCallback(async () => {
     setLoading(true);
     setError(false);
+    setSubmitError(null);
     setCtx(null);
     const firstRequest = loadRoots(null);
     const generation = currentGeneration();
