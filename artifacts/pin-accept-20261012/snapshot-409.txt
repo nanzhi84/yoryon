@@ -1,0 +1,13 @@
+旧 version=a72f219a-1a8c-4be8-842d-5e4a5f719cda
+=== unpin gamma（变更置顶状态） ===
+cache e4c926c4-c975-4b7c-b95a-cc0922d6889b: verified
+✓ pin-accept-gamma unpinned
+=== 旧 version + cursor 请求（应 409） ===
+{"error":{"code":"snapshot_expired","message":"列表已更新，请刷新页面"}}
+HTTP 409
+=== 旧 version 无 cursor 请求（应 409） ===
+{"error":{"code":"snapshot_expired","message":"列表已更新，请刷新页面"}}
+HTTP 409
+=== 不携带 version（应 200 且 gamma 回到时间序） ===
+version: e4c926c4-c975-4b7c-b95a-cc0922d6889b
+前5: [('pin-accept-alpha', True), ('pin-accept-gamma', False), ('pin-accept-pg6', False), ('pin-accept-img', False), ('pin-accept-pg5', False)]

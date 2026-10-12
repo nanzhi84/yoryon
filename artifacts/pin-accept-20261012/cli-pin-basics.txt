@@ -1,0 +1,61 @@
+=== pin alpha (首次) ===
+$ pnpm --filter @yoryon/cli start content pin pin-accept-alpha
+$ tsx --env-file=../../.env src/index.ts content pin pin-accept-alpha
+cache b6a82a85-1d9a-473b-a107-7986bd14bc22: verified
+✓ pin-accept-alpha pinned
+exit=0
+=== pin alpha (重复，幂等) ===
+$ pnpm --filter @yoryon/cli start content pin pin-accept-alpha
+$ tsx --env-file=../../.env src/index.ts content pin pin-accept-alpha
+- pin-accept-alpha 已是置顶状态，无需变更
+✓ pin-accept-alpha pinned
+exit=0
+=== pin 不存在 slug ===
+$ pnpm --filter @yoryon/cli start content pin pin-accept-nonexistent
+$ tsx --env-file=../../.env src/index.ts content pin pin-accept-nonexistent
+error: 内容不存在: pin-accept-nonexistent
+/Users/yoryon/Projects/yoryon/apps/cli:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @yoryon/cli@0.1.0 start: `tsx --env-file=../../.env src/index.ts content pin pin-accept-nonexistent`
+Exit status 1
+[ELIFECYCLE] Command failed with exit code 1.
+exit=1
+=== pin draft ===
+$ pnpm --filter @yoryon/cli start content pin pin-accept-draft
+$ tsx --env-file=../../.env src/index.ts content pin pin-accept-draft
+error: 仅支持置顶已发布内容，当前状态: draft
+/Users/yoryon/Projects/yoryon/apps/cli:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @yoryon/cli@0.1.0 start: `tsx --env-file=../../.env src/index.ts content pin pin-accept-draft`
+Exit status 1
+[ELIFECYCLE] Command failed with exit code 1.
+exit=1
+=== pin image 类型 ===
+$ pnpm --filter @yoryon/cli start content pin pin-accept-img
+$ tsx --env-file=../../.env src/index.ts content pin pin-accept-img
+error: 仅支持置顶 article，当前类型: image
+/Users/yoryon/Projects/yoryon/apps/cli:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @yoryon/cli@0.1.0 start: `tsx --env-file=../../.env src/index.ts content pin pin-accept-img`
+Exit status 1
+[ELIFECYCLE] Command failed with exit code 1.
+exit=1
+=== 错误操作后数据库状态（应仅 alpha 置顶） ===
+       slug       | is_pinned 
+------------------+-----------
+ pin-accept-alpha | t
+ pin-accept-beta  | f
+ pin-accept-draft | f
+ pin-accept-gamma | f
+ pin-accept-img   | f
+(5 rows)
+
+=== unpin beta（未置顶，幂等） ===
+$ pnpm --filter @yoryon/cli start content unpin pin-accept-beta
+$ tsx --env-file=../../.env src/index.ts content unpin pin-accept-beta
+- pin-accept-beta 已是非置顶状态，无需变更
+✓ pin-accept-beta unpinned
+exit=0
+=== pin gamma ===
+$ pnpm --filter @yoryon/cli start content pin pin-accept-gamma
+$ tsx --env-file=../../.env src/index.ts content pin pin-accept-gamma
+cache 9031c57f-47c7-4e8e-9d30-6e053f0b2333: verified
+✓ pin-accept-gamma pinned
+exit=0

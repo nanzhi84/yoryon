@@ -1,0 +1,59 @@
+=== 首页 HTML（当前仅 alpha 置顶） ===
+首页文章顺序(前6): ['pin-accept-alpha', 'pin-accept-gamma', 'pin-accept-pg6', 'pin-accept-img', 'pin-accept-pg5', 'pin-accept-beta']
+含"置顶"标记: 42
+... dium leading-snug group-hover:underline underline-offset-4">置顶测试·甲</h2></a><span class="inline-flex items-center rounded-f
+... border-transparent bg-muted text-muted-foreground shrink-0">置顶</span><time class="shrink-0 text-sm text-muted-foreground">
+... dium leading-snug group-hover:underline underline-offset-4">置顶测试·丙</h2></a><time class="shrink-0 text-sm text-muted-foregr
+... dium leading-snug group-hover:underline underline-offset-4">置顶测试·分页·陆</h2></a><time class="shrink-0 text-sm text-muted-for
+... dium leading-snug group-hover:underline underline-offset-4">置顶测试·图集</h2></a><time class="shrink-0 text-sm text-muted-foreg
+... dium leading-snug group-hover:underline underline-offset-4">置顶测试·分页·伍</h2></a><time class="shrink-0 text-sm text-muted-for
+... dium leading-snug group-hover:underline underline-offset-4">置顶测试·乙</h2></a><time class="shrink-0 text-sm text-muted-foregr
+... dium leading-snug group-hover:underline underline-offset-4">置顶测试·分页·肆</h2></a><time class="shrink-0 text-sm text-muted-for
+... dium leading-snug group-hover:underline underline-offset-4">置顶测试·分页·叁</h2></a><time class="shrink-0 text-sm text-muted-for
+... dium leading-snug group-hover:underline underline-offset-4">置顶测试·同毫秒边界</h2></a><time class="shrink-0 text-sm text-muted-fo
+... dium leading-snug group-hover:underline underline-offset-4">置顶测试·分页·贰</h2></a><time class="shrink-0 text-sm text-muted-for
+... dium leading-snug group-hover:underline underline-offset-4">置顶测试·分页·壹</h2></a><time class="shrink-0 text-sm text-muted-for
+... dium leading-snug group-hover:underline underline-offset-4">置顶测试·页界01</h2></a><time class="shrink-0 text-sm text-muted-for
+... dium leading-snug group-hover:underline underline-offset-4">置顶测试·页界02</h2></a><time class="shrink-0 text-sm text-muted-for
+... dium leading-snug group-hover:underline underline-offset-4">置顶测试·页界03</h2></a><time class="shrink-0 text-sm text-muted-for
+... dium leading-snug group-hover:underline underline-offset-4">置顶测试·页界04</h2></a><time class="shrink-0 text-sm text-muted-for
+... dium leading-snug group-hover:underline underline-offset-4">置顶测试·页界05</h2></a><time class="shrink-0 text-sm text-muted-for
+... dium leading-snug group-hover:underline underline-offset-4">置顶测试·页界06</h2></a><time class="shrink-0 text-sm text-muted-for
+... dium leading-snug group-hover:underline underline-offset-4">置顶测试·页界07</h2></a><time class="shrink-0 text-sm text-muted-for
+... dium leading-snug group-hover:underline underline-offset-4">置顶测试·页界08</h2></a><time class="shrink-0 text-sm text-muted-for
+... dium leading-snug group-hover:underline underline-offset-4">置顶测试·页界09</h2></a><time class="shrink-0 text-sm text-muted-for
+... g group-hover:underline underline-offset-4\",\"children\":\"置顶测试·甲\"}]}],[\"$\",\"span\",null,{\"className\":\"inline-flex
+... nt bg-muted text-muted-foreground shrink-0\",\"children\":\"置顶\"}],[\"$\",\"time\",null,{\"className\":\"shrink-0 text-sm 
+... g group-hover:underline underline-offset-4\",\"children\":\"置顶测试·丙\"}]}],false,[\"$\",\"time\",null,{\"className\":\"shrin
+... g group-hover:underline underline-offset-4\",\"children\":\"置顶测试·分页·陆\"}]}],false,[\"$\",\"time\",null,{\"className\":\"sh
+... g group-hover:underline underline-offset-4\",\"children\":\"置顶测试·图集\"}]}],false,[\"$\",\"time\",null,{\"className\":\"shri
+... g group-hover:underline underline-offset-4\",\"children\":\"置顶测试·分页·伍\"}]}],false,[\"$\",\"time\",null,{\"className\":\"sh
+... g group-hover:underline underline-offset-4\",\"children\":\"置顶测试·乙\"}]}],false,[\"$\",\"time\",null,{\"className\":\"shrin
+... g group-hover:underline underline-offset-4\",\"children\":\"置顶测试·分页·肆\"}]}],false,[\"$\",\"time\",null,{\"className\":\"sh
+... g group-hover:underline underline-offset-4\",\"children\":\"置顶测试·分页·叁\"}]}],false,[\"$\",\"time\",null,{\"className\":\"sh
+... g group-hover:underline underline-offset-4\",\"children\":\"置顶测试·同毫秒边界\"}]}],false,[\"$\",\"time\",null,{\"className\":\"s
+... g group-hover:underline underline-offset-4\",\"children\":\"置顶测试·分页·贰\"}]}],false,[\"$\",\"time\",null,{\"className\":\"sh
+... g group-hover:underline underline-offset-4\",\"children\":\"置顶测试·分页·壹\"}]}],false,[\"$\",\"time\",null,{\"className\":\"sh
+... g group-hover:underline underline-offset-4\",\"children\":\"置顶测试·页界01\"}]}],false,[\"$\",\"time\",null,{\"className\":\"sh
+... g group-hover:underline underline-offset-4\",\"children\":\"置顶测试·页界02\"}]}],false,[\"$\",\"time\",null,{\"className\":\"sh
+... g group-hover:underline underline-offset-4\",\"children\":\"置顶测试·页界03\"}]}],false,[\"$\",\"time\",null,{\"className\":\"sh
+... g group-hover:underline underline-offset-4\",\"children\":\"置顶测试·页界04\"}]}],false,[\"$\",\"time\",null,{\"className\":\"sh
+... g group-hover:underline underline-offset-4\",\"children\":\"置顶测试·页界05\"}]}],false,[\"$\",\"time\",null,{\"className\":\"sh
+... g group-hover:underline underline-offset-4\",\"children\":\"置顶测试·页界06\"}]}],false,[\"$\",\"time\",null,{\"className\":\"sh
+... g group-hover:underline underline-offset-4\",\"children\":\"置顶测试·页界07\"}]}],false,[\"$\",\"time\",null,{\"className\":\"sh
+... g group-hover:underline underline-offset-4\",\"children\":\"置顶测试·页界08\"}]}],false,[\"$\",\"time\",null,{\"className\":\"sh
+... g group-hover:underline underline-offset-4\",\"children\":\"置顶测试·页界09\"}]}],false,[\"$\",\"time\",null,{\"className\":\"sh
+alpha 日期出现: False
+=== pin gamma 后立即 curl 首页（web 未重启） ===
+cache bbbf34eb-887a-4d35-96fb-4cff77cf7556: verified
+✓ pin-accept-gamma pinned
+pin 前前3: [('pin-accept-alpha', True, '2026年10月1日'), ('pin-accept-gamma', False, '2026年10月10日'), ('pin-accept-pg6', False, '2026年10月9日')]
+pin 后前3: [('pin-accept-gamma', True, '2026年10月10日'), ('pin-accept-alpha', True, '2026年10月1日'), ('pin-accept-pg6', False, '2026年10月9日')]
+首页总条数: 20
+=== 详情页 ===
+alpha 详情页 HTTP 200
+已修订 re-publish
+=== unpin gamma 后再 curl（缓存回退） ===
+cache b9cad7f8-47ec-41c7-bcf7-3a5a1dd4259a: verified
+✓ pin-accept-gamma unpinned
+unpin 后前3: [('pin-accept-alpha', True), ('pin-accept-gamma', False), ('pin-accept-pg6', False)]

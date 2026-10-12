@@ -6,7 +6,7 @@ import { FeedTimeline } from "./feed-timeline";
 import { Button } from "./ui/button";
 
 /** 信息流/标签页"加载更多"（游标分页，经同源 BFF）。 */
-export function LoadMore({ initialCursor, version, basePath = "/api/feed" }: { initialCursor: string; version: string; basePath?: string }) {
+export function LoadMore({ initialCursor, version, basePath = "/api/feed", showPinnedBadge = false }: { initialCursor: string; version: string; basePath?: string; showPinnedBadge?: boolean }) {
   const [cursor, setCursor] = useState<string | null>(initialCursor);
   const [items, setItems] = useState<FeedItem[]>([]);
   const [loading, setLoading] = useState(false);
@@ -33,7 +33,7 @@ export function LoadMore({ initialCursor, version, basePath = "/api/feed" }: { i
 
   return (
     <div className="py-6">
-      <FeedTimeline items={items} />
+      <FeedTimeline items={items} showPinnedBadge={showPinnedBadge} />
       {error && <p className="py-2 text-center text-sm text-red-500">加载失败，请重试。</p>}
       {expired && <p role="status">列表已更新。<button className="underline" onClick={() => window.location.reload()}>刷新列表</button></p>}
       {cursor && !expired && (

@@ -94,7 +94,9 @@ export function registerContentCommands(program: Command) {
       }
     });
 
-  /** pin/unpin 共用：事务内更新置顶标记 + 缓存事件（feed 排序是公开缓存，必须失效并使旧游标 409）。 */
+  /** pin/unpin 共用：事务内更新置顶标记 + 缓存事件（feed 排序是公开缓存，必须失效并使旧游标 409）。
+   *  已知权衡（与 unpublish/delete 相同）：快照版本以缓存事件成功投递为界；投递失败窗口内携带旧版本的
+   *  翻页请求不会收到 409，恢复路径为 blog cache retry（投递器有界重试并在 CLI 输出 pending 提示）。 */
   async function setPinned(slug: string, pinned: boolean) {
     await withCacheTransaction(async (tx) => {
       const rows = await tx

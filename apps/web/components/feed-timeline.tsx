@@ -17,17 +17,23 @@ export function formatDate(iso: string | null): string {
 }
 
 /** 信息流内容条目：标题 + 日期 / 封面 + 简介 / 类型 + 标签，点进详情。 */
-function ContentEntry({ item }: { item: FeedContentItem }) {
+function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem; showPinnedBadge?: boolean }) {
   return (
     <TrackImpression targetKind="work" targetId={item.id}>
       <article className="group py-6">
         <div className="flex items-baseline justify-between gap-4">
-          <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="min-w-0">
-            <h2 className="truncate text-lg font-medium leading-snug group-hover:underline underline-offset-4">
-              {item.title}
-            </h2>
-          </TrackClickLink>
-          {item.isPinned && <Badge variant="secondary" className="shrink-0">置顶</Badge>}
+          <div className="flex min-w-0 items-baseline gap-2">
+            <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="min-w-0">
+              <h2 className="truncate text-lg font-medium leading-snug group-hover:underline underline-offset-4">
+                {item.title}
+              </h2>
+            </TrackClickLink>
+            {showPinnedBadge && item.isPinned && (
+              <Badge variant="secondary" className="shrink-0">
+                置顶
+              </Badge>
+            )}
+          </div>
           <time className="shrink-0 text-sm text-muted-foreground">{formatDate(item.publishedAt)}</time>
         </div>
         {item.coverMediaId && (
@@ -77,12 +83,13 @@ export function CollectionEntry({ item }: { item: CollectionListItem }) {
   );
 }
 
-/** 时间线：按 publishedAt 排序的内容列表，极简分隔线风格（父容器加 divide-y divide-border）。 */
-export function FeedTimeline({ items }: { items: FeedItem[] }) {
+/** 时间线：按 publishedAt 排序的内容列表，极简分隔线风格（父容器加 divide-y divide-border）。
+ *  showPinnedBadge 仅首页开启：置顶是 feed 排序语义，标签页不显示标记。 */
+export function FeedTimeline({ items, showPinnedBadge = false }: { items: FeedItem[]; showPinnedBadge?: boolean }) {
   return (
     <>
       {items.map((item) => (
-        <ContentEntry key={item.id} item={item} />
+        <ContentEntry key={item.id} item={item} showPinnedBadge={showPinnedBadge} />
       ))}
     </>
   );

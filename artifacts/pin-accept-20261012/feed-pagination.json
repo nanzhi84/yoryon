@@ -1,0 +1,99 @@
+{
+ "version": "a72f219a-1a8c-4be8-842d-5e4a5f719cda",
+ "pages": [
+  {
+   "page": 1,
+   "slugs": [
+    "pin-accept-gamma",
+    "pin-accept-alpha",
+    "pin-accept-pg6",
+    "pin-accept-img",
+    "pin-accept-pg5",
+    "pin-accept-beta",
+    "pin-accept-pg4",
+    "pin-accept-pg3",
+    "pin-accept-tie",
+    "pin-accept-pg2",
+    "pin-accept-pg1",
+    "pin-accept-pp01",
+    "pin-accept-pp02",
+    "pin-accept-pp03",
+    "pin-accept-pp04",
+    "pin-accept-pp05",
+    "pin-accept-pp06",
+    "pin-accept-pp07",
+    "pin-accept-pp08",
+    "pin-accept-pp09"
+   ],
+   "pinned": [
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "times": [
+    "2026-10-10T00:00:00.000Z",
+    "2026-10-01T00:00:00.000Z",
+    "2026-10-09T00:00:00.000Z",
+    "2026-10-07T00:00:00.000Z",
+    "2026-10-06T00:00:00.000Z",
+    "2026-10-05T00:00:00.000Z",
+    "2026-10-03T00:00:00.000Z",
+    "2026-10-02T00:00:00.000Z",
+    "2026-10-01T00:00:00.000Z",
+    "2026-09-29T00:00:00.000Z",
+    "2026-09-28T00:00:00.000Z",
+    "2026-09-27T00:00:00.000Z",
+    "2026-09-26T00:00:00.000Z",
+    "2026-09-25T00:00:00.000Z",
+    "2026-09-24T00:00:00.000Z",
+    "2026-09-23T00:00:00.000Z",
+    "2026-09-22T00:00:00.000Z",
+    "2026-09-21T00:00:00.000Z",
+    "2026-09-20T00:00:00.000Z",
+    "2026-09-19T00:00:00.000Z"
+   ]
+  },
+  {
+   "page": 2,
+   "slugs": [
+    "pin-accept-pp10",
+    "pin-accept-pp11",
+    "pin-accept-pp12",
+    "pin-accept-pp13",
+    "pin-accept-pp14"
+   ],
+   "pinned": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "times": [
+    "2026-09-19T00:00:00.000Z",
+    "2026-09-18T00:00:00.000Z",
+    "2026-09-17T00:00:00.000Z",
+    "2026-09-16T00:00:00.000Z",
+    "2026-09-15T00:00:00.000Z"
+   ]
+  }
+ ],
+ "total": 25
+}

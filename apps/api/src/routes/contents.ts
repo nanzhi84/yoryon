@@ -34,6 +34,7 @@ interface FeedCursor {
   id: string;
 }
 
+/** feed 游标：完整三元组 (isPinned, 毫秒 sortKey, id)。置顶变更会推进版本使旧游标 409；残留旧格式在此拒绝而非静默回首页。 */
 function encodeCursor(p: boolean, t: Date, id: string): string {
   return Buffer.from(JSON.stringify({ p, t: t.toISOString(), id }), "utf8").toString("base64url");
 }
@@ -41,12 +42,27 @@ function encodeCursor(p: boolean, t: Date, id: string): string {
 function decodeCursor(raw: string | undefined): FeedCursor | null {
   if (!raw) return null;
   try {
-    // 兼容字段 k 为混排时代的遗留（feed 改为纯内容流后已不使用），解码时忽略
     const v = JSON.parse(Buffer.from(raw, "base64url").toString("utf8")) as { p?: unknown; t: string; id: string };
     const t = new Date(v.t);
-    // 游标必须是完整三元组 (isPinned, sortKey, id)：置顶变更后版本门禁返回 409，旧格式游标按无效处理
     if (typeof v.p !== "boolean" || Number.isNaN(t.getTime()) || typeof v.id !== "string") return null;
     return { p: v.p, t, id: v.id };
+  } catch {
+    return null;
+  }
+}
+
+/** 标签页游标：维持既有二元格式 {t,id}（标签排序与置顶无关，新旧游标均可解码）。 */
+function encodeTagCursor(t: Date, id: string): string {
+  return Buffer.from(JSON.stringify({ t: t.toISOString(), id }), "utf8").toString("base64url");
+}
+
+function decodeTagCursor(raw: string | undefined): { t: Date; id: string } | null {
+  if (!raw) return null;
+  try {
+    const v = JSON.parse(Buffer.from(raw, "base64url").toString("utf8")) as { t: string; id: string };
+    const t = new Date(v.t);
+    if (Number.isNaN(t.getTime()) || typeof v.id !== "string") return null;
+    return { t, id: v.id };
   } catch {
     return null;
   }
@@ -79,7 +95,9 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
   app.get("/feed", async (c) => {
     const version = await policy.version();
     if (c.req.query("version") && c.req.query("version") !== version) return errorResponse(c, 409, "snapshot_expired", "列表已更新，请刷新页面");
-    const cursor = decodeCursor(c.req.query("cursor"));
+    const rawCursor = c.req.query("cursor");
+    const cursor = decodeCursor(rawCursor);
+    if (rawCursor && !cursor) return errorResponse(c, 400, "invalid_cursor", "分页游标无效，请刷新列表");
     const contentSortKey = sql`date_trunc('milliseconds', coalesce(${contents.publishedAt}, ${contents.createdAt}))`;
     const rows = await deps.db
       .select(listContentColumns)
@@ -211,7 +229,9 @@ function tagKeyset(cursor: { t: Date; id: string } | null, timeCol: SQL | any, i
     const tagRows = await deps.db.select().from(tags).where(eq(tags.slug, c.req.param("slug"))).limit(1);
     const tag = tagRows[0];
     if (!tag) return errorResponse(c, 404, "not_found", "标签不存在");
-    const cursor = decodeCursor(c.req.query("cursor"));
+    const rawCursor = c.req.query("cursor");
+    const cursor = decodeTagCursor(rawCursor);
+    if (rawCursor && !cursor) return errorResponse(c, 400, "invalid_cursor", "分页游标无效，请刷新列表");
     const contentSortKey = sql`date_trunc('milliseconds', coalesce(${contents.publishedAt}, ${contents.createdAt}))`;
     const rows = await deps.db
       .select(listContentColumns)
@@ -244,10 +264,11 @@ function tagKeyset(cursor: { t: Date; id: string } | null, timeCol: SQL | any, i
         visibility: r.visibility,
         coverMediaId: r.coverMediaId,
         publishedAt: r.publishedAt?.toISOString() ?? null,
+        isPinned: r.isPinned,
         tags: pageTagRows.filter((t) => t.contentId === r.id).map((t) => ({ slug: t.slug, name: t.name })),
       })),
-      // 与 feed 同一终止条件：多拉 1 条才说明有下一页；游标不带 isPinned（标签排序与置顶无关）
-      nextCursor: rows.length > FEED_PAGE_SIZE && last ? encodeCursor(false, last.publishedAt ?? last.createdAt, last.id) : null,
+      // 与 feed 同一终止条件：多拉 1 条才说明有下一页；标签游标维持二元格式（排序与置顶无关）
+      nextCursor: rows.length > FEED_PAGE_SIZE && last ? encodeTagCursor(last.publishedAt ?? last.createdAt, last.id) : null,
     });
   });
 

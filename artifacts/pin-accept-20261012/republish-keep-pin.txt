@@ -1,0 +1,16 @@
+=== unpin gamma 重复（幂等） ===
+$ pnpm --filter @yoryon/cli start content unpin pin-accept-gamma
+$ tsx --env-file=../../.env src/index.ts content unpin pin-accept-gamma
+- pin-accept-gamma 已是非置顶状态，无需变更
+✓ pin-accept-gamma unpinned
+=== 修改 alpha 正文后重新 publish ===
+  published: pin-accept-alpha (content 72bb0a68-e0b3-4592-8483-036ce1a18e67)
+✓ pin-accept-alpha database committed (0 uploaded, 0 reused); page state is reported by cache event above
+=== 数据库 is_pinned ===
+       slug       | is_pinned |                     body                      
+------------------+-----------+-----------------------------------------------
+ pin-accept-alpha | t         | 甲正文：较早发布的文章。（已修订 re-publish）
+(1 row)
+
+=== feed 首位确认 ===
+首位: pin-accept-alpha isPinned: True publishedAt: 2026-10-01T00:00:00.000Z

@@ -218,6 +218,11 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
       // 内容 upsert（按 slug）
       const publishedAt = fm.published_at ?? new Date();
       const coverId = fm.cover ? mediaIdByRef.get(fm.cover)! : null;
+      // 置顶约束守卫：is_pinned 不参与 upsert（重新发布保留置顶），但已置顶内容禁止变更为非 article
+      const existingRows = await tx.select({ isPinned: contents.isPinned }).from(contents).where(eq(contents.slug, fm.slug)).limit(1);
+      if (existingRows[0]?.isPinned && fm.type !== "article") {
+        throw new Error(`${fm.slug} 处于置顶状态，仅 article 可置顶；变更类型前请先 blog content unpin ${fm.slug}`);
+      }
       const inserted = await tx
         .insert(contents)
         .values({
