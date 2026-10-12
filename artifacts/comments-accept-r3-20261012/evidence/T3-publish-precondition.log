@@ -1,0 +1,5 @@
+$ pnpm --filter @yoryon/cli start publish /Users/yoryon/Projects/yoryon-pr3-comments/artifacts/comments-accept-r3-20261012/evidence/publish-input/r3-free
+$ tsx --env-file=../../.env src/index.ts publish /Users/yoryon/Projects/yoryon-pr3-comments/artifacts/comments-accept-r3-20261012/evidence/publish-input/r3-free
+  published: r3-free (content cd98ce0a-8eb6-4306-9ba4-a06b6d1044de)
+  cache 571ea184-3852-48b6-8c4f-0f955c48d7bc: verified
+✓ r3-free database committed (0 uploaded, 0 reused); page state is reported by cache event above

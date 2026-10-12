@@ -9,11 +9,19 @@ interface ApiError {
   error?: { code?: string; message?: string };
 }
 
-export function LoginForm() {
+/** 站内安全跳转目标：仅接受以 / 开头的站内路径（拒绝 // 协议相对与反斜杠变体）。 */
+export function safeReturnTo(value: string | null | undefined): string | null {
+  if (!value) return null;
+  if (!/^\/[a-zA-Z0-9\-_~./?&=%#]*$/.test(value) || value.startsWith("//") || value.includes("\\")) return null;
+  return value;
+}
+
+export function LoginForm({ returnTo }: { returnTo?: string | null }) {
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const target = safeReturnTo(returnTo) ?? "/";
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -30,8 +38,8 @@ export function LoginForm() {
         setError(data.error?.message ?? "登录失败");
         return;
       }
-      // 硬导航：登录后需要完整重建服务端渲染状态（Cookie 已种）
-      window.location.assign("/");
+      // 硬导航：登录后需要完整重建服务端渲染状态（Cookie 已种）；returnTo 经站内校验
+      window.location.assign(target);
     } catch {
       setError("网络错误，请重试");
     } finally {

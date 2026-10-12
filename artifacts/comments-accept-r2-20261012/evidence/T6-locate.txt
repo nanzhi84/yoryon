@@ -1,0 +1,10 @@
+--- reply locate:
+{"id":"67dc6c87-d3e7-437c-b8d1-20dd770cf975","rootId":"dc7a207d-a9ef-4b92-8193-1aa1d9e77a11","contentSlug":"cmt-free"} [200]
+--- root locate:
+{"id":"fdfd5771-392c-411e-8d22-e73ddae08a31","rootId":"fdfd5771-392c-411e-8d22-e73ddae08a31","contentSlug":"cmt-free"} [200]
+--- nonexistent uuid:
+{"error":{"code":"not_found","message":"评论不存在"}} [404]
+--- 36 hyphens:
+{"error":{"code":"not_found","message":"评论不存在"}} [404]
+--- {bad} encoded:
+{"error":{"code":"not_found","message":"评论不存在"}} [404]

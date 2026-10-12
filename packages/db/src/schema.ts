@@ -295,6 +295,95 @@ export const cacheEvents = pgTable("cache_events", {
   createdAt: timestamp("created_at", { withTimezone: true, mode: "date" }).notNull().defaultNow(),
 });
 export type Session = typeof sessions.$inferSelect;
+
+/**
+ * 评论（Issue #14）：一级评论 parent_id=null；回复挂根评论 parent_id=根 id（展示扁平化，禁止无限递归），
+ * reply_to_id 指向直接被回复对象（UI @提示用）。软删除（deleted_at）保留回复占位；
+ * 内容删除级联清理评论；用户删除不级联（PG 默认 restrict），历史通知保留。
+ */
+export const comments = pgTable(
+  "comments",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    contentId: uuid("content_id")
+      .notNull()
+      .references(() => contents.id, { onDelete: "cascade" }),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id),
+    /** 根评论 id；一级评论为 null。自引用，不加 onDelete：软删除不存在物理级联。 */
+    parentId: uuid("parent_id").references((): any => comments.id),
+    /** 直接被回复的评论/回复 id（必须同 content，应用层校验） */
+    replyToId: uuid("reply_to_id").references((): any => comments.id),
+    body: text("body").notNull(),
+    likeCount: integer("like_count").notNull().default(0),
+    // 与 JS Date 游标同一毫秒精度；DB 直接写入也不得留下微秒边界。
+    createdAt: timestamp("created_at", { withTimezone: true, mode: "date", precision: 3 }).notNull().default(sql`date_trunc('milliseconds', now())`),
+    deletedAt: timestamp("deleted_at", { withTimezone: true, mode: "date" }),
+  },
+  (t) => [
+    // 根评论分页：where content_id=? and parent_id is null order by like_count desc, created_at desc, id desc
+    index("comments_content_roots_idx").on(t.contentId, t.parentId, t.likeCount, t.createdAt, t.id),
+    // 回复分页：where parent_id=? order by created_at asc, id asc
+    index("comments_parent_created_idx").on(t.parentId, t.createdAt, t.id),
+    check("comments_like_count_nonneg", sql`${t.likeCount} >= 0`),
+  ],
+);
+
+/** 根评论排序版本；数据库触发器与评论变更同事务递增，旧版本游标不能继续分页。 */
+export const commentFeedVersions = pgTable("comment_feed_versions", {
+  contentId: uuid("content_id").primaryKey().references(() => contents.id, { onDelete: "cascade" }),
+  version: bigint("version", { mode: "bigint" }).notNull().default(sql`0`),
+});
+
+/** 评论点赞：(comment_id,user_id) 唯一防双赞；计数在事务内维护。 */
+export const commentLikes = pgTable(
+  "comment_likes",
+  {
+    commentId: uuid("comment_id")
+      .notNull()
+      .references(() => comments.id, { onDelete: "cascade" }),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id),
+    createdAt: timestamp("created_at", { withTimezone: true, mode: "date" }).notNull().defaultNow(),
+  },
+  (t) => [primaryKey({ columns: [t.commentId, t.userId] }), index("comment_likes_user_idx").on(t.userId)],
+);
+
+/**
+ * 站内通知（Issue #14 V1：reply/like）。event_id 幂等键防重试重复。
+ * content_id/comment_id 故意不设外键（同 analytics_events 约定）：作品/评论删除后历史通知保留，
+ * 展示时联查不到即视为已下线，不提供跳转。
+ * 取消点赞不撤销已发通知（V1 明确策略：通知是已发生事件的记录）。
+ */
+export const notifications = pgTable(
+  "notifications",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    recipientUserId: uuid("recipient_user_id")
+      .notNull()
+      .references(() => users.id),
+    actorUserId: uuid("actor_user_id")
+      .notNull()
+      .references(() => users.id),
+    type: text("type", { enum: ["reply", "like"] }).notNull(),
+    contentId: uuid("content_id"),
+    commentId: uuid("comment_id"),
+    /** 幂等键：同一互动事件重复插入由唯一索引拒绝 */
+    eventId: uuid("event_id").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true, mode: "date", precision: 3 }).notNull().default(sql`date_trunc('milliseconds', now())`),
+    readAt: timestamp("read_at", { withTimezone: true, mode: "date" }),
+  },
+  (t) => [
+    uniqueIndex("notifications_event_id_unique").on(t.eventId),
+    index("notifications_recipient_idx").on(t.recipientUserId, t.createdAt, t.id),
+  ],
+);
+
+export type Comment = typeof comments.$inferSelect;
+export type CommentLike = typeof commentLikes.$inferSelect;
+export type Notification = typeof notifications.$inferSelect;
 export type Content = typeof contents.$inferSelect;
 export type MediaAsset = typeof mediaAssets.$inferSelect;
 export type ContentMedia = typeof contentMedia.$inferSelect;

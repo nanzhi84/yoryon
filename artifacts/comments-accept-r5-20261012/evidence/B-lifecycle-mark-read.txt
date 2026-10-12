@@ -1,0 +1,24 @@
+{"at":"2026-10-12T16:59:28.151Z","step":"B-own-precondition","sql":"UPDATE notifications SET read_at=NULL WHERE id=$1 AND recipient_user_id=$2 RETURNING id,content_id,comment_id,read_at","parameters":["a5200000-0000-4000-8000-000000000001","6e66935b-6b9d-4d07-90ee-8fcb02cd3981"],"rows":[{"id":"a5200000-0000-4000-8000-000000000001","content_id":"25ed994a-b032-4146-9d34-f47b05c19f46","comment_id":"01de8571-a427-476d-a8ea-b7c0bffb822a","read_at":null}]}
+{"at":"2026-10-12T16:59:28.242Z","kind":"request","method":"GET","path":"/login","document":true,"time":1791824368242}
+{"at":"2026-10-12T16:59:28.286Z","kind":"request","method":"GET","path":"/api/notifications/unread-count","document":false,"time":1791824368286}
+{"at":"2026-10-12T16:59:28.289Z","kind":"response","method":"GET","path":"/api/notifications/unread-count","status":401}
+{"at":"2026-10-12T16:59:28.336Z","kind":"request","method":"POST","path":"/api/auth/login","document":false,"time":1791824368336}
+{"at":"2026-10-12T16:59:28.371Z","kind":"response","method":"POST","path":"/api/auth/login","status":200}
+{"at":"2026-10-12T16:59:28.372Z","kind":"request","method":"GET","path":"/notifications","document":true,"time":1791824368372}
+{"at":"2026-10-12T16:59:28.386Z","kind":"request","method":"GET","path":"/api/notifications/unread-count","document":false,"time":1791824368386}
+{"at":"2026-10-12T16:59:28.387Z","kind":"request","method":"GET","path":"/api/notifications","document":false,"time":1791824368387}
+{"at":"2026-10-12T16:59:28.393Z","kind":"response","method":"GET","path":"/api/notifications/unread-count","status":200}
+{"at":"2026-10-12T16:59:28.400Z","kind":"response","method":"GET","path":"/api/notifications","status":200}
+{"at":"2026-10-12T16:59:28.421Z","kind":"request","method":"GET","path":"/api/notifications","document":false,"time":1791824368421}
+{"at":"2026-10-12T16:59:28.426Z","kind":"response","method":"GET","path":"/api/notifications","status":200}
+{"at":"2026-10-12T16:59:28.430Z","step":"B-real-Web-relogin-and-linked-unread","loginStatus":200,"items":{"status":200,"items":[{"id":"a5200000-0000-4000-8000-000000000003","link":null,"readAt":"2026-10-12T16:57:49.025Z"},{"id":"a5200000-0000-4000-8000-000000000002","link":null,"readAt":"2026-10-12T16:57:49.025Z"},{"id":"a5200000-0000-4000-8000-000000000001","link":"/p/cmt-free#comment-01de8571-a427-476d-a8ea-b7c0bffb822a","readAt":null}]},"unreadDOM":1}
+{"at":"2026-10-12T16:59:28.450Z","kind":"request","method":"PATCH","path":"/api/notifications/a5200000-0000-4000-8000-000000000001/read","document":false,"time":1791824368450}
+{"at":"2026-10-12T16:59:28.459Z","step":"route.fetch-real-PATCH-completed","method":"PATCH","status":200,"bodyRead":false}
+{"at":"2026-10-12T16:59:28.459Z","step":"B-server-read-before-release","status":200,"sql":[{"id":"a5200000-0000-4000-8000-000000000001","read_at":"2026-10-12T16:59:28.456Z"}]}
+{"at":"2026-10-12T16:59:28.504Z","kind":"request","method":"GET","path":"/api/notifications/unread-count","document":false,"time":1791824368504}
+{"at":"2026-10-12T16:59:28.506Z","step":"B-real-Link-SPA-home","url":"http://localhost:3103/","sameDocument":true,"documentNavigations":[]}
+{"at":"2026-10-12T16:59:28.506Z","step":"original-PATCH-response-delivered"}
+{"at":"2026-10-12T16:59:28.507Z","kind":"response","method":"PATCH","path":"/api/notifications/a5200000-0000-4000-8000-000000000001/read","status":200}
+{"at":"2026-10-12T16:59:28.509Z","kind":"response","method":"GET","path":"/api/notifications/unread-count","status":200}
+{"at":"2026-10-12T16:59:30.018Z","step":"B-late-success-final","url":"http://localhost:3103/","homeDOM":1,"ownCommentDOM":0,"sameDocument":true,"networkAfterRelease":[],"sql":[{"id":"a5200000-0000-4000-8000-000000000001","read_at":"2026-10-12T16:59:28.456Z"}],"observationMs":1500}
+{"at":"2026-10-12T16:59:30.049Z","result":"PASS","assertion":"Linked notification is SQL-read; late response cannot navigate back to article after real SPA unmount."}

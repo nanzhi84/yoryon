@@ -1,0 +1,13 @@
+page 1: 20 items, nextCursor=set
+   3 2026-10-12T14:34:34.498Z 07eeb675 D-root-23 by u2
+   3 2026-10-12T14:34:34.427Z 5d685ca4 D-root-19 by u1
+   3 2026-10-12T14:34:34.356Z 936e0e63 D-root-15 by u3
+page 2: 5 items, nextCursor=null
+   0 2026-10-12T14:34:34.445Z 0cec44d6 D-root-20 by u2
+   0 2026-10-12T14:34:34.374Z 0663be58 D-root-16 by u1
+   0 2026-10-12T14:34:34.302Z 29a46ed5 D-root-12 by u3
+total roots fetched: 25 distinct ids: 25
+reported total: 25
+ordering OK
+missing: set()
+unexpected: set()

@@ -1,0 +1,21 @@
+   slug   |  status   | visibility 
+----------+-----------+------------
+ cmt-free | published | public
+ cmt-paid | published | paid
+ r3-free  | published | public
+ r3-paid  | published | paid
+(4 rows)
+
+   slug   | comments | roots 
+----------+----------+-------
+ cmt-free |       46 |    38
+ cmt-paid |        2 |     2
+ r3-free  |       90 |    45
+ r3-paid  |        1 |     1
+(4 rows)
+
+                  id                  |  state   |                                                                                                       payload                                                                                                        
+--------------------------------------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 571ea184-3852-48b6-8c4f-0f955c48d7bc | verified | {"id":"571ea184-3852-48b6-8c4f-0f955c48d7bc","tags":["feed","collections","sitemap","content:r3-free"],"paths":["/","/c","/sitemap.xml","/p/r3-free"],"contentSlug":"r3-free","revision":"2026-10-12T15:38:42.796Z"}
+(1 row)
+

@@ -1,0 +1,214 @@
+[
+  {
+    "name": "put-expiry",
+    "method": "PUT",
+    "target": "6aff33d6-82b4-455f-9c9e-820c1865e5f8",
+    "sqlPrecondition": "r3 content grant through SQL activation_codes→redemptions→entitlements; BEGIN; SELECT target FOR UPDATE; pg_stat_activity observed real HTTP Lock wait; expire/revoke/unpublish before COMMIT",
+    "priorAllowed": {
+      "authenticated": true,
+      "canInteract": true,
+      "me": {
+        "id": "8e89d8da-8848-4518-a7eb-554d5dd0aedd",
+        "username": "r3_reader",
+        "role": "user"
+      }
+    },
+    "blocked": [
+      {
+        "pid": 217783,
+        "state": "active",
+        "wait_event_type": "Lock",
+        "wait_event": "transactionid"
+      }
+    ],
+    "stillPending": true,
+    "beforeUnlock": {
+      "now": "2026-10-12T15:33:55.526Z",
+      "valid_until": "2026-10-12T15:33:55.360Z",
+      "revoked_at": null
+    },
+    "response": {
+      "status": 403,
+      "body": {
+        "error": {
+          "code": "forbidden",
+          "message": "当前没有该作品的互动权益"
+        }
+      },
+      "durationMs": 3177
+    },
+    "before": {
+      "like_count": 0,
+      "likes": 0,
+      "replies": 0,
+      "notifications": 0
+    },
+    "after": {
+      "like_count": 0,
+      "likes": 0,
+      "replies": 0,
+      "notifications": 0
+    },
+    "noInteractionMutation": true,
+    "result": "PASS"
+  },
+  {
+    "name": "delete-revoke",
+    "method": "DELETE",
+    "target": "6aff33d6-82b4-455f-9c9e-820c1865e5f8",
+    "sqlPrecondition": "r3 content grant through SQL activation_codes→redemptions→entitlements; BEGIN; SELECT target FOR UPDATE; pg_stat_activity observed real HTTP Lock wait; expire/revoke/unpublish before COMMIT",
+    "priorAllowed": {
+      "authenticated": true,
+      "canInteract": true,
+      "me": {
+        "id": "8e89d8da-8848-4518-a7eb-554d5dd0aedd",
+        "username": "r3_reader",
+        "role": "user"
+      }
+    },
+    "blocked": [
+      {
+        "pid": 217783,
+        "state": "active",
+        "wait_event_type": "Lock",
+        "wait_event": "transactionid"
+      }
+    ],
+    "stillPending": true,
+    "beforeUnlock": {
+      "now": "2026-10-12T15:33:55.592Z",
+      "valid_until": "2026-10-12T16:33:55.544Z",
+      "revoked_at": "2026-10-12T15:33:55.591Z"
+    },
+    "response": {
+      "status": 403,
+      "body": {
+        "error": {
+          "code": "forbidden",
+          "message": "当前没有该作品的互动权益"
+        }
+      },
+      "durationMs": 45
+    },
+    "before": {
+      "like_count": 1,
+      "likes": 1,
+      "replies": 0,
+      "notifications": 0
+    },
+    "after": {
+      "like_count": 1,
+      "likes": 1,
+      "replies": 0,
+      "notifications": 0
+    },
+    "noInteractionMutation": true,
+    "result": "PASS"
+  },
+  {
+    "name": "reply-expiry",
+    "method": "POST",
+    "target": "6aff33d6-82b4-455f-9c9e-820c1865e5f8",
+    "sqlPrecondition": "r3 content grant through SQL activation_codes→redemptions→entitlements; BEGIN; SELECT target FOR UPDATE; pg_stat_activity observed real HTTP Lock wait; expire/revoke/unpublish before COMMIT",
+    "priorAllowed": {
+      "authenticated": true,
+      "canInteract": true,
+      "me": {
+        "id": "8e89d8da-8848-4518-a7eb-554d5dd0aedd",
+        "username": "r3_reader",
+        "role": "user"
+      }
+    },
+    "blocked": [
+      {
+        "pid": 217783,
+        "state": "active",
+        "wait_event_type": "Lock",
+        "wait_event": "transactionid"
+      }
+    ],
+    "stillPending": true,
+    "beforeUnlock": {
+      "now": "2026-10-12T15:33:58.762Z",
+      "valid_until": "2026-10-12T15:33:58.597Z",
+      "revoked_at": null
+    },
+    "response": {
+      "status": 403,
+      "body": {
+        "error": {
+          "code": "forbidden",
+          "message": "当前没有该作品的互动权益"
+        }
+      },
+      "durationMs": 3172
+    },
+    "before": {
+      "like_count": 1,
+      "likes": 1,
+      "replies": 0,
+      "notifications": 0
+    },
+    "after": {
+      "like_count": 1,
+      "likes": 1,
+      "replies": 0,
+      "notifications": 0
+    },
+    "noInteractionMutation": true,
+    "result": "PASS"
+  },
+  {
+    "name": "reply-unpublish",
+    "method": "POST",
+    "target": "6aff33d6-82b4-455f-9c9e-820c1865e5f8",
+    "sqlPrecondition": "r3 content grant through SQL activation_codes→redemptions→entitlements; BEGIN; SELECT target FOR UPDATE; pg_stat_activity observed real HTTP Lock wait; expire/revoke/unpublish before COMMIT",
+    "priorAllowed": {
+      "authenticated": true,
+      "canInteract": true,
+      "me": {
+        "id": "8e89d8da-8848-4518-a7eb-554d5dd0aedd",
+        "username": "r3_reader",
+        "role": "user"
+      }
+    },
+    "blocked": [
+      {
+        "pid": 217783,
+        "state": "active",
+        "wait_event_type": "Lock",
+        "wait_event": "transactionid"
+      }
+    ],
+    "stillPending": true,
+    "beforeUnlock": {
+      "now": "2026-10-12T15:33:58.822Z",
+      "valid_until": "2026-10-12T16:33:58.774Z",
+      "revoked_at": null
+    },
+    "response": {
+      "status": 404,
+      "body": {
+        "error": {
+          "code": "not_found",
+          "message": "内容不存在或未发布"
+        }
+      },
+      "durationMs": 48
+    },
+    "before": {
+      "like_count": 1,
+      "likes": 1,
+      "replies": 0,
+      "notifications": 0
+    },
+    "after": {
+      "like_count": 1,
+      "likes": 1,
+      "replies": 0,
+      "notifications": 0
+    },
+    "noInteractionMutation": true,
+    "result": "PASS"
+  }
+]

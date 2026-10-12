@@ -1,0 +1,8 @@
+$ pnpm --filter @yoryon/cli start content delete r3-free
+$ tsx --env-file=../../.env src/index.ts content delete r3-free
+cache 436739f6-55c7-4012-aa13-79e276a156e4: verified
+✓ r3-free deleted
+$ pnpm --filter @yoryon/cli start content delete r3-paid
+$ tsx --env-file=../../.env src/index.ts content delete r3-paid
+cache 544e0954-b19c-46df-b3af-f2fd7ff7de0a: verified
+✓ r3-paid deleted

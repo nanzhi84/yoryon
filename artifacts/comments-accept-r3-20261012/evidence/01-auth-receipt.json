@@ -1,0 +1,42 @@
+[
+  {
+    "step": "register",
+    "username": "r3_reader",
+    "status": 200,
+    "body": {
+      "ok": true
+    }
+  },
+  {
+    "step": "verify-email",
+    "username": "r3_reader",
+    "status": 200,
+    "activeUser": "r3_reader"
+  },
+  {
+    "step": "login",
+    "username": "r3_reader",
+    "status": 200,
+    "activeUser": "r3_reader"
+  },
+  {
+    "step": "register",
+    "username": "r3_actor",
+    "status": 200,
+    "body": {
+      "ok": true
+    }
+  },
+  {
+    "step": "verify-email",
+    "username": "r3_actor",
+    "status": 200,
+    "activeUser": "r3_actor"
+  },
+  {
+    "step": "login",
+    "username": "r3_actor",
+    "status": 200,
+    "activeUser": "r3_actor"
+  }
+]

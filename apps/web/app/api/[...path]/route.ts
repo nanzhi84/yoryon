@@ -9,10 +9,10 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { buildApiHeaders, csrfCheck, getBffConfig, readBodyCapped, readSessionCookie, resolvePlatformClientIp, clearSessionCookie, setSessionCookie } from "@/lib/bff";
 
-const ALLOWED_PATH = /^\/api\/(auth\/[a-z-]+|feed|public\/contents\/[^/]+|contents\/[^/]+|collections(?:\/[^/]+)?|tags\/[^/]+|media\/[0-9a-fA-F-]{36}|redemptions|me\/entitlements|analytics\/events)$/;
+const ALLOWED_PATH = /^\/api\/(auth\/[a-z-]+|feed|public\/contents\/[^/]+|contents\/[^/]+(?:\/comments(?:\/context)?)?|comments\/liked|comments\/[0-9a-fA-F-]{36}(?:\/(?:like|replies|locate))?|collections(?:\/[^/]+)?|tags\/[^/]+|media\/[0-9a-fA-F-]{36}|redemptions|me\/entitlements|notifications(?:\/(?:unread-count|read-all|[0-9a-fA-F-]{36}\/read))?|analytics\/events)$/;
 
-/** analytics ingest 请求体字节上限（与 API 侧 MAX_BODY_BYTES 一致） */
-const ANALYTICS_MAX_BODY_BYTES = 32 * 1024;
+/** 小型 JSON 写入请求上限：analytics 与评论 API 均限制 32 KiB，含 chunked。 */
+const SMALL_BODY_MAX_BYTES = 32 * 1024;
 
 async function proxy(req: NextRequest): Promise<Response> {
   const config = getBffConfig();
@@ -31,6 +31,7 @@ async function proxy(req: NextRequest): Promise<Response> {
 
   // analytics ingest：有上限流式读取（chunked 无 Content-Length 也能在 EOF 前拒绝）
   const isAnalyticsIngest = path === "/api/analytics/events";
+  const isCommentCreate = req.method === "POST" && /^\/api\/contents\/[^/]+\/comments$/.test(path);
 
   const sessionToken = readSessionCookie(req.headers.get("cookie"));
   const clientIp = resolvePlatformClientIp(req.headers);
@@ -42,7 +43,7 @@ async function proxy(req: NextRequest): Promise<Response> {
   const hasBody = req.method !== "GET" && req.method !== "HEAD";
   let bodyText: string | null = null;
   if (hasBody) {
-    bodyText = isAnalyticsIngest ? await readBodyCapped(req, ANALYTICS_MAX_BODY_BYTES) : await req.text();
+    bodyText = isAnalyticsIngest || isCommentCreate ? await readBodyCapped(req, SMALL_BODY_MAX_BYTES) : await req.text();
     if (bodyText === null) {
       return NextResponse.json({ error: { code: "payload_too_large", message: "请求体过大" } }, { status: 413 });
     }

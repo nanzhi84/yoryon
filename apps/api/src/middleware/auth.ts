@@ -28,7 +28,13 @@ export function authMiddleware(db: Database) {
     c.set("auth", null);
     c.set("sessionRenewedExpiresAt", null);
     // 公开线和匿名分析不执行 session 查询/续期；公开 DTO 不能随身份变化。
-    if (/^\/api\/(?:public\/|feed$|tags\/|collections$|sitemap$|cache\/|analytics\/events$)/.test(c.req.path)) { await next(); return; }
+    // 评论/回复列表与定位是公开只读接口（GET/HEAD，Hono 会把 HEAD 分派给 GET handler 且 method 仍为 HEAD；写路径不在此列）。
+    const path = c.req.path;
+    const publicLine =
+      /^\/api\/(?:public\/|feed$|tags\/|collections$|sitemap$|cache\/|analytics\/events$)/.test(path) ||
+      ((c.req.method === "GET" || c.req.method === "HEAD") &&
+        /^\/api\/(?:contents\/[^/]+\/comments|comments\/[0-9a-fA-F-]{36}\/(?:replies|locate))$/.test(path));
+    if (publicLine) { await next(); return; }
     const header = c.req.header("authorization");
     if (header?.startsWith("Bearer ")) {
       const token = header.slice("Bearer ".length).trim();

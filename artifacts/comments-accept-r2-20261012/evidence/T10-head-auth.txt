@@ -1,0 +1,11 @@
+HTTP/1.1 200 OK
+cache-control: public, max-age=0, must-revalidate
+content-type: application/json
+Date: Mon, 12 Oct 2026 15:12:00 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+2026-10-12 13:12:00.766057+00|t
+2026-10-12 13:12:00.766057+00|t
+2026-10-12 13:12:00.766057+00|f
+2026-10-12 15:12:00.816+00|t
