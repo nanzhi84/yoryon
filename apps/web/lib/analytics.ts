@@ -37,6 +37,7 @@ interface QueuedEvent {
 
 const ENDPOINT = "/api/analytics/events";
 const FLUSH_INTERVAL_MS = 2_000;
+const DETAIL_FLUSH_INTERVAL_MS = 12_000; // view 与前台 10s read 合批；离页/隐藏仍立即 beacon。
 const MAX_BATCH = 20; // 与服务端 ANALYTICS_MAX_BATCH 一致
 const MAX_REQUEUES = 1;
 const SESSION_KEY = "yoryon_analytics_sid";
@@ -82,7 +83,7 @@ export function trackEvent(input: TrackInput): void {
   if (input.eventType === "click") {
     flush("beacon"); // 点击常伴随导航，立即投递
   } else {
-    scheduleFlush();
+    scheduleFlush(input.eventType === "view" ? DETAIL_FLUSH_INTERVAL_MS : FLUSH_INTERVAL_MS);
   }
 }
 
@@ -93,15 +94,16 @@ export function trackOnce(key: string, input: TrackInput): void {
   trackEvent(input);
 }
 
-function scheduleFlush(): void {
+function scheduleFlush(delay = FLUSH_INTERVAL_MS): void {
   if (flushTimer !== null) return;
   flushTimer = window.setTimeout(() => {
     flushTimer = null;
     flush("fetch");
-  }, FLUSH_INTERVAL_MS);
+  }, delay);
 }
 
 function flush(mode: "fetch" | "beacon"): void {
+  if (mode === "beacon" && flushTimer !== null) { window.clearTimeout(flushTimer); flushTimer = null; }
   if (queue.length === 0) return;
   if (mode === "fetch" && flushing) return;
   const batch = queue.splice(0, MAX_BATCH);

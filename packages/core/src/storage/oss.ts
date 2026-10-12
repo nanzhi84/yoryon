@@ -79,7 +79,7 @@ export class OssStorage implements MediaStorage {
     return out;
   }
 
-  async signGetUrl(key: string, ttlSec: number): Promise<string> {
-    return this.client.signatureUrl(key, { expires: ttlSec });
+  async signGetUrl(key: string, ttlSec: number, width?: number): Promise<string> {
+    return this.client.signatureUrl(key, { expires: ttlSec, ...(width ? { process: `image/resize,w_${width},limit_1` } : {}) });
   }
 }

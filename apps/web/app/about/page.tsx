@@ -44,7 +44,7 @@ export default function AboutPage() {
           <ul className="mt-4 flex flex-wrap gap-2">
             {site.links.map((l) => (
               <li key={l.label}>
-                <Link
+                <Link prefetch={false}
                   href={l.href}
                   target="_blank"
                   rel="noopener noreferrer"

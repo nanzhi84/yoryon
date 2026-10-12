@@ -1,0 +1,1 @@
+ALTER TABLE "contents" ADD COLUMN "revision" uuid DEFAULT gen_random_uuid() NOT NULL;

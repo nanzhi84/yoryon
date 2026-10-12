@@ -119,7 +119,7 @@ export function TrackClickLink({
     trackEvent({ eventType: "click", targetKind, targetId, placement: ctx.placement, pageViewId: ctx.listViewId });
   };
   return (
-    <Link
+    <Link prefetch={false}
       href={href}
       className={className}
       onClick={send}

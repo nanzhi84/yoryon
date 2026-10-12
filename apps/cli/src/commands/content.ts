@@ -1,5 +1,6 @@
 /** blog publish / unpublish / content list|delete */
 import fs from "node:fs/promises";
+import { mutateContent } from "../cache";
 import path from "node:path";
 import type { Command } from "commander";
 import { desc, eq } from "drizzle-orm";
@@ -40,7 +41,7 @@ export function registerContentCommands(program: Command) {
               { lockClient, storage: ctx.storage, mediaBlockWeight: ctx.env.MEDIA_BLOCK_WEIGHT, logger: (m) => console.log(`  ${m}`) },
               dir,
             );
-            console.log(`✓ ${result.slug} published (${result.uploaded.length} uploaded, ${result.skippedExisting.length} reused)`);
+            console.log(`✓ ${result.slug} database committed (${result.uploaded.length} uploaded, ${result.skippedExisting.length} reused); page state is reported by cache event above`);
           }
         });
       } finally {
@@ -55,8 +56,7 @@ export function registerContentCommands(program: Command) {
     .action(async (slug: string) => {
       const ctx = getContext();
       try {
-        const rows = await ctx.db.update(contents).set({ status: "draft", updatedAt: new Date() }).where(eq(contents.slug, slug)).returning({ id: contents.id });
-        if (rows.length === 0) throw new Error(`内容不存在: ${slug}`);
+        await mutateContent(slug, false);
         console.log(`✓ ${slug} → draft`);
       } finally {
         await closeContext();
@@ -99,8 +99,7 @@ export function registerContentCommands(program: Command) {
     .action(async (slug: string) => {
       const ctx = getContext();
       try {
-        const rows = await ctx.db.delete(contents).where(eq(contents.slug, slug)).returning({ id: contents.id });
-        if (rows.length === 0) throw new Error(`内容不存在: ${slug}`);
+        await mutateContent(slug, true);
         console.log(`✓ ${slug} deleted`);
       } finally {
         await closeContext();

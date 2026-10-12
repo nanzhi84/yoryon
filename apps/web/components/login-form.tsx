@@ -54,9 +54,9 @@ export function LoginForm() {
         {loading ? "登录中…" : "登录"}
       </Button>
       <p className="text-center text-sm text-muted-foreground">
-        没有账号？<Link href="/register" className="underline underline-offset-4">注册</Link>
+        没有账号？<Link prefetch={false} href="/register" className="underline underline-offset-4">注册</Link>
         {" · "}
-        <Link href="/reset-password" className="underline underline-offset-4">忘记密码</Link>
+        <Link prefetch={false} href="/reset-password" className="underline underline-offset-4">忘记密码</Link>
       </p>
     </form>
   );

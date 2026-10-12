@@ -10,3 +10,4 @@ export * from "./image";
 export * from "./gc";
 export * from "./locks";
 export * from "./http";
+export * from "./cache-events";

@@ -53,6 +53,8 @@ test.describe("feed 游标分页正确性", () => {
          ) t where c.id = t.id`,
       );
     });
+    // 数据修复绕过发布事务：显式发出业务刷新，而非依赖 1s TTL。
+    await runCliOk(["cache", "refresh", postSlug(1)]);
   });
 
   test("多页遍历：无重复、无遗漏、正确终止，且不混入合集", async () => {

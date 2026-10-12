@@ -3,6 +3,8 @@ import { Hono } from "hono";
 import { and, desc, eq, inArray, lt, or, sql, type SQL } from "drizzle-orm";
 import { collectionItems, collections, contents, contentMedia, contentTags, mediaAssets, tags, type Content } from "@yoryon/db";
 import { canAccess, canAccessMany, truncateForPreview } from "@yoryon/core";
+import { loadContentDetail } from "./content-detail";
+import type { PublicPolicy } from "../public-policy";
 import type { AppDeps } from "../deps";
 import { errorResponse } from "../errors";
 import type { AppVariables } from "../middleware/auth";
@@ -53,7 +55,7 @@ function keyset(cursor: FeedCursor | null, timeCol: SQL | any, idCol: any): SQL 
   return or(lt(timeCol, cursor.t), and(eq(timeCol, cursor.t), lt(idCol, cursor.id))) as SQL;
 }
 
-export function contentRoutes(deps: AppDeps) {
+export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
   const app = new Hono<{ Variables: AppVariables }>();
 
   /**
@@ -67,6 +69,8 @@ export function contentRoutes(deps: AppDeps) {
    * - 全序 (sortKey desc, id desc)；多取 1 条（N+1）探测终止，无更多时 nextCursor = null。
    */
   app.get("/feed", async (c) => {
+    const version = await policy.version();
+    if (c.req.query("version") && c.req.query("version") !== version) return errorResponse(c, 409, "snapshot_expired", "列表已更新，请刷新页面");
     const cursor = decodeCursor(c.req.query("cursor"));
     const contentSortKey = sql`date_trunc('milliseconds', coalesce(${contents.publishedAt}, ${contents.createdAt}))`;
     const rows = await deps.db
@@ -87,8 +91,9 @@ export function contentRoutes(deps: AppDeps) {
       : [];
 
     const last = page[page.length - 1];
-    c.header("Cache-Control", "public, max-age=60, stale-while-revalidate");
+    c.header("Cache-Control", "public, max-age=0, must-revalidate");
     return c.json({
+      version,
       items: page.map((r) => ({
         kind: "content" as const,
         id: r.id,
@@ -106,81 +111,20 @@ export function contentRoutes(deps: AppDeps) {
     });
   });
 
-  /** 内容详情：按权益返回 full | preview；no-store（ADR-0003 私有线） */
-  app.get("/contents/:slug", async (c) => {
-    const rows = await deps.db.select().from(contents).where(and(eq(contents.slug, c.req.param("slug")), eq(contents.status, "published"))).limit(1);
-    const content = rows[0];
-    if (!content) return errorResponse(c, 404, "not_found", "内容不存在");
-
-    const auth = c.get("auth");
-    // 关联查询并行化（F10a）：权益判定与 tags/media/collections 互不依赖，一个往返窗口完成
-    const [fullAccess, tagRows, mediaRows, collectionRows] = await Promise.all([
-      canAccess(deps.db, auth?.user ?? null, content, new Date()),
-      deps.db
-        .select({ slug: tags.slug, name: tags.name })
-        .from(contentTags)
-        .innerJoin(tags, eq(contentTags.tagId, tags.id))
-        .where(eq(contentTags.contentId, content.id)),
-      deps.db
-        .select({
-          mediaId: contentMedia.mediaId,
-          position: contentMedia.position,
-          exposure: contentMedia.exposure,
-          mimeType: mediaAssets.mimeType,
-          width: mediaAssets.width,
-          height: mediaAssets.height,
-          durationSec: mediaAssets.durationSec,
-        })
-        .from(contentMedia)
-        .innerJoin(mediaAssets, eq(contentMedia.mediaId, mediaAssets.id))
-        .where(eq(contentMedia.contentId, content.id))
-        .orderBy(contentMedia.position),
-      deps.db
-        .select({ slug: collections.slug, title: collections.title })
-        .from(collectionItems)
-        .innerJoin(collections, eq(collectionItems.collectionId, collections.id))
-        .where(eq(collectionItems.contentId, content.id)),
-    ]);
-
-    let bodyMarkdown: string;
-    let access: "full" | "preview";
-    let hasPaidContent = false;
-    if (fullAccess) {
-      bodyMarkdown = content.bodyMarkdown;
-      access = "full";
-    } else {
-      const preview = truncateForPreview(content.bodyMarkdown, content.previewMode, content.previewPercent, {
-        mediaBlockWeight: deps.env.MEDIA_BLOCK_WEIGHT,
-      });
-      bodyMarkdown = preview.freeMarkdown;
-      access = "preview";
-      hasPaidContent = preview.hasPaidContent || content.visibility === "paid";
-    }
-
-    // 未授权响应不包含付费正文与付费媒体引用（ADR-0004）
-    const visibleMedia = mediaRows.filter((m) => fullAccess || m.exposure === "free");
-
+  app.get("/contents/:slug", async c => {
     c.header("Cache-Control", "private, no-store");
-    return c.json({
-      id: content.id,
-      type: content.type,
-      slug: content.slug,
-      title: content.title,
-      description: content.description,
-      visibility: content.visibility,
-      publishedAt: content.publishedAt?.toISOString() ?? null,
-      access,
-      hasPaidContent,
-      bodyMarkdown,
-      coverMediaId: content.coverMediaId,
-      tags: tagRows,
-      collections: collectionRows,
-      media: visibleMedia,
-    });
+    const data = await loadContentDetail(deps, c.req.param("slug"), c.get("auth")?.user ?? null);
+    return data ? c.json(data) : errorResponse(c, 404, "not_found", "内容不存在");
+  });
+  app.get("/public/contents/:slug", async c => {
+    c.header("Cache-Control", "public, max-age=0, must-revalidate");
+    const data = await loadContentDetail(deps, c.req.param("slug"), null);
+    return data ? c.json(data) : errorResponse(c, 404, "not_found", "内容不存在");
   });
 
   /** 合集列表（公开缓存；不读 session —— 与 feed 同一公开线约定，ADR-0003）。个人站合集量级小，不分页。 */
   app.get("/collections", async (c) => {
+    const version = await policy.version();
     const rows = await deps.db.select().from(collections).orderBy(desc(collections.updatedAt));
     const itemCounts = rows.length
       ? await deps.db
@@ -190,8 +134,9 @@ export function contentRoutes(deps: AppDeps) {
           .where(and(inArray(collectionItems.collectionId, rows.map((r) => r.id)), eq(contents.status, "published")))
           .groupBy(collectionItems.collectionId)
       : [];
-    c.header("Cache-Control", "public, max-age=60, stale-while-revalidate");
+    c.header("Cache-Control", "public, max-age=0, must-revalidate");
     return c.json({
+      version,
       items: rows.map((r) => ({
         id: r.id,
         slug: r.slug,
@@ -246,6 +191,8 @@ export function contentRoutes(deps: AppDeps) {
 
   /** 标签筛选（公开缓存）；items 与 feed 的内容项同一合同（含 tags），供 LoadMore 直接渲染 */
   app.get("/tags/:slug", async (c) => {
+    const version = await policy.version();
+    if (c.req.query("version") && c.req.query("version") !== version) return errorResponse(c, 409, "snapshot_expired", "列表已更新，请刷新页面");
     const tagRows = await deps.db.select().from(tags).where(eq(tags.slug, c.req.param("slug"))).limit(1);
     const tag = tagRows[0];
     if (!tag) return errorResponse(c, 404, "not_found", "标签不存在");
@@ -268,9 +215,10 @@ export function contentRoutes(deps: AppDeps) {
           .where(inArray(contentTags.contentId, pageIds))
       : [];
     const last = page[page.length - 1];
-    c.header("Cache-Control", "public, max-age=60, stale-while-revalidate");
+    c.header("Cache-Control", "public, max-age=0, must-revalidate");
     return c.json({
       tag: { slug: tag.slug, name: tag.name },
+      version,
       items: page.map((r) => ({
         kind: "content" as const,
         id: r.id,

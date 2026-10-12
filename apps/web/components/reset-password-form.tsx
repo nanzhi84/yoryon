@@ -93,7 +93,7 @@ export function ResetPasswordForm() {
         {loading ? "发送中…" : "发送验证码"}
       </Button>
       <p className="text-center text-sm text-muted-foreground">
-        想起来了？<Link href="/login" className="underline underline-offset-4">登录</Link>
+        想起来了？<Link prefetch={false} href="/login" className="underline underline-offset-4">登录</Link>
       </p>
     </form>
   );

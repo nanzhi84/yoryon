@@ -55,7 +55,7 @@ export default async function CollectionPage({ params }: Props) {
             <article key={item.slug} className="group flex items-baseline gap-4 py-4">
               <span className="shrink-0 text-sm tabular-nums text-muted-foreground">{String(i + 1).padStart(2, "0")}</span>
               <div className="min-w-0 flex-1">
-                <Link href={`/p/${item.slug}`}>
+                <Link prefetch={false} href={`/p/${item.slug}`}>
                   <h2 className="truncate font-medium group-hover:underline underline-offset-4">{item.title}</h2>
                 </Link>
                 {item.description && <p className="mt-1 line-clamp-1 text-sm text-muted-foreground">{item.description}</p>}

@@ -1,0 +1,38 @@
+import { NextResponse, type NextRequest } from "next/server";
+
+/** Middleware 先于共享正文缓存；revision key 隔离生成竞态，失败关闭。
+ * 门禁只取单进程 API 的内存策略，不触发正文/权益读取和每请求 DB 查询。
+ */
+export async function middleware(request: NextRequest) {
+  const path = request.nextUrl.pathname;
+  const match = /^\/p\/([a-z0-9][a-z0-9-]*)$/.exec(path) ?? /^\/render\/([a-f0-9-]{36})\/([a-z0-9][a-z0-9-]*)$/.exec(path);
+  const privateHeaders = { "Cache-Control": "private, no-store" };
+  if (path.startsWith("/api/pages/")) {
+    const version = path.split("/")[3];
+    try {
+      const response = await fetch(`${process.env.API_INTERNAL_URL}/api/public/catalog-policy`, { cache: "no-store", redirect: "error", signal: AbortSignal.timeout(3000) });
+      if (!response.ok) throw new Error("catalog policy unavailable");
+      const current = await response.json() as { version: string };
+      if (version !== current.version) return NextResponse.json({ error: "snapshot_expired" }, { status: 409, headers: privateHeaders });
+      return NextResponse.next();
+    } catch { return NextResponse.json({ error: "policy_unavailable" }, { status: 503, headers: privateHeaders }); }
+  }
+  if (!match) return new NextResponse("Not found", { status: 404, headers: privateHeaders });
+  const slug = match[2] ?? match[1]!;
+  try {
+    const response = await fetch(`${process.env.API_INTERNAL_URL}/api/public/policy/${slug}`, { cache: "no-store", redirect: "error", signal: AbortSignal.timeout(3000) });
+    if (response.status === 404) return new NextResponse("404 内容不存在", { status: 404, headers: privateHeaders });
+    if (!response.ok) throw new Error("policy unavailable");
+    const data = await response.json() as { revision: string };
+    if (!/^[a-f0-9-]{36}$/.test(data.revision)) throw new Error("invalid policy");
+    // 直达旧内部缓存 key 同样不能绕过门禁。
+    if (match[2] && match[1] !== data.revision) return new NextResponse("404 内容版本已撤销", { status: 404, headers: privateHeaders });
+    if (match[2]) return NextResponse.next();
+    const target = request.nextUrl.clone();
+    target.pathname = `/render/${data.revision}/${slug}`;
+    return NextResponse.rewrite(target);
+  } catch {
+    return new NextResponse("内容暂时无法验证，请稍后重试。", { status: 503, headers: privateHeaders });
+  }
+}
+export const config = { matcher: ["/p/:path*", "/render/:path*", "/api/pages/:path*"] };

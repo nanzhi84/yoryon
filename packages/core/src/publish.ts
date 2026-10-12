@@ -7,7 +7,7 @@
  *
  * 事务提交 = 发布成功的唯一判定；全程持有 advisory lock（与 GC 互斥）。
  */
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import yaml from "js-yaml";
@@ -32,6 +32,7 @@ import { acquirePublishGcLock, type LockClient } from "./locks";
 import type pg from "pg";
 import { drizzle } from "drizzle-orm/node-postgres";
 import * as schema from "@yoryon/db/schema";
+import { associations, contentTargets, deliverCacheEvents, enqueueCacheEvent } from "./cache-events";
 
 const frontmatterSchema = z.object({
   title: z.string().min(1),
@@ -210,6 +211,10 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
     // ---- 阶段 B：单事务提交（与锁同一连接） ----
     const txDb = drizzle(deps.lockClient, { schema }) as unknown as Database;
     const result = await txDb.transaction(async (tx) => {
+      const prior = await tx.select({ id: contents.id }).from(contents).where(eq(contents.slug, fm.slug)).limit(1);
+      const old = prior[0] ? await associations(tx, prior[0].id) : { tags: [], collections: [] };
+      const revision = new Date();
+      const version = randomUUID();
       // media_assets upsert（ON CONFLICT oss_key DO NOTHING 后取 id）
       const mediaIdByRef = new Map<string, string>();
       for (const [ref, f] of files) {
@@ -250,7 +255,8 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
           previewPercent: fm.preview.mode === "percent" ? fm.preview.percent! : null,
           coverMediaId: coverId,
           publishedAt,
-          updatedAt: new Date(),
+          updatedAt: revision,
+            revision: version,
         })
         .onConflictDoUpdate({
           target: contents.slug,
@@ -265,7 +271,8 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
             previewPercent: fm.preview.mode === "percent" ? fm.preview.percent! : null,
             coverMediaId: coverId,
             publishedAt,
-            updatedAt: new Date(),
+            updatedAt: revision,
+            revision: version,
           },
         })
         .returning({ id: contents.id });
@@ -324,10 +331,12 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
           .onConflictDoNothing();
       }
 
+      await enqueueCacheEvent(tx, contentTargets(fm.slug, [...old.tags, ...fm.tags], [...old.collections, ...fm.collections]), fm.slug, revision.toISOString());
       return { contentId };
     });
 
     log(`published: ${fm.slug} (content ${result.contentId})`);
+    await deliverCacheEvents(txDb, { logger: log });
     return { slug: fm.slug, contentId: result.contentId, uploaded, skippedExisting, mediaCount: files.size };
   } finally {
     await lock.release();

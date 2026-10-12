@@ -30,10 +30,10 @@ export async function publicFetchNoStore(path: string): Promise<Response> {
  * 公开线专用请求：不带 Cookie/会话/IP 转发，响应与身份无关（API 端点实现也不读 session）。
  * 强制显式 revalidate，避免误用为 no-store（那就该走 apiFetch）。
  */
-export async function publicFetch(path: string, options: { revalidate: number }): Promise<Response> {
+export async function publicFetch(path: string, options: { revalidate: number; tags?: string[] }): Promise<Response> {
   return fetch(publicUrl(path), {
     headers: { accept: "application/json" },
-    next: { revalidate: options.revalidate },
+    next: { revalidate: options.revalidate, ...(options.tags ? { tags: options.tags } : {}) },
   });
 }
 

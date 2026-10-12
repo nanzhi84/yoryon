@@ -82,6 +82,7 @@ export const contents = pgTable(
     title: text("title").notNull(),
     description: text("description").notNull().default(""),
     bodyMarkdown: text("body_markdown").notNull().default(""),
+    revision: uuid("revision").notNull().defaultRandom(),
     status: text("status", { enum: ["draft", "published"] }).notNull().default("draft"),
     visibility: text("visibility", { enum: ["public", "paid"] }).notNull().default("public"),
     previewMode: text("preview_mode", { enum: ["full", "percent", "marker", "none"] }).notNull().default("none"),
@@ -280,6 +281,17 @@ export const analyticsEvents = pgTable(
 );
 
 export type User = typeof users.$inferSelect;
+/** 生命周期不级联到内容：删除后仍须保留失效与重试证据。 */
+export const cacheEvents = pgTable("cache_events", {
+  id: uuid("id").primaryKey(),
+  payload: text("payload").notNull(),
+  state: text("state", { enum: ["pending", "failed", "verified"] }).notNull().default("pending"),
+  attempts: integer("attempts").notNull().default(0),
+  lastError: text("last_error"),
+  invalidatedAt: timestamp("invalidated_at", { withTimezone: true, mode: "date" }),
+  verifiedAt: timestamp("verified_at", { withTimezone: true, mode: "date" }),
+  createdAt: timestamp("created_at", { withTimezone: true, mode: "date" }).notNull().defaultNow(),
+});
 export type Session = typeof sessions.$inferSelect;
 export type Content = typeof contents.$inferSelect;
 export type MediaAsset = typeof mediaAssets.$inferSelect;

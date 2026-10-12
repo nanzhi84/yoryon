@@ -6,15 +6,16 @@ import { SiteHeader } from "@/components/site-header";
 import { FeedTimeline } from "@/components/feed-timeline";
 import { LoadMore } from "@/components/load-more";
 
-const revalidateSec = Number(process.env.FEED_REVALIDATE_SEC ?? 60);
-export const revalidate = 60;
+const revalidateSec = Number(process.env.FEED_REVALIDATE_SEC ?? 86400);
+export const revalidate = 86400;
+export function generateStaticParams() { return []; }
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
 async function getTag(slug: string): Promise<TagDetailResponse | null> {
-  const res = await publicFetch(`/api/tags/${slug}`, { revalidate: revalidateSec });
+  const res = await publicFetch(`/api/tags/${slug}`, { revalidate: revalidateSec, tags: [`tag:${slug}`] });
   if (res.status === 404) return null;
   if (!res.ok) throw new Error(`API error ${res.status}`);
   return (await res.json()) as TagDetailResponse;
@@ -35,11 +36,11 @@ export default async function TagPage({ params }: Props) {
   return (
     <>
       <SiteHeader />
-      <main className="py-8">
+      <main data-catalog-version={data.version} className="py-8">
         <h1 className="text-2xl font-semibold">#{data.tag.name}</h1>
         <div className="mt-4">
           <FeedTimeline items={data.items} />
-          {data.nextCursor && <LoadMore basePath={`/api/tags/${slug}`} initialCursor={data.nextCursor} />}
+          {data.nextCursor && <LoadMore version={data.version} basePath={`/api/tags/${slug}`} initialCursor={data.nextCursor} />}
         </div>
       </main>
     </>

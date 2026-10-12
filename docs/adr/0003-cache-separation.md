@@ -36,3 +36,13 @@ Next.js 的 SSR/ISR 与 Vercel CDN 存在多层缓存。若随用户身份变化
 变更原因：ADR-0006 将媒体统一为私有桶后，免费媒体（封面、预览区媒体）也经 `/api/media/:id` 302 分发；若一律 `no-store`，公开信息流的封面加载将完全失去缓存，性能受损。
 
 修正内容：媒体 302 按命中规则分线——免费规则（身份无关）`public, max-age=300`（小于 900s 签名 TTL，保证缓存副本过期前签名仍有效）；权益规则维持 `private, no-store`。付费内容不进共享缓存的核心决策不变。
+
+## 修订记录（2026-10-12）：公开正文与私有权益分离
+
+公开详情使用身份无关 `/api/public/contents/:slug`：公开文章返回正文，付费文章只返回允许的预览。服务器渲染 HTML、SEO 与 Article JSON-LD；`/p/:slug` 在缓存前读取版本门禁，重写到 `/render/:revision/:slug` 的 24h ISR。版本来自事务内生成的 UUID，旧生成只能写入旧 key，无法越过当前门禁。付费完整正文由客户端私有接口读取，保持 `private, no-store`，不写入 HTML/RSC；加载、错误、重试与恢复前台重新鉴权均可见。
+
+公开 API JSON 使用 `public, max-age=0, must-revalidate`；web Data/Route Cache 通过 tags + paths 主动刷新，24h 仅兜底。合集详情包含按用户变化的解锁状态，继续动态；`/c` 列表与标签页 ISR。所有媒体鉴权跳转在生产保持 `private, no-store`，不扩大媒体共享缓存；此前媒体 300s 共享策略被撤销要求取代。
+
+详情和版本化分页 Middleware 每次调用一次轻量 API 内存门禁，不读取 session/正文，也不逐请求查 DB。单 API 进程重启后从 DB 重建，加载失败或 API 不可用返回 503。多实例扩展前必须使用共享强一致门禁。失效失败时 DB 已提交、缓存待处理，不宣称撤销生效；仅真实 GET 内容/版本验证完成才报告 verified。详见 ADR-0010。
+
+客户端禁用预取与跨导航静态 staleTime；新的网络读取受门禁保护。读者已经保存、下载、显示或浏览器历史恢复的公开副本无法远程召回。已签发 OSS URL 最长剩余有效期 900s，页面失效不会撤销既有 URL。

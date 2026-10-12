@@ -1,5 +1,9 @@
 /** blog collection * / blog tag list */
 import type { Command } from "commander";
+import { randomUUID } from "node:crypto";
+import { enqueueCacheEvent } from "@yoryon/core";
+import { contentTargets } from "@yoryon/config/cache";
+import { withCacheTransaction } from "../cache";
 import { and, asc, eq } from "drizzle-orm";
 import { collectionItems, collections, contents, tags } from "@yoryon/db";
 import { closeContext, getContext } from "../context";
@@ -16,10 +20,20 @@ export function registerCollectionCommands(program: Command) {
     .action(async (slug: string, opts: { title: string; description: string; visibility: string }) => {
       const ctx = getContext();
       try {
-        await ctx.db
+        await withCacheTransaction(async tx => {
+        await tx
           .insert(collections)
           .values({ slug, title: opts.title, description: opts.description, visibility: opts.visibility as "public" | "paid" })
           .onConflictDoUpdate({ target: collections.slug, set: { title: opts.title, description: opts.description, visibility: opts.visibility as "public" | "paid", updatedAt: new Date() } });
+        const related = await tx.select({ slug: contents.slug }).from(collectionItems).innerJoin(collections, eq(collectionItems.collectionId, collections.id)).innerJoin(contents, eq(collectionItems.contentId, contents.id)).where(eq(collections.slug, slug));
+        const target = contentTargets(slug, [], [slug]);
+        target.paths = target.paths.filter(p => p !== `/p/${slug}`);
+        for (const row of related) {
+          await tx.update(contents).set({ revision: randomUUID(), updatedAt: new Date() }).where(eq(contents.slug, row.slug));
+          target.paths.push(`/p/${row.slug}`); target.tags.push(`content:${row.slug}`);
+        }
+        await enqueueCacheEvent(tx, target);
+        });
         console.log(`✓ collection ${slug} upserted`);
       } finally {
         await closeContext();
@@ -51,7 +65,7 @@ export function registerCollectionCommands(program: Command) {
       try {
         const coll = await ctx.db.select().from(collections).where(eq(collections.slug, collectionSlug)).limit(1);
         if (!coll[0]) throw new Error(`合集不存在: ${collectionSlug}`);
-        await ctx.db.transaction(async (tx) => {
+        await withCacheTransaction(async (tx) => {
           const items = await tx.select().from(collectionItems).where(eq(collectionItems.collectionId, coll[0]!.id));
           const byContent = new Map(items.map((i) => [i.contentId, i]));
           let order = 1;
@@ -73,6 +87,7 @@ export function registerCollectionCommands(program: Command) {
               .where(and(eq(collectionItems.collectionId, coll[0]!.id), eq(collectionItems.contentId, rest.contentId)));
           }
           await tx.update(collections).set({ updatedAt: new Date() }).where(eq(collections.id, coll[0]!.id));
+          await enqueueCacheEvent(tx, { tags: ["collections", "sitemap", `collection:${collectionSlug}`], paths: ["/c", `/c/${collectionSlug}`, "/sitemap.xml"] });
         });
         console.log(`✓ ${collectionSlug} sorted`);
       } finally {

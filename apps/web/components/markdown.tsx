@@ -4,6 +4,7 @@
  * - ::video / ::audio 指令 → 按需加载的播放器；
  * - 统一 prose 中文排印。
  */
+import { imageSrcSet } from "@yoryon/config/image-variants";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkDirective from "remark-directive";
 import { visit } from "unist-util-visit";
@@ -52,6 +53,8 @@ export function MarkdownBody({
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={typeof src === "string" ? src : ""}
+                  srcSet={size && mediaIdFromSrc(src) ? imageSrcSet(mediaIdFromSrc(src)!, size.width) : undefined}
+                  sizes="(max-width: 768px) 100vw, 768px"
                   alt={alt ?? ""}
                   loading="lazy"
                   {...(size ? { width: size.width, height: size.height } : {})}
