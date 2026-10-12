@@ -1,0 +1,9 @@
+artifacts/
+e2e/.data/
+e2e/test-results/
+e2e/playwright-report/
+.storage/
+**/*.log
+**/*.tmp
+deploy/.performance-baseline.mjs
+e2e/scripts/.acceptance-build.ts
