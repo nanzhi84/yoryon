@@ -1,0 +1,203 @@
+{
+  "command": "pnpm cli content delete r3-free; pnpm cli content delete r3-paid; SQL only r3 users/codes/target IDs/cache event contentSlug; Mailpit DELETE own message IDs; unlink secret temporary files",
+  "deleted": [
+    {
+      "table": "notifications",
+      "sql": "delete from notifications where recipient_user_id=any($1::uuid[]) or actor_user_id=any($1::uuid[])",
+      "rows": 62
+    },
+    {
+      "table": "sessions",
+      "sql": "delete from sessions where user_id=any($1::uuid[])",
+      "rows": 5
+    },
+    {
+      "table": "entitlements",
+      "sql": "delete from entitlements where user_id=any($1::uuid[])",
+      "rows": 4
+    },
+    {
+      "table": "redemptions",
+      "sql": "delete from redemptions where user_id=any($1::uuid[])",
+      "rows": 4
+    },
+    {
+      "table": "activation_codes",
+      "sql": "delete from activation_codes where code like 'r3-lock-%'",
+      "rows": 4
+    },
+    {
+      "table": "email_verifications",
+      "sql": "delete from email_verifications where email=any($1::text[])",
+      "rows": 2
+    },
+    {
+      "table": "analytics_events",
+      "sql": "delete from analytics_events where target_id='cd98ce0a-8eb6-4306-9ba4-a06b6d1044de'",
+      "rows": 0
+    },
+    {
+      "table": "cache_events",
+      "sql": "delete from cache_events where payload::jsonb->>'contentSlug' in ('r3-free','r3-paid') returning id,state,payload",
+      "rows": 3,
+      "auditRetainedInReceipt": [
+        {
+          "id": "544e0954-b19c-46df-b3af-f2fd7ff7de0a",
+          "state": "verified",
+          "payload": "{\"id\":\"544e0954-b19c-46df-b3af-f2fd7ff7de0a\",\"tags\":[\"feed\",\"collections\",\"sitemap\",\"content:r3-paid\"],\"paths\":[\"/\",\"/c\",\"/sitemap.xml\",\"/p/r3-paid\"],\"contentSlug\":\"r3-paid\",\"revision\":null}"
+        },
+        {
+          "id": "571ea184-3852-48b6-8c4f-0f955c48d7bc",
+          "state": "verified",
+          "payload": "{\"id\":\"571ea184-3852-48b6-8c4f-0f955c48d7bc\",\"tags\":[\"feed\",\"collections\",\"sitemap\",\"content:r3-free\"],\"paths\":[\"/\",\"/c\",\"/sitemap.xml\",\"/p/r3-free\"],\"contentSlug\":\"r3-free\",\"revision\":\"2026-10-12T15:38:42.796Z\"}"
+        },
+        {
+          "id": "436739f6-55c7-4012-aa13-79e276a156e4",
+          "state": "verified",
+          "payload": "{\"id\":\"436739f6-55c7-4012-aa13-79e276a156e4\",\"tags\":[\"feed\",\"collections\",\"sitemap\",\"content:r3-free\"],\"paths\":[\"/\",\"/c\",\"/sitemap.xml\",\"/p/r3-free\"],\"contentSlug\":\"r3-free\",\"revision\":null}"
+        }
+      ]
+    },
+    {
+      "table": "users",
+      "sql": "delete from users where id=any($1::uuid[])",
+      "rows": 2
+    }
+  ],
+  "oldBeforeSQLCleanup": {
+    "contents": [
+      {
+        "slug": "cmt-free",
+        "status": "published",
+        "visibility": "public"
+      },
+      {
+        "slug": "cmt-paid",
+        "status": "published",
+        "visibility": "paid"
+      }
+    ],
+    "comments": [
+      {
+        "slug": "cmt-free",
+        "comments": 46,
+        "roots": 38
+      },
+      {
+        "slug": "cmt-paid",
+        "comments": 2,
+        "roots": 2
+      }
+    ],
+    "users": [
+      {
+        "username": "acc_u1",
+        "status": "active",
+        "role": "user"
+      },
+      {
+        "username": "acc_u2",
+        "status": "active",
+        "role": "user"
+      },
+      {
+        "username": "acc_u3",
+        "status": "active",
+        "role": "admin"
+      }
+    ]
+  },
+  "oldAfterSQLCleanup": {
+    "contents": [
+      {
+        "slug": "cmt-free",
+        "status": "published",
+        "visibility": "public"
+      },
+      {
+        "slug": "cmt-paid",
+        "status": "published",
+        "visibility": "paid"
+      }
+    ],
+    "comments": [
+      {
+        "slug": "cmt-free",
+        "comments": 46,
+        "roots": 38
+      },
+      {
+        "slug": "cmt-paid",
+        "comments": 2,
+        "roots": 2
+      }
+    ],
+    "users": [
+      {
+        "username": "acc_u1",
+        "status": "active",
+        "role": "user"
+      },
+      {
+        "username": "acc_u2",
+        "status": "active",
+        "role": "user"
+      },
+      {
+        "username": "acc_u3",
+        "status": "active",
+        "role": "admin"
+      }
+    ]
+  },
+  "oldSnapshotUnchanged": true,
+  "remaining": [
+    {
+      "kind": "contents",
+      "remaining": 0
+    },
+    {
+      "kind": "users",
+      "remaining": 0
+    },
+    {
+      "kind": "comments",
+      "remaining": 0
+    },
+    {
+      "kind": "notifications",
+      "remaining": 0
+    },
+    {
+      "kind": "entitlements",
+      "remaining": 0
+    },
+    {
+      "kind": "redemptions",
+      "remaining": 0
+    },
+    {
+      "kind": "codes",
+      "remaining": 0
+    },
+    {
+      "kind": "sessions",
+      "remaining": 0
+    },
+    {
+      "kind": "analytics_events",
+      "remaining": 0
+    },
+    {
+      "kind": "cache_events",
+      "remaining": 0
+    }
+  ],
+  "mailDeletionStatus": 200,
+  "remainingOwnMail": 0,
+  "secretFilesRemoved": [
+    "/tmp/r3-accept-secrets.json",
+    "/tmp/r3-browser-state.json"
+  ],
+  "result": "PASS"
+}

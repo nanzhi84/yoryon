@@ -19,39 +19,66 @@ export function NotificationList() {
   const [error, setError] = useState(false);
   const [actionError, setActionError] = useState(false);
   const [reading, setReading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [refreshError, setRefreshError] = useState(false);
   const readRequest = useRef(false);
   const pageRequest = useRef(false);
-  const readAllStamp = useRef<string | null>(null);
+  const generation = useRef(0);
+  const pageCursor = useRef<{ value: string | null; generation: number } | null>(null);
 
+  /** 重载后只接受新列表序列；每页的 readAt 始终来自服务端，不推断 UPDATE 的可见范围。 */
   const load = useCallback(async (cursor: string | null) => {
-    const res = await fetch(`/api/notifications${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`, { cache: "no-store", credentials: "same-origin" });
-    if (res.status === 401) {
-      router.replace("/login?returnTo=%2Fnotifications");
-      return;
+    const owner = pageCursor.current;
+    const current = cursor ? owner?.generation : ++generation.current;
+    if (current === undefined || current !== generation.current || (cursor && owner?.value !== cursor)) return;
+    if (!cursor) {
+      pageCursor.current = null;
+      setNextCursor(null);
+      setRefreshing(true);
+      setRefreshError(false);
     }
-    if (!res.ok) throw new Error(String(res.status));
-    const data = (await res.json()) as NotificationListResponse;
-    setItems((prev) => {
-      const page = cursor && readAllStamp.current
-        ? data.items.map((item) => ({ ...item, readAt: item.readAt ?? readAllStamp.current }))
-        : data.items;
-      return cursor ? [...prev, ...page] : page;
-    });
-    setNextCursor(data.nextCursor);
+    try {
+      const res = await fetch(`/api/notifications${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`, {
+        cache: "no-store", credentials: "same-origin", signal: AbortSignal.timeout(15_000),
+      });
+      if (current !== generation.current) return;
+      if (res.status === 401) {
+        router.replace("/login?returnTo=%2Fnotifications");
+        return;
+      }
+      if (!res.ok) throw new Error(String(res.status));
+      const data = await res.json() as NotificationListResponse;
+      if (current !== generation.current) return;
+      pageCursor.current = { value: data.nextCursor, generation: current };
+      setItems((prev) => current === generation.current ? (cursor ? [...prev, ...data.items] : data.items) : prev);
+      setNextCursor(data.nextCursor);
+    } catch (error) {
+      if (current !== generation.current) return;
+      if (!cursor) setRefreshError(true);
+      throw error;
+    } finally {
+      if (!cursor && current === generation.current) setRefreshing(false);
+    }
   }, [router]);
 
   useEffect(() => {
+    let active = true;
     (async () => {
       setLoading(true);
       setError(false);
       try {
         await load(null);
       } catch {
-        setError(true);
+        if (active) setError(true);
       } finally {
-        setLoading(false);
+        if (active) setLoading(false);
       }
     })();
+    return () => {
+      active = false;
+      generation.current++;
+      pageCursor.current = null;
+    };
   }, [load]);
 
   async function markRead(item: NotificationItem) {
@@ -79,15 +106,16 @@ export function NotificationList() {
     readRequest.current = true;
     setReading(true);
     setActionError(false);
+    let updated = false;
     try {
-      // 仅成功后更新已读；无快照回滚，不会删除等待期间追加的通知页。
-      // 并发追加的是现有列表的更旧通知，亦在本次服务端 read-all 的范围内。
       const res = await fetch("/api/notifications/read-all", { method: "POST", credentials: "same-origin", signal: AbortSignal.timeout(15_000) });
       if (!res.ok) throw new Error(String(res.status));
-      readAllStamp.current = new Date().toISOString();
-      setItems((prev) => prev.map((x) => ({ ...x, readAt: x.readAt ?? readAllStamp.current })));
+      updated = true;
+      // 成功后从首页重读权威状态，作废旧页；之后才提交的通知仍按服务端显示未读。
+      // POST 失败不触碰列表/游标；GET 刷新失败单独提示并允许只重试读取。
+      await load(null);
     } catch {
-      setActionError(true);
+      if (!updated) setActionError(true);
     } finally {
       readRequest.current = false;
       setReading(false);
@@ -113,8 +141,15 @@ export function NotificationList() {
           操作失败，请重试。
         </p>
       )}
+      {refreshing && <p role="status" className="mb-3 text-sm text-muted-foreground">正在刷新通知…</p>}
+      {refreshError && (
+        <p role="alert" className="mb-3 text-sm text-red-500">
+          通知列表刷新失败。
+          <button className="underline" disabled={reading || refreshing} onClick={() => void load(null).catch(() => setRefreshError(true))}>重试刷新</button>
+        </p>
+      )}
       <div className="mb-4 flex justify-end">
-        <Button variant="outline" size="sm" disabled={reading} onClick={() => void readAll()}>
+        <Button variant="outline" size="sm" disabled={reading || refreshing} onClick={() => void readAll()}>
           {reading ? "处理中…" : "全部标为已读"}
         </Button>
       </div>
@@ -124,7 +159,7 @@ export function NotificationList() {
             <button
               type="button"
               onClick={() => void markRead(n)}
-              disabled={reading}
+              disabled={reading || refreshing}
               className={`block w-full py-3 text-left ${n.link ? "" : "cursor-default"}`}
             >
               <span className="flex items-baseline justify-between gap-4">
@@ -145,7 +180,7 @@ export function NotificationList() {
           <Button
             variant="outline"
             size="sm"
-            disabled={paging}
+            disabled={paging || refreshing}
             onClick={() => {
               if (pageRequest.current) return;
               pageRequest.current = true;

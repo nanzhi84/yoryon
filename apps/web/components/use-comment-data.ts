@@ -20,11 +20,15 @@ export function useCommentData(slug: string) {
   const [roots, setRoots] = useState<CommentItem[]>([]);
   const [total, setTotal] = useState(0);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
+  const [rootRefreshing, setRootRefreshing] = useState(false);
+  const [rootRefreshError, setRootRefreshError] = useState(false);
   const [liked, setLiked] = useState<Set<string>>(new Set());
   const [replies, setReplies] = useState<Record<string, ReplyState>>({});
   const [locating, setLocating] = useState(false);
   const [locateError, setLocateError] = useState<string | null>(null);
   const rootGeneration = useRef(0);
+  // 游标携带产生它的列表代次；首页重载开始同步作废，旧 UI 的点击也不能复用。
+  const rootCursor = useRef<{ value: string | null; generation: number } | null>(null);
   const requestScope = useRef(0);
   const replyGenerations = useRef(new Map<string, number>());
   const likeQueries = useRef(new Map<string, number>());
@@ -48,6 +52,7 @@ export function useCommentData(slug: string) {
 
   const cancelRequests = useCallback(() => {
     rootGeneration.current++;
+    rootCursor.current = null;
     requestScope.current++;
     replyGenerations.current.clear();
     for (const controller of controllers.current) controller.abort();
@@ -59,7 +64,8 @@ export function useCommentData(slug: string) {
   /** 批替换只接受最新查询且查询发起后没有本地写操作的 id。 */
   const loadLiked = useCallback(async (ids: string[]) => {
     if (!ids.length) return;
-    const generation = rootGeneration.current;
+    // 根重载保留展开线程：这里只受卸载/slug 生命周期影响，不受无关根排序影响。
+    const scope = requestScope.current;
     const versions = ids.map((id) => {
       const query = (likeQueries.current.get(id) ?? 0) + 1;
       likeQueries.current.set(id, query);
@@ -69,7 +75,7 @@ export function useCommentData(slug: string) {
       const data = await fetchJson<{ liked: string[] }>(`/api/comments/liked?ids=${ids.join(",")}`);
       const returned = new Set(data.liked);
       setLiked((prev) => {
-        if (!isCurrent(generation)) return prev;
+        if (requestScope.current !== scope) return prev;
         const next = new Set(prev);
         for (const { id, query, write } of versions) {
           if (likeQueries.current.get(id) !== query || (likeWrites.current.get(id) ?? 0) !== write || pendingLikes.current.has(id)) continue;
@@ -81,7 +87,7 @@ export function useCommentData(slug: string) {
     } catch {
       // 辅助状态失败不阻塞公开阅读；本地已成功互动的状态不回滚。
     }
-  }, [fetchJson, isCurrent]);
+  }, [fetchJson]);
 
   const beginLike = useCallback((id: string) => {
     if (pendingLikes.current.has(id)) return false;
@@ -100,20 +106,36 @@ export function useCommentData(slug: string) {
   }, []);
   const endLike = useCallback((id: string) => { pendingLikes.current.delete(id); }, []);
 
-  /** 首页重载创建新代次；翻页与定位沿用代次。迟到的旧页不得修改条目或游标。 */
+  /** 首页重载同步作废旧游标；普通翻页使用游标所属代次，定位显式沿用其序列。 */
   const loadRoots = useCallback(async (cursor: string | null, expectedGeneration?: number) => {
-    const generation = expectedGeneration ?? (cursor ? rootGeneration.current : ++rootGeneration.current);
-    if (!cursor && expectedGeneration === undefined) {
+    const refreshing = !cursor && expectedGeneration === undefined;
+    const owner = rootCursor.current;
+    const generation = expectedGeneration ?? (cursor ? owner?.generation : ++rootGeneration.current);
+    if (generation === undefined || !isCurrent(generation)) return null;
+    if (cursor && expectedGeneration === undefined && owner?.value !== cursor) return null;
+    if (refreshing) {
+      rootCursor.current = null;
+      setNextCursor(null);
+      setRootRefreshing(true);
+      setRootRefreshError(false);
       setLocating(false);
       setLocateError(null);
     }
-    const data = await fetchJson<CommentListResponse>(`/api/contents/${slug}/comments${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`);
-    if (!isCurrent(generation)) return null;
-    setRoots((prev) => isCurrent(generation) ? dedupeById(cursor ? [...prev, ...data.items] : data.items) : prev);
-    setTotal(data.total);
-    setNextCursor(data.nextCursor);
-    void loadLiked(data.items.filter((item) => !item.deleted).map((item) => item.id));
-    return data;
+    try {
+      const data = await fetchJson<CommentListResponse>(`/api/contents/${slug}/comments${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`);
+      if (!isCurrent(generation)) return null;
+      rootCursor.current = { value: data.nextCursor, generation };
+      setRoots((prev) => isCurrent(generation) ? dedupeById(cursor ? [...prev, ...data.items] : data.items) : prev);
+      setTotal(data.total);
+      setNextCursor(data.nextCursor);
+      void loadLiked(data.items.filter((item) => !item.deleted).map((item) => item.id));
+      return data;
+    } catch (error) {
+      if (refreshing && isCurrent(generation)) setRootRefreshError(true);
+      throw error;
+    } finally {
+      if (refreshing && isCurrent(generation)) setRootRefreshing(false);
+    }
   }, [slug, fetchJson, isCurrent, loadLiked]);
 
   const loadReplies = useCallback(async (rootId: string, cursor: string | null, existing: ReplyItem[], expectedRootGeneration?: number) => {
@@ -174,7 +196,7 @@ export function useCommentData(slug: string) {
   }, [slug, fetchJson, isCurrent, loadRoots, loadReplies]);
 
   return {
-    roots, total, nextCursor, liked, replies, setReplies, locating, locateError,
+    roots, total, nextCursor, rootRefreshing, rootRefreshError, liked, replies, setReplies, locating, locateError,
     loadRoots, loadReplies, locateHash, beginLike, commitLike, endLike,
     cancelRequests, currentGeneration, isCurrent,
   };

@@ -1,0 +1,2 @@
+$ tsx --env-file=../../.env src/migrate-cli.ts
+migrations applied

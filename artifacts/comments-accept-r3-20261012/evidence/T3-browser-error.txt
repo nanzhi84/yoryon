@@ -1,0 +1,5 @@
+locator.waitFor: Timeout 20000ms exceeded.
+Call log:
+[2m  - waiting for locator('#comment-a3100000-0000-4000-8000-000000000025') to be visible[22m
+
+    at /Users/yoryon/Projects/yoryon-pr3-comments/[eval1]:8:41
