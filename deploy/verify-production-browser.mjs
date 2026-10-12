@@ -4,7 +4,7 @@ import path from 'node:path';
 const require = createRequire(new URL('../e2e/package.json', import.meta.url));
 const { chromium, expect } = require('@playwright/test');
 
-export async function startBrowserAcceptance({ base, slugs, run, email, password, username, check, artifactDir }) {
+export async function startBrowserAcceptance({ base, slugs, run, email, password, username, check, smtpReady = false, artifactDir }) {
   const browser = await chromium.launch();
   const member = await browser.newContext({ viewport: { width: 1280, height: 900 } });
   const guest = await browser.newContext({ viewport: { width: 390, height: 844 } });
@@ -99,6 +99,15 @@ export async function startBrowserAcceptance({ base, slugs, run, email, password
       });
       check('browser_logout_clears_session', status === 401 && !(await member.cookies()).some(c => c.name === 'yoryon_session'));
       await go(anonymous, '/register');
+      if (smtpReady) {
+        // Real registration and inbox delivery are verified separately with an authorized mailbox.
+        await expect(anonymous.getByLabel('邮箱', { exact: true })).toBeVisible();
+        await expect(anonymous.getByRole('button', { name: '注册', exact: true })).toBeEnabled();
+        check('browser_registration_form_ready', true);
+        await screenshot(anonymous, 'browser-registration-ready');
+        check('browser_no_uncaught_javascript_errors', errors.length === 0);
+        return;
+      }
       await anonymous.getByLabel('邮箱', { exact: true }).fill(email);
       await anonymous.getByLabel('用户名', { exact: true }).fill(username);
       await anonymous.getByLabel(/密码/).fill(password);

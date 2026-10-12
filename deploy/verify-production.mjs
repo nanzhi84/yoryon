@@ -19,8 +19,9 @@ const base = process.argv[2] ?? 'https://api.yoryon.com';
 if (!['https://api.yoryon.com', 'https://yoryon.com'].includes(base)) throw Error('Unexpected target');
 const viaBff = base === 'https://yoryon.com';
 const withBrowser = process.argv.includes('--browser');
+const smtpReady = process.argv.includes('--smtp-ready');
 if (withBrowser && !viaBff) throw Error('Browser acceptance requires the production frontend');
-const artifactDir = new URL('../artifacts/production-20261012/', import.meta.url);
+const artifactDir = new URL(smtpReady ? '../artifacts/production-mail-ready-20261012/' : '../artifacts/production-20261012/', import.meta.url);
 await fs.mkdir(artifactDir, { recursive: true });
 const credentials = JSON.parse(await fs.readFile(path.join(os.homedir(), '.config/yoryon-production/secrets.json')));
 const run = `acceptance-${Date.now()}-${crypto.randomBytes(3).toString('hex')}`;
@@ -65,7 +66,7 @@ async function makePost(kind, visibility, suffix = '') {
 async function uploadPosts() {
   await exec('scp', ['-r', postRoot, 'admin@8.222.152.17:/opt/yoryon/posts/'], { timeout: 60000 });
 }
-const report = { startedAt: new Date().toISOString(), target: base, run, checks, smtp: 'UNVERIFIED', staticArticleIssue6: 'NOT_IMPLEMENTED' };
+const report = { startedAt: new Date().toISOString(), target: base, run, checks, smtp: smtpReady ? 'SEPARATE_REAL_MAIL_REPORT' : 'UNVERIFIED', staticArticleIssue6: 'NOT_IMPLEMENTED' };
 try {
   await db.connect();
   await makePost('public', 'public');
@@ -103,7 +104,7 @@ try {
   if (!code) throw Error('Activation code fixture was not created');
   if (withBrowser) {
     const { startBrowserAcceptance } = await import('./verify-production-browser.mjs');
-    browser = await startBrowserAcceptance({ base, slugs, run, email, password, username, check, artifactDir: artifactDir.pathname });
+    browser = await startBrowserAcceptance({ base, slugs, run, email, password, username, check, smtpReady, artifactDir: artifactDir.pathname });
     report.browser = 'Chromium desktop and mobile viewport; fresh contexts; no storage state or traces';
   }
   const redemption = browser ? await browser.redeem(code) : await request('/api/redemptions', { code }, true);
