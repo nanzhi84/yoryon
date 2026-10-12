@@ -12,3 +12,5 @@ export * from "./locks";
 export * from "./http";
 export * from "./cache-events";
 export * from "./references";
+export * from "./public-preview";
+export * from "./content-migration";

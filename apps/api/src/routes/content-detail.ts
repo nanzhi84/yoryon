@@ -1,6 +1,6 @@
 import { and, eq } from "drizzle-orm";
 import { collectionItems, collections, contents, contentMedia, contentTags, mediaAssets, tags } from "@yoryon/db";
-import { canAccess, truncateForPreview, filterStoredMediaRefs, parseMarkdown, stringifyMarkdown, type AccessUser } from "@yoryon/core";
+import { canAccess, publicPreview, filterStoredMediaRefs, parseMarkdown, stringifyMarkdown, type AccessUser } from "@yoryon/core";
 import type { AppDeps } from "../deps";
 
 /** 领域到公开/私有 DTO 的唯一投影。公开入口传 null，且从不读取 session。 */
@@ -45,12 +45,9 @@ export async function loadContentDetail(deps: AppDeps, slug: string, viewer: Acc
       bodyMarkdown = content.bodyMarkdown;
       access = "full";
     } else {
-      const preview = truncateForPreview(content.bodyMarkdown, content.previewMode, content.previewPercent, {
-        mediaBlockWeight: deps.env.MEDIA_BLOCK_WEIGHT,
-      });
-      bodyMarkdown = preview.freeMarkdown;
+      bodyMarkdown = publicPreview(content, deps.env.MEDIA_BLOCK_WEIGHT);
       access = "preview";
-      hasPaidContent = preview.hasPaidContent || content.visibility === "paid";
+      hasPaidContent = content.visibility === "paid";
     }
 
     // 未授权响应不包含付费正文与付费媒体引用（ADR-0004）

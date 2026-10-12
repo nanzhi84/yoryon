@@ -1,6 +1,6 @@
 /** 作品引用只有一跳，公开卡片不复制正文、不继承引用者权益。 */
 import { randomUUID } from "node:crypto";
-import { and, eq, inArray } from "drizzle-orm";
+import { and, eq, inArray, sql } from "drizzle-orm";
 import type { Root } from "mdast";
 import { SKIP, visit } from "unist-util-visit";
 import { contentReferences, contents, type Database } from "@yoryon/db";
@@ -52,7 +52,10 @@ export async function invalidateReferrers(tx: Tx, targetId: string) {
   if (parents.length > 100) throw new Error("直接引用者超过 100，需分批处理引用关系后重试");
   for (const parent of parents) {
     const changedAt = new Date();
-    await tx.update(contents).set({ revision: randomUUID(), updatedAt: changedAt }).where(eq(contents.id, parent.id));
+    const revision = randomUUID();
+    await tx.update(contents).set({ revision, updatedAt: changedAt,
+      previewRevision: sql`case when ${contents.previewRevision} = ${contents.revision} then ${revision}::uuid else ${contents.previewRevision} end`,
+    }).where(eq(contents.id, parent.id));
     const related = await associations(tx, parent.id);
     await enqueueCacheEvent(tx, contentTargets(parent.slug, related.tags, related.collections), parent.slug, changedAt.toISOString());
   }

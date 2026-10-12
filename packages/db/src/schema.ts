@@ -82,6 +82,9 @@ export const contents = pgTable(
     title: text("title").notNull(),
     description: text("description").notNull().default(""),
     bodyMarkdown: text("body_markdown").notNull().default(""),
+    /** 发布事务派生的匿名正文，带版本防止 SQL 修复复用陈旧投影；迁移未回填时为空。 */
+    publicPreviewMarkdown: text("public_preview_markdown"),
+    previewRevision: uuid("preview_revision"),
     revision: uuid("revision").notNull().defaultRandom(),
     status: text("status", { enum: ["draft", "published"] }).notNull().default("draft"),
     visibility: text("visibility", { enum: ["public", "paid"] }).notNull().default("public"),

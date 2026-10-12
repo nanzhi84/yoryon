@@ -2,8 +2,11 @@
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { publicImageUrl } from "@yoryon/config/image-variants";
+import { InlineMedia } from "./inline-media";
+import { MarkdownImage } from "./markdown-image";
 
-interface Reference { available: true; slug: string; type: "post" | "article"; title: string; summary: string; description: string; coverMediaId: string | null; visibility: string }
+interface Reference { available: true; slug: string; type: "post" | "article"; title: string; summary: string; description: string; coverMediaId: string | null; visibility: string;
+  media: { mediaId: string; mimeType: string; width: number | null; height: number | null } | null }
 export function WorkReference({ id }: { id: string }) {
   const [card, setCard] = useState<Reference | null>(null);
   const [state, setState] = useState<"loading" | "ready" | "unavailable" | "error">("loading");
@@ -14,7 +17,7 @@ export function WorkReference({ id }: { id: string }) {
     const controller = new AbortController(); active.current = controller;
     setCard(null); setState("loading");
     try {
-      const response = await fetch(`/api/public/references/${id}`, { cache: "no-store", signal: controller.signal });
+      const response = await fetch(`/api/public/references/${id}`, { cache: "no-store", signal: AbortSignal.any([controller.signal, AbortSignal.timeout(15_000)]) });
       if (response.status === 404) { if (!controller.signal.aborted) setState("unavailable"); return; }
       if (!response.ok) throw new Error("reference unavailable");
       const data = await response.json() as Reference;
@@ -42,5 +45,9 @@ export function WorkReference({ id }: { id: string }) {
       <p className="mt-2 whitespace-pre-wrap break-words text-sm">{card.summary || card.description || "查看作品"}</p>
       {card.coverMediaId && <img src={publicImageUrl(card.coverMediaId)} alt="引用作品封面" loading="lazy" className="mt-3 max-h-40 rounded-lg" />}
     </Link>}
+    {card?.media && card.media.mediaId !== card.coverMediaId && (card.media.mimeType.startsWith("image/")
+      ? <MarkdownImage src={publicImageUrl(card.media.mediaId, card.media.mimeType === "image/svg+xml" ? "original" : 1280)} alt="引用帖子的图片预览" loading="lazy" className="mt-3 max-h-48 rounded-lg" />
+      : card.media.mimeType.startsWith("video/") || card.media.mimeType.startsWith("audio/")
+        ? <InlineMedia mediaId={card.media.mediaId} kind={card.media.mimeType.startsWith("video/") ? "video" : "audio"} /> : null)}
   </div>;
 }

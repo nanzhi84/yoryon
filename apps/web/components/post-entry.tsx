@@ -28,7 +28,7 @@ export function PostEntry({ item }: { item: FeedContentItem }) {
     const controller = new AbortController(); active.current = controller;
     setLoading(true); setError(false);
     try {
-      const response = await fetch(`/api/contents/${item.slug}`, { credentials: "same-origin", cache: "no-store", signal: controller.signal });
+      const response = await fetch(`/api/contents/${item.slug}`, { credentials: "same-origin", cache: "no-store", signal: AbortSignal.any([controller.signal, AbortSignal.timeout(15_000)]) });
       if (!response.ok) throw new Error("post unavailable");
       const data = await response.json() as ContentDetail;
       if (data.type !== "post") throw new Error("content type changed");

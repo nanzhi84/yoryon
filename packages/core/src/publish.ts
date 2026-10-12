@@ -214,6 +214,9 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
       const mapping = new Map<string, string>();
       for (const [ref, id] of mediaIdByRef) mapping.set(ref, id);
       const rewritten = stringifyMarkdown(rewriteMediaRefs(parseMarkdown(post.bodyMarkdown), mapping));
+      const preview = truncateForPreview(rewritten, fm.preview.mode, fm.preview.mode === "percent" ? fm.preview.percent! : null, {
+        ...(deps.mediaBlockWeight !== undefined ? { mediaBlockWeight: deps.mediaBlockWeight } : {}),
+      });
 
       // 内容 upsert（按 slug）
       const publishedAt = fm.published_at ?? new Date();
@@ -226,6 +229,8 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
           title: fm.title,
           description: fm.description,
           bodyMarkdown: rewritten,
+          publicPreviewMarkdown: fm.visibility === "public" ? rewritten : preview.freeMarkdown,
+          previewRevision: version,
           status: "published",
           visibility: fm.visibility,
           previewMode: fm.preview.mode,
@@ -242,6 +247,8 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
             title: fm.title,
             description: fm.description,
             bodyMarkdown: rewritten,
+            publicPreviewMarkdown: fm.visibility === "public" ? rewritten : preview.freeMarkdown,
+            previewRevision: version,
             status: "published",
             visibility: fm.visibility,
             previewMode: fm.preview.mode,
@@ -258,9 +265,6 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
 
       // content_media 替换（含 exposure 重算）
       await tx.delete(contentMedia).where(eq(contentMedia.contentId, contentId));
-      const preview = truncateForPreview(rewritten, fm.preview.mode, fm.preview.mode === "percent" ? fm.preview.percent! : null, {
-        ...(deps.mediaBlockWeight !== undefined ? { mediaBlockWeight: deps.mediaBlockWeight } : {}),
-      });
       const freeSet = new Set(preview.freeMediaIds);
       const bodyIds = collectStoredMediaIds(parseMarkdown(rewritten));
       const rows: { contentId: string; mediaId: string; position: number; exposure: "free" | "paid" }[] = [];
