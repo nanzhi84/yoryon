@@ -1,5 +1,5 @@
 import { createHmac, randomUUID } from "node:crypto";
-import { and, eq, ne } from "drizzle-orm";
+import { and, eq, lt, ne } from "drizzle-orm";
 import { cacheEvents, collectionItems, collections, contentTags, tags, type Database } from "@yoryon/db";
 import { contentTargets, validCacheEvent, type CacheEvent, type CacheTargets } from "@yoryon/config/cache";
 
@@ -30,8 +30,16 @@ export async function deliverCacheEvents(db: Database, options: { retry?: boolea
   const endpoint = process.env.CACHE_REVALIDATE_URL;
   const secret = process.env.CACHE_REVALIDATE_SECRET;
   const site = process.env.SITE_URL;
-  const rows = await db.select().from(cacheEvents).where(ne(cacheEvents.state, "verified")).orderBy(cacheEvents.createdAt).limit(100);
+  // 正常投递在查询层排除重试耗尽事件（attempts>=3），避免最旧 100 条死信长期占满批次、阻塞后续新事件；
+  // 人工 cache retry（retry:true）不过滤，保留恢复旧失败事件的能力（每次运行仍有界：每事件最多再试 3 次）。
+  const rows = await db
+    .select()
+    .from(cacheEvents)
+    .where(and(ne(cacheEvents.state, "verified"), options.retry ? undefined : lt(cacheEvents.attempts, 3)))
+    .orderBy(cacheEvents.createdAt)
+    .limit(100);
   for (const row of rows) {
+    // 防御性保留：查询与处理之间 attempts 可能被并发投递推进
     if (!options.retry && row.attempts >= 3) continue;
     if (!endpoint || !secret || !site) { log(`cache ${row.id}: pending (configuration missing)`); continue; }
     const event = JSON.parse(row.payload) as CacheEvent;
