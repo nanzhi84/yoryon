@@ -1,0 +1,253 @@
+{
+  "publicize": {
+    "status": 200,
+    "body": {
+      "item": {
+        "id": "98ea171f-0529-4fbf-b130-4da63cef2c9e",
+        "question": "MR15_PRIVATE_ONE",
+        "status": "answered",
+        "visibility": "public",
+        "createdAt": "2026-10-12T18:07:05.907Z",
+        "answeredAt": "2026-10-12T18:07:20.122Z",
+        "author": {
+          "username": "mr15_actor",
+          "displayName": "mr15_actor",
+          "avatarUrl": null
+        },
+        "own": true,
+        "answer": "MR15_RESTRICTED_ANSWER_PRIVATE",
+        "answerLocked": false,
+        "canDiscuss": false
+      }
+    }
+  },
+  "cross": {
+    "status": 400,
+    "body": {
+      "error": {
+        "code": "reply_target_invalid",
+        "message": "当前无法发布评论，请核对会员资格与回复目标"
+      }
+    }
+  },
+  "reprivatize": {
+    "status": 200,
+    "body": {
+      "item": {
+        "id": "98ea171f-0529-4fbf-b130-4da63cef2c9e",
+        "question": "MR15_PRIVATE_ONE",
+        "status": "answered",
+        "visibility": "private",
+        "createdAt": "2026-10-12T18:07:05.907Z",
+        "answeredAt": "2026-10-12T18:07:20.122Z",
+        "author": {
+          "username": "mr15_actor",
+          "displayName": "mr15_actor",
+          "avatarUrl": null
+        },
+        "own": true,
+        "answer": "MR15_RESTRICTED_ANSWER_PRIVATE",
+        "answerLocked": false,
+        "canDiscuss": false
+      }
+    }
+  },
+  "actorRename": {
+    "status": 200,
+    "body": {
+      "profile": {
+        "username": "mr15_actor",
+        "displayName": "MR15展示会员",
+        "avatarUrl": null
+      }
+    }
+  },
+  "notifications": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "c07a1a9c-66a7-4a02-bcf5-94257f79ca46",
+          "type": "like",
+          "createdAt": "2026-10-12T18:08:46.296Z",
+          "readAt": null,
+          "actor": {
+            "username": "mr15_actor",
+            "displayName": "MR15展示会员",
+            "avatarUrl": null
+          },
+          "link": "/questions/983847a3-9d67-4d73-a660-1f9d1b38f4e5#comment-75e8f4a8-28b8-4c55-84c3-fb044ce14fd8",
+          "contentTitle": "会员问答",
+          "commentId": "75e8f4a8-28b8-4c55-84c3-fb044ce14fd8"
+        },
+        {
+          "id": "b83ba54c-e8d4-4323-88b6-06e4d46a1330",
+          "type": "reply",
+          "createdAt": "2026-10-12T18:08:45.851Z",
+          "readAt": null,
+          "actor": {
+            "username": "mr15_actor",
+            "displayName": "MR15展示会员",
+            "avatarUrl": null
+          },
+          "link": "/questions/983847a3-9d67-4d73-a660-1f9d1b38f4e5#comment-b8e31091-119f-4f4e-8a19-fad652f26cc9",
+          "contentTitle": "会员问答",
+          "commentId": "b8e31091-119f-4f4e-8a19-fad652f26cc9"
+        },
+        {
+          "id": "dd9a7bba-0b3b-490b-9e61-64f792f3728f",
+          "type": "answer",
+          "createdAt": "2026-10-12T18:07:19.858Z",
+          "readAt": null,
+          "actor": {
+            "username": "mr15_admin",
+            "displayName": "mr15_admin",
+            "avatarUrl": null
+          },
+          "link": "/questions/983847a3-9d67-4d73-a660-1f9d1b38f4e5",
+          "contentTitle": "会员问答",
+          "commentId": null
+        }
+      ],
+      "nextCursor": null
+    }
+  },
+  "replyCurrentName": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "b8e31091-119f-4f4e-8a19-fad652f26cc9",
+          "parentId": "75e8f4a8-28b8-4c55-84c3-fb044ce14fd8",
+          "deleted": false,
+          "body": "MR15_UI_MEMBER_REPLY",
+          "likeCount": 0,
+          "createdAt": "2026-10-12T18:08:45.848Z",
+          "author": {
+            "username": "mr15_actor",
+            "displayName": "MR15展示会员",
+            "avatarUrl": null
+          },
+          "replyTo": {
+            "id": "75e8f4a8-28b8-4c55-84c3-fb044ce14fd8",
+            "username": "MR15展示作者"
+          }
+        }
+      ],
+      "nextCursor": null
+    }
+  },
+  "privatizePublic": {
+    "status": 200,
+    "body": {
+      "item": {
+        "id": "983847a3-9d67-4d73-a660-1f9d1b38f4e5",
+        "question": "MR15_PUBLIC_QUESTION <img onerror=alert(1)>",
+        "status": "answered",
+        "visibility": "private",
+        "createdAt": "2026-10-12T18:06:49.829Z",
+        "answeredAt": "2026-10-12T18:07:19.858Z",
+        "author": {
+          "username": "mr15_author",
+          "displayName": "MR15展示作者",
+          "avatarUrl": "/api/avatars/e5c82c43-0052-43ac-8374-bd74c46b9017"
+        },
+        "own": true,
+        "answer": "MR15_RESTRICTED_ANSWER_PUBLIC <script>alert(1)</script>",
+        "answerLocked": false,
+        "canDiscuss": false
+      }
+    }
+  },
+  "gates": [
+    {
+      "kind": "detail",
+      "status": 404,
+      "body": {
+        "error": {
+          "code": "not_found",
+          "message": "问答不存在"
+        }
+      }
+    },
+    {
+      "kind": "roots",
+      "status": 403,
+      "body": {
+        "error": {
+          "code": "forbidden",
+          "message": "当前不能阅读此问答讨论"
+        }
+      }
+    },
+    {
+      "kind": "replies",
+      "status": 403,
+      "body": {
+        "error": {
+          "code": "forbidden",
+          "message": "当前不能阅读此问答讨论"
+        }
+      }
+    },
+    {
+      "kind": "locate",
+      "status": 403,
+      "body": {
+        "error": {
+          "code": "forbidden",
+          "message": "当前不能阅读此问答讨论"
+        }
+      }
+    },
+    {
+      "kind": "like",
+      "status": 403,
+      "body": {
+        "error": {
+          "code": "forbidden",
+          "message": "当前没有该作品的互动权益"
+        }
+      }
+    },
+    {
+      "kind": "post",
+      "status": 403,
+      "body": {
+        "error": {
+          "code": "forbidden",
+          "message": "当前无法发布评论，请核对会员资格与回复目标"
+        }
+      }
+    },
+    {
+      "kind": "liked",
+      "status": 200,
+      "body": {
+        "liked": []
+      }
+    }
+  ],
+  "actorNotificationsPrivate": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "4f184352-fdfc-4ef9-8245-2aea44568b8c",
+          "type": "answer",
+          "createdAt": "2026-10-12T18:07:20.122Z",
+          "readAt": null,
+          "actor": {
+            "username": "mr15_admin",
+            "displayName": "mr15_admin",
+            "avatarUrl": null
+          },
+          "link": "/questions/98ea171f-0529-4fbf-b130-4da63cef2c9e",
+          "contentTitle": "会员问答",
+          "commentId": null
+        }
+      ],
+      "nextCursor": null
+    }
+  }
+}

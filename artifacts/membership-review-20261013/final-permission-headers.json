@@ -1,0 +1,131 @@
+{
+  "head": "17c09e45895646643bd2bad41830ee3bff7fedc5",
+  "question": "dc157174-3d6d-4cf2-b914-75387a746017",
+  "firstAnswer": "Previous actual CLI returned notification created; receipt was lost before persistence due a later wrong-column SELECT; final repeated answer and SQL below independently corroborate current final state",
+  "cases": [
+    {
+      "name": "anonymous",
+      "API": 200,
+      "cache": "private, no-store",
+      "answerVisible": false,
+      "locked": true,
+      "html": 200,
+      "htmlCache": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "answerMarkerInHtmlOrHydration": false
+    },
+    {
+      "name": "ownerExpired",
+      "API": 200,
+      "cache": "private, no-store",
+      "answerVisible": true,
+      "locked": false,
+      "html": 200,
+      "htmlCache": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "answerMarkerInHtmlOrHydration": true
+    },
+    {
+      "name": "otherMember",
+      "API": 200,
+      "cache": "private, no-store",
+      "answerVisible": true,
+      "locked": false,
+      "html": 200,
+      "htmlCache": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "answerMarkerInHtmlOrHydration": true
+    },
+    {
+      "name": "revoked",
+      "API": 200,
+      "cache": "private, no-store",
+      "answerVisible": false,
+      "locked": true,
+      "html": 200,
+      "htmlCache": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "answerMarkerInHtmlOrHydration": false
+    },
+    {
+      "name": "contentOnly",
+      "API": 200,
+      "cache": "private, no-store",
+      "answerVisible": false,
+      "locked": true,
+      "html": 200,
+      "htmlCache": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "answerMarkerInHtmlOrHydration": false
+    },
+    {
+      "name": "admin",
+      "API": 200,
+      "cache": "private, no-store",
+      "answerVisible": true,
+      "locked": false,
+      "html": 200,
+      "htmlCache": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "answerMarkerInHtmlOrHydration": true
+    }
+  ],
+  "headers": [
+    {
+      "path": "/api/me/membership",
+      "status": 401,
+      "cache": "private, no-store",
+      "vary": null
+    },
+    {
+      "path": "/api/me/profile",
+      "status": 401,
+      "cache": "private, no-store",
+      "vary": null
+    },
+    {
+      "path": "/api/avatars/55777ebf-be36-4a48-94ae-b60665ef0f53",
+      "status": 200,
+      "cache": "private, no-store",
+      "vary": null
+    },
+    {
+      "path": "/api/avatars/00000000-0000-0000-0000-000000000000",
+      "status": 404,
+      "cache": "private, no-store",
+      "vary": null
+    },
+    {
+      "path": "/api/users/4d694299-828e-4ea3-8310-269ba7409165/profile",
+      "status": 200,
+      "cache": "private, no-store",
+      "vary": null
+    },
+    {
+      "path": "/api/public/image-policy/55777ebf-be36-4a48-94ae-b60665ef0f53",
+      "status": 403,
+      "cache": "private, no-store",
+      "vary": null
+    },
+    {
+      "path": "/api/public/images/55777ebf-be36-4a48-94ae-b60665ef0f53/original",
+      "status": 403,
+      "cache": "private, no-store",
+      "vary": null
+    },
+    {
+      "path": "/api/feed",
+      "status": 200,
+      "cache": "public, max-age=0, must-revalidate",
+      "vary": null
+    },
+    {
+      "path": "/api/paid-feed",
+      "status": 200,
+      "cache": "public, max-age=0, must-revalidate",
+      "vary": null
+    },
+    {
+      "path": "/api/public/contents/mr15-free",
+      "status": 200,
+      "cache": "public, max-age=0, must-revalidate",
+      "vary": null
+    }
+  ],
+  "repeatAnswer": "✓ dc157174-3d6d-4cf2-b914-75387a746017 answered; notification unchanged\n",
+  "answerNotificationCount": "1"
+}

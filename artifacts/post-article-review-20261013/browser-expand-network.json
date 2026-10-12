@@ -1,0 +1,22 @@
+[
+  {
+    "method": "GET",
+    "path": "/api/contents/review-mixed-post"
+  },
+  {
+    "method": "GET",
+    "path": "/api/media/3ae68f3a-2f9e-4a61-a5ed-bfa0d4301cf5"
+  },
+  {
+    "method": "GET",
+    "path": "/api/media/676802b2-fc59-413b-99ba-9061ae5b12e5"
+  },
+  {
+    "method": "GET",
+    "path": "/api/storage-object/media%2F81ac6eb09954ae4852b5839ba8d6fbb10f1373cf5b9359c6a5d7d702f4d425cf.png"
+  },
+  {
+    "method": "GET",
+    "path": "/api/storage-object/media%2F8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png"
+  }
+]

@@ -1,0 +1,212 @@
+{
+  "head": "17c09e45895646643bd2bad41830ee3bff7fedc5",
+  "tree": "d9043c65152f37eda8bf0c6ea09d220254803a70",
+  "files": [
+    {
+      "file": "apps/api/src/app.ts",
+      "sha256": "eb4455738c97c6938d3178986ea7f3de91780526edcf2747489e7b37cfb25ea5"
+    },
+    {
+      "file": "apps/api/src/middleware/auth.ts",
+      "sha256": "9ce4d94c2329d4e0b7f0189740573c384294b257ca1a55e134b0b85d6a532d1d"
+    },
+    {
+      "file": "apps/api/src/routes/auth.ts",
+      "sha256": "eeb73b719a56dca8305bac48b00b42819507c2ce790f7b19945e02dcc58e9265"
+    },
+    {
+      "file": "apps/api/src/routes/comment-read.ts",
+      "sha256": "d0a7f6c57fb9b750d06d67153c16cf2c61a02b4a52df18678807d4d0d5dd92ab"
+    },
+    {
+      "file": "apps/api/src/routes/comments.ts",
+      "sha256": "72977a628971f30c0b632dd36964fddd38a1c3884dc2b8d9382e16e0aa170e15"
+    },
+    {
+      "file": "apps/api/src/routes/content-detail.ts",
+      "sha256": "9c79f20cedf3584d33c00c712e32bc92df1c0a4d4ecd72fca544f6bd3f84646c"
+    },
+    {
+      "file": "apps/api/src/routes/content-navigation.ts",
+      "sha256": "1d38ecc5be046264426af7117e820d5c5fdd6822ca0d02aca02b67e779c8f485"
+    },
+    {
+      "file": "apps/api/src/routes/contents.ts",
+      "sha256": "92361856f6e9328f5cd45205ba18326c2ff163df8e1ebcc35f5c1f186adba4a0"
+    },
+    {
+      "file": "apps/api/src/routes/notifications.ts",
+      "sha256": "3970e920e0fafbc2e40f2b5474894c74bcfbb0e74c039b8a67c682ca7eb4c266"
+    },
+    {
+      "file": "apps/api/src/routes/profiles.ts",
+      "sha256": "788d316d7a13327640a7a9d5ebbac8aa25d9e3d82cfd57c9146204057f19cccd"
+    },
+    {
+      "file": "apps/api/src/routes/public-images.ts",
+      "sha256": "2ff531f64e5e86f432d04478c969add762668f5b90d8e5c5ae4710bec804c995"
+    },
+    {
+      "file": "apps/api/src/routes/question-discussions.ts",
+      "sha256": "433e48a5525186e0a80788c5ce6400ac75b6dfa5593b319355bc6b4e3bf663a8"
+    },
+    {
+      "file": "apps/api/src/routes/questions.ts",
+      "sha256": "897191b08e73b18836171fe4a653379637ac9cd7afefd3a4f095ed2e5404843c"
+    },
+    {
+      "file": "apps/cli/src/commands/content.ts",
+      "sha256": "61dc0266d45e1092b30dfd636b5ff69d5c2fdafc1d5cd2cf88c7aa13fda98a00"
+    },
+    {
+      "file": "apps/cli/src/commands/question.ts",
+      "sha256": "daf1fbe5ba8d393d5a5dae39f71916051c422169977a90c2849b5b1c00a8d7c6"
+    },
+    {
+      "file": "apps/cli/src/index.ts",
+      "sha256": "e906f9e7036f38dcb3e67057744dd00ae93b2c4a9a7d13237f0661b551ec8501"
+    },
+    {
+      "file": "apps/web/app/api/[...path]/route.ts",
+      "sha256": "51c327c475b6b10e31194befbe000540a0dc178479f3ece772cf9ca0a518b024"
+    },
+    {
+      "file": "apps/web/app/api/pages/[version]/[source]/[cursor]/route.ts",
+      "sha256": "a259408e8b4c6bfbf8b3f82a1f176a57c9fa65d45cc7dac7d6b27c2fc4b05ff1"
+    },
+    {
+      "file": "apps/web/app/explore/page.tsx",
+      "sha256": "edf7111d1ed56b864c880284e01741c53c62d080fbcbf6255529a95c6be9fb4b"
+    },
+    {
+      "file": "apps/web/app/questions/[id]/page.tsx",
+      "sha256": "a9bdbc77b7a0a83981c360c989de55005342bf77af2477fa7f0acd14b2f05dfe"
+    },
+    {
+      "file": "apps/web/app/redeem/page.tsx",
+      "sha256": "ea97ebc15c9a9c2cdc02671321b2a8f75ffdc9bf2a88ac8e25cefec141a3f3af"
+    },
+    {
+      "file": "apps/web/app/settings/profile/page.tsx",
+      "sha256": "159ca87c4dababedcecb9ba3ff3f9eb2cff08ecb1c97b03acaf58ce1c4b4710f"
+    },
+    {
+      "file": "apps/web/app/subscription/page.tsx",
+      "sha256": "d463b536b6e0e6ada7f6dd8bab188ab4eda0cfb67c84ac1fa26130537864f98d"
+    },
+    {
+      "file": "apps/web/components/avatar.tsx",
+      "sha256": "49b0fd654d00be4f7edaf49d8b7dc024f807750ad2ac29d1514fdd4bb1b12d6c"
+    },
+    {
+      "file": "apps/web/components/collection-navigation.tsx",
+      "sha256": "070b1d19cc57127b08b26ee57596a972d0a8028b8caf70e196efc47e5310dd40"
+    },
+    {
+      "file": "apps/web/components/comment-section.tsx",
+      "sha256": "7cfaf4c9892f0a5fa7560d0dc9c27bdc4643790645aa829408355e7c73d823e1"
+    },
+    {
+      "file": "apps/web/components/content-view.tsx",
+      "sha256": "7a4d2b21647aa9da1a6fd2a4988e4acda454e1649dba21db71f80111daeb63f2"
+    },
+    {
+      "file": "apps/web/components/load-more.tsx",
+      "sha256": "9e037df01d5e3fadf313657464aaea36e93416dcdf5abd74ef86e88c490668cb"
+    },
+    {
+      "file": "apps/web/components/login-form.tsx",
+      "sha256": "01ed767c506ec6b21ec35cb54dbc7d0653d86852665d4ced51ac001f3f214a5b"
+    },
+    {
+      "file": "apps/web/components/member-questions.tsx",
+      "sha256": "96a875dcbb9382f5592cdfbaa9a0802ae21890407b4afcc57b675ec5c79709e6"
+    },
+    {
+      "file": "apps/web/components/membership-panel.tsx",
+      "sha256": "0bbee14e25a20c63259402ee14f784c31388251501b054f56deaaba763ca011e"
+    },
+    {
+      "file": "apps/web/components/notification-list.tsx",
+      "sha256": "7798a41bb85858c8eaf3c4b60188fdf5d104ee78095463ae799f635e84a6009c"
+    },
+    {
+      "file": "apps/web/components/profile-settings.tsx",
+      "sha256": "1e44bb871b5387c1b78a6d9eb92e13271cdfdb91c82b5d7c64f0e45e3da790af"
+    },
+    {
+      "file": "apps/web/components/question-card.tsx",
+      "sha256": "c7c99fcbf9f3eab94d8aa250ed02a646e859fc54db4f6c33b3c68d0bab0c943a"
+    },
+    {
+      "file": "apps/web/components/redeem-client.tsx",
+      "sha256": "6840d293c5e6e265692baae8738667a7af15ae079157c48984af54415a31fb38"
+    },
+    {
+      "file": "apps/web/components/site-header.tsx",
+      "sha256": "90968b821fd8c2312a656eeb859716c8dac43eea1e95f6201ae603ca4cde4935"
+    },
+    {
+      "file": "apps/web/components/use-comment-data.ts",
+      "sha256": "f3f26fccdd5e78034034d20c57d340c5ca40802c639d55b3eeca4e79ec6a97c0"
+    },
+    {
+      "file": "apps/web/lib/bff.ts",
+      "sha256": "3159579921f50e7b7cfbad7daec2993bca8a607a6313e2f5f7cea15a49633d25"
+    },
+    {
+      "file": "apps/web/lib/navigation.ts",
+      "sha256": "13ed6cab23b6ae927acfdbff9c602cebd5f81371b91901530ba8349eefcfb392"
+    },
+    {
+      "file": "apps/web/lib/types.ts",
+      "sha256": "c21fc7e90597f5bb956c0f721877c92f9853f1a6334f62be8c481eb840a6f507"
+    },
+    {
+      "file": "packages/core/src/comments.ts",
+      "sha256": "3ae136fdc2cab9d6ee83c4ce5429b4204ffc644cb74f1ee98d71d7922958cc20"
+    },
+    {
+      "file": "packages/core/src/gc.ts",
+      "sha256": "a3d4bf80deefa988b59285e741aa86281b739a4fb020e5b706776e55c710642f"
+    },
+    {
+      "file": "packages/core/src/index.ts",
+      "sha256": "db4743dac637ce78ce117f4ba5a1e5559fb4caf238da616458cc05fd2eb76e5e"
+    },
+    {
+      "file": "packages/core/src/media-access.ts",
+      "sha256": "7f8cee5c0acfeb9806e71b6cf9e1e3d235f3b2f5e05c9f9634d714aaba31c234"
+    },
+    {
+      "file": "packages/core/src/membership.ts",
+      "sha256": "9c20922897bffa4ab15e047fa15bef268fc709a0aeaa213055464da8b714f297"
+    },
+    {
+      "file": "packages/core/src/notification-events.ts",
+      "sha256": "2ab1617024c1cadf2a70921195e704bea3250505585c4f46fc6bdbef3c9f4bfc"
+    },
+    {
+      "file": "packages/core/src/profile.ts",
+      "sha256": "0130dccf3cb1f12f5f41c9480a2e150fbdacf1cf3483e19a38c9fdb6f69b75fd"
+    },
+    {
+      "file": "packages/core/src/publish.ts",
+      "sha256": "ded0c01a098e08ac454ef3c376ac54e30a72da1213f1a8e839cb2a2df544824b"
+    },
+    {
+      "file": "packages/core/src/questions.ts",
+      "sha256": "217c3e28390a3e382f52fa30d64a7bed549ccbc0cc5be2abee37562834c72b29"
+    },
+    {
+      "file": "packages/db/drizzle/0009_opposite_timeslip.sql",
+      "sha256": "e47af34852075bf5c2520a921263644f6533c0ebdd28dc69cc65adb65360ac9c"
+    },
+    {
+      "file": "packages/db/src/schema.ts",
+      "sha256": "d0417715e555bcc173d86b7c9d66da233057e60fb8ef3d01dfc3727639202d21"
+    }
+  ],
+  "checkoutHead": "98ad7f340a740d7695060cc4e822818d082f7d6d",
+  "codeEqualsTestedHead": true
+}

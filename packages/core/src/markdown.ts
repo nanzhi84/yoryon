@@ -45,7 +45,7 @@ function isImageOnlyParagraph(node: RootContent): node is Paragraph {
 
 /** 顶层块是否为媒体块（图片段或 video/audio 指令）。 */
 export function isMediaBlock(node: RootContent): boolean {
-  return isMediaDirective(node) || isImageOnlyParagraph(node);
+  return (node.type === "leafDirective" && (node as LeafDirective).name === "work") || isMediaDirective(node) || isImageOnlyParagraph(node);
 }
 
 /** 从块中提取媒体源（URL 或相对路径）。 */
@@ -119,6 +119,19 @@ export function rewriteMediaRefs(tree: Root, mapping: ReadonlyMap<string, string
       if (src && mapping.has(src)) {
         d.attributes = { ...d.attributes, src: MEDIA_URL_PREFIX + mapping.get(src) };
       }
+    }
+  });
+  return tree;
+}
+
+/** 公开投影按 content_media.exposure 二次过滤，迁移/人工修复也不能仅靠正文指令放行。 */
+export function filterStoredMediaRefs(tree: Root, visible: ReadonlySet<string>): Root {
+  visit(tree, (node: any, _index, parent: any) => {
+    const id = node.type === "image" ? mediaIdFromUrl(node.url)
+      : node.type === "leafDirective" ? mediaIdFromUrl(node.attributes?.src) : null;
+    if (id && !visible.has(id) && parent?.children) {
+      // 留空文本保留 AST 遍历位置；不删除 sibling 使 visit 跳过下一节点。
+      parent.children[parent.children.indexOf(node)] = { type: "text", value: "" };
     }
   });
   return tree;

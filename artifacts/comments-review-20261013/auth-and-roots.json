@@ -1,0 +1,54 @@
+{
+  "time": "2026-10-12T17:38:20.419Z",
+  "auth": [
+    {
+      "action": "register",
+      "username": "cmr14_author",
+      "status": 200
+    },
+    {
+      "action": "verify-email",
+      "username": "cmr14_author",
+      "status": 200,
+      "tokenInBffBody": false
+    },
+    {
+      "action": "register",
+      "username": "cmr14_actor",
+      "status": 200
+    },
+    {
+      "action": "verify-email",
+      "username": "cmr14_actor",
+      "status": 200,
+      "tokenInBffBody": false
+    }
+  ],
+  "createdRoots": 22,
+  "firstPageCount": 20,
+  "nextCursor": "eyJsIjowLCJ0IjoiMjAyNi0xMC0xMlQxNzozODoyMC4yMDhaIiwiaWQiOiIyYjA5MmRmYy1hMDZhLTQ3NjEtOTUwYy03YzRiMTUxODY3OTAiLCJjb250ZW50SWQiOiJiZmM5MDdiYS02NTUzLTQ5ZmMtYTU3NS00ZTg4NzFlZjg4ODkiLCJ2ZXJzaW9uIjoiMjIifQ",
+  "firstIds": [
+    "144b8daa-130d-4c93-aef8-8fa6ac0e7701",
+    "c99fee64-9463-4d04-8b0b-11e4be90e28f",
+    "7b7d6103-8bd6-412a-8e78-7bae2f918a25",
+    "7fbda3f4-4188-4dcb-9253-fa32ff5430bd",
+    "6e72bbcd-0d23-4811-8605-835bdbfc571f",
+    "c3843c2d-044d-4066-9b9f-dc129f5ddf0b",
+    "09977971-b044-46a9-8e5d-ee362c6238be",
+    "f50bc91f-0519-43ed-a09c-25d9745d4c35",
+    "6ab3b801-4c3e-4702-8ed6-14348cfaded7",
+    "997c8dca-9ae6-4d47-a15b-e0cf7d113b3b",
+    "f2c94268-44b7-4876-9705-739433a044f4",
+    "b34b06cc-0f52-46c7-892d-6eb82bff635e",
+    "d9e35ca1-77c7-4307-8d24-836fa8a51c52",
+    "efe375e6-1972-43e7-a42a-a5a60e9fdae2",
+    "bf52fbfc-39dd-493b-b3de-05c1c27b8311",
+    "43165584-ddee-4976-969c-dac1fbeb1ed8",
+    "3eb73dcd-e583-47e7-8700-19d6727d216e",
+    "d79440fa-a245-4d17-b12a-1ed809f59c74",
+    "2b94b924-0af6-45d0-b868-a6977e948967",
+    "2b092dfc-a06a-4761-950c-7c4b15186790"
+  ],
+  "target": "43c7dae2-2cba-4f30-ab8a-062d4d2d9584",
+  "targetInitiallyFirstPage": false
+}

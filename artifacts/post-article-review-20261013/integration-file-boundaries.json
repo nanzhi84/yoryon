@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "scope": "changed handwritten TS/TSX files against merged main ab13db4",
+  "largest": [
+    {
+      "path": "packages/db/src/schema.ts",
+      "lines": 460
+    },
+    {
+      "path": "apps/api/src/routes/contents.ts",
+      "lines": 355
+    },
+    {
+      "path": "packages/core/src/publish.ts",
+      "lines": 329
+    },
+    {
+      "path": "apps/web/lib/types.ts",
+      "lines": 188
+    },
+    {
+      "path": "apps/web/components/player.tsx",
+      "lines": 170
+    }
+  ]
+}

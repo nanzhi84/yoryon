@@ -1,0 +1,18 @@
+[
+  {
+    "command": "question list --status pending",
+    "receipt": "{\"id\":\"98ea171f-0529-4fbf-b130-4da63cef2c9e\",\"status\":\"pending\",\"visibility\":\"private\",\"author\":\"mr15_actor\",\"question\":\"MR15_PRIVATE_ONE\",\"createdAt\":\"2026-10-12T18:07:05.907Z\"}\n{\"id\":\"983847a3-9d67-4d73-a660-1f9d1b38f4e5\",\"status\":\"pending\",\"visibility\":\"public\",\"author\":\"mr15_author\",\"question\":\"MR15_PUBLIC_QUESTION <img onerror=alert(1)>\",\"createdAt\":\"2026-10-12T18:06:49.829Z\"}"
+  },
+  {
+    "command": "question answer 983847a3-9d67-4d73-a660-1f9d1b38f4e5 --file /tmp/mr15-answer-public.txt --by mr15_admin",
+    "receipt": "✓ 983847a3-9d67-4d73-a660-1f9d1b38f4e5 answered; notification created"
+  },
+  {
+    "command": "question answer 98ea171f-0529-4fbf-b130-4da63cef2c9e --file /tmp/mr15-answer-private.txt --by mr15_admin",
+    "receipt": "✓ 98ea171f-0529-4fbf-b130-4da63cef2c9e answered; notification created"
+  },
+  {
+    "command": "repeat answer public",
+    "receipt": "✓ 983847a3-9d67-4d73-a660-1f9d1b38f4e5 answered; notification unchanged"
+  }
+]

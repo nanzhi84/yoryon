@@ -1,0 +1,35 @@
+Browser tab: 1, Title: "帖子 · 2026-10-12 · Yoryon", URL: "http://localhost:3161/p/review-paid-post".
+1 AXWebArea 帖子 · 2026-10-12 · Yoryon, URL: localhost:3161/p/review-paid-post
+	2 container
+		3 link Description: Yoryon, Value: localhost:3161/
+		4 link Description: 首页, Value: localhost:3161/
+		5 link Description: 订阅, Value: localhost:3161/subscription
+		6 link Description: 探索, Value: localhost:3161/explore
+		7 link Description: 资料, Value: localhost:3161/settings/profile
+		8 link Description: 通知, Value: localhost:3161/notifications
+		9 link Description: 登录, Value: localhost:3161/login
+		10 pop up button (collapsed) Description: 切换主题, ID: radix-_R_7j5fiv5ubtb_, Secondary Actions: Expand
+	11 container
+		12 text 帖子 ·
+		13 text 2026年10月13日
+		14 text 付费
+		15 heading 帖子 · 2026年10月13日, Value: 1
+			16 text 帖子 · 2026年10月13日
+		17 link Description: #review18, Value: localhost:3161/tags/review18
+		18 text 付费帖子允许的公开开头。
+		19 button 查看图片：公开预览图片
+			20 image 公开预览图片
+		21 text 本内容为订阅专享，以上为免费预览。 标准订阅 ¥29.9/月：解锁站内全部付费内容，到期自动恢复锁定。
+		22 link Description: 兑换订阅激活码, Value: localhost:3161/redeem
+		23 container 评论区
+			24 heading 评论（1）, Value: 2
+				25 text 评论 （1）
+			26 text 此为付费内容，解锁完整权益后可参与评论与点赞。
+			27 container comment-9a31cfe5-341f-4165-86cd-608f08dd954b
+				28 text 独立验收 review18_member
+				29 text 2026/10/13 02:15:16
+				30 text 会员在付费帖子下发表评论，验证 post 讨论路径。
+				31 checkbox Description: 点赞, Value: 0
+				32 button 删除
+
+The focused UI element is 31 checkbox Description: 点赞, Value: 0

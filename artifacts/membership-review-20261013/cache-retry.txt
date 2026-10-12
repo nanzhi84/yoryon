@@ -1,0 +1,8 @@
+$ pnpm --filter @yoryon/cli start cache retry
+$ tsx --env-file=../../.env src/index.ts cache retry
+cache 0278e8e9-63c3-4dcd-9a6e-765c3f31193f: verified
+cache 6ff42875-50c4-42c6-8a39-9f85bb3f331d: verified
+cache df3259dd-a862-45eb-9b79-7496aa5f1a66: verified
+cache e2b7b474-46d4-4200-aa3b-efab487a7727: verified
+cache a06dc103-d4b4-4931-8a28-4ab1afea396d: verified
+cache ad31c81c-2a3f-4756-9427-90533e1d5032: verified

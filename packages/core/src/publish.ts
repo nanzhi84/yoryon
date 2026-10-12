@@ -33,13 +33,14 @@ import type pg from "pg";
 import { drizzle } from "drizzle-orm/node-postgres";
 import * as schema from "@yoryon/db/schema";
 import { associations, contentTargets, deliverCacheEvents, enqueueCacheEvent } from "./cache-events";
+import { collectWorkReferences, invalidateReferrers, replaceWorkReferences } from "./references";
 
 const frontmatterSchema = z.object({
-  title: z.string().min(1),
+  title: z.string().trim().max(200).default(""),
   slug: z
     .string()
     .regex(/^[a-z0-9][a-z0-9-]*$/, "slug must be kebab-case"),
-  type: z.enum(["article", "image", "video", "audio"]).default("article"),
+  type: z.enum(["article", "post"]).default("article"),
   description: z.string().default(""),
   visibility: z.enum(["public", "paid"]).default("public"),
   preview: z
@@ -52,7 +53,6 @@ const frontmatterSchema = z.object({
   collections: z.array(z.string()).default([]),
   published_at: z.coerce.date().optional(),
   cover: z.string().optional(),
-  media: z.string().optional(),
 }).transform((fm) => ({
   ...fm,
   preview: { ...fm.preview, mode: fm.preview.mode ?? (fm.visibility === "paid" ? "none" as const : "full" as const) },
@@ -73,10 +73,13 @@ export async function parsePostDir(dir: string): Promise<ParsedPost> {
   const m = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/.exec(raw);
   if (!m) throw new Error(`${indexPath}: missing frontmatter (--- ... ---)`);
   const data = yaml.load(m[1]!);
-  const fm = frontmatterSchema.parse(data ?? {});
-  if ((fm.type === "image" || fm.type === "video" || fm.type === "audio") && !fm.media) {
-    throw new Error(`${indexPath}: type=${fm.type} 需要 frontmatter 指定 media（主媒体）`);
+  if (data && typeof data === "object" && "media" in data) {
+    throw new Error(`${indexPath}: 请将 frontmatter media 移到正文图片、::video 或 ::audio；不会静默忽略主媒体`);
   }
+  const fm = frontmatterSchema.parse(data ?? {});
+  if (fm.type === "article" && !fm.title) throw new Error(`${indexPath}: article 需要标题`);
+  if (!m[2]!.trim()) throw new Error(`${indexPath}: 正文不能为空`);
+  collectWorkReferences(parseMarkdown(m[2]!));
   if (fm.preview.mode === "percent" && fm.preview.percent === undefined) {
     throw new Error(`${indexPath}: preview.mode=percent 需要 percent（1-99）`);
   }
@@ -153,7 +156,7 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
     // ---- 阶段 A：媒体清单与上传 ----
     const bodyTree = parseMarkdown(post.bodyMarkdown);
     const bodyRefs = collectRelativeMediaRefs(bodyTree);
-    const extraRefs = [fm.media, fm.cover].filter((x): x is string => typeof x === "string" && x.length > 0);
+    const extraRefs = [fm.cover].filter((x): x is string => typeof x === "string" && x.length > 0);
     const allRefs = [...new Set([...bodyRefs, ...extraRefs])];
 
     // 相对引用 → 本地文件 + sha256 + oss key（图片同步探测尺寸，入库一次、展示处处复用）
@@ -214,14 +217,16 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
       const mapping = new Map<string, string>();
       for (const [ref, id] of mediaIdByRef) mapping.set(ref, id);
       const rewritten = stringifyMarkdown(rewriteMediaRefs(parseMarkdown(post.bodyMarkdown), mapping));
+      const preview = truncateForPreview(rewritten, fm.preview.mode, fm.preview.mode === "percent" ? fm.preview.percent! : null, {
+        ...(deps.mediaBlockWeight !== undefined ? { mediaBlockWeight: deps.mediaBlockWeight } : {}),
+      });
 
       // 内容 upsert（按 slug）
       const publishedAt = fm.published_at ?? new Date();
       const coverId = fm.cover ? mediaIdByRef.get(fm.cover)! : null;
-      // 置顶约束守卫：is_pinned 不参与 upsert（重新发布保留置顶），但已置顶内容禁止变更为非 article
       const existingRows = await tx.select({ isPinned: contents.isPinned }).from(contents).where(eq(contents.slug, fm.slug)).limit(1);
-      if (existingRows[0]?.isPinned && (fm.type !== "article" || fm.visibility !== "public")) {
-        throw new Error(`${fm.slug} 处于置顶状态，仅免费 article 可置顶；变更类型前请先 blog content unpin ${fm.slug}`);
+      if (existingRows[0]?.isPinned && fm.visibility !== "public") {
+        throw new Error(`${fm.slug} 处于首页置顶状态；改为付费前请先取消置顶`);
       }
       const inserted = await tx
         .insert(contents)
@@ -231,6 +236,8 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
           title: fm.title,
           description: fm.description,
           bodyMarkdown: rewritten,
+          publicPreviewMarkdown: fm.visibility === "public" ? rewritten : preview.freeMarkdown,
+          previewRevision: version,
           status: "published",
           visibility: fm.visibility,
           previewMode: fm.preview.mode,
@@ -247,6 +254,8 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
             title: fm.title,
             description: fm.description,
             bodyMarkdown: rewritten,
+            publicPreviewMarkdown: fm.visibility === "public" ? rewritten : preview.freeMarkdown,
+            previewRevision: version,
             status: "published",
             visibility: fm.visibility,
             previewMode: fm.preview.mode,
@@ -259,21 +268,14 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
         })
         .returning({ id: contents.id });
       const contentId = inserted[0]!.id;
+      await replaceWorkReferences(tx, contentId, collectWorkReferences(parseMarkdown(rewritten)));
 
       // content_media 替换（含 exposure 重算）
       await tx.delete(contentMedia).where(eq(contentMedia.contentId, contentId));
-      const preview = truncateForPreview(rewritten, fm.preview.mode, fm.preview.mode === "percent" ? fm.preview.percent! : null, {
-        ...(deps.mediaBlockWeight !== undefined ? { mediaBlockWeight: deps.mediaBlockWeight } : {}),
-      });
       const freeSet = new Set(preview.freeMediaIds);
       const bodyIds = collectStoredMediaIds(parseMarkdown(rewritten));
       const rows: { contentId: string; mediaId: string; position: number; exposure: "free" | "paid" }[] = [];
       let position = 0;
-      if (fm.media) {
-        // 主媒体（独立图片/视频/音频）：公开内容恒 free，付费内容恒 paid（v1 语义）
-        const mid = mediaIdByRef.get(fm.media)!;
-        rows.push({ contentId, mediaId: mid, position: position++, exposure: fm.visibility === "public" ? "free" : "paid" });
-      }
       for (const mid of bodyIds) {
         if (rows.some((r) => r.mediaId === mid)) continue; // 同一媒体多引用合并为一条边
         rows.push({ contentId, mediaId: mid, position: position++, exposure: fm.visibility === "public" || freeSet.has(mid) ? "free" : "paid" });
@@ -314,6 +316,7 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
       }
 
       await enqueueCacheEvent(tx, contentTargets(fm.slug, [...old.tags, ...fm.tags], [...old.collections, ...fm.collections]), fm.slug, revision.toISOString());
+      await invalidateReferrers(tx, contentId);
       return { contentId };
     });
 

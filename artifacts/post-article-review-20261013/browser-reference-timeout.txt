@@ -1,0 +1,34 @@
+Browser tab: 1, Title: "帖子 · 2026-10-12 · Yoryon", URL: "http://localhost:3161/p/review-references".
+1 AXWebArea 帖子 · 2026-10-12 · Yoryon, URL: localhost:3161/p/review-references
+	2 container
+		3 link Description: Yoryon, Value: localhost:3161/
+		4 link Description: 首页, Value: localhost:3161/
+		5 link Description: 订阅, Value: localhost:3161/subscription
+		6 link Description: 探索, Value: localhost:3161/explore
+		7 link Description: 资料, Value: localhost:3161/settings/profile
+		8 link Description: 通知, Value: localhost:3161/notifications
+		9 link Description: 登录, Value: localhost:3161/login
+		10 pop up button (collapsed) Description: 切换主题, ID: radix-_R_7j5fiv5ubtb_, Secondary Actions: Expand
+	11 container
+		12 text 帖子 ·
+		13 text 2026年10月13日
+		14 heading 帖子 · 2026年10月13日, Value: 1
+			15 text 帖子 · 2026年10月13日
+		16 link Description: #review18, Value: localhost:3161/tags/review18
+		17 text 引用帖：正文中的引用应为单跳预览。
+		18 text 引用作品已不可用
+		19 text 引用长文：
+		20 link Description: 查看引用长文：独立验收长文, Value: localhost:3161/p/review-long-article
+		21 text 付费引用只显示公开预览：
+		30 container
+			31 text 引用加载失败。
+			32 button 重试
+		23 container 评论区
+			24 heading 评论, Value: 2
+				25 text 评论
+			26 text entry area (settable) 评论输入框
+			27 text 0 / 2000
+			28 button (disabled) 发送
+			29 text 还没有评论。
+
+The focused UI element is 1 AXWebArea 帖子 · 2026-10-12 · Yoryon, URL: localhost:3161/p/review-references

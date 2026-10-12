@@ -1,0 +1,114 @@
+{
+  "empty": {
+    "migrationRows": [
+      {
+        "count": "11"
+      }
+    ],
+    "contents": [
+      {
+        "count": "0"
+      }
+    ],
+    "pending": [
+      {
+        "count": "0"
+      }
+    ]
+  },
+  "restore": {
+    "migrationRows": [
+      {
+        "count": "6"
+      }
+    ],
+    "works": [
+      {
+        "slug": "legacy-article-full",
+        "type": "article",
+        "diff": []
+      },
+      {
+        "slug": "legacy-article-marker",
+        "type": "article",
+        "diff": []
+      },
+      {
+        "slug": "legacy-article-percent",
+        "type": "article",
+        "diff": []
+      },
+      {
+        "slug": "legacy-article-public",
+        "type": "article",
+        "diff": []
+      },
+      {
+        "slug": "legacy-audio-full",
+        "type": "audio",
+        "diff": []
+      },
+      {
+        "slug": "legacy-audio-marker",
+        "type": "audio",
+        "diff": []
+      },
+      {
+        "slug": "legacy-audio-percent",
+        "type": "audio",
+        "diff": []
+      },
+      {
+        "slug": "legacy-audio-public",
+        "type": "audio",
+        "diff": []
+      },
+      {
+        "slug": "legacy-image-full",
+        "type": "image",
+        "diff": []
+      },
+      {
+        "slug": "legacy-image-marker",
+        "type": "image",
+        "diff": []
+      },
+      {
+        "slug": "legacy-image-percent",
+        "type": "image",
+        "diff": []
+      },
+      {
+        "slug": "legacy-image-present",
+        "type": "image",
+        "diff": []
+      },
+      {
+        "slug": "legacy-image-public",
+        "type": "image",
+        "diff": []
+      },
+      {
+        "slug": "legacy-video-full",
+        "type": "video",
+        "diff": []
+      },
+      {
+        "slug": "legacy-video-marker",
+        "type": "video",
+        "diff": []
+      },
+      {
+        "slug": "legacy-video-percent",
+        "type": "video",
+        "diff": []
+      },
+      {
+        "slug": "legacy-video-public",
+        "type": "video",
+        "diff": []
+      }
+    ],
+    "backupSha256": "4996f6d4ec1e0240ff62c9a9e0b1965f32e6dd40eca66a511528828762bb77b3"
+  }
+}

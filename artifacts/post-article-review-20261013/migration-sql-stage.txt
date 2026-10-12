@@ -1,0 +1,1 @@
+SQL stage applied; application backfill intentionally pending for interrupted-migration observation

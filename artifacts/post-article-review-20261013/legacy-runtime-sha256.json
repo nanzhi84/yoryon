@@ -1,0 +1,12 @@
+[
+  {
+    "path": "/Users/yoryon/Projects/yoryon-pr3-comments/apps/api/dist/index.js",
+    "sha256": "b806a9046a80e64eaa93139cdcab42dfa79cff65f78e5b347e4542a6594dadba",
+    "sourceHead": "70d6dd52be833ae7f55f344e1b22783cbf8a0ae2"
+  },
+  {
+    "path": "/Users/yoryon/Projects/yoryon-pr3-comments/apps/cli/dist/index.js",
+    "sha256": "f1df28c902428bdf5d00873460623116ff5b4135b49ca72aa1ed5d68bf273a5f",
+    "sourceHead": "70d6dd52be833ae7f55f344e1b22783cbf8a0ae2"
+  }
+]

@@ -1,0 +1,140 @@
+{
+  "head": "17c09e45895646643bd2bad41830ee3bff7fedc5",
+  "inputSHA256": "f466ddea94fecfd98e526fa5f0306bd197232bdbf42bc79d200cc4e199a6e9e9",
+  "streamedWithoutContentLength": true,
+  "exactCapInput": "valid JPEG followed by zero trailing bytes; decoder accepts, cap measured on complete bytes",
+  "receipts": [
+    {
+      "name": "API",
+      "validJpeg": {
+        "inputBytes": 166517,
+        "status": 200,
+        "cache": "private, no-store",
+        "data": {
+          "profile": {
+            "username": "mr15_reader",
+            "displayName": "mr15_reader",
+            "avatarUrl": "/api/avatars/55777ebf-be36-4a48-94ae-b60665ef0f53"
+          }
+        }
+      },
+      "avatarAtExact2MiB": {
+        "status": 200,
+        "cache": "private, no-store",
+        "data": {
+          "profile": {
+            "username": "mr15_reader",
+            "displayName": "mr15_reader",
+            "avatarUrl": "/api/avatars/55777ebf-be36-4a48-94ae-b60665ef0f53"
+          }
+        }
+      },
+      "avatarOver2MiB": {
+        "status": 413,
+        "cache": "private, no-store",
+        "data": {
+          "error": {
+            "code": "payload_too_large",
+            "message": "头像最大为 2MB"
+          }
+        }
+      },
+      "questionAt32KiB": {
+        "status": 400,
+        "cache": "private, no-store",
+        "data": {
+          "error": {
+            "code": "invalid_request",
+            "message": "问题需为 1-500 字，隐私只能是 public 或 private"
+          }
+        }
+      },
+      "questionOver32KiB": {
+        "status": 413,
+        "cache": "private, no-store",
+        "data": {
+          "error": {
+            "code": "payload_too_large",
+            "message": "请求体过大"
+          }
+        }
+      },
+      "discussionOver32KiB": {
+        "status": 413,
+        "cache": "private, no-store",
+        "data": {
+          "error": {
+            "code": "payload_too_large",
+            "message": "请求体过大"
+          }
+        }
+      }
+    },
+    {
+      "name": "BFF",
+      "validJpeg": {
+        "inputBytes": 166517,
+        "status": 200,
+        "cache": "private, no-store",
+        "data": {
+          "profile": {
+            "username": "mr15_reader",
+            "displayName": "mr15_reader",
+            "avatarUrl": "/api/avatars/55777ebf-be36-4a48-94ae-b60665ef0f53"
+          }
+        }
+      },
+      "avatarAtExact2MiB": {
+        "status": 200,
+        "cache": "private, no-store",
+        "data": {
+          "profile": {
+            "username": "mr15_reader",
+            "displayName": "mr15_reader",
+            "avatarUrl": "/api/avatars/55777ebf-be36-4a48-94ae-b60665ef0f53"
+          }
+        }
+      },
+      "avatarOver2MiB": {
+        "status": 413,
+        "cache": null,
+        "data": {
+          "error": {
+            "code": "payload_too_large",
+            "message": "请求体过大"
+          }
+        }
+      },
+      "questionAt32KiB": {
+        "status": 400,
+        "cache": "private, no-store",
+        "data": {
+          "error": {
+            "code": "invalid_request",
+            "message": "问题需为 1-500 字，隐私只能是 public 或 private"
+          }
+        }
+      },
+      "questionOver32KiB": {
+        "status": 413,
+        "cache": null,
+        "data": {
+          "error": {
+            "code": "payload_too_large",
+            "message": "请求体过大"
+          }
+        }
+      },
+      "discussionOver32KiB": {
+        "status": 413,
+        "cache": null,
+        "data": {
+          "error": {
+            "code": "payload_too_large",
+            "message": "请求体过大"
+          }
+        }
+      }
+    }
+  ]
+}

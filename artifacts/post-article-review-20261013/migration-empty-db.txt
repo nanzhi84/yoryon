@@ -1,0 +1,3 @@
+$ pnpm --filter @yoryon/api migrate
+$ tsx --env-file=../../.env src/migrate.ts
+SQL migrations and public preview backfill applied

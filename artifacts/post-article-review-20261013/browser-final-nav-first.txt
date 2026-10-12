@@ -1,0 +1,33 @@
+Browser tab: 1, Title: "旧长文 full · Yoryon", URL: "http://localhost:3161/p/legacy-article-full".
+1 AXWebArea 旧长文 full · Yoryon, URL: localhost:3161/p/legacy-article-full
+	2 container
+		3 link Description: Yoryon, Value: localhost:3161/
+		4 link Description: 首页, Value: localhost:3161/
+		5 link Description: 订阅, Value: localhost:3161/subscription
+		6 link Description: 探索, Value: localhost:3161/explore
+		7 link Description: 资料, Value: localhost:3161/settings/profile
+		8 link Description: 通知, Value: localhost:3161/notifications
+		9 link Description: 登录, Value: localhost:3161/login
+		10 pop up button (collapsed) Description: 切换主题, ID: radix-_R_7j5fiv5ubtb_, Secondary Actions: Expand
+	11 container
+		12 text 长文 ·
+		13 text 2026年10月13日
+		14 text 付费
+		15 heading 旧长文 full, Value: 1
+			16 text 旧长文 full
+		17 link Description: #legacy-review, Value: localhost:3161/tags/legacy-review
+		18 link Description: 合集：隔离迁移验收合集（元数据更新）, Value: localhost:3161/c/legacy-review
+		19 text 旧长文开头段落。 旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。 本内容为订阅专享，以上为免费预览。 标准订阅 ¥29.9/月：解锁站内全部付费内容，到期自动恢复锁定。
+		20 link Description: 兑换订阅激活码, Value: localhost:3161/redeem
+		21 container 合集上下篇导航
+			22 container 合集：隔离迁移验收合集（元数据更新）
+				23 link Description: 合集：隔离迁移验收合集（元数据更新）, Value: localhost:3161/c/legacy-review
+				24 text 已是合集第一篇
+				25 link Description: 下一篇 旧长文 marker, Value: localhost:3161/p/legacy-article-marker
+		26 container 评论区
+			27 heading 评论, Value: 2
+				28 text 评论
+			29 text 此为付费内容，解锁完整权益后可参与评论与点赞。
+			30 text 还没有评论。
+
+The focused UI element is 1 AXWebArea 旧长文 full · Yoryon, URL: localhost:3161/p/legacy-article-full

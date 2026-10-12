@@ -1,0 +1,227 @@
+{
+  "sourceHead": "06591b06c24d81bc80b36336d34c03a0b40b9d20",
+  "out": [
+    {
+      "path": "/public/contents/legacy-video-percent",
+      "viewer": "anonymous",
+      "status": 200,
+      "data": {
+        "id": "3b5b216a-9a16-4973-92d4-31fd5efedde0",
+        "type": "post",
+        "slug": "legacy-video-percent",
+        "title": "旧版迁移 video percent",
+        "description": "",
+        "visibility": "paid",
+        "publishedAt": "2026-10-01T01:00:00.000Z",
+        "updatedAt": "2026-10-12T18:21:27.541Z",
+        "revision": "4e72b54d-7668-4cd8-968f-8189f55f3b4b",
+        "access": "preview",
+        "hasPaidContent": true,
+        "bodyMarkdown": "旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应",
+        "coverMediaId": null,
+        "tags": [
+          {
+            "slug": "legacy-review",
+            "name": "legacy-review"
+          }
+        ],
+        "collections": [
+          {
+            "slug": "legacy-review",
+            "title": "隔离迁移验收合集（元数据更新）",
+            "previous": {
+              "slug": "legacy-video-marker",
+              "title": "旧版迁移 video marker"
+            },
+            "next": {
+              "slug": "legacy-video-public",
+              "title": "旧版迁移 video public"
+            }
+          }
+        ],
+        "media": []
+      }
+    },
+    {
+      "path": "/public/references/c06ce84b-8409-4845-ae56-d33a7551a975",
+      "viewer": "anonymous",
+      "status": 200,
+      "data": {
+        "available": true,
+        "id": "c06ce84b-8409-4845-ae56-d33a7551a975",
+        "slug": "review-paid-post",
+        "type": "post",
+        "title": "",
+        "description": "",
+        "summary": "付费帖子允许的公开开头。",
+        "coverMediaId": null,
+        "media": {
+          "mediaId": "676802b2-fc59-413b-99ba-9061ae5b12e5",
+          "position": 0,
+          "exposure": "free",
+          "mimeType": "image/png",
+          "width": 160,
+          "height": 90,
+          "durationSec": null
+        },
+        "visibility": "paid",
+        "publishedAt": "2026-10-12T18:22:41.953Z"
+      }
+    },
+    {
+      "path": "/contents/review-paid-post",
+      "viewer": "review18_member",
+      "status": 200,
+      "data": {
+        "id": "c06ce84b-8409-4845-ae56-d33a7551a975",
+        "type": "post",
+        "slug": "review-paid-post",
+        "title": "",
+        "description": "",
+        "visibility": "paid",
+        "publishedAt": "2026-10-12T18:22:41.953Z",
+        "updatedAt": "2026-10-12T18:22:41.948Z",
+        "revision": "55ffe31b-a266-4db5-9047-83ae128d42cf",
+        "access": "preview",
+        "hasPaidContent": true,
+        "bodyMarkdown": "付费帖子允许的公开开头。\n\n![公开预览图片](/api/media/676802b2-fc59-413b-99ba-9061ae5b12e5)",
+        "coverMediaId": null,
+        "tags": [
+          {
+            "slug": "review18",
+            "name": "review18"
+          }
+        ],
+        "collections": [],
+        "media": [
+          {
+            "mediaId": "676802b2-fc59-413b-99ba-9061ae5b12e5",
+            "position": 0,
+            "exposure": "free",
+            "mimeType": "image/png",
+            "width": 160,
+            "height": 90,
+            "durationSec": null
+          }
+        ]
+      }
+    },
+    {
+      "path": "/contents/review-paid-post/comments/context",
+      "viewer": "review18_member",
+      "status": 200,
+      "data": {
+        "authenticated": true,
+        "canInteract": false,
+        "me": {
+          "id": "855374dd-89e0-442b-9e7f-7e5a5ba7e453",
+          "username": "review18_member",
+          "role": "user"
+        }
+      }
+    },
+    {
+      "path": "/public/contents/review-mixed-post",
+      "viewer": "anonymous",
+      "status": 200,
+      "data": {
+        "id": "40b04ab8-e8ad-4ffc-8755-590cbd925aaa",
+        "type": "post",
+        "slug": "review-mixed-post",
+        "title": "",
+        "description": "",
+        "visibility": "public",
+        "publishedAt": "2026-10-12T18:22:41.147Z",
+        "updatedAt": "2026-10-12T18:22:41.141Z",
+        "revision": "29292de4-1db1-443d-805c-dabcc622bc27",
+        "access": "full",
+        "hasPaidContent": false,
+        "bodyMarkdown": "混合帖开头文字：先读文字，再看两张图片。\n\n![第一张蓝色图片](/api/media/3ae68f3a-2f9e-4a61-a5ed-bfa0d4301cf5)\n\n![第二张橙色图片](/api/media/676802b2-fc59-413b-99ba-9061ae5b12e5)\n\n补充文字：图片之后，下面是视频。\n\n::video{src=\"/api/media/974f9f1f-d735-4f77-a329-891750cd0c7a\"}\n\n音频紧跟视频，点击操作应留在此页面。\n\n::audio{src=\"/api/media/e5fa72f0-bdad-4318-9db5-6750d39ff930\"}\n\n末尾长段落用于观察原地展开与收起。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。",
+        "coverMediaId": null,
+        "tags": [
+          {
+            "slug": "review18",
+            "name": "review18"
+          }
+        ],
+        "collections": [
+          {
+            "slug": "legacy-review",
+            "title": "隔离迁移验收合集（元数据更新）",
+            "previous": {
+              "slug": "legacy-image-present",
+              "title": "旧主媒体已在正文中"
+            },
+            "next": null
+          }
+        ],
+        "media": [
+          {
+            "mediaId": "3ae68f3a-2f9e-4a61-a5ed-bfa0d4301cf5",
+            "position": 0,
+            "exposure": "free",
+            "mimeType": "image/png",
+            "width": 160,
+            "height": 90,
+            "durationSec": null
+          },
+          {
+            "mediaId": "676802b2-fc59-413b-99ba-9061ae5b12e5",
+            "position": 1,
+            "exposure": "free",
+            "mimeType": "image/png",
+            "width": 160,
+            "height": 90,
+            "durationSec": null
+          },
+          {
+            "mediaId": "974f9f1f-d735-4f77-a329-891750cd0c7a",
+            "position": 2,
+            "exposure": "free",
+            "mimeType": "video/mp4",
+            "width": null,
+            "height": null,
+            "durationSec": null
+          },
+          {
+            "mediaId": "e5fa72f0-bdad-4318-9db5-6750d39ff930",
+            "position": 3,
+            "exposure": "free",
+            "mimeType": "audio/mpeg",
+            "width": null,
+            "height": null,
+            "durationSec": null
+          }
+        ]
+      }
+    }
+  ],
+  "comments": [
+    {
+      "id": "9a31cfe5-341f-4165-86cd-608f08dd954b",
+      "content_id": "c06ce84b-8409-4845-ae56-d33a7551a975",
+      "username": "review18_member",
+      "body": "会员在付费帖子下发表评论，验证 post 讨论路径。",
+      "like_count": 0
+    },
+    {
+      "id": "7e356953-0b7a-4dd0-bff2-c6e3618435e3",
+      "content_id": "40b04ab8-e8ad-4ffc-8755-590cbd925aaa",
+      "username": "review18_reader",
+      "body": "最终整合版本：普通登录用户在无标题 post 下的真实评论。",
+      "like_count": 0
+    },
+    {
+      "id": "f07c08ca-3dc2-4029-89ae-49be1eadedb3",
+      "content_id": "cd76a7b0-96e8-4dd6-b253-18b9a62244d3",
+      "username": "review18_reader",
+      "body": "最终整合版本：普通登录用户在 article 下的真实评论。",
+      "like_count": 0
+    }
+  ],
+  "counts": [
+    {
+      "unfinished": "0"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+---
+title: 旧版迁移 audio full
+slug: legacy-audio-full
+type: audio
+visibility: paid
+media: media/main.mp3
+preview:
+  mode: full
+tags: [legacy-review]
+collections: [legacy-review]
+published_at: 2026-10-01T01:00:00Z
+---
+旧版允许阅读段落 legacy-audio-full。
+
+![正文图片](media/body.png)
+
+后续段落 此模式允许全文。

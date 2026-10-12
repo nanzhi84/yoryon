@@ -1,0 +1,6 @@
+{
+  "privateExactValuesChecked": 73,
+  "textFilesChecked": 54,
+  "findings": [],
+  "binaryInputs": "locally generated colors/noise only; screenshot profile/subscription/discussion contains own display data, no credential form screenshot"
+}

@@ -1,0 +1,11 @@
+{
+  "pixels": 16004000,
+  "bytes": 15679,
+  "status": 400,
+  "body": {
+    "error": {
+      "code": "invalid_image",
+      "message": "图片无法解码或尺寸过大"
+    }
+  }
+}

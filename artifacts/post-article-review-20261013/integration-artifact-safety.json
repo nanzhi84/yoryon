@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "files_checked": 276,
+  "matches_paths_only": [],
+  "scope": "known isolation environment secrets plus token and signed URL patterns; not a guarantee against every secret"
+}

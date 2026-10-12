@@ -5,7 +5,7 @@ const REQUIRE_SHIM = `import { createRequire } from "node:module"; if (typeof gl
 
 export default defineConfig({
   banner: { js: REQUIRE_SHIM },
-  entry: { index: "src/index.ts", migrate: "../../packages/db/src/migrate-cli.ts" },
+  entry: { index: "src/index.ts", migrate: "src/migrate.ts" },
   format: "esm",
   shims: true,
   platform: "node",

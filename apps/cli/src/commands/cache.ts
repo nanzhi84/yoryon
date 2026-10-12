@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import type { Command } from "commander";
 import { cacheEvents, contents } from "@yoryon/db";
 import { eq } from "drizzle-orm";
-import { acquirePublishGcLock, associations, contentTargets, deliverCacheEvents, enqueueCacheEvent } from "@yoryon/core";
+import { acquirePublishGcLock, associations, contentTargets, deliverCacheEvents, enqueueCacheEvent, invalidateReferrers } from "@yoryon/core";
 import { withCacheTransaction } from "../cache";
 import { closeContext, getContext, withLockClient } from "../context";
 
@@ -24,6 +24,7 @@ export function registerCacheCommands(program: Command) {
           const now = new Date();
           await tx.update(contents).set({ revision: randomUUID(), updatedAt: now }).where(eq(contents.id, rows[0].id));
           await enqueueCacheEvent(tx, contentTargets(slug, related.tags, related.collections), slug, now.toISOString());
+          await invalidateReferrers(tx, rows[0].id);
         });
         console.log(`✓ ${slug} revision rotated; page state is reported by cache event above`);
       } finally {

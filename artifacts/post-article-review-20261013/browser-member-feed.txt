@@ -1,0 +1,144 @@
+Browser tab: 1, Title: "订阅 · Yoryon", URL: "http://localhost:3161/subscription".
+1 AXWebArea 订阅 · Yoryon, URL: localhost:3161/subscription
+	2 container
+		3 link Description: Yoryon, Value: localhost:3161/
+		4 link Description: 首页, Value: localhost:3161/
+		5 link Description: 订阅, Value: localhost:3161/subscription
+		6 link Description: 探索, Value: localhost:3161/explore
+		7 link Description: 资料, Value: localhost:3161/settings/profile
+		8 link Description: 通知, Value: localhost:3161/notifications
+		9 link Description: 登录, Value: localhost:3161/login
+		10 pop up button (collapsed) Description: 切换主题, ID: radix-_r_0_, Secondary Actions: Expand
+	11 container
+		12 container Description: 会员状态, ID: membership
+			13 heading 我的会员, Value: 1
+				14 text 我的会员
+			15 text 到期时间：2026/10/14 02:08:37
+			16 container
+				17 text 本月剩余提问次数： 1  次
+		18 container 会员问答
+			19 heading 会员问答, Value: 2
+				20 text 会员问答
+			21 text 公开问题所有人可读，回答和讨论向会员开放。每个自然月可提问一次。
+			22 container
+				23 text 向创作者提问
+				24 text entry area (settable) 向创作者提问, ID: member-question
+				25 checkbox (settable, integer) Description: 私密问题（仅本人和创作者可读）, Value: 0
+				26 text 0 /500
+				27 button 提交问题
+			28 checkbox 公开问答, Value: 1
+			29 checkbox 我的问答, Value: 0
+			30 text 还没有公开问答。
+		31 container 会员作品
+			32 heading 会员作品, Value: 2
+				33 text 会员作品
+			34 text 未订阅时可查看作品介绍和公开预览。
+			35 container
+				36 link Description: 帖子 · 2026年10月13日, Value: localhost:3161/p/review-paid-post
+				37 text 2026年10月13日
+				38 container post-c06ce84b-8409-4845-ae56-d33a7551a975
+					39 text 付费帖子允许的公开开头。
+					40 button 查看图片：公开预览图片
+						41 image 公开预览图片
+				42 link Description: 详情与评论, Value: localhost:3161/p/review-paid-post#comments
+				43 text 帖子 付费
+				44 link Description: #review18, Value: localhost:3161/tags/review18
+			45 container
+				46 link Description: 旧长文 percent, Value: localhost:3161/p/legacy-article-percent
+				47 text 2026年10月13日 长文 付费
+				48 link Description: #legacy-review, Value: localhost:3161/tags/legacy-review
+			49 container
+				50 link Description: 旧长文 marker, Value: localhost:3161/p/legacy-article-marker
+				51 text 2026年10月13日 长文 付费
+				52 link Description: #legacy-review, Value: localhost:3161/tags/legacy-review
+			53 container
+				54 link Description: 旧长文 full, Value: localhost:3161/p/legacy-article-full
+				55 text 2026年10月13日 长文 付费
+				56 link Description: #legacy-review, Value: localhost:3161/tags/legacy-review
+			57 container
+				58 link Description: 旧版迁移 audio full, Value: localhost:3161/p/legacy-audio-full
+				59 text 2026年10月1日
+				60 container post-fd3a1cf1-8d56-4ed4-bd81-c4cc44839b4c
+					61 text 旧版允许阅读段落 legacy-audio-full。
+					62 button 查看图片：正文图片
+						63 image 正文图片
+					64 text 后续段落 此模式允许全文。
+				65 link Description: 详情与评论, Value: localhost:3161/p/legacy-audio-full#comments
+				66 text 帖子 付费
+				67 link Description: #legacy-review, Value: localhost:3161/tags/legacy-review
+			68 container
+				69 link Description: 旧版迁移 image full, Value: localhost:3161/p/legacy-image-full
+				70 text 2026年10月1日
+				71 container post-fcfcbfed-5d78-489a-93e4-d3966f51256d
+					72 text 旧版允许阅读段落 legacy-image-full。
+					73 button 查看图片：正文图片
+						74 image 正文图片
+					75 text 后续段落 此模式允许全文。
+				76 link Description: 详情与评论, Value: localhost:3161/p/legacy-image-full#comments
+				77 text 帖子 付费
+				78 link Description: #legacy-review, Value: localhost:3161/tags/legacy-review
+			79 container
+				80 link Description: 旧版迁移 image percent, Value: localhost:3161/p/legacy-image-percent
+				81 text 2026年10月1日
+				82 text 旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应
+				83 link Description: 详情与评论, Value: localhost:3161/p/legacy-image-percent#comments
+				84 text 帖子 付费
+				85 link Description: #legacy-review, Value: localhost:3161/tags/legacy-review
+			86 container
+				87 link Description: 旧版迁移 audio percent, Value: localhost:3161/p/legacy-audio-percent
+				88 text 2026年10月1日
+				89 text 旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应
+				90 link Description: 详情与评论, Value: localhost:3161/p/legacy-audio-percent#comments
+				91 text 帖子 付费
+				92 link Description: #legacy-review, Value: localhost:3161/tags/legacy-review
+			93 container
+				94 link Description: 旧版迁移 image marker, Value: localhost:3161/p/legacy-image-marker
+				95 text 2026年10月1日
+				96 container post-60f29209-ff7b-4df8-b2e4-664562d32c34
+					97 text 旧版允许阅读段落 legacy-image-marker。
+					98 button 查看图片：正文图片
+						99 image 正文图片
+				100 link Description: 详情与评论, Value: localhost:3161/p/legacy-image-marker#comments
+				101 text 帖子 付费
+				102 link Description: #legacy-review, Value: localhost:3161/tags/legacy-review
+			103 container
+				104 link Description: 旧版迁移 video full, Value: localhost:3161/p/legacy-video-full
+				105 text 2026年10月1日
+				106 container post-4725d07f-c6ae-4b32-a812-c0a8b7add362
+					107 text 旧版允许阅读段落 legacy-video-full。
+					108 button 查看图片：正文图片
+						109 image 正文图片
+					110 text 后续段落 此模式允许全文。
+				111 link Description: 详情与评论, Value: localhost:3161/p/legacy-video-full#comments
+				112 text 帖子 付费
+				113 link Description: #legacy-review, Value: localhost:3161/tags/legacy-review
+			114 container
+				115 link Description: 旧版迁移 video percent, Value: localhost:3161/p/legacy-video-percent
+				116 text 2026年10月1日
+				117 text 旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应
+				118 link Description: 详情与评论, Value: localhost:3161/p/legacy-video-percent#comments
+				119 text 帖子 付费
+				120 link Description: #legacy-review, Value: localhost:3161/tags/legacy-review
+			121 container
+				122 link Description: 旧版迁移 audio marker, Value: localhost:3161/p/legacy-audio-marker
+				123 text 2026年10月1日
+				124 container post-38916af4-0843-4775-bf00-c6b78412770b
+					125 text 旧版允许阅读段落 legacy-audio-marker。
+					126 button 查看图片：正文图片
+						127 image 正文图片
+				128 link Description: 详情与评论, Value: localhost:3161/p/legacy-audio-marker#comments
+				129 text 帖子 付费
+				130 link Description: #legacy-review, Value: localhost:3161/tags/legacy-review
+			131 container
+				132 link Description: 旧版迁移 video marker, Value: localhost:3161/p/legacy-video-marker
+				133 text 2026年10月1日
+				134 container post-36198e81-d134-4eb3-a41f-bd1e0202efd5
+					135 text 旧版允许阅读段落 legacy-video-marker。
+					136 button 查看图片：正文图片
+						137 image 正文图片
+				138 link Description: 详情与评论, Value: localhost:3161/p/legacy-video-marker#comments
+				139 text 帖子 付费
+				140 link Description: #legacy-review, Value: localhost:3161/tags/legacy-review
+	141 text 订阅 · Yoryon
+
+The focused UI element is 1 AXWebArea 订阅 · Yoryon, URL: localhost:3161/subscription

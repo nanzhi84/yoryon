@@ -1,0 +1,65 @@
+[
+  {
+    "content": {
+      "id": "96495fa7-77ec-430f-a554-fa4581acdd14",
+      "slug": "legacy-article-full",
+      "type": "article",
+      "title": "旧长文 full",
+      "sort_order": 1
+    },
+    "collections": [
+      {
+        "slug": "legacy-review",
+        "title": "隔离迁移验收合集（元数据更新）",
+        "previous": null,
+        "next": {
+          "slug": "legacy-article-marker",
+          "title": "旧长文 marker"
+        }
+      }
+    ]
+  },
+  {
+    "content": {
+      "id": "60f29209-ff7b-4df8-b2e4-664562d32c34",
+      "slug": "legacy-image-marker",
+      "type": "post",
+      "title": "旧版迁移 image marker",
+      "sort_order": 10
+    },
+    "collections": [
+      {
+        "slug": "legacy-review",
+        "title": "隔离迁移验收合集（元数据更新）",
+        "previous": {
+          "slug": "legacy-image-full",
+          "title": "旧版迁移 image full"
+        },
+        "next": {
+          "slug": "legacy-image-percent",
+          "title": "旧版迁移 image percent"
+        }
+      }
+    ]
+  },
+  {
+    "content": {
+      "id": "40b04ab8-e8ad-4ffc-8755-590cbd925aaa",
+      "slug": "review-mixed-post",
+      "type": "post",
+      "title": "",
+      "sort_order": 18
+    },
+    "collections": [
+      {
+        "slug": "legacy-review",
+        "title": "隔离迁移验收合集（元数据更新）",
+        "previous": {
+          "slug": "legacy-image-present",
+          "title": "旧主媒体已在正文中"
+        },
+        "next": null
+      }
+    ]
+  }
+]

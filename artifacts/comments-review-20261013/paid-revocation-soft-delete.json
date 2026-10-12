@@ -1,0 +1,134 @@
+{
+  "paidReplySQL": [
+    {
+      "id": "55a90b1b-ef02-4dfd-899d-ae4fd0477d07",
+      "parent_id": "89083971-8570-4d13-a8b3-96702f6d9905",
+      "reply_to_id": "89083971-8570-4d13-a8b3-96702f6d9905",
+      "body": "CMR14_PAID_REPLY_TO"
+    }
+  ],
+  "revoked": {
+    "post": {
+      "status": 403,
+      "body": {
+        "error": {
+          "code": "forbidden",
+          "message": "当前没有该作品的互动权益"
+        }
+      }
+    },
+    "reply": {
+      "status": 403,
+      "body": {
+        "error": {
+          "code": "forbidden",
+          "message": "当前没有该作品的互动权益"
+        }
+      }
+    },
+    "like": {
+      "status": 403,
+      "body": {
+        "error": {
+          "code": "forbidden",
+          "message": "当前没有该作品的互动权益"
+        }
+      }
+    },
+    "unlike": {
+      "status": 403,
+      "body": {
+        "error": {
+          "code": "forbidden",
+          "message": "当前没有该作品的互动权益"
+        }
+      }
+    },
+    "detailStatus": 200,
+    "restrictedVisible": false,
+    "oldDiscussionPublic": true
+  },
+  "softDelete": {
+    "otherDelete": {
+      "status": 403,
+      "body": {
+        "error": {
+          "code": "forbidden",
+          "message": "只能删除自己的评论"
+        }
+      }
+    },
+    "selfDelete": {
+      "status": 200,
+      "body": {
+        "ok": true
+      }
+    },
+    "deletedRoot": {
+      "id": "89083971-8570-4d13-a8b3-96702f6d9905",
+      "deleted": true,
+      "body": null,
+      "likeCount": 0,
+      "createdAt": "2026-10-12T17:40:57.166Z",
+      "author": null,
+      "replyCount": 2
+    },
+    "replies": {
+      "status": 200,
+      "body": {
+        "items": [
+          {
+            "id": "75e9e690-8813-49af-9f22-e17944fcb059",
+            "parentId": "89083971-8570-4d13-a8b3-96702f6d9905",
+            "deleted": false,
+            "body": "CMR14_UI_REPLY",
+            "likeCount": 0,
+            "createdAt": "2026-10-12T17:41:08.122Z",
+            "author": {
+              "username": "cmr14_actor"
+            },
+            "replyTo": {
+              "id": "89083971-8570-4d13-a8b3-96702f6d9905",
+              "username": null
+            }
+          },
+          {
+            "id": "55a90b1b-ef02-4dfd-899d-ae4fd0477d07",
+            "parentId": "89083971-8570-4d13-a8b3-96702f6d9905",
+            "deleted": false,
+            "body": "CMR14_PAID_REPLY_TO",
+            "likeCount": 0,
+            "createdAt": "2026-10-12T17:48:19.212Z",
+            "author": {
+              "username": "cmr14_actor"
+            },
+            "replyTo": {
+              "id": "89083971-8570-4d13-a8b3-96702f6d9905",
+              "username": null
+            }
+          }
+        ],
+        "nextCursor": null
+      }
+    },
+    "deletedLike": {
+      "status": 404,
+      "body": {
+        "error": {
+          "code": "not_found",
+          "message": "评论不存在或已删除"
+        }
+      }
+    },
+    "deletedReply": {
+      "status": 403,
+      "body": {
+        "error": {
+          "code": "forbidden",
+          "message": "当前没有该作品的互动权益"
+        }
+      }
+    }
+  },
+  "unexpectedWrites": 0
+}

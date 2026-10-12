@@ -1,0 +1,26 @@
+[
+  {
+    "command": "node apps/cli/dist/index.js user promote mr15_admin",
+    "receipt": "✓ mr15_admin@accept.invalid → admin"
+  },
+  {
+    "command": "node apps/cli/dist/index.js entitlement grant --user mr15_actor --scope subscription --days 30 --reason mr15_review",
+    "receipt": "✓ granted subscription to mr15_actor@accept.invalid → entitlement e6ee6831-7591-4afc-a387-516b4b98f06b"
+  },
+  {
+    "command": "node apps/cli/dist/index.js entitlement grant --user mr15_actor --scope subscription --days 30 --reason mr15_renewal",
+    "receipt": "✓ granted subscription to mr15_actor@accept.invalid → entitlement be476c27-6226-4dd4-a86b-d657795a881a"
+  },
+  {
+    "command": "node apps/cli/dist/index.js entitlement grant --user mr15_reader --scope content:mr15-paid --reason mr15_content_only",
+    "receipt": "✓ granted content to mr15_reader@accept.invalid → entitlement 6ad471d1-0318-490c-885a-ae193603ea9b"
+  },
+  {
+    "command": "node apps/cli/dist/index.js entitlement grant --user mr15_reader --scope collection:mr15-mixed --reason mr15_collection_only",
+    "receipt": "✓ granted collection to mr15_reader@accept.invalid → entitlement 866261a7-89dd-400c-98ed-55243311325d"
+  },
+  {
+    "command": "code create --grant-type subscription --days 30 --count 1 --max-uses 30 --note mr15_owned_review",
+    "code": "private temp only"
+  }
+]

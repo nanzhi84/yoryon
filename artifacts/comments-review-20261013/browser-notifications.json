@@ -1,0 +1,10 @@
+{
+  "bellBefore": "通知（4 条未读）",
+  "bellAfterOne": "通知（3 条未读）",
+  "afterOneUrl": "http://localhost:3103/p/cmr14-review#comment-89083971-8570-4d13-a8b3-96702f6d9905",
+  "readAllVisible": {
+    "bell": "通知",
+    "unreadText": 0,
+    "readAllEnabled": true
+  }
+}

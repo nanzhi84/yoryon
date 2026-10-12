@@ -1,0 +1,352 @@
+{
+  "head": "69344c7311f7630eb7a2d39ac6573593f99864f7",
+  "rows": [
+    {
+      "slug": "legacy-article-full",
+      "typeBefore": "article",
+      "typeAfter": "article",
+      "preservedFieldsDiffer": [],
+      "bodySuffixPreserved": true,
+      "primaryOccurrences": null,
+      "projectionAligned": true,
+      "previewExact": true,
+      "publicBodyHasPrimary": null,
+      "status": 200,
+      "oldVisibleLength": 710,
+      "newVisibleLength": 710
+    },
+    {
+      "slug": "legacy-article-marker",
+      "typeBefore": "article",
+      "typeAfter": "article",
+      "preservedFieldsDiffer": [],
+      "bodySuffixPreserved": true,
+      "primaryOccurrences": null,
+      "projectionAligned": true,
+      "previewExact": true,
+      "publicBodyHasPrimary": null,
+      "status": 200,
+      "oldVisibleLength": 8,
+      "newVisibleLength": 8
+    },
+    {
+      "slug": "legacy-article-percent",
+      "typeBefore": "article",
+      "typeAfter": "article",
+      "preservedFieldsDiffer": [],
+      "bodySuffixPreserved": true,
+      "primaryOccurrences": null,
+      "projectionAligned": true,
+      "previewExact": true,
+      "publicBodyHasPrimary": null,
+      "status": 200,
+      "oldVisibleLength": 143,
+      "newVisibleLength": 143
+    },
+    {
+      "slug": "legacy-article-public",
+      "typeBefore": "article",
+      "typeAfter": "article",
+      "preservedFieldsDiffer": [],
+      "bodySuffixPreserved": true,
+      "primaryOccurrences": null,
+      "projectionAligned": true,
+      "previewExact": null,
+      "publicBodyHasPrimary": null,
+      "status": 200,
+      "oldVisibleLength": 710,
+      "newVisibleLength": 710
+    },
+    {
+      "slug": "legacy-audio-full",
+      "typeBefore": "audio",
+      "typeAfter": "post",
+      "preservedFieldsDiffer": [],
+      "bodySuffixPreserved": true,
+      "primaryOccurrences": 1,
+      "projectionAligned": true,
+      "previewExact": true,
+      "publicBodyHasPrimary": null,
+      "status": 200,
+      "oldVisibleLength": 100,
+      "newVisibleLength": 100
+    },
+    {
+      "slug": "legacy-audio-marker",
+      "typeBefore": "audio",
+      "typeAfter": "post",
+      "preservedFieldsDiffer": [],
+      "bodySuffixPreserved": true,
+      "primaryOccurrences": 1,
+      "projectionAligned": true,
+      "previewExact": true,
+      "publicBodyHasPrimary": null,
+      "status": 200,
+      "oldVisibleLength": 87,
+      "newVisibleLength": 87
+    },
+    {
+      "slug": "legacy-audio-percent",
+      "typeBefore": "audio",
+      "typeAfter": "post",
+      "preservedFieldsDiffer": [],
+      "bodySuffixPreserved": true,
+      "primaryOccurrences": 1,
+      "projectionAligned": true,
+      "previewExact": true,
+      "publicBodyHasPrimary": null,
+      "status": 200,
+      "oldVisibleLength": 328,
+      "newVisibleLength": 328
+    },
+    {
+      "slug": "legacy-audio-public",
+      "typeBefore": "audio",
+      "typeAfter": "post",
+      "preservedFieldsDiffer": [],
+      "bodySuffixPreserved": true,
+      "primaryOccurrences": 1,
+      "projectionAligned": true,
+      "previewExact": null,
+      "publicBodyHasPrimary": true,
+      "status": 200,
+      "oldVisibleLength": 102,
+      "newVisibleLength": 166
+    },
+    {
+      "slug": "legacy-image-full",
+      "typeBefore": "image",
+      "typeAfter": "post",
+      "preservedFieldsDiffer": [],
+      "bodySuffixPreserved": true,
+      "primaryOccurrences": 1,
+      "projectionAligned": true,
+      "previewExact": true,
+      "publicBodyHasPrimary": null,
+      "status": 200,
+      "oldVisibleLength": 100,
+      "newVisibleLength": 100
+    },
+    {
+      "slug": "legacy-image-marker",
+      "typeBefore": "image",
+      "typeAfter": "post",
+      "preservedFieldsDiffer": [],
+      "bodySuffixPreserved": true,
+      "primaryOccurrences": 1,
+      "projectionAligned": true,
+      "previewExact": true,
+      "publicBodyHasPrimary": null,
+      "status": 200,
+      "oldVisibleLength": 87,
+      "newVisibleLength": 87
+    },
+    {
+      "slug": "legacy-image-percent",
+      "typeBefore": "image",
+      "typeAfter": "post",
+      "preservedFieldsDiffer": [],
+      "bodySuffixPreserved": true,
+      "primaryOccurrences": 1,
+      "projectionAligned": true,
+      "previewExact": true,
+      "publicBodyHasPrimary": null,
+      "status": 200,
+      "oldVisibleLength": 328,
+      "newVisibleLength": 328
+    },
+    {
+      "slug": "legacy-image-present",
+      "typeBefore": "image",
+      "typeAfter": "post",
+      "preservedFieldsDiffer": [],
+      "bodySuffixPreserved": true,
+      "primaryOccurrences": 1,
+      "projectionAligned": true,
+      "previewExact": null,
+      "publicBodyHasPrimary": true,
+      "status": 200,
+      "oldVisibleLength": 95,
+      "newVisibleLength": 95
+    },
+    {
+      "slug": "legacy-image-public",
+      "typeBefore": "image",
+      "typeAfter": "post",
+      "preservedFieldsDiffer": [],
+      "bodySuffixPreserved": true,
+      "primaryOccurrences": 1,
+      "projectionAligned": true,
+      "previewExact": null,
+      "publicBodyHasPrimary": true,
+      "status": 200,
+      "oldVisibleLength": 102,
+      "newVisibleLength": 160
+    },
+    {
+      "slug": "legacy-video-full",
+      "typeBefore": "video",
+      "typeAfter": "post",
+      "preservedFieldsDiffer": [],
+      "bodySuffixPreserved": true,
+      "primaryOccurrences": 1,
+      "projectionAligned": true,
+      "previewExact": true,
+      "publicBodyHasPrimary": null,
+      "status": 200,
+      "oldVisibleLength": 100,
+      "newVisibleLength": 100
+    },
+    {
+      "slug": "legacy-video-marker",
+      "typeBefore": "video",
+      "typeAfter": "post",
+      "preservedFieldsDiffer": [],
+      "bodySuffixPreserved": true,
+      "primaryOccurrences": 1,
+      "projectionAligned": true,
+      "previewExact": true,
+      "publicBodyHasPrimary": null,
+      "status": 200,
+      "oldVisibleLength": 87,
+      "newVisibleLength": 87
+    },
+    {
+      "slug": "legacy-video-percent",
+      "typeBefore": "video",
+      "typeAfter": "post",
+      "preservedFieldsDiffer": [],
+      "bodySuffixPreserved": true,
+      "primaryOccurrences": 1,
+      "projectionAligned": true,
+      "previewExact": true,
+      "publicBodyHasPrimary": null,
+      "status": 200,
+      "oldVisibleLength": 328,
+      "newVisibleLength": 328
+    },
+    {
+      "slug": "legacy-video-public",
+      "typeBefore": "video",
+      "typeAfter": "post",
+      "preservedFieldsDiffer": [],
+      "bodySuffixPreserved": true,
+      "primaryOccurrences": 1,
+      "projectionAligned": true,
+      "previewExact": null,
+      "publicBodyHasPrimary": true,
+      "status": 200,
+      "oldVisibleLength": 102,
+      "newVisibleLength": 166
+    }
+  ],
+  "relationships": [
+    {
+      "table": "content_media",
+      "beforeHash": "eed02c6a20b5717bc619d25094a8d9c3fde5f1be4b306e75fdec0593a0ea4cc2",
+      "afterHash": "eed02c6a20b5717bc619d25094a8d9c3fde5f1be4b306e75fdec0593a0ea4cc2",
+      "identical": true
+    },
+    {
+      "table": "media_assets",
+      "beforeHash": "c8ab937802152ff7b5062901b3746e2be96b964338006b58cb14981e53fa698c",
+      "afterHash": "c8ab937802152ff7b5062901b3746e2be96b964338006b58cb14981e53fa698c",
+      "identical": true
+    },
+    {
+      "table": "content_tags",
+      "beforeHash": "8bc430852333cf8a5361dee1b765f63d1e9b7a86e09c2578c1d63315d3d6050f",
+      "afterHash": "8bc430852333cf8a5361dee1b765f63d1e9b7a86e09c2578c1d63315d3d6050f",
+      "identical": true
+    },
+    {
+      "table": "tags",
+      "beforeHash": "d07816d9e8c85979ec8e45c1ff4925c2473c6ffec35a9d165526fc5e664c5192",
+      "afterHash": "d07816d9e8c85979ec8e45c1ff4925c2473c6ffec35a9d165526fc5e664c5192",
+      "identical": true
+    },
+    {
+      "table": "collection_items",
+      "beforeHash": "b791337cff311028430cef2dce82f2a2b5e9cc599477dfb87be6312cbcb2c4db",
+      "afterHash": "b791337cff311028430cef2dce82f2a2b5e9cc599477dfb87be6312cbcb2c4db",
+      "identical": true
+    },
+    {
+      "table": "collections",
+      "beforeHash": "4f3ccc45b7acc00a7162f3ca86477a1c33c19d65aa52e3fcbd8262a30580d905",
+      "afterHash": "4f3ccc45b7acc00a7162f3ca86477a1c33c19d65aa52e3fcbd8262a30580d905",
+      "identical": true
+    },
+    {
+      "table": "analytics_events",
+      "beforeHash": "22eba624f5e0bbd86774aba737a2c2561dda77fb6fc5e9f5f728dec0dfb2e646",
+      "afterHash": "22eba624f5e0bbd86774aba737a2c2561dda77fb6fc5e9f5f728dec0dfb2e646",
+      "identical": true
+    }
+  ],
+  "cache": [
+    {
+      "path": "/render/80061d9d-d8dd-4e05-8f66-221f37e52ecd/legacy-video-percent",
+      "status": 404,
+      "nextCache": null,
+      "restoredPreview": false,
+      "privateProbe": false
+    },
+    {
+      "path": "/p/legacy-video-percent",
+      "status": 200,
+      "nextCache": null,
+      "restoredPreview": true,
+      "privateProbe": false
+    }
+  ],
+  "media": [
+    {
+      "mediaId": "676802b2-fc59-413b-99ba-9061ae5b12e5",
+      "status": 200,
+      "length": 312,
+      "sha256": "8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8"
+    },
+    {
+      "mediaId": "e5fa72f0-bdad-4318-9db5-6750d39ff930",
+      "status": 200,
+      "length": 8482,
+      "sha256": "4fd9a7812aeb16f67361aeb3da5a923585ad1333ba1ac6648929a07fde3fc29e"
+    },
+    {
+      "mediaId": "3ae68f3a-2f9e-4a61-a5ed-bfa0d4301cf5",
+      "status": 200,
+      "length": 314,
+      "sha256": "81ac6eb09954ae4852b5839ba8d6fbb10f1373cf5b9359c6a5d7d702f4d425cf"
+    },
+    {
+      "mediaId": "974f9f1f-d735-4f77-a329-891750cd0c7a",
+      "status": 200,
+      "length": 21743,
+      "sha256": "67f76c68e1aeae4a211bdfc2a52a21bd05c6a469635c2b1d1e291d871a9eb2f6"
+    },
+    {
+      "mediaId": "9f6fbeb9-a017-443b-96c3-273fb3069939",
+      "status": 403,
+      "length": 64,
+      "sha256": null
+    },
+    {
+      "mediaId": "1de0dcee-0514-43dd-a0cf-3eba7d0a781c",
+      "status": 403,
+      "length": 64,
+      "sha256": null
+    },
+    {
+      "mediaId": "612298b6-733d-432f-ba5d-837083788fe6",
+      "status": 403,
+      "length": 64,
+      "sha256": null
+    }
+  ],
+  "migrations": [
+    {
+      "applied": 11
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "metadata": {
+    "format": "webp",
+    "width": 320,
+    "height": 320,
+    "hasExif": false,
+    "hasIcc": false,
+    "sha256": "e2c144d306217e101107905b2c636e47d280bd5a7b76763c52600a956c22b923",
+    "bytes": 266
+  },
+  "deduplicated": true,
+  "replace": {
+    "status": 200,
+    "data": {
+      "profile": {
+        "username": "mr15_author",
+        "displayName": "MR15展示作者",
+        "avatarUrl": "/api/avatars/87e2ec19-360c-4c34-8f91-5caaf81638cb"
+      }
+    }
+  },
+  "sharedReferencedRetained": "== GC dry-run（加 --apply 执行删除）==\n孤儿对象（无 DB 记录，年龄 >24h）: 0\n零引用资产（>7 天）: 0\n",
+  "remove": 200,
+  "unreferencedAvatarRead": 404,
+  "dry": "== GC dry-run（加 --apply 执行删除）==\n孤儿对象（无 DB 记录，年龄 >24h）: 0\n零引用资产（>7 天）: 1\n  e5c82c43-0052-43ac-8374-bd74c46b9017\tavatars/e2c144d306217e101107905b2c636e47d280bd5a7b76763c52600a956c22b923.webp\n",
+  "applied": "  deleted zero-ref asset e5c82c43-0052-43ac-8374-bd74c46b9017 (avatars/e2c144d306217e101107905b2c636e47d280bd5a7b76763c52600a956c22b923.webp)\n== GC applied ==\n孤儿对象（无 DB 记录，年龄 >24h）: 0\n零引用资产（>7 天）: 1\n  e5c82c43-0052-43ac-8374-bd74c46b9017\tavatars/e2c144d306217e101107905b2c636e47d280bd5a7b76763c52600a956c22b923.webp\n已删除对象 1 个、DB 行 1 行\n",
+  "assetAfter": [
+    {
+      "id": "87e2ec19-360c-4c34-8f91-5caaf81638cb"
+    }
+  ],
+  "currentAvatarByteRead": {
+    "status": 200,
+    "bytes": 270,
+    "sha256": "4814c9d7f9072a04dda967c1e84b6cb6214484c78522c5bf9439194e50d87bd4"
+  },
+  "gcWhileLockHeld": "  another publish holds the media lock; skipping this GC round\nskipped: 发布进行中（advisory lock 不可用），本轮 GC 跳过\n",
+  "uploadWaitedForLock": true,
+  "concurrentUpload": 200,
+  "elapsed": 445,
+  "pixelBomb": {
+    "bytes": 56443,
+    "status": 413
+  }
+}

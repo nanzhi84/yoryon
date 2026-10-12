@@ -1,0 +1,208 @@
+  published: legacy-article-full (content 96495fa7-77ec-430f-a554-fa4581acdd14)
+  cache 436cdfda-4068-4126-8246-0fcd456c976c: pending (configuration missing)
+  cache 0d57aceb-452d-4164-8465-753ebf022a96: pending (configuration missing)
+✓ legacy-article-full database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  published: legacy-article-marker (content 43154b8b-1c15-43b6-9641-676ae92a2c11)
+  cache 436cdfda-4068-4126-8246-0fcd456c976c: pending (configuration missing)
+  cache 0d57aceb-452d-4164-8465-753ebf022a96: pending (configuration missing)
+  cache 4d04a972-52de-4b25-9dbe-5293d5f791bb: pending (configuration missing)
+✓ legacy-article-marker database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  published: legacy-article-percent (content 3acfaad8-f78e-4f9c-9094-fac08de200b5)
+  cache 436cdfda-4068-4126-8246-0fcd456c976c: pending (configuration missing)
+  cache 0d57aceb-452d-4164-8465-753ebf022a96: pending (configuration missing)
+  cache 4d04a972-52de-4b25-9dbe-5293d5f791bb: pending (configuration missing)
+  cache de425d16-3e51-461a-934d-1335c74aac76: pending (configuration missing)
+✓ legacy-article-percent database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  published: legacy-article-public (content c4f49d1c-2b16-4c36-afd2-23cb763b6ce9)
+  cache 436cdfda-4068-4126-8246-0fcd456c976c: pending (configuration missing)
+  cache 0d57aceb-452d-4164-8465-753ebf022a96: pending (configuration missing)
+  cache 4d04a972-52de-4b25-9dbe-5293d5f791bb: pending (configuration missing)
+  cache de425d16-3e51-461a-934d-1335c74aac76: pending (configuration missing)
+  cache 379f1532-537b-4503-a029-791c68901416: pending (configuration missing)
+✓ legacy-article-public database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  uploaded: media/body.png → media/8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png
+  uploaded: media/main.mp3 → media/4fd9a7812aeb16f67361aeb3da5a923585ad1333ba1ac6648929a07fde3fc29e.mp3
+  published: legacy-audio-full (content fd3a1cf1-8d56-4ed4-bd81-c4cc44839b4c)
+  cache 436cdfda-4068-4126-8246-0fcd456c976c: pending (configuration missing)
+  cache 0d57aceb-452d-4164-8465-753ebf022a96: pending (configuration missing)
+  cache 4d04a972-52de-4b25-9dbe-5293d5f791bb: pending (configuration missing)
+  cache de425d16-3e51-461a-934d-1335c74aac76: pending (configuration missing)
+  cache 379f1532-537b-4503-a029-791c68901416: pending (configuration missing)
+  cache 0159dc51-1c57-4e14-a2e4-49288a033c72: pending (configuration missing)
+✓ legacy-audio-full database committed (2 uploaded, 0 reused); page state is reported by cache event above
+  skip (exists): media/body.png → media/8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png
+  skip (exists): media/main.mp3 → media/4fd9a7812aeb16f67361aeb3da5a923585ad1333ba1ac6648929a07fde3fc29e.mp3
+  published: legacy-audio-marker (content 38916af4-0843-4775-bf00-c6b78412770b)
+  cache 436cdfda-4068-4126-8246-0fcd456c976c: pending (configuration missing)
+  cache 0d57aceb-452d-4164-8465-753ebf022a96: pending (configuration missing)
+  cache 4d04a972-52de-4b25-9dbe-5293d5f791bb: pending (configuration missing)
+  cache de425d16-3e51-461a-934d-1335c74aac76: pending (configuration missing)
+  cache 379f1532-537b-4503-a029-791c68901416: pending (configuration missing)
+  cache 0159dc51-1c57-4e14-a2e4-49288a033c72: pending (configuration missing)
+  cache ddd81316-9edc-40d1-aced-9c6fcb29ef2c: pending (configuration missing)
+✓ legacy-audio-marker database committed (0 uploaded, 2 reused); page state is reported by cache event above
+  skip (exists): media/body.png → media/8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png
+  skip (exists): media/main.mp3 → media/4fd9a7812aeb16f67361aeb3da5a923585ad1333ba1ac6648929a07fde3fc29e.mp3
+  published: legacy-audio-percent (content 69d5db1c-00a1-4d0c-b973-3ca4f8491e6c)
+  cache 436cdfda-4068-4126-8246-0fcd456c976c: pending (configuration missing)
+  cache 0d57aceb-452d-4164-8465-753ebf022a96: pending (configuration missing)
+  cache 4d04a972-52de-4b25-9dbe-5293d5f791bb: pending (configuration missing)
+  cache de425d16-3e51-461a-934d-1335c74aac76: pending (configuration missing)
+  cache 379f1532-537b-4503-a029-791c68901416: pending (configuration missing)
+  cache 0159dc51-1c57-4e14-a2e4-49288a033c72: pending (configuration missing)
+  cache ddd81316-9edc-40d1-aced-9c6fcb29ef2c: pending (configuration missing)
+  cache 5be8e6e2-7b19-4388-bebb-174b1209cb50: pending (configuration missing)
+✓ legacy-audio-percent database committed (0 uploaded, 2 reused); page state is reported by cache event above
+  skip (exists): media/body.png → media/8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png
+  skip (exists): media/main.mp3 → media/4fd9a7812aeb16f67361aeb3da5a923585ad1333ba1ac6648929a07fde3fc29e.mp3
+  published: legacy-audio-public (content 45575249-0381-482b-8e44-b621862fbe26)
+  cache 436cdfda-4068-4126-8246-0fcd456c976c: pending (configuration missing)
+  cache 0d57aceb-452d-4164-8465-753ebf022a96: pending (configuration missing)
+  cache 4d04a972-52de-4b25-9dbe-5293d5f791bb: pending (configuration missing)
+  cache de425d16-3e51-461a-934d-1335c74aac76: pending (configuration missing)
+  cache 379f1532-537b-4503-a029-791c68901416: pending (configuration missing)
+  cache 0159dc51-1c57-4e14-a2e4-49288a033c72: pending (configuration missing)
+  cache ddd81316-9edc-40d1-aced-9c6fcb29ef2c: pending (configuration missing)
+  cache 5be8e6e2-7b19-4388-bebb-174b1209cb50: pending (configuration missing)
+  cache 58f8061c-e159-4526-a595-2633fdb744fc: pending (configuration missing)
+✓ legacy-audio-public database committed (0 uploaded, 2 reused); page state is reported by cache event above
+  skip (exists): media/body.png → media/8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png
+  uploaded: media/main.png → media/81ac6eb09954ae4852b5839ba8d6fbb10f1373cf5b9359c6a5d7d702f4d425cf.png
+  published: legacy-image-full (content fcfcbfed-5d78-489a-93e4-d3966f51256d)
+  cache 436cdfda-4068-4126-8246-0fcd456c976c: pending (configuration missing)
+  cache 0d57aceb-452d-4164-8465-753ebf022a96: pending (configuration missing)
+  cache 4d04a972-52de-4b25-9dbe-5293d5f791bb: pending (configuration missing)
+  cache de425d16-3e51-461a-934d-1335c74aac76: pending (configuration missing)
+  cache 379f1532-537b-4503-a029-791c68901416: pending (configuration missing)
+  cache 0159dc51-1c57-4e14-a2e4-49288a033c72: pending (configuration missing)
+  cache ddd81316-9edc-40d1-aced-9c6fcb29ef2c: pending (configuration missing)
+  cache 5be8e6e2-7b19-4388-bebb-174b1209cb50: pending (configuration missing)
+  cache 58f8061c-e159-4526-a595-2633fdb744fc: pending (configuration missing)
+  cache 5813c612-ba79-4834-921d-0f8742b8b688: pending (configuration missing)
+✓ legacy-image-full database committed (1 uploaded, 1 reused); page state is reported by cache event above
+  skip (exists): media/body.png → media/8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png
+  skip (exists): media/main.png → media/81ac6eb09954ae4852b5839ba8d6fbb10f1373cf5b9359c6a5d7d702f4d425cf.png
+  published: legacy-image-marker (content 60f29209-ff7b-4df8-b2e4-664562d32c34)
+  cache 436cdfda-4068-4126-8246-0fcd456c976c: pending (configuration missing)
+  cache 0d57aceb-452d-4164-8465-753ebf022a96: pending (configuration missing)
+  cache 4d04a972-52de-4b25-9dbe-5293d5f791bb: pending (configuration missing)
+  cache de425d16-3e51-461a-934d-1335c74aac76: pending (configuration missing)
+  cache 379f1532-537b-4503-a029-791c68901416: pending (configuration missing)
+  cache 0159dc51-1c57-4e14-a2e4-49288a033c72: pending (configuration missing)
+  cache ddd81316-9edc-40d1-aced-9c6fcb29ef2c: pending (configuration missing)
+  cache 5be8e6e2-7b19-4388-bebb-174b1209cb50: pending (configuration missing)
+  cache 58f8061c-e159-4526-a595-2633fdb744fc: pending (configuration missing)
+  cache 5813c612-ba79-4834-921d-0f8742b8b688: pending (configuration missing)
+  cache e1873977-1701-4b41-9690-a0fbda4c440b: pending (configuration missing)
+✓ legacy-image-marker database committed (0 uploaded, 2 reused); page state is reported by cache event above
+  skip (exists): media/body.png → media/8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png
+  skip (exists): media/main.png → media/81ac6eb09954ae4852b5839ba8d6fbb10f1373cf5b9359c6a5d7d702f4d425cf.png
+  published: legacy-image-percent (content e16b749d-8fa8-4270-ad16-716c4f65f5c9)
+  cache 436cdfda-4068-4126-8246-0fcd456c976c: pending (configuration missing)
+  cache 0d57aceb-452d-4164-8465-753ebf022a96: pending (configuration missing)
+  cache 4d04a972-52de-4b25-9dbe-5293d5f791bb: pending (configuration missing)
+  cache de425d16-3e51-461a-934d-1335c74aac76: pending (configuration missing)
+  cache 379f1532-537b-4503-a029-791c68901416: pending (configuration missing)
+  cache 0159dc51-1c57-4e14-a2e4-49288a033c72: pending (configuration missing)
+  cache ddd81316-9edc-40d1-aced-9c6fcb29ef2c: pending (configuration missing)
+  cache 5be8e6e2-7b19-4388-bebb-174b1209cb50: pending (configuration missing)
+  cache 58f8061c-e159-4526-a595-2633fdb744fc: pending (configuration missing)
+  cache 5813c612-ba79-4834-921d-0f8742b8b688: pending (configuration missing)
+  cache e1873977-1701-4b41-9690-a0fbda4c440b: pending (configuration missing)
+  cache 1bddf772-c1c1-4900-9f72-4332b101bcfb: pending (configuration missing)
+✓ legacy-image-percent database committed (0 uploaded, 2 reused); page state is reported by cache event above
+  skip (exists): media/body.png → media/8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png
+  skip (exists): media/main.png → media/81ac6eb09954ae4852b5839ba8d6fbb10f1373cf5b9359c6a5d7d702f4d425cf.png
+  published: legacy-image-public (content 36a415cf-99ae-4a0e-a98e-309888d36fd2)
+  cache 436cdfda-4068-4126-8246-0fcd456c976c: pending (configuration missing)
+  cache 0d57aceb-452d-4164-8465-753ebf022a96: pending (configuration missing)
+  cache 4d04a972-52de-4b25-9dbe-5293d5f791bb: pending (configuration missing)
+  cache de425d16-3e51-461a-934d-1335c74aac76: pending (configuration missing)
+  cache 379f1532-537b-4503-a029-791c68901416: pending (configuration missing)
+  cache 0159dc51-1c57-4e14-a2e4-49288a033c72: pending (configuration missing)
+  cache ddd81316-9edc-40d1-aced-9c6fcb29ef2c: pending (configuration missing)
+  cache 5be8e6e2-7b19-4388-bebb-174b1209cb50: pending (configuration missing)
+  cache 58f8061c-e159-4526-a595-2633fdb744fc: pending (configuration missing)
+  cache 5813c612-ba79-4834-921d-0f8742b8b688: pending (configuration missing)
+  cache e1873977-1701-4b41-9690-a0fbda4c440b: pending (configuration missing)
+  cache 1bddf772-c1c1-4900-9f72-4332b101bcfb: pending (configuration missing)
+  cache c369b164-7d84-409a-89b5-53c2b946b3e5: pending (configuration missing)
+✓ legacy-image-public database committed (0 uploaded, 2 reused); page state is reported by cache event above
+  skip (exists): media/body.png → media/8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png
+  uploaded: media/main.mp4 → media/67f76c68e1aeae4a211bdfc2a52a21bd05c6a469635c2b1d1e291d871a9eb2f6.mp4
+  published: legacy-video-full (content 4725d07f-c6ae-4b32-a812-c0a8b7add362)
+  cache 436cdfda-4068-4126-8246-0fcd456c976c: pending (configuration missing)
+  cache 0d57aceb-452d-4164-8465-753ebf022a96: pending (configuration missing)
+  cache 4d04a972-52de-4b25-9dbe-5293d5f791bb: pending (configuration missing)
+  cache de425d16-3e51-461a-934d-1335c74aac76: pending (configuration missing)
+  cache 379f1532-537b-4503-a029-791c68901416: pending (configuration missing)
+  cache 0159dc51-1c57-4e14-a2e4-49288a033c72: pending (configuration missing)
+  cache ddd81316-9edc-40d1-aced-9c6fcb29ef2c: pending (configuration missing)
+  cache 5be8e6e2-7b19-4388-bebb-174b1209cb50: pending (configuration missing)
+  cache 58f8061c-e159-4526-a595-2633fdb744fc: pending (configuration missing)
+  cache 5813c612-ba79-4834-921d-0f8742b8b688: pending (configuration missing)
+  cache e1873977-1701-4b41-9690-a0fbda4c440b: pending (configuration missing)
+  cache 1bddf772-c1c1-4900-9f72-4332b101bcfb: pending (configuration missing)
+  cache c369b164-7d84-409a-89b5-53c2b946b3e5: pending (configuration missing)
+  cache d027cf21-bfad-4e4d-96aa-7917d1fd85e8: pending (configuration missing)
+✓ legacy-video-full database committed (1 uploaded, 1 reused); page state is reported by cache event above
+  skip (exists): media/body.png → media/8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png
+  skip (exists): media/main.mp4 → media/67f76c68e1aeae4a211bdfc2a52a21bd05c6a469635c2b1d1e291d871a9eb2f6.mp4
+  published: legacy-video-marker (content 36198e81-d134-4eb3-a41f-bd1e0202efd5)
+  cache 436cdfda-4068-4126-8246-0fcd456c976c: pending (configuration missing)
+  cache 0d57aceb-452d-4164-8465-753ebf022a96: pending (configuration missing)
+  cache 4d04a972-52de-4b25-9dbe-5293d5f791bb: pending (configuration missing)
+  cache de425d16-3e51-461a-934d-1335c74aac76: pending (configuration missing)
+  cache 379f1532-537b-4503-a029-791c68901416: pending (configuration missing)
+  cache 0159dc51-1c57-4e14-a2e4-49288a033c72: pending (configuration missing)
+  cache ddd81316-9edc-40d1-aced-9c6fcb29ef2c: pending (configuration missing)
+  cache 5be8e6e2-7b19-4388-bebb-174b1209cb50: pending (configuration missing)
+  cache 58f8061c-e159-4526-a595-2633fdb744fc: pending (configuration missing)
+  cache 5813c612-ba79-4834-921d-0f8742b8b688: pending (configuration missing)
+  cache e1873977-1701-4b41-9690-a0fbda4c440b: pending (configuration missing)
+  cache 1bddf772-c1c1-4900-9f72-4332b101bcfb: pending (configuration missing)
+  cache c369b164-7d84-409a-89b5-53c2b946b3e5: pending (configuration missing)
+  cache d027cf21-bfad-4e4d-96aa-7917d1fd85e8: pending (configuration missing)
+  cache 7334ab2a-263a-4ddd-8095-43bb00354546: pending (configuration missing)
+✓ legacy-video-marker database committed (0 uploaded, 2 reused); page state is reported by cache event above
+  skip (exists): media/body.png → media/8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png
+  skip (exists): media/main.mp4 → media/67f76c68e1aeae4a211bdfc2a52a21bd05c6a469635c2b1d1e291d871a9eb2f6.mp4
+  published: legacy-video-percent (content 3b5b216a-9a16-4973-92d4-31fd5efedde0)
+  cache 436cdfda-4068-4126-8246-0fcd456c976c: pending (configuration missing)
+  cache 0d57aceb-452d-4164-8465-753ebf022a96: pending (configuration missing)
+  cache 4d04a972-52de-4b25-9dbe-5293d5f791bb: pending (configuration missing)
+  cache de425d16-3e51-461a-934d-1335c74aac76: pending (configuration missing)
+  cache 379f1532-537b-4503-a029-791c68901416: pending (configuration missing)
+  cache 0159dc51-1c57-4e14-a2e4-49288a033c72: pending (configuration missing)
+  cache ddd81316-9edc-40d1-aced-9c6fcb29ef2c: pending (configuration missing)
+  cache 5be8e6e2-7b19-4388-bebb-174b1209cb50: pending (configuration missing)
+  cache 58f8061c-e159-4526-a595-2633fdb744fc: pending (configuration missing)
+  cache 5813c612-ba79-4834-921d-0f8742b8b688: pending (configuration missing)
+  cache e1873977-1701-4b41-9690-a0fbda4c440b: pending (configuration missing)
+  cache 1bddf772-c1c1-4900-9f72-4332b101bcfb: pending (configuration missing)
+  cache c369b164-7d84-409a-89b5-53c2b946b3e5: pending (configuration missing)
+  cache d027cf21-bfad-4e4d-96aa-7917d1fd85e8: pending (configuration missing)
+  cache 7334ab2a-263a-4ddd-8095-43bb00354546: pending (configuration missing)
+  cache b84c9d33-dd82-4d05-8256-65c9606307db: pending (configuration missing)
+✓ legacy-video-percent database committed (0 uploaded, 2 reused); page state is reported by cache event above
+  skip (exists): media/body.png → media/8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png
+  skip (exists): media/main.mp4 → media/67f76c68e1aeae4a211bdfc2a52a21bd05c6a469635c2b1d1e291d871a9eb2f6.mp4
+  published: legacy-video-public (content 13a25a69-e29c-489c-bdf5-39904e08f841)
+  cache 436cdfda-4068-4126-8246-0fcd456c976c: pending (configuration missing)
+  cache 0d57aceb-452d-4164-8465-753ebf022a96: pending (configuration missing)
+  cache 4d04a972-52de-4b25-9dbe-5293d5f791bb: pending (configuration missing)
+  cache de425d16-3e51-461a-934d-1335c74aac76: pending (configuration missing)
+  cache 379f1532-537b-4503-a029-791c68901416: pending (configuration missing)
+  cache 0159dc51-1c57-4e14-a2e4-49288a033c72: pending (configuration missing)
+  cache ddd81316-9edc-40d1-aced-9c6fcb29ef2c: pending (configuration missing)
+  cache 5be8e6e2-7b19-4388-bebb-174b1209cb50: pending (configuration missing)
+  cache 58f8061c-e159-4526-a595-2633fdb744fc: pending (configuration missing)
+  cache 5813c612-ba79-4834-921d-0f8742b8b688: pending (configuration missing)
+  cache e1873977-1701-4b41-9690-a0fbda4c440b: pending (configuration missing)
+  cache 1bddf772-c1c1-4900-9f72-4332b101bcfb: pending (configuration missing)
+  cache c369b164-7d84-409a-89b5-53c2b946b3e5: pending (configuration missing)
+  cache d027cf21-bfad-4e4d-96aa-7917d1fd85e8: pending (configuration missing)
+  cache 7334ab2a-263a-4ddd-8095-43bb00354546: pending (configuration missing)
+  cache b84c9d33-dd82-4d05-8256-65c9606307db: pending (configuration missing)
+  cache dd94b40d-8002-4ff8-8a4b-57726a7b5f79: pending (configuration missing)
+✓ legacy-video-public database committed (0 uploaded, 2 reused); page state is reported by cache event above

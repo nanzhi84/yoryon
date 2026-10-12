@@ -1,0 +1,49 @@
+{
+  "head": "162919403b10760f6dd06be5cab17d255d65cb59",
+  "runtime": [
+    {
+      "path": "apps/api/dist/chunk-E7MZO2BK.js",
+      "sha256": "1bf19aa1b7edf24affee72ef7cb12c1d94a7ad83d4a0aab12b56d6ad13bc4986"
+    },
+    {
+      "path": "apps/api/dist/chunk-ECJG4BXT.js",
+      "sha256": "1f706fd3d708f852daff26aa8450105bdae4c4c40b9728f3514c08f4f407b4d5"
+    },
+    {
+      "path": "apps/api/dist/index.js",
+      "sha256": "05939854a8ddf2286010aff181edd4a7eba46b97dd9f7d5910edad844f6a994b"
+    },
+    {
+      "path": "apps/api/dist/migrate.js",
+      "sha256": "94dfb00b936bb1863766d012e4b1bf15a116c4a3cccea9573debf4cc0443c206"
+    },
+    {
+      "path": "apps/api/dist/server.node-4NSYQ2M5.js",
+      "sha256": "4f359154fd2c02df220b6499ad310de72918871a566f78c83a9d7da1511ba976"
+    },
+    {
+      "path": "apps/cli/dist/chunk-5GRMZHF2.js",
+      "sha256": "2421023466bfda61712b131dd86ac9c5ad1dab707bccfe33931340ecc305e978"
+    },
+    {
+      "path": "apps/cli/dist/index.js",
+      "sha256": "a3cd6b54210700bcc7810ed67805d1ef06250b2f63db8aeff5bb3f76d14a4960"
+    },
+    {
+      "path": "apps/cli/dist/server.node-4LQSEZBF.js",
+      "sha256": "01053cfd48ca104c95f39116f099ee30b301d06c9be4d4a744c805aad3b1e9cc"
+    },
+    {
+      "path": "apps/web/.next/BUILD_ID",
+      "sha256": "64c321a221ceccc5adad9fb6a7f00334291b95731e6a33171694d1c04a17056f"
+    },
+    {
+      "path": "apps/web/.next/static/chunks/14-70fc43a434df9d76.js",
+      "sha256": "c439fa5b0b04cce5371ef2b3183365110c90c9bd6123aa066a2d03d12bc043e2"
+    },
+    {
+      "path": "apps/web/.next/static/chunks/9a3bc300-2302e8db1ffef478.js",
+      "sha256": "0144f1f56917c174e6c83362f3eb837d63619146893f74d63ddab0665d643f4d"
+    }
+  ]
+}

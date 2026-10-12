@@ -1,0 +1,10 @@
+{
+  "recordedAt": "2026-10-12T18:43:38.484Z",
+  "scope": "Historical state before parent-authorized cleanup; superseded by cleanup.json",
+  "lsofExit": 1,
+  "listeners": "COMMAND    PID   USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME\nnode     20803 yoryon   12u  IPv6 0x3d39e8d495540d04      0t0  TCP *:4461 (LISTEN)\nnode     21004 yoryon   12u  IPv6 0x22b70a806e64a1c5      0t0  TCP *:3161 (LISTEN)\npostgres 56019 yoryon    5u  IPv4  0x75c1a40771f9d31      0t0  TCP 127.0.0.1:55461 (LISTEN)\n",
+  "ownBrowserTabsClosed": true,
+  "temporaryNetworkAndViewportSettingsRestored": true,
+  "comments4323And3103Stopped": true,
+  "existingE2EContainersAndR5Preserved": true
+}

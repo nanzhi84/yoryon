@@ -1,0 +1,29 @@
+[
+  {
+    "path": "/p/legacy-video-percent",
+    "status": 200,
+    "nextCache": null,
+    "cacheControl": "private, no-cache, no-store, max-age=0, must-revalidate",
+    "containsOldPreview": false,
+    "containsPrivateProbe": false,
+    "length": 22296
+  },
+  {
+    "path": "/render/80061d9d-d8dd-4e05-8f66-221f37e52ecd/legacy-video-percent",
+    "status": 200,
+    "nextCache": "MISS",
+    "cacheControl": "s-maxage=86400, stale-while-revalidate=31449600",
+    "containsOldPreview": false,
+    "containsPrivateProbe": false,
+    "length": 21299
+  },
+  {
+    "path": "/render/80061d9d-d8dd-4e05-8f66-221f37e52ecd/legacy-video-percent",
+    "status": 200,
+    "nextCache": "HIT",
+    "cacheControl": "s-maxage=86400, stale-while-revalidate=31449600",
+    "containsOldPreview": false,
+    "containsPrivateProbe": false,
+    "length": 21299
+  }
+]

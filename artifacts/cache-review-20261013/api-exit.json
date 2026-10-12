@@ -1,0 +1,43 @@
+{
+  "time": "2026-10-12T17:29:06.319Z",
+  "action": "SIGTERM isolated API :4449; Next :3149 remained running",
+  "warm": [
+    {
+      "status": 200,
+      "restricted": true
+    },
+    {
+      "status": 200,
+      "restricted": true
+    }
+  ],
+  "results": [
+    {
+      "name": "canonical",
+      "status": 503,
+      "durationMs": 22,
+      "cache": "private, no-store",
+      "restricted": false,
+      "visible": false,
+      "message": "内容暂时无法验证，请稍后重试。"
+    },
+    {
+      "name": "render",
+      "status": 503,
+      "durationMs": 4,
+      "cache": "private, no-store",
+      "restricted": false,
+      "visible": false,
+      "message": "内容暂时无法验证，请稍后重试。"
+    },
+    {
+      "name": "pagination",
+      "status": 503,
+      "durationMs": 3,
+      "cache": "private, no-store",
+      "restricted": false,
+      "visible": false,
+      "message": "{\"error\":\"policy_unavailable\"}"
+    }
+  ]
+}

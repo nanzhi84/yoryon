@@ -1,0 +1,18 @@
+{
+  "logout": {
+    "status": 200,
+    "body": {
+      "ok": true
+    },
+    "cookieCleared": false
+  },
+  "sameSessionMe": 401,
+  "sameSessionCount": 401,
+  "cookieClearedProbeCorrection": {
+    "initialProbe": "Max-Age=0 only; false does not mean cookie retained",
+    "sourceContract": "session=empty; Expires=Thu, 01 Jan 1970",
+    "actualRepeatStatus": 200,
+    "actualEmptyCookie": true,
+    "actualEpochExpiry": true
+  }
+}

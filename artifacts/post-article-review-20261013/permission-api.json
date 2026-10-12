@@ -1,0 +1,225 @@
+{
+  "entries": [
+    {
+      "viewer": "anonymous",
+      "detail": {
+        "status": 200,
+        "access": "preview",
+        "hasSecret": false,
+        "media": [
+          {
+            "id": "676802b2-fc59-413b-99ba-9061ae5b12e5",
+            "exposure": "free"
+          }
+        ],
+        "cache": "private, no-store"
+      },
+      "context": {
+        "status": 200,
+        "cache": "private, no-store",
+        "data": {
+          "authenticated": false,
+          "canInteract": false,
+          "me": null
+        }
+      }
+    },
+    {
+      "viewer": "review18_reader",
+      "detail": {
+        "status": 200,
+        "access": "preview",
+        "hasSecret": false,
+        "media": [
+          {
+            "id": "676802b2-fc59-413b-99ba-9061ae5b12e5",
+            "exposure": "free"
+          }
+        ],
+        "cache": "private, no-store"
+      },
+      "context": {
+        "status": 200,
+        "cache": "private, no-store",
+        "data": {
+          "authenticated": true,
+          "canInteract": false,
+          "me": {
+            "id": "1acf0d19-4f8c-4d71-a1b6-479bedd77aac",
+            "username": "review18_reader",
+            "role": "user"
+          }
+        }
+      }
+    },
+    {
+      "viewer": "review18_member",
+      "detail": {
+        "status": 200,
+        "access": "full",
+        "hasSecret": true,
+        "media": [
+          {
+            "id": "676802b2-fc59-413b-99ba-9061ae5b12e5",
+            "exposure": "free"
+          },
+          {
+            "id": "612298b6-733d-432f-ba5d-837083788fe6",
+            "exposure": "paid"
+          },
+          {
+            "id": "9f6fbeb9-a017-443b-96c3-273fb3069939",
+            "exposure": "paid"
+          }
+        ],
+        "cache": "private, no-store"
+      },
+      "context": {
+        "status": 200,
+        "cache": "private, no-store",
+        "data": {
+          "authenticated": true,
+          "canInteract": true,
+          "me": {
+            "id": "855374dd-89e0-442b-9e7f-7e5a5ba7e453",
+            "username": "review18_member",
+            "role": "user"
+          }
+        }
+      }
+    },
+    {
+      "viewer": "review18_admin",
+      "detail": {
+        "status": 200,
+        "access": "full",
+        "hasSecret": true,
+        "media": [
+          {
+            "id": "676802b2-fc59-413b-99ba-9061ae5b12e5",
+            "exposure": "free"
+          },
+          {
+            "id": "612298b6-733d-432f-ba5d-837083788fe6",
+            "exposure": "paid"
+          },
+          {
+            "id": "9f6fbeb9-a017-443b-96c3-273fb3069939",
+            "exposure": "paid"
+          }
+        ],
+        "cache": "private, no-store"
+      },
+      "context": {
+        "status": 200,
+        "cache": "private, no-store",
+        "data": {
+          "authenticated": true,
+          "canInteract": true,
+          "me": {
+            "id": "eb6bd972-6b10-4083-a534-54f6b85178f8",
+            "username": "review18_admin",
+            "role": "admin"
+          }
+        }
+      }
+    }
+  ],
+  "refs": [
+    {
+      "status": 200,
+      "cache": "no-store",
+      "data": {
+        "available": true,
+        "id": "a88d1603-58a4-4470-af39-3771c55235db",
+        "slug": "review-mixed-post",
+        "type": "post",
+        "title": "",
+        "description": "",
+        "summary": "混合帖开头文字：先读文字，再看两张图片。 补充文字：图片之后，下面是视频。 音频紧跟视频，点击操作应留在此页面。 末尾长段落用于观察原地展开与收起。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文",
+        "coverMediaId": null,
+        "media": {
+          "mediaId": "3ae68f3a-2f9e-4a61-a5ed-bfa0d4301cf5",
+          "position": 0,
+          "exposure": "free",
+          "mimeType": "image/png",
+          "width": 160,
+          "height": 90,
+          "durationSec": null
+        },
+        "visibility": "public",
+        "publishedAt": "2026-10-12T18:06:51.135Z"
+      }
+    },
+    {
+      "status": 200,
+      "cache": "no-store",
+      "data": {
+        "available": true,
+        "id": "cd76a7b0-96e8-4dd6-b253-18b9a62244d3",
+        "slug": "review-long-article",
+        "type": "article",
+        "title": "独立验收长文",
+        "description": "首页只显示摘要，进入详情阅读编排正文。",
+        "summary": "混合帖开头文字：先读文字，再看两张图片。 补充文字：图片之后，下面是视频。 音频紧跟视频，点击操作应留在此页面。 末尾长段落用于观察原地展开与收起。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文",
+        "coverMediaId": null,
+        "media": null,
+        "visibility": "public",
+        "publishedAt": "2026-10-12T18:06:48.396Z"
+      }
+    },
+    {
+      "status": 200,
+      "cache": "no-store",
+      "data": {
+        "available": true,
+        "id": "c06ce84b-8409-4845-ae56-d33a7551a975",
+        "slug": "review-paid-post",
+        "type": "post",
+        "title": "",
+        "description": "",
+        "summary": "付费帖子允许的公开开头。",
+        "coverMediaId": null,
+        "media": {
+          "mediaId": "676802b2-fc59-413b-99ba-9061ae5b12e5",
+          "position": 0,
+          "exposure": "free",
+          "mimeType": "image/png",
+          "width": 160,
+          "height": 90,
+          "durationSec": null
+        },
+        "visibility": "paid",
+        "publishedAt": "2026-10-12T18:06:51.213Z"
+      }
+    }
+  ],
+  "refused": [
+    {
+      "viewer": "anonymous",
+      "result": {
+        "status": 401,
+        "cache": "private, no-store",
+        "data": {
+          "error": {
+            "code": "unauthorized",
+            "message": "需要登录"
+          }
+        }
+      }
+    },
+    {
+      "viewer": "review18_reader",
+      "result": {
+        "status": 403,
+        "cache": "private, no-store",
+        "data": {
+          "error": {
+            "code": "forbidden",
+            "message": "当前没有该作品的互动权益"
+          }
+        }
+      }
+    }
+  ]
+}

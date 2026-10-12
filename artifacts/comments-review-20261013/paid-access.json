@@ -1,0 +1,34 @@
+{
+  "entitlement": "0c9c3cde-3e39-401f-88ca-a37a3ec914ea",
+  "fullBodyContainsRestricted": true,
+  "detailStatus": 200,
+  "create": {
+    "status": 200,
+    "body": {
+      "id": "95f91865-ce5e-4239-a411-abe8444b5353",
+      "parentId": null,
+      "createdAt": "2026-10-12T17:48:02.593Z",
+      "author": {
+        "username": "cmr14_actor"
+      }
+    }
+  },
+  "reply": {
+    "status": 200,
+    "body": {
+      "id": "d014c5b7-7202-4698-9871-c1bdc497aa5c",
+      "parentId": null,
+      "createdAt": "2026-10-12T17:48:02.607Z",
+      "author": {
+        "username": "cmr14_actor"
+      }
+    }
+  },
+  "like": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "likeCount": 1
+    }
+  }
+}

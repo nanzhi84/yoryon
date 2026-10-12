@@ -1,0 +1,41 @@
+{
+  "completedAt": "2026-10-12T18:47:37.528Z",
+  "reviewHead": "162919403b10760f6dd06be5cab17d255d65cb59",
+  "parentExplicitCleanupAuthorized": true,
+  "ownDatabasesRemoved": [
+    "yoryon_post_review",
+    "yoryon_post_empty",
+    "yoryon_post_missing",
+    "yoryon_post_restore"
+  ],
+  "postgresStopReceipt": "cleanup-postgres.txt",
+  "temporaryDirectoryRemoved": true,
+  "ownedSecretAndMediaAndAccountDataRemoved": true,
+  "retainedHistoricalBackup": {
+    "path": "legacy-before-18.sql",
+    "sha256": "4996f6d4ec1e0240ff62c9a9e0b1965f32e6dd40eca66a511528828762bb77b3",
+    "credentialTablesEmptyEvidence": "backup-sensitive-table-counts.json"
+  },
+  "ownBrowserTabsClosed": true,
+  "temporaryViewportAndNetworkOverridesRestored": true,
+  "finalPortCheck": {
+    "ports": [
+      4323,
+      3103,
+      4461,
+      3161,
+      55461
+    ],
+    "exit": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  "existingE2EContainers": {
+    "commandExit": 0,
+    "snapshot": "2036a3d659b7\te2e-caddy-1\tUp 6 hours\t80/tcp, 443/tcp, 2019/tcp, 443/udp, 0.0.0.0:4199->4199/tcp, [::]:4199->4199/tcp\nd0d60e447b6c\te2e-postgres-1\tUp 13 hours (healthy)\t0.0.0.0:54329->5432/tcp, [::]:54329->5432/tcp\n036c54ddbc27\te2e-mailpit-1\tUp 13 hours (healthy)\t1110/tcp, 0.0.0.0:11125->1025/tcp, [::]:11125->1025/tcp, 0.0.0.0:11126->8025/tcp, [::]:11126->8025/tcp\n",
+    "error": "",
+    "noStopOrRemoveCommandExecuted": true
+  },
+  "originalR5DirectoryStillExists": true,
+  "existingWorktreesAndProductionDataUntouched": true
+}

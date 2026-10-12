@@ -1,0 +1,131 @@
+{
+  "head": "162919403b10760f6dd06be5cab17d255d65cb59",
+  "rows": [
+    {
+      "path": "/feed",
+      "viewer": "anonymous",
+      "status": 200,
+      "cache": "public, max-age=0, must-revalidate",
+      "hasPrivate": false
+    },
+    {
+      "path": "/paid-feed",
+      "viewer": "anonymous",
+      "status": 200,
+      "cache": "public, max-age=0, must-revalidate",
+      "hasPrivate": false
+    },
+    {
+      "path": "/public/contents/review-paid-post",
+      "viewer": "review18_admin",
+      "status": 200,
+      "cache": "public, max-age=0, must-revalidate",
+      "access": "preview",
+      "hasPrivate": false
+    },
+    {
+      "path": "/public/references/c06ce84b-8409-4845-ae56-d33a7551a975",
+      "viewer": "review18_admin",
+      "status": 200,
+      "cache": "no-store",
+      "hasPrivate": false
+    },
+    {
+      "path": "/contents/review-paid-post",
+      "viewer": "review18_admin",
+      "status": 200,
+      "cache": "private, no-store",
+      "access": "full",
+      "hasPrivate": true
+    },
+    {
+      "path": "/contents/review-paid-post/comments",
+      "viewer": "anonymous",
+      "status": 200,
+      "cache": "public, max-age=0, must-revalidate",
+      "hasPrivate": false
+    },
+    {
+      "path": "/contents/review-paid-post/comments/context",
+      "viewer": "review18_reader",
+      "status": 200,
+      "cache": "private, no-store",
+      "canInteract": false,
+      "hasPrivate": false
+    },
+    {
+      "path": "/me/profile",
+      "viewer": "anonymous",
+      "status": 401,
+      "cache": "private, no-store",
+      "hasPrivate": false
+    },
+    {
+      "path": "/questions/public",
+      "viewer": "review18_reader",
+      "status": 200,
+      "cache": "private, no-store",
+      "hasPrivate": false
+    },
+    {
+      "path": "/me/membership",
+      "viewer": "review18_reader",
+      "status": 200,
+      "cache": "private, no-store",
+      "hasPrivate": false
+    },
+    {
+      "path": "/unknown-test-route",
+      "viewer": "anonymous",
+      "status": 404,
+      "cache": "private, no-store",
+      "hasPrivate": false
+    },
+    {
+      "path": "/media/not-a-uuid",
+      "viewer": "anonymous",
+      "status": 404,
+      "cache": "private, no-store",
+      "hasPrivate": false
+    },
+    {
+      "path": "/avatars/not-a-uuid",
+      "viewer": "anonymous",
+      "status": 404,
+      "cache": "private, no-store",
+      "hasPrivate": false
+    },
+    {
+      "path": "/public/image-policy/676802b2-fc59-413b-99ba-9061ae5b12e5",
+      "viewer": "anonymous",
+      "status": 200,
+      "cache": "private, no-store",
+      "hasPrivate": false
+    }
+  ],
+  "avatar": {
+    "inputBytes": 197301,
+    "status": 200,
+    "cache": "private, no-store",
+    "profile": {
+      "username": "review18_reader",
+      "displayName": "独立验收 review18_reader",
+      "avatarUrl": "/api/avatars/098094d8-908a-43af-be42-9ec7811aac8a"
+    },
+    "output": {
+      "status": 200,
+      "bytes": 71752,
+      "mime": "webp",
+      "width": 320,
+      "height": 320,
+      "sha256": "4ea654996fafe6e2764a1e350ae3f4d779aeacba6c1399f784aa8fe97a873c5b"
+    },
+    "over2MiB": {
+      "status": 413,
+      "cache": "private, no-store",
+      "body": "{\"error\":{\"code\":\"payload_too_large\",\"message\":\"头像最大为 2MB\"}}"
+    },
+    "questionOver32KiB": 413,
+    "deleteStatus": 200
+  }
+}

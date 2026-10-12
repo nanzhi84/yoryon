@@ -1,0 +1,65 @@
+{
+  "questionCount": 22,
+  "userMonthlyDuplicates": 0,
+  "paginationBeforeHideSetEqualsRealSQL": true,
+  "beforeHideExpected": [
+    "068c6c6a-84a0-4413-b45c-7ca3ebc184c4",
+    "0cd26863-695a-47e9-b1e0-1650a81d242c",
+    "1931884a-ec38-4f18-a5bc-7dd5b8e75778",
+    "1edc46ca-16b4-420c-a5ce-2805eb4bf4ef",
+    "2d1be2b4-9bb9-4d38-8d23-cad41fc27e5f",
+    "3abaf4ad-234b-49dc-8b60-b819956ab920",
+    "54e144a3-bd89-4c58-8b4c-af30d8944158",
+    "5ed3dac3-61c1-49a9-931d-0a816953bece",
+    "6220b929-8378-4785-8426-27c5367fb9eb",
+    "7cbd1e86-e6d4-4eea-bd4a-3e6c20294f65",
+    "80869728-46b1-4c64-9107-54b2ff3b4e58",
+    "8800432e-d8c1-4098-b093-55bbacc38861",
+    "983847a3-9d67-4d73-a660-1f9d1b38f4e5",
+    "aaffe769-6998-476a-9962-7198d11f9baa",
+    "af8f2a49-3af3-4249-a1c8-324e7fa76258",
+    "b4882a32-82be-40a2-ac8a-c93be7b2b6e2",
+    "c022d14f-f515-4f9d-af9c-7ebf1e7e6030",
+    "dc157174-3d6d-4cf2-b914-75387a746017",
+    "dc22526d-5b77-4b14-bc62-787703a050d9",
+    "e18738ae-b2db-4c72-9ec6-0cdcc4c4932c",
+    "e4ebf786-96e1-4483-ac62-173bdfa524e1"
+  ],
+  "browserFinal": [
+    "068c6c6a-84a0-4413-b45c-7ca3ebc184c4",
+    "0cd26863-695a-47e9-b1e0-1650a81d242c",
+    "1931884a-ec38-4f18-a5bc-7dd5b8e75778",
+    "1edc46ca-16b4-420c-a5ce-2805eb4bf4ef",
+    "2d1be2b4-9bb9-4d38-8d23-cad41fc27e5f",
+    "3abaf4ad-234b-49dc-8b60-b819956ab920",
+    "54e144a3-bd89-4c58-8b4c-af30d8944158",
+    "5ed3dac3-61c1-49a9-931d-0a816953bece",
+    "6220b929-8378-4785-8426-27c5367fb9eb",
+    "7cbd1e86-e6d4-4eea-bd4a-3e6c20294f65",
+    "80869728-46b1-4c64-9107-54b2ff3b4e58",
+    "8800432e-d8c1-4098-b093-55bbacc38861",
+    "983847a3-9d67-4d73-a660-1f9d1b38f4e5",
+    "aaffe769-6998-476a-9962-7198d11f9baa",
+    "af8f2a49-3af3-4249-a1c8-324e7fa76258",
+    "b4882a32-82be-40a2-ac8a-c93be7b2b6e2",
+    "c022d14f-f515-4f9d-af9c-7ebf1e7e6030",
+    "dc157174-3d6d-4cf2-b914-75387a746017",
+    "dc22526d-5b77-4b14-bc62-787703a050d9",
+    "e18738ae-b2db-4c72-9ec6-0cdcc4c4932c",
+    "e4ebf786-96e1-4483-ac62-173bdfa524e1"
+  ],
+  "pinned": [
+    {
+      "slug": "mr15-intro",
+      "visibility": "public",
+      "type": "article",
+      "is_pinned": true
+    }
+  ],
+  "cache": [
+    {
+      "state": "verified",
+      "count": "6"
+    }
+  ]
+}

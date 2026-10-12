@@ -4,7 +4,7 @@
 
 ## 1. 领域语义
 
-- **Work（作品）**：`contents` 表（article / image / video / audio 四种类型，共用一套事件协议，不按类型拆分实现）。
+- **Work（作品）**：`contents` 表（post / article 两种阅读形态，共用一套事件协议，不按媒体拆分作品或统计身份）。
 - **Collection（合集）**：`collections` 表。合集统计只反映合集自身的访问行为，**不自动累计成员作品数据**。
 - **Analytics Target**：`{ kind: "work" | "collection", id: uuid }`，采集、存储、查询复用同一事件合同。
 - 嵌入作品的 `media_assets` 不作为独立 Target；只有发布为独立内容才有对应 Work。
@@ -96,3 +96,9 @@ blog analytics content <slug> --days 30
 blog analytics collection <slug> --days 30
 blog analytics prune --days 365
 ```
+
+## 帖子与引用的统计边界
+
+旧四类型迁移保留 contents.id 和历史事件，原 URL 不变。首页原地展开、收起、查看图片、挂载/播放/停止媒体不调用 Click/View/Read；帖子明确的详情与评论入口沿用作品 Click，进入详情后再由 DetailTracker 记录 View/Read。长文仍只通过详情入口阅读。
+
+引用卡片不额外记为顶层 Feed 曝光，也不复制评论或事件归属。引用跳转使用普通站内链接，原作品详情的 View/Read 正常计入原作品；Click 的原统计范围仍限顶层作品标题、封面以及帖子明确的详情入口。以上新交互没有扩展旧 Click 指标的含义。

@@ -1,0 +1,36 @@
+Browser tab: 1, Title: "帖子 · 2026-10-12 · Yoryon", URL: "http://localhost:3161/p/review-references".
+1 AXWebArea 帖子 · 2026-10-12 · Yoryon, URL: localhost:3161/p/review-references
+	2 container
+		3 link Description: Yoryon, Value: localhost:3161/
+		4 link Description: 首页, Value: localhost:3161/
+		5 link Description: 订阅, Value: localhost:3161/subscription
+		6 link Description: 探索, Value: localhost:3161/explore
+		7 link Description: 资料, Value: localhost:3161/settings/profile
+		8 link Description: 通知, Value: localhost:3161/notifications
+		9 link Description: 登录, Value: localhost:3161/login
+		10 pop up button (collapsed) Description: 切换主题, ID: radix-_R_7j5fiv5ubtb_, Secondary Actions: Expand
+	11 container
+		12 text 帖子 ·
+		13 text 2026年10月13日
+		14 heading 帖子 · 2026年10月13日, Value: 1
+			15 text 帖子 · 2026年10月13日
+		16 link Description: #review18, Value: localhost:3161/tags/review18
+		17 text 引用帖：正文中的引用应为单跳预览。
+		18 link Value: localhost:3161/p/review-mixed-post, Description: 查看引用帖子：混合帖开头文字：先读文字，再看两张图片。 补充文字：图片之后，下面是视频。 音频紧跟视频，点击操作应留在此页面。 末尾长段落用于观察原地展开与收起。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文
+		19 button 查看图片：引用帖子的图片预览
+			20 image 引用帖子的图片预览
+		21 text 引用长文：
+		22 link Description: 查看引用长文：独立验收长文, Value: localhost:3161/p/review-long-article
+		23 text 付费引用只显示公开预览：
+		24 link Description: 查看引用帖子：付费帖子允许的公开开头。, Value: localhost:3161/p/review-paid-post
+		25 button 查看图片：引用帖子的图片预览
+			26 image 引用帖子的图片预览
+		27 container 评论区
+			28 heading 评论, Value: 2
+				29 text 评论
+			30 text entry area (settable) 评论输入框
+			31 text 0 / 2000
+			32 button (disabled) 发送
+			33 text 还没有评论。
+
+The focused UI element is 1 AXWebArea 帖子 · 2026-10-12 · Yoryon, URL: localhost:3161/p/review-references

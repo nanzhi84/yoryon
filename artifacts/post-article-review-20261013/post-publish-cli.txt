@@ -1,0 +1,59 @@
+  skip (exists): media/image.png → media/81ac6eb09954ae4852b5839ba8d6fbb10f1373cf5b9359c6a5d7d702f4d425cf.png
+  skip (exists): media/second.png → media/8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png
+  skip (exists): media/video.mp4 → media/67f76c68e1aeae4a211bdfc2a52a21bd05c6a469635c2b1d1e291d871a9eb2f6.mp4
+  skip (exists): media/audio.mp3 → media/4fd9a7812aeb16f67361aeb3da5a923585ad1333ba1ac6648929a07fde3fc29e.mp3
+  published: review-long-article (content cd76a7b0-96e8-4dd6-b253-18b9a62244d3)
+  cache 436cdfda-4068-4126-8246-0fcd456c976c: verified
+  cache 0d57aceb-452d-4164-8465-753ebf022a96: verified
+  cache 4d04a972-52de-4b25-9dbe-5293d5f791bb: verified
+  cache de425d16-3e51-461a-934d-1335c74aac76: verified
+  cache 379f1532-537b-4503-a029-791c68901416: verified
+  cache 0159dc51-1c57-4e14-a2e4-49288a033c72: verified
+  cache ddd81316-9edc-40d1-aced-9c6fcb29ef2c: verified
+  cache 5be8e6e2-7b19-4388-bebb-174b1209cb50: verified
+  cache 58f8061c-e159-4526-a595-2633fdb744fc: verified
+  cache 5813c612-ba79-4834-921d-0f8742b8b688: verified
+  cache e1873977-1701-4b41-9690-a0fbda4c440b: verified
+  cache 1bddf772-c1c1-4900-9f72-4332b101bcfb: verified
+  cache c369b164-7d84-409a-89b5-53c2b946b3e5: verified
+  cache d027cf21-bfad-4e4d-96aa-7917d1fd85e8: verified
+  cache 7334ab2a-263a-4ddd-8095-43bb00354546: verified
+  cache b84c9d33-dd82-4d05-8256-65c9606307db: verified
+  cache dd94b40d-8002-4ff8-8a4b-57726a7b5f79: verified
+  cache b6683a41-9e89-4ce0-b5f5-d41ab1dcd148: verified
+  cache cac96326-1d66-42fd-9b37-c5aa9bce0cc1: verified
+  cache e1d4b7f8-390e-4a26-93eb-8a694739a618: verified
+  cache 0b0d7e09-2ccc-4804-a985-4fc7b2c5a039: verified
+  cache 4ca77a36-e696-4006-a004-3c4cb2734941: verified
+  cache 4cf7d970-7002-4785-81d2-3a414a511c4b: verified
+  cache 5f631001-e517-4381-b624-1914e2c97243: verified
+  cache cf837db1-2404-42fc-a711-ea3a7faf7b8b: verified
+  cache 6d8b4c95-b641-4d12-aaca-7fc61ce5b4dc: verified
+  cache f00773fe-04ba-4576-8fcc-9e60541236af: verified
+  cache 08c63cde-9284-4195-b582-25766284536e: verified
+  cache 53300c82-a06b-466f-9946-aaf0f9203bf5: verified
+  cache a65eaf4b-24a4-4586-8ead-5a9bcde5b586: verified
+  cache 02086dc3-8fa2-4bdf-8f5d-6f0ab73b2838: verified
+  cache 74b2842d-a194-4959-a9d0-743e0187282f: verified
+  cache 6a76ec51-f22c-48a0-965f-99b607851210: verified
+  cache a90ebeca-869e-4d8b-931d-63858bc8c301: verified
+  cache b6547d7f-7827-4b72-9c29-3befb53e4cdd: verified
+  cache 38e47faa-c7dd-44f9-9989-b01f58a096f1: verified
+  cache bfe9d89c-900c-47f4-b284-674160959aa5: verified
+✓ review-long-article database committed (0 uploaded, 4 reused); page state is reported by cache event above
+  skip (exists): media/image.png → media/81ac6eb09954ae4852b5839ba8d6fbb10f1373cf5b9359c6a5d7d702f4d425cf.png
+  skip (exists): media/second.png → media/8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png
+  skip (exists): media/video.mp4 → media/67f76c68e1aeae4a211bdfc2a52a21bd05c6a469635c2b1d1e291d871a9eb2f6.mp4
+  skip (exists): media/audio.mp3 → media/4fd9a7812aeb16f67361aeb3da5a923585ad1333ba1ac6648929a07fde3fc29e.mp3
+  published: review-mixed-post (content a88d1603-58a4-4470-af39-3771c55235db)
+  cache 315745d5-c218-4bcd-8d90-bbeea3db8e58: verified
+✓ review-mixed-post database committed (0 uploaded, 4 reused); page state is reported by cache event above
+  skip (exists): media/second.png → media/8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png
+  skip (exists): media/private-video.mp4 → media/6a31734065bb162e85750324820ab377d889e763287590d643907760f2863e7b.mp4
+  skip (exists): media/private-audio.mp3 → media/38c518dc77c6429ac0e5bbe7c45e78f1537230c975cb5fd391e7efeecf366977.mp3
+  published: review-paid-post (content c06ce84b-8409-4845-ae56-d33a7551a975)
+  cache 8117e50a-fc99-47ed-90a1-36bb26a33bac: verified
+✓ review-paid-post database committed (0 uploaded, 3 reused); page state is reported by cache event above
+  published: review-text-post (content 290e614c-7266-410e-95f8-b74cec66a1d4)
+  cache 0161a912-cf31-4261-8b55-b5ab06b1d6e7: verified
+✓ review-text-post database committed (0 uploaded, 0 reused); page state is reported by cache event above

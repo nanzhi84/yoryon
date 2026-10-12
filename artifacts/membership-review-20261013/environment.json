@@ -1,0 +1,80 @@
+{
+  "head": "864a0874b562cd62c3598b95c656b37fdeb0985f",
+  "tree": "b1c3798be579d4cf16695244b557137c6851392a",
+  "sameTreeAsPreMerge": true,
+  "api": "127.0.0.1:4160",
+  "web": "localhost:3160",
+  "db": {
+    "host": "127.0.0.1",
+    "port": "54320",
+    "name": "yoryon_member_20261013"
+  },
+  "storageBackend": "fs",
+  "fsRoot": "/tmp/yoryon-member-20261013/storage",
+  "smtp": {
+    "host": "127.0.0.1",
+    "port": "11125",
+    "confirmed": "Mailpit ESMTP; matching HTTP localhost:11126"
+  },
+  "rateScale": "8",
+  "baseline": {
+    "users": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sessions": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "email_verifications": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "contents": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "comments": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "comment_likes": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "notifications": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "member_questions": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "entitlements": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "activation_codes": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "redemptions": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "media_assets": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "collections": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "tags": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "browserCanonical": "http://127.0.0.1:3160",
+  "cacheConfiguration": "local API4160 / Web3160 / random private secret configured by delivery agent; services restarted same tree, no source change"
+}

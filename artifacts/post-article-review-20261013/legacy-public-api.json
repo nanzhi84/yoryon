@@ -1,0 +1,690 @@
+[
+  {
+    "slug": "legacy-article-full",
+    "status": 200,
+    "cacheControl": "public, max-age=0, must-revalidate",
+    "data": {
+      "id": "96495fa7-77ec-430f-a554-fa4581acdd14",
+      "type": "article",
+      "slug": "legacy-article-full",
+      "title": "旧长文 full",
+      "description": "",
+      "visibility": "paid",
+      "publishedAt": "2026-10-12T17:54:28.602Z",
+      "updatedAt": "2026-10-12T17:54:28.600Z",
+      "revision": "f5faae73-ef41-4b55-91e3-8203f305e578",
+      "access": "preview",
+      "hasPaidContent": true,
+      "bodyMarkdown": "旧长文开头段落。\n\n旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。",
+      "coverMediaId": null,
+      "tags": [
+        {
+          "slug": "legacy-review",
+          "name": "legacy-review"
+        }
+      ],
+      "collections": [
+        {
+          "slug": "legacy-review",
+          "title": "隔离迁移验收合集"
+        }
+      ],
+      "media": []
+    }
+  },
+  {
+    "slug": "legacy-article-marker",
+    "status": 200,
+    "cacheControl": "public, max-age=0, must-revalidate",
+    "data": {
+      "id": "43154b8b-1c15-43b6-9641-676ae92a2c11",
+      "type": "article",
+      "slug": "legacy-article-marker",
+      "title": "旧长文 marker",
+      "description": "",
+      "visibility": "paid",
+      "publishedAt": "2026-10-12T17:54:28.613Z",
+      "updatedAt": "2026-10-12T17:54:28.611Z",
+      "revision": "66ff8552-12c3-47fd-a6c7-59d3db154989",
+      "access": "preview",
+      "hasPaidContent": true,
+      "bodyMarkdown": "旧长文开头段落。",
+      "coverMediaId": null,
+      "tags": [
+        {
+          "slug": "legacy-review",
+          "name": "legacy-review"
+        }
+      ],
+      "collections": [
+        {
+          "slug": "legacy-review",
+          "title": "隔离迁移验收合集"
+        }
+      ],
+      "media": []
+    }
+  },
+  {
+    "slug": "legacy-article-percent",
+    "status": 200,
+    "cacheControl": "public, max-age=0, must-revalidate",
+    "data": {
+      "id": "3acfaad8-f78e-4f9c-9094-fac08de200b5",
+      "type": "article",
+      "slug": "legacy-article-percent",
+      "title": "旧长文 percent",
+      "description": "",
+      "visibility": "paid",
+      "publishedAt": "2026-10-12T17:54:28.622Z",
+      "updatedAt": "2026-10-12T17:54:28.622Z",
+      "revision": "a5a34696-af67-4596-acf8-62e7d1bbfae2",
+      "access": "preview",
+      "hasPaidContent": true,
+      "bodyMarkdown": "旧长文开头段落。\n\n旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文",
+      "coverMediaId": null,
+      "tags": [
+        {
+          "slug": "legacy-review",
+          "name": "legacy-review"
+        }
+      ],
+      "collections": [
+        {
+          "slug": "legacy-review",
+          "title": "隔离迁移验收合集"
+        }
+      ],
+      "media": []
+    }
+  },
+  {
+    "slug": "legacy-article-public",
+    "status": 200,
+    "cacheControl": "public, max-age=0, must-revalidate",
+    "data": {
+      "id": "c4f49d1c-2b16-4c36-afd2-23cb763b6ce9",
+      "type": "article",
+      "slug": "legacy-article-public",
+      "title": "旧长文 public",
+      "description": "",
+      "visibility": "public",
+      "publishedAt": "2026-10-12T17:54:28.628Z",
+      "updatedAt": "2026-10-12T17:54:28.628Z",
+      "revision": "a99600ea-9397-4d2d-9dfd-c4d258876c15",
+      "access": "full",
+      "hasPaidContent": false,
+      "bodyMarkdown": "旧长文开头段落。\n\n旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。旧长文后续正文保持。",
+      "coverMediaId": null,
+      "tags": [
+        {
+          "slug": "legacy-review",
+          "name": "legacy-review"
+        }
+      ],
+      "collections": [
+        {
+          "slug": "legacy-review",
+          "title": "隔离迁移验收合集"
+        }
+      ],
+      "media": []
+    }
+  },
+  {
+    "slug": "legacy-audio-full",
+    "status": 200,
+    "cacheControl": "public, max-age=0, must-revalidate",
+    "data": {
+      "id": "fd3a1cf1-8d56-4ed4-bd81-c4cc44839b4c",
+      "type": "audio",
+      "slug": "legacy-audio-full",
+      "title": "旧版迁移 audio full",
+      "description": "",
+      "visibility": "paid",
+      "publishedAt": "2026-10-01T01:00:00.000Z",
+      "updatedAt": "2026-10-12T17:54:28.635Z",
+      "revision": "12a1efe7-0118-4e28-a75d-3b48558df7a7",
+      "access": "preview",
+      "hasPaidContent": true,
+      "bodyMarkdown": "旧版允许阅读段落 legacy-audio-full。\n\n![正文图片](/api/media/676802b2-fc59-413b-99ba-9061ae5b12e5)\n\n后续段落 此模式允许全文。",
+      "coverMediaId": null,
+      "tags": [
+        {
+          "slug": "legacy-review",
+          "name": "legacy-review"
+        }
+      ],
+      "collections": [
+        {
+          "slug": "legacy-review",
+          "title": "隔离迁移验收合集"
+        }
+      ],
+      "media": [
+        {
+          "mediaId": "676802b2-fc59-413b-99ba-9061ae5b12e5",
+          "position": 1,
+          "exposure": "free",
+          "mimeType": "image/png",
+          "width": 160,
+          "height": 90,
+          "durationSec": null
+        }
+      ]
+    }
+  },
+  {
+    "slug": "legacy-audio-marker",
+    "status": 200,
+    "cacheControl": "public, max-age=0, must-revalidate",
+    "data": {
+      "id": "38916af4-0843-4775-bf00-c6b78412770b",
+      "type": "audio",
+      "slug": "legacy-audio-marker",
+      "title": "旧版迁移 audio marker",
+      "description": "",
+      "visibility": "paid",
+      "publishedAt": "2026-10-01T01:00:00.000Z",
+      "updatedAt": "2026-10-12T17:54:28.643Z",
+      "revision": "e0e48f82-c6f6-4e0f-ab41-9f3d6fbbc51b",
+      "access": "preview",
+      "hasPaidContent": true,
+      "bodyMarkdown": "旧版允许阅读段落 legacy-audio-marker。\n\n![正文图片](/api/media/676802b2-fc59-413b-99ba-9061ae5b12e5)",
+      "coverMediaId": null,
+      "tags": [
+        {
+          "slug": "legacy-review",
+          "name": "legacy-review"
+        }
+      ],
+      "collections": [
+        {
+          "slug": "legacy-review",
+          "title": "隔离迁移验收合集"
+        }
+      ],
+      "media": [
+        {
+          "mediaId": "676802b2-fc59-413b-99ba-9061ae5b12e5",
+          "position": 1,
+          "exposure": "free",
+          "mimeType": "image/png",
+          "width": 160,
+          "height": 90,
+          "durationSec": null
+        }
+      ]
+    }
+  },
+  {
+    "slug": "legacy-audio-percent",
+    "status": 200,
+    "cacheControl": "public, max-age=0, must-revalidate",
+    "data": {
+      "id": "69d5db1c-00a1-4d0c-b973-3ca4f8491e6c",
+      "type": "audio",
+      "slug": "legacy-audio-percent",
+      "title": "旧版迁移 audio percent",
+      "description": "",
+      "visibility": "paid",
+      "publishedAt": "2026-10-01T01:00:00.000Z",
+      "updatedAt": "2026-10-12T17:54:28.650Z",
+      "revision": "5827d636-2485-439d-a100-4252e9898cae",
+      "access": "preview",
+      "hasPaidContent": true,
+      "bodyMarkdown": "旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应",
+      "coverMediaId": null,
+      "tags": [
+        {
+          "slug": "legacy-review",
+          "name": "legacy-review"
+        }
+      ],
+      "collections": [
+        {
+          "slug": "legacy-review",
+          "title": "隔离迁移验收合集"
+        }
+      ],
+      "media": []
+    }
+  },
+  {
+    "slug": "legacy-audio-public",
+    "status": 200,
+    "cacheControl": "public, max-age=0, must-revalidate",
+    "data": {
+      "id": "45575249-0381-482b-8e44-b621862fbe26",
+      "type": "audio",
+      "slug": "legacy-audio-public",
+      "title": "旧版迁移 audio public",
+      "description": "",
+      "visibility": "public",
+      "publishedAt": "2026-10-01T01:00:00.000Z",
+      "updatedAt": "2026-10-12T17:54:28.657Z",
+      "revision": "9f2f0090-7a87-46ad-b0df-5d693f6ede73",
+      "access": "full",
+      "hasPaidContent": false,
+      "bodyMarkdown": "旧版允许阅读段落 legacy-audio-public。\n\n![正文图片](/api/media/676802b2-fc59-413b-99ba-9061ae5b12e5)\n\n后续段落 此模式允许全文。",
+      "coverMediaId": null,
+      "tags": [
+        {
+          "slug": "legacy-review",
+          "name": "legacy-review"
+        }
+      ],
+      "collections": [
+        {
+          "slug": "legacy-review",
+          "title": "隔离迁移验收合集"
+        }
+      ],
+      "media": [
+        {
+          "mediaId": "e5fa72f0-bdad-4318-9db5-6750d39ff930",
+          "position": 0,
+          "exposure": "free",
+          "mimeType": "audio/mpeg",
+          "width": null,
+          "height": null,
+          "durationSec": null
+        },
+        {
+          "mediaId": "676802b2-fc59-413b-99ba-9061ae5b12e5",
+          "position": 1,
+          "exposure": "free",
+          "mimeType": "image/png",
+          "width": 160,
+          "height": 90,
+          "durationSec": null
+        }
+      ]
+    }
+  },
+  {
+    "slug": "legacy-image-full",
+    "status": 200,
+    "cacheControl": "public, max-age=0, must-revalidate",
+    "data": {
+      "id": "fcfcbfed-5d78-489a-93e4-d3966f51256d",
+      "type": "image",
+      "slug": "legacy-image-full",
+      "title": "旧版迁移 image full",
+      "description": "",
+      "visibility": "paid",
+      "publishedAt": "2026-10-01T01:00:00.000Z",
+      "updatedAt": "2026-10-12T17:54:28.663Z",
+      "revision": "311e9b95-fc9e-42a0-8a6d-c41a200dd10a",
+      "access": "preview",
+      "hasPaidContent": true,
+      "bodyMarkdown": "旧版允许阅读段落 legacy-image-full。\n\n![正文图片](/api/media/676802b2-fc59-413b-99ba-9061ae5b12e5)\n\n后续段落 此模式允许全文。",
+      "coverMediaId": null,
+      "tags": [
+        {
+          "slug": "legacy-review",
+          "name": "legacy-review"
+        }
+      ],
+      "collections": [
+        {
+          "slug": "legacy-review",
+          "title": "隔离迁移验收合集"
+        }
+      ],
+      "media": [
+        {
+          "mediaId": "676802b2-fc59-413b-99ba-9061ae5b12e5",
+          "position": 1,
+          "exposure": "free",
+          "mimeType": "image/png",
+          "width": 160,
+          "height": 90,
+          "durationSec": null
+        }
+      ]
+    }
+  },
+  {
+    "slug": "legacy-image-marker",
+    "status": 200,
+    "cacheControl": "public, max-age=0, must-revalidate",
+    "data": {
+      "id": "60f29209-ff7b-4df8-b2e4-664562d32c34",
+      "type": "image",
+      "slug": "legacy-image-marker",
+      "title": "旧版迁移 image marker",
+      "description": "",
+      "visibility": "paid",
+      "publishedAt": "2026-10-01T01:00:00.000Z",
+      "updatedAt": "2026-10-12T17:54:28.670Z",
+      "revision": "09b1f6c2-73f5-4b2a-a5fc-3920c5e4a239",
+      "access": "preview",
+      "hasPaidContent": true,
+      "bodyMarkdown": "旧版允许阅读段落 legacy-image-marker。\n\n![正文图片](/api/media/676802b2-fc59-413b-99ba-9061ae5b12e5)",
+      "coverMediaId": null,
+      "tags": [
+        {
+          "slug": "legacy-review",
+          "name": "legacy-review"
+        }
+      ],
+      "collections": [
+        {
+          "slug": "legacy-review",
+          "title": "隔离迁移验收合集"
+        }
+      ],
+      "media": [
+        {
+          "mediaId": "676802b2-fc59-413b-99ba-9061ae5b12e5",
+          "position": 1,
+          "exposure": "free",
+          "mimeType": "image/png",
+          "width": 160,
+          "height": 90,
+          "durationSec": null
+        }
+      ]
+    }
+  },
+  {
+    "slug": "legacy-image-percent",
+    "status": 200,
+    "cacheControl": "public, max-age=0, must-revalidate",
+    "data": {
+      "id": "e16b749d-8fa8-4270-ad16-716c4f65f5c9",
+      "type": "image",
+      "slug": "legacy-image-percent",
+      "title": "旧版迁移 image percent",
+      "description": "",
+      "visibility": "paid",
+      "publishedAt": "2026-10-01T01:00:00.000Z",
+      "updatedAt": "2026-10-12T17:54:28.676Z",
+      "revision": "aceb9b41-9ea5-4edc-9865-2901d8793443",
+      "access": "preview",
+      "hasPaidContent": true,
+      "bodyMarkdown": "旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应",
+      "coverMediaId": null,
+      "tags": [
+        {
+          "slug": "legacy-review",
+          "name": "legacy-review"
+        }
+      ],
+      "collections": [
+        {
+          "slug": "legacy-review",
+          "title": "隔离迁移验收合集"
+        }
+      ],
+      "media": []
+    }
+  },
+  {
+    "slug": "legacy-image-present",
+    "status": 200,
+    "cacheControl": "public, max-age=0, must-revalidate",
+    "data": {
+      "id": "94d033fb-7e78-41ca-ab5c-3b2364c1a846",
+      "type": "image",
+      "slug": "legacy-image-present",
+      "title": "旧主媒体已在正文中",
+      "description": "",
+      "visibility": "public",
+      "publishedAt": "2026-10-12T18:01:46.331Z",
+      "updatedAt": "2026-10-12T18:01:46.327Z",
+      "revision": "f74679c6-b8d1-4be9-8097-1dbc916002c3",
+      "access": "full",
+      "hasPaidContent": false,
+      "bodyMarkdown": "开头文字，主媒体保持此编排位置。\n\n![已存在的主媒体](/api/media/3ae68f3a-2f9e-4a61-a5ed-bfa0d4301cf5)\n\n结尾文字，迁移不能重复补入图片。",
+      "coverMediaId": null,
+      "tags": [
+        {
+          "slug": "legacy-review",
+          "name": "legacy-review"
+        }
+      ],
+      "collections": [
+        {
+          "slug": "legacy-review",
+          "title": "隔离迁移验收合集"
+        }
+      ],
+      "media": [
+        {
+          "mediaId": "3ae68f3a-2f9e-4a61-a5ed-bfa0d4301cf5",
+          "position": 0,
+          "exposure": "free",
+          "mimeType": "image/png",
+          "width": 160,
+          "height": 90,
+          "durationSec": null
+        }
+      ]
+    }
+  },
+  {
+    "slug": "legacy-image-public",
+    "status": 200,
+    "cacheControl": "public, max-age=0, must-revalidate",
+    "data": {
+      "id": "36a415cf-99ae-4a0e-a98e-309888d36fd2",
+      "type": "image",
+      "slug": "legacy-image-public",
+      "title": "旧版迁移 image public",
+      "description": "",
+      "visibility": "public",
+      "publishedAt": "2026-10-01T01:00:00.000Z",
+      "updatedAt": "2026-10-12T17:54:28.682Z",
+      "revision": "9d9a7210-0cf4-4f9f-a2cf-eb8efa9f8928",
+      "access": "full",
+      "hasPaidContent": false,
+      "bodyMarkdown": "旧版允许阅读段落 legacy-image-public。\n\n![正文图片](/api/media/676802b2-fc59-413b-99ba-9061ae5b12e5)\n\n后续段落 此模式允许全文。",
+      "coverMediaId": null,
+      "tags": [
+        {
+          "slug": "legacy-review",
+          "name": "legacy-review"
+        }
+      ],
+      "collections": [
+        {
+          "slug": "legacy-review",
+          "title": "隔离迁移验收合集"
+        }
+      ],
+      "media": [
+        {
+          "mediaId": "3ae68f3a-2f9e-4a61-a5ed-bfa0d4301cf5",
+          "position": 0,
+          "exposure": "free",
+          "mimeType": "image/png",
+          "width": 160,
+          "height": 90,
+          "durationSec": null
+        },
+        {
+          "mediaId": "676802b2-fc59-413b-99ba-9061ae5b12e5",
+          "position": 1,
+          "exposure": "free",
+          "mimeType": "image/png",
+          "width": 160,
+          "height": 90,
+          "durationSec": null
+        }
+      ]
+    }
+  },
+  {
+    "slug": "legacy-video-full",
+    "status": 200,
+    "cacheControl": "public, max-age=0, must-revalidate",
+    "data": {
+      "id": "4725d07f-c6ae-4b32-a812-c0a8b7add362",
+      "type": "video",
+      "slug": "legacy-video-full",
+      "title": "旧版迁移 video full",
+      "description": "",
+      "visibility": "paid",
+      "publishedAt": "2026-10-01T01:00:00.000Z",
+      "updatedAt": "2026-10-12T17:54:28.688Z",
+      "revision": "bed64372-faf8-44bd-8604-96a59cdd1d98",
+      "access": "preview",
+      "hasPaidContent": true,
+      "bodyMarkdown": "旧版允许阅读段落 legacy-video-full。\n\n![正文图片](/api/media/676802b2-fc59-413b-99ba-9061ae5b12e5)\n\n后续段落 此模式允许全文。",
+      "coverMediaId": null,
+      "tags": [
+        {
+          "slug": "legacy-review",
+          "name": "legacy-review"
+        }
+      ],
+      "collections": [
+        {
+          "slug": "legacy-review",
+          "title": "隔离迁移验收合集"
+        }
+      ],
+      "media": [
+        {
+          "mediaId": "676802b2-fc59-413b-99ba-9061ae5b12e5",
+          "position": 1,
+          "exposure": "free",
+          "mimeType": "image/png",
+          "width": 160,
+          "height": 90,
+          "durationSec": null
+        }
+      ]
+    }
+  },
+  {
+    "slug": "legacy-video-marker",
+    "status": 200,
+    "cacheControl": "public, max-age=0, must-revalidate",
+    "data": {
+      "id": "36198e81-d134-4eb3-a41f-bd1e0202efd5",
+      "type": "video",
+      "slug": "legacy-video-marker",
+      "title": "旧版迁移 video marker",
+      "description": "",
+      "visibility": "paid",
+      "publishedAt": "2026-10-01T01:00:00.000Z",
+      "updatedAt": "2026-10-12T17:54:28.695Z",
+      "revision": "9893b6d4-96eb-4afc-b0e8-63dc5aa33e97",
+      "access": "preview",
+      "hasPaidContent": true,
+      "bodyMarkdown": "旧版允许阅读段落 legacy-video-marker。\n\n![正文图片](/api/media/676802b2-fc59-413b-99ba-9061ae5b12e5)",
+      "coverMediaId": null,
+      "tags": [
+        {
+          "slug": "legacy-review",
+          "name": "legacy-review"
+        }
+      ],
+      "collections": [
+        {
+          "slug": "legacy-review",
+          "title": "隔离迁移验收合集"
+        }
+      ],
+      "media": [
+        {
+          "mediaId": "676802b2-fc59-413b-99ba-9061ae5b12e5",
+          "position": 1,
+          "exposure": "free",
+          "mimeType": "image/png",
+          "width": 160,
+          "height": 90,
+          "durationSec": null
+        }
+      ]
+    }
+  },
+  {
+    "slug": "legacy-video-percent",
+    "status": 200,
+    "cacheControl": "public, max-age=0, must-revalidate",
+    "data": {
+      "id": "3b5b216a-9a16-4973-92d4-31fd5efedde0",
+      "type": "video",
+      "slug": "legacy-video-percent",
+      "title": "旧版迁移 video percent",
+      "description": "",
+      "visibility": "paid",
+      "publishedAt": "2026-10-01T01:00:00.000Z",
+      "updatedAt": "2026-10-12T17:54:28.700Z",
+      "revision": "6305da5c-20e8-44ae-9925-0f8c9f3d4f74",
+      "access": "preview",
+      "hasPaidContent": true,
+      "bodyMarkdown": "旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应因主媒体补入而消失。旧版百分比边界保留，正文字符不应",
+      "coverMediaId": null,
+      "tags": [
+        {
+          "slug": "legacy-review",
+          "name": "legacy-review"
+        }
+      ],
+      "collections": [
+        {
+          "slug": "legacy-review",
+          "title": "隔离迁移验收合集"
+        }
+      ],
+      "media": []
+    }
+  },
+  {
+    "slug": "legacy-video-public",
+    "status": 200,
+    "cacheControl": "public, max-age=0, must-revalidate",
+    "data": {
+      "id": "13a25a69-e29c-489c-bdf5-39904e08f841",
+      "type": "video",
+      "slug": "legacy-video-public",
+      "title": "旧版迁移 video public",
+      "description": "",
+      "visibility": "public",
+      "publishedAt": "2026-10-01T01:00:00.000Z",
+      "updatedAt": "2026-10-12T17:54:28.706Z",
+      "revision": "62c812b2-1eeb-468d-966e-a09a5969f96e",
+      "access": "full",
+      "hasPaidContent": false,
+      "bodyMarkdown": "旧版允许阅读段落 legacy-video-public。\n\n![正文图片](/api/media/676802b2-fc59-413b-99ba-9061ae5b12e5)\n\n后续段落 此模式允许全文。",
+      "coverMediaId": null,
+      "tags": [
+        {
+          "slug": "legacy-review",
+          "name": "legacy-review"
+        }
+      ],
+      "collections": [
+        {
+          "slug": "legacy-review",
+          "title": "隔离迁移验收合集"
+        }
+      ],
+      "media": [
+        {
+          "mediaId": "974f9f1f-d735-4f77-a329-891750cd0c7a",
+          "position": 0,
+          "exposure": "free",
+          "mimeType": "video/mp4",
+          "width": null,
+          "height": null,
+          "durationSec": null
+        },
+        {
+          "mediaId": "676802b2-fc59-413b-99ba-9061ae5b12e5",
+          "position": 1,
+          "exposure": "free",
+          "mimeType": "image/png",
+          "width": 160,
+          "height": 90,
+          "durationSec": null
+        }
+      ]
+    }
+  }
+]

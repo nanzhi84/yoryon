@@ -1,0 +1,65 @@
+{
+  "activeMember": [
+    {
+      "id": "612298b6-733d-432f-ba5d-837083788fe6",
+      "status": 302,
+      "cache": "private, no-store",
+      "sha256": "6a31734065bb162e85750324820ab377d889e763287590d643907760f2863e7b",
+      "matchesContentAddress": true,
+      "bytes": 2258,
+      "rangeStatus": 206,
+      "rangeBytes": 32
+    },
+    {
+      "id": "9f6fbeb9-a017-443b-96c3-273fb3069939",
+      "status": 302,
+      "cache": "private, no-store",
+      "sha256": "38c518dc77c6429ac0e5bbe7c45e78f1537230c975cb5fd391e7efeecf366977",
+      "matchesContentAddress": true,
+      "bytes": 8482,
+      "rangeStatus": 206,
+      "rangeBytes": 32
+    }
+  ],
+  "reader": [
+    {
+      "id": "612298b6-733d-432f-ba5d-837083788fe6",
+      "status": 403,
+      "cache": "private, no-store"
+    },
+    {
+      "id": "9f6fbeb9-a017-443b-96c3-273fb3069939",
+      "status": 403,
+      "cache": "private, no-store"
+    }
+  ],
+  "anonymous": [
+    {
+      "id": "612298b6-733d-432f-ba5d-837083788fe6",
+      "status": 403,
+      "cache": "private, no-store"
+    },
+    {
+      "id": "9f6fbeb9-a017-443b-96c3-273fb3069939",
+      "status": 403,
+      "cache": "private, no-store"
+    }
+  ],
+  "expired": {
+    "status": 200,
+    "access": "preview",
+    "secret": false,
+    "media": [
+      {
+        "id": "612298b6-733d-432f-ba5d-837083788fe6",
+        "status": 403,
+        "cache": "private, no-store"
+      },
+      {
+        "id": "9f6fbeb9-a017-443b-96c3-273fb3069939",
+        "status": 403,
+        "cache": "private, no-store"
+      }
+    ]
+  }
+}

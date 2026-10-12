@@ -1,0 +1,51 @@
+[
+  {
+    "mediaId": "676802b2-fc59-413b-99ba-9061ae5b12e5",
+    "mime": "image/png",
+    "status": 200,
+    "length": 312,
+    "sha256": "8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8"
+  },
+  {
+    "mediaId": "e5fa72f0-bdad-4318-9db5-6750d39ff930",
+    "mime": "audio/mpeg",
+    "status": 200,
+    "length": 8482,
+    "sha256": "4fd9a7812aeb16f67361aeb3da5a923585ad1333ba1ac6648929a07fde3fc29e"
+  },
+  {
+    "mediaId": "3ae68f3a-2f9e-4a61-a5ed-bfa0d4301cf5",
+    "mime": "image/png",
+    "status": 200,
+    "length": 314,
+    "sha256": "81ac6eb09954ae4852b5839ba8d6fbb10f1373cf5b9359c6a5d7d702f4d425cf"
+  },
+  {
+    "mediaId": "974f9f1f-d735-4f77-a329-891750cd0c7a",
+    "mime": "video/mp4",
+    "status": 200,
+    "length": 21743,
+    "sha256": "67f76c68e1aeae4a211bdfc2a52a21bd05c6a469635c2b1d1e291d871a9eb2f6"
+  },
+  {
+    "mediaId": "9f6fbeb9-a017-443b-96c3-273fb3069939",
+    "mime": "audio/mpeg",
+    "status": 403,
+    "length": 64,
+    "sha256": null
+  },
+  {
+    "mediaId": "1de0dcee-0514-43dd-a0cf-3eba7d0a781c",
+    "mime": "image/png",
+    "status": 403,
+    "length": 64,
+    "sha256": null
+  },
+  {
+    "mediaId": "612298b6-733d-432f-ba5d-837083788fe6",
+    "mime": "video/mp4",
+    "status": 403,
+    "length": 64,
+    "sha256": null
+  }
+]

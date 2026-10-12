@@ -1,0 +1,77 @@
+{
+  "status": 0,
+  "carry": [
+    {
+      "slug": "legacy-article-full",
+      "revisionChanged": true,
+      "projectionAligned": true,
+      "bodyExact": true
+    },
+    {
+      "slug": "legacy-article-marker",
+      "revisionChanged": true,
+      "projectionAligned": true,
+      "bodyExact": true
+    },
+    {
+      "slug": "legacy-article-percent",
+      "revisionChanged": true,
+      "projectionAligned": true,
+      "bodyExact": true
+    },
+    {
+      "slug": "legacy-audio-full",
+      "revisionChanged": true,
+      "projectionAligned": true,
+      "bodyExact": true
+    },
+    {
+      "slug": "legacy-audio-marker",
+      "revisionChanged": true,
+      "projectionAligned": true,
+      "bodyExact": true
+    },
+    {
+      "slug": "legacy-audio-percent",
+      "revisionChanged": true,
+      "projectionAligned": true,
+      "bodyExact": true
+    },
+    {
+      "slug": "legacy-image-full",
+      "revisionChanged": true,
+      "projectionAligned": true,
+      "bodyExact": true
+    },
+    {
+      "slug": "legacy-image-marker",
+      "revisionChanged": true,
+      "projectionAligned": true,
+      "bodyExact": true
+    },
+    {
+      "slug": "legacy-image-percent",
+      "revisionChanged": true,
+      "projectionAligned": true,
+      "bodyExact": true
+    },
+    {
+      "slug": "legacy-video-full",
+      "revisionChanged": true,
+      "projectionAligned": true,
+      "bodyExact": true
+    },
+    {
+      "slug": "legacy-video-marker",
+      "revisionChanged": true,
+      "projectionAligned": true,
+      "bodyExact": true
+    },
+    {
+      "slug": "legacy-video-percent",
+      "revisionChanged": true,
+      "projectionAligned": true,
+      "bodyExact": true
+    }
+  ]
+}

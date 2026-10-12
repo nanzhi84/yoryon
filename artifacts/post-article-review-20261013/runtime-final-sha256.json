@@ -1,0 +1,21 @@
+{
+  "head": "06591b06c24d81bc80b36336d34c03a0b40b9d20",
+  "runtime": [
+    {
+      "path": "apps/api/dist/index.js",
+      "sha256": "a2253313ac2283445e730d778aea1108c8325cd94ce24869a95870debfe77d3a"
+    },
+    {
+      "path": "apps/api/dist/migrate.js",
+      "sha256": "94dfb00b936bb1863766d012e4b1bf15a116c4a3cccea9573debf4cc0443c206"
+    },
+    {
+      "path": "apps/cli/dist/index.js",
+      "sha256": "a3cd6b54210700bcc7810ed67805d1ef06250b2f63db8aeff5bb3f76d14a4960"
+    },
+    {
+      "path": "apps/web/.next/BUILD_ID",
+      "sha256": "00c1b8bea96ec3490659a98c32d727b61ed2e1ee9a38abf2e0b542b7c0d706d5"
+    }
+  ]
+}

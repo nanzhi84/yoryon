@@ -11,12 +11,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const content = await getPublicContent(slug, revision);
   if (!content) return { title: "内容不存在", robots: { index: false } };
   const canonical = `${process.env.SITE_URL}/p/${slug}`;
-  return { title: content.title, description: content.description, alternates: { canonical }, openGraph: { title: content.title, description: content.description, url: canonical, type: "article", publishedTime: content.publishedAt ?? undefined } };
+  return { title: content.title || `帖子 · ${content.publishedAt?.slice(0, 10) ?? content.slug}`, description: content.description, alternates: { canonical }, openGraph: { title: content.title || `帖子 · ${content.publishedAt?.slice(0, 10) ?? content.slug}`, description: content.description, url: canonical, type: "article", publishedTime: content.publishedAt ?? undefined } };
 }
 export default async function Page({ params }: Props) {
   const { slug, revision } = await params;
   const content = await getPublicContent(slug, revision);
   if (!content) notFound();
-  const structured = { "@context": "https://schema.org", "@type": "Article", headline: content.title, description: content.description, datePublished: content.publishedAt, dateModified: content.updatedAt, url: `${process.env.SITE_URL}/p/${slug}`, isAccessibleForFree: content.visibility === "public" };
+  const structured = { "@context": "https://schema.org", "@type": "Article", headline: content.title || `帖子 · ${content.publishedAt?.slice(0, 10) ?? content.slug}`, description: content.description, datePublished: content.publishedAt, dateModified: content.updatedAt, url: `${process.env.SITE_URL}/p/${slug}`, isAccessibleForFree: content.visibility === "public" };
   return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structured).replace(/</g, "\\u003c") }} /><ContentView key={revision} initial={content} /></>;
 }

@@ -1,0 +1,105 @@
+{
+  "memberBefore": {
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "active": true,
+      "validUntil": "2026-12-11T18:05:58.324Z",
+      "permanent": false,
+      "questionsRemaining": 1,
+      "monthKey": "2026-10"
+    }
+  },
+  "concurrent": [
+    {
+      "status": 201,
+      "cache": "private, no-store",
+      "body": {
+        "item": {
+          "id": "98ea171f-0529-4fbf-b130-4da63cef2c9e",
+          "question": "MR15_PRIVATE_ONE",
+          "status": "pending",
+          "visibility": "private",
+          "createdAt": "2026-10-12T18:07:05.907Z",
+          "answeredAt": null,
+          "author": {
+            "username": "mr15_actor",
+            "displayName": "mr15_actor",
+            "avatarUrl": null
+          },
+          "own": true,
+          "answer": null,
+          "answerLocked": false,
+          "canDiscuss": false
+        }
+      }
+    },
+    {
+      "status": 409,
+      "cache": "private, no-store",
+      "body": {
+        "error": {
+          "code": "quota_used",
+          "message": "本月提问次数已用完"
+        }
+      }
+    }
+  ],
+  "contentOnly": {
+    "status": 403,
+    "cache": "private, no-store",
+    "body": {
+      "error": {
+        "code": "forbidden",
+        "message": "提问需要有效订阅"
+      }
+    }
+  },
+  "outsiderMembership": {
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "active": false,
+      "validUntil": null,
+      "permanent": false,
+      "questionsRemaining": null,
+      "monthKey": "2026-10"
+    }
+  },
+  "againAuthor": {
+    "status": 409,
+    "cache": "private, no-store",
+    "body": {
+      "error": {
+        "code": "quota_used",
+        "message": "本月提问次数已用完"
+      }
+    }
+  },
+  "monthlyRows": [
+    {
+      "user_id": "7519141d-b40c-464c-b40c-064b0916c5fd",
+      "month_key": "2026-10",
+      "n": 1
+    },
+    {
+      "user_id": "4d694299-828e-4ea3-8310-269ba7409165",
+      "month_key": "2026-10",
+      "n": 1
+    }
+  ],
+  "entitlements": [
+    {
+      "id": "e6ee6831-7591-4afc-a387-516b4b98f06b",
+      "valid_from": "2026-10-12T18:05:58.324Z",
+      "valid_until": "2026-11-11T18:05:58.324Z",
+      "revoked_at": null
+    },
+    {
+      "id": "be476c27-6226-4dd4-a86b-d657795a881a",
+      "valid_from": "2026-11-11T18:05:58.324Z",
+      "valid_until": "2026-12-11T18:05:58.324Z",
+      "revoked_at": null
+    }
+  ]
+}

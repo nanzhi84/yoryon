@@ -1,0 +1,70 @@
+{
+  "time": "2026-10-12T17:28:18.201Z",
+  "sqlExpected": [
+    "review-14",
+    "review-04",
+    "review-02",
+    "review-12",
+    "review-23",
+    "review-09",
+    "review-18",
+    "review-07",
+    "review-19",
+    "review-10",
+    "review-16",
+    "review-22",
+    "review-08",
+    "review-21",
+    "review-15",
+    "review-13",
+    "review-00",
+    "review-11",
+    "review-20",
+    "review-05",
+    "review-01",
+    "review-06",
+    "review-17",
+    "review-03"
+  ],
+  "apiActual": [
+    "review-14",
+    "review-04",
+    "review-02",
+    "review-12",
+    "review-23",
+    "review-09",
+    "review-18",
+    "review-07",
+    "review-19",
+    "review-10",
+    "review-16",
+    "review-22",
+    "review-08",
+    "review-21",
+    "review-15",
+    "review-13",
+    "review-00",
+    "review-11",
+    "review-20",
+    "review-05",
+    "review-01",
+    "review-06",
+    "review-17",
+    "review-03"
+  ],
+  "sameOrder": true,
+  "unique": 24,
+  "pages": [
+    {
+      "status": 200,
+      "count": 20,
+      "nextCursor": "eyJwIjpmYWxzZSwidCI6IjIwMjYtMTAtMDFUMTI6MDA6MDAuMDAwWiIsImlkIjoiNDdkYTFiMGQtMWM2OC00NmI2LWE0M2EtOTZjZjg0MWI1MDIwIn0"
+    },
+    {
+      "status": 200,
+      "count": 4,
+      "nextCursor": null
+    }
+  ],
+  "oldVersionStatus": 409
+}

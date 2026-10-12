@@ -4,7 +4,7 @@ import { randomUUID } from "node:crypto";
 import { enqueueCacheEvent } from "@yoryon/core";
 import { contentTargets } from "@yoryon/config/cache";
 import { withCacheTransaction } from "../cache";
-import { and, asc, eq } from "drizzle-orm";
+import { and, asc, eq, sql } from "drizzle-orm";
 import { collectionItems, collections, contents, tags } from "@yoryon/db";
 import { closeContext, getContext } from "../context";
 
@@ -29,7 +29,10 @@ export function registerCollectionCommands(program: Command) {
         const target = contentTargets(slug, [], [slug]);
         target.paths = target.paths.filter(p => p !== `/p/${slug}`);
         for (const row of related) {
-          await tx.update(contents).set({ revision: randomUUID(), updatedAt: new Date() }).where(eq(contents.slug, row.slug));
+          const revision = randomUUID();
+          await tx.update(contents).set({ revision, updatedAt: new Date(),
+            previewRevision: sql`case when ${contents.previewRevision} = ${contents.revision} then ${revision}::uuid else ${contents.previewRevision} end`,
+          }).where(eq(contents.slug, row.slug));
           target.paths.push(`/p/${row.slug}`); target.tags.push(`content:${row.slug}`);
         }
         await enqueueCacheEvent(tx, target);

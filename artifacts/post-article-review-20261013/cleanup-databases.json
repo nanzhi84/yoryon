@@ -1,0 +1,43 @@
+{
+  "before": [
+    {
+      "datname": "postgres"
+    },
+    {
+      "datname": "template0"
+    },
+    {
+      "datname": "template1"
+    },
+    {
+      "datname": "yoryon_post_empty"
+    },
+    {
+      "datname": "yoryon_post_missing"
+    },
+    {
+      "datname": "yoryon_post_restore"
+    },
+    {
+      "datname": "yoryon_post_review"
+    }
+  ],
+  "requestedRemoval": [
+    "yoryon_post_review",
+    "yoryon_post_empty",
+    "yoryon_post_missing",
+    "yoryon_post_restore"
+  ],
+  "after": [
+    {
+      "datname": "postgres"
+    },
+    {
+      "datname": "template0"
+    },
+    {
+      "datname": "template1"
+    }
+  ],
+  "remainingOwn": []
+}

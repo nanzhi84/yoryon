@@ -1,0 +1,69 @@
+{
+  "head": "162919403b10760f6dd06be5cab17d255d65cb59",
+  "beforeFocus": "重试",
+  "action": "pressKey(null, Return) on previously focused retry button after clearing resource-only block",
+  "url": "http://localhost:3161/p/review-references",
+  "events": [
+    {
+      "method": "Network.requestWillBeSent",
+      "path": "/api/public/references/c06ce84b-8409-4845-ae56-d33a7551a975",
+      "initiatorType": "script",
+      "frames": [
+        {
+          "functionName": "",
+          "path": "/_next/static/chunks/14-70fc43a434df9d76.js",
+          "line": 0,
+          "column": 5314
+        },
+        {
+          "functionName": "onClick",
+          "path": "/_next/static/chunks/14-70fc43a434df9d76.js",
+          "line": 0,
+          "column": 6480
+        },
+        {
+          "functionName": "i8",
+          "path": "/_next/static/chunks/9a3bc300-2302e8db1ffef478.js",
+          "line": 0,
+          "column": 135366
+        },
+        {
+          "functionName": "",
+          "path": "/_next/static/chunks/9a3bc300-2302e8db1ffef478.js",
+          "line": 0,
+          "column": 141452
+        },
+        {
+          "functionName": "nz",
+          "path": "/_next/static/chunks/9a3bc300-2302e8db1ffef478.js",
+          "line": 0,
+          "column": 19200
+        },
+        {
+          "functionName": "sn",
+          "path": "/_next/static/chunks/9a3bc300-2302e8db1ffef478.js",
+          "line": 0,
+          "column": 136599
+        },
+        {
+          "functionName": "cc",
+          "path": "/_next/static/chunks/9a3bc300-2302e8db1ffef478.js",
+          "line": 0,
+          "column": 163601
+        },
+        {
+          "functionName": "ci",
+          "path": "/_next/static/chunks/9a3bc300-2302e8db1ffef478.js",
+          "line": 0,
+          "column": 163423
+        }
+      ]
+    },
+    {
+      "method": "Network.responseReceived",
+      "path": "/api/public/references/c06ce84b-8409-4845-ae56-d33a7551a975",
+      "status": 200
+    }
+  ],
+  "after": "Yoryon\n首页\n订阅\n探索\n资料\n登录\n帖子\n·\n2026年10月13日\n帖子 · 2026年10月13日\n#review18\n\n引用帖：正文中的引用应为单跳预览。\n\n引用作品已不可用\n\n引用长文：\n\n引用长文\n\n独立验收长文\n\n混合帖开头文字：先读文字，再看两张图片。 补充文字：图片之后，下面是视频。 音频紧跟视频，点击操作应留在此页面。 末尾长段落用于观察原地展开与收起。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文\n\n付费引用只显示公开预览：\n\n引用帖子 · 付费预览\n\n付费帖子允许的公开开头。\n\n评论\n0/2000\n发送\n\n还没有评论。"
+}

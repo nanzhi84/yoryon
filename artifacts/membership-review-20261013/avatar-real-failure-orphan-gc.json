@@ -1,0 +1,11 @@
+{
+  "forcedOwnUserRowLock": true,
+  "response": 500,
+  "elapsedMs": 5038,
+  "orphanCount": 1,
+  "dbRows": "0",
+  "dry": "== GC dry-run（加 --apply 执行删除）==\n孤儿对象（无 DB 记录，年龄 >24h）: 1\n  avatars/be119fe69b9728f2d971e319683e0467e60986d04cd1c6817e69c5ee0aa80046.webp\t266B\t2026-10-11T12:26:38.479Z\n零引用资产（>7 天）: 0\n",
+  "apply": "  deleted orphan object avatars/be119fe69b9728f2d971e319683e0467e60986d04cd1c6817e69c5ee0aa80046.webp\n== GC applied ==\n孤儿对象（无 DB 记录，年龄 >24h）: 1\n  avatars/be119fe69b9728f2d971e319683e0467e60986d04cd1c6817e69c5ee0aa80046.webp\t266B\t2026-10-11T12:26:38.479Z\n零引用资产（>7 天）: 0\n已删除对象 1 个、DB 行 0 行\n",
+  "allOrphansRemoved": true,
+  "currentReferencedAssetsRemaining": "2"
+}

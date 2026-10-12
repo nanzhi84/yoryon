@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import type { ContentDetail } from "@/lib/types";
 
 // 私有全文才需要浏览器 Markdown 渲染；公开正文在服务端生成 HTML。
-const PrivateBody = dynamic(() => import("./content-body").then(m => m.ContentBody), { loading: () => <p>正在加载正文…</p> });
+const PrivateBody = dynamic(() => import("./private-body").then(m => m.PrivateBody), { loading: () => <p>正在加载正文…</p> });
 export function PrivateReader({ initial, preview }: { initial: ContentDetail; preview: ReactNode }) {
   const [full, setFull] = useState<ContentDetail | null>(null);
   const [loading, setLoading] = useState(true);

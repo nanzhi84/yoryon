@@ -1,0 +1,61 @@
+{
+  "before": {
+    "load": true,
+    "slugs": [
+      "/p/review-04",
+      "/p/review-02",
+      "/p/review-12",
+      "/p/review-23",
+      "/p/review-09",
+      "/p/review-18",
+      "/p/review-07",
+      "/p/review-19",
+      "/p/review-10",
+      "/p/review-16",
+      "/p/review-22",
+      "/p/review-08",
+      "/p/review-21",
+      "/p/review-15",
+      "/p/review-13",
+      "/p/review-00",
+      "/p/review-11",
+      "/p/review-20",
+      "/p/review-05",
+      "/p/review-01"
+    ],
+    "version": "4fdf26fb-93d8-4b0c-837b-22869e0c5b9c"
+  },
+  "after": {
+    "expired": false,
+    "loadingButton": false,
+    "slugs": [
+      "/p/review-14",
+      "/p/review-04",
+      "/p/review-02",
+      "/p/review-12",
+      "/p/review-23",
+      "/p/review-09",
+      "/p/review-18",
+      "/p/review-07",
+      "/p/review-19",
+      "/p/review-10",
+      "/p/review-16",
+      "/p/review-22",
+      "/p/review-08",
+      "/p/review-21",
+      "/p/review-15",
+      "/p/review-13",
+      "/p/review-00",
+      "/p/review-11",
+      "/p/review-20",
+      "/p/review-05",
+      "/p/review-01",
+      "/p/review-06",
+      "/p/review-17",
+      "/p/review-03"
+    ],
+    "version": "d9d6d3d1-71cd-4ef7-9a81-595e53db638d"
+  },
+  "oldExpiredObserved": true,
+  "refreshButtonObserved": true
+}

@@ -49,7 +49,7 @@ pnpm --filter @yoryon/cli build        # 产物 apps/cli/dist/index.js
 node apps/cli/dist/index.js --help
 ```
 
-内容包约定：`index.md`（frontmatter + 正文）+ `media/`（相对引用 `./media/x.png`）。`type` 支持 `article`（Markdown 长文，可组合嵌入多媒体）、`image` / `video` / `audio`。正文媒体语法：图片 `![alt](./media/x.png)`；视频/音频 `::video{src="./media/x.mp4"}` / `::audio{src="./media/x.mp3"}`；付费预览标记 `<!-- more -->`（`preview.mode=marker` 时必需，缺失拒绝发布）。付费文章省略 preview 配置时默认 `none`（正文全付费）；需要全篇免费预览必须显式声明 `preview.mode: full`。
+内容包约定：`index.md`（frontmatter + 正文）+ `media/`（相对引用 `./media/x.png`）。`type` 支持 `article`（标题必填的长文）和 `post`（标题可空的帖子），均可按正文顺序组合多媒体。正文媒体语法：图片 `![alt](./media/x.png)`；视频/音频 `::video{src="./media/x.mp4"}` / `::audio{src="./media/x.mp3"}`；站内作品引用 `::work{id="作品 UUID"}`（目标必须已发布，最多 20 个，不可引用自身）；付费预览标记 `<!-- more -->`（`preview.mode=marker` 时必需，缺失拒绝发布）。付费文章省略 preview 配置时默认 `none`（正文全付费）；需要全篇免费预览必须显式声明 `preview.mode: full`。
 
 ```bash
 # 发布 / 更新 / 取消发布（幂等，可安全重跑）
@@ -120,3 +120,5 @@ docker compose up -d      # postgres + migrate（建表，失败则 api 不上�
 每次变更由主 agent 开独立子 agent，按影响范围现场执行真实浏览器、CLI、API 与数据库路径，检查失败方式、权限边界和最终可见结果。详见 `AGENTS.md`。
 
 不维护固定测试套件、断言脚本或合成 fixture/harness。`pnpm typecheck` 与 `pnpm build` 只提供静态与构建证据，不能替代业务验收。验收工件保存在 `artifacts/<运行名>/`，记录版本、环境、数据前提、实际命令、结果与未覆盖项；历史工件不是当前测试入口。
+
+帖子/长文、公开预览投影、引用与迁移的设计见 [ADR-0014](docs/adr/0014-post-article-references.md)，正式迁移入口、数据核对和回滚见 [post-migration.md](docs/post-migration.md)。数据库迁移通过应用 migrator 完成派生预览回填，不能只执行 SQL 后启动新 API。

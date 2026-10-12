@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1acf0d19-4f8c-4d71-a1b6-479bedd77aac",
+    "username": "review18_reader",
+    "role": "user",
+    "status": "active",
+    "source": "isolated SQL seed; subsequent real LoginForm"
+  },
+  {
+    "id": "855374dd-89e0-442b-9e7f-7e5a5ba7e453",
+    "username": "review18_member",
+    "role": "user",
+    "status": "active",
+    "source": "isolated SQL seed; subsequent real LoginForm"
+  },
+  {
+    "id": "eb6bd972-6b10-4083-a534-54f6b85178f8",
+    "username": "review18_admin",
+    "role": "admin",
+    "status": "active",
+    "source": "isolated SQL seed; subsequent real LoginForm"
+  }
+]
