@@ -24,7 +24,7 @@ const slug = state.run;
 const marker = `SYNTHETIC_FULL_${slug}`;
 const shell = value => `'${value.replaceAll("'", "'\\''")}'`;
 const ssh = command => exec('ssh', ['-o','BatchMode=yes','admin@8.222.152.17',command], { timeout:120000, maxBuffer:4*1024*1024 });
-const cli = async (...args) => (await ssh(`cd /opt/yoryon && sudo docker compose -f compose.neon.yml run --rm cli ${args.map(shell).join(' ')}`)).stdout;
+const cli = async (...args) => (await ssh(`cd /opt/yoryon && sudo /opt/yoryon/blog ${args.map(shell).join(' ')}`)).stdout;
 const request = async (route, headers={}) => {
   const start = performance.now();
   const res = await fetch(base+route, { headers, redirect:'manual',signal:AbortSignal.timeout(20000) });
