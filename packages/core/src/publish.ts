@@ -73,6 +73,9 @@ export async function parsePostDir(dir: string): Promise<ParsedPost> {
   const m = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/.exec(raw);
   if (!m) throw new Error(`${indexPath}: missing frontmatter (--- ... ---)`);
   const data = yaml.load(m[1]!);
+  if (data && typeof data === "object" && "media" in data) {
+    throw new Error(`${indexPath}: 请将 frontmatter media 移到正文图片、::video 或 ::audio；不会静默忽略主媒体`);
+  }
   const fm = frontmatterSchema.parse(data ?? {});
   if (fm.type === "article" && !fm.title) throw new Error(`${indexPath}: article 需要标题`);
   if (!m[2]!.trim()) throw new Error(`${indexPath}: 正文不能为空`);
