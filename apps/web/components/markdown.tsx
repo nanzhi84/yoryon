@@ -5,6 +5,8 @@
  * - 统一 prose 中文排印。
  */
 import { imageSrcSet, publicImageUrl } from "@yoryon/config/image-variants";
+import { bundledLanguages, getSingletonHighlighter } from "shiki";
+import type { CSSProperties } from "react";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkDirective from "remark-directive";
 import remarkCjkFriendly from "remark-cjk-friendly/parseOnly";
@@ -32,7 +34,7 @@ function mediaIdFromSrc(src: unknown): string | null {
   return m ? m[1]! : null;
 }
 
-export function MarkdownBody({
+export async function MarkdownBody({
   markdown,
   className,
   mediaSizes,
@@ -45,12 +47,39 @@ export function MarkdownBody({
   /** Only the anonymous public DTO may use the gated shared byte cache. */
   publicImages?: boolean;
 }) {
+  // Load only supported fenced languages; the shared server highlighter reuses grammars.
+  const languages = [...markdown.matchAll(/^\s*(`{3,}|~{3,})([\w+-]+)/gm)]
+    .map(match => match[2]!).filter(language => language in bundledLanguages);
+  const highlighter = languages.length ? await getSingletonHighlighter({
+    themes: ["github-light", "github-dark"],
+    langs: languages as (keyof typeof bundledLanguages)[],
+  }) : undefined;
   return (
     <div className={cn("prose prose-zinc dark:prose-invert prose-yoryon max-w-none", className)}>
       <ReactMarkdown
         remarkPlugins={[remarkCjkFriendly, remarkDirective, remarkMediaDirectives]}
         components={
           {
+            code: ({ className, children, node: _node, ...props }) => {
+              const language = /(?:^|\s)language-([\w+-]+)/.exec(className ?? "")?.[1];
+              const source = String(children ?? "");
+              if (!language || !highlighter || !(language in bundledLanguages)) {
+                return <code className={className} {...props}>{children}</code>;
+              }
+              const tokens = highlighter.codeToTokensWithThemes(source, {
+                lang: language as keyof typeof bundledLanguages,
+                themes: { light: "github-light", dark: "github-dark" },
+              });
+              return <code className={`${className} syntax-highlight`} {...props}>
+                {tokens.map((line, index) => <span key={index}>
+                  {index > 0 ? "\n" : null}
+                  {line.map((token, tokenIndex) => <span key={tokenIndex} style={{
+                    "--syntax-light": token.variants?.light?.color,
+                    "--syntax-dark": token.variants?.dark?.color,
+                  } as CSSProperties}>{token.content}</span>)}
+                </span>)}
+              </code>;
+            },
             img: ({ src, alt, ...props }) => {
               const size = mediaSizes ? mediaSizes[mediaIdFromSrc(src) ?? ""] : undefined;
               const id = mediaIdFromSrc(src);

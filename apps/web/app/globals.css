@@ -61,3 +61,34 @@ body {
 .prose-yoryon :where(code)::after {
   content: none;
 }
+
+/* Notion 风格行内代码；pre 内代码继续由 Typography 管理。 */
+.prose-yoryon :where(code):not(:where(pre *, [class~="not-prose"], [class~="not-prose"] *)) {
+  color: #eb5757;
+  background-color: #f3f2f1;
+  font-weight: 400;
+  border-radius: 4px;
+  padding: 0.15em 0.35em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.dark .prose-yoryon :where(code):not(:where(pre *, [class~="not-prose"], [class~="not-prose"] *)) {
+  color: #ff7b72;
+  background-color: #303030;
+}
+
+/* Both highlighted and plain code blocks follow the site's class-based theme. */
+.prose-yoryon pre {
+  color: #24292e;
+  background-color: #f6f8fa;
+}
+.dark .prose-yoryon pre {
+  color: #e1e4e8;
+  background-color: #24292e;
+}
+.prose-yoryon .syntax-highlight span {
+  color: var(--syntax-light, inherit);
+}
+.dark .prose-yoryon .syntax-highlight span {
+  color: var(--syntax-dark, inherit);
+}
