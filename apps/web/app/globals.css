@@ -49,6 +49,8 @@ body {
 /* 中文排印调优（ADR-0005 §8.3） */
 .prose-yoryon {
   line-height: 1.8;
+  /* Long source URLs wrap; preformatted code retains its own scrolling area. */
+  overflow-wrap: anywhere;
 }
 .prose-yoryon :where(p):not(:where([class~="not-prose"] *)) {
   margin-top: 1em;
