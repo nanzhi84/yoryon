@@ -1,0 +1,22 @@
+{
+  "id": "9839e3c1-3a04-4ada-8c76-a358e26aeecb",
+  "type": "article",
+  "slug": "cachefix-target",
+  "title": "缓存修复验收目标",
+  "description": "",
+  "visibility": "public",
+  "publishedAt": "2026-10-11T00:00:00.000Z",
+  "updatedAt": "2026-10-12T14:02:20.919Z",
+  "revision": "3dc5ba82-cd9f-4612-8c3a-c90fc0f28752",
+  "access": "full",
+  "hasPaidContent": false,
+  "coverMediaId": null,
+  "tags": [],
+  "collections": [],
+  "media": [],
+  "bodyMarkdown": {
+    "length": 125,
+    "contains_paid_marker": true,
+    "preview_head": "公开段落一。这是免费预览范围内的内容。\n\n公开段落二。这是免费预览范围内的内容。\n\n<!-- 剩余部分为付费内容 -->"
+  }
+}

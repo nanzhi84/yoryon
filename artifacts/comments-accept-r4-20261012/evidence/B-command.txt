@@ -1,0 +1,1 @@
+{"result":"PASS","heldLiked":{"liked":["a4100000-0000-4000-8000-000000000001"]},"method":"DELETE","sql":[{"id":"a4100000-0000-4000-8000-000000000001","like_count":0,"current_user_likes":0}]}

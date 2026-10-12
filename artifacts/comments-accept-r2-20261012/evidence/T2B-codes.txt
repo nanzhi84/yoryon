@@ -1,0 +1,22 @@
+LIKE1:200
+LIKE2:200
+DEL2:200
+DEL1:409
+LIKE3:404
+DEL3:409
+DEL4:409
+DEL5:409
+LIKE4:404
+LIKE5:404
+like1: {"ok":true,"likeCount":1}
+like2: {"ok":true,"likeCount":1}
+like3: {"error":{"code":"not_found","message":"评论不存在或已删除"}}
+like4: {"error":{"code":"not_found","message":"评论不存在或已删除"}}
+like5: {"error":{"code":"not_found","message":"评论不存在或已删除"}}
+del1: {"error":{"code":"already_deleted","message":"评论已删除"}}
+del2: {"ok":true}
+del3: {"error":{"code":"already_deleted","message":"评论已删除"}}
+del4: {"error":{"code":"already_deleted","message":"评论已删除"}}
+del5: {"error":{"code":"already_deleted","message":"评论已删除"}}
+t|1
+1|f

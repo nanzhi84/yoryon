@@ -1,0 +1,1 @@
+pnpm cli publish <abs path> OK（首次相对路径 posts/paid-post 因 cwd 失败，重试绝对路径成功）

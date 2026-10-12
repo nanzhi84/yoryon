@@ -1,0 +1,6 @@
+0|0
+yoryon-review-pg
+Before teardown: contents=0, cache_events=0 (query above).
+Stopped API4439, Next3139; secondary Next3140 already stopped.
+Removed dedicated PostgreSQL container; no volume mounted.
+Removed local .env, synthetic shared fetch cache and temporary media directory.

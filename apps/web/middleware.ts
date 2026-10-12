@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { imageMiddleware } from "./lib/image-middleware";
 
 /** Middleware 先于共享正文缓存；revision key 隔离生成竞态，失败关闭。
- * 门禁只取单进程 API 的内存策略，不触发正文/权益读取和每请求 DB 查询。
+ * 门禁通过 API 读取数据库当前 revision；不读取正文，不依赖缓存事件投递成功。
  */
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;

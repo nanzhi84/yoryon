@@ -33,7 +33,7 @@ export function authMiddleware(db: Database) {
     const publicLine =
       /^\/api\/(?:public\/|feed$|paid-feed$|tags$|tags\/|collections$|sitemap$|cache\/|analytics\/events$)/.test(path) ||
       ((c.req.method === "GET" || c.req.method === "HEAD") &&
-        /^\/api\/(?:contents\/[^/]+\/comments|comments\/[0-9a-fA-F-]{36}\/(?:replies|locate))$/.test(path));
+        /^\/api\/(?:contents\/[^/]+\/comments)$/.test(path));
     if (publicLine) { await next(); return; }
     const header = c.req.header("authorization");
     if (header?.startsWith("Bearer ")) {

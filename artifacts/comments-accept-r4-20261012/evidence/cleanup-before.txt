@@ -1,0 +1,21 @@
+  slug   |  status   |                  id                  
+---------+-----------+--------------------------------------
+ r4-free | published | cd410b5a-7623-43e6-9a6d-f704f372b442
+(1 row)
+
+ comments 
+----------
+       44
+(1 row)
+
+ username  | status 
+-----------+--------
+ r4_reader | active
+ r4_actor  | active
+(2 rows)
+
+ notifications 
+---------------
+            46
+(1 row)
+

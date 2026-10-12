@@ -1,10 +1,11 @@
 "use client";
 
 /** 通知列表（Issue #14）：分页、标记已读、全部已读、评论锚点定位；全部私有 no-store。 */
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import type { NotificationItem, NotificationListResponse } from "@/lib/types";
+import { notifyNotificationsChanged } from "@/lib/notification-events";
 
 function fmtTime(iso: string): string {
   return new Date(iso).toLocaleString("zh-CN", { timeZone: "Asia/Singapore", hour12: false });
@@ -18,54 +19,127 @@ export function NotificationList() {
   const [paging, setPaging] = useState(false);
   const [error, setError] = useState(false);
   const [actionError, setActionError] = useState(false);
+  const [reading, setReading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [refreshError, setRefreshError] = useState(false);
+  const readRequest = useRef(false);
+  const pageRequest = useRef(false);
+  const generation = useRef(0);
+  const pageCursor = useRef<{ value: string | null; generation: number } | null>(null);
+  // 列表代次可由刷新重新创建，不能代替组件生命周期；卸载后任何响应都不得导航。
+  const lifecycle = useRef<symbol | null>(null);
+  const isActive = useCallback((scope: symbol | null) => scope !== null && lifecycle.current === scope, []);
 
+  /** 重载后只接受新列表序列；每页的 readAt 始终来自服务端，不推断 UPDATE 的可见范围。 */
   const load = useCallback(async (cursor: string | null) => {
-    const res = await fetch(`/api/notifications${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`, { cache: "no-store", credentials: "same-origin" });
-    if (res.status === 401) {
-      router.replace("/login?returnTo=%2Fnotifications");
-      return;
+    const scope = lifecycle.current;
+    if (!isActive(scope)) return;
+    const owner = pageCursor.current;
+    const current = cursor ? owner?.generation : ++generation.current;
+    if (current === undefined || current !== generation.current || (cursor && owner?.value !== cursor)) return;
+    if (!cursor) {
+      pageCursor.current = null;
+      setNextCursor(null);
+      setRefreshing(true);
+      setRefreshError(false);
     }
-    if (!res.ok) throw new Error(String(res.status));
-    const data = (await res.json()) as NotificationListResponse;
-    setItems((prev) => (cursor ? [...prev, ...data.items] : data.items));
-    setNextCursor(data.nextCursor);
-  }, [router]);
+    try {
+      const res = await fetch(`/api/notifications${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`, {
+        cache: "no-store", credentials: "same-origin", signal: AbortSignal.timeout(15_000),
+      });
+      if (!isActive(scope) || current !== generation.current) return;
+      if (res.status === 401) {
+        router.replace("/login?returnTo=%2Fnotifications");
+        return;
+      }
+      if (!res.ok) throw new Error(String(res.status));
+      const data = await res.json() as NotificationListResponse;
+      if (!isActive(scope) || current !== generation.current) return;
+      pageCursor.current = { value: data.nextCursor, generation: current };
+      setItems((prev) => isActive(scope) && current === generation.current ? (cursor ? [...prev, ...data.items] : data.items) : prev);
+      setNextCursor(data.nextCursor);
+    } catch (error) {
+      if (!isActive(scope) || current !== generation.current) return;
+      if (!cursor) setRefreshError(true);
+      throw error;
+    } finally {
+      if (isActive(scope) && !cursor && current === generation.current) setRefreshing(false);
+    }
+  }, [router, isActive]);
 
   useEffect(() => {
+    const scope = Symbol("notification-list");
+    lifecycle.current = scope;
+    readRequest.current = false;
+    pageRequest.current = false;
+    setReading(false);
+    setPaging(false);
     (async () => {
       setLoading(true);
       setError(false);
       try {
         await load(null);
       } catch {
-        setError(true);
+        if (isActive(scope)) setError(true);
       } finally {
-        setLoading(false);
+        if (isActive(scope)) setLoading(false);
       }
     })();
-  }, [load]);
+    return () => {
+      lifecycle.current = null;
+      generation.current++;
+      pageCursor.current = null;
+    };
+  }, [load, isActive]);
 
   async function markRead(item: NotificationItem) {
-    if (!item.readAt) {
-      // 乐观更新 + 失败回滚
-      setItems((prev) => prev.map((x) => (x.id === item.id ? { ...x, readAt: new Date().toISOString() } : x)));
-      const res = await fetch(`/api/notifications/${item.id}/read`, { method: "PATCH", credentials: "same-origin" }).catch(() => null);
-      if (!res?.ok) {
-        setItems((prev) => prev.map((x) => (x.id === item.id ? { ...x, readAt: null } : x)));
-        setActionError(true);
-        return;
+    const scope = lifecycle.current;
+    if (!isActive(scope) || readRequest.current) return;
+    readRequest.current = true;
+    setReading(true);
+    setActionError(false);
+    try {
+      if (!item.readAt) {
+        const res = await fetch(`/api/notifications/${item.id}/read`, { method: "PATCH", credentials: "same-origin", signal: AbortSignal.timeout(15_000) });
+        if (!isActive(scope)) return;
+        if (!res.ok) throw new Error(String(res.status));
+        setItems((prev) => isActive(scope) ? prev.map((x) => x.id === item.id ? { ...x, readAt: x.readAt ?? new Date().toISOString() } : x) : prev);
+        notifyNotificationsChanged();
+      }
+      if (isActive(scope) && item.link) router.push(item.link);
+    } catch {
+      if (isActive(scope)) setActionError(true);
+    } finally {
+      if (isActive(scope)) {
+        readRequest.current = false;
+        setReading(false);
       }
     }
-    if (item.link) router.push(item.link);
   }
 
   async function readAll() {
-    const backup = items;
-    setItems((prev) => prev.map((x) => ({ ...x, readAt: x.readAt ?? new Date().toISOString() })));
-    const res = await fetch("/api/notifications/read-all", { method: "POST", credentials: "same-origin" }).catch(() => null);
-    if (!res?.ok) {
-      setItems(backup);
-      setActionError(true);
+    const scope = lifecycle.current;
+    if (!isActive(scope) || readRequest.current) return;
+    readRequest.current = true;
+    setReading(true);
+    setActionError(false);
+    let updated = false;
+    try {
+      const res = await fetch("/api/notifications/read-all", { method: "POST", credentials: "same-origin", signal: AbortSignal.timeout(15_000) });
+      if (!isActive(scope)) return; // POST 可在服务端完成，但卸载后不再启动 GET 或导航。
+      if (!res.ok) throw new Error(String(res.status));
+      updated = true;
+      notifyNotificationsChanged();
+      // 成功后从首页重读权威状态，作废旧页；之后才提交的通知仍按服务端显示未读。
+      // POST 失败不触碰列表/游标；GET 刷新失败单独提示并允许只重试读取。
+      await load(null);
+    } catch {
+      if (isActive(scope) && !updated) setActionError(true);
+    } finally {
+      if (isActive(scope)) {
+        readRequest.current = false;
+        setReading(false);
+      }
     }
   }
 
@@ -88,9 +162,19 @@ export function NotificationList() {
           操作失败，请重试。
         </p>
       )}
+      {refreshing && <p role="status" className="mb-3 text-sm text-muted-foreground">正在刷新通知…</p>}
+      {refreshError && (
+        <p role="alert" className="mb-3 text-sm text-red-500">
+          通知列表刷新失败。
+          <button className="underline" disabled={reading || refreshing} onClick={() => {
+            const scope = lifecycle.current;
+            void load(null).catch(() => { if (isActive(scope)) setRefreshError(true); });
+          }}>重试刷新</button>
+        </p>
+      )}
       <div className="mb-4 flex justify-end">
-        <Button variant="outline" size="sm" onClick={() => void readAll()}>
-          全部标为已读
+        <Button variant="outline" size="sm" disabled={reading || refreshing} onClick={() => void readAll()}>
+          {reading ? "处理中…" : "全部标为已读"}
         </Button>
       </div>
       <ul className="divide-y divide-border">
@@ -99,6 +183,7 @@ export function NotificationList() {
             <button
               type="button"
               onClick={() => void markRead(n)}
+              disabled={reading || refreshing}
               className={`block w-full py-3 text-left ${n.link ? "" : "cursor-default"}`}
             >
               <span className="flex items-baseline justify-between gap-4">
@@ -119,11 +204,18 @@ export function NotificationList() {
           <Button
             variant="outline"
             size="sm"
-            disabled={paging}
+            disabled={paging || refreshing}
             onClick={() => {
-              if (paging) return;
+              const scope = lifecycle.current;
+              if (!isActive(scope) || pageRequest.current) return;
+              pageRequest.current = true;
               setPaging(true);
-              void load(nextCursor).catch(() => {}).finally(() => setPaging(false));
+              void load(nextCursor).catch(() => { if (isActive(scope)) setActionError(true); }).finally(() => {
+                if (isActive(scope)) {
+                  pageRequest.current = false;
+                  setPaging(false);
+                }
+              });
             }}
           >
             {paging ? "加载中…" : "加载更多"}

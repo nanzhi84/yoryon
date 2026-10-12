@@ -1,0 +1,28 @@
+    current_database    |                                                          version                                                           
+------------------------+----------------------------------------------------------------------------------------------------------------------------
+ yoryon_accept_comments | PostgreSQL 16.15 (Debian 16.15-1.pgdg13+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+(1 row)
+
+  table_name   | column_name | datetime_precision | column_default 
+---------------+-------------+--------------------+----------------
+ comments      | created_at  |                  6 | now()
+ notifications | created_at  |                  6 | now()
+(2 rows)
+
+ id |                               hash                               |  created_at   
+----+------------------------------------------------------------------+---------------
+  1 | c5f9eb107f524d96416d586d9d9ac953ed059383602ef398725988acaa2c7566 | 1791655080601
+  2 | 8996b2847f23388802df3c8c9b8995b238a33dcbe5ce32da2071c1d7f17db629 | 1791684271076
+  3 | 0bac3e96c74233e9d1ceec593ede7f81171445c109bea5e28316137d0d260c93 | 1791723226245
+  4 | 2ce3e34ad9c4bfa5a9db1697bb6a92d31eb5c6650d192c56f2c97171e9e226d4 | 1791789134292
+  5 | abc21a32ac77aebdac1267a3f07e4f38f8121c0c72344d4f42189b58d163f341 | 1791789567749
+  6 | d976c32100a6eae5856454f3838c9cd7b77ebc6fd7d52ec253ccb000a13947b8 | 1791811056565
+  7 | 21c112260bdb150f050e1487df1f407b8d2930dcb365409e8c8eb5fb3a9e655f | 1791814042027
+(7 rows)
+
+   slug   |  status   | visibility 
+----------+-----------+------------
+ cmt-free | published | public
+ cmt-paid | published | paid
+(2 rows)
+

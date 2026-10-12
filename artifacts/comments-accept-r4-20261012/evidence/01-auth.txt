@@ -1,0 +1,42 @@
+{
+  "result": "PASS",
+  "receipts": [
+    {
+      "step": "register",
+      "username": "r4_reader",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "step": "verify-email",
+      "username": "r4_reader",
+      "status": 200,
+      "user": "r4_reader"
+    },
+    {
+      "step": "login",
+      "username": "r4_reader",
+      "status": 200,
+      "user": "r4_reader"
+    },
+    {
+      "step": "register",
+      "username": "r4_actor",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "step": "verify-email",
+      "username": "r4_actor",
+      "status": 200,
+      "user": "r4_actor"
+    },
+    {
+      "step": "login",
+      "username": "r4_actor",
+      "status": 200,
+      "user": "r4_actor"
+    }
+  ],
+  "secretStorage": "0600 /tmp only; values omitted"
+}

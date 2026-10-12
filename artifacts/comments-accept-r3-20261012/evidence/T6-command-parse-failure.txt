@@ -1,0 +1,2 @@
+首次 T6 一次性 node --input-type=module heredoc 的检查结果对象键使用了未加引号的 503KeptAllItems，Node 解析报 SyntaxError: Invalid or unexpected token，退出 1。没有启动 Chromium、没有读写通知业务数据。
+Supervisor 明确允许仅将该临时键改为 failureKeptAllItems，同一 Playwright 机制执行尚未开展的 T6。未创建固定测试程序/未改实现/未切换机制。

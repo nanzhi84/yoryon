@@ -1,5 +1,5 @@
 {
-  "id": "8a58e201-46c0-4939-98ef-8caa33f2b318",
+  "id": "0c970b14-8d43-4b1a-a293-1b1714865969",
   "prevId": "bf0fd3a2-b24e-4bde-b670-aeffe9141857",
   "version": "7",
   "dialect": "postgresql",
@@ -597,20 +597,7 @@
           "name": "content_id",
           "type": "uuid",
           "primaryKey": false,
-          "notNull": false
-        },
-        "question_id": {
-          "name": "question_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "target_kind": {
-          "name": "target_kind",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'content'"
+          "notNull": true
         },
         "user_id": {
           "name": "user_id",
@@ -645,10 +632,10 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp with time zone",
+          "type": "timestamp (3) with time zone",
           "primaryKey": false,
           "notNull": true,
-          "default": "now()"
+          "default": "date_trunc('milliseconds', now())"
         },
         "deleted_at": {
           "name": "deleted_at",
@@ -663,45 +650,6 @@
           "columns": [
             {
               "expression": "content_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "like_count",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "created_at",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "comments_question_roots_idx": {
-          "name": "comments_question_roots_idx",
-          "columns": [
-            {
-              "expression": "question_id",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
@@ -778,19 +726,6 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "comments_question_id_member_questions_id_fk": {
-          "name": "comments_question_id_member_questions_id_fk",
-          "tableFrom": "comments",
-          "tableTo": "member_questions",
-          "columnsFrom": [
-            "question_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
         "comments_user_id_users_id_fk": {
           "name": "comments_user_id_users_id_fk",
           "tableFrom": "comments",
@@ -838,10 +773,6 @@
         "comments_like_count_nonneg": {
           "name": "comments_like_count_nonneg",
           "value": "\"comments\".\"like_count\" >= 0"
-        },
-        "comments_target_xor": {
-          "name": "comments_target_xor",
-          "value": "(\"comments\".\"target_kind\" = 'content' and \"comments\".\"content_id\" is not null and \"comments\".\"question_id\" is null) or (\"comments\".\"target_kind\" = 'question' and \"comments\".\"question_id\" is not null and \"comments\".\"content_id\" is null)"
         }
       },
       "isRLSEnabled": false
@@ -1480,153 +1411,6 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.member_questions": {
-      "name": "member_questions",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "month_key": {
-          "name": "month_key",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "question": {
-          "name": "question",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "answer": {
-          "name": "answer",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "visibility": {
-          "name": "visibility",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'public'"
-        },
-        "status": {
-          "name": "status",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'pending'"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "answered_at": {
-          "name": "answered_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "member_questions_user_month_unique": {
-          "name": "member_questions_user_month_unique",
-          "columns": [
-            {
-              "expression": "user_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "month_key",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": true,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "member_questions_public_flow_idx": {
-          "name": "member_questions_public_flow_idx",
-          "columns": [
-            {
-              "expression": "visibility",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "status",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "updated_at",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "member_questions_user_id_users_id_fk": {
-          "name": "member_questions_user_id_users_id_fk",
-          "tableFrom": "member_questions",
-          "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
     "public.notifications": {
       "name": "notifications",
       "schema": "",
@@ -1668,12 +1452,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "question_id": {
-          "name": "question_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
-        },
         "event_id": {
           "name": "event_id",
           "type": "uuid",
@@ -1682,10 +1460,10 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp with time zone",
+          "type": "timestamp (3) with time zone",
           "primaryKey": false,
           "notNull": true,
-          "default": "now()"
+          "default": "date_trunc('milliseconds', now())"
         },
         "read_at": {
           "name": "read_at",
@@ -2046,18 +1824,6 @@
           "notNull": true,
           "default": "'pending'"
         },
-        "display_name": {
-          "name": "display_name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "avatar_media_id": {
-          "name": "avatar_media_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
-        },
         "created_at": {
           "name": "created_at",
           "type": "timestamp with time zone",
@@ -2105,21 +1871,7 @@
           "with": {}
         }
       },
-      "foreignKeys": {
-        "users_avatar_media_id_media_assets_id_fk": {
-          "name": "users_avatar_media_id_media_assets_id_fk",
-          "tableFrom": "users",
-          "tableTo": "media_assets",
-          "columnsFrom": [
-            "avatar_media_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
+      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {},

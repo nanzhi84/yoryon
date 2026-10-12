@@ -1,0 +1,4 @@
+首次 T3 一次性 node --input-type=module heredoc 在 page.evaluate 尾部多出分号/右括号，Node 解析报 SyntaxError: missing ) after argument list，退出 1；未启动 Chromium、未访问 Web。
+2026-10-12 supervisor 明确允许只修正临时命令语法、同一 Playwright 机制执行。未创建脚本/修改源码/切换机制。
+错误位置：临时命令第 10 行 page.evaluate(({root,target}) => {...return {...}};}, {root,target});
+修正：page.evaluate(({root,target}) => {...return {...};}, {root,target});

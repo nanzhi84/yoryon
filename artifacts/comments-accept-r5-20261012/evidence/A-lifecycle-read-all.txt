@@ -1,0 +1,27 @@
+{"at":"2026-10-12T16:57:48.763Z","kind":"request","method":"GET","path":"/login","document":true,"time":1791824268763}
+{"at":"2026-10-12T16:57:48.834Z","kind":"request","method":"GET","path":"/api/notifications/unread-count","document":false,"time":1791824268834}
+{"at":"2026-10-12T16:57:48.839Z","kind":"response","method":"GET","path":"/api/notifications/unread-count","status":401}
+{"at":"2026-10-12T16:57:48.902Z","kind":"request","method":"POST","path":"/api/auth/login","document":false,"time":1791824268902}
+{"at":"2026-10-12T16:57:48.938Z","kind":"response","method":"POST","path":"/api/auth/login","status":200}
+{"at":"2026-10-12T16:57:48.939Z","kind":"request","method":"GET","path":"/notifications","document":true,"time":1791824268939}
+{"at":"2026-10-12T16:57:48.954Z","kind":"request","method":"GET","path":"/api/notifications/unread-count","document":false,"time":1791824268954}
+{"at":"2026-10-12T16:57:48.955Z","kind":"request","method":"GET","path":"/api/notifications","document":false,"time":1791824268955}
+{"at":"2026-10-12T16:57:48.962Z","kind":"response","method":"GET","path":"/api/notifications/unread-count","status":200}
+{"at":"2026-10-12T16:57:48.969Z","kind":"response","method":"GET","path":"/api/notifications","status":200}
+{"at":"2026-10-12T16:57:48.988Z","kind":"request","method":"GET","path":"/api/auth/me","document":false,"time":1791824268988}
+{"at":"2026-10-12T16:57:48.994Z","kind":"response","method":"GET","path":"/api/auth/me","status":200}
+{"at":"2026-10-12T16:57:48.995Z","step":"real-Web-login","status":200,"me":{"status":200,"username":"r5_reader"},"unreadDOM":3}
+{"at":"2026-10-12T16:57:49.019Z","kind":"request","method":"POST","path":"/api/notifications/read-all","document":false,"time":1791824269019}
+{"at":"2026-10-12T16:57:49.027Z","step":"route.fetch-real-POST-completed","status":200,"method":"POST","bodyRead":false}
+{"at":"2026-10-12T16:57:49.030Z","step":"server-success-before-response-release","status":200,"sql":[{"id":"a5200000-0000-4000-8000-000000000001","read_at":"2026-10-12T16:57:49.025Z"},{"id":"a5200000-0000-4000-8000-000000000002","read_at":"2026-10-12T16:57:49.025Z"},{"id":"a5200000-0000-4000-8000-000000000003","read_at":"2026-10-12T16:57:49.025Z"}],"buttonProcessing":true}
+{"at":"2026-10-12T16:57:49.074Z","kind":"request","method":"GET","path":"/api/notifications/unread-count","document":false,"time":1791824269074}
+{"at":"2026-10-12T16:57:49.076Z","kind":"request","method":"POST","path":"/api/auth/logout","document":false,"time":1791824269076}
+{"at":"2026-10-12T16:57:49.080Z","kind":"response","method":"GET","path":"/api/notifications/unread-count","status":200}
+{"at":"2026-10-12T16:57:49.081Z","kind":"response","method":"POST","path":"/api/auth/logout","status":200}
+{"at":"2026-10-12T16:57:49.082Z","kind":"request","method":"GET","path":"/api/auth/me","document":false,"time":1791824269082}
+{"at":"2026-10-12T16:57:49.085Z","kind":"response","method":"GET","path":"/api/auth/me","status":401}
+{"at":"2026-10-12T16:57:49.086Z","step":"SPA-home-then-real-same-origin-logout","url":"http://localhost:3103/","documentPreserved":true,"documentNavigations":[],"logoutStatus":200,"authMeStatus":401,"homeDOM":1}
+{"at":"2026-10-12T16:57:49.086Z","step":"original-response-delivered"}
+{"at":"2026-10-12T16:57:49.086Z","kind":"response","method":"POST","path":"/api/notifications/read-all","status":200}
+{"at":"2026-10-12T16:57:50.598Z","step":"late-success-final","url":"http://localhost:3103/","homeDOM":1,"notificationPageHeading":0,"sameDocument":true,"newNotificationGETs":[],"networkAfterRelease":[],"sql":[{"id":"a5200000-0000-4000-8000-000000000001","read_at":"2026-10-12T16:57:49.025Z"},{"id":"a5200000-0000-4000-8000-000000000002","read_at":"2026-10-12T16:57:49.025Z"},{"id":"a5200000-0000-4000-8000-000000000003","read_at":"2026-10-12T16:57:49.025Z"}],"observationMs":1500}
+{"at":"2026-10-12T16:57:50.635Z","result":"PASS","assertion":"Server already read all; released success starts no list GET and no login redirect after SPA unmount/logout."}

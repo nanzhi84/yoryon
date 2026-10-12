@@ -1,0 +1,20 @@
+{
+    "items": [
+        {
+            "id": "67dc6c87-d3e7-437c-b8d1-20dd770cf975",
+            "parentId": "dc7a207d-a9ef-4b92-8193-1aa1d9e77a11",
+            "deleted": false,
+            "body": "R2-T5 A\u7684\u56de\u590d",
+            "likeCount": 0,
+            "createdAt": "2026-10-12T15:08:59.010Z",
+            "author": {
+                "username": "acc_u2"
+            },
+            "replyTo": {
+                "id": "dc7a207d-a9ef-4b92-8193-1aa1d9e77a11",
+                "username": "acc_u1"
+            }
+        }
+    ],
+    "nextCursor": null
+}

@@ -324,7 +324,7 @@ export const comments = pgTable(
     replyToId: uuid("reply_to_id").references((): any => comments.id),
     body: text("body").notNull(),
     likeCount: integer("like_count").notNull().default(0),
-    createdAt: timestamp("created_at", { withTimezone: true, mode: "date" }).notNull().defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true, mode: "date", precision: 3 }).notNull().default(sql`date_trunc('milliseconds', now())`),
     deletedAt: timestamp("deleted_at", { withTimezone: true, mode: "date" }),
   },
   (t) => [
@@ -340,6 +340,12 @@ export const comments = pgTable(
     ),
   ],
 );
+
+/** 根评论排序版本：作品和会员问答分别维护，触发器负责同事务推进。 */
+export const commentFeedVersions = pgTable("comment_feed_versions", {
+  contentId: uuid("content_id").primaryKey().references(() => contents.id, { onDelete: "cascade" }),
+  version: bigint("version", { mode: "bigint" }).notNull().default(sql`0`),
+});
 
 /** 评论点赞：(comment_id,user_id) 唯一防双赞；计数在事务内维护。 */
 export const commentLikes = pgTable(
@@ -379,7 +385,7 @@ export const notifications = pgTable(
     questionId: uuid("question_id"),
     /** 幂等键：同一互动事件重复插入由唯一索引拒绝 */
     eventId: uuid("event_id").notNull(),
-    createdAt: timestamp("created_at", { withTimezone: true, mode: "date" }).notNull().defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true, mode: "date", precision: 3 }).notNull().default(sql`date_trunc('milliseconds', now())`),
     readAt: timestamp("read_at", { withTimezone: true, mode: "date" }),
   },
   (t) => [
@@ -407,7 +413,7 @@ export const memberQuestions = pgTable(
     answer: text("answer"),
     visibility: text("visibility", { enum: ["public", "private"] }).notNull().default("public"),
     status: text("status", { enum: ["pending", "answered", "hidden"] }).notNull().default("pending"),
-    createdAt: timestamp("created_at", { withTimezone: true, mode: "date" }).notNull().defaultNow(),
+    createdAt: timestamp("created_at", { withTimezone: true, mode: "date", precision: 3 }).notNull().default(sql`date_trunc('milliseconds', now())`),
     answeredAt: timestamp("answered_at", { withTimezone: true, mode: "date" }),
     /** 最近活动排序键：提问/回答/新评论时更新 */
     updatedAt: timestamp("updated_at", { withTimezone: true, mode: "date" }).notNull().defaultNow(),

@@ -5,9 +5,10 @@
  * - 排序：根评论 like_count DESC, created_at DESC, id DESC；回复 created_at ASC, id ASC。游标与排序同一全序。
  */
 import { Hono } from "hono";
+import { bodyLimit } from "hono/body-limit";
 import { and, asc, desc, eq, gt, inArray, isNull, lt, or, sql, type SQL } from "drizzle-orm";
 import { z } from "zod";
-import { comments, commentLikes, contents, users } from "@yoryon/db";
+import { comments, commentFeedVersions, commentLikes, contents, users } from "@yoryon/db";
 import {
   COMMENT_BODY_MAX,
   COMMENT_PAGE_SIZE,
@@ -28,19 +29,22 @@ import { checkRate } from "./auth";
 const uuidRe = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
 
 /** 根评论游标：(likeCount, createdAt, id) 与 ORDER BY 同一全序。id 必须合法 UUID，否则在进入 SQL 前拒绝。 */
-interface RootCursor { l: number; t: Date; id: string }
+interface RootCursor { l: number; t: Date; id: string; contentId: string; version: string }
 
-function encodeRootCursor(l: number, t: Date, id: string): string {
-  return Buffer.from(JSON.stringify({ l, t: t.toISOString(), id }), "utf8").toString("base64url");
+function encodeRootCursor(l: number, t: Date, id: string, contentId: string, version: string): string {
+  return Buffer.from(JSON.stringify({ l, t: t.toISOString(), id, contentId, version }), "utf8").toString("base64url");
 }
 function decodeRootCursor(raw: string | undefined): RootCursor | null {
   if (!raw) return null;
   try {
-    const v = JSON.parse(Buffer.from(raw, "base64url").toString("utf8")) as { l?: unknown; t: string; id: string };
+    if (raw.length > 1024) return null;
+    const v = JSON.parse(Buffer.from(raw, "base64url").toString("utf8")) as Partial<Record<keyof RootCursor, unknown>>;
+    if (typeof v.t !== "string") return null;
     const t = new Date(v.t);
     if (typeof v.l !== "number" || !Number.isInteger(v.l) || v.l < 0 || v.l > 2147483647) return null;
     if (Number.isNaN(t.getTime()) || typeof v.id !== "string" || !uuidRe.test(v.id)) return null;
-    return { l: v.l, t, id: v.id };
+    if (typeof v.contentId !== "string" || !uuidRe.test(v.contentId) || typeof v.version !== "string" || !/^\d{1,19}$/.test(v.version)) return null;
+    return { l: v.l, t, id: v.id, contentId: v.contentId, version: v.version };
   } catch {
     return null;
   }
@@ -99,68 +103,78 @@ export function commentRoutes(deps: AppDeps) {
   /** 根评论列表（公开；不读 session；公开缓存可 revalidate）。已取消发布作品不公开评论。 */
   app.get("/contents/:slug/comments", async (c) => {
     const slug = c.req.param("slug");
-    const contentRows = await deps.db
-      .select({ id: contents.id })
-      .from(contents)
-      .where(and(eq(contents.slug, slug), eq(contents.status, "published")))
-      .limit(1);
-    const content = contentRows[0];
-    if (!content) return errorResponse(c, 404, "not_found", "内容不存在");
-
     const rawCursor = c.req.query("cursor");
     const cursor = decodeRootCursor(rawCursor);
     if (rawCursor && !cursor) return errorResponse(c, 400, "invalid_cursor", "分页游标无效");
+    // 版本、排序和 DTO 读取同一数据库快照；排序变化后旧游标明确失效，不能静默漏项。
+    const result = await deps.db.transaction(async (tx) => {
+      const contentRows = await tx
+        .select({ id: contents.id })
+        .from(contents)
+        .where(and(eq(contents.slug, slug), eq(contents.status, "published")))
+        .limit(1);
+      const content = contentRows[0];
+      if (!content) return { kind: "not_found" } as const;
+      const [feed] = await tx.select({ version: commentFeedVersions.version }).from(commentFeedVersions).where(eq(commentFeedVersions.contentId, content.id));
+      const version = String(feed?.version ?? 0n);
+      if (cursor && cursor.contentId !== content.id) return { kind: "invalid_cursor" } as const;
+      if (cursor && cursor.version !== version) return { kind: "cursor_stale" } as const;
 
-    // created_at 由应用层以毫秒精度写入（packages/core/comments.ts），排序/过滤直接用原列，索引可用
-    const keyset = cursor
-      ? (or(
-          lt(comments.likeCount, cursor.l),
-          and(eq(comments.likeCount, cursor.l), lt(comments.createdAt, cursor.t)),
-          and(eq(comments.likeCount, cursor.l), eq(comments.createdAt, cursor.t), lt(comments.id, cursor.id)),
-        ) as SQL)
-      : undefined;
+      // created_at 由应用层以毫秒精度写入（packages/core/comments.ts），排序/过滤直接用原列，索引可用
+      const keyset = cursor
+        ? (or(
+            lt(comments.likeCount, cursor.l),
+            and(eq(comments.likeCount, cursor.l), lt(comments.createdAt, cursor.t)),
+            and(eq(comments.likeCount, cursor.l), eq(comments.createdAt, cursor.t), lt(comments.id, cursor.id)),
+          ) as SQL)
+        : undefined;
 
-    const rows = await deps.db
-      .select()
-      .from(comments)
-      .where(and(eq(comments.contentId, content.id), isNull(comments.parentId), keyset))
-      .orderBy(desc(comments.likeCount), desc(comments.createdAt), desc(comments.id))
-      .limit(COMMENT_PAGE_SIZE + 1);
-    const page = rows.slice(0, COMMENT_PAGE_SIZE);
-
-    const [totalRows, replyCountRows, authorMap] = await Promise.all([
-      deps.db
-        .select({ count: sql<number>`count(*)::int` })
+      const rows = await tx
+        .select()
         .from(comments)
-        .where(and(eq(comments.contentId, content.id), isNull(comments.parentId))),
-      page.length
-        ? deps.db
-            .select({ parentId: comments.parentId, count: sql<number>`count(*)::int` })
-            .from(comments)
-            .where(inArray(comments.parentId, page.map((r) => r.id)))
-            .groupBy(comments.parentId)
-        : Promise.resolve([] as { parentId: string | null; count: number }[]),
-      loadAuthorMap(deps.db, page.map((r) => r.userId)),
-    ]);
+        .where(and(eq(comments.contentId, content.id), isNull(comments.parentId), keyset))
+        .orderBy(desc(comments.likeCount), desc(comments.createdAt), desc(comments.id))
+        .limit(COMMENT_PAGE_SIZE + 1);
+      const page = rows.slice(0, COMMENT_PAGE_SIZE);
 
-    const last = page[page.length - 1];
+      const [totalRows, replyCountRows, authorMap] = await Promise.all([
+        tx
+          .select({ count: sql<number>`count(*)::int` })
+          .from(comments)
+          .where(and(eq(comments.contentId, content.id), isNull(comments.parentId))),
+        page.length
+          ? tx
+              .select({ parentId: comments.parentId, count: sql<number>`count(*)::int` })
+              .from(comments)
+              .where(inArray(comments.parentId, page.map((r) => r.id)))
+              .groupBy(comments.parentId)
+          : Promise.resolve([] as { parentId: string | null; count: number }[]),
+        loadAuthorMap(tx, page.map((r) => r.userId)),
+      ]);
+
+      const last = page[page.length - 1];
+      return { kind: "ok", data: {
+        items: page.map((r) => {
+          const deleted = r.deletedAt !== null;
+          return {
+            id: r.id,
+            deleted,
+            body: deleted ? null : r.body,
+            likeCount: deleted ? 0 : r.likeCount,
+            createdAt: r.createdAt.toISOString(),
+            author: deleted ? null : { username: authorMap.get(r.userId) ?? "用户" },
+            replyCount: replyCountRows.find((x) => x.parentId === r.id)?.count ?? 0,
+          };
+        }),
+        total: totalRows[0]?.count ?? 0,
+        nextCursor: rows.length > COMMENT_PAGE_SIZE && last ? encodeRootCursor(last.likeCount, last.createdAt, last.id, content.id, version) : null,
+      } } as const;
+    }, { isolationLevel: "repeatable read", accessMode: "read only" });
+    if (result.kind === "not_found") return errorResponse(c, 404, "not_found", "内容不存在");
+    if (result.kind === "invalid_cursor") return errorResponse(c, 400, "invalid_cursor", "分页游标无效");
+    if (result.kind === "cursor_stale") return errorResponse(c, 409, "cursor_stale", "评论排序已更新，请重新加载");
     c.header("Cache-Control", "public, max-age=0, must-revalidate");
-    return c.json({
-      items: page.map((r) => {
-        const deleted = r.deletedAt !== null;
-        return {
-          id: r.id,
-          deleted,
-          body: deleted ? null : r.body,
-          likeCount: deleted ? 0 : r.likeCount,
-          createdAt: r.createdAt.toISOString(),
-          author: deleted ? null : { username: authorMap.get(r.userId) ?? "用户" },
-          replyCount: replyCountRows.find((x) => x.parentId === r.id)?.count ?? 0,
-        };
-      }),
-      total: totalRows[0]?.count ?? 0,
-      nextCursor: rows.length > COMMENT_PAGE_SIZE && last ? encodeRootCursor(last.likeCount, last.createdAt, last.id) : null,
-    });
+    return c.json(result.data);
   });
 
   /** 回复列表（公开；按根评论分页，时间正序）。 */
@@ -282,7 +296,10 @@ export function commentRoutes(deps: AppDeps) {
   });
 
   /** 发评论/回复（登录 + 互动权益）。 */
-  app.post("/contents/:slug/comments", async (c) => {
+  app.post("/contents/:slug/comments", bodyLimit({
+    maxSize: 32 * 1024,
+    onError: (c) => errorResponse(c, 413, "payload_too_large", "评论请求体过大"),
+  }), async (c) => {
     const auth = requireAuth(c);
     if (auth instanceof Response) return auth;
     const limited = checkRate(deps, c, [

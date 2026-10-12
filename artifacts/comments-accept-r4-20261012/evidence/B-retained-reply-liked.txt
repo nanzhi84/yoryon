@@ -1,0 +1,363 @@
+{
+  "path": "B",
+  "startedAt": "2026-10-12T16:17:12.736Z",
+  "requests": [
+    {
+      "at": "2026-10-12T16:17:12.898Z",
+      "method": "GET",
+      "url": "/api/contents/r4-free/comments"
+    },
+    {
+      "at": "2026-10-12T16:17:12.899Z",
+      "method": "GET",
+      "url": "/api/contents/r4-free/comments/context"
+    },
+    {
+      "at": "2026-10-12T16:17:12.914Z",
+      "method": "GET",
+      "url": "/api/comments/liked?ids=a4000000-0000-4000-8000-000000000043,a4000000-0000-4000-8000-000000000042,a4000000-0000-4000-8000-000000000041,a4000000-0000-4000-8000-000000000040,a4000000-0000-4000-8000-000000000039,a4000000-0000-4000-8000-000000000038,a4000000-0000-4000-8000-000000000037,a4000000-0000-4000-8000-000000000036,a4000000-0000-4000-8000-000000000035,a4000000-0000-4000-8000-000000000034,a4000000-0000-4000-8000-000000000033,a4000000-0000-4000-8000-000000000032,a4000000-0000-4000-8000-000000000031,a4000000-0000-4000-8000-000000000030,a4000000-0000-4000-8000-000000000029,a4000000-0000-4000-8000-000000000028,a4000000-0000-4000-8000-000000000027,a4000000-0000-4000-8000-000000000026,a4000000-0000-4000-8000-000000000025,a4000000-0000-4000-8000-000000000024"
+    },
+    {
+      "at": "2026-10-12T16:17:12.967Z",
+      "method": "GET",
+      "url": "/api/comments/a4000000-0000-4000-8000-000000000043/replies"
+    },
+    {
+      "at": "2026-10-12T16:17:12.986Z",
+      "method": "GET",
+      "url": "/api/comments/liked?ids=a4100000-0000-4000-8000-000000000001"
+    },
+    {
+      "at": "2026-10-12T16:17:13.029Z",
+      "method": "PUT",
+      "url": "/api/comments/a4000000-0000-4000-8000-000000000042/like"
+    },
+    {
+      "at": "2026-10-12T16:17:13.044Z",
+      "method": "GET",
+      "url": "/api/contents/r4-free/comments"
+    },
+    {
+      "at": "2026-10-12T16:17:13.049Z",
+      "method": "GET",
+      "url": "/api/comments/liked?ids=a4000000-0000-4000-8000-000000000042,a4000000-0000-4000-8000-000000000043,a4000000-0000-4000-8000-000000000041,a4000000-0000-4000-8000-000000000040,a4000000-0000-4000-8000-000000000039,a4000000-0000-4000-8000-000000000038,a4000000-0000-4000-8000-000000000037,a4000000-0000-4000-8000-000000000036,a4000000-0000-4000-8000-000000000035,a4000000-0000-4000-8000-000000000034,a4000000-0000-4000-8000-000000000033,a4000000-0000-4000-8000-000000000032,a4000000-0000-4000-8000-000000000031,a4000000-0000-4000-8000-000000000030,a4000000-0000-4000-8000-000000000029,a4000000-0000-4000-8000-000000000028,a4000000-0000-4000-8000-000000000027,a4000000-0000-4000-8000-000000000026,a4000000-0000-4000-8000-000000000025,a4000000-0000-4000-8000-000000000024"
+    },
+    {
+      "at": "2026-10-12T16:17:13.179Z",
+      "method": "DELETE",
+      "url": "/api/comments/a4100000-0000-4000-8000-000000000001/like"
+    }
+  ],
+  "sql": "select cm.id,cm.like_count,count(l.*)::int current_user_likes from comments cm left join comment_likes l on l.comment_id=cm.id and l.user_id=(select id from users where username='r4_reader') where cm.id='a4100000-0000-4000-8000-000000000001' group by cm.id",
+  "beforeSql": [
+    {
+      "id": "a4100000-0000-4000-8000-000000000001",
+      "like_count": 1,
+      "current_user_likes": 1
+    }
+  ],
+  "heldLiked": {
+    "status": 200,
+    "ids": [
+      "a4100000-0000-4000-8000-000000000001"
+    ],
+    "body": {
+      "liked": [
+        "a4100000-0000-4000-8000-000000000001"
+      ]
+    },
+    "capturedAt": "2026-10-12T16:17:12.995Z"
+  },
+  "beforeOtherRoot": {
+    "replyVisible": true,
+    "pressed": "false",
+    "expanded": 1
+  },
+  "freshHome": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "a4000000-0000-4000-8000-000000000042",
+          "deleted": false,
+          "body": "r4-root-42",
+          "likeCount": 1,
+          "createdAt": "2026-10-12T16:12:00.123Z",
+          "author": {
+            "username": "r4_actor"
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "a4000000-0000-4000-8000-000000000043",
+          "deleted": false,
+          "body": "r4-root-43",
+          "likeCount": 0,
+          "createdAt": "2026-10-12T16:12:00.123Z",
+          "author": {
+            "username": "r4_actor"
+          },
+          "replyCount": 1
+        },
+        {
+          "id": "a4000000-0000-4000-8000-000000000041",
+          "deleted": false,
+          "body": "r4-root-41",
+          "likeCount": 0,
+          "createdAt": "2026-10-12T16:12:00.123Z",
+          "author": {
+            "username": "r4_actor"
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "a4000000-0000-4000-8000-000000000040",
+          "deleted": false,
+          "body": "r4-root-40",
+          "likeCount": 0,
+          "createdAt": "2026-10-12T16:12:00.123Z",
+          "author": {
+            "username": "r4_actor"
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "a4000000-0000-4000-8000-000000000039",
+          "deleted": false,
+          "body": "r4-root-39",
+          "likeCount": 0,
+          "createdAt": "2026-10-12T16:12:00.123Z",
+          "author": {
+            "username": "r4_actor"
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "a4000000-0000-4000-8000-000000000038",
+          "deleted": false,
+          "body": "r4-root-38",
+          "likeCount": 0,
+          "createdAt": "2026-10-12T16:12:00.123Z",
+          "author": {
+            "username": "r4_actor"
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "a4000000-0000-4000-8000-000000000037",
+          "deleted": false,
+          "body": "r4-root-37",
+          "likeCount": 0,
+          "createdAt": "2026-10-12T16:12:00.123Z",
+          "author": {
+            "username": "r4_actor"
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "a4000000-0000-4000-8000-000000000036",
+          "deleted": false,
+          "body": "r4-root-36",
+          "likeCount": 0,
+          "createdAt": "2026-10-12T16:12:00.123Z",
+          "author": {
+            "username": "r4_actor"
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "a4000000-0000-4000-8000-000000000035",
+          "deleted": false,
+          "body": "r4-root-35",
+          "likeCount": 0,
+          "createdAt": "2026-10-12T16:12:00.123Z",
+          "author": {
+            "username": "r4_actor"
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "a4000000-0000-4000-8000-000000000034",
+          "deleted": false,
+          "body": "r4-root-34",
+          "likeCount": 0,
+          "createdAt": "2026-10-12T16:12:00.123Z",
+          "author": {
+            "username": "r4_actor"
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "a4000000-0000-4000-8000-000000000033",
+          "deleted": false,
+          "body": "r4-root-33",
+          "likeCount": 0,
+          "createdAt": "2026-10-12T16:12:00.123Z",
+          "author": {
+            "username": "r4_actor"
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "a4000000-0000-4000-8000-000000000032",
+          "deleted": false,
+          "body": "r4-root-32",
+          "likeCount": 0,
+          "createdAt": "2026-10-12T16:12:00.123Z",
+          "author": {
+            "username": "r4_actor"
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "a4000000-0000-4000-8000-000000000031",
+          "deleted": false,
+          "body": "r4-root-31",
+          "likeCount": 0,
+          "createdAt": "2026-10-12T16:12:00.123Z",
+          "author": {
+            "username": "r4_actor"
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "a4000000-0000-4000-8000-000000000030",
+          "deleted": false,
+          "body": "r4-root-30",
+          "likeCount": 0,
+          "createdAt": "2026-10-12T16:12:00.123Z",
+          "author": {
+            "username": "r4_actor"
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "a4000000-0000-4000-8000-000000000029",
+          "deleted": false,
+          "body": "r4-root-29",
+          "likeCount": 0,
+          "createdAt": "2026-10-12T16:12:00.123Z",
+          "author": {
+            "username": "r4_actor"
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "a4000000-0000-4000-8000-000000000028",
+          "deleted": false,
+          "body": "r4-root-28",
+          "likeCount": 0,
+          "createdAt": "2026-10-12T16:12:00.123Z",
+          "author": {
+            "username": "r4_actor"
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "a4000000-0000-4000-8000-000000000027",
+          "deleted": false,
+          "body": "r4-root-27",
+          "likeCount": 0,
+          "createdAt": "2026-10-12T16:12:00.123Z",
+          "author": {
+            "username": "r4_actor"
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "a4000000-0000-4000-8000-000000000026",
+          "deleted": false,
+          "body": "r4-root-26",
+          "likeCount": 0,
+          "createdAt": "2026-10-12T16:12:00.123Z",
+          "author": {
+            "username": "r4_actor"
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "a4000000-0000-4000-8000-000000000025",
+          "deleted": false,
+          "body": "r4-root-25",
+          "likeCount": 0,
+          "createdAt": "2026-10-12T16:12:00.123Z",
+          "author": {
+            "username": "r4_actor"
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "a4000000-0000-4000-8000-000000000024",
+          "deleted": false,
+          "body": "r4-root-24",
+          "likeCount": 0,
+          "createdAt": "2026-10-12T16:12:00.123Z",
+          "author": {
+            "username": "r4_actor"
+          },
+          "replyCount": 0
+        }
+      ],
+      "total": 43,
+      "nextCursor": "eyJsIjowLCJ0IjoiMjAyNi0xMC0xMlQxNjoxMjowMC4xMjNaIiwiaWQiOiJhNDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMjQifQ"
+    }
+  },
+  "afterOtherRoot": {
+    "replyVisible": true,
+    "expanded": true,
+    "rootIds": [
+      "a4000000-0000-4000-8000-000000000042",
+      "a4000000-0000-4000-8000-000000000043",
+      "a4000000-0000-4000-8000-000000000041",
+      "a4000000-0000-4000-8000-000000000040",
+      "a4000000-0000-4000-8000-000000000039",
+      "a4000000-0000-4000-8000-000000000038",
+      "a4000000-0000-4000-8000-000000000037",
+      "a4000000-0000-4000-8000-000000000036",
+      "a4000000-0000-4000-8000-000000000035",
+      "a4000000-0000-4000-8000-000000000034",
+      "a4000000-0000-4000-8000-000000000033",
+      "a4000000-0000-4000-8000-000000000032",
+      "a4000000-0000-4000-8000-000000000031",
+      "a4000000-0000-4000-8000-000000000030",
+      "a4000000-0000-4000-8000-000000000029",
+      "a4000000-0000-4000-8000-000000000028",
+      "a4000000-0000-4000-8000-000000000027",
+      "a4000000-0000-4000-8000-000000000026",
+      "a4000000-0000-4000-8000-000000000025",
+      "a4000000-0000-4000-8000-000000000024"
+    ],
+    "sql": [
+      {
+        "id": "a4100000-0000-4000-8000-000000000001",
+        "like_count": 1,
+        "current_user_likes": 1
+      }
+    ]
+  },
+  "releasedAt": "2026-10-12T16:17:13.063Z",
+  "afterRelease": {
+    "pressed": "true",
+    "label": "取消点赞"
+  },
+  "nextClick": {
+    "method": "DELETE",
+    "status": 200,
+    "body": {
+      "ok": true,
+      "likeCount": 0
+    }
+  },
+  "final": {
+    "pressed": "false",
+    "sql": [
+      {
+        "id": "a4100000-0000-4000-8000-000000000001",
+        "like_count": 0,
+        "current_user_likes": 0
+      }
+    ]
+  },
+  "result": "PASS",
+  "finishedAt": "2026-10-12T16:17:13.265Z"
+}

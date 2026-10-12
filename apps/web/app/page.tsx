@@ -1,4 +1,4 @@
-import { publicFetch } from "@/lib/api";
+import { fetchCatalog } from "@/lib/public-catalog";
 import type { FeedResponse } from "@/lib/types";
 import { FeedTimeline } from "@/components/feed-timeline";
 import { SiteHeader } from "@/components/site-header";
@@ -7,15 +7,11 @@ import { AnalyticsListProvider } from "@/components/analytics";
 
 const revalidateSec = Number(process.env.FEED_REVALIDATE_SEC ?? 86400);
 
-async function getFeed(): Promise<FeedResponse> {
-  const res = await publicFetch("/api/feed", { revalidate: revalidateSec, tags: ["feed"] });
-  if (!res.ok) throw new Error(`feed API ${res.status}`);
-  return await res.json() as FeedResponse;
-}
-
 /** 首页：纯内容信息流（合集为顶层结构，仅在 /c 列表展示，不混入 feed）。容器宽度由 layout 统一控制。 */
 export default async function HomePage() {
-  const feed = await getFeed();
+  const res = await fetchCatalog("/api/feed", { revalidate: revalidateSec, tags: ["feed"] });
+  if (!res.ok) throw new Error(`feed API ${res.status}`);
+  const feed = await res.json() as FeedResponse;
   const items = feed?.items ?? [];
 
   return (

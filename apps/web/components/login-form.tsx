@@ -9,6 +9,7 @@ interface ApiError {
   error?: { code?: string; message?: string };
 }
 
+import { notifyNotificationsChanged } from "@/lib/notification-events";
 import { safeReturnTo } from "@/lib/navigation";
 
 export function LoginForm({ returnTo }: { returnTo?: string | null }) {
@@ -34,6 +35,7 @@ export function LoginForm({ returnTo }: { returnTo?: string | null }) {
         return;
       }
       // 硬导航：登录后需要完整重建服务端渲染状态（Cookie 已种）；returnTo 经站内校验
+      notifyNotificationsChanged();
       window.location.assign(target);
     } catch {
       setError("网络错误，请重试");

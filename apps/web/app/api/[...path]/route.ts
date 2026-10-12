@@ -42,7 +42,7 @@ async function proxy(req: NextRequest): Promise<Response> {
   const hasBody = req.method !== "GET" && req.method !== "HEAD";
   let bodyText: string | Uint8Array<ArrayBuffer> | null = null;
   if (hasBody) {
-    bodyText = path === "/api/me/avatar" ? await readBodyBytesCapped(req, 2 * 1024 * 1024) : isAnalyticsIngest ? await readBodyCapped(req, ANALYTICS_MAX_BODY_BYTES) : await req.text();
+    bodyText = path === "/api/me/avatar" ? await readBodyBytesCapped(req, 2 * 1024 * 1024) : await readBodyCapped(req, ANALYTICS_MAX_BODY_BYTES);
     if (bodyText === null) {
       return NextResponse.json({ error: { code: "payload_too_large", message: "请求体过大" } }, { status: 413 });
     }
