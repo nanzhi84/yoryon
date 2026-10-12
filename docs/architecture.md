@@ -16,7 +16,7 @@
 ```
 
 - 平台不碰支付：收款在第三方平台完成，站内只做激活码兑换与权益校验。
-- v1 不含：评论、点赞、关注、推荐、站内支付、自动续费、Web 管理后台（管理操作全部由 CLI 承担）。
+- v1 不含：关注、推荐、站内支付、自动续费、Web 管理后台（管理操作全部由 CLI 承担）。
 - 内容类型：文章（Markdown，可组合嵌入图片/视频/音频）、图片、视频、音频，均有独立 URL。
 - 付费预览策略（按内容独立配置）：全文公开 / 百分比预览 / 自定义截断标记 / 完全付费。
 
@@ -118,7 +118,7 @@ sessions(
 )
 
 contents(
-  id uuid pk, type text not null check (type in ('article','image','video','audio')),
+  id uuid pk, type text not null check (type in ('article','post')),
   slug text unique not null, title text not null, description text not null default '',
   body_markdown text not null default '',
   status text not null default 'draft' check (status in ('draft','published')),
@@ -127,7 +127,7 @@ contents(
   preview_percent int check (preview_percent between 1 and 99),
   cover_media_id uuid references media_assets,
   published_at timestamptz, created_at timestamptz, updated_at timestamptz,
-  is_pinned boolean not null default false   -- 首页置顶（仅 article，CLI 管理；仅影响 /api/feed 排序）
+  is_pinned boolean not null default false   -- 首页置顶（post/article，CLI 管理；仅影响 /api/feed 排序）
 )
 create index on contents (status, published_at desc);
 
@@ -547,7 +547,11 @@ published_at: 2026-01-01
 
 使用隔离数据库、配置与存储，记录 PASS / FAIL / UNVERIFIED / UNKNOWN 和未覆盖项。工件放入 `artifacts/<运行名>/`，留存版本、实际命令、环境与必要脱敏证据；不新增可执行测试程序。构建、HTTP 成功或历史报告不能单独证明业务通过。
 
-## 14. ADR 索引
+## 14. 帖子、长文与互动
+
+作品阅读形态为 post/article：帖子首页可折叠展开，长文进入详情阅读全文；媒体按 Markdown 编排顺序展示，作品引用使用稳定 ID，公开卡片仅返回目标当前允许的摘要。发布、缓存依赖、迁移与失败边界见 [ADR-0012](adr/0012-post-article-references.md)。两种详情沿用同一评论、回复、点赞与站内通知领域；会员问答是独立领域，不伪装为作品。
+
+## 15. ADR 索引
 
 | 编号 | 决策 | 状态 |
 |---|---|---|

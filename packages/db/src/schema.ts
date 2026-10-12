@@ -77,7 +77,7 @@ export const contents = pgTable(
   "contents",
   {
     id: uuid("id").primaryKey().defaultRandom(),
-    type: text("type", { enum: ["article", "image", "video", "audio"] }).notNull(),
+    type: text("type", { enum: ["article", "post"] }).notNull(),
     slug: text("slug").notNull(),
     title: text("title").notNull(),
     description: text("description").notNull().default(""),
@@ -89,7 +89,7 @@ export const contents = pgTable(
     previewPercent: integer("preview_percent"),
     coverMediaId: uuid("cover_media_id").references((): any => mediaAssets.id),
     publishedAt: timestamp("published_at", { withTimezone: true, mode: "date" }),
-    /** 首页置顶：仅 article 可置顶（CLI 校验）；仅影响 /api/feed 排序，不参与发布 upsert，重新发布保留。 */
+    /** 首页置顶：post/article 共用；重新发布保留。 */
     isPinned: boolean("is_pinned").notNull().default(false),
     ...timestamps,
   },
@@ -97,8 +97,21 @@ export const contents = pgTable(
     uniqueIndex("contents_slug_unique").on(t.slug),
     index("contents_status_published_at_idx").on(t.status, t.publishedAt),
     check("contents_preview_percent_range", sql`${t.previewPercent} between 1 and 99`),
+    check("contents_type_check", sql`${t.type} in ('article', 'post')`),
+    check("contents_article_title_check", sql`${t.type} <> 'article' or length(trim(${t.title})) > 0`),
   ],
 );
+
+/** referencedId 保留目标身份；删除目标仅清空 FK，不级联删除引用作品。 */
+export const contentReferences = pgTable("content_references", {
+  contentId: uuid("content_id").notNull().references(() => contents.id, { onDelete: "cascade" }),
+  referencedId: uuid("referenced_id").notNull(),
+  targetId: uuid("target_id").references(() => contents.id, { onDelete: "set null" }),
+}, t => [
+  primaryKey({ columns: [t.contentId, t.referencedId] }),
+  index("content_references_target_idx").on(t.referencedId),
+  check("content_references_no_self", sql`${t.contentId} <> ${t.referencedId}`),
+]);
 
 export const mediaAssets = pgTable(
   "media_assets",

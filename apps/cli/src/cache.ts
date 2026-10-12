@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { contents } from "@yoryon/db";
-import { associations, contentTargets, deliverCacheEvents, enqueueCacheEvent, acquirePublishGcLock } from "@yoryon/core";
+import { associations, contentTargets, deliverCacheEvents, enqueueCacheEvent, acquirePublishGcLock, invalidateReferrers } from "@yoryon/core";
 import { getContext, withLockClient } from "./context";
 
 type Tx = Parameters<Parameters<ReturnType<typeof getContext>["db"]["transaction"]>[0]>[0];
@@ -25,6 +25,7 @@ export async function mutateContent(slug: string, remove: boolean) {
         const rows = await tx.select({ id: contents.id }).from(contents).where(eq(contents.slug, slug));
         if (!rows[0]) throw new Error(`内容不存在: ${slug}`);
         const old = await associations(tx, rows[0].id);
+        await invalidateReferrers(tx, rows[0].id);
         if (remove) await tx.delete(contents).where(eq(contents.slug, slug));
         else await tx.update(contents).set({ status: "draft", updatedAt: new Date() }).where(eq(contents.slug, slug));
         await enqueueCacheEvent(tx, contentTargets(slug, old.tags, old.collections), slug);

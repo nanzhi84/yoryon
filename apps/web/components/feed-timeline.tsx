@@ -3,12 +3,11 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { TrackClickLink, TrackImpression } from "@/components/analytics";
 import type { CollectionListItem, FeedContentItem, FeedItem } from "@/lib/types";
+import { PostEntry } from "./post-entry";
 
 export const TYPE_LABEL: Record<FeedContentItem["type"], string> = {
-  article: "文章",
-  image: "图集",
-  video: "视频",
-  audio: "音频",
+  article: "长文",
+  post: "帖子",
 };
 
 export function formatDate(iso: string | null): string {
@@ -25,7 +24,7 @@ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem
           <div className="flex min-w-0 items-baseline gap-2">
             <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="min-w-0">
               <h2 className="truncate text-lg font-medium leading-snug group-hover:underline underline-offset-4">
-                {item.title}
+                {item.title || `${TYPE_LABEL[item.type]} · ${formatDate(item.publishedAt)}`}
               </h2>
             </TrackClickLink>
             {showPinnedBadge && item.isPinned && (
@@ -36,7 +35,7 @@ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem
           </div>
           <time className="shrink-0 text-sm text-muted-foreground">{formatDate(item.publishedAt)}</time>
         </div>
-        {item.coverMediaId && (
+        {item.type === "article" && item.coverMediaId && (
           <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="mt-3 block">
             {/* 受控比例容器（明确的 UI 裁切选择）+ 加载前占位，消除封面 CLS（F08） */}
             <div className="aspect-video w-full overflow-hidden rounded-lg bg-muted">
@@ -45,7 +44,7 @@ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem
             </div>
           </TrackClickLink>
         )}
-      {item.description && <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{item.description}</p>}
+      {item.type === "post" ? <PostEntry item={item} /> : item.description && <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{item.description}</p>}
       <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
         <span>{TYPE_LABEL[item.type]}</span>
         {item.visibility === "paid" && <Badge variant="secondary">付费</Badge>}

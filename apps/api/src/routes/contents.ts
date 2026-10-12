@@ -4,6 +4,7 @@ import { and, desc, eq, inArray, lt, or, sql, type SQL } from "drizzle-orm";
 import { collectionItems, collections, contents, contentMedia, contentTags, mediaAssets, tags, type Content } from "@yoryon/db";
 import { canAccess, canAccessMany, truncateForPreview } from "@yoryon/core";
 import { loadContentDetail } from "./content-detail";
+import { postFeedBodies } from "./post-feed";
 import type { PublicPolicy } from "../public-policy";
 import type { AppDeps } from "../deps";
 import { errorResponse } from "../errors";
@@ -116,6 +117,7 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
           .where(inArray(contentTags.contentId, pageIds))
       : [];
 
+    const postBodies = await postFeedBodies(tx, page.filter(r => r.type === "post").map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
     const last = page[page.length - 1];
     c.header("Cache-Control", "public, max-age=0, must-revalidate");
     return c.json({
@@ -131,6 +133,7 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
         coverMediaId: r.coverMediaId,
         publishedAt: r.publishedAt?.toISOString() ?? null,
         isPinned: r.isPinned,
+        post: postBodies.get(r.id) ?? null,
         tags: tagRows.filter((t) => t.contentId === r.id).map((t) => ({ slug: t.slug, name: t.name })),
       })),
       // 与 tags 同一终止条件：多拉 1 条才说明有下一页
@@ -249,6 +252,7 @@ function tagKeyset(cursor: { t: Date; id: string } | null, timeCol: SQL | any, i
           .innerJoin(tags, eq(contentTags.tagId, tags.id))
           .where(inArray(contentTags.contentId, pageIds))
       : [];
+    const postBodies = await postFeedBodies(tx, page.filter(r => r.type === "post").map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
     const last = page[page.length - 1];
     c.header("Cache-Control", "public, max-age=0, must-revalidate");
     return c.json({
@@ -265,6 +269,7 @@ function tagKeyset(cursor: { t: Date; id: string } | null, timeCol: SQL | any, i
         coverMediaId: r.coverMediaId,
         publishedAt: r.publishedAt?.toISOString() ?? null,
         isPinned: r.isPinned,
+        post: postBodies.get(r.id) ?? null,
         tags: pageTagRows.filter((t) => t.contentId === r.id).map((t) => ({ slug: t.slug, name: t.name })),
       })),
       // 与 feed 同一终止条件：多拉 1 条才说明有下一页；标签游标维持二元格式（排序与置顶无关）

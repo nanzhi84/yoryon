@@ -8,7 +8,7 @@ export interface FeedTag {
 export interface FeedContentItem {
   kind: "content";
   id: string;
-  type: "article" | "image" | "video" | "audio";
+  type: "article" | "post";
   slug: string;
   title: string;
   description: string;
@@ -18,6 +18,7 @@ export interface FeedContentItem {
   /** 首页置顶标记（仅 feed 排序使用；标签页同一合同但排序不置顶） */
   isPinned: boolean;
   tags: FeedTag[];
+  post?: { bodyMarkdown: string; collapsed: boolean; media: Pick<ContentMediaItem, "mediaId" | "mimeType" | "width" | "height">[] } | null;
 }
 
 /** feed 仅含内容条目；合集是顶层结构，只经 /api/collections 列表曝光，不参与混排。 */
@@ -43,7 +44,7 @@ export interface ContentDetail {
   updatedAt: string;
   revision: string;
   id: string;
-  type: "article" | "image" | "video" | "audio";
+  type: "article" | "post";
   slug: string;
   title: string;
   description: string;

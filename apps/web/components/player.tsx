@@ -82,6 +82,8 @@ function useRefreshableSource(mediaId: string) {
     return () => {
       if (timerRef.current !== null) clearTimeout(timerRef.current);
       detachRef.current?.();
+      const el = mediaRef.current;
+      if (el) { el.pause(); el.removeAttribute("src"); el.load(); }
     };
   }, []);
 

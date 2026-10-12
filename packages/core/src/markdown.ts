@@ -45,7 +45,7 @@ function isImageOnlyParagraph(node: RootContent): node is Paragraph {
 
 /** 顶层块是否为媒体块（图片段或 video/audio 指令）。 */
 export function isMediaBlock(node: RootContent): boolean {
-  return isMediaDirective(node) || isImageOnlyParagraph(node);
+  return (node.type === "leafDirective" && (node as LeafDirective).name === "work") || isMediaDirective(node) || isImageOnlyParagraph(node);
 }
 
 /** 从块中提取媒体源（URL 或相对路径）。 */

@@ -21,7 +21,7 @@ export function ContentView({ initial: content }: { initial: ContentDetail }) {
             <time>{formatDate(content.publishedAt)}</time>
             {content.visibility === "paid" && <Badge variant="secondary">付费</Badge>}
           </div>
-          <h1 className="mt-2 text-3xl font-semibold leading-tight">{content.title}</h1>
+          <h1 className="mt-2 text-3xl font-semibold leading-tight">{content.title || `帖子 · ${formatDate(content.publishedAt)}`}</h1>
           {content.description && <p className="mt-3 text-muted-foreground">{content.description}</p>}
           <div className="mt-3 flex flex-wrap gap-2 text-sm text-muted-foreground">
             {content.tags.map((t) => (

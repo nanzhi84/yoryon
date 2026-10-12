@@ -3,11 +3,8 @@ import { Lock } from "lucide-react";
 import type { ContentDetail } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { MarkdownBody } from "@/components/markdown";
-import { GalleryLazy } from "./gallery-lazy";
-import { AudioFeature, VideoPlayerLazy } from "@/components/media-player";
 
 export function ContentBody({ content, publicImages = false }: { content: ContentDetail; publicImages?: boolean }) {
-  const primaryMedia = content.type !== "article" ? content.media[0] : undefined;
   /** 正文图片尺寸表（F08）：消费媒体尺寸元数据，img 预留纵横比避免加载撑开页面 */
   const mediaSizes: Record<string, { width: number; height: number; mimeType?: string }> = {};
   for (const m of content.media) {
@@ -15,24 +12,6 @@ export function ContentBody({ content, publicImages = false }: { content: Conten
   }
 
   return <>
-        {/* 主媒体（独立图片/视频/音频内容） */}
-        {content.type === "video" && primaryMedia && (
-          <div className="mt-6">
-            <VideoPlayerLazy mediaId={primaryMedia.mediaId} />
-          </div>
-        )}
-        {content.type === "audio" && primaryMedia && (
-          <div className="mt-6">
-            <AudioFeature
-              mediaId={primaryMedia.mediaId}
-              title={content.title}
-              description={content.description}
-              coverMediaId={content.coverMediaId}
-            />
-          </div>
-        )}
-        {content.type === "image" && <GalleryLazy content={content} publicImages={publicImages} />}
-
         {/* 正文（已按权益裁剪） */}
         {content.bodyMarkdown && (
           <div className="mt-8">

@@ -105,7 +105,6 @@ export function registerContentCommands(program: Command) {
       const row = rows[0];
       if (!row) throw new Error(`内容不存在: ${slug}`);
       if (pinned) {
-        if (row.type !== "article") throw new Error(`仅支持置顶 article，当前类型: ${row.type}`);
         if (row.status !== "published") throw new Error(`仅支持置顶已发布内容，当前状态: ${row.status}`);
       }
       if (row.isPinned === pinned) {
@@ -122,7 +121,7 @@ export function registerContentCommands(program: Command) {
   content
     .command("pin")
     .argument("<slug>")
-    .description("置顶已发布文章（仅 article；首页 feed 优先显示）")
+    .description("置顶已发布作品（post/article；首页 feed 优先显示）")
     .action(async (slug: string) => {
       try {
         await setPinned(slug, true);

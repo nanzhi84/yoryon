@@ -72,6 +72,9 @@ function textPrefix<T extends RootContent & { children: PhrasingContent[] }>(nod
 
 export interface TruncateOptions {
   mediaBlockWeight?: number;
+  /** Feed 篇幅限制，在权限裁剪之后使用。 */
+  maxWeight?: number;
+  maxBlocks?: number;
 }
 
 /** 核心截断函数。markdown 为已存储正文（媒体 URL 为 /api/media/<id> 形式）。 */
@@ -114,10 +117,11 @@ export function truncateForPreview(
     case "percent": {
       const p = percent ?? 0;
       const total = blocks.reduce((acc, b) => acc + blockWeight(b, markdown, mediaWeight), 0);
-      const budget = (total * p) / 100;
+      const budget = Math.min((total * p) / 100, options.maxWeight ?? Infinity);
       let acc = 0;
       let cut = 0;
       for (const b of blocks) {
+        if (cut >= (options.maxBlocks ?? Infinity)) break;
         const w = blockWeight(b, markdown, mediaWeight);
         if (acc + w <= budget) {
           acc += w;
@@ -129,7 +133,7 @@ export function truncateForPreview(
       freeBlocks = blocks.slice(0, cut);
       paidBlocks = blocks.slice(cut);
       const boundary = blocks[cut];
-      if (boundary?.type === "paragraph" || boundary?.type === "heading") {
+      if (cut < (options.maxBlocks ?? Infinity) && (boundary?.type === "paragraph" || boundary?.type === "heading")) {
         const partial = textPrefix(boundary, Math.floor(budget - acc));
         if (partial) freeBlocks.push(partial);
       }
