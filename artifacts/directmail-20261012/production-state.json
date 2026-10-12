@@ -1,0 +1,8 @@
+{
+  "mail_entry_gate_removed": true,
+  "private_media_cache_policy_preserved": true,
+  "api_health": "healthy",
+  "api_image": "yoryon-api:882221fb-prod1",
+  "checkedAt": "2026-10-12T06:05:36.871212+00:00",
+  "status": "PASS"
+}

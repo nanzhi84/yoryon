@@ -1,0 +1,33 @@
+{
+  "id": "prj_xqDwJzlRrfdQA63FIMeIsRpReaRP",
+  "name": "yoryon-web",
+  "accountId": "team_QZe9hRamSsGyB0AEDzsHIb5v",
+  "framework": "nextjs",
+  "rootDirectory": "apps/web",
+  "buildCommand": "pnpm run build",
+  "installCommand": "corepack enable && pnpm install --frozen-lockfile",
+  "nodeVersion": "24.x",
+  "serverlessFunctionRegion": "sin1",
+  "ssoProtection": {
+    "deploymentType": "all_except_custom_domains"
+  },
+  "link": {
+    "type": "github",
+    "repo": "yoryon",
+    "repoId": 1413178868,
+    "org": "nanzhi84",
+    "repoOwnerId": 85445748,
+    "gitCredentialId": "cred_78ddca043a6027ab05bb480cacd184ca4ad0e8e0",
+    "productionBranch": "main",
+    "createdAt": 1791744440768,
+    "updatedAt": 1791744440768,
+    "deployHooks": []
+  },
+  "createdAt": 1791744336993,
+  "updatedAt": 1791744609296,
+  "environmentKeys": [
+    "SITE_URL",
+    "ALLOWED_ORIGINS",
+    "FEED_REVALIDATE_SEC"
+  ]
+}

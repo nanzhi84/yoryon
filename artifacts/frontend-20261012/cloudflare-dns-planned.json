@@ -1,0 +1,89 @@
+[
+  {
+    "name": "yoryon.com",
+    "type": "MX",
+    "ttl": 600,
+    "proxied": false,
+    "priority": 5,
+    "content": "mx1.qiye.aliyun.com"
+  },
+  {
+    "name": "yoryon.com",
+    "type": "MX",
+    "ttl": 600,
+    "proxied": false,
+    "priority": 10,
+    "content": "mx2.qiye.aliyun.com"
+  },
+  {
+    "name": "yoryon.com",
+    "type": "MX",
+    "ttl": 600,
+    "proxied": false,
+    "priority": 15,
+    "content": "mx3.qiye.aliyun.com"
+  },
+  {
+    "name": "yoryon.com",
+    "type": "TXT",
+    "ttl": 600,
+    "proxied": false,
+    "content": "v=spf1 include:spf.qiye.aliyun.com ~all"
+  },
+  {
+    "name": "_github-pages-challenge-nanzhi84.yoryon.com",
+    "type": "TXT",
+    "ttl": 600,
+    "proxied": false,
+    "content": "3ecfa573e39c7dfe5271645caad8b9"
+  },
+  {
+    "name": "imap.yoryon.com",
+    "type": "CNAME",
+    "ttl": 600,
+    "proxied": false,
+    "content": "imap.qiye.aliyun.com"
+  },
+  {
+    "name": "mail.yoryon.com",
+    "type": "CNAME",
+    "ttl": 600,
+    "proxied": false,
+    "content": "qiye.aliyun.com"
+  },
+  {
+    "name": "pop3.yoryon.com",
+    "type": "CNAME",
+    "ttl": 600,
+    "proxied": false,
+    "content": "pop.qiye.aliyun.com"
+  },
+  {
+    "name": "smtp.yoryon.com",
+    "type": "CNAME",
+    "ttl": 600,
+    "proxied": false,
+    "content": "smtp.qiye.aliyun.com"
+  },
+  {
+    "name": "yoryon.com",
+    "type": "A",
+    "content": "216.198.79.1",
+    "ttl": 300,
+    "proxied": false
+  },
+  {
+    "name": "yoryon.com",
+    "type": "A",
+    "content": "64.29.17.1",
+    "ttl": 300,
+    "proxied": false
+  },
+  {
+    "name": "www.yoryon.com",
+    "type": "CNAME",
+    "content": "4201314e4d3257a5.vercel-dns-017.com",
+    "ttl": 300,
+    "proxied": false
+  }
+]

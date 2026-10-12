@@ -1,0 +1,20 @@
+{
+  "sourceCommit": "18e63b63a26bcfa202c143156bf2cb14d3ce594b",
+  "pullRequest": "https://github.com/nanzhi84/yoryon/pull/7",
+  "vercelPreviewBuild": "PASS",
+  "vercelPreviewIsProductionAcceptance": false,
+  "productionFrontendDeployment": "dpl_FiYdKw4fRVg5mFstBcGto1FLeuxi",
+  "apiStatus": "DEPLOYED_HEALTHY",
+  "productionHtmlReceiptAcceptance": "PASS",
+  "registeredEmailHtmlAndTextMime": "VERIFIED_GMAIL_INBOX",
+  "deployedApiSourceCommit": "18e63b63a26bcfa202c143156bf2cb14d3ce594b",
+  "verificationSourceCommit": "f7dcf24b2bb73835f5cd8643762f2c26ac7f40cf",
+  "verifierOnlyFollowup": true,
+  "vercelPreviewCommit": "f7dcf24b2bb73835f5cd8643762f2c26ac7f40cf",
+  "apiImage": "yoryon-api:18e63b63-prod1",
+  "productionMailChecksPassed": 36,
+  "resetEmailHtmlAndTextMime": "VERIFIED_GMAIL_INBOX",
+  "independentCleanup": "PASS",
+  "outlookAppleMailPhysicalMobile": "UNVERIFIED",
+  "checkedAt": "2026-10-12T06:42:43.941418+00:00"
+}

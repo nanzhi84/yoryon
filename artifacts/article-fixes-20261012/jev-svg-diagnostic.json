@@ -1,0 +1,74 @@
+{
+  "imageStates": [
+    {
+      "src": "/api/images/v1/79f4bf25-5447-470a-b17c-6cb6e8306c53/original",
+      "complete": true,
+      "width": 0,
+      "height": 0
+    },
+    {
+      "src": "/api/images/v1/4a27ef7a-56cc-4f68-abba-d9902d006063/original",
+      "complete": true,
+      "width": 0,
+      "height": 0
+    },
+    {
+      "src": "/api/images/v1/2e2d8d71-74d2-478c-a083-a3c40e30b106/original",
+      "complete": true,
+      "width": 0,
+      "height": 0
+    },
+    {
+      "src": "/api/images/v1/4749f220-536c-4f1a-bbc0-85ff6215267b/original",
+      "complete": true,
+      "width": 0,
+      "height": 0
+    },
+    {
+      "src": "/api/images/v1/ea564744-09e1-43cc-878a-530d90c81c80/original",
+      "complete": true,
+      "width": 0,
+      "height": 0
+    }
+  ],
+  "responses": [
+    {
+      "path": "/api/images/v1/4a27ef7a-56cc-4f68-abba-d9902d006063/original",
+      "status": 502,
+      "mime": "application/json",
+      "cache": "MISS"
+    },
+    {
+      "path": "/api/images/v1/79f4bf25-5447-470a-b17c-6cb6e8306c53/original",
+      "status": 502,
+      "mime": "application/json",
+      "cache": "MISS"
+    },
+    {
+      "path": "/api/images/v1/2e2d8d71-74d2-478c-a083-a3c40e30b106/original",
+      "status": 502,
+      "mime": "application/json",
+      "cache": "MISS"
+    },
+    {
+      "path": "/api/images/v1/4749f220-536c-4f1a-bbc0-85ff6215267b/original",
+      "status": 502,
+      "mime": "application/json",
+      "cache": "MISS"
+    },
+    {
+      "path": "/api/images/v1/ea564744-09e1-43cc-878a-530d90c81c80/original",
+      "status": 502,
+      "mime": "application/json",
+      "cache": "MISS"
+    }
+  ],
+  "errors": [],
+  "consoles": [
+    "Failed to load resource: the server responded with a status of 502 ()",
+    "Failed to load resource: the server responded with a status of 502 ()",
+    "Failed to load resource: the server responded with a status of 502 ()",
+    "Failed to load resource: the server responded with a status of 502 ()",
+    "Failed to load resource: the server responded with a status of 502 ()"
+  ]
+}

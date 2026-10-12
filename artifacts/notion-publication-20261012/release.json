@@ -1,0 +1,133 @@
+{
+  "publicationOrder": [
+    {
+      "slug": "workflow-to-agent-patterns",
+      "date": "2026-08-05"
+    },
+    {
+      "slug": "deepseek-harness",
+      "date": "2026-08-19"
+    },
+    {
+      "slug": "jev-typed-decisions",
+      "date": "2026-09-19"
+    }
+  ],
+  "allPublicFree": true,
+  "sourceFetchVerified": "three fresh bodies and edited times unchanged",
+  "sourceToDraftTextAndCode": "PASS all three",
+  "imageSourceBoundary": "Notion connector supplies block references without downloadable binary; exact matching original local asset filenames/captions used, SHA256 manifests retained; publication verifier compares OSS bytes to these originals",
+  "publicationResults": [
+    {
+      "slug": "workflow-to-agent-patterns",
+      "writingDate": "2026-08-05",
+      "publishedAt": "2026-10-12T08:37:47.365Z",
+      "elapsedMs": 12150,
+      "verified": 1,
+      "pending": false
+    },
+    {
+      "slug": "deepseek-harness",
+      "writingDate": "2026-08-19",
+      "publishedAt": "2026-10-12T08:37:59.208Z",
+      "elapsedMs": 11839,
+      "verified": 1,
+      "pending": false
+    },
+    {
+      "slug": "jev-typed-decisions",
+      "writingDate": "2026-09-19",
+      "publishedAt": "2026-10-12T08:38:10.159Z",
+      "elapsedMs": 10950,
+      "verified": 1,
+      "pending": false
+    }
+  ],
+  "issueImplementationMerge": "91fb55ee634389a777f0a8e24192559f2d72eed2",
+  "mobileLayoutMerge": "810d5f89e21d71266effc53779f9d0e2c33905ef",
+  "productionVerification": {
+    "passed": 82,
+    "failed": 0,
+    "articles": [
+      {
+        "slug": "workflow-to-agent-patterns",
+        "title": "从 Workflow 到 Agent：范式选择与构建模式",
+        "publishedAt": "2026-08-04T16:00:00.000Z",
+        "revision": "740a7004-41f8-48ad-81ac-ec567763121c",
+        "bodySha256": "7e60f52aff77fd886f9c989ac479a27f34317e828d5379388aac383c910ada19",
+        "images": 5,
+        "cache": "HIT",
+        "url": "https://yoryon.com/p/workflow-to-agent-patterns"
+      },
+      {
+        "slug": "deepseek-harness",
+        "title": "深入 DeepSeek Harness：当 Agent Loop 也成为插件",
+        "publishedAt": "2026-08-18T16:00:00.000Z",
+        "revision": "42459a9a-988e-4b8f-bc8c-2a2a41b247ce",
+        "bodySha256": "c7b54b1347848ae214e462f84d56e3161e8bc51e6ef3dd1215c97c6161b8f130",
+        "images": 6,
+        "cache": "HIT",
+        "url": "https://yoryon.com/p/deepseek-harness"
+      },
+      {
+        "slug": "jev-typed-decisions",
+        "title": "Jev 技术图解：从文本生成到类型化决策",
+        "publishedAt": "2026-09-18T16:00:00.000Z",
+        "revision": "fd4d4b83-9681-4f57-9235-940f5099f417",
+        "bodySha256": "7ed076086237378cc741ffe33ca968c2a0ffd90c9bf07d2aada2daaa3877baec",
+        "images": 5,
+        "cache": "HIT",
+        "url": "https://yoryon.com/p/jev-typed-decisions"
+      }
+    ],
+    "deployment": {
+      "id": "dpl_6kuVJrBrGEaBXADRwTd4eDiUinxB",
+      "url": "yoryon-mkjd8smla-zyy2740738166-7111s-projects.vercel.app",
+      "target": "production",
+      "readyState": "READY",
+      "alias": [
+        "yoryon.com",
+        "www.yoryon.com",
+        "yoryon-web.vercel.app",
+        "yoryon-web-zyy2740738166-7111s-projects.vercel.app",
+        "yoryon-web-git-main-zyy2740738166-7111s-projects.vercel.app"
+      ],
+      "aliasAssigned": true,
+      "sourceSha": "810d5f89e21d71266effc53779f9d0e2c33905ef"
+    }
+  },
+  "homeAndAliases": {
+    "at": "2026-10-12T08:50:12.617Z",
+    "actualHomeOrder": [
+      "jev-typed-decisions",
+      "deepseek-harness",
+      "workflow-to-agent-patterns"
+    ],
+    "expectedNewestWritingDateFirst": [
+      "jev-typed-decisions",
+      "deepseek-harness",
+      "workflow-to-agent-patterns"
+    ],
+    "homeOrderPass": true,
+    "aliases": [
+      {
+        "slug": "jev-typed-decisions",
+        "status": 200,
+        "canonicalRoot": true,
+        "hasFullHtml": true
+      },
+      {
+        "slug": "deepseek-harness",
+        "status": 200,
+        "canonicalRoot": true,
+        "hasFullHtml": true
+      },
+      {
+        "slug": "workflow-to-agent-patterns",
+        "status": 200,
+        "canonicalRoot": true,
+        "hasFullHtml": true
+      }
+    ]
+  }
+}

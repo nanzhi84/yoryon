@@ -1,0 +1,53 @@
+{
+  "verifiedAt": "2026-10-12T03:28:13.403875+00:00",
+  "status": "DEPLOYED_SMTP_PENDING",
+  "applicationSourceSha": "882221fb4405a08567e746c729af5868fa2e0110",
+  "deploymentConfigCommit": "7d39e947a398db357ec3e8be7c4add8cf9ad6296",
+  "deploymentBranch": "codex/production-neon-deployment",
+  "image": "yoryon-api:882221fb-prod1",
+  "imageDigest": "sha256:bee56eeebffbff33df36460a7597916e905a31e919cb36196c9350b33df05b3e",
+  "apiUrl": "https://api.yoryon.com",
+  "plans": {
+    "Neon": "Free new organization and project",
+    "Cloudflare": "Free",
+    "Vercel": "existing Hobby team, independent yoryon-web project; no Trial"
+  },
+  "validation": {
+    "typecheck": "PASS",
+    "localE2E": {
+      "passed": 79,
+      "failed": 0
+    },
+    "productionApi": {
+      "passed": 23,
+      "failed": 0
+    },
+    "isolatedBackupRestore": "PASS",
+    "productionBrowserBff": {
+      "passed": 46,
+      "failed": 0,
+      "browser": "Chromium desktop and mobile viewport; not physical mobile",
+      "report": "production-bff-acceptance.json"
+    },
+    "realSmtpDelivery": "PENDING",
+    "publicDomains": {
+      "passed": 12,
+      "failed": 0,
+      "report": "domain-cutover.json"
+    },
+    "frontendSecretScan": "PASS: homepage HTML and 10 loaded JS assets",
+    "apiNote": "23/23 from earlier direct API run; current 46/46 BFF/browser run includes backend flows after media cache fix"
+  },
+  "blockers": [
+    "Production SMTP service and credentials are not configured; real registration and password-reset delivery not verified"
+  ],
+  "productionRegistration": "503 mail_not_configured until SMTP verified",
+  "staticArticleIssue": "https://github.com/nanzhi84/yoryon/issues/6; not implemented by this deployment",
+  "dataCleanup": "Independent query: users/contents/media_assets/activation_codes/sessions/entitlements/redemptions all 0",
+  "newPaidPlans": false,
+  "frontendUrl": "https://yoryon.com",
+  "frontendDeploymentId": "dpl_FiYdKw4fRVg5mFstBcGto1FLeuxi",
+  "frontendDeploymentStatus": "READY/PROMOTED",
+  "deploymentConfigPublished": false,
+  "mediaCacheFix": "Production Caddy overrides /api/media/* as private,no-store; project CDN purged; public-to-paid new request returns 403/MISS"
+}

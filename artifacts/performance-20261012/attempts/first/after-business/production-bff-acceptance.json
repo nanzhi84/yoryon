@@ -1,0 +1,67 @@
+{
+  "startedAt": "2026-10-12T07:57:02.508Z",
+  "target": "https://yoryon.com",
+  "run": "acceptance-1791791822507-558293",
+  "checks": [
+    {
+      "name": "server_cli_publish_two_articles",
+      "status": "PASS"
+    },
+    {
+      "name": "anonymous_public_full_body",
+      "status": "PASS"
+    },
+    {
+      "name": "anonymous_paid_body_hidden",
+      "status": "PASS"
+    },
+    {
+      "name": "anonymous_paid_media_denied",
+      "status": "PASS"
+    },
+    {
+      "name": "public_media_redirect_rechecks_authorization",
+      "status": "PASS"
+    },
+    {
+      "name": "signed_media_https_origin",
+      "status": "PASS"
+    },
+    {
+      "name": "signed_media_range_206",
+      "status": "PASS"
+    },
+    {
+      "name": "signed_media_ttl_bounded",
+      "status": "PASS"
+    },
+    {
+      "name": "private_oss_unsigned_media_denied",
+      "status": "PASS"
+    },
+    {
+      "name": "forged_media_signature_rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "active_fixture_user_login",
+      "status": "PASS"
+    },
+    {
+      "name": "bff_secure_httponly_cookie",
+      "status": "PASS"
+    },
+    {
+      "name": "login_session_reads_current_user",
+      "status": "PASS"
+    }
+  ],
+  "smtp": "SEPARATE_REAL_MAIL_REPORT",
+  "storage": "oss",
+  "staticArticleIssue6": "SEPARATE_CACHE_PROOF_REPORT",
+  "status": "FAIL",
+  "error": "Error: execution failed; inspect protected process state",
+  "cacheCleanup": "FAIL",
+  "cleanup": "FAIL",
+  "finishedAt": "2026-10-12T08:01:52.213Z"
+}

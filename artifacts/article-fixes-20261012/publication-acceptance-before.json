@@ -1,0 +1,367 @@
+{
+  "target": "https://yoryon.com",
+  "startedAt": "2026-10-12T08:45:50.863Z",
+  "checks": [
+    {
+      "name": "workflow-to-agent-patterns: anonymous API",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: free full",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: writing date",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: exact title",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: media count",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: complete canonical Markdown",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: rendered images",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: desktop layout",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: no private full fetch",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: browser errors",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: rendered images",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: mobile layout",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: no private full fetch",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: browser errors",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: static SEO",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: no persisted signed URL",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: anonymous API",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: free full",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: writing date",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: exact title",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: media count",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: complete canonical Markdown",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: rendered images",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: desktop layout",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: no private full fetch",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: browser errors",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: rendered images",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: mobile layout",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: no private full fetch",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: browser errors",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: static SEO",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: no persisted signed URL",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: anonymous API",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: free full",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: writing date",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: exact title",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: media count",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: complete canonical Markdown",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: rendered images",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: desktop layout",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: no private full fetch",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: browser errors",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: rendered images",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: mobile layout",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: no private full fetch",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: browser errors",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: static SEO",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: no persisted signed URL",
+      "status": "PASS"
+    },
+    {
+      "name": "feed newest writing date first",
+      "status": "PASS"
+    },
+    {
+      "name": "sitemap all three",
+      "status": "PASS"
+    }
+  ],
+  "articles": [
+    {
+      "slug": "workflow-to-agent-patterns",
+      "title": "从 Workflow 到 Agent：范式选择与构建模式",
+      "publishedAt": "2026-08-04T16:00:00.000Z",
+      "revision": "740a7004-41f8-48ad-81ac-ec567763121c",
+      "bodySha256": "7e60f52aff77fd886f9c989ac479a27f34317e828d5379388aac383c910ada19",
+      "images": 5,
+      "cache": "HIT",
+      "url": "https://yoryon.com/p/workflow-to-agent-patterns"
+    },
+    {
+      "slug": "deepseek-harness",
+      "title": "深入 DeepSeek Harness：当 Agent Loop 也成为插件",
+      "publishedAt": "2026-08-18T16:00:00.000Z",
+      "revision": "42459a9a-988e-4b8f-bc8c-2a2a41b247ce",
+      "bodySha256": "c7b54b1347848ae214e462f84d56e3161e8bc51e6ef3dd1215c97c6161b8f130",
+      "images": 6,
+      "cache": "HIT",
+      "url": "https://yoryon.com/p/deepseek-harness"
+    },
+    {
+      "slug": "jev-typed-decisions",
+      "title": "Jev 技术图解：从文本生成到类型化决策",
+      "publishedAt": "2026-09-18T16:00:00.000Z",
+      "revision": "fd4d4b83-9681-4f57-9235-940f5099f417",
+      "bodySha256": "7ed076086237378cc741ffe33ca968c2a0ffd90c9bf07d2aada2daaa3877baec",
+      "images": 5,
+      "cache": "HIT",
+      "url": "https://yoryon.com/p/jev-typed-decisions"
+    }
+  ],
+  "finishedAt": "2026-10-12T08:46:33.303Z"
+}

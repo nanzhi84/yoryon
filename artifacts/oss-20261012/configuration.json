@@ -1,0 +1,53 @@
+{
+  "startedAt": "2026-10-12T07:03:26.905Z",
+  "bucket": "yoryon-media-1089191161022541-sg",
+  "region": "oss-ap-southeast-1",
+  "checks": [
+    {
+      "name": "singapore_region",
+      "status": "PASS"
+    },
+    {
+      "name": "private_bucket",
+      "status": "PASS"
+    },
+    {
+      "name": "public_access_blocked",
+      "status": "PASS"
+    },
+    {
+      "name": "aes256_encryption",
+      "status": "PASS"
+    },
+    {
+      "name": "cli_upload_api_read",
+      "status": "PASS"
+    },
+    {
+      "name": "api_write_denied",
+      "status": "PASS"
+    },
+    {
+      "name": "signed_get_hash",
+      "status": "PASS"
+    },
+    {
+      "name": "unsigned_get_denied",
+      "status": "PASS"
+    },
+    {
+      "name": "cli_media_list",
+      "status": "PASS"
+    },
+    {
+      "name": "api_production_oss_configuration",
+      "status": "PASS"
+    },
+    {
+      "name": "cli_production_oss_configuration",
+      "status": "PASS"
+    }
+  ],
+  "status": "PASS",
+  "finishedAt": "2026-10-12T07:03:37.846Z"
+}

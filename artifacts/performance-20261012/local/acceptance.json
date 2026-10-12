@@ -1,0 +1,46 @@
+{
+  "sourceCommit": "8390932763146fe2a23b6dec07e408c4ab374576",
+  "runtimeIdenticalHead": "ddc7c680f2ce7c6bc055436c741a2b7d9d4e8425",
+  "runtimeIdenticalReason": "API/web/core runtime unchanged after 8390932; additional deployment safeguards, verification scripts and E2E",
+  "commands": {
+    "typecheck": "pnpm typecheck",
+    "e2e": "pnpm e2e",
+    "build": "pnpm build (webEnv + isolated API from e2e/helpers/env.ts)"
+  },
+  "results": {
+    "typecheck": "PASS",
+    "build": "PASS",
+    "e2e": {
+      "passed": 85,
+      "failed": 0,
+      "skipped": 0
+    },
+    "focusedFinalWorkerRecovery": {
+      "passed": 1,
+      "failed": 0
+    }
+  },
+  "environment": {
+    "postgres": "localhost:54329/yoryon_test",
+    "web": "localhost:3100 (Next production server)",
+    "api": "localhost:4101",
+    "media": "isolated FS",
+    "mail": "isolated Mailpit",
+    "TTL": 86400
+  },
+  "requirements": [
+    "Docker",
+    "pnpm 11.8.0",
+    "Node >=22",
+    "ffmpeg",
+    "Playwright Chromium"
+  ],
+  "evidence": "full-e2e85/index.html",
+  "notes": [
+    "Production database is never used by local E2E",
+    "Initial ordinary pnpm build without isolated API failed on unavailable/missing-migration development API; controlled isolated build passed",
+    "No unit tests were added",
+    "Full 85 E2E ran before timer cleanup in new test; final test-only timer cleanup separately passed focused test. Final controlled full build and typecheck passed."
+  ],
+  "finalHead": "ddc7c680f2ce7c6bc055436c741a2b7d9d4e8425"
+}

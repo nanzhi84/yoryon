@@ -1,0 +1,103 @@
+{
+  "startedAt": "2026-10-11T19:39:02.391Z",
+  "target": "https://api.yoryon.com",
+  "run": "acceptance-1791747542390-0323ce",
+  "checks": [
+    {
+      "name": "server_cli_publish_two_articles",
+      "status": "PASS"
+    },
+    {
+      "name": "anonymous_public_full_body",
+      "status": "PASS"
+    },
+    {
+      "name": "anonymous_paid_body_hidden",
+      "status": "PASS"
+    },
+    {
+      "name": "anonymous_paid_media_denied",
+      "status": "PASS"
+    },
+    {
+      "name": "public_media_signed_redirect",
+      "status": "PASS"
+    },
+    {
+      "name": "signed_media_https_origin",
+      "status": "PASS"
+    },
+    {
+      "name": "signed_media_range_206",
+      "status": "PASS"
+    },
+    {
+      "name": "forged_media_signature_rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "active_fixture_user_login",
+      "status": "PASS"
+    },
+    {
+      "name": "login_session_reads_current_user",
+      "status": "PASS"
+    },
+    {
+      "name": "activation_code_redeems",
+      "status": "PASS"
+    },
+    {
+      "name": "redemption_replay_idempotent",
+      "status": "PASS"
+    },
+    {
+      "name": "entitled_paid_body_readable_private",
+      "status": "PASS"
+    },
+    {
+      "name": "entitled_media_private_redirect",
+      "status": "PASS"
+    },
+    {
+      "name": "authenticated_read_does_not_leak_to_guest",
+      "status": "PASS"
+    },
+    {
+      "name": "revoked_entitlement_loses_body",
+      "status": "PASS"
+    },
+    {
+      "name": "revoked_entitlement_loses_media",
+      "status": "PASS"
+    },
+    {
+      "name": "published_edit_visible",
+      "status": "PASS"
+    },
+    {
+      "name": "public_to_paid_hides_body",
+      "status": "PASS"
+    },
+    {
+      "name": "public_to_paid_stops_new_media_signatures",
+      "status": "PASS"
+    },
+    {
+      "name": "unpublished_content_returns_404",
+      "status": "PASS"
+    },
+    {
+      "name": "logout_invalidates_session",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic_data_cleanup",
+      "status": "PASS"
+    }
+  ],
+  "smtp": "UNVERIFIED",
+  "staticArticleIssue6": "NOT_IMPLEMENTED",
+  "status": "PASS",
+  "finishedAt": "2026-10-11T19:39:55.931Z"
+}

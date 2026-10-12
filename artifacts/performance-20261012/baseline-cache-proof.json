@@ -1,0 +1,116 @@
+{
+  "phase": "baseline",
+  "run": "cacheproof-1791790917681-0df631",
+  "startedAt": "2026-10-12T07:41:57.682Z",
+  "target": "https://yoryon.com",
+  "checks": [
+    {
+      "name": "warm_read_0",
+      "status": "PASS"
+    },
+    {
+      "name": "warm_read_1",
+      "status": "PASS"
+    },
+    {
+      "name": "warm_read_2",
+      "status": "PASS"
+    },
+    {
+      "name": "warm_read_3",
+      "status": "PASS"
+    },
+    {
+      "name": "warm_read_4",
+      "status": "PASS"
+    },
+    {
+      "name": "desktop_layout",
+      "status": "PASS"
+    },
+    {
+      "name": "mobile_layout",
+      "status": "PASS"
+    }
+  ],
+  "publish": {
+    "elapsedMs": 7414,
+    "verified": 0,
+    "pending": false
+  },
+  "network": [
+    {
+      "status": 200,
+      "ms": 726.7670829999988,
+      "headers": {
+        "x-vercel-cache": "MISS",
+        "x-nextjs-cache": null,
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "x-vercel-id": "sin1::sin1::x6pmc-1791790935471-552d3f583fbc"
+      }
+    },
+    {
+      "status": 200,
+      "ms": 406.0038749999985,
+      "headers": {
+        "x-vercel-cache": "MISS",
+        "x-nextjs-cache": null,
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "x-vercel-id": "sin1::sin1::pjzd4-1791790935981-ac76a43fb683"
+      }
+    },
+    {
+      "status": 200,
+      "ms": 217.89800000000105,
+      "headers": {
+        "x-vercel-cache": "MISS",
+        "x-nextjs-cache": null,
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "x-vercel-id": "sin1::sin1::bmnch-1791790936388-398bfbffac97"
+      }
+    },
+    {
+      "status": 200,
+      "ms": 181.4561250000006,
+      "headers": {
+        "x-vercel-cache": "MISS",
+        "x-nextjs-cache": null,
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "x-vercel-id": "sin1::sin1::jng49-1791790936606-222bfb39be05"
+      }
+    },
+    {
+      "status": 200,
+      "ms": 168.78454200000124,
+      "headers": {
+        "x-vercel-cache": "MISS",
+        "x-nextjs-cache": null,
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "x-vercel-id": "sin1::sin1::b8bmh-1791790936787-1321b6d000bd"
+      }
+    }
+  ],
+  "apiDelta": {
+    "body": 5,
+    "policy": 0
+  },
+  "browser": [
+    {
+      "mobile": false,
+      "privateCalls": 0,
+      "ttfb": 200.70000004768372,
+      "lcp": 400,
+      "cls": 0,
+      "overflow": false
+    },
+    {
+      "mobile": true,
+      "privateCalls": 0,
+      "ttfb": 178.70000004768372,
+      "lcp": 368,
+      "cls": 0,
+      "overflow": false
+    }
+  ],
+  "finishedAt": "2026-10-12T07:42:21.479Z"
+}

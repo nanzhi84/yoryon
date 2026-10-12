@@ -1,0 +1,41 @@
+{
+  "checkedAt": "2026-10-12T03:19:48.834615+00:00",
+  "teamId": "team_QZe9hRamSsGyB0AEDzsHIb5v",
+  "plan": "hobby",
+  "trial": null,
+  "projectId": "prj_xqDwJzlRrfdQA63FIMeIsRpReaRP",
+  "projectName": "yoryon-web",
+  "productionDeployment": "dpl_FiYdKw4fRVg5mFstBcGto1FLeuxi",
+  "environmentKeys": [
+    {
+      "key": "BFF_SHARED_SECRET",
+      "target": [
+        "production"
+      ]
+    },
+    {
+      "key": "API_INTERNAL_URL",
+      "target": [
+        "production"
+      ]
+    },
+    {
+      "key": "FEED_REVALIDATE_SEC",
+      "target": [
+        "production"
+      ]
+    },
+    {
+      "key": "ALLOWED_ORIGINS",
+      "target": [
+        "production"
+      ]
+    },
+    {
+      "key": "SITE_URL",
+      "target": [
+        "production"
+      ]
+    }
+  ]
+}

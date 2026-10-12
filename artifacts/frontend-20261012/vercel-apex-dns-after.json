@@ -1,0 +1,44 @@
+{
+  "configuredBy": "A",
+  "nameservers": [
+    "gerardo.ns.cloudflare.com",
+    "karsyn.ns.cloudflare.com"
+  ],
+  "serviceType": "external",
+  "cnames": [],
+  "aValues": [
+    "64.29.17.1",
+    "216.198.79.1"
+  ],
+  "conflicts": [],
+  "acceptedChallenges": [
+    "http-01"
+  ],
+  "recommendedIPv4": [
+    {
+      "rank": 1,
+      "value": [
+        "216.198.79.1",
+        "64.29.17.1"
+      ]
+    },
+    {
+      "rank": 2,
+      "value": [
+        "76.76.21.21"
+      ]
+    }
+  ],
+  "recommendedCNAME": [
+    {
+      "rank": 1,
+      "value": "4201314e4d3257a5.vercel-dns-017.com."
+    },
+    {
+      "rank": 2,
+      "value": "cname.vercel-dns.com."
+    }
+  ],
+  "ipStatus": "no-change",
+  "misconfigured": false
+}

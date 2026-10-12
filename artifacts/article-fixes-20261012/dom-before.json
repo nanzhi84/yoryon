@@ -1,0 +1,111 @@
+[
+  {
+    "slug": "workflow-to-agent-patterns",
+    "prose": "构建 LLM 应用时，最常见的困惑往往出现在动手之前：这个任务到底应该写成一条固定的流水线，还是交给模型自主决策？这篇博客循序渐进地回答四个问题：Workflow 与 Agent 是什么、为什么以及何时需要它们、构建的基本块与常见形式，以及落地时还必须掌握的防护与迭代方法。\n一、Workflow 与 Agent 是什么\n这类系统统称为 agentic system，内部有一个关键区分：\n\nWorkflow（工作流）：由代码预先编排 LLM 与工具的执行路径。每一步做什么、下一步走向哪里，在开发阶段就已经确定，模型只在固定的节点上被调用。\nAgent（智能体）：由模型自己指挥执行过程。模型在循环中调用工具、观察环境返回的真实结果，再据此动态决定下一步行动，直到达成目标或触发停止条件。\n\n\n判断一个系统属于哪一类，看控制权在谁手里即可：**路径写死在代码里的是 Workflow，路径由模型在运行时决定的是 Agent。**还有一个更工程化的判据：能在关键决策点上自主选择工具、自主纠错，必要时把控制权交还给用户的系统，才算得上 Agent；只是简单封装了一次 LLM 调用的聊天机器人或分类器不算。\n二、为什么需要 Agent 或 Workflow：范式选择原则\n选择范式时只有一条总原则：先寻找最简单的可行方案。很多看起来需要 Agent 的任务，用一次精心设计的 LLM 调用（配合检索和少样本示例）就能解决；Agentic system 用延迟和成本换取更好的任务表现，这笔交易是否划算需要认真评估。\n\n展开来说，选择时可以依据三条原则：\n\n可预测性优先选 Workflow。当任务能被拆解成清晰、固定的步骤时，Workflow 提供更强的一致性，更容易调试、评估和控制成本。\n灵活性和规模化才需要 Agent。Agent 适合模糊、多步、无法预先写死路径的任务，典型的有三类场景：涉及微妙判断的复杂决策（如退款审批）、难以维护的庞大规则库（如供应商安全审查），以及重度依赖非结构化数据的流程（如理赔处理）。\n复杂度必须换来收益。如果传统自动化或简单方案已经够用，就不要引入 Agent。每增加一层编排，都要能在评估中看到可衡量的提升。\n\n三、构建的基本块与常见形式\n3.1 基本块：模型、工具、指令\n所有 agentic system 的原子单元是增强型 LLM（augmented LLM）：一个具备检索、工具和记忆能力的模型。把它拆开看，就是三个组件：模型负责推理与决策，工具连接外部系统，指令定义目标、步骤与边界。\n\n几个实践要点值得记住：\n\n模型选型上先用最强的模型跑通流程、建立性能基线，再逐步替换成小模型来优化成本与延迟；\n工具要定义清晰、文档完善、可复用，按用途可以分为读取信息的数据工具、执行动作的操作工具和调用其他 Agent 的编排工具；\n指令最好从现有的操作手册和政策文档出发，把每一步拆成明确的动作，并覆盖边界情况。\n\n3.2 Workflow 的五种形式\nWorkflow 有五种基础的构建模式，它们像积木一样可以组合与嵌套：\n\n\n提示链（Prompt Chaining）：把任务拆成固定顺序的多步，每步处理上一步的输出，步骤之间可以插入程序化检查。适合能干净拆解的任务，用延迟换准确率。\n路由（Routing）：先对输入分类，再分发给专门的下游流程。让不同类型的输入各自获得最优的提示词与模型，避免互相干扰。\n并行化（Parallelization）：分段并行处理独立的子任务，或对同一任务多次采样投票，最后汇总。适合需要多视角或高置信度的场景。\n编排者-工作者（Orchestrator-Workers）：由一个编排者模型动态拆分子任务并分派给工作者模型，最后汇总结果。与并行化的区别在于子任务无法预先枚举。\n评估者-优化者（Evaluator-Optimizer）：一个模型生成方案，另一个模型给出评估反馈，循环迭代直到达标。适合有明确评估标准、且迭代确实能带来提升的任务。\n\n3.3 Agent 的形式：从单 Agent 到多 Agent\nAgent 本身的实现出乎意料地简单：就是基本块在循环中运行，依据环境反馈决定下一步，直到完成任务或触发退出条件（如最大迭代次数）。真正的设计工作在于工具集与文档的打磨。\n\n构建 Agent 应从单 Agent 起步：一个模型带一组工具，通过新增工具和提示模板来扩展能力，复杂度可控且易于评估。\n只有当提示词里的条件分支多到难以维护、或工具彼此混淆时，才考虑拆分成多 Agent。拆分后有两种组织方式：\n\n管理者模式由一个中心 Agent 把其他 Agent 当工具调用，适合需要统一对外出口的场景；\n去中心化模式让 Agent 之间平级交接控制权，适合分诊类流程。\n\n四、其他重点：让 Agent 能被信任地运行\n从原型走向生产，还有几个环节决定 Agent 能否被信任地运行。\n\nGuardrails 防护栏：不要依赖单一防线，而应分层叠加。相关性分类器过滤跑题请求，安全分类器拦截越狱与注入，PII 过滤器保护隐私，输出校验确保回复符合品牌与政策。\n工具风险分级与人工介入：给每个工具标注风险等级，高风险操作（如退款、写库）设置额外检查。当重试次数超过上限，或即将执行不可逆操作时，把控制权移交给人。这是早期部署阶段发现隐藏失败模式的重要机制。\n工具与文档的打磨（ACI）：agent-computer interface 值得像设计人机界面一样投入。工具的参数格式要贴近模型在训练数据中常见的形式，文档要包含示例与边界说明，格式设计要让模型难以犯错。\n透明与可评估：显式展示 Agent 的规划步骤，为每一环建立评估，在沙箱中充分测试后再扩大权限。成功的实现用的都是简单、可组合的模式，而它们的共同起点",
+    "strong": [
+      "Workflow（工作流）",
+      "Agent（智能体）",
+      "先寻找最简单的可行方案",
+      "可预测性优先选 Workflow",
+      "灵活性和规模化才需要 Agent"
+    ],
+    "code": [],
+    "images": [
+      {
+        "src": "/api/media/e0cd472d-f822-4a9c-8f24-b61a9cfc8513",
+        "srcset": "/api/media/e0cd472d-f822-4a9c-8f24-b61a9cfc8513?width=320 320w, /api/media/e0cd472d-f822-4a9c-8f24-b61a9cfc8513?width=640 640w, /api/media/e0cd472d-f822-4a9c-8f24-b61a9cfc8513?width=960 960w",
+        "width": 768
+      },
+      {
+        "src": "/api/media/c951e152-f21c-48f8-b120-bbdd0656c69c",
+        "srcset": "/api/media/c951e152-f21c-48f8-b120-bbdd0656c69c?width=320 320w, /api/media/c951e152-f21c-48f8-b120-bbdd0656c69c?width=640 640w, /api/media/c951e152-f21c-48f8-b120-bbdd0656c69c?width=960 960w",
+        "width": 768
+      },
+      {
+        "src": "/api/media/56ec7733-84fb-4a16-ab8c-08fa44adc4fb",
+        "srcset": "/api/media/56ec7733-84fb-4a16-ab8c-08fa44adc4fb?width=320 320w, /api/media/56ec7733-84fb-4a16-ab8c-08fa44adc4fb?width=640 640w, /api/media/56ec7733-84fb-4a16-ab8c-08fa44adc4fb?width=960 960w",
+        "width": 768
+      },
+      {
+        "src": "/api/media/e42f869c-f2e7-4c49-a7e4-a4574bae5e37",
+        "srcset": "/api/media/e42f869c-f2e7-4c49-a7e4-a4574bae5e37?width=320 320w, /api/media/e42f869c-f2e7-4c49-a7e4-a4574bae5e37?width=640 640w, /api/media/e42f869c-f2e7-4c49-a7e4-a4574bae5e37?width=960 960w",
+        "width": 768
+      },
+      {
+        "src": "/api/media/550c026c-6ff8-401b-881c-7be597d5ba3c",
+        "srcset": "/api/media/550c026c-6ff8-401b-881c-7be597d5ba3c?width=320 320w, /api/media/550c026c-6ff8-401b-881c-7be597d5ba3c?width=640 640w, /api/media/550c026c-6ff8-401b-881c-7be597d5ba3c?width=960 960w",
+        "width": 0
+      }
+    ]
+  },
+  {
+    "slug": "jev-typed-decisions",
+    "prose": "2026.9.19\nJev 最近很火。它是 TypeSafe AI 推出的一类决策模型，专门处理这类“需要理解，但不需要生成”的任务。\n很多 AI 任务都需要模型理解复杂的自然语言，但真正需要返回给程序的结果，可能只有一个类别、一个分数，或者一个明确的真假判断。\n传统 LLM 通常会把这类问题也转化成生成任务：读取上下文，生成一段文本或 JSON，再由程序解析结果。TypeSafe AI 最近发布的 Jev 走了另一条路线。它不负责生成文本，而是接收当前状态和一组预先定义的问题，直接返回类型化的答案、概率和置信度。TypeSafe 将这一类模型称为 System One Model，希望把模型从面向人的文本生成器，变成可以直接嵌入软件控制流的决策组件。\n一、通用的决策模型\nBERT 时代已经存在大量分类模型。输入一段文本，模型将它编码成 representation，再接一个分类头输出类别。它们执行效率很高，但通常围绕具体任务训练。情感分类、意图识别、文本匹配往往需要分别准备数据和微调模型。\n随后 GPT 代表的 decoder only 模型逐渐把这些任务统一成了 generation。分类可以写成 prompt，信息抽取可以生成 JSON，判断问题可以输出 Yes 或 No。随着 instruction tuning 和上下文学习能力提升，自然语言逐渐成为了一种通用任务接口。\n这带来了巨大的灵活性。与此同时，很多原本很简单的判别任务，也被统一包装成了文本生成。虽然这解决了分类模型的通用性问题，却也带来了新的计算冗余。\n很多任务本质上只需要从几个候选答案中做出选择，模型却仍然按照生成模型的方式逐 token 解码。输入可能有几千个 token，最终真正需要的信息只有一个类别、一个分数或者一个布尔值。\n这类任务可以概括成一个特点：输入复杂，输出熵很低。\n传统 LLM 可以完成这些判断，但自回归的 generation 并不总是必要。对于一个已经被程序明确拆分出来的 decision node，如果判断所需的信息能够完整表示为显式 state，完全可以进一步将 generation 直接转化为对有限答案空间的直接判别。\nJev 所代表的就是这种思路。它在尝试重新探索一个长期缺失的位置：通用判别模型。\nBERT 时代的 classifier 很快，却缺乏任务通用性；GPT 时代的模型非常通用，却把判别任务也统一成了生成。Jev 希望保留自然语言定义任务和答案空间的能力，同时让模型直接完成 decision，从而把通用性与判别效率结合起来。\n\n二、Jev 的调用方式：State + Questions → Typed Answers\nJev 是一个通用分类器，它把这一步组织成 state + questions → typed answers：调用方提前定义问题和答案空间，直接消费分类、评分和概率。\n每次 Jev 调用主要包含两部分：state 和 questions。\nstate 表示模型当前需要理解的状态，可以包含用户消息、订单信息、业务规则、工具执行结果以及其他上下文。\nquestions 表示需要模型完成的一组判断。每个问题通过 instructions 描述判断目标，再通过 criteria 定义允许的答案及含义。\n例如，一个客服系统可以这样组织一次调用：\nresult = client.system_one(\n    state={\n        \"message\": \"订单 C-204 好像扣了两次款，请帮我处理。\",\n        \"payment_records_checked\": False,\n        \"order_status\": \"paid\",\n    },\n    questions={\n        \"team\": Choice(\n            instructions=\"这个请求应该由哪个团队处理？\",\n            criteria={\n                \"billing\": \"付款、账单或退款问题\",\n                \"technical\": \"软件故障或接口问题\",\n                \"other\": \"无法归入以上类别\",\n            },\n        ),\n        \"effort\": Score(\n            instructions=\"处理这个请求需要多少核对工作？\",\n            criteria=[\n                \"标准查询\",\n                \"需要核对多项事实\",\n                \"需要人工介入\",\n            ],\n        ),\n        \"refund_requested\": Noul(\n            instructions=\"用户是否明确要求退款？\",\n        ),\n    },\n)\n\n这里的 message、payment_records_checked 和 order_status 都是应用自行定义的业务状态，并非 Jev 预设字段。你也可以换成 user_plan、account_balance、risk_level 等任何当前判断需要的信息。三个问题共享同一份 state，分别从中读取自己需要的信息完成判断。\n\n三、Jev的三个原语\nJev 提供三种基本原语，对应三类判断任务：\n\nChoice 用于互斥分类。 预先给出若干候选项，模型必须从中选择一个。例如判断请求应由账务、技术还是其他团队处理。返回 choice 表示最终选择，prob",
+    "strong": [
+      "Jev 最近很火。它是 TypeSafe AI 推出的一类决策模型，专门处理这类“需要理解，但不需要生成”的任务。",
+      "输入复杂，输出熵很低。",
+      "通用判别模型。",
+      "Choice 用于互斥分类。",
+      "Score 用于有序评分。"
+    ],
+    "code": [
+      {
+        "text": "state + questions → typed answers",
+        "before": "\"`\"",
+        "after": "\"`\""
+      },
+      {
+        "text": "state",
+        "before": "\"`\"",
+        "after": "\"`\""
+      },
+      {
+        "text": "questions",
+        "before": "\"`\"",
+        "after": "\"`\""
+      },
+      {
+        "text": "state",
+        "before": "\"`\"",
+        "after": "\"`\""
+      },
+      {
+        "text": "questions",
+        "before": "\"`\"",
+        "after": "\"`\""
+      },
+      {
+        "text": "instructions",
+        "before": "\"`\"",
+        "after": "\"`\""
+      }
+    ],
+    "images": [
+      {
+        "src": "/api/media/79f4bf25-5447-470a-b17c-6cb6e8306c53",
+        "srcset": "/api/media/79f4bf25-5447-470a-b17c-6cb6e8306c53?width=320 320w, /api/media/79f4bf25-5447-470a-b17c-6cb6e8306c53?width=640 640w, /api/media/79f4bf25-5447-470a-b17c-6cb6e8306c53?width=960 960w",
+        "width": 960
+      },
+      {
+        "src": "/api/media/4a27ef7a-56cc-4f68-abba-d9902d006063",
+        "srcset": "/api/media/4a27ef7a-56cc-4f68-abba-d9902d006063?width=320 320w, /api/media/4a27ef7a-56cc-4f68-abba-d9902d006063?width=640 640w, /api/media/4a27ef7a-56cc-4f68-abba-d9902d006063?width=960 960w",
+        "width": 960
+      },
+      {
+        "src": "/api/media/2e2d8d71-74d2-478c-a083-a3c40e30b106",
+        "srcset": "/api/media/2e2d8d71-74d2-478c-a083-a3c40e30b106?width=320 320w, /api/media/2e2d8d71-74d2-478c-a083-a3c40e30b106?width=640 640w, /api/media/2e2d8d71-74d2-478c-a083-a3c40e30b106?width=960 960w",
+        "width": 960
+      },
+      {
+        "src": "/api/media/4749f220-536c-4f1a-bbc0-85ff6215267b",
+        "srcset": "/api/media/4749f220-536c-4f1a-bbc0-85ff6215267b?width=320 320w, /api/media/4749f220-536c-4f1a-bbc0-85ff6215267b?width=640 640w, /api/media/4749f220-536c-4f1a-bbc0-85ff6215267b?width=960 960w",
+        "width": 0
+      },
+      {
+        "src": "/api/media/ea564744-09e1-43cc-878a-530d90c81c80",
+        "srcset": "/api/media/ea564744-09e1-43cc-878a-530d90c81c80?width=320 320w, /api/media/ea564744-09e1-43cc-878a-530d90c81c80?width=640 640w, /api/media/ea564744-09e1-43cc-878a-530d90c81c80?width=960 960w",
+        "width": 0
+      }
+    ]
+  }
+]

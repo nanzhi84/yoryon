@@ -1,0 +1,90 @@
+{
+  "startedAt": "2026-10-12T03:20:12.850Z",
+  "target": "https://yoryon.com",
+  "run": "acceptance-1791775212849-7c3674",
+  "checks": [
+    {
+      "name": "server_cli_publish_two_articles",
+      "status": "PASS"
+    },
+    {
+      "name": "anonymous_public_full_body",
+      "status": "PASS"
+    },
+    {
+      "name": "anonymous_paid_body_hidden",
+      "status": "PASS"
+    },
+    {
+      "name": "anonymous_paid_media_denied",
+      "status": "PASS"
+    },
+    {
+      "name": "public_media_signed_redirect",
+      "status": "PASS"
+    },
+    {
+      "name": "signed_media_https_origin",
+      "status": "PASS"
+    },
+    {
+      "name": "signed_media_range_206",
+      "status": "PASS"
+    },
+    {
+      "name": "forged_media_signature_rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "active_fixture_user_login",
+      "status": "PASS"
+    },
+    {
+      "name": "bff_secure_httponly_cookie",
+      "status": "PASS"
+    },
+    {
+      "name": "login_session_reads_current_user",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_public_article_ssr_body",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_public_media_loaded",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_paid_wall_visible",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_guest_html_has_no_paid_body",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_mobile_no_horizontal_overflow",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_login_form_and_bff_session",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_session_cookie_secure_httponly",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic_data_cleanup",
+      "status": "PASS"
+    }
+  ],
+  "smtp": "UNVERIFIED",
+  "staticArticleIssue6": "NOT_IMPLEMENTED",
+  "browser": "Chromium desktop and mobile viewport; fresh contexts; no storage state or traces",
+  "status": "FAIL",
+  "error": "Error: execution failed; inspect protected process state",
+  "browserDiagnostic": "expect(locator).toContainText(expected) failed\n\nLocator: getByRole('alert')\nExpected substring: \"兑换成功\"\nError: strict mode violation: getByRole('alert') resolved to 2 elements:\n    1) <p role=\"alert\" class=\"text-sm text-green-600 dark:text-green-400\">兑换成功，权益已生效！</p> aka getByText('兑换成功，权益已生效！')\n    2) <div role=\"alert\" aria-live=\"assertive\" id=\"__next-route-announcer__\"></div> aka locator('[id=\"__next-route-announcer__\"]')\n\nCall log:\n  - Expect \"toContainText\" getByRole('alert') with timeout 5000ms\n  - waiting for getByRole('alert')\n",
+  "finishedAt": "2026-10-12T03:20:50.825Z"
+}

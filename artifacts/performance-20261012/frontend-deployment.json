@@ -1,0 +1,11 @@
+{
+  "id": "dpl_2oWmXAMwuG7RvqSPxkTqKGjb6yiB",
+  "url": "yoryon-mr4eu0q25-zyy2740738166-7111s-projects.vercel.app",
+  "target": "production",
+  "readyState": "READY",
+  "gitSource": null,
+  "commit": {
+    "githubCommitSha": "ea26f985161e70b54dd291669dcaabc0cccb932c",
+    "githubCommitRef": "codex/performance-and-notion-publishing"
+  }
+}

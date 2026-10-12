@@ -1,0 +1,161 @@
+{
+  "run": "smtp-1791784980234-61dd5164",
+  "startedAt": "2026-10-12T06:03:00.234Z",
+  "target": "https://yoryon.com",
+  "sender": "noreply@notify.yoryon.com",
+  "recipient": "explicitly_authorized_gmail",
+  "evidenceDirectory": "attempts/smtp-1791784980234-61dd5164",
+  "checks": [
+    {
+      "name": "recipient_has_no_existing_website_account",
+      "status": "PASS"
+    },
+    {
+      "name": "production_registration_mail_request_succeeds",
+      "status": "PASS"
+    },
+    {
+      "name": "registration_form_advances_to_email_verification",
+      "status": "PASS"
+    },
+    {
+      "name": "register_real_gmail_receipt",
+      "status": "PASS"
+    },
+    {
+      "name": "register_expected_sender",
+      "status": "PASS"
+    },
+    {
+      "name": "register_inbox_not_spam",
+      "status": "PASS"
+    },
+    {
+      "name": "register_spf_pass",
+      "status": "PASS"
+    },
+    {
+      "name": "register_dkim_pass",
+      "status": "PASS"
+    },
+    {
+      "name": "register_dmarc_pass",
+      "status": "PASS"
+    },
+    {
+      "name": "register_valid_code_shape",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong_email_code_is_rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "email_verification_activates_and_logs_in_user",
+      "status": "PASS"
+    },
+    {
+      "name": "verified_session_cookie_secure_httponly",
+      "status": "PASS"
+    },
+    {
+      "name": "used_registration_code_cannot_be_replayed",
+      "status": "PASS"
+    },
+    {
+      "name": "production_reset_mail_request_succeeds",
+      "status": "PASS"
+    },
+    {
+      "name": "reset_form_advances_to_email_verification",
+      "status": "PASS"
+    },
+    {
+      "name": "password_reset_real_gmail_receipt",
+      "status": "PASS"
+    },
+    {
+      "name": "password_reset_expected_sender",
+      "status": "PASS"
+    },
+    {
+      "name": "password_reset_inbox_not_spam",
+      "status": "PASS"
+    },
+    {
+      "name": "password_reset_spf_pass",
+      "status": "PASS"
+    },
+    {
+      "name": "password_reset_dkim_pass",
+      "status": "PASS"
+    },
+    {
+      "name": "password_reset_dmarc_pass",
+      "status": "PASS"
+    },
+    {
+      "name": "password_reset_valid_code_shape",
+      "status": "PASS"
+    },
+    {
+      "name": "reset_form_returns_to_login",
+      "status": "PASS"
+    },
+    {
+      "name": "password_reset_revokes_existing_session",
+      "status": "PASS"
+    },
+    {
+      "name": "old_password_cannot_login_after_reset",
+      "status": "PASS"
+    },
+    {
+      "name": "used_reset_code_cannot_be_replayed",
+      "status": "PASS"
+    },
+    {
+      "name": "new_password_login_succeeds",
+      "status": "PASS"
+    },
+    {
+      "name": "logout_invalidates_new_session",
+      "status": "PASS"
+    },
+    {
+      "name": "no_uncaught_browser_errors",
+      "status": "PASS"
+    },
+    {
+      "name": "temporary_account_removed",
+      "status": "PASS"
+    },
+    {
+      "name": "temporary_account_and_codes_absent",
+      "status": "PASS"
+    }
+  ],
+  "receipts": [
+    {
+      "purpose": "register",
+      "messageIdHash": "3bf51d57056c4fb95b6deb08837f79a2660a1f0ef72f2c828b909e46b9b2b376",
+      "inbox": true,
+      "spf": "PASS",
+      "dkim": "PASS",
+      "dmarc": "PASS",
+      "source": "gmail_connector"
+    },
+    {
+      "purpose": "password_reset",
+      "messageIdHash": "9cc84b967becf3d2d37e62ce48edc1eefc1712c162e530b8f03a8475efc5d6b5",
+      "inbox": true,
+      "spf": "PASS",
+      "dkim": "PASS",
+      "dmarc": "PASS",
+      "source": "gmail_connector"
+    }
+  ],
+  "status": "PASS",
+  "cleanup": "PASS",
+  "finishedAt": "2026-10-12T06:04:55.026Z"
+}

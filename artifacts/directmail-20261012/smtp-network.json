@@ -1,0 +1,11 @@
+{
+  "tested_from": "production_backend",
+  "host": "smtpdm.aliyun.com",
+  "port": 465,
+  "certificate_verified": true,
+  "protocol": "TLSv1.3",
+  "smtp_banner_ok": true,
+  "authentication": "NOT_TESTED",
+  "send": "NOT_TESTED",
+  "inbox_delivery": "NOT_TESTED"
+}

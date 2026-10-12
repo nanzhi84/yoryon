@@ -1,0 +1,27 @@
+{
+  "checkedAt": "2026-10-12T03:38:00+08:00",
+  "neon": {
+    "organizationId": "org-orange-tooth-05992030",
+    "organizationName": "Yoryon Personal",
+    "projectId": "aged-leaf-22756272",
+    "projectName": "yoryon-production",
+    "plan": "free"
+  },
+  "vercel": {
+    "teamId": "team_QZe9hRamSsGyB0AEDzsHIb5v",
+    "projectId": "prj_xqDwJzlRrfdQA63FIMeIsRpReaRP",
+    "projectName": "yoryon-web",
+    "plan": "hobby",
+    "newTeam": "BLOCKED_UI_ONLY_PRO_OR_PRO_TRIAL",
+    "fallbackApproval": "PENDING"
+  },
+  "cloudflare": {
+    "zoneId": "876891c86eddfcab51e93174e272d45e",
+    "plan": "free"
+  },
+  "aliyun": {
+    "instanceId": "30b9175a0c2e4508ba50c7b50c2994d3",
+    "ip": "8.222.152.17",
+    "billing": "existing_user_purchased_instance"
+  }
+}

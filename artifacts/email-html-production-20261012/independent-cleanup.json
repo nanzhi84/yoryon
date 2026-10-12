@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "checkedAt": "2026-10-12T06:40:10.745Z",
+  "since": "2026-10-12T06:28:14.029Z",
+  "recipient": "explicitly_authorized_gmail",
+  "recipientAccounts": 0,
+  "recipientVerificationRows": 0,
+  "acceptanceAccounts": 0,
+  "handoffCleared": true,
+  "protectedHandoffPermissions": true,
+  "codeValuesReadFromDatabase": false,
+  "readOnly": true
+}

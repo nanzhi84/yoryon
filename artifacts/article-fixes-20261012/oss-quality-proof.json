@@ -1,0 +1,14 @@
+[
+  {
+    "quality": 72,
+    "status": 200,
+    "mime": "image/webp",
+    "bytes": 13424
+  },
+  {
+    "quality": 100,
+    "status": 200,
+    "mime": "image/webp",
+    "bytes": 29128
+  }
+]

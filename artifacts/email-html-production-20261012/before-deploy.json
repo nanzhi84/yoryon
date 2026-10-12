@@ -1,0 +1,6 @@
+{
+  "image": "yoryon-api:882221fb-prod1",
+  "caddySha256": "a0220551ef8d67b67b2e4539e81e131e771271d63fe1d857e11e8918f639986b",
+  "mailGateOpen": true,
+  "mediaPrivateNoStore": true
+}

@@ -1,0 +1,22 @@
+{
+  "checkedAt": "2026-10-12T03:24:42.180930+00:00",
+  "fixtureAlreadyDeleted": true,
+  "mediaId": "529b337a-6e43-4ede-888a-512e0879ec9c",
+  "checks": [
+    {
+      "host": "api.yoryon.com",
+      "headers": [
+        "HTTP/2 404 "
+      ]
+    },
+    {
+      "host": "yoryon.com",
+      "headers": [
+        "HTTP/2 302 ",
+        "age: 204",
+        "cache-control: public, max-age=300",
+        "x-vercel-cache: HIT"
+      ]
+    }
+  ]
+}

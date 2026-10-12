@@ -1,0 +1,58 @@
+{
+  "mergeSha": "91fb55ee634389a777f0a8e24192559f2d72eed2",
+  "apiImageSourceSha": "8390932763146fe2a23b6dec07e408c4ab374576",
+  "apiRuntimeUnchangedSinceImage": true,
+  "productionDeployment": {
+    "id": "dpl_HqekyNwCFWXC7t4yYRmaQ2WTtoVs",
+    "url": "yoryon-7zciukm2m-zyy2740738166-7111s-projects.vercel.app",
+    "target": "production",
+    "readyState": "READY",
+    "alias": [
+      "yoryon.com",
+      "www.yoryon.com",
+      "yoryon-web.vercel.app",
+      "yoryon-web-zyy2740738166-7111s-projects.vercel.app",
+      "yoryon-web-git-main-zyy2740738166-7111s-projects.vercel.app"
+    ],
+    "aliasAssigned": true,
+    "sourceSha": "91fb55ee634389a777f0a8e24192559f2d72eed2"
+  },
+  "results": {
+    "typecheck": "PASS",
+    "controlledBuild": "PASS",
+    "fullE2E": "85/85 PASS",
+    "finalWorkerRecovery": "1/1 PASS",
+    "productionBusinessOssBrowser": "49/49 PASS",
+    "productionCacheRevocation": "22/22 PASS",
+    "productionOssDerivatives": "9/9 PASS",
+    "cliQueueAndLimits": "PASS",
+    "mobileLighthouse": {
+      "home": 99,
+      "detail": 99
+    },
+    "syntheticResidualCleanup": "PASS",
+    "articleMobileLayout": "1/1 PASS; production three-article verification 82/82 PASS"
+  },
+  "limitations": {
+    "platformAggregateInvocationsAndIsrWrites": "UNVERIFIED; paid-only query; scoped free request log comparison recorded",
+    "smtpDelivery": "not in scope of these issues; UNVERIFIED in this run",
+    "previousIncidentExactAllocatingProcess": "UNKNOWN; sysstat confirms memory reclaim and IO pressure",
+    "multipleApiInstances": "unsupported until shared strongly consistent policy gate"
+  },
+  "finalMainSha": "810d5f89e21d71266effc53779f9d0e2c33905ef",
+  "finalProductionDeployment": {
+    "id": "dpl_6kuVJrBrGEaBXADRwTd4eDiUinxB",
+    "url": "yoryon-mkjd8smla-zyy2740738166-7111s-projects.vercel.app",
+    "target": "production",
+    "readyState": "READY",
+    "alias": [
+      "yoryon.com",
+      "www.yoryon.com",
+      "yoryon-web.vercel.app",
+      "yoryon-web-zyy2740738166-7111s-projects.vercel.app",
+      "yoryon-web-git-main-zyy2740738166-7111s-projects.vercel.app"
+    ],
+    "aliasAssigned": true,
+    "sourceSha": "810d5f89e21d71266effc53779f9d0e2c33905ef"
+  }
+}

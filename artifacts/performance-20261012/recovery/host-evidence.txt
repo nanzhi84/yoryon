@@ -1,0 +1,29 @@
+Oct 12 15:58:24 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 15:59:39 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:00:04 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:00:19 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:00:47 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:01:31 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:01:50 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:02:23 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:02:40 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:03:20 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:03:35 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:04:03 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:04:38 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:05:06 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:05:48 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:06:05 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:06:21 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:07:02 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:07:20 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:08:30 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:09:17 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:09:33 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:10:08 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:10:31 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+Oct 12 16:11:17 iZt4n1tyyeamxbir8wfuwbZ systemd-journald[44504]: Under memory pressure, flushing caches.
+               total        used        free      shared  buff/cache   available
+Mem:             894         470         160           2         403         423
+Swap:              0           0           0
+OOMKilled=false RestartCount=0

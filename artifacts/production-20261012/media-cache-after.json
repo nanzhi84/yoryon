@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-10-12T03:25:32.451343+00:00",
+  "checks": [
+    {
+      "host": "api.yoryon.com",
+      "headers": [
+        "HTTP/2 404 ",
+        "cache-control: private, no-store"
+      ]
+    },
+    {
+      "host": "yoryon.com",
+      "headers": [
+        "HTTP/2 404 ",
+        "age: 0",
+        "cache-control: private, no-store",
+        "x-vercel-cache: MISS"
+      ]
+    }
+  ]
+}

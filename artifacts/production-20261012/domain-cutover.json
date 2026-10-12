@@ -1,0 +1,78 @@
+{
+  "checkedAt": "2026-10-12T03:19:10.379515+00:00",
+  "network": "direct curl --noproxy * using system DNS",
+  "checks": [
+    {
+      "host": "yoryon.com",
+      "path": "/api/feed",
+      "http": "200",
+      "passed": true
+    },
+    {
+      "host": "yoryon.com",
+      "path": "/",
+      "http": "200",
+      "passed": true
+    },
+    {
+      "host": "yoryon.com",
+      "path": "/about",
+      "http": "200",
+      "passed": true
+    },
+    {
+      "host": "yoryon.com",
+      "path": "/c",
+      "http": "200",
+      "passed": true
+    },
+    {
+      "host": "yoryon.com",
+      "path": "/robots.txt",
+      "http": "200",
+      "passed": true
+    },
+    {
+      "host": "yoryon.com",
+      "path": "/sitemap.xml",
+      "http": "200",
+      "passed": true
+    },
+    {
+      "host": "www.yoryon.com",
+      "path": "/api/feed",
+      "http": "200",
+      "passed": true
+    },
+    {
+      "host": "www.yoryon.com",
+      "path": "/",
+      "http": "200",
+      "passed": true
+    },
+    {
+      "host": "www.yoryon.com",
+      "path": "/about",
+      "http": "200",
+      "passed": true
+    },
+    {
+      "host": "www.yoryon.com",
+      "path": "/c",
+      "http": "200",
+      "passed": true
+    },
+    {
+      "host": "www.yoryon.com",
+      "path": "/robots.txt",
+      "http": "200",
+      "passed": true
+    },
+    {
+      "host": "www.yoryon.com",
+      "path": "/sitemap.xml",
+      "http": "200",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+[
+  {
+    "slug": "workflow-to-agent-patterns",
+    "lastEdited": "2026-08-07T18:09:58.808Z",
+    "sourceHash": "009168f308a22ee3fb113b792499d86aab0767e859bef5f3c4ecae0fb84c0263",
+    "sourceMatchesExpected": true,
+    "authorizedDifference": "none"
+  },
+  {
+    "slug": "deepseek-harness",
+    "lastEdited": "2026-08-20T18:33:38.831Z",
+    "sourceHash": "a5a1086ed99bbbc43fb4e9aa56c5023f2cc60f96d9e7b70cbe27d8911688b6b5",
+    "sourceMatchesExpected": true,
+    "authorizedDifference": "none"
+  },
+  {
+    "slug": "jev-typed-decisions",
+    "lastEdited": "2026-10-12T08:49:19.144Z",
+    "sourceHash": "6993c75f790386f5331727c1c55a847b0005e3296691554130f6cecffbdb275a",
+    "sourceMatchesExpected": true,
+    "authorizedDifference": "standalone date removed"
+  }
+]

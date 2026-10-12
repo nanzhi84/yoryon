@@ -1,0 +1,27 @@
+[
+  {
+    "ref": "codex/performance-and-notion-publishing",
+    "sha": "0415e7b25c2123fa7cfe91cc24bc1604901b7d37",
+    "ancestorOfMain": true
+  },
+  {
+    "ref": "codex/performance-cache-publication",
+    "sha": "f7dcf24b2bb73835f5cd8643762f2c26ac7f40cf",
+    "ancestorOfMain": true
+  },
+  {
+    "ref": "codex/production-neon-deployment",
+    "sha": "f7dcf24b2bb73835f5cd8643762f2c26ac7f40cf",
+    "ancestorOfMain": true
+  },
+  {
+    "ref": "origin/codex/production-neon-deployment",
+    "sha": "f7dcf24b2bb73835f5cd8643762f2c26ac7f40cf",
+    "ancestorOfMain": true
+  },
+  {
+    "ref": "origin/perf/batch1-direct-fixes",
+    "sha": "91251761e31ce78605a87b275c13ab9b7df1c3ff",
+    "ancestorOfMain": true
+  }
+]

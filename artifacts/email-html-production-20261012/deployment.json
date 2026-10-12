@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "previousImage": "yoryon-api:882221fb-prod1",
+  "newImage": "yoryon-api:18e63b63-prod1",
+  "imageId": "sha256:ef4f2ad6bbcbb5954defacef2ad824f67b8638321941df404ae24ebc017a6768",
+  "health": "healthy",
+  "rootFsLayersMatchBuiltImage": true,
+  "caddyConfigUnchanged": true,
+  "mailGateOpen": true,
+  "mediaPrivateNoStore": true,
+  "rollbackBackup": "/opt/yoryon/.env.before-html-18e63b63",
+  "sourceCommit": "18e63b63a26bcfa202c143156bf2cb14d3ce594b",
+  "checkedAt": "2026-10-12T06:27:50.195911+00:00"
+}

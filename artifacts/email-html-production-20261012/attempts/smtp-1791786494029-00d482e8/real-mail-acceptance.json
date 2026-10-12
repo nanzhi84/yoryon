@@ -1,0 +1,26 @@
+{
+  "run": "smtp-1791786494029-00d482e8",
+  "startedAt": "2026-10-12T06:28:14.029Z",
+  "finishedAt": "2026-10-12T06:36:43.695Z",
+  "status": "FAIL",
+  "error": "NEON_IDLE_CONNECTION_TERMINATED_57P01",
+  "cleanup": "PASS",
+  "temporaryAccountAbsent": true,
+  "codeValuesRead": false,
+  "evidenceDirectory": "attempts/smtp-1791786494029-00d482e8",
+  "checks": [
+    {
+      "name": "recipient_has_no_existing_website_account",
+      "status": "PASS"
+    },
+    {
+      "name": "production_registration_mail_request_succeeds",
+      "status": "PASS"
+    },
+    {
+      "name": "registration_form_advances_to_email_verification",
+      "status": "PASS"
+    }
+  ],
+  "note": "Unhandled idle connection termination interrupted the acceptance runner during human OTP handoff; no full registration/reset acceptance claimed."
+}

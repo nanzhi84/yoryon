@@ -1,0 +1,6 @@
+ 16:43:25 up 29 min,  1 user,  load average: 0.04, 0.07, 0.09
+               total        used        free      shared  buff/cache   available
+Mem:             894         517          77           2         439         376
+Swap:              0           0           0
+yoryon-api-1 Up 29 minutes (healthy)
+yoryon-caddy-1 Up 29 minutes

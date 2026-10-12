@@ -1,0 +1,20 @@
+[
+  {
+    "article": 1,
+    "bodyUnchanged": true,
+    "sourceHash": "009168f308a22ee3fb113b792499d86aab0767e859bef5f3c4ecae0fb84c0263",
+    "lastEditedAt": "2026-08-07T18:09:58.808Z"
+  },
+  {
+    "article": 2,
+    "bodyUnchanged": true,
+    "sourceHash": "a5a1086ed99bbbc43fb4e9aa56c5023f2cc60f96d9e7b70cbe27d8911688b6b5",
+    "lastEditedAt": "2026-08-20T18:33:38.831Z"
+  },
+  {
+    "article": 3,
+    "bodyUnchanged": true,
+    "sourceHash": "bab1006e09ec31ca0aeb72d3d356650f1ee1ab909a82af3d9729612d3db07abc",
+    "lastEditedAt": "2026-10-09T17:20:40.334Z"
+  }
+]

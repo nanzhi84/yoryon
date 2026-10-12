@@ -1,0 +1,128 @@
+[
+  {
+    "slug": "workflow-to-agent-patterns",
+    "date": "2026-08-05",
+    "notionPage": "ef6f049b-2a0b-47d4-a2b7-fd7b73784460",
+    "lastEditedAt": "2026-08-07T18:09:58.808Z",
+    "sourceBodySha256": "009168f308a22ee3fb113b792499d86aab0767e859bef5f3c4ecae0fb84c0263",
+    "images": [
+      {
+        "notionBlock": "237c6ce1-b4ff-4fb7-9ff5-eab537a9ba75",
+        "sourcePath": "/Users/yoryon/Projects/PaperNotes/library/published/tech/assets/workflow-agent-difference.png",
+        "file": "workflow-agent-difference.png",
+        "sha256": "f057a807ab73d4739b2782a679f36b75963323e8108a0ff090f9ccca9efcf23f"
+      },
+      {
+        "notionBlock": "9ac370c3-be75-40bd-8f3a-67a12329a7d7",
+        "sourcePath": "/Users/yoryon/Projects/PaperNotes/library/published/tech/assets/workflow-agent-selection.png",
+        "file": "workflow-agent-selection.png",
+        "sha256": "d25a05374fbfd4835dfeef77edae855b0bc0643a458bac31ba624ad08fcbe015"
+      },
+      {
+        "notionBlock": "999a2d88-3875-41a8-96b7-151ca730abee",
+        "sourcePath": "/Users/yoryon/Projects/PaperNotes/library/published/tech/assets/agent-components.png",
+        "file": "agent-components.png",
+        "sha256": "21a310c93809f31ffa63c2839e5b01bb5bb7bd8745eaa7ea67422e1a825dee2c"
+      },
+      {
+        "notionBlock": "0cad8254-73e0-4cb6-b262-bb19c6c41527",
+        "sourcePath": "/Users/yoryon/Projects/PaperNotes/library/published/tech/assets/workflow-five-patterns.png",
+        "file": "workflow-five-patterns.png",
+        "sha256": "41508271e242fbfd00c4aaf36cfa83b5dda8b32b13e3418a3c314effec8e5e21"
+      },
+      {
+        "notionBlock": "e9992fb7-e0a6-4449-aee0-c32621558665",
+        "sourcePath": "/Users/yoryon/Projects/PaperNotes/library/published/tech/assets/agent-organization.png",
+        "file": "agent-organization.png",
+        "sha256": "00de0fd8a13d4867ecc7f4c168d52b515dc417bc477ef27938f7650261428b41"
+      }
+    ],
+    "mediaVerification": "local source files matched by exact image caption and order; fresh Notion binary bytes not fetched"
+  },
+  {
+    "slug": "deepseek-harness",
+    "date": "2026-08-19",
+    "notionPage": "537bcfbb-7fb8-4977-86a9-9f33ca03e191",
+    "lastEditedAt": "2026-08-20T18:33:38.831Z",
+    "sourceBodySha256": "a5a1086ed99bbbc43fb4e9aa56c5023f2cc60f96d9e7b70cbe27d8911688b6b5",
+    "images": [
+      {
+        "notionBlock": "58bdc131-8620-4b66-8fde-dd28d7da8a9c",
+        "sourcePath": "/Users/yoryon/Projects/PaperNotes/library/published/tech/assets/deepseek-harness-d1.png",
+        "file": "deepseek-harness-d1.png",
+        "sha256": "b2dd0412318c01a797243c67bb55252ed09b60ca553f57ee3825ec1870e2bcfd"
+      },
+      {
+        "notionBlock": "82bfbc25-d0d4-48be-9530-5b43da52a671",
+        "sourcePath": "/Users/yoryon/Projects/PaperNotes/library/published/tech/assets/deepseek-harness-d2.png",
+        "file": "deepseek-harness-d2.png",
+        "sha256": "2321402d80802dda2f1d6c6fa64922796502ff67c79a942f9fe8359787a21928"
+      },
+      {
+        "notionBlock": "4fae3db1-11e4-46c1-b4f6-7044b16b30d2",
+        "sourcePath": "/Users/yoryon/Projects/PaperNotes/library/published/tech/assets/deepseek-harness-d3.png",
+        "file": "deepseek-harness-d3.png",
+        "sha256": "4003fce19668171710fe5dc406c791003cc506fe1c2327a68d42eadf321c6106"
+      },
+      {
+        "notionBlock": "8d960ba5-ca5e-4561-a1b4-31244d09a999",
+        "sourcePath": "/Users/yoryon/Projects/PaperNotes/library/published/tech/assets/deepseek-harness-d4.png",
+        "file": "deepseek-harness-d4.png",
+        "sha256": "fb00a0e81b4dc29f69a54ed80d69936e4373c33eb80efd9a81a436598c31333c"
+      },
+      {
+        "notionBlock": "5094b2f5-f22b-4415-8bc1-897dd99e22fb",
+        "sourcePath": "/Users/yoryon/Projects/PaperNotes/library/published/tech/assets/deepseek-harness-d5.png",
+        "file": "deepseek-harness-d5.png",
+        "sha256": "d2837eaad5d65975569824f4d82e8d69e1d256c817885abb4ddc9cc4c262d2c8"
+      },
+      {
+        "notionBlock": "be82bda9-283d-4aad-b38b-a3f315ea27cc",
+        "sourcePath": "/Users/yoryon/Projects/PaperNotes/library/published/tech/assets/deepseek-harness-d6.png",
+        "file": "deepseek-harness-d6.png",
+        "sha256": "5c973d4e2b3442fb1a9bb6fa464954230167ba0459489df577d1a58cf7c69471"
+      }
+    ],
+    "mediaVerification": "local source files matched by exact image caption and order; fresh Notion binary bytes not fetched"
+  },
+  {
+    "slug": "jev-typed-decisions",
+    "date": "2026-09-19",
+    "notionPage": "3e0ada53-bd2a-811b-b93c-d597421b04e3",
+    "lastEditedAt": "2026-10-09T17:20:40.334Z",
+    "sourceBodySha256": "bab1006e09ec31ca0aeb72d3d356650f1ee1ab909a82af3d9729612d3db07abc",
+    "images": [
+      {
+        "notionBlock": "6685cd91-3327-4ba8-84fe-d629ac274287",
+        "sourcePath": "/Users/yoryon/Projects/PaperNotes/library/published/tech/assets/jev-00-evolution.svg",
+        "file": "jev-00-evolution.svg",
+        "sha256": "e929af1a5c49a57ecf2a7e8a7d1f57c5171a2baf045112edf2b64759e724ef91"
+      },
+      {
+        "notionBlock": "c3aa1387-386e-439d-8a9e-37149103b24d",
+        "sourcePath": "/Users/yoryon/Projects/PaperNotes/library/published/tech/assets/jev-01-call-shape-v2.svg",
+        "file": "jev-01-call-shape-v2.svg",
+        "sha256": "e237c3e76babe2460ee63ae4fa5bbfa9e8c701aad6aa3373c25e23e07fd5b2e4"
+      },
+      {
+        "notionBlock": "55b0fc1f-a41f-4f97-9341-8d7227d51940",
+        "sourcePath": "/Users/yoryon/Projects/PaperNotes/library/published/tech/assets/jev-02-primitives.svg",
+        "file": "jev-02-primitives.svg",
+        "sha256": "9a75a3ffe86f23644dc0193593cf5cbd32d34aba68cf1032163e66b03b1e9034"
+      },
+      {
+        "notionBlock": "4f41a1d9-e063-4d24-93a4-f6548b2eef0c",
+        "sourcePath": "/Users/yoryon/Projects/PaperNotes/library/published/tech/assets/jev-03-inference-centered-fixed.svg",
+        "file": "jev-03-inference-centered-fixed.svg",
+        "sha256": "c62476397443968849b3657ca5caac71e718beb7619a9d2f5d7ada44dd6c5a93"
+      },
+      {
+        "notionBlock": "e0f1e953-7340-4991-b79c-39100d3f754b",
+        "sourcePath": "/Users/yoryon/Projects/PaperNotes/library/published/tech/assets/jev-05-goals-v2.svg",
+        "file": "jev-05-goals-v2.svg",
+        "sha256": "18d11db1b31c3838abc05ada9c0e6175c608ac0bd27353a85e90c71e39bb3f45"
+      }
+    ],
+    "mediaVerification": "local source files matched by exact image caption and order; fresh Notion binary bytes not fetched"
+  }
+]

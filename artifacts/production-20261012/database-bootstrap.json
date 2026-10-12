@@ -1,0 +1,26 @@
+{
+  "project": "aged-leaf-22756272",
+  "plan": "free",
+  "tables": [
+    "activation_codes",
+    "analytics_events",
+    "collection_items",
+    "collections",
+    "content_media",
+    "content_tags",
+    "contents",
+    "email_verifications",
+    "entitlements",
+    "media_assets",
+    "redemptions",
+    "sessions",
+    "tags",
+    "users"
+  ],
+  "roles": [
+    "yoryon_owner",
+    "yoryon_api",
+    "yoryon_cli"
+  ],
+  "apiDdl": false
+}

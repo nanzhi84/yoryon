@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "sourceCommit": "18e63b63a26bcfa202c143156bf2cb14d3ce594b",
+  "tag": "yoryon-api:18e63b63-prod1",
+  "imageId": "sha256:ef4f2ad6bbcbb5954defacef2ad824f67b8638321941df404ae24ebc017a6768",
+  "architecture": "amd64",
+  "sizeBytes": 129015496,
+  "command": "docker build --platform linux/amd64 -f deploy/Dockerfile.production -t yoryon-api:18e63b63-prod1 .",
+  "typecheck": "PASS",
+  "localAuthE2E": "6/6 PASS",
+  "mailPresentationChecks": "22/22 PASS",
+  "rootFsLayers": [
+    "sha256:1d69a5fd31932841d7825ef4780c06f008eea65aaa9f3110fe09d5832ed5c7d8",
+    "sha256:1e7371fc32429a7e51d407ce762d5d819c5eebbf44c3652bd0d353ed14a09e31",
+    "sha256:42593510e34eca2ac84ebf9c6a22e16ced5956957367dc8688d9de06db2882a9",
+    "sha256:a009183396c313f4e54f120823c621c6e9a7bbc59225e9ddb36b0815bc1e41f9",
+    "sha256:22e1bcb0042509176dd832fe400ab2be89af37a71954be3f17f81859cf289dcf",
+    "sha256:8793ca49ecbbcb89ee059ed44191c0fb6d6869a1905bea87352abf8a35b96965",
+    "sha256:f521db8b441a1da8ea2bbf3d074396d9131e572f83d7c40b1cc976047b475b8d",
+    "sha256:58c9882393df1a04c200e7d194ba28579a5949169651871508de3559af306279",
+    "sha256:d629f35cd9a8100c8383f17679ad037bd940d542ea1783a6c979115bb85f00a6",
+    "sha256:40daafc9b713889ddda0e551a39f9503240c12d2725ddaea362d1bc73a7e4fb9",
+    "sha256:edbf683afa3c1906173fd7b88c037ca7e57886de66e06fa9a01348ceb188e074"
+  ]
+}

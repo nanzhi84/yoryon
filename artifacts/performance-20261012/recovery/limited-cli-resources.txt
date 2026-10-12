@@ -1,0 +1,36 @@
+2026-10-12T08:17:51Z
+               total        used        free      shared  buff/cache   available
+Mem:             894         505         126           2         402         389
+Swap:              0           0           0
+yoryon-api-1 0.17% 70.2MiB / 384MiB
+yoryon-caddy-1 0.00% 38.05MiB / 128MiB
+2026-10-12T08:17:56Z
+               total        used        free      shared  buff/cache   available
+Mem:             894         480         143           2         410         414
+Swap:              0           0           0
+yoryon-api-1 25.79% 86.4MiB / 384MiB
+yoryon-caddy-1 0.00% 38.05MiB / 128MiB
+yoryon-cli-run 50.34% 54.02MiB / 256MiB
+Memory=268435456 NanoCpus=500000000 Pids=64
+2026-10-12T08:18:03Z
+               total        used        free      shared  buff/cache   available
+Mem:             894         577          68           2         389         317
+Swap:              0           0           0
+yoryon-cli-run 27.73% 62.67MiB / 256MiB
+yoryon-api-1 13.42% 96.42MiB / 384MiB
+yoryon-caddy-1 0.00% 25.84MiB / 128MiB
+Memory=268435456 NanoCpus=500000000 Pids=64
+2026-10-12T08:18:08Z
+               total        used        free      shared  buff/cache   available
+Mem:             894         513         125           2         396         381
+Swap:              0           0           0
+yoryon-api-1 0.01% 64.32MiB / 384MiB
+yoryon-caddy-1 0.00% 25.89MiB / 128MiB
+yoryon-cli-run 51.81% 53.8MiB / 256MiB
+Memory=268435456 NanoCpus=500000000 Pids=64
+2026-10-12T08:18:13Z
+               total        used        free      shared  buff/cache   available
+Mem:             894         587          63           2         383         307
+Swap:              0           0           0
+yoryon-api-1 0.32% 64.57MiB / 384MiB
+yoryon-caddy-1 0.33% 25.94MiB / 128MiB

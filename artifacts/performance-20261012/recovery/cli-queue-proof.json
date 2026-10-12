@@ -1,0 +1,13 @@
+{
+  "command": "node deploy/verify-cli-resources.mjs",
+  "environment": "production host; two concurrent cache status callers; no data mutation",
+  "at": "2026-10-12T08:25:53.550Z",
+  "checks": {
+    "bothCommandsSucceeded": true,
+    "onlyOneContainer": true,
+    "resourceLimits": true,
+    "apiHealthy": true
+  },
+  "samples": 31,
+  "maximumCliContainers": 1
+}

@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-10-12T06:41:56.788277+00:00",
+  "image": "yoryon-api:18e63b63-prod1",
+  "imageId": "sha256:ef4f2ad6bbcbb5954defacef2ad824f67b8638321941df404ae24ebc017a6768",
+  "health": "healthy",
+  "caddySha256": "a0220551ef8d67b67b2e4539e81e131e771271d63fe1d857e11e8918f639986b",
+  "mediaPrivateNoStore": true,
+  "mailGateClosed": false,
+  "status": "PASS"
+}

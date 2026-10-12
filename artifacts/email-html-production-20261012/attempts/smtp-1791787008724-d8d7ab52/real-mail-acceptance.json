@@ -1,0 +1,182 @@
+{
+  "run": "smtp-1791787008724-d8d7ab52",
+  "startedAt": "2026-10-12T06:36:48.724Z",
+  "target": "https://yoryon.com",
+  "sender": "noreply@notify.yoryon.com",
+  "recipient": "explicitly_authorized_gmail",
+  "evidenceDirectory": "attempts/smtp-1791787008724-d8d7ab52",
+  "htmlMailRequired": true,
+  "checks": [
+    {
+      "name": "recipient_has_no_existing_website_account",
+      "status": "PASS"
+    },
+    {
+      "name": "production_registration_mail_request_succeeds",
+      "status": "PASS"
+    },
+    {
+      "name": "registration_form_advances_to_email_verification",
+      "status": "PASS"
+    },
+    {
+      "name": "register_real_gmail_receipt",
+      "status": "PASS"
+    },
+    {
+      "name": "register_expected_sender",
+      "status": "PASS"
+    },
+    {
+      "name": "register_inbox_not_spam",
+      "status": "PASS"
+    },
+    {
+      "name": "register_spf_pass",
+      "status": "PASS"
+    },
+    {
+      "name": "register_dkim_pass",
+      "status": "PASS"
+    },
+    {
+      "name": "register_dmarc_pass",
+      "status": "PASS"
+    },
+    {
+      "name": "register_received_html_mime_alternative",
+      "status": "PASS"
+    },
+    {
+      "name": "register_received_plain_text_mime_alternative",
+      "status": "PASS"
+    },
+    {
+      "name": "register_valid_code_shape",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong_email_code_is_rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "email_verification_activates_and_logs_in_user",
+      "status": "PASS"
+    },
+    {
+      "name": "verified_session_cookie_secure_httponly",
+      "status": "PASS"
+    },
+    {
+      "name": "used_registration_code_cannot_be_replayed",
+      "status": "PASS"
+    },
+    {
+      "name": "production_reset_mail_request_succeeds",
+      "status": "PASS"
+    },
+    {
+      "name": "reset_form_advances_to_email_verification",
+      "status": "PASS"
+    },
+    {
+      "name": "password_reset_real_gmail_receipt",
+      "status": "PASS"
+    },
+    {
+      "name": "password_reset_expected_sender",
+      "status": "PASS"
+    },
+    {
+      "name": "password_reset_inbox_not_spam",
+      "status": "PASS"
+    },
+    {
+      "name": "password_reset_spf_pass",
+      "status": "PASS"
+    },
+    {
+      "name": "password_reset_dkim_pass",
+      "status": "PASS"
+    },
+    {
+      "name": "password_reset_dmarc_pass",
+      "status": "PASS"
+    },
+    {
+      "name": "password_reset_received_html_mime_alternative",
+      "status": "PASS"
+    },
+    {
+      "name": "password_reset_received_plain_text_mime_alternative",
+      "status": "PASS"
+    },
+    {
+      "name": "password_reset_valid_code_shape",
+      "status": "PASS"
+    },
+    {
+      "name": "reset_form_returns_to_login",
+      "status": "PASS"
+    },
+    {
+      "name": "password_reset_revokes_existing_session",
+      "status": "PASS"
+    },
+    {
+      "name": "old_password_cannot_login_after_reset",
+      "status": "PASS"
+    },
+    {
+      "name": "used_reset_code_cannot_be_replayed",
+      "status": "PASS"
+    },
+    {
+      "name": "new_password_login_succeeds",
+      "status": "PASS"
+    },
+    {
+      "name": "logout_invalidates_new_session",
+      "status": "PASS"
+    },
+    {
+      "name": "no_uncaught_browser_errors",
+      "status": "PASS"
+    },
+    {
+      "name": "temporary_account_removed",
+      "status": "PASS"
+    },
+    {
+      "name": "temporary_account_and_codes_absent",
+      "status": "PASS"
+    }
+  ],
+  "receipts": [
+    {
+      "purpose": "register",
+      "messageIdHash": "f5819d16e5956fc860514d4787b0afba5c9e7b571df7840ec9601d7ff4d6bdb1",
+      "inbox": true,
+      "spf": "PASS",
+      "dkim": "PASS",
+      "dmarc": "PASS",
+      "source": "gmail_connector",
+      "html": true,
+      "plainText": true
+    },
+    {
+      "purpose": "password_reset",
+      "messageIdHash": "a71b6bc0b23ba3027e224f4c225cef8c26888ea8b877790cfcf4f4d4311a3d70",
+      "inbox": true,
+      "spf": "PASS",
+      "dkim": "PASS",
+      "dmarc": "PASS",
+      "source": "gmail_connector",
+      "html": true,
+      "plainText": true
+    }
+  ],
+  "status": "PASS",
+  "cleanup": "PASS",
+  "finishedAt": "2026-10-12T06:39:34.471Z"
+}

@@ -1,0 +1,187 @@
+{
+  "completedAt": "2026-10-12T10:03:36.801012+00:00",
+  "status": "PASS",
+  "main": "7edde6f601a41d3e6626cf1e70a0af851d94f154",
+  "deployment": {
+    "id": "dpl_4xqDzA6XELnNbZw7ka5doG2LL8sF",
+    "url": "yoryon-dyp2i6my9-zyy2740738166-7111s-projects.vercel.app",
+    "target": "production",
+    "readyState": "READY",
+    "alias": [
+      "yoryon.com",
+      "www.yoryon.com",
+      "yoryon-web.vercel.app",
+      "yoryon-web-zyy2740738166-7111s-projects.vercel.app",
+      "yoryon-web-git-main-zyy2740738166-7111s-projects.vercel.app"
+    ],
+    "aliasAssigned": true,
+    "commit": "7edde6f601a41d3e6626cf1e70a0af851d94f154"
+  },
+  "apiImage": "yoryon-api:c52e0a12b5ee69a0763ea2327faf7448c4a373cd",
+  "prs": [
+    11,
+    12
+  ],
+  "localE2E": {
+    "command": "pnpm e2e",
+    "passed": 90,
+    "environment": "isolated PG/FS/Mailpit/API/Next/compression-enabled Caddy",
+    "artifact": "local-caddy/playwright-report/index.html"
+  },
+  "typecheck": "PASS",
+  "candidateSvgChecks": 31,
+  "productionSourceChecks": 82,
+  "productionFormatImageChecks": 115,
+  "articles": [
+    {
+      "slug": "workflow-to-agent-patterns",
+      "title": "从 Workflow 到 Agent：范式选择与构建模式",
+      "publishedAt": "2026-08-04T16:00:00.000Z",
+      "revision": "8d7e0efe-2d44-4ee7-a72b-e3a76e2a7b03",
+      "bodySha256": "19c5f025950bed3e05211a832a134535981cf1729a077160dc61f5509c1c9038",
+      "images": 5,
+      "cache": "HIT",
+      "url": "https://yoryon.com/p/workflow-to-agent-patterns"
+    },
+    {
+      "slug": "deepseek-harness",
+      "title": "深入 DeepSeek Harness：当 Agent Loop 也成为插件",
+      "publishedAt": "2026-08-18T16:00:00.000Z",
+      "revision": "4552f069-b146-4ff1-b310-14677fe5172a",
+      "bodySha256": "c7b54b1347848ae214e462f84d56e3161e8bc51e6ef3dd1215c97c6161b8f130",
+      "images": 6,
+      "cache": "HIT",
+      "url": "https://yoryon.com/p/deepseek-harness"
+    },
+    {
+      "slug": "jev-typed-decisions",
+      "title": "Jev 技术图解：从文本生成到类型化决策",
+      "publishedAt": "2026-09-18T16:00:00.000Z",
+      "revision": "a8ca085b-925b-4bb7-9ac8-dc680e2602b3",
+      "bodySha256": "4c815d733f90a9f1e141bfcc5932c68b39d232872de56363d8651b75f6c4d1af",
+      "images": 5,
+      "cache": "HIT",
+      "url": "https://yoryon.com/p/jev-typed-decisions"
+    }
+  ],
+  "notionAttachmentFormats": [
+    {
+      "article": "workflow",
+      "notionFiles": [
+        "d1.png",
+        "d2.png",
+        "d4.png",
+        "d3.png",
+        "d5.png"
+      ],
+      "png": 5,
+      "svg": 0
+    },
+    {
+      "article": "deep",
+      "notionFiles": [
+        "d1.png",
+        "d2.png",
+        "d3.png",
+        "d4.png",
+        "d5.png",
+        "d6.png"
+      ],
+      "png": 6,
+      "svg": 0
+    },
+    {
+      "article": "jev",
+      "notionFiles": [
+        "jev-00-evolution.svg",
+        "jev-01-call-shape-v2.svg",
+        "jev-02-primitives.svg",
+        "jev-03-inference-centered-fixed.svg",
+        "jev-05-goals-v2.svg"
+      ],
+      "png": 0,
+      "svg": 5
+    }
+  ],
+  "compression": {
+    "rasterImages": 11,
+    "sameWidth": 960,
+    "beforeBytes": 1062521,
+    "webpBytes": 221128,
+    "savingsPercent": 79.2
+  },
+  "repeatBrowsers": [
+    {
+      "slug": "workflow-to-agent-patterns",
+      "width": 1280,
+      "images": 5,
+      "transferredBytes": 264,
+      "imageBodyRedownload": "NONE"
+    },
+    {
+      "slug": "workflow-to-agent-patterns",
+      "width": 390,
+      "images": 5,
+      "transferredBytes": 265,
+      "imageBodyRedownload": "NONE"
+    },
+    {
+      "slug": "deepseek-harness",
+      "width": 1280,
+      "images": 6,
+      "transferredBytes": 342,
+      "imageBodyRedownload": "NONE"
+    },
+    {
+      "slug": "deepseek-harness",
+      "width": 390,
+      "images": 6,
+      "transferredBytes": 316,
+      "imageBodyRedownload": "NONE"
+    },
+    {
+      "slug": "jev-typed-decisions",
+      "width": 1280,
+      "images": 5,
+      "transferredBytes": 608,
+      "imageBodyRedownload": "NONE"
+    },
+    {
+      "slug": "jev-typed-decisions",
+      "width": 390,
+      "images": 5,
+      "transferredBytes": 613,
+      "imageBodyRedownload": "NONE"
+    }
+  ],
+  "cachePolicy": {
+    "webpQuality": 72,
+    "widths": [
+      320,
+      640,
+      960,
+      1280
+    ],
+    "svg": "original vector bytes",
+    "vercelCdnSeconds": 86400,
+    "browser": "max-age=0, must-revalidate; permission gate then 304",
+    "revocation": "existing synthetic real-OSS test passed; old URLs/ETags denied after paid/unpublish; fixture cleaned"
+  },
+  "operations": {
+    "cloudInstancePowerActions": "NONE in this work",
+    "api": "healthy; normal container rollout for initial image feature; SVG fix Web-only",
+    "redundantBranches": [
+      "codex/article-rendering-and-images",
+      "codex/svg-cache-response"
+    ],
+    "branchCleanup": "merged ancestry verified, remote deletion with exact SHA leases, local -d; only main remains",
+    "preExistingDirtyFiles": "preserved",
+    "rollback": "old API image, previous Vercel deployments, source backups retained"
+  },
+  "visualInspection": [
+    "workflow-strong-final.png",
+    "jev-inline-code-final.png",
+    "jev-vector-final.png"
+  ],
+  "scope": "All three public/free. Jev body date removed, original writing-date metadata retained. Notion PNG attachments stay raster sources; Jev SVG is not converted."
+}

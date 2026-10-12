@@ -1,0 +1,16 @@
+{
+  "checkedAt": "2026-10-12T03:28:13.403875+00:00",
+  "checks": [
+    {
+      "host": "yoryon.com",
+      "expectedEmptyState": true,
+      "syntheticContentAbsent": true
+    },
+    {
+      "host": "www.yoryon.com",
+      "expectedEmptyState": true,
+      "syntheticContentAbsent": true
+    }
+  ],
+  "note": "After ordinary ISR refresh; initial stale read was not considered cleanup success"
+}

@@ -1,0 +1,19 @@
+{
+  "attempts": [
+    {
+      "phase": "dependency_typecheck_and_pretest",
+      "status": "FAIL",
+      "cause": "React declaration version mismatch and missing pnpm hoisted type links",
+      "resolution": "align existing React declaration versions and reinstall from frozen lockfile with cached dependencies"
+    },
+    {
+      "phase": "local_auth_e2e",
+      "status": "FAIL",
+      "passed": 1,
+      "failed": 5,
+      "cause": "tsx JSX runtime required explicit React import in email TSX",
+      "resolution": "explicit React namespace imports; existing E2E reused"
+    }
+  ],
+  "sensitiveDiagnosticsIncluded": false
+}

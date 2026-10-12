@@ -1,0 +1,2 @@
+sha256:2eda6fe88ffb1fe7f9e9b2c6e217f5be0f239bb54793c58666e33b9dd5d6005b amd64
+032854f4d070e5ac7fe3ca6629bb8757949ae3cc66eec4c552b4cb7c39f10aca  /opt/yoryon/api-image-c52e0a1.tar.gz

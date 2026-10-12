@@ -1,0 +1,22 @@
+{
+  "deployment": "https://yoryon-mr4eu0q25-zyy2740738166-7111s-projects.vercel.app",
+  "sourceCommit": "ea26f985161e70b54dd291669dcaabc0cccb932c",
+  "checks": [
+    {
+      "name": "static warm read",
+      "cache": "MISS",
+      "matchedPath": "/render/[revision]/[slug]",
+      "bodyPresent": true
+    },
+    {
+      "name": "static warm read",
+      "cache": "HIT",
+      "matchedPath": "/render/[revision]/[slug]",
+      "bodyPresent": true
+    },
+    {
+      "name": "missing slug gate",
+      "status": "PASS"
+    }
+  ]
+}

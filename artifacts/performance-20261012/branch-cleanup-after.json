@@ -1,0 +1,17 @@
+{
+  "main": "91fb55ee634389a777f0a8e24192559f2d72eed2",
+  "localDeleted": [
+    "codex/performance-and-notion-publishing",
+    "codex/performance-cache-publication",
+    "codex/production-neon-deployment",
+    "codex/article-mobile-layout"
+  ],
+  "remoteDeleted": [
+    "codex/performance-and-notion-publishing",
+    "codex/production-neon-deployment",
+    "perf/batch1-direct-fixes",
+    "codex/article-mobile-layout"
+  ],
+  "reason": "all commits reachable from origin/main; only one worktree; original dirty files and untracked artifacts retained",
+  "finalMain": "810d5f89e21d71266effc53779f9d0e2c33905ef"
+}

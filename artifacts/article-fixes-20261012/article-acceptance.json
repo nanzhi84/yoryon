@@ -1,0 +1,1173 @@
+{
+  "target": "https://yoryon.com",
+  "command": "node deploy/verify-article-images.mjs",
+  "environment": "anonymous production; fresh Chromium desktop1280/mobile390, deviceScaleFactor1",
+  "startedAt": "2026-10-12T09:59:17.291Z",
+  "checks": [
+    {
+      "name": "workflow-to-agent-patterns: full public",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: optimized image read",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: image CDN HIT",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: repeat conditional zero body",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: decoded WebP",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: same pixel dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: optimized image read",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: image CDN HIT",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: repeat conditional zero body",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: decoded WebP",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: same pixel dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: optimized image read",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: image CDN HIT",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: repeat conditional zero body",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: decoded WebP",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: same pixel dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: optimized image read",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: image CDN HIT",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: repeat conditional zero body",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: decoded WebP",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: same pixel dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: optimized image read",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: image CDN HIT",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: repeat conditional zero body",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: decoded WebP",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: same pixel dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: 1280px image count",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: 1280px viewport fit",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: 1280px image count",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: 1280px viewport fit",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: 1280px repeat no image body download",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: 1280px browser error free",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: 390px image count",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: 390px viewport fit",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: 390px image count",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: 390px viewport fit",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: 390px repeat no image body download",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: 390px browser error free",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: full public",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: optimized image read",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: image CDN HIT",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: repeat conditional zero body",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: decoded WebP",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: same pixel dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: optimized image read",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: image CDN HIT",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: repeat conditional zero body",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: decoded WebP",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: same pixel dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: optimized image read",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: image CDN HIT",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: repeat conditional zero body",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: decoded WebP",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: same pixel dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: optimized image read",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: image CDN HIT",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: repeat conditional zero body",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: decoded WebP",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: same pixel dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: optimized image read",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: image CDN HIT",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: repeat conditional zero body",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: decoded WebP",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: same pixel dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: optimized image read",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: image CDN HIT",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: repeat conditional zero body",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: decoded WebP",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: same pixel dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: 1280px image count",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: 1280px viewport fit",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: 1280px image count",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: 1280px viewport fit",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: 1280px repeat no image body download",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: 1280px browser error free",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: 390px image count",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: 390px viewport fit",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: 390px image count",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: 390px viewport fit",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: 390px repeat no image body download",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: 390px browser error free",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: full public",
+      "status": "PASS"
+    },
+    {
+      "name": "Jev standalone opening date removed",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: optimized image read",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: image CDN HIT",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: repeat conditional zero body",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: SVG remains vector",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: optimized image read",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: image CDN HIT",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: repeat conditional zero body",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: SVG remains vector",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: optimized image read",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: image CDN HIT",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: repeat conditional zero body",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: SVG remains vector",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: optimized image read",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: image CDN HIT",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: repeat conditional zero body",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: SVG remains vector",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: optimized image read",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: image CDN HIT",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: repeat conditional zero body",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: SVG remains vector",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: 1280px image count",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: 1280px viewport fit",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: 1280px image count",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: 1280px viewport fit",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: 1280px repeat no image body download",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: 1280px browser error free",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: 390px image count",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: 390px viewport fit",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: 390px image count",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: 390px viewport fit",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: 390px repeat no image body download",
+      "status": "PASS"
+    },
+    {
+      "name": "jev-typed-decisions: 390px browser error free",
+      "status": "PASS"
+    }
+  ],
+  "images": [
+    {
+      "slug": "workflow-to-agent-patterns",
+      "id": "e0cd472d-f822-4a9c-8f24-b61a9cfc8513",
+      "width": 960,
+      "height": 432,
+      "beforeBytes": 70778,
+      "webpBytes": 13424,
+      "savings": 0.8103,
+      "warmCache": "HIT"
+    },
+    {
+      "slug": "workflow-to-agent-patterns",
+      "id": "c951e152-f21c-48f8-b120-bbdd0656c69c",
+      "width": 960,
+      "height": 637,
+      "beforeBytes": 96247,
+      "webpBytes": 19344,
+      "savings": 0.799,
+      "warmCache": "HIT"
+    },
+    {
+      "slug": "workflow-to-agent-patterns",
+      "id": "56ec7733-84fb-4a16-ab8c-08fa44adc4fb",
+      "width": 960,
+      "height": 544,
+      "beforeBytes": 85147,
+      "webpBytes": 16994,
+      "savings": 0.8004,
+      "warmCache": "HIT"
+    },
+    {
+      "slug": "workflow-to-agent-patterns",
+      "id": "e42f869c-f2e7-4c49-a7e4-a4574bae5e37",
+      "width": 960,
+      "height": 672,
+      "beforeBytes": 120016,
+      "webpBytes": 23286,
+      "savings": 0.806,
+      "warmCache": "HIT"
+    },
+    {
+      "slug": "workflow-to-agent-patterns",
+      "id": "550c026c-6ff8-401b-881c-7be597d5ba3c",
+      "width": 960,
+      "height": 488,
+      "beforeBytes": 82516,
+      "webpBytes": 15700,
+      "savings": 0.8097,
+      "warmCache": "HIT"
+    },
+    {
+      "slug": "deepseek-harness",
+      "id": "ea53dcee-de53-428b-b4e4-c0ccacd8ff06",
+      "width": 960,
+      "height": 514,
+      "beforeBytes": 99783,
+      "webpBytes": 20842,
+      "savings": 0.7911,
+      "warmCache": "HIT"
+    },
+    {
+      "slug": "deepseek-harness",
+      "id": "c09c4c3b-a6f3-4603-9486-e8579de061fa",
+      "width": 960,
+      "height": 656,
+      "beforeBytes": 89262,
+      "webpBytes": 19104,
+      "savings": 0.786,
+      "warmCache": "HIT"
+    },
+    {
+      "slug": "deepseek-harness",
+      "id": "ca038bc6-a6fe-4aba-b03f-58e434b4fc00",
+      "width": 960,
+      "height": 1042,
+      "beforeBytes": 163765,
+      "webpBytes": 38264,
+      "savings": 0.7663,
+      "warmCache": "HIT"
+    },
+    {
+      "slug": "deepseek-harness",
+      "id": "30da38eb-b007-4c00-b222-66db2fd4edc3",
+      "width": 960,
+      "height": 516,
+      "beforeBytes": 96301,
+      "webpBytes": 19830,
+      "savings": 0.7941,
+      "warmCache": "HIT"
+    },
+    {
+      "slug": "deepseek-harness",
+      "id": "b92e9570-3626-4f87-947f-8a6ee0f0a420",
+      "width": 960,
+      "height": 467,
+      "beforeBytes": 68283,
+      "webpBytes": 14118,
+      "savings": 0.7932,
+      "warmCache": "HIT"
+    },
+    {
+      "slug": "deepseek-harness",
+      "id": "64ede080-9726-4f5e-8b60-1b1746e28dac",
+      "width": 960,
+      "height": 449,
+      "beforeBytes": 90423,
+      "webpBytes": 20222,
+      "savings": 0.7764,
+      "warmCache": "HIT"
+    },
+    {
+      "slug": "jev-typed-decisions",
+      "id": "79f4bf25-5447-470a-b17c-6cb6e8306c53",
+      "format": "SVG",
+      "bytes": 3841,
+      "warmCache": "HIT"
+    },
+    {
+      "slug": "jev-typed-decisions",
+      "id": "4a27ef7a-56cc-4f68-abba-d9902d006063",
+      "format": "SVG",
+      "bytes": 7095,
+      "warmCache": "HIT"
+    },
+    {
+      "slug": "jev-typed-decisions",
+      "id": "2e2d8d71-74d2-478c-a083-a3c40e30b106",
+      "format": "SVG",
+      "bytes": 5100,
+      "warmCache": "HIT"
+    },
+    {
+      "slug": "jev-typed-decisions",
+      "id": "4749f220-536c-4f1a-bbc0-85ff6215267b",
+      "format": "SVG",
+      "bytes": 5295,
+      "warmCache": "HIT"
+    },
+    {
+      "slug": "jev-typed-decisions",
+      "id": "ea564744-09e1-43cc-878a-530d90c81c80",
+      "format": "SVG",
+      "bytes": 7966,
+      "warmCache": "HIT"
+    }
+  ],
+  "browsers": [
+    {
+      "slug": "workflow-to-agent-patterns",
+      "width": 1280,
+      "network": [
+        {
+          "round": "first",
+          "path": "/api/images/v1/e42f869c-f2e7-4c49-a7e4-a4574bae5e37/960",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 23667
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/56ec7733-84fb-4a16-ab8c-08fa44adc4fb/960",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 17136
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/c951e152-f21c-48f8-b120-bbdd0656c69c/960",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 19487
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/e0cd472d-f822-4a9c-8f24-b61a9cfc8513/960",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 13560
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/550c026c-6ff8-401b-881c-7be597d5ba3c/960",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 15859
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/e42f869c-f2e7-4c49-a7e4-a4574bae5e37/960",
+          "status": 304,
+          "diskCache": false,
+          "cache": null,
+          "transferredBytes": 53
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/e0cd472d-f822-4a9c-8f24-b61a9cfc8513/960",
+          "status": 304,
+          "diskCache": false,
+          "cache": null,
+          "transferredBytes": 52
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/c951e152-f21c-48f8-b120-bbdd0656c69c/960",
+          "status": 304,
+          "diskCache": false,
+          "cache": null,
+          "transferredBytes": 53
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/56ec7733-84fb-4a16-ab8c-08fa44adc4fb/960",
+          "status": 304,
+          "diskCache": false,
+          "cache": null,
+          "transferredBytes": 53
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/550c026c-6ff8-401b-881c-7be597d5ba3c/960",
+          "status": 304,
+          "diskCache": false,
+          "cache": null,
+          "transferredBytes": 53
+        }
+      ]
+    },
+    {
+      "slug": "workflow-to-agent-patterns",
+      "width": 390,
+      "network": [
+        {
+          "round": "first",
+          "path": "/api/images/v1/e42f869c-f2e7-4c49-a7e4-a4574bae5e37/640",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 13520
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/e0cd472d-f822-4a9c-8f24-b61a9cfc8513/640",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 7601
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/c951e152-f21c-48f8-b120-bbdd0656c69c/640",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 10648
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/56ec7733-84fb-4a16-ab8c-08fa44adc4fb/640",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 9649
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/550c026c-6ff8-401b-881c-7be597d5ba3c/640",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 9174
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/e42f869c-f2e7-4c49-a7e4-a4574bae5e37/640",
+          "status": 304,
+          "diskCache": false,
+          "cache": null,
+          "transferredBytes": 53
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/56ec7733-84fb-4a16-ab8c-08fa44adc4fb/640",
+          "status": 304,
+          "diskCache": false,
+          "cache": null,
+          "transferredBytes": 53
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/e0cd472d-f822-4a9c-8f24-b61a9cfc8513/640",
+          "status": 304,
+          "diskCache": false,
+          "cache": null,
+          "transferredBytes": 53
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/c951e152-f21c-48f8-b120-bbdd0656c69c/640",
+          "status": 304,
+          "diskCache": false,
+          "cache": null,
+          "transferredBytes": 53
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/550c026c-6ff8-401b-881c-7be597d5ba3c/640",
+          "status": 304,
+          "diskCache": false,
+          "cache": null,
+          "transferredBytes": 53
+        }
+      ]
+    },
+    {
+      "slug": "deepseek-harness",
+      "width": 1280,
+      "network": [
+        {
+          "round": "first",
+          "path": "/api/images/v1/c09c4c3b-a6f3-4603-9486-e8579de061fa/960",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 19489
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/ea53dcee-de53-428b-b4e4-c0ccacd8ff06/960",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 20984
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/ca038bc6-a6fe-4aba-b03f-58e434b4fc00/960",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 38437
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/30da38eb-b007-4c00-b222-66db2fd4edc3/960",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 19973
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/b92e9570-3626-4f87-947f-8a6ee0f0a420/960",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 14252
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/64ede080-9726-4f5e-8b60-1b1746e28dac/960",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 20365
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/30da38eb-b007-4c00-b222-66db2fd4edc3/960",
+          "status": 304,
+          "diskCache": false,
+          "cache": null,
+          "transferredBytes": 53
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/ca038bc6-a6fe-4aba-b03f-58e434b4fc00/960",
+          "status": 304,
+          "diskCache": false,
+          "cache": null,
+          "transferredBytes": 53
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/ea53dcee-de53-428b-b4e4-c0ccacd8ff06/960",
+          "status": 304,
+          "diskCache": false,
+          "cache": null,
+          "transferredBytes": 53
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/64ede080-9726-4f5e-8b60-1b1746e28dac/960",
+          "status": 304,
+          "diskCache": false,
+          "cache": null,
+          "transferredBytes": 53
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/b92e9570-3626-4f87-947f-8a6ee0f0a420/960",
+          "status": 304,
+          "diskCache": false,
+          "cache": null,
+          "transferredBytes": 53
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/c09c4c3b-a6f3-4603-9486-e8579de061fa/960",
+          "status": 304,
+          "diskCache": false,
+          "cache": null,
+          "transferredBytes": 77
+        }
+      ]
+    },
+    {
+      "slug": "deepseek-harness",
+      "width": 390,
+      "network": [
+        {
+          "round": "first",
+          "path": "/api/images/v1/ea53dcee-de53-428b-b4e4-c0ccacd8ff06/640",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 11757
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/c09c4c3b-a6f3-4603-9486-e8579de061fa/640",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 10611
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/ca038bc6-a6fe-4aba-b03f-58e434b4fc00/640",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 20883
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/30da38eb-b007-4c00-b222-66db2fd4edc3/640",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 11681
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/b92e9570-3626-4f87-947f-8a6ee0f0a420/640",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 8286
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/64ede080-9726-4f5e-8b60-1b1746e28dac/640",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 11072
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/ca038bc6-a6fe-4aba-b03f-58e434b4fc00/640",
+          "status": 304,
+          "diskCache": false,
+          "cache": null,
+          "transferredBytes": 52
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/30da38eb-b007-4c00-b222-66db2fd4edc3/640",
+          "status": 304,
+          "diskCache": false,
+          "cache": null,
+          "transferredBytes": 53
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/b92e9570-3626-4f87-947f-8a6ee0f0a420/640",
+          "status": 304,
+          "diskCache": false,
+          "cache": null,
+          "transferredBytes": 52
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/ea53dcee-de53-428b-b4e4-c0ccacd8ff06/640",
+          "status": 304,
+          "diskCache": false,
+          "cache": null,
+          "transferredBytes": 53
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/c09c4c3b-a6f3-4603-9486-e8579de061fa/640",
+          "status": 304,
+          "diskCache": false,
+          "cache": null,
+          "transferredBytes": 53
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/64ede080-9726-4f5e-8b60-1b1746e28dac/640",
+          "status": 304,
+          "diskCache": false,
+          "cache": null,
+          "transferredBytes": 53
+        }
+      ]
+    },
+    {
+      "slug": "jev-typed-decisions",
+      "width": 1280,
+      "network": [
+        {
+          "round": "first",
+          "path": "/api/images/v1/79f4bf25-5447-470a-b17c-6cb6e8306c53/original",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 1311
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/4a27ef7a-56cc-4f68-abba-d9902d006063/original",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 1740
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/2e2d8d71-74d2-478c-a083-a3c40e30b106/original",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 1192
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/4749f220-536c-4f1a-bbc0-85ff6215267b/original",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 1261
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/ea564744-09e1-43cc-878a-530d90c81c80/original",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 1751
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/2e2d8d71-74d2-478c-a083-a3c40e30b106/original",
+          "status": 304,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 122
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/79f4bf25-5447-470a-b17c-6cb6e8306c53/original",
+          "status": 304,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 121
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/ea564744-09e1-43cc-878a-530d90c81c80/original",
+          "status": 304,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 121
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/4749f220-536c-4f1a-bbc0-85ff6215267b/original",
+          "status": 304,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 122
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/4a27ef7a-56cc-4f68-abba-d9902d006063/original",
+          "status": 304,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 122
+        }
+      ]
+    },
+    {
+      "slug": "jev-typed-decisions",
+      "width": 390,
+      "network": [
+        {
+          "round": "first",
+          "path": "/api/images/v1/4a27ef7a-56cc-4f68-abba-d9902d006063/original",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 1985
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/79f4bf25-5447-470a-b17c-6cb6e8306c53/original",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 1075
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/2e2d8d71-74d2-478c-a083-a3c40e30b106/original",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 1195
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/ea564744-09e1-43cc-878a-530d90c81c80/original",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 1783
+        },
+        {
+          "round": "first",
+          "path": "/api/images/v1/4749f220-536c-4f1a-bbc0-85ff6215267b/original",
+          "status": 200,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 1226
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/4749f220-536c-4f1a-bbc0-85ff6215267b/original",
+          "status": 304,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 122
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/2e2d8d71-74d2-478c-a083-a3c40e30b106/original",
+          "status": 304,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 122
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/79f4bf25-5447-470a-b17c-6cb6e8306c53/original",
+          "status": 304,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 121
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/4a27ef7a-56cc-4f68-abba-d9902d006063/original",
+          "status": 304,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 121
+        },
+        {
+          "round": "repeat",
+          "path": "/api/images/v1/ea564744-09e1-43cc-878a-530d90c81c80/original",
+          "status": 304,
+          "diskCache": false,
+          "cache": "HIT",
+          "transferredBytes": 127
+        }
+      ]
+    }
+  ],
+  "compression": {
+    "rasterImages": 11,
+    "sameWidth": 960,
+    "beforeBytes": 1062521,
+    "webpBytes": 221128,
+    "savingsPercent": 79.2
+  },
+  "finishedAt": "2026-10-12T09:59:51.704Z"
+}

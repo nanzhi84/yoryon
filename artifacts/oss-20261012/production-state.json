@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-10-12T07:05:28.987Z",
+  "storage": "oss",
+  "region": "oss-ap-southeast-1",
+  "bucket": "yoryon-media-1089191161022541-sg",
+  "apiImage": "yoryon-api:18e63b63-prod1",
+  "apiImageId": "sha256:ef4f2ad6bbcbb5954defacef2ad824f67b8638321941df404ae24ebc017a6768",
+  "health": "healthy",
+  "environmentPermissions": "0600 root",
+  "remainingMediaObjects": 0,
+  "mediaRows": 0,
+  "mailEvidence": "../directmail-20261012/real-mail-acceptance.json",
+  "status": "PASS"
+}

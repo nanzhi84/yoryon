@@ -1,0 +1,30 @@
+{
+  "target": "https://yoryon-7fyv3bj4r-zyy2740738166-7111s-projects.vercel.app",
+  "command": "YORYON_SVG_TARGET=<candidate> node artifacts/article-fixes-20261012/verify-svg-candidate.mjs",
+  "environment": "real Jev source, OSS, compression-enabled production Caddy, CLI-authenticated candidate",
+  "checks": [
+    {
+      "name": "five SVG source assets",
+      "status": "PASS"
+    },
+    {
+      "name": "79f4bf25-5447-470a-b17c-6cb6e8306c53: source original SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "79f4bf25-5447-470a-b17c-6cb6e8306c53: candidate SVG 200",
+      "status": "PASS"
+    },
+    {
+      "name": "79f4bf25-5447-470a-b17c-6cb6e8306c53: original vector bytes",
+      "status": "PASS"
+    },
+    {
+      "name": "79f4bf25-5447-470a-b17c-6cb6e8306c53: canonical ETag",
+      "status": "FAIL"
+    }
+  ],
+  "images": [],
+  "error": "Error: 79f4bf25-5447-470a-b17c-6cb6e8306c53: canonical ETag",
+  "finishedAt": "2026-10-12T09:53:23.010Z"
+}

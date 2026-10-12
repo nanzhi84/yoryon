@@ -1,0 +1,17 @@
+{
+  "id": "prj_xqDwJzlRrfdQA63FIMeIsRpReaRP",
+  "name": "yoryon-web",
+  "accountId": "team_QZe9hRamSsGyB0AEDzsHIb5v",
+  "framework": "nextjs",
+  "rootDirectory": "apps/web",
+  "buildCommand": "pnpm run build",
+  "installCommand": "corepack enable && pnpm install --frozen-lockfile",
+  "nodeVersion": "24.x",
+  "serverlessFunctionRegion": "sin1",
+  "ssoProtection": {
+    "deploymentType": "all_except_custom_domains"
+  },
+  "createdAt": 1791744336993,
+  "updatedAt": 1791744380579,
+  "environmentKeys": []
+}

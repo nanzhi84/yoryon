@@ -1,0 +1,59 @@
+{
+  "at": "2026-10-12T08:31:03.697Z",
+  "checks": [
+    {
+      "route": "/",
+      "reads": [
+        {
+          "status": 200,
+          "cache": "HIT",
+          "nextCache": null,
+          "catalog": "25611a58-48e7-4bc1-b9b3-1c9dea872b44"
+        },
+        {
+          "status": 200,
+          "cache": "HIT",
+          "nextCache": null,
+          "catalog": "25611a58-48e7-4bc1-b9b3-1c9dea872b44"
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "route": "/c",
+      "reads": [
+        {
+          "status": 200,
+          "cache": "REVALIDATED",
+          "nextCache": null,
+          "catalog": "25611a58-48e7-4bc1-b9b3-1c9dea872b44"
+        },
+        {
+          "status": 200,
+          "cache": "HIT",
+          "nextCache": null,
+          "catalog": "25611a58-48e7-4bc1-b9b3-1c9dea872b44"
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "route": "/tags/cacheproof",
+      "reads": [
+        {
+          "status": 200,
+          "cache": "REVALIDATED",
+          "nextCache": null,
+          "catalog": "d220c0a6-6bea-437f-9bcb-ab97fd8eb6d7"
+        },
+        {
+          "status": 200,
+          "cache": "HIT",
+          "nextCache": null,
+          "catalog": "d220c0a6-6bea-437f-9bcb-ab97fd8eb6d7"
+        }
+      ],
+      "status": "PASS"
+    }
+  ]
+}

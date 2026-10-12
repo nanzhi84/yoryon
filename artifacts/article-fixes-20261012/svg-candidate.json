@@ -1,0 +1,179 @@
+{
+  "target": "https://yoryon-7fyv3bj4r-zyy2740738166-7111s-projects.vercel.app",
+  "command": "YORYON_SVG_TARGET=<candidate> node artifacts/article-fixes-20261012/verify-svg-candidate.mjs",
+  "environment": "real Jev source, OSS, compression-enabled production Caddy, CLI-authenticated candidate",
+  "checks": [
+    {
+      "name": "five SVG source assets",
+      "status": "PASS"
+    },
+    {
+      "name": "79f4bf25-5447-470a-b17c-6cb6e8306c53: source original SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "79f4bf25-5447-470a-b17c-6cb6e8306c53: candidate SVG 200",
+      "status": "PASS"
+    },
+    {
+      "name": "79f4bf25-5447-470a-b17c-6cb6e8306c53: original vector bytes",
+      "status": "PASS"
+    },
+    {
+      "name": "79f4bf25-5447-470a-b17c-6cb6e8306c53: canonical ETag",
+      "status": "PASS"
+    },
+    {
+      "name": "79f4bf25-5447-470a-b17c-6cb6e8306c53: CDN HIT same bytes",
+      "status": "PASS"
+    },
+    {
+      "name": "79f4bf25-5447-470a-b17c-6cb6e8306c53: 304 zero body",
+      "status": "PASS"
+    },
+    {
+      "name": "4a27ef7a-56cc-4f68-abba-d9902d006063: source original SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "4a27ef7a-56cc-4f68-abba-d9902d006063: candidate SVG 200",
+      "status": "PASS"
+    },
+    {
+      "name": "4a27ef7a-56cc-4f68-abba-d9902d006063: original vector bytes",
+      "status": "PASS"
+    },
+    {
+      "name": "4a27ef7a-56cc-4f68-abba-d9902d006063: canonical ETag",
+      "status": "PASS"
+    },
+    {
+      "name": "4a27ef7a-56cc-4f68-abba-d9902d006063: CDN HIT same bytes",
+      "status": "PASS"
+    },
+    {
+      "name": "4a27ef7a-56cc-4f68-abba-d9902d006063: 304 zero body",
+      "status": "PASS"
+    },
+    {
+      "name": "2e2d8d71-74d2-478c-a083-a3c40e30b106: source original SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "2e2d8d71-74d2-478c-a083-a3c40e30b106: candidate SVG 200",
+      "status": "PASS"
+    },
+    {
+      "name": "2e2d8d71-74d2-478c-a083-a3c40e30b106: original vector bytes",
+      "status": "PASS"
+    },
+    {
+      "name": "2e2d8d71-74d2-478c-a083-a3c40e30b106: canonical ETag",
+      "status": "PASS"
+    },
+    {
+      "name": "2e2d8d71-74d2-478c-a083-a3c40e30b106: CDN HIT same bytes",
+      "status": "PASS"
+    },
+    {
+      "name": "2e2d8d71-74d2-478c-a083-a3c40e30b106: 304 zero body",
+      "status": "PASS"
+    },
+    {
+      "name": "4749f220-536c-4f1a-bbc0-85ff6215267b: source original SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "4749f220-536c-4f1a-bbc0-85ff6215267b: candidate SVG 200",
+      "status": "PASS"
+    },
+    {
+      "name": "4749f220-536c-4f1a-bbc0-85ff6215267b: original vector bytes",
+      "status": "PASS"
+    },
+    {
+      "name": "4749f220-536c-4f1a-bbc0-85ff6215267b: canonical ETag",
+      "status": "PASS"
+    },
+    {
+      "name": "4749f220-536c-4f1a-bbc0-85ff6215267b: CDN HIT same bytes",
+      "status": "PASS"
+    },
+    {
+      "name": "4749f220-536c-4f1a-bbc0-85ff6215267b: 304 zero body",
+      "status": "PASS"
+    },
+    {
+      "name": "ea564744-09e1-43cc-878a-530d90c81c80: source original SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "ea564744-09e1-43cc-878a-530d90c81c80: candidate SVG 200",
+      "status": "PASS"
+    },
+    {
+      "name": "ea564744-09e1-43cc-878a-530d90c81c80: original vector bytes",
+      "status": "PASS"
+    },
+    {
+      "name": "ea564744-09e1-43cc-878a-530d90c81c80: canonical ETag",
+      "status": "PASS"
+    },
+    {
+      "name": "ea564744-09e1-43cc-878a-530d90c81c80: CDN HIT same bytes",
+      "status": "PASS"
+    },
+    {
+      "name": "ea564744-09e1-43cc-878a-530d90c81c80: 304 zero body",
+      "status": "PASS"
+    }
+  ],
+  "images": [
+    {
+      "id": "79f4bf25-5447-470a-b17c-6cb6e8306c53",
+      "sha256": "e929af1a5c49a57ecf2a7e8a7d1f57c5171a2baf045112edf2b64759e724ef91",
+      "bytes": 3841,
+      "sourceEncoding": "gzip",
+      "sourceETag": "\"image-v1-e929af1a5c49a57ecf2a7e8a7d1f57c5171a2baf045112edf2b64759e724ef91-original-gzip\"",
+      "candidateETag": "W/\"image-v1-e929af1a5c49a57ecf2a7e8a7d1f57c5171a2baf045112edf2b64759e724ef91-original\"",
+      "warmCache": "HIT"
+    },
+    {
+      "id": "4a27ef7a-56cc-4f68-abba-d9902d006063",
+      "sha256": "e237c3e76babe2460ee63ae4fa5bbfa9e8c701aad6aa3373c25e23e07fd5b2e4",
+      "bytes": 7095,
+      "sourceEncoding": "gzip",
+      "sourceETag": "\"image-v1-e237c3e76babe2460ee63ae4fa5bbfa9e8c701aad6aa3373c25e23e07fd5b2e4-original-gzip\"",
+      "candidateETag": "W/\"image-v1-e237c3e76babe2460ee63ae4fa5bbfa9e8c701aad6aa3373c25e23e07fd5b2e4-original\"",
+      "warmCache": "HIT"
+    },
+    {
+      "id": "2e2d8d71-74d2-478c-a083-a3c40e30b106",
+      "sha256": "9a75a3ffe86f23644dc0193593cf5cbd32d34aba68cf1032163e66b03b1e9034",
+      "bytes": 5100,
+      "sourceEncoding": "gzip",
+      "sourceETag": "\"image-v1-9a75a3ffe86f23644dc0193593cf5cbd32d34aba68cf1032163e66b03b1e9034-original-gzip\"",
+      "candidateETag": "W/\"image-v1-9a75a3ffe86f23644dc0193593cf5cbd32d34aba68cf1032163e66b03b1e9034-original\"",
+      "warmCache": "HIT"
+    },
+    {
+      "id": "4749f220-536c-4f1a-bbc0-85ff6215267b",
+      "sha256": "c62476397443968849b3657ca5caac71e718beb7619a9d2f5d7ada44dd6c5a93",
+      "bytes": 5295,
+      "sourceEncoding": "gzip",
+      "sourceETag": "\"image-v1-c62476397443968849b3657ca5caac71e718beb7619a9d2f5d7ada44dd6c5a93-original-gzip\"",
+      "candidateETag": "W/\"image-v1-c62476397443968849b3657ca5caac71e718beb7619a9d2f5d7ada44dd6c5a93-original\"",
+      "warmCache": "HIT"
+    },
+    {
+      "id": "ea564744-09e1-43cc-878a-530d90c81c80",
+      "sha256": "18d11db1b31c3838abc05ada9c0e6175c608ac0bd27353a85e90c71e39bb3f45",
+      "bytes": 7966,
+      "sourceEncoding": "gzip",
+      "sourceETag": "\"image-v1-18d11db1b31c3838abc05ada9c0e6175c608ac0bd27353a85e90c71e39bb3f45-original-gzip\"",
+      "candidateETag": "W/\"image-v1-18d11db1b31c3838abc05ada9c0e6175c608ac0bd27353a85e90c71e39bb3f45-original\"",
+      "warmCache": "HIT"
+    }
+  ],
+  "finishedAt": "2026-10-12T09:55:08.815Z"
+}

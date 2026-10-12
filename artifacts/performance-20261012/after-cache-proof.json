@@ -1,0 +1,187 @@
+{
+  "phase": "after",
+  "run": "cacheproof-1791790917681-0df631",
+  "startedAt": "2026-10-12T08:17:20.576Z",
+  "target": "https://yoryon.com",
+  "checks": [
+    {
+      "name": "refresh_verified",
+      "status": "PASS"
+    },
+    {
+      "name": "warm_read_0",
+      "status": "PASS"
+    },
+    {
+      "name": "warm_read_1",
+      "status": "PASS"
+    },
+    {
+      "name": "warm_read_2",
+      "status": "PASS"
+    },
+    {
+      "name": "warm_read_3",
+      "status": "PASS"
+    },
+    {
+      "name": "warm_read_4",
+      "status": "PASS"
+    },
+    {
+      "name": "warm_reads_no_body_api",
+      "status": "PASS"
+    },
+    {
+      "name": "desktop_layout",
+      "status": "PASS"
+    },
+    {
+      "name": "desktop_no_private_fetch",
+      "status": "PASS"
+    },
+    {
+      "name": "mobile_layout",
+      "status": "PASS"
+    },
+    {
+      "name": "mobile_no_private_fetch",
+      "status": "PASS"
+    },
+    {
+      "name": "edit_verified_under_60s",
+      "status": "PASS"
+    },
+    {
+      "name": "edit_real_body",
+      "status": "PASS"
+    },
+    {
+      "name": "conversion_verified",
+      "status": "PASS"
+    },
+    {
+      "name": "alias_yoryon.com_no_full",
+      "status": "PASS"
+    },
+    {
+      "name": "alias_www.yoryon.com_no_full",
+      "status": "PASS"
+    },
+    {
+      "name": "old_render_blocked",
+      "status": "PASS"
+    },
+    {
+      "name": "rsc_no_paid_body",
+      "status": "PASS"
+    },
+    {
+      "name": "public_json_no_paid_body",
+      "status": "PASS"
+    },
+    {
+      "name": "unpublish_verified",
+      "status": "PASS"
+    },
+    {
+      "name": "unpublish_canonical_404",
+      "status": "PASS"
+    },
+    {
+      "name": "republish_body",
+      "status": "PASS"
+    }
+  ],
+  "refresh": "cache 081e2cad-b432-4fbd-b426-4af728c24719: verified\n",
+  "network": [
+    {
+      "status": 200,
+      "ms": 378.59295900000143,
+      "headers": {
+        "x-vercel-cache": "HIT",
+        "x-nextjs-cache": null,
+        "cache-control": "public, max-age=0, must-revalidate",
+        "x-vercel-id": "sin1::sin1::f2ttd-1791793052643-c9c804048093"
+      }
+    },
+    {
+      "status": 200,
+      "ms": 139.60816700000032,
+      "headers": {
+        "x-vercel-cache": "HIT",
+        "x-nextjs-cache": null,
+        "cache-control": "public, max-age=0, must-revalidate",
+        "x-vercel-id": "sin1::sin1::6m5tt-1791793052815-868b65112ca0"
+      }
+    },
+    {
+      "status": 200,
+      "ms": 139.1649579999994,
+      "headers": {
+        "x-vercel-cache": "HIT",
+        "x-nextjs-cache": null,
+        "cache-control": "public, max-age=0, must-revalidate",
+        "x-vercel-id": "sin1::sin1::kbhd7-1791793052956-54f77f7066d4"
+      }
+    },
+    {
+      "status": 200,
+      "ms": 135.10275000000001,
+      "headers": {
+        "x-vercel-cache": "HIT",
+        "x-nextjs-cache": null,
+        "cache-control": "public, max-age=0, must-revalidate",
+        "x-vercel-id": "sin1::sin1::9dklp-1791793053095-a1e43ad81d10"
+      }
+    },
+    {
+      "status": 200,
+      "ms": 140.08979200000067,
+      "headers": {
+        "x-vercel-cache": "HIT",
+        "x-nextjs-cache": null,
+        "cache-control": "public, max-age=0, must-revalidate",
+        "x-vercel-id": "sin1::sin1::9dklp-1791793053229-49546a89b6f7"
+      }
+    }
+  ],
+  "apiDelta": {
+    "body": 0,
+    "policy": 5
+  },
+  "browser": [
+    {
+      "mobile": false,
+      "privateCalls": 0,
+      "ttfb": 200.60000002384186,
+      "lcp": 368,
+      "cls": 0,
+      "overflow": false
+    },
+    {
+      "mobile": true,
+      "privateCalls": 0,
+      "ttfb": 209.80000007152557,
+      "lcp": 368,
+      "cls": 0,
+      "overflow": false
+    }
+  ],
+  "edit": {
+    "elapsedMs": 10341,
+    "verified": 1,
+    "pending": false
+  },
+  "convert": {
+    "elapsedMs": 8995,
+    "verified": 1,
+    "pending": false
+  },
+  "republish": {
+    "elapsedMs": 10088,
+    "verified": 1,
+    "pending": false
+  },
+  "finishedAt": "2026-10-12T08:18:28.909Z"
+}

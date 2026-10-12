@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "workflow-to-agent-patterns",
+    "sourceBodyHashMatchesManifest": true,
+    "textAndCodeLinesExact": true,
+    "paragraphBlankLines": "Notion paragraph boundaries expanded to Markdown blank lines",
+    "emptyNotionBlocksRemoved": true,
+    "imageMapping": "original local binary manifest; fresh Notion connector exposes block references only"
+  },
+  {
+    "slug": "deepseek-harness",
+    "sourceBodyHashMatchesManifest": true,
+    "textAndCodeLinesExact": true,
+    "paragraphBlankLines": "Notion paragraph boundaries expanded to Markdown blank lines",
+    "emptyNotionBlocksRemoved": true,
+    "imageMapping": "original local binary manifest; fresh Notion connector exposes block references only"
+  },
+  {
+    "slug": "jev-typed-decisions",
+    "sourceBodyHashMatchesManifest": true,
+    "textAndCodeLinesExact": true,
+    "paragraphBlankLines": "Notion paragraph boundaries expanded to Markdown blank lines",
+    "emptyNotionBlocksRemoved": true,
+    "imageMapping": "original local binary manifest; fresh Notion connector exposes block references only"
+  }
+]

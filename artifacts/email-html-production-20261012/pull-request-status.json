@@ -1,0 +1,26 @@
+{
+  "headRefOid": "f7dcf24b2bb73835f5cd8643762f2c26ac7f40cf",
+  "isDraft": true,
+  "state": "OPEN",
+  "statusCheckRollup": [
+    {
+      "__typename": "StatusContext",
+      "context": "Vercel",
+      "startedAt": "2026-10-12T06:41:19Z",
+      "state": "SUCCESS",
+      "targetUrl": "https://vercel.com/zyy2740738166-7111s-projects/yoryon-web/4iLCDU5DAqJdsXT2rnpMviuMYxpH"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-12T06:41:20Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://vercel.com/github",
+      "name": "Vercel Preview Comments",
+      "startedAt": "2026-10-12T06:41:20Z",
+      "status": "COMPLETED",
+      "workflowName": ""
+    }
+  ],
+  "url": "https://github.com/nanzhi84/yoryon/pull/7",
+  "checkedAt": "2026-10-12T06:42:43.941418+00:00"
+}

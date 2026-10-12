@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "command": "pnpm --filter @yoryon/e2e test auth.spec.ts",
+  "environment": "Node 24.20.0; isolated Docker PostgreSQL/Mailpit; Next.js production build; Chromium fresh contexts",
+  "testsPassed": 6,
+  "testsFailed": 0,
+  "presentationChecksPassed": 22,
+  "checkedAt": "2026-10-12T06:18:29.390001+00:00",
+  "realRecipientsUsed": false,
+  "productionDatabaseUsed": false,
+  "runtimeFixValidated": true,
+  "tests": [
+    "register_and_verify_and_auto_login",
+    "login_and_me_and_logout",
+    "invalid_login_rejected",
+    "password_reset_revokes_old_session_and_password",
+    "duplicate_active_email_rejected",
+    "resend_cooldown"
+  ],
+  "typecheck": {
+    "command": "pnpm typecheck",
+    "status": "PASS"
+  },
+  "sourceCommit": "18e63b63a26bcfa202c143156bf2cb14d3ce594b",
+  "pullRequest": "https://github.com/nanzhi84/yoryon/pull/7"
+}

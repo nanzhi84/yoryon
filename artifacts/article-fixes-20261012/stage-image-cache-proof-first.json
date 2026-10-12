@@ -1,0 +1,27 @@
+{
+  "run": "imagecache-1791797160792-2b66bd",
+  "target": "https://yoryon-9pwewq6xx-zyy2740738166-7111s-projects.vercel.app",
+  "command": "node deploy/verify-public-image-cache.mjs",
+  "environment": "real OSS + production API; serial bounded CLI; unique synthetic image",
+  "startedAt": "2026-10-12T09:26:01.414Z",
+  "checks": [
+    {
+      "name": "publish_public_verified",
+      "status": "PASS"
+    },
+    {
+      "name": "first image read",
+      "status": "PASS"
+    },
+    {
+      "name": "WebP MIME",
+      "status": "FAIL"
+    },
+    {
+      "name": "synthetic cleanup",
+      "status": "PASS"
+    }
+  ],
+  "error": "Error: WebP MIME",
+  "finishedAt": "2026-10-12T09:26:38.911Z"
+}

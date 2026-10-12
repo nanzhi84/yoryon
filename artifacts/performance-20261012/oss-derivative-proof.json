@@ -1,0 +1,45 @@
+{
+  "run": "derivative-1791793861302-99a761",
+  "command": "node deploy/verify-oss-derivative.mjs",
+  "environment": "production OSS; unique synthetic 960x480 PNG; serial CLI",
+  "startedAt": "2026-10-12T08:31:01.945Z",
+  "checks": [
+    {
+      "name": "publish_public_verified",
+      "status": "PASS"
+    },
+    {
+      "name": "real_oss_320_read",
+      "status": "PASS"
+    },
+    {
+      "name": "real_320_pixels",
+      "status": "PASS"
+    },
+    {
+      "name": "real_oss_640_read",
+      "status": "PASS"
+    },
+    {
+      "name": "real_640_pixels",
+      "status": "PASS"
+    },
+    {
+      "name": "invalid_width_rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "publish_paid_verified",
+      "status": "PASS"
+    },
+    {
+      "name": "paid_derivative_anonymous_denied",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic_cleanup",
+      "status": "PASS"
+    }
+  ],
+  "finishedAt": "2026-10-12T08:31:46.710Z"
+}

@@ -1,0 +1,34 @@
+{
+  "run": "smtp-1791784576930-e1305e23",
+  "startedAt": "2026-10-12T05:56:16.930Z",
+  "target": "https://yoryon.com",
+  "sender": "noreply@notify.yoryon.com",
+  "recipient": "explicitly_authorized_gmail",
+  "checks": [
+    {
+      "name": "recipient_has_no_existing_website_account",
+      "status": "PASS"
+    },
+    {
+      "name": "production_registration_mail_request_succeeds",
+      "status": "PASS"
+    },
+    {
+      "name": "registration_form_advances_to_email_verification",
+      "status": "PASS"
+    },
+    {
+      "name": "temporary_account_removed",
+      "status": "PASS"
+    },
+    {
+      "name": "temporary_account_and_codes_absent",
+      "status": "PASS"
+    }
+  ],
+  "receipts": [],
+  "status": "FAIL",
+  "error": "Error",
+  "cleanup": "PASS",
+  "finishedAt": "2026-10-12T06:00:23.288Z"
+}

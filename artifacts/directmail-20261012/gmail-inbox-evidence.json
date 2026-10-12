@@ -1,0 +1,45 @@
+{
+  "source": "live_gmail_connector_mime_headers_and_labels",
+  "oneTimeCodesReadByConnector": false,
+  "receipts": [
+    {
+      "run": "smtp-1791784980234-61dd5164",
+      "purpose": "register",
+      "sender": "noreply@notify.yoryon.com",
+      "labelIds": [
+        "UNREAD",
+        "IMPORTANT",
+        "CATEGORY_PERSONAL",
+        "INBOX"
+      ],
+      "authentication": {
+        "spf": true,
+        "dkim": true,
+        "dmarc": true
+      },
+      "source": "gmail_connector",
+      "dkimDomain": "notify.yoryon.com",
+      "receivedAt": "2026-10-12T06:03:02.000Z",
+      "messageIdHash": "3bf51d57056c4fb95b6deb08837f79a2660a1f0ef72f2c828b909e46b9b2b376"
+    },
+    {
+      "run": "smtp-1791784980234-61dd5164",
+      "purpose": "password_reset",
+      "sender": "noreply@notify.yoryon.com",
+      "labelIds": [
+        "IMPORTANT",
+        "CATEGORY_PERSONAL",
+        "INBOX"
+      ],
+      "authentication": {
+        "spf": true,
+        "dkim": true,
+        "dmarc": true
+      },
+      "source": "gmail_connector",
+      "dkimDomain": "notify.yoryon.com",
+      "receivedAt": "2026-10-12T06:04:16.000Z",
+      "messageIdHash": "9cc84b967becf3d2d37e62ce48edc1eefc1712c162e530b8f03a8475efc5d6b5"
+    }
+  ]
+}

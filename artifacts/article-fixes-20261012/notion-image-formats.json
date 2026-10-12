@@ -1,0 +1,39 @@
+[
+  {
+    "article": "workflow",
+    "notionFiles": [
+      "d1.png",
+      "d2.png",
+      "d4.png",
+      "d3.png",
+      "d5.png"
+    ],
+    "png": 5,
+    "svg": 0
+  },
+  {
+    "article": "deep",
+    "notionFiles": [
+      "d1.png",
+      "d2.png",
+      "d3.png",
+      "d4.png",
+      "d5.png",
+      "d6.png"
+    ],
+    "png": 6,
+    "svg": 0
+  },
+  {
+    "article": "jev",
+    "notionFiles": [
+      "jev-00-evolution.svg",
+      "jev-01-call-shape-v2.svg",
+      "jev-02-primitives.svg",
+      "jev-03-inference-centered-fixed.svg",
+      "jev-05-goals-v2.svg"
+    ],
+    "png": 0,
+    "svg": 5
+  }
+]

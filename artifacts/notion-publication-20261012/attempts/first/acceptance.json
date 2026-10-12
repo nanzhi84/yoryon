@@ -1,0 +1,220 @@
+{
+  "target": "https://yoryon.com",
+  "startedAt": "2026-10-12T08:38:29.729Z",
+  "checks": [
+    {
+      "name": "workflow-to-agent-patterns: anonymous API",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: free full",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: writing date",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: exact title",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: media count",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: complete canonical Markdown",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: rendered images",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: desktop layout",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: no private full fetch",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: browser errors",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: rendered images",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: mobile layout",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: no private full fetch",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: browser errors",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: static SEO",
+      "status": "PASS"
+    },
+    {
+      "name": "workflow-to-agent-patterns: no persisted signed URL",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: anonymous API",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: free full",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: writing date",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: exact title",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: media count",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: image byte read",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: original image SHA256",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: complete canonical Markdown",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: rendered images",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: desktop layout",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: no private full fetch",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: browser errors",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: rendered images",
+      "status": "PASS"
+    },
+    {
+      "name": "deepseek-harness: mobile layout",
+      "status": "FAIL"
+    }
+  ],
+  "articles": [
+    {
+      "slug": "workflow-to-agent-patterns",
+      "title": "从 Workflow 到 Agent：范式选择与构建模式",
+      "publishedAt": "2026-08-04T16:00:00.000Z",
+      "revision": "740a7004-41f8-48ad-81ac-ec567763121c",
+      "bodySha256": "7e60f52aff77fd886f9c989ac479a27f34317e828d5379388aac383c910ada19",
+      "images": 5,
+      "cache": "HIT",
+      "url": "https://yoryon.com/p/workflow-to-agent-patterns"
+    }
+  ],
+  "error": "Error: deepseek-harness: mobile layout",
+  "finishedAt": "2026-10-12T08:38:56.968Z"
+}

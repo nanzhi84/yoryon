@@ -1,0 +1,13 @@
+{
+  "phase": "cleanup",
+  "run": "cacheproof-1791790917681-0df631",
+  "startedAt": "2026-10-12T08:33:38.681Z",
+  "target": "https://yoryon.com",
+  "checks": [
+    {
+      "name": "canonical_deleted",
+      "status": "PASS"
+    }
+  ],
+  "finishedAt": "2026-10-12T08:33:50.813Z"
+}

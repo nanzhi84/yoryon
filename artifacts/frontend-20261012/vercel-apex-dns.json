@@ -1,0 +1,44 @@
+{
+  "configuredBy": null,
+  "nameservers": [
+    "dns25.hichina.com",
+    "dns26.hichina.com"
+  ],
+  "serviceType": "external",
+  "cnames": [],
+  "aValues": [
+    "185.199.111.153",
+    "185.199.110.153",
+    "185.199.108.153",
+    "185.199.109.153"
+  ],
+  "conflicts": [],
+  "acceptedChallenges": [],
+  "recommendedIPv4": [
+    {
+      "rank": 1,
+      "value": [
+        "216.198.79.1",
+        "64.29.17.1"
+      ]
+    },
+    {
+      "rank": 2,
+      "value": [
+        "76.76.21.21"
+      ]
+    }
+  ],
+  "recommendedCNAME": [
+    {
+      "rank": 1,
+      "value": "4201314e4d3257a5.vercel-dns-017.com."
+    },
+    {
+      "rank": 2,
+      "value": "cname.vercel-dns.com."
+    }
+  ],
+  "ipStatus": null,
+  "misconfigured": true
+}

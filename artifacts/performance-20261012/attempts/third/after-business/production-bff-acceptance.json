@@ -1,0 +1,208 @@
+{
+  "startedAt": "2026-10-12T08:22:34.137Z",
+  "target": "https://yoryon.com",
+  "run": "acceptance-1791793354137-df9284",
+  "checks": [
+    {
+      "name": "server_cli_publish_two_articles",
+      "status": "PASS"
+    },
+    {
+      "name": "anonymous_public_full_body",
+      "status": "PASS"
+    },
+    {
+      "name": "anonymous_paid_body_hidden",
+      "status": "PASS"
+    },
+    {
+      "name": "anonymous_paid_media_denied",
+      "status": "PASS"
+    },
+    {
+      "name": "public_media_redirect_rechecks_authorization",
+      "status": "PASS"
+    },
+    {
+      "name": "signed_media_https_origin",
+      "status": "PASS"
+    },
+    {
+      "name": "signed_media_range_206",
+      "status": "PASS"
+    },
+    {
+      "name": "signed_media_ttl_bounded",
+      "status": "PASS"
+    },
+    {
+      "name": "private_oss_unsigned_media_denied",
+      "status": "PASS"
+    },
+    {
+      "name": "forged_media_signature_rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "active_fixture_user_login",
+      "status": "PASS"
+    },
+    {
+      "name": "bff_secure_httponly_cookie",
+      "status": "PASS"
+    },
+    {
+      "name": "login_session_reads_current_user",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_public_article_ssr_body",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_public_media_loaded",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_paid_wall_visible",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_guest_html_has_no_paid_body",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_mobile_no_horizontal_overflow",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_login_form_and_bff_session",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_session_cookie_secure_httponly",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_activation_form_success",
+      "status": "PASS"
+    },
+    {
+      "name": "activation_code_redeems",
+      "status": "PASS"
+    },
+    {
+      "name": "redemption_replay_idempotent",
+      "status": "PASS"
+    },
+    {
+      "name": "entitled_paid_body_readable_private",
+      "status": "PASS"
+    },
+    {
+      "name": "entitled_media_private_redirect",
+      "status": "PASS"
+    },
+    {
+      "name": "authenticated_read_does_not_leak_to_guest",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_entitled_paid_article_visible",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_entitled_media_loaded",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_separate_guest_stays_locked",
+      "status": "PASS"
+    },
+    {
+      "name": "revoked_entitlement_loses_body",
+      "status": "PASS"
+    },
+    {
+      "name": "revoked_entitlement_loses_media",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_revoked_member_paywall",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_revoked_member_body_hidden",
+      "status": "PASS"
+    },
+    {
+      "name": "published_edit_visible",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_published_edit_visible",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_public_mobile_no_horizontal_overflow",
+      "status": "PASS"
+    },
+    {
+      "name": "public_to_paid_hides_body",
+      "status": "PASS"
+    },
+    {
+      "name": "public_to_paid_stops_new_media_signatures",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_public_to_paid_removes_body",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_public_to_paid_shows_wall",
+      "status": "PASS"
+    },
+    {
+      "name": "unpublished_content_returns_404",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_unpublished_http_404",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_unpublished_shows_not_found",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_unpublished_body_absent",
+      "status": "PASS"
+    },
+    {
+      "name": "logout_invalidates_session",
+      "status": "PASS"
+    },
+    {
+      "name": "browser_logout_clears_session",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic_data_cleanup",
+      "status": "PASS"
+    }
+  ],
+  "smtp": "UNVERIFIED",
+  "storage": "oss",
+  "staticArticleIssue6": "SEPARATE_CACHE_PROOF_REPORT",
+  "browser": "Chromium desktop and mobile viewport; fresh contexts; no storage state or traces",
+  "convertedMedia": {
+    "status": 403,
+    "cacheControl": "private, no-store",
+    "vercelCache": "MISS"
+  },
+  "status": "FAIL",
+  "error": "Error: execution failed; inspect protected process state",
+  "browserDiagnostic": "expect(locator).toContainText(expected) failed\n\nLocator: locator('main').getByRole('alert')\nExpected substring: \"邮件服务尚未配置\"\nReceived string:    \"该邮箱已注册\"\nTimeout: 5000ms\n\nCall log:\n  - Expect \"toContainText\" locator('main').getByRole('alert') with timeout 5000ms\n  - waiting for locator('main').getByRole('alert')\n    11 × locator resolved to <p role=\"alert\" class=\"text-sm text-red-500\">该邮箱已注册</p>\n       - unexpected value \"该邮箱已注册\"\n",
+  "finishedAt": "2026-10-12T08:24:30.721Z"
+}

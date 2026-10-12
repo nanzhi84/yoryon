@@ -1,0 +1,44 @@
+{
+  "domains": [
+    {
+      "name": "www.yoryon.com",
+      "apexName": "yoryon.com",
+      "projectId": "prj_xqDwJzlRrfdQA63FIMeIsRpReaRP",
+      "redirect": null,
+      "redirectStatusCode": null,
+      "gitBranch": null,
+      "customEnvironmentId": null,
+      "updatedAt": 1791744561119,
+      "createdAt": 1791744561119,
+      "verified": true
+    },
+    {
+      "name": "yoryon.com",
+      "apexName": "yoryon.com",
+      "projectId": "prj_xqDwJzlRrfdQA63FIMeIsRpReaRP",
+      "redirect": null,
+      "redirectStatusCode": null,
+      "gitBranch": null,
+      "customEnvironmentId": null,
+      "updatedAt": 1791744557714,
+      "createdAt": 1791744557714,
+      "verified": true
+    },
+    {
+      "name": "yoryon-web.vercel.app",
+      "apexName": "vercel.app",
+      "projectId": "prj_xqDwJzlRrfdQA63FIMeIsRpReaRP",
+      "redirect": null,
+      "gitBranch": null,
+      "customEnvironmentId": null,
+      "updatedAt": 1791744336992,
+      "createdAt": 1791744336992,
+      "verified": true
+    }
+  ],
+  "pagination": {
+    "count": 3,
+    "next": null,
+    "prev": 1791744561119
+  }
+}

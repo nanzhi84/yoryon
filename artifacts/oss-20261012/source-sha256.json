@@ -1,0 +1,9 @@
+{
+  "deploy/aliyun-rpc.py": "9e3bc2bf49d70d3b2fc294a54db94d6ee9c2badfeb453cf78234d9bd98702350",
+  "deploy/configure-production-oss.py": "5c03a1291b17e1005e2b9e5df5de1352a7e66621e3c523484eae8d0039d8ab18",
+  "deploy/configure-production-oss.mjs": "ced2db2d47fc0907cd39c50292e602a3d85896b5e664a2120e0fd955d7fe1513",
+  "deploy/backup-oss.py": "b3b82ac7463d07fb5d5c0eff1e0b59c35cb97a68a918a5a063bcfa74962b550d",
+  "deploy/backup-neon.sh": "ed7bdb605491200baddeaddd504df113f021d0a11ec810b85eb1f8ac9f35a0b6",
+  "deploy/verify-oss-backup.mjs": "2a0c0165927c0f38f4dcf32b72ac9c7d36a261f073a26ad01b305e4e9a050b22",
+  "deploy/verify-production.mjs": "6736debe86e402d9cee4f91171907590317d57930455280b59541275f692773c"
+}

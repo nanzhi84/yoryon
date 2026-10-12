@@ -1,0 +1,21 @@
+yoryon.com.		600	IN	SOA	dns25.hichina.com. hostmaster.hichina.com. 2026101202 3600 1200 86400 600
+yoryon.com.		86400	IN	NS	dns25.hichina.com.
+yoryon.com.		86400	IN	NS	dns26.hichina.com.
+yoryon.com.		600	IN	MX	5 mx1.qiye.aliyun.com.
+yoryon.com.		600	IN	MX	10 mx2.qiye.aliyun.com.
+yoryon.com.		600	IN	MX	15 mx3.qiye.aliyun.com.
+yoryon.com.		600	IN	TXT	"v=spf1 include:spf.qiye.aliyun.com ~all"
+yoryon.com.		600	IN	A	185.199.108.153
+yoryon.com.		600	IN	A	185.199.109.153
+yoryon.com.		600	IN	A	185.199.110.153
+yoryon.com.		600	IN	A	185.199.111.153
+yoryon.com.		600	IN	AAAA	2606:50c0:8000:0:0:0:0:153
+yoryon.com.		600	IN	AAAA	2606:50c0:8001:0:0:0:0:153
+yoryon.com.		600	IN	AAAA	2606:50c0:8002:0:0:0:0:153
+yoryon.com.		600	IN	AAAA	2606:50c0:8003:0:0:0:0:153
+_github-pages-challenge-nanzhi84.yoryon.com.	600	IN	TXT	"3ecfa573e39c7dfe5271645caad8b9"
+imap.yoryon.com.	600	IN	CNAME	imap.qiye.aliyun.com.
+mail.yoryon.com.	600	IN	CNAME	qiye.aliyun.com.
+pop3.yoryon.com.	600	IN	CNAME	pop.qiye.aliyun.com.
+smtp.yoryon.com.	600	IN	CNAME	smtp.qiye.aliyun.com.
+www.yoryon.com.		600	IN	CNAME	nanzhi84.github.io.

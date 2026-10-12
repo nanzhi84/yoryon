@@ -1,0 +1,6 @@
+{
+  "error": {
+    "code": "payment_required",
+    "message": "Observability Plus is required to run this query for team zyy2740738166-7111s-projects and is available on Pro and Enterprise plans. Upgrade your plan to continue. Learn more: https://vercel.com/docs/observability/observability-plus"
+  }
+}

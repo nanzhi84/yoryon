@@ -1,0 +1,19 @@
+{
+  "checkedAt": "2026-10-12T03:23:36.603761+00:00",
+  "checks": [
+    {
+      "origin": "https://www.yoryon.com",
+      "expectedStatus": 401,
+      "actualStatus": 401,
+      "errorCode": "invalid_credentials",
+      "passed": true
+    },
+    {
+      "origin": "https://untrusted.example",
+      "expectedStatus": 403,
+      "actualStatus": 403,
+      "errorCode": "csrf_rejected",
+      "passed": true
+    }
+  ]
+}

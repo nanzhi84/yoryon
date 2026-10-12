@@ -1,0 +1,24 @@
+{
+  "id": "dpl_FiYdKw4fRVg5mFstBcGto1FLeuxi",
+  "url": "yoryon-lgt7rm89u-zyy2740738166-7111s-projects.vercel.app",
+  "readyState": "READY",
+  "readySubstate": "PROMOTED",
+  "errorMessage": null,
+  "alias": [
+    "yoryon.com",
+    "www.yoryon.com",
+    "yoryon-web.vercel.app",
+    "yoryon-web-zyy2740738166-7111s-projects.vercel.app",
+    "yoryon-web-git-882221fb4405-abe3fa-zyy2740738166-7111s-projects.vercel.app"
+  ],
+  "plan": "hobby",
+  "gitSource": {
+    "type": "github",
+    "ref": "882221fb4405a08567e746c729af5868fa2e0110",
+    "repoId": 1413178868,
+    "sha": "882221fb4405a08567e746c729af5868fa2e0110"
+  },
+  "createdAt": 1791774975934,
+  "buildingAt": 1791775018640,
+  "ready": 1791775099647
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "run": "acceptance-1791791822507-558293",
+    "counts": {
+      "contents": 0,
+      "users": 0,
+      "codes": 0
+    },
+    "orphanOssObjectsRemoved": 0,
+    "status": "PASS"
+  },
+  {
+    "run": "acceptance-1791793140431-2d6cf6",
+    "counts": {
+      "contents": 0,
+      "users": 0,
+      "codes": 0
+    },
+    "orphanOssObjectsRemoved": 0,
+    "status": "PASS"
+  },
+  {
+    "run": "acceptance-1791793354137-df9284",
+    "counts": {
+      "contents": 0,
+      "users": 0,
+      "codes": 0
+    },
+    "orphanOssObjectsRemoved": 0,
+    "status": "PASS"
+  },
+  {
+    "run": "acceptance-1791793593068-cba9d9",
+    "counts": {
+      "contents": 0,
+      "users": 0,
+      "codes": 0
+    },
+    "orphanOssObjectsRemoved": 0,
+    "status": "PASS"
+  }
+]

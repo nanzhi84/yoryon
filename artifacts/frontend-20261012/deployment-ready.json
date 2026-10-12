@@ -1,0 +1,42 @@
+{
+  "id": "dpl_57KbcBKhsNqjsqsPw3qsFnuSPxuL",
+  "name": "yoryon-web",
+  "url": "yoryon-bv62g94ig-zyy2740738166-7111s-projects.vercel.app",
+  "readyState": "READY",
+  "status": "READY",
+  "target": "production",
+  "createdAt": 1791744550303,
+  "alias": [
+    "yoryon.com",
+    "www.yoryon.com",
+    "yoryon-web.vercel.app",
+    "yoryon-web-zyy2740738166-7111s-projects.vercel.app",
+    "yoryon-web-git-882221fb4405-abe3fa-zyy2740738166-7111s-projects.vercel.app"
+  ],
+  "gitSource": {
+    "type": "github",
+    "ref": "882221fb4405a08567e746c729af5868fa2e0110",
+    "repoId": 1413178868,
+    "sha": "882221fb4405a08567e746c729af5868fa2e0110"
+  },
+  "regions": [
+    "sin1"
+  ],
+  "projectId": "prj_xqDwJzlRrfdQA63FIMeIsRpReaRP",
+  "projectSettings": {
+    "buildCommand": "pnpm run build",
+    "devCommand": null,
+    "framework": "nextjs",
+    "commandForIgnoringBuildStep": null,
+    "installCommand": "corepack enable && pnpm install --frozen-lockfile",
+    "outputDirectory": null,
+    "speedInsights": {
+      "id": "O7qdWzNQ7iOxuTCagc1gwqh9quc",
+      "hasData": false
+    },
+    "webAnalytics": {
+      "id": "CpmIJFHkVpilzRVqe2pQ7L257"
+    },
+    "nodeVersion": "24.x"
+  }
+}

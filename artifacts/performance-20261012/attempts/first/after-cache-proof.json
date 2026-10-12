@@ -1,0 +1,129 @@
+{
+  "phase": "after",
+  "run": "cacheproof-1791790917681-0df631",
+  "startedAt": "2026-10-12T07:57:01.263Z",
+  "target": "https://yoryon.com",
+  "checks": [
+    {
+      "name": "refresh_verified",
+      "status": "PASS"
+    },
+    {
+      "name": "warm_read_0",
+      "status": "PASS"
+    },
+    {
+      "name": "warm_read_1",
+      "status": "PASS"
+    },
+    {
+      "name": "warm_read_2",
+      "status": "PASS"
+    },
+    {
+      "name": "warm_read_3",
+      "status": "PASS"
+    },
+    {
+      "name": "warm_read_4",
+      "status": "PASS"
+    },
+    {
+      "name": "warm_reads_no_body_api",
+      "status": "PASS"
+    },
+    {
+      "name": "desktop_layout",
+      "status": "PASS"
+    },
+    {
+      "name": "desktop_no_private_fetch",
+      "status": "PASS"
+    },
+    {
+      "name": "mobile_layout",
+      "status": "PASS"
+    },
+    {
+      "name": "mobile_no_private_fetch",
+      "status": "PASS"
+    }
+  ],
+  "refresh": "cache f2cbd123-c707-4a2a-af96-dca5d22b19c0: verified\n",
+  "network": [
+    {
+      "status": 200,
+      "ms": 366.7997090000008,
+      "headers": {
+        "x-vercel-cache": "HIT",
+        "x-nextjs-cache": null,
+        "cache-control": "public, max-age=0, must-revalidate",
+        "x-vercel-id": "sin1::sin1::wm54c-1791791834069-54d473787775"
+      }
+    },
+    {
+      "status": 200,
+      "ms": 144.38295900000048,
+      "headers": {
+        "x-vercel-cache": "HIT",
+        "x-nextjs-cache": null,
+        "cache-control": "public, max-age=0, must-revalidate",
+        "x-vercel-id": "sin1::sin1::97fkd-1791791834206-7c3dec28e0b0"
+      }
+    },
+    {
+      "status": 200,
+      "ms": 129.79808299999968,
+      "headers": {
+        "x-vercel-cache": "HIT",
+        "x-nextjs-cache": null,
+        "cache-control": "public, max-age=0, must-revalidate",
+        "x-vercel-id": "sin1::sin1::tgcps-1791791834351-f261fde87b0c"
+      }
+    },
+    {
+      "status": 200,
+      "ms": 387.77449999999953,
+      "headers": {
+        "x-vercel-cache": "HIT",
+        "x-nextjs-cache": null,
+        "cache-control": "public, max-age=0, must-revalidate",
+        "x-vercel-id": "sin1::sin1::gqt6x-1791791834481-84ec2eeced03"
+      }
+    },
+    {
+      "status": 200,
+      "ms": 125.22433300000012,
+      "headers": {
+        "x-vercel-cache": "HIT",
+        "x-nextjs-cache": null,
+        "cache-control": "public, max-age=0, must-revalidate",
+        "x-vercel-id": "sin1::sin1::gqt6x-1791791834868-554106d4e065"
+      }
+    }
+  ],
+  "apiDelta": {
+    "body": 0,
+    "policy": 5
+  },
+  "browser": [
+    {
+      "mobile": false,
+      "privateCalls": 0,
+      "ttfb": 205.79999995231628,
+      "lcp": 1020,
+      "cls": 0,
+      "overflow": false
+    },
+    {
+      "mobile": true,
+      "privateCalls": 0,
+      "ttfb": 196.29999995231628,
+      "lcp": 1204,
+      "cls": 0,
+      "overflow": false
+    }
+  ],
+  "error": "Error: Command failed: ssh -o BatchMode=yes admin@8.222.152.17 cd /opt/yoryon && sudo docker compose -f compose.neon.yml run --rm cli 'publish' '/posts/cacheproof-1791790917681-0df631'\n",
+  "finishedAt": "2026-10-12T07:59:28.684Z"
+}

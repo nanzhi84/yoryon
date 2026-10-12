@@ -1,0 +1,12 @@
+{
+  "sourceCommit": "903a79f",
+  "commands": [
+    "pnpm --dir e2e exec playwright test tests/article-layout.spec.ts --reporter=list (before fix)",
+    "pnpm --dir e2e test tests/article-layout.spec.ts (after fix, production build)",
+    "pnpm typecheck"
+  ],
+  "beforeFix": "FAIL at document viewport width; real production viewport 390, scrollWidth 473; overflowing original reference URL confirmed in DOM",
+  "afterFix": "PASS 1/1; strict code whitespace and href retained; 390 and 1280px viewport pass",
+  "typecheck": "PASS",
+  "sourceDraft": "all three exact text/code line checks pass; only paragraph blank lines and media destinations adapted"
+}

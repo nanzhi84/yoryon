@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "workflow-to-agent-patterns",
+    "writingDate": "2026-08-05",
+    "publishedAt": "2026-10-12T08:37:47.365Z",
+    "elapsedMs": 12150,
+    "verified": 1,
+    "pending": false
+  },
+  {
+    "slug": "deepseek-harness",
+    "writingDate": "2026-08-19",
+    "publishedAt": "2026-10-12T08:37:59.208Z",
+    "elapsedMs": 11839,
+    "verified": 1,
+    "pending": false
+  },
+  {
+    "slug": "jev-typed-decisions",
+    "writingDate": "2026-09-19",
+    "publishedAt": "2026-10-12T08:38:10.159Z",
+    "elapsedMs": 10950,
+    "verified": 1,
+    "pending": false
+  }
+]

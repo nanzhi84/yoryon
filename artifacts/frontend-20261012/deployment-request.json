@@ -1,0 +1,1 @@
+{"name": "yoryon-web", "project": "prj_xqDwJzlRrfdQA63FIMeIsRpReaRP", "target": "production", "gitSource": {"type": "github", "org": "nanzhi84", "repo": "yoryon", "ref": "882221fb4405a08567e746c729af5868fa2e0110"}, "meta": {"deploymentScope": "frontend-only-api-pending"}}

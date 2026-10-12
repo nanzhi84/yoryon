@@ -1,0 +1,86 @@
+{
+  "run": "imagecache-1791797303489-ac8c08",
+  "target": "https://yoryon-9pwewq6xx-zyy2740738166-7111s-projects.vercel.app",
+  "command": "node deploy/verify-public-image-cache.mjs",
+  "environment": "real OSS + production API; serial bounded CLI; unique synthetic image",
+  "startedAt": "2026-10-12T09:28:24.063Z",
+  "checks": [
+    {
+      "name": "publish_public_verified",
+      "status": "PASS"
+    },
+    {
+      "name": "first image read",
+      "status": "PASS"
+    },
+    {
+      "name": "WebP MIME",
+      "status": "PASS"
+    },
+    {
+      "name": "actual WebP pixels",
+      "status": "PASS"
+    },
+    {
+      "name": "Vercel warm HIT",
+      "status": "PASS"
+    },
+    {
+      "name": "warm same bytes",
+      "status": "PASS"
+    },
+    {
+      "name": "browser must revalidate",
+      "status": "PASS"
+    },
+    {
+      "name": "conditional 304",
+      "status": "PASS"
+    },
+    {
+      "name": "invalid variant",
+      "status": "PASS"
+    },
+    {
+      "name": "CJK strong in candidate HTML",
+      "status": "PASS"
+    },
+    {
+      "name": "publish_paid_verified",
+      "status": "PASS"
+    },
+    {
+      "name": "warm URL denied after paid",
+      "status": "PASS"
+    },
+    {
+      "name": "old ETag denied after paid",
+      "status": "PASS"
+    },
+    {
+      "name": "publish_public_verified",
+      "status": "PASS"
+    },
+    {
+      "name": "republished reads same cached bytes",
+      "status": "PASS"
+    },
+    {
+      "name": "unpublished warm URL denied",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic cleanup",
+      "status": "PASS"
+    }
+  ],
+  "image": {
+    "sourceBytes": 7906,
+    "webpBytes": 168,
+    "width": 320,
+    "height": 160,
+    "firstCache": "MISS",
+    "warmCache": "HIT"
+  },
+  "finishedAt": "2026-10-12T09:29:45.039Z"
+}

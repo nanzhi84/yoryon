@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "backup": "20261011T194113Z",
+  "checksumVerified": true,
+  "environment": "isolated local Docker PostgreSQL 16; no network or exposed ports",
+  "restored": {
+    "publicTables": 14,
+    "users": 0,
+    "contents": 0,
+    "mediaAssets": 0
+  },
+  "productionDatabaseModified": false
+}

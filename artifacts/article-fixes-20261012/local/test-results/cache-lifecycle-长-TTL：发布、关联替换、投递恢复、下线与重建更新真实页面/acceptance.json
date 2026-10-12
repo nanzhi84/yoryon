@@ -1,0 +1,22 @@
+{
+  "environment": "isolated loopback PG/FS, next start, TTL=86400",
+  "command": "pnpm e2e",
+  "evidence": [
+    {
+      "step": "negative cache and anonymous navigation",
+      "pass": true
+    },
+    {
+      "step": "old and new associations",
+      "pass": true
+    },
+    {
+      "step": "durable retry",
+      "pass": true
+    },
+    {
+      "step": "unpublish delete rebuild",
+      "pass": true
+    }
+  ]
+}

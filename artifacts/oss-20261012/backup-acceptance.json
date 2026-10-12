@@ -1,0 +1,24 @@
+{
+  "startedAt": "2026-10-12T07:02:47.429Z",
+  "checks": [
+    {
+      "name": "backup_completed",
+      "status": "PASS"
+    },
+    {
+      "name": "backup_archive_checksums",
+      "status": "PASS"
+    },
+    {
+      "name": "oss_media_restore_hash",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic_object_cleanup",
+      "status": "PASS"
+    }
+  ],
+  "backup": "/var/backups/yoryon/20261012T070251Z",
+  "status": "PASS",
+  "finishedAt": "2026-10-12T07:02:58.009Z"
+}

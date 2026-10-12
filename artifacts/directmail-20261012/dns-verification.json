@@ -1,0 +1,113 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "resolver": "gerardo.ns.cloudflare.com",
+      "type": "TXT",
+      "name": "aliyun-cn-hangzhou-2048._domainkey.notify.yoryon.com",
+      "answers": [
+        "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAm6vd9flU1KIdFaTV6nHpC1BDIYQ1qWSkCQCubTifwHcBQ+uY8KgYbcxWK0IVH3w4/jQf4nq1DWFzyhW0yQ43e4/44YVpgQ5AYM1uszz5aiCGBfGvuugDBZW616v7veb2D2c8eVRLWJK23YdJt14gOQXxG9r060yQjZy0gOK6ZjpAqZkRg/BxjiN56Z6XEVp9OB9zNW/GsscznFSFPmi5d8yPNscJrBUvR6ngP5uY7mMAVyi0D5sgFvN/OtRoj8/SvESH2jy6SXe2d29+wSTnb9vhaePT14x84dMCeTYTYHBIxwy7rQP0XVo44BmeMrpj1h41u9DxUchU8Lur55IsDQIDAQAB"
+      ],
+      "status": "PASS"
+    },
+    {
+      "resolver": "gerardo.ns.cloudflare.com",
+      "type": "TXT",
+      "name": "notify.yoryon.com",
+      "answers": [
+        "v=spf1 include:spf1.dm.aliyun.com -all"
+      ],
+      "status": "PASS"
+    },
+    {
+      "resolver": "gerardo.ns.cloudflare.com",
+      "type": "TXT",
+      "name": "_dmarc.notify.yoryon.com",
+      "answers": [
+        "v=DMARC1;p=none;rua=mailto:dmarc_report@service.aliyun.com"
+      ],
+      "status": "PASS"
+    },
+    {
+      "resolver": "gerardo.ns.cloudflare.com",
+      "type": "MX",
+      "name": "notify.yoryon.com",
+      "answers": [
+        "10 mx01.dm.aliyun.com"
+      ],
+      "status": "PASS"
+    },
+    {
+      "resolver": "1.1.1.1",
+      "type": "TXT",
+      "name": "aliyun-cn-hangzhou-2048._domainkey.notify.yoryon.com",
+      "answers": [
+        "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAm6vd9flU1KIdFaTV6nHpC1BDIYQ1qWSkCQCubTifwHcBQ+uY8KgYbcxWK0IVH3w4/jQf4nq1DWFzyhW0yQ43e4/44YVpgQ5AYM1uszz5aiCGBfGvuugDBZW616v7veb2D2c8eVRLWJK23YdJt14gOQXxG9r060yQjZy0gOK6ZjpAqZkRg/BxjiN56Z6XEVp9OB9zNW/GsscznFSFPmi5d8yPNscJrBUvR6ngP5uY7mMAVyi0D5sgFvN/OtRoj8/SvESH2jy6SXe2d29+wSTnb9vhaePT14x84dMCeTYTYHBIxwy7rQP0XVo44BmeMrpj1h41u9DxUchU8Lur55IsDQIDAQAB"
+      ],
+      "status": "PASS"
+    },
+    {
+      "resolver": "1.1.1.1",
+      "type": "TXT",
+      "name": "notify.yoryon.com",
+      "answers": [
+        "v=spf1 include:spf1.dm.aliyun.com -all"
+      ],
+      "status": "PASS"
+    },
+    {
+      "resolver": "1.1.1.1",
+      "type": "TXT",
+      "name": "_dmarc.notify.yoryon.com",
+      "answers": [
+        "v=DMARC1;p=none;rua=mailto:dmarc_report@service.aliyun.com"
+      ],
+      "status": "PASS"
+    },
+    {
+      "resolver": "1.1.1.1",
+      "type": "MX",
+      "name": "notify.yoryon.com",
+      "answers": [
+        "10 mx01.dm.aliyun.com"
+      ],
+      "status": "PASS"
+    },
+    {
+      "resolver": "8.8.8.8",
+      "type": "TXT",
+      "name": "aliyun-cn-hangzhou-2048._domainkey.notify.yoryon.com",
+      "answers": [
+        "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAm6vd9flU1KIdFaTV6nHpC1BDIYQ1qWSkCQCubTifwHcBQ+uY8KgYbcxWK0IVH3w4/jQf4nq1DWFzyhW0yQ43e4/44YVpgQ5AYM1uszz5aiCGBfGvuugDBZW616v7veb2D2c8eVRLWJK23YdJt14gOQXxG9r060yQjZy0gOK6ZjpAqZkRg/BxjiN56Z6XEVp9OB9zNW/GsscznFSFPmi5d8yPNscJrBUvR6ngP5uY7mMAVyi0D5sgFvN/OtRoj8/SvESH2jy6SXe2d29+wSTnb9vhaePT14x84dMCeTYTYHBIxwy7rQP0XVo44BmeMrpj1h41u9DxUchU8Lur55IsDQIDAQAB"
+      ],
+      "status": "PASS"
+    },
+    {
+      "resolver": "8.8.8.8",
+      "type": "TXT",
+      "name": "notify.yoryon.com",
+      "answers": [
+        "v=spf1 include:spf1.dm.aliyun.com -all"
+      ],
+      "status": "PASS"
+    },
+    {
+      "resolver": "8.8.8.8",
+      "type": "TXT",
+      "name": "_dmarc.notify.yoryon.com",
+      "answers": [
+        "v=DMARC1;p=none;rua=mailto:dmarc_report@service.aliyun.com"
+      ],
+      "status": "PASS"
+    },
+    {
+      "resolver": "8.8.8.8",
+      "type": "MX",
+      "name": "notify.yoryon.com",
+      "answers": [
+        "10 mx01.dm.aliyun.com"
+      ],
+      "status": "PASS"
+    }
+  ]
+}

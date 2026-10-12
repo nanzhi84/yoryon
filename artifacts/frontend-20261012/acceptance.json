@@ -1,0 +1,529 @@
+{
+  "checkedAt": "2026-10-11T19:02:44.054279+00:00",
+  "scope": "frontend and domain only; API not deployed",
+  "systemResolverCache": {
+    "NS": [
+      "dns25.hichina.com",
+      "dns26.hichina.com"
+    ],
+    "A": [
+      "216.198.79.1",
+      "64.29.17.1"
+    ],
+    "AAAA": []
+  },
+  "ordinaryLocalAccess": [
+    {
+      "host": "yoryon.com",
+      "status": 200,
+      "remoteIP": "127.0.0.1",
+      "networkPath": "ordinary local environment",
+      "curlExit": 0,
+      "headers": {
+        "server": "GitHub.com",
+        "content-type": "text/html; charset=utf-8"
+      },
+      "error": "",
+      "expectedHomepage": false,
+      "osAddresses": [
+        "185.199.108.153",
+        "185.199.109.153",
+        "185.199.110.153",
+        "185.199.111.153"
+      ]
+    },
+    {
+      "host": "www.yoryon.com",
+      "status": 200,
+      "remoteIP": "127.0.0.1",
+      "networkPath": "ordinary local environment",
+      "curlExit": 0,
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "server": "Vercel",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "sin1::hpv4d-1791745360913-68c081756039"
+      },
+      "error": "",
+      "expectedHomepage": true,
+      "osAddresses": [
+        "216.198.79.65",
+        "64.29.17.65"
+      ]
+    }
+  ],
+  "localAccessStatus": "PENDING_DNS_CACHE",
+  "expectedCommit": "882221fb4405a08567e746c729af5868fa2e0110",
+  "expectedDeployment": "dpl_57KbcBKhsNqjsqsPw3qsFnuSPxuL",
+  "businessAcceptance": "UNVERIFIED: registration, login, content, subscription, media depend on production API",
+  "checks": [
+    {
+      "name": "Cloudflare public resolver nameservers",
+      "status": "PASS",
+      "evidence": [
+        "gerardo.ns.cloudflare.com",
+        "karsyn.ns.cloudflare.com"
+      ]
+    },
+    {
+      "name": "public resolver apex A",
+      "status": "PASS",
+      "evidence": [
+        "216.198.79.1",
+        "64.29.17.1"
+      ]
+    },
+    {
+      "name": "system resolver apex A",
+      "status": "PASS",
+      "evidence": [
+        "216.198.79.1",
+        "64.29.17.1"
+      ]
+    },
+    {
+      "name": "no legacy IPv6",
+      "status": "PASS",
+      "evidence": []
+    },
+    {
+      "name": "www Vercel CNAME",
+      "status": "PASS",
+      "evidence": [
+        "4201314e4d3257a5.vercel-dns-017.com"
+      ]
+    },
+    {
+      "name": "gerardo.ns.cloudflare.com apex A",
+      "status": "PASS",
+      "evidence": [
+        "216.198.79.1",
+        "64.29.17.1"
+      ]
+    },
+    {
+      "name": "gerardo.ns.cloudflare.com mail MX",
+      "status": "PASS",
+      "evidence": [
+        "10 mx2.qiye.aliyun.com",
+        "15 mx3.qiye.aliyun.com",
+        "5 mx1.qiye.aliyun.com"
+      ]
+    },
+    {
+      "name": "karsyn.ns.cloudflare.com apex A",
+      "status": "PASS",
+      "evidence": [
+        "216.198.79.1",
+        "64.29.17.1"
+      ]
+    },
+    {
+      "name": "karsyn.ns.cloudflare.com mail MX",
+      "status": "PASS",
+      "evidence": [
+        "10 mx2.qiye.aliyun.com",
+        "15 mx3.qiye.aliyun.com",
+        "5 mx1.qiye.aliyun.com"
+      ]
+    },
+    {
+      "name": "yoryon.com HTTPS homepage",
+      "status": "PASS",
+      "evidence": {
+        "status": 200,
+        "remoteIP": "216.198.79.1",
+        "networkPath": "direct TLS to public DNS address",
+        "curlExit": 0,
+        "headers": {
+          "content-type": "text/html; charset=utf-8",
+          "server": "Vercel",
+          "x-vercel-cache": "HIT",
+          "x-vercel-id": "sin1::gmlvb-1791745352299-7383ab5216d1"
+        },
+        "error": "",
+        "title": "Yoryon",
+        "expectedEmptyState": true
+      }
+    },
+    {
+      "name": "frontend route /about",
+      "status": "PASS",
+      "evidence": {
+        "status": 200,
+        "remoteIP": "216.198.79.1",
+        "networkPath": "direct TLS to public DNS address",
+        "curlExit": 0,
+        "headers": {
+          "content-type": "text/html; charset=utf-8",
+          "server": "Vercel",
+          "x-vercel-cache": "HIT",
+          "x-vercel-id": "sin1::48lpv-1791745352802-ff4ef3ee2663"
+        },
+        "error": "",
+        "expectedLabel": "关于",
+        "labelPresent": true
+      }
+    },
+    {
+      "name": "frontend route /c",
+      "status": "PASS",
+      "evidence": {
+        "status": 200,
+        "remoteIP": "216.198.79.1",
+        "networkPath": "direct TLS to public DNS address",
+        "curlExit": 0,
+        "headers": {
+          "content-type": "text/html; charset=utf-8",
+          "server": "Vercel",
+          "x-vercel-cache": "MISS",
+          "x-vercel-id": "sin1::sin1::6sw5b-1791745353196-b35ae27f927c"
+        },
+        "error": "",
+        "expectedLabel": "合集",
+        "labelPresent": true
+      }
+    },
+    {
+      "name": "frontend route /login",
+      "status": "PASS",
+      "evidence": {
+        "status": 200,
+        "remoteIP": "216.198.79.1",
+        "networkPath": "direct TLS to public DNS address",
+        "curlExit": 0,
+        "headers": {
+          "content-type": "text/html; charset=utf-8",
+          "server": "Vercel",
+          "x-vercel-cache": "HIT",
+          "x-vercel-id": "sin1::xmr7f-1791745353668-e01874366533"
+        },
+        "error": "",
+        "expectedLabel": "登录",
+        "labelPresent": true
+      }
+    },
+    {
+      "name": "frontend route /register",
+      "status": "PASS",
+      "evidence": {
+        "status": 200,
+        "remoteIP": "216.198.79.1",
+        "networkPath": "direct TLS to public DNS address",
+        "curlExit": 0,
+        "headers": {
+          "content-type": "text/html; charset=utf-8",
+          "server": "Vercel",
+          "x-vercel-cache": "HIT",
+          "x-vercel-id": "sin1::96hx4-1791745353980-d35b8cb03545"
+        },
+        "error": "",
+        "expectedLabel": "注册",
+        "labelPresent": true
+      }
+    },
+    {
+      "name": "frontend route /reset-password",
+      "status": "PASS",
+      "evidence": {
+        "status": 200,
+        "remoteIP": "216.198.79.1",
+        "networkPath": "direct TLS to public DNS address",
+        "curlExit": 0,
+        "headers": {
+          "content-type": "text/html; charset=utf-8",
+          "server": "Vercel",
+          "x-vercel-cache": "HIT",
+          "x-vercel-id": "sin1::vf4ks-1791745354364-5b5c652ceb38"
+        },
+        "error": "",
+        "expectedLabel": "重置密码",
+        "labelPresent": true
+      }
+    },
+    {
+      "name": "frontend route /redeem",
+      "status": "PASS",
+      "evidence": {
+        "status": 200,
+        "remoteIP": "216.198.79.1",
+        "networkPath": "direct TLS to public DNS address",
+        "curlExit": 0,
+        "headers": {
+          "content-type": "text/html; charset=utf-8",
+          "server": "Vercel",
+          "x-vercel-cache": "HIT",
+          "x-vercel-id": "sin1::zgcnj-1791745354756-782976c691e2"
+        },
+        "error": "",
+        "expectedLabel": "订阅",
+        "labelPresent": true
+      }
+    },
+    {
+      "name": "homepage references JS and CSS",
+      "status": "PASS",
+      "evidence": {
+        "count": 11
+      }
+    },
+    {
+      "name": "asset /_next/static/css/4a39412df2870895.css",
+      "status": "PASS",
+      "evidence": {
+        "status": 200,
+        "remoteIP": "216.198.79.1",
+        "networkPath": "direct TLS to public DNS address",
+        "curlExit": 0,
+        "headers": {
+          "content-type": "text/css; charset=utf-8",
+          "server": "Vercel",
+          "x-vercel-cache": "HIT",
+          "x-vercel-id": "sin1::qw9p8-1791745355096-647df34ff1c1"
+        },
+        "error": "",
+        "bytes": 35782
+      }
+    },
+    {
+      "name": "asset /_next/static/chunks/webpack-fa5a4a9e79445c41.js",
+      "status": "PASS",
+      "evidence": {
+        "status": 200,
+        "remoteIP": "216.198.79.1",
+        "networkPath": "direct TLS to public DNS address",
+        "curlExit": 0,
+        "headers": {
+          "content-type": "application/javascript; charset=utf-8",
+          "server": "Vercel",
+          "x-vercel-cache": "HIT",
+          "x-vercel-id": "sin1::tzlqx-1791745355473-1181ebd2e3fe"
+        },
+        "error": "",
+        "bytes": 5275
+      }
+    },
+    {
+      "name": "asset /_next/static/chunks/03a918de-cd9c8b545c28cf0b.js",
+      "status": "PASS",
+      "evidence": {
+        "status": 200,
+        "remoteIP": "216.198.79.1",
+        "networkPath": "direct TLS to public DNS address",
+        "curlExit": 0,
+        "headers": {
+          "content-type": "application/javascript; charset=utf-8",
+          "server": "Vercel",
+          "x-vercel-cache": "HIT",
+          "x-vercel-id": "sin1::vf4ks-1791745355854-d65cfb0f862c"
+        },
+        "error": "",
+        "bytes": 173018
+      }
+    },
+    {
+      "name": "asset /_next/static/chunks/886-4d95e9c5337f8dcd.js",
+      "status": "PASS",
+      "evidence": {
+        "status": 200,
+        "remoteIP": "216.198.79.1",
+        "networkPath": "direct TLS to public DNS address",
+        "curlExit": 0,
+        "headers": {
+          "content-type": "application/javascript; charset=utf-8",
+          "server": "Vercel",
+          "x-vercel-cache": "HIT",
+          "x-vercel-id": "sin1::q5hk5-1791745356428-eeab1f9d48b8"
+        },
+        "error": "",
+        "bytes": 173935
+      }
+    },
+    {
+      "name": "asset /_next/static/chunks/main-app-f91e0942c3d4d562.js",
+      "status": "PASS",
+      "evidence": {
+        "status": 200,
+        "remoteIP": "216.198.79.1",
+        "networkPath": "direct TLS to public DNS address",
+        "curlExit": 0,
+        "headers": {
+          "content-type": "application/javascript; charset=utf-8",
+          "server": "Vercel",
+          "x-vercel-cache": "HIT",
+          "x-vercel-id": "sin1::xlh2d-1791745357029-c00dcc848ed6"
+        },
+        "error": "",
+        "bytes": 556
+      }
+    },
+    {
+      "name": "asset /_next/static/chunks/882-94369c93952a351d.js",
+      "status": "PASS",
+      "evidence": {
+        "status": 200,
+        "remoteIP": "216.198.79.1",
+        "networkPath": "direct TLS to public DNS address",
+        "curlExit": 0,
+        "headers": {
+          "content-type": "application/javascript; charset=utf-8",
+          "server": "Vercel",
+          "x-vercel-cache": "HIT",
+          "x-vercel-id": "sin1::42vwn-1791745357328-d7e813df760a"
+        },
+        "error": "",
+        "bytes": 31691
+      }
+    },
+    {
+      "name": "asset /_next/static/chunks/app/error-b13a19ca05889328.js",
+      "status": "PASS",
+      "evidence": {
+        "status": 200,
+        "remoteIP": "216.198.79.1",
+        "networkPath": "direct TLS to public DNS address",
+        "curlExit": 0,
+        "headers": {
+          "content-type": "application/javascript; charset=utf-8",
+          "server": "Vercel",
+          "x-vercel-cache": "HIT",
+          "x-vercel-id": "sin1::8wtc5-1791745357700-c388c10010d4"
+        },
+        "error": "",
+        "bytes": 1663
+      }
+    },
+    {
+      "name": "asset /_next/static/chunks/34-d921e4e567d2abe9.js",
+      "status": "PASS",
+      "evidence": {
+        "status": 200,
+        "remoteIP": "216.198.79.1",
+        "networkPath": "direct TLS to public DNS address",
+        "curlExit": 0,
+        "headers": {
+          "content-type": "application/javascript; charset=utf-8",
+          "server": "Vercel",
+          "x-vercel-cache": "HIT",
+          "x-vercel-id": "sin1::bj7ph-1791745358031-702349ded34e"
+        },
+        "error": "",
+        "bytes": 92194
+      }
+    },
+    {
+      "name": "asset /_next/static/chunks/815-d781b00e8387475b.js",
+      "status": "PASS",
+      "evidence": {
+        "status": 200,
+        "remoteIP": "216.198.79.1",
+        "networkPath": "direct TLS to public DNS address",
+        "curlExit": 0,
+        "headers": {
+          "content-type": "application/javascript; charset=utf-8",
+          "server": "Vercel",
+          "x-vercel-cache": "HIT",
+          "x-vercel-id": "sin1::xmr7f-1791745358584-73166e8c23ee"
+        },
+        "error": "",
+        "bytes": 9723
+      }
+    },
+    {
+      "name": "asset /_next/static/chunks/app/page-9f40380ef835c6d4.js",
+      "status": "PASS",
+      "evidence": {
+        "status": 200,
+        "remoteIP": "216.198.79.1",
+        "networkPath": "direct TLS to public DNS address",
+        "curlExit": 0,
+        "headers": {
+          "content-type": "application/javascript; charset=utf-8",
+          "server": "Vercel",
+          "x-vercel-cache": "HIT",
+          "x-vercel-id": "sin1::hw728-1791745358920-4c56e9df0be7"
+        },
+        "error": "",
+        "bytes": 306
+      }
+    },
+    {
+      "name": "asset /_next/static/chunks/polyfills-42372ed130431b0a.js",
+      "status": "PASS",
+      "evidence": {
+        "status": 200,
+        "remoteIP": "216.198.79.1",
+        "networkPath": "direct TLS to public DNS address",
+        "curlExit": 0,
+        "headers": {
+          "content-type": "application/javascript; charset=utf-8",
+          "server": "Vercel",
+          "x-vercel-cache": "MISS",
+          "x-vercel-id": "sin1::vvjvp-1791745360230-0e82a5434da6"
+        },
+        "error": "",
+        "bytes": 112541
+      }
+    },
+    {
+      "name": "www.yoryon.com HTTPS homepage",
+      "status": "PASS",
+      "evidence": {
+        "status": 200,
+        "remoteIP": "216.198.79.1",
+        "networkPath": "direct TLS to public DNS address",
+        "curlExit": 0,
+        "headers": {
+          "content-type": "text/html; charset=utf-8",
+          "server": "Vercel",
+          "x-vercel-cache": "HIT",
+          "x-vercel-id": "sin1::5rg66-1791745361468-deb2e17bdd92"
+        },
+        "error": "",
+        "title": "Yoryon",
+        "expectedEmptyState": true
+      }
+    },
+    {
+      "name": "alternate public A HTTPS 64.29.17.1",
+      "status": "PASS",
+      "evidence": {
+        "status": 200,
+        "remoteIP": "64.29.17.1",
+        "networkPath": "direct TLS to public DNS address",
+        "curlExit": 0,
+        "headers": {
+          "content-type": "text/html; charset=utf-8",
+          "server": "Vercel",
+          "x-vercel-cache": "HIT",
+          "x-vercel-id": "sin1::9q74s-1791745361858-35d3f350eb96"
+        },
+        "error": ""
+      }
+    },
+    {
+      "name": "old repository preserved",
+      "status": "PASS",
+      "evidence": {
+        "returnCode": 0
+      }
+    },
+    {
+      "name": "old GitHub Pages disabled",
+      "status": "PASS",
+      "evidence": {
+        "returnCode": 1,
+        "notFound": true
+      }
+    },
+    {
+      "name": "old deploy workflow disabled",
+      "status": "PASS",
+      "evidence": {
+        "state": "disabled_manually"
+      }
+    }
+  ],
+  "pass": 33,
+  "fail": 0
+}

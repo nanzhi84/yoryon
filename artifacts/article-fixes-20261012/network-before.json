@@ -1,0 +1,76 @@
+{
+  "target": "workflow-to-agent-patterns",
+  "environment": "fresh Chromium1280; first and repeat reading; original OSS signed redirect path",
+  "network": [
+    {
+      "round": "first",
+      "status": 200,
+      "diskCache": false,
+      "fromServiceWorker": false,
+      "transferredBytes": 71345
+    },
+    {
+      "round": "first",
+      "status": 200,
+      "diskCache": false,
+      "fromServiceWorker": false,
+      "transferredBytes": 85714
+    },
+    {
+      "round": "first",
+      "status": 200,
+      "diskCache": false,
+      "fromServiceWorker": false,
+      "transferredBytes": 96815
+    },
+    {
+      "round": "first",
+      "status": 200,
+      "diskCache": false,
+      "fromServiceWorker": false,
+      "transferredBytes": 120585
+    },
+    {
+      "round": "first",
+      "status": 200,
+      "diskCache": false,
+      "fromServiceWorker": false,
+      "transferredBytes": 83084
+    },
+    {
+      "round": "repeat",
+      "status": 200,
+      "diskCache": false,
+      "fromServiceWorker": false,
+      "transferredBytes": 71344
+    },
+    {
+      "round": "repeat",
+      "status": 200,
+      "diskCache": false,
+      "fromServiceWorker": false,
+      "transferredBytes": 85714
+    },
+    {
+      "round": "repeat",
+      "status": 200,
+      "diskCache": false,
+      "fromServiceWorker": false,
+      "transferredBytes": 96814
+    },
+    {
+      "round": "repeat",
+      "status": 200,
+      "diskCache": false,
+      "fromServiceWorker": false,
+      "transferredBytes": 120585
+    },
+    {
+      "round": "repeat",
+      "status": 200,
+      "diskCache": false,
+      "fromServiceWorker": false,
+      "transferredBytes": 83084
+    }
+  ]
+}

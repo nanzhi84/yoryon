@@ -1,0 +1,17 @@
+{
+  "dateLocal": "2026-10-12",
+  "timezone": "Asia/Singapore",
+  "method": "Native Chrome via cua_repl; observed AX state and screenshot",
+  "testData": "No accounts, form values, or business mutations",
+  "entry": "https://www.yoryon.com",
+  "checks": [
+    {"action": "Open www homepage", "status": "PASS", "observed": "Yoryon; 还没有内容，敬请期待。"},
+    {"action": "Click 关于", "status": "PASS", "observed": "关于 · Yoryon; biography placeholder and 找到我 links"},
+    {"action": "Click 合集", "status": "PASS", "observed": "合集 · Yoryon; 还没有合集。"},
+    {"action": "Click 登录", "status": "PASS", "observed": "登录 · Yoryon; 邮箱或用户名 and 密码 fields; 注册 and 忘记密码 links"},
+    {"action": "Open https://yoryon.com", "status": "PENDING_DNS_CACHE", "observed": "Site not found · GitHub Pages; 404"},
+    {"action": "Return to https://www.yoryon.com", "status": "PASS", "observed": "Yoryon; 还没有内容，敬请期待。"}
+  ],
+  "businessAcceptance": "UNVERIFIED: production API is not deployed",
+  "reproduction": "Open both exact URLs in Chrome, then follow 关于 → 合集 → 登录 on www; inspect visible labels without submitting forms."
+}
