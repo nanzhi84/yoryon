@@ -19,11 +19,15 @@ const base = process.argv[2] ?? 'https://api.yoryon.com';
 if (!['https://api.yoryon.com', 'https://yoryon.com'].includes(base)) throw Error('Unexpected target');
 const viaBff = base === 'https://yoryon.com';
 const withBrowser = process.argv.includes('--browser');
+const ossMode = process.argv.includes('--oss');
 const smtpReady = process.argv.includes('--smtp-ready');
 if (withBrowser && !viaBff) throw Error('Browser acceptance requires the production frontend');
-const artifactDir = new URL(smtpReady ? '../artifacts/production-mail-ready-20261012/' : '../artifacts/production-20261012/', import.meta.url);
+const artifactRoot = process.env.YORYON_ACCEPTANCE_ARTIFACT_DIR ?? (ossMode ? '../artifacts/oss-20261012/acceptance/' : smtpReady ? '../artifacts/production-mail-ready-20261012/' : '../artifacts/production-20261012/');
+const artifactDir = new URL(artifactRoot, import.meta.url);
 await fs.mkdir(artifactDir, { recursive: true });
 const credentials = JSON.parse(await fs.readFile(path.join(os.homedir(), '.config/yoryon-production/secrets.json')));
+const ossConfig = ossMode ? JSON.parse(await fs.readFile(path.join(os.homedir(), '.config/yoryon-production/oss-credentials.json'))) : null;
+const ossClient = ossMode ? new (require('ali-oss'))({ region: ossConfig.region, bucket: ossConfig.bucket, secure: true, ...ossConfig.cli }) : null;
 const run = `acceptance-${Date.now()}-${crypto.randomBytes(3).toString('hex')}`;
 const root = await fs.mkdtemp(path.join(os.tmpdir(), 'yoryon-acceptance-'));
 const postRoot = path.join(root, run);
@@ -36,7 +40,7 @@ const checks = [];
 let userId, code, token, cookie, browser, media = [];
 const shell = value => `'${value.replaceAll("'", "'\\''")}'`;
 const ssh = command => exec('ssh', ['-o', 'BatchMode=yes', 'admin@8.222.152.17', command], { timeout: 60000, maxBuffer: 1024 * 1024 });
-const cli = async (...args) => (await ssh(`cd /opt/yoryon && sudo docker compose -f compose.neon.yml run --rm cli ${args.map(shell).join(' ')}`)).stdout;
+const cli = async (...args) => (await ssh(`cd /opt/yoryon && sudo /opt/yoryon/blog ${args.map(shell).join(' ')}`)).stdout;
 function check(name, ok) {
   checks.push({ name, status: ok ? 'PASS' : 'FAIL' });
   if (!ok) throw Error(`Assertion failed: ${name}`);
@@ -66,7 +70,7 @@ async function makePost(kind, visibility, suffix = '') {
 async function uploadPosts() {
   await exec('scp', ['-r', postRoot, 'admin@8.222.152.17:/opt/yoryon/posts/'], { timeout: 60000 });
 }
-const report = { startedAt: new Date().toISOString(), target: base, run, checks, smtp: smtpReady ? 'SEPARATE_REAL_MAIL_REPORT' : 'UNVERIFIED', staticArticleIssue6: 'NOT_IMPLEMENTED' };
+const report = { startedAt: new Date().toISOString(), target: base, run, checks, smtp: smtpReady ? 'SEPARATE_REAL_MAIL_REPORT' : 'UNVERIFIED', storage: ossMode ? 'oss' : 'fs', staticArticleIssue6: 'SEPARATE_CACHE_PROOF_REPORT' };
 try {
   await db.connect();
   await makePost('public', 'public');
@@ -85,10 +89,16 @@ try {
   const signed = await request(`/api/media/${freeMedia.id}`);
   check('public_media_redirect_rechecks_authorization', signed.status === 302 && signed.headers.get('cache-control').includes('no-store'));
   const url = new URL(signed.headers.get('location'));
-  check('signed_media_https_origin', url.origin === 'https://api.yoryon.com');
+  check('signed_media_https_origin', url.origin === (ossMode ? `https://${ossConfig.bucket}.oss-ap-southeast-1.aliyuncs.com` : 'https://api.yoryon.com'));
   const bytes = await fetch(url, { headers: { range: 'bytes=0-9' }, signal: AbortSignal.timeout(20000) });
   check('signed_media_range_206', bytes.status === 206 && (await bytes.arrayBuffer()).byteLength === 10);
-  url.searchParams.set('sig', '0'.repeat(64));
+  if (ossMode) {
+    check('signed_media_ttl_bounded', Number(url.searchParams.get('Expires')) - Math.floor(Date.now()/1000) <= 900 && Number(url.searchParams.get('Expires')) > Math.floor(Date.now()/1000));
+    const unsigned = new URL(url); unsigned.search = '';
+    const denied = await fetch(unsigned, { signal: AbortSignal.timeout(20000) });
+    check('private_oss_unsigned_media_denied', denied.status === 403); await denied.arrayBuffer();
+  }
+  url.searchParams.set(ossMode ? 'Signature' : 'sig', '0'.repeat(64));
   const forged = await fetch(url, { signal: AbortSignal.timeout(20000) });
   check('forged_media_signature_rejected', forged.status === 403); await forged.arrayBuffer();
   userId = (await db.query("insert into users(email,username,password_hash,status) values($1,$2,$3,'active') returning id", [email, username, await argon2.hash(password)])).rows[0].id;
@@ -148,10 +158,14 @@ try {
   }
   process.exitCode = 1;
 } finally {
+  for (const slug of Object.values(slugs)) {
+    try { await cli("content", "delete", slug); } catch { report.cacheCleanup = "FAIL"; process.exitCode = 1; }
+  }
   await browser?.close().catch(() => {});
   try {
     await db.query('begin');
-    media = (await db.query('select m.id, m.oss_key from media_assets m join content_media cm on cm.media_id=m.id join contents c on c.id=cm.content_id where c.slug=any($1)', [Object.values(slugs)])).rows;
+    const remainingMedia = (await db.query('select m.id, m.oss_key from media_assets m join content_media cm on cm.media_id=m.id join contents c on c.id=cm.content_id where c.slug=any($1)', [Object.values(slugs)])).rows;
+    if (remainingMedia.length) media = remainingMedia;
     if (userId) {
       await db.query('delete from entitlements where user_id=$1', [userId]);
       await db.query('delete from redemptions where user_id=$1', [userId]);
@@ -164,7 +178,8 @@ try {
     for (const m of media) {
       if (!/^media\/[a-f0-9]{64}\.svg$/.test(m.oss_key)) throw Error('Unexpected fixture key');
       const deleted = await db.query('delete from media_assets where id=$1 and not exists(select 1 from content_media where media_id=$1) returning id', [m.id]);
-      if (deleted.rowCount) await ssh(`rm -f -- ${shell(`/var/lib/yoryon/media/${m.oss_key}`)}`);
+      if (deleted.rowCount && ossMode) await ossClient.delete(m.oss_key);
+      if (deleted.rowCount && !ossMode) await ssh(`rm -f -- ${shell(`/var/lib/yoryon/media/${m.oss_key}`)}`);
     }
     await db.query('commit');
     await ssh(`rm -rf -- ${shell(`/opt/yoryon/posts/${run}`)}`);
