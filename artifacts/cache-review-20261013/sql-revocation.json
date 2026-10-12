@@ -1,0 +1,27 @@
+{
+  "head": "a84ce7d6c377db8fad6ddb579557b8b4e8a2c670",
+  "time": "2026-10-12T17:28:18.184Z",
+  "beforeRevision": "93b505ed-85ac-4fb0-808b-b47b5d151c9b",
+  "newRevision": "dda14373-3219-42fa-bac6-67aadb03d8e6",
+  "eventCountBefore": 25,
+  "eventCountAfter": 25,
+  "warm": {
+    "firstFull": true,
+    "secondFull": true
+  },
+  "oldRender": {
+    "status": 404,
+    "restricted": false,
+    "cache": "private, no-store"
+  },
+  "canonical": {
+    "status": 200,
+    "visible": true,
+    "restricted": false
+  },
+  "publicApi": {
+    "access": "preview",
+    "visible": true,
+    "restricted": false
+  }
+}

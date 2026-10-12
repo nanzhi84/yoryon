@@ -1,0 +1,9 @@
+{
+  "injectedOne503": true,
+  "alerts": [
+    "评论翻页失败，请重试。",
+    "评论列表刷新失败。重试"
+  ],
+  "hasRetry": true,
+  "pageButton": false
+}

@@ -1,0 +1,7 @@
+Data receipt: cleanup.txt before=24 contents/25 cache_events/0 users; after=0/0/0.
+Stopped own API PID27117 on port4449 by SIGTERM; stopped own Next PID27701 on port3149 by SIGTERM.
+Stopped and removed dedicated postgres16 container yoryon-cache-review-pg-20261013 with its anonymous database volume (docker stop; docker rm --volumes).
+Removed local .env/.review-pg.env and enumerated synthetic publishing directories, isolated FS media directory and receipt intermediates using Node fs after verifying no symlink.
+Closed own IAB tab; no existing user tabs used.
+Detached review worktree removal invoked with git worktree remove --force; exact source head remained a84ce7d6c377db8fad6ddb579557b8b4e8a2c670.
+The first bulk rm -f cleanup command was rejected by automatic approval review; no part of that command ran. Cleanup used explicit owned-path checks and graceful docker stop instead.

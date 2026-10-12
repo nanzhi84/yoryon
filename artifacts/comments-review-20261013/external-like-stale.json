@@ -1,0 +1,42 @@
+{
+  "time": "2026-10-12T17:39:01.612Z",
+  "target": "43c7dae2-2cba-4f30-ab8a-062d4d2d9584",
+  "initialFirstPageExcludedTarget": true,
+  "parallelSameActorLikes": [
+    {
+      "status": 200,
+      "body": {
+        "ok": true,
+        "likeCount": 1
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "ok": true,
+        "likeCount": 1
+      }
+    }
+  ],
+  "stale": {
+    "status": 409,
+    "body": {
+      "error": {
+        "code": "cursor_stale",
+        "message": "评论排序已更新，请重新加载"
+      }
+    }
+  },
+  "freshFirst": {
+    "id": "43c7dae2-2cba-4f30-ab8a-062d4d2d9584",
+    "body": "CMR14_ROOT_0",
+    "likeCount": 1
+  },
+  "sql": {
+    "id": "43c7dae2-2cba-4f30-ab8a-062d4d2d9584",
+    "like_count": 1,
+    "likes": 1,
+    "notifications": 1,
+    "version": "23"
+  }
+}

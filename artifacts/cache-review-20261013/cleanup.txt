@@ -1,0 +1,5 @@
+before_cleanup|24|25|0
+DELETE 24
+DELETE 1
+DELETE 25
+after_cleanup|0|0|0

@@ -1,0 +1,51 @@
+{
+  "head": "70d6dd52be833ae7f55f344e1b22783cbf8a0ae2",
+  "db": {
+    "host": "localhost",
+    "port": "54329",
+    "name": "yoryon_accept_comments"
+  },
+  "api": "127.0.0.1:4323",
+  "web": "localhost:3103",
+  "smtp": "localhost:11125",
+  "mailpit": "localhost:11126",
+  "rateScale": "100",
+  "baseline": {
+    "contents": {
+      "count": 2,
+      "hash": "8c26d4e28c13b1699420cdd94d35a220546da26d3750fc97bc2c3d95887f6c72"
+    },
+    "comments": {
+      "count": 48,
+      "hash": "63bc0d6713a464f9cc198a1429fb10be6b7322c46287f890894348c2ba8183bd"
+    },
+    "comment_likes": {
+      "count": 44,
+      "hash": "89215db39f6a3c3eea3bffa15bba3554b67d5b64658b08a90f85f7f78705a758"
+    },
+    "notifications": {
+      "count": 39,
+      "hash": "82161bc2d595f02cd8b753c25d01f6da95a5bb2edd05745c7353215cd513d1e8"
+    },
+    "comment_feed_versions": {
+      "count": 2,
+      "hash": "92658e3d23a9c333bc76833ac06e0538c5a62369ec61fd2fcad3288f359460a5"
+    },
+    "users": {
+      "count": 3,
+      "hash": "4d6bb6ce1203940ee4d6ea34684acc174565d5c2936f89fe97811aa5eaed45c1"
+    },
+    "sessions": {
+      "count": 8,
+      "hash": "4f4ab763e4045944eb5b05f9275a1bdd30cb62e314d4d2acd2b9ae809244b96f"
+    },
+    "email_verifications": {
+      "count": 10,
+      "hash": "02a671f320b994f75b4d0f1312e1786e7cfcb2b87f5e7d01a6180907b4a29fac"
+    },
+    "entitlements": {
+      "count": 2,
+      "hash": "9b9743f1f83605511fcfca1eb7be685fb5df2d9d5ac7df1a78393e74dc334d61"
+    }
+  }
+}
