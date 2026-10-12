@@ -157,7 +157,7 @@ export interface CommentContext {
 
 export interface NotificationItem {
   id: string;
-  type: "reply" | "like";
+  type: "reply" | "like" | "answer";
   createdAt: string;
   readAt: string | null;
   actor: CommentAuthor;

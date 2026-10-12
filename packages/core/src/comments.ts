@@ -96,19 +96,19 @@ async function resolveInteractableTarget(
       .limit(1);
     const content = rows[0];
     if (!content) return { ok: false, error: "content_not_found" };
-    if (!(await canAccess(tx, user, content, now))) return { ok: false, error: "forbidden" };
+    if (!(await canAccess(tx, user, content, new Date()))) return { ok: false, error: "forbidden" };
     return { ok: true, value: { contentId: content.id, questionId: null } };
   }
   const rows = await tx
     .select({ id: memberQuestions.id, visibility: memberQuestions.visibility, status: memberQuestions.status })
     .from(memberQuestions)
     .where(eq(memberQuestions.id, target.questionId))
-    .limit(1);
+    .limit(1).for("share");
   const question = rows[0];
   if (!question) return { ok: false, error: "content_not_found" };
   // 私密问答不允许其他会员参与；隐藏问答关闭互动
   if (question.visibility !== "public" || question.status === "hidden") return { ok: false, error: "forbidden" };
-  if (user.role !== "admin" && !(await hasActiveSubscription(tx, user.id, now))) return { ok: false, error: "forbidden" };
+  if (user.role !== "admin" && !(await hasActiveSubscription(tx, user.id, new Date()))) return { ok: false, error: "forbidden" };
   return { ok: true, value: { contentId: null, questionId: question.id } };
 }
 
@@ -117,29 +117,24 @@ async function resolveInteractableTarget(
  */
 export async function createComment(
   tx: Tx,
-  params: { user: AccessUser; target?: CommentTarget; contentSlug?: string; body: string; replyToId?: string | null; now?: Date },
+  params: { user: AccessUser; target?: CommentTarget; contentSlug?: string; body: string; replyToId?: string | null },
 ): Promise<CommentResult<Comment>> {
   if (!validateCommentBody(params.body)) return { ok: false, error: "invalid_body" };
-  const target = await resolveInteractableTarget(tx, params.user, params.target ?? { kind: "content", slug: params.contentSlug! }, params.now ?? new Date());
+  let replyTarget: Pick<Comment, "id" | "parentId" | "contentId" | "questionId" | "deletedAt" | "userId"> | undefined;
+  if (params.replyToId) {
+    const rows = await tx.select({ id: comments.id, parentId: comments.parentId, contentId: comments.contentId, questionId: comments.questionId, deletedAt: comments.deletedAt, userId: comments.userId })
+      .from(comments).where(eq(comments.id, params.replyToId)).limit(1).for("update");
+    replyTarget = rows[0];
+  }
+  // 锁等待结束后重新判断当前资格；目标问答共享锁与隐私切换/隐藏串行化。
+  const target = await resolveInteractableTarget(tx, params.user, params.target ?? { kind: "content", slug: params.contentSlug! }, new Date());
   if (!target.ok) return target;
-
   let parentId: string | null = null;
   let replyToId: string | null = null;
   if (params.replyToId) {
-    // 锁目标行：与并发软删除串行化，取得锁后再判定删除态
-    const rows = await tx
-      .select({ id: comments.id, parentId: comments.parentId, contentId: comments.contentId, questionId: comments.questionId, deletedAt: comments.deletedAt })
-      .from(comments)
-      .where(eq(comments.id, params.replyToId))
-      .limit(1)
-      .for("update");
-    const replyTarget = rows[0];
-    const sameTarget = replyTarget && (target.value.contentId ? replyTarget.contentId === target.value.contentId : replyTarget.questionId === target.value.questionId);
-    if (!replyTarget || !sameTarget) return { ok: false, error: "reply_target_invalid" };
-    if (replyTarget.deletedAt) return { ok: false, error: "reply_target_invalid" };
-    // 扁平化：挂在目标所在根评论下；禁止把回复挂到回复的回复形成深层嵌套
-    parentId = replyTarget.parentId ?? replyTarget.id;
-    replyToId = replyTarget.id;
+    const same = replyTarget && (target.value.contentId ? replyTarget.contentId === target.value.contentId : replyTarget.questionId === target.value.questionId);
+    if (!replyTarget || !same || replyTarget.deletedAt) return { ok: false, error: "reply_target_invalid" };
+    parentId = replyTarget.parentId ?? replyTarget.id; replyToId = replyTarget.id;
   }
 
   const inserted = await tx
@@ -159,8 +154,7 @@ export async function createComment(
 
   // 回复通知被回复者（一级评论通知评论作者；本人操作不通知）
   if (replyToId) {
-    const targetRows = await tx.select({ userId: comments.userId }).from(comments).where(eq(comments.id, replyToId)).limit(1);
-    const recipient = targetRows[0]?.userId;
+    const recipient = replyTarget?.userId;
     if (recipient) {
       await insertNotification(tx, {
         recipientUserId: recipient,
@@ -191,10 +185,10 @@ async function lockInteractable(
       .select({ id: memberQuestions.id, visibility: memberQuestions.visibility, status: memberQuestions.status })
       .from(memberQuestions)
       .where(eq(memberQuestions.id, comment.questionId!))
-      .limit(1);
+      .limit(1).for("share");
     if (!q[0]) return { ok: false, error: "content_not_found" };
     if (q[0].visibility !== "public" || q[0].status === "hidden") return { ok: false, error: "forbidden" };
-    if (user.role !== "admin" && !(await hasActiveSubscription(tx, user.id, now))) return { ok: false, error: "forbidden" };
+    if (user.role !== "admin" && !(await hasActiveSubscription(tx, user.id, new Date()))) return { ok: false, error: "forbidden" };
     return { ok: true, value: { comment } };
   }
   const content = await tx
@@ -203,17 +197,16 @@ async function lockInteractable(
     .where(and(eq(contents.id, comment.contentId!), eq(contents.status, "published")))
     .limit(1);
   if (!content[0]) return { ok: false, error: "content_not_found" };
-  if (!(await canAccess(tx, user, content[0], now))) return { ok: false, error: "forbidden" };
+  if (!(await canAccess(tx, user, content[0], new Date()))) return { ok: false, error: "forbidden" };
   return { ok: true, value: { comment } };
 }
 
 /** 幂等点赞：已赞时无操作成功。评论行锁串行化并发点赞，返回计数恒为提交后真值。 */
 export async function likeComment(
   tx: Tx,
-  params: { user: AccessUser; commentId: string; now?: Date },
+  params: { user: AccessUser; commentId: string },
 ): Promise<CommentResult<{ likeCount: number }>> {
-  const now = params.now ?? new Date();
-  const locked = await lockInteractable(tx, params.user, params.commentId, now);
+  const locked = await lockInteractable(tx, params.user, params.commentId, new Date());
   if (!locked.ok) return locked;
 
   const inserted = await tx
@@ -245,10 +238,9 @@ export async function likeComment(
 /** 幂等取消点赞：未赞时无操作成功。取消不撤销已发通知（V1 明确策略）。 */
 export async function unlikeComment(
   tx: Tx,
-  params: { user: AccessUser; commentId: string; now?: Date },
+  params: { user: AccessUser; commentId: string },
 ): Promise<CommentResult<{ likeCount: number }>> {
-  const now = params.now ?? new Date();
-  const locked = await lockInteractable(tx, params.user, params.commentId, now);
+  const locked = await lockInteractable(tx, params.user, params.commentId, new Date());
   if (!locked.ok) return locked;
 
   const deleted = await tx
@@ -283,75 +275,11 @@ export async function softDeleteComment(tx: Tx, params: { commentId: string; now
   return { ok: true, value: updated[0] };
 }
 
-type AuthorRow = { username: string; displayName: string | null; avatarMediaId: string | null };
-
-const AUTHOR_COLS = { username: users.username, displayName: users.displayName, avatarMediaId: users.avatarMediaId };
-
-/** 根评论分页（点赞数 desc, created_at desc, id desc；游标为三元组）。目标二选一：contentId 或 questionId。 */
-export async function listRootComments(
-  tx: Tx,
-  target: { contentId: string } | { questionId: string },
-  cursor: { likeCount: number; createdAt: Date; id: string } | null,
-  pageSize: number,
-): Promise<{ comment: Comment; author: AuthorRow }[]> {
-  const conds = [isNull(comments.parentId)];
-  if ("contentId" in target) conds.push(eq(comments.contentId, target.contentId));
-  else conds.push(eq(comments.questionId, target.questionId));
-  if (cursor) {
-    conds.push(
-      sql`(${comments.likeCount}, ${comments.createdAt}, ${comments.id}) < (${cursor.likeCount}, ${cursor.createdAt.toISOString()}::timestamptz, ${cursor.id}::uuid)`,
-    );
-  }
-  return tx
-    .select({ comment: comments, author: AUTHOR_COLS })
-    .from(comments)
-    .innerJoin(users, eq(comments.userId, users.id))
-    .where(and(...conds))
-    .orderBy(sql`${comments.likeCount} desc, ${comments.createdAt} desc, ${comments.id} desc`)
-    .limit(pageSize + 1);
-}
-
-/** 回复分页（created_at asc, id asc）。返回 replyTo 作者名（目标已删除/不存在 → null）。 */
-export async function listReplies(
-  tx: Tx,
-  parentId: string,
-  cursor: { createdAt: Date; id: string } | null,
-  pageSize: number,
-): Promise<{ comment: Comment; author: AuthorRow; replyToUsername: string | null }[]> {
-  const conds = [eq(comments.parentId, parentId)];
-  if (cursor) {
-    conds.push(sql`(${comments.createdAt}, ${comments.id}) > (${cursor.createdAt.toISOString()}::timestamptz, ${cursor.id}::uuid)`);
-  }
-  const replyToAuthor = sql<string | null>`(
-    select case when rc.deleted_at is null then ru.username end
-    from comments rc left join users ru on ru.id = rc.user_id
-    where rc.id = ${comments.replyToId}
-  )`;
-  return tx
-    .select({ comment: comments, author: AUTHOR_COLS, replyToUsername: replyToAuthor })
-    .from(comments)
-    .innerJoin(users, eq(comments.userId, users.id))
-    .where(and(...conds))
-    .orderBy(comments.createdAt, comments.id)
-    .limit(pageSize + 1);
-}
-
-/** 批量查询当前用户对一组评论的点赞态。 */
-export async function listLikedCommentIds(tx: Tx, userId: string, commentIds: string[]): Promise<string[]> {
-  if (commentIds.length === 0) return [];
-  const rows = await tx
-    .select({ commentId: commentLikes.commentId })
-    .from(commentLikes)
-    .where(and(eq(commentLikes.userId, userId), sql`${commentLikes.commentId} = any(${commentIds}::uuid[])`));
-  return rows.map((r) => r.commentId);
-}
-
 /** 互动权益：已发布内容 + canAccess。写操作统一入口（评论/回复/点赞；删除除外，见 softDeleteComment）。 */
 export async function checkCommentable(
   tx: Tx,
   user: AccessUser,
   contentSlug: string,
-  now: Date,
 ): Promise<CommentResult<Pick<Content, "id" | "slug" | "visibility">>> {
   const rows = await tx
     .select({ id: contents.id, slug: contents.slug, visibility: contents.visibility })
@@ -360,6 +288,6 @@ export async function checkCommentable(
     .limit(1);
   const content = rows[0];
   if (!content) return { ok: false, error: "content_not_found" };
-  if (!(await canAccess(tx, user, content, now))) return { ok: false, error: "forbidden" };
+  if (!(await canAccess(tx, user, content, new Date()))) return { ok: false, error: "forbidden" };
   return { ok: true, value: content };
 }

@@ -29,13 +29,13 @@ export function validateQuestionText(text: unknown): text is string {
  */
 export async function askQuestion(
   db: Database,
-  params: { user: AccessUser; question: string; visibility: "public" | "private"; now?: Date },
+  params: { user: AccessUser; question: string; visibility: "public" | "private" },
 ): Promise<QuestionResult<MemberQuestion>> {
   if (!validateQuestionText(params.question)) return { ok: false, error: "invalid_question" };
-  const now = params.now ?? new Date();
   try {
     return await db.transaction(async tx => {
     await tx.select({ id: users.id }).from(users).where(eq(users.id, params.user.id)).for("update");
+    const now = new Date();
     if (!(await hasActiveSubscription(tx, params.user.id, now))) return { ok: false as const, error: "forbidden" as const };
     const inserted = await tx
       .insert(memberQuestions)

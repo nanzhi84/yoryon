@@ -415,6 +415,7 @@ export const memberQuestions = pgTable(
     status: text("status", { enum: ["pending", "answered", "hidden"] }).notNull().default("pending"),
     createdAt: timestamp("created_at", { withTimezone: true, mode: "date", precision: 3 }).notNull().default(sql`date_trunc('milliseconds', now())`),
     answeredAt: timestamp("answered_at", { withTimezone: true, mode: "date" }),
+    discussionVersion: bigint("discussion_version", { mode: "bigint" }).notNull().default(sql`0`),
     /** 最近活动排序键：提问/回答/新评论时更新 */
     updatedAt: timestamp("updated_at", { withTimezone: true, mode: "date" }).notNull().defaultNow(),
   },
