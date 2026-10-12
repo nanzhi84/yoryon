@@ -28,3 +28,4 @@ e2e/.data/
 e2e/.data/
 e2e/test-results/
 e2e/playwright-report/
+.vercel

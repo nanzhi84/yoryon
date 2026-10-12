@@ -1,0 +1,32 @@
+# Build on a workstation/CI for linux/amd64; the 1 GB production host only runs images.
+# Native build avoids QEMU/libuv failures on Apple Silicon. argon2 ships both
+# linux-x64 and linux-arm64 prebuilds; the target runtime selects its own binary.
+FROM --platform=$BUILDPLATFORM node:24-bookworm-slim AS build
+RUN corepack enable && corepack prepare pnpm@11.8.0 --activate
+WORKDIR /app
+COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
+COPY packages/config/package.json packages/config/package.json
+COPY packages/db/package.json packages/db/package.json
+COPY packages/core/package.json packages/core/package.json
+COPY apps/api/package.json apps/api/package.json
+COPY apps/cli/package.json apps/cli/package.json
+RUN pnpm install --frozen-lockfile
+COPY tsconfig.base.json ./
+COPY packages ./packages
+COPY apps/api ./apps/api
+COPY apps/cli ./apps/cli
+RUN pnpm --filter @yoryon/api build && pnpm --filter @yoryon/cli build
+RUN pnpm --filter @yoryon/api --prod deploy /out-api --legacy \
+ && pnpm --filter @yoryon/cli --prod deploy /out-cli --legacy
+
+FROM node:24-bookworm-slim
+ENV NODE_ENV=production MIGRATIONS_FOLDER=/app/drizzle
+WORKDIR /app
+COPY --from=build /out-api/node_modules ./node_modules
+COPY --from=build /app/apps/api/dist ./dist
+COPY --from=build /app/packages/db/drizzle ./drizzle
+COPY --from=build /out-cli/node_modules /cli/node_modules
+COPY --from=build /app/apps/cli/dist /cli/dist
+USER node
+EXPOSE 4000
+CMD ["node", "dist/index.js"]

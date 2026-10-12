@@ -1,0 +1,10 @@
+{$API_DOMAIN} {
+	# Until Issue #6 implements publication invalidation, never cache an authorization redirect.
+	header /api/media/* >Cache-Control "private, no-store"
+	reverse_proxy api:4000 {
+		header_up X-Forwarded-For {remote_host}
+		header_up -X-Real-Ip
+	}
+	encode zstd gzip
+	# No access log: signed media URLs and authentication query values are sensitive.
+}
