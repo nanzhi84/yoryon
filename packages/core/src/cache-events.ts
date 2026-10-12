@@ -39,7 +39,7 @@ export async function deliverCacheEvents(db: Database, options: { retry?: boolea
     .orderBy(cacheEvents.createdAt)
     .limit(100);
   for (const row of rows) {
-    // 防御性保留：查询与处理之间 attempts 可能被并发投递推进
+    // 保留本地计数检查作为最后防线；并发互斥依赖调用方持有发布锁（row.attempts 是查询时快照）
     if (!options.retry && row.attempts >= 3) continue;
     if (!endpoint || !secret || !site) { log(`cache ${row.id}: pending (configuration missing)`); continue; }
     const event = JSON.parse(row.payload) as CacheEvent;
