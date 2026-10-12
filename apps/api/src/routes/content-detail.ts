@@ -1,6 +1,6 @@
 import { and, eq } from "drizzle-orm";
 import { collectionItems, collections, contents, contentMedia, contentTags, mediaAssets, tags } from "@yoryon/db";
-import { canAccess, truncateForPreview, type AccessUser } from "@yoryon/core";
+import { canAccess, truncateForPreview, filterStoredMediaRefs, parseMarkdown, stringifyMarkdown, type AccessUser } from "@yoryon/core";
 import type { AppDeps } from "../deps";
 
 /** 领域到公开/私有 DTO 的唯一投影。公开入口传 null，且从不读取 session。 */
@@ -55,6 +55,7 @@ export async function loadContentDetail(deps: AppDeps, slug: string, viewer: Acc
 
     // 未授权响应不包含付费正文与付费媒体引用（ADR-0004）
     const visibleMedia = mediaRows.filter((m) => fullAccess || m.exposure === "free");
+    if (!fullAccess) bodyMarkdown = stringifyMarkdown(filterStoredMediaRefs(parseMarkdown(bodyMarkdown), new Set(visibleMedia.map(m => m.mediaId))));
 
     return {
       id: content.id,

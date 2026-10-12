@@ -123,3 +123,16 @@ export function rewriteMediaRefs(tree: Root, mapping: ReadonlyMap<string, string
   });
   return tree;
 }
+
+/** 公开投影按 content_media.exposure 二次过滤，迁移/人工修复也不能仅靠正文指令放行。 */
+export function filterStoredMediaRefs(tree: Root, visible: ReadonlySet<string>): Root {
+  visit(tree, (node: any, _index, parent: any) => {
+    const id = node.type === "image" ? mediaIdFromUrl(node.url)
+      : node.type === "leafDirective" ? mediaIdFromUrl(node.attributes?.src) : null;
+    if (id && !visible.has(id) && parent?.children) {
+      // 留空文本保留 AST 遍历位置；不删除 sibling 使 visit 跳过下一节点。
+      parent.children[parent.children.indexOf(node)] = { type: "text", value: "" };
+    }
+  });
+  return tree;
+}
