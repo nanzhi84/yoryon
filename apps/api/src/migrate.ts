@@ -8,10 +8,16 @@ const url = process.env.DATABASE_URL;
 if (!url) throw new Error("DATABASE_URL is required");
 const folder = process.env.MIGRATIONS_FOLDER ?? path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../../packages/db/drizzle");
 const client = await createLockClient(url);
-const lock = await acquirePublishGcLock(client, { blocking: true });
 const { db, close } = createDb(url);
+let lock: Awaited<ReturnType<typeof acquirePublishGcLock>> | undefined;
 try {
+  await client.query("set statement_timeout = '60s'");
+  lock = await acquirePublishGcLock(client, { blocking: true });
+  await client.query("set statement_timeout = 0");
   await runMigrations(url, folder);
   await backfillContentPreviews(db, Number(process.env.MEDIA_BLOCK_WEIGHT ?? 300));
   console.log("SQL migrations and public preview backfill applied");
-} finally { await close(); await lock.release(); await client.end(); }
+} finally {
+  try { await lock?.release(); }
+  finally { await Promise.all([close(), client.end()]); }
+}
