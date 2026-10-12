@@ -54,7 +54,7 @@ export function apiEnv(): NodeJS.ProcessEnv {
 export function webEnv(): NodeJS.ProcessEnv {
   return {
     NODE_ENV: "production",
-    API_INTERNAL_URL: E2E.apiUrl,
+    API_INTERNAL_URL: E2E.caddyUrl, // Include the real compression/ETag boundary.
     BFF_SHARED_SECRET: E2E.bffSecret,
     ALLOWED_ORIGINS: E2E.webUrl,
     SITE_URL: E2E.webUrl,

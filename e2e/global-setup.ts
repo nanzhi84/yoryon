@@ -43,6 +43,7 @@ export default async function globalSetup() {
   execFileSync("docker", ["compose", "-f", path.join(__dirname, "docker-compose.e2e.yml"), "up", "-d", "--wait"], {
     stdio: "inherit",
   });
+  execFileSync("docker", ["compose", "-f", path.join(__dirname, "docker-compose.e2e.yml"), "exec", "-T", "caddy", "caddy", "reload", "--config", "/etc/caddy/Caddyfile"], { stdio: "ignore" });
 
   // 2. 重置数据库（drop schema）+ 迁移
   const pg = await import("pg");

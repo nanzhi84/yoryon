@@ -22,3 +22,5 @@
 验收：独立发布/浏览器 E2E 验证中文格式、代码保真、WebP 实际像素、宽度白名单、ETag、公开转付费/下架；生产另查真实 OSS 变体字节、CDN HIT、重复页面浏览器网络及三个真实文章。日期移除仅作用于博客稿，写作日期元数据和 Notion 原文保留。
 
 回滚：恢复上一个 API image 和 Vercel deployment；正文可用保留的博客稿重新发布。原图不覆盖，不增加数据库迁移。
+
+压缩边界：Caddy 会为 gzip/zstd/br 表示修改 ETag；服务端 fetch 自动解压。Web 验证明确支持的编码后缀和请求 variant，再为解压字节输出原始 identity ETag，不能把编码表示的 tag 直接用于浏览器条件门禁。E2E 的 web 回源经过启用压缩的真实 Caddy，覆盖 SVG 原始字节、浏览器加载、304 和撤销。

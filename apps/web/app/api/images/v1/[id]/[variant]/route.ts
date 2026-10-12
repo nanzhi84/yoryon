@@ -10,9 +10,12 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
   try {
     const source = await fetch(`${process.env.API_INTERNAL_URL}/api/public/images/${id}/${variant}`, { cache: "no-store", redirect: "error", signal: AbortSignal.timeout(15_000) });
     if (!source.ok) return Response.json({ error: "image_unavailable" }, { status: source.status, headers: privateHeaders });
-    const mime = source.headers.get("content-type") ?? "";
-    const etag = source.headers.get("etag") ?? "";
-    if (!PUBLIC_IMAGE_MIMES.includes(mime) || !/^"image-v1-[a-f0-9]{64}-(original|320|640|960|1280)"$/.test(etag)) throw new Error("invalid image response");
+    const mime = (source.headers.get("content-type") ?? "").split(";")[0]!.trim().toLowerCase();
+    // Caddy changes ETag when encoding SVG. fetch decodes that representation,
+    // so expose the canonical identity tag used by the browser's live gate.
+    const tag = /^(?:W\/)?"(image-v1-[a-f0-9]{64}-(original|320|640|960|1280))(?:-(?:gzip|zstd|br))?"$/.exec(source.headers.get("etag") ?? "");
+    if (!PUBLIC_IMAGE_MIMES.includes(mime) || !tag || tag[2] !== variant) throw new Error("invalid image response");
+    const etag = `"${tag[1]}"`;
     return new Response(source.body, { headers: {
       "Content-Type": mime, "ETag": etag,
       "Cache-Control": IMAGE_BROWSER_CACHE_CONTROL,
