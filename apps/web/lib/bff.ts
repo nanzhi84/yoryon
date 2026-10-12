@@ -28,10 +28,10 @@ export function getBffConfig(): BffConfig {
  * 与 packages/core/src/http.ts 的 readBodyCapped 有意重复：@yoryon/core 为 source-only 且
  * 依赖 argon2/ali-oss/pg 等 Node 重依赖，web 侧不引入该包；两侧实现独立演进，修改时请同步。
  */
-export async function readBodyCapped(req: Request, maxBytes: number): Promise<string | null> {
+export async function readBodyBytesCapped(req: Request, maxBytes: number): Promise<Uint8Array<ArrayBuffer> | null> {
   const declared = Number(req.headers.get("content-length") ?? 0);
   if (declared > maxBytes) return null;
-  if (!req.body) return "";
+  if (!req.body) return new Uint8Array(0);
   const reader = req.body.getReader();
   const chunks: Uint8Array[] = [];
   let total = 0;
@@ -56,7 +56,12 @@ export async function readBodyCapped(req: Request, maxBytes: number): Promise<st
     buf.set(chunk, offset);
     offset += chunk.byteLength;
   }
-  return new TextDecoder().decode(buf);
+  return buf;
+}
+
+export async function readBodyCapped(req: Request, maxBytes: number): Promise<string | null> {
+  const bytes = await readBodyBytesCapped(req, maxBytes);
+  return bytes === null ? null : new TextDecoder().decode(bytes);
 }
 
 /**

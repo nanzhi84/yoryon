@@ -9,12 +9,7 @@ interface ApiError {
   error?: { code?: string; message?: string };
 }
 
-/** 站内安全跳转目标：仅接受以 / 开头的站内路径（拒绝 // 协议相对与反斜杠变体）。 */
-export function safeReturnTo(value: string | null | undefined): string | null {
-  if (!value) return null;
-  if (!/^\/[a-zA-Z0-9\-_~./?&=%#]*$/.test(value) || value.startsWith("//") || value.includes("\\")) return null;
-  return value;
-}
+import { safeReturnTo } from "@/lib/navigation";
 
 export function LoginForm({ returnTo }: { returnTo?: string | null }) {
   const [emailOrUsername, setEmailOrUsername] = useState("");

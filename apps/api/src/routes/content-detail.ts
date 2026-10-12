@@ -1,6 +1,7 @@
 import { and, eq } from "drizzle-orm";
 import { collectionItems, collections, contents, contentMedia, contentTags, mediaAssets, tags } from "@yoryon/db";
 import { canAccess, truncateForPreview, type AccessUser } from "@yoryon/core";
+import { collectionNavigation } from "./content-navigation";
 import type { AppDeps } from "../deps";
 
 /** 领域到公开/私有 DTO 的唯一投影。公开入口传 null，且从不读取 session。 */
@@ -31,11 +32,7 @@ export async function loadContentDetail(deps: AppDeps, slug: string, viewer: Acc
         .innerJoin(mediaAssets, eq(contentMedia.mediaId, mediaAssets.id))
         .where(eq(contentMedia.contentId, content.id))
         .orderBy(contentMedia.position),
-      deps.db
-        .select({ slug: collections.slug, title: collections.title })
-        .from(collectionItems)
-        .innerJoin(collections, eq(collectionItems.collectionId, collections.id))
-        .where(eq(collectionItems.contentId, content.id)),
+      collectionNavigation(deps.db, content.id),
     ]);
 
     let bodyMarkdown: string;

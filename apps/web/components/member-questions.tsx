@@ -1,0 +1,57 @@
+"use client";
+import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
+import type { QuestionItem, QuestionPage } from "@/lib/types";
+import { Button } from "./ui/button";
+import { QuestionCard } from "./question-card";
+export function MemberQuestions({ active, remaining, authenticated, onAsked }: { active: boolean; remaining: number; authenticated: boolean; onAsked: () => Promise<void> }) {
+  const [scope, setScope] = useState<"public" | "mine">("public");
+  const [items, setItems] = useState<QuestionItem[]>([]);
+  const [cursor, setCursor] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [paging, setPaging] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [draft, setDraft] = useState("");
+  const [privateQuestion, setPrivate] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [receipt, setReceipt] = useState<string | null>(null);
+  const load = useCallback(async (next: string | null, signal?: AbortSignal) => {
+    const res = await fetch(`/api/questions/${scope}${next ? `?cursor=${encodeURIComponent(next)}` : ""}`, { cache: "no-store", ...(signal ? { signal } : {}) });
+    if (res.status === 409) { setError("问答有新活动，请刷新列表"); setCursor(null); return; }
+    if (!res.ok) throw new Error("问答加载失败，请重试");
+    const data = await res.json() as QuestionPage;
+    setItems(old => next ? [...new Map([...old, ...data.items].map(q => [q.id, q])).values()] : data.items);
+    setCursor(data.nextCursor); setError(null);
+  }, [scope]);
+  useEffect(() => {
+    const abort = new AbortController(); setItems([]); setCursor(null); setLoading(true);
+    load(null, abort.signal).catch(e => { if (!abort.signal.aborted) setError(e.message); }).finally(() => { if (!abort.signal.aborted) setLoading(false); });
+    return () => abort.abort();
+  }, [load]);
+  async function submit(e: React.FormEvent) {
+    e.preventDefault(); if (submitting) return;
+    setSubmitting(true); setSubmitError(null); setReceipt(null);
+    try {
+      const res = await fetch("/api/questions", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ question: draft, visibility: privateQuestion ? "private" : "public" }) });
+      const data = await res.json() as { item?: QuestionItem; error?: { message?: string } };
+      if (!res.ok) throw new Error(data.error?.message ?? "提交失败，请重试");
+      setDraft(""); setReceipt("问题已提交，等待创作者回答"); await onAsked(); await load(null);
+    } catch (e) { setSubmitError(e instanceof Error ? e.message : "网络错误，请重试"); } finally { setSubmitting(false); }
+  }
+  async function refresh() { setLoading(true); try { await load(null); } catch (e) { setError(e instanceof Error ? e.message : "网络错误"); } finally { setLoading(false); } }
+  return <section aria-label="会员问答"><h2 className="text-xl font-medium">会员问答</h2><p className="mt-2 text-sm text-muted-foreground">公开问题所有人可读，回答和讨论向会员开放。每个自然月可提问一次。</p>
+    {active && remaining > 0 ? <form onSubmit={submit} className="mt-5 space-y-3">
+      <label htmlFor="member-question" className="text-sm font-medium">向创作者提问</label>
+      <textarea id="member-question" rows={3} maxLength={1000} value={draft} onChange={e => setDraft(e.target.value)} className="w-full rounded-md border bg-transparent p-3 text-sm" required />
+      <div className="flex items-center justify-between gap-4 text-xs"><label className="flex gap-2"><input type="checkbox" checked={privateQuestion} onChange={e => setPrivate(e.target.checked)} />私密问题（仅本人和创作者可读）</label><span>{[...draft].length}/500</span></div>
+      <Button disabled={submitting || [...draft.trim()].length > 500}>{submitting ? "提交中…" : "提交问题"}</Button>
+    </form> : active ? <p className="mt-4 text-sm text-muted-foreground">本月提问次数已用完，下个自然月恢复。</p> : !authenticated ? <p className="mt-4 text-sm"><Link href="/login?returnTo=%2Fsubscription" className="underline">登录</Link> 后查看自己的历史问答。</p> : null}
+    {receipt && <p role="status" className="mt-3 text-sm">{receipt}</p>}{submitError && <p role="alert" className="mt-3 text-sm text-red-500">{submitError}</p>}
+    <div className="mt-6 flex gap-4 text-sm"><button aria-pressed={scope === "public"} className={scope === "public" ? "font-medium" : "text-muted-foreground"} onClick={() => setScope("public")}>公开问答</button>{authenticated && <button aria-pressed={scope === "mine"} className={scope === "mine" ? "font-medium" : "text-muted-foreground"} onClick={() => setScope("mine")}>我的问答</button>}</div>
+    {loading ? <p role="status" className="py-6 text-sm text-muted-foreground">加载中…</p> : <>{error && <p role="alert" className="py-4 text-sm text-red-500">{error} <button className="underline" onClick={() => void refresh()}>刷新列表</button></p>}
+      {!items.length && !error ? <p className="py-6 text-sm text-muted-foreground">{scope === "mine" ? "还没有提问记录。" : "还没有公开问答。"}</p> : <div className="divide-y divide-border">{items.map(q => <QuestionCard key={q.id} item={q} onPrivacyChanged={() => void refresh()} />)}</div>}
+      {cursor && <Button variant="outline" disabled={paging} onClick={() => { setPaging(true); void load(cursor).catch(e => setError(e.message)).finally(() => setPaging(false)); }}>{paging ? "加载中…" : "加载更多问答"}</Button>}
+    </>}
+  </section>;
+}

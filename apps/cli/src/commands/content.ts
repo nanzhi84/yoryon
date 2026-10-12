@@ -100,12 +100,13 @@ export function registerContentCommands(program: Command) {
   async function setPinned(slug: string, pinned: boolean) {
     await withCacheTransaction(async (tx) => {
       const rows = await tx
-        .select({ id: contents.id, type: contents.type, status: contents.status, isPinned: contents.isPinned })
+        .select({ id: contents.id, type: contents.type, status: contents.status, visibility: contents.visibility, isPinned: contents.isPinned })
         .from(contents)
         .where(eq(contents.slug, slug));
       const row = rows[0];
       if (!row) throw new Error(`内容不存在: ${slug}`);
       if (pinned) {
+        if (row.visibility !== "public") throw new Error("首页仅支持置顶免费作品");
         if (row.type !== "article") throw new Error(`仅支持置顶 article，当前类型: ${row.type}`);
         if (row.status !== "published") throw new Error(`仅支持置顶已发布内容，当前状态: ${row.status}`);
       }
@@ -113,6 +114,7 @@ export function registerContentCommands(program: Command) {
         console.log(`- ${slug} 已是${pinned ? "置顶" : "非置顶"}状态，无需变更`);
         return;
       }
+      if (pinned) await tx.update(contents).set({ isPinned: false }).where(eq(contents.isPinned, true));
       await tx.update(contents).set({ isPinned: pinned }).where(eq(contents.id, row.id));
       // 不动 revision/updated_at/published_at：正文与发布时间未变，重新发布也不清除置顶。
       const related = await associations(tx, row.id);
