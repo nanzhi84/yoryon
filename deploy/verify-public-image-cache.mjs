@@ -38,8 +38,14 @@ async function read(route, etag) {
   }
   const args = ['curl', route, '--deployment', target, '--', '--silent', '--include', ...(etag ? ['-H', `If-None-Match: ${etag}`] : [])];
   const { stdout } = await exec('vercel', args, { encoding: 'buffer', timeout: 45000, maxBuffer: 10 * 1024 * 1024 });
-  const start = stdout.indexOf(Buffer.from('HTTP/'));
-  const end = stdout.indexOf(Buffer.from('\r\n\r\n'), start);
+  let start = stdout.indexOf(Buffer.from('HTTP/'));
+  let end = stdout.indexOf(Buffer.from('\r\n\r\n'), start);
+  // A configured HTTPS transport can emit CONNECT before the application
+  // response. It carries no image headers/body and is not the target status.
+  while (start >= 0 && end >= 0 && /Connection established|^HTTP\/\S+ 1\d\d\b/i.test(stdout.subarray(start, end).toString())) {
+    start = stdout.indexOf(Buffer.from('HTTP/'), end + 4);
+    end = stdout.indexOf(Buffer.from('\r\n\r\n'), start);
+  }
   if (start < 0 || end < 0) throw Error('candidate response missing');
   const lines = stdout.subarray(start, end).toString().split('\r\n');
   return { status: Number(lines[0].split(' ')[1]), headers: Object.fromEntries(lines.slice(1).map(line => { const i = line.indexOf(':'); return [line.slice(0, i).toLowerCase(), line.slice(i + 1).trim()]; })), bytes: stdout.subarray(end + 4) };
