@@ -25,3 +25,5 @@ PASS：静态类型检查、构建、新库完整迁移、CLI 入口可执行、
 UNVERIFIED：会员并发额度、月界限、私密/历史回答、跨问答讨论/撤销/通知、头像真实上传与危险输入、头像GC、兑换 returnTo、首页置顶和合集逐篇权限、浏览器可见结果。主 agent 安排独立子 agent 现场执行并记录业务结果，发现失败后修复再核对最终版本。
 
 部署前提：OSS API 身份需有 avatars/* 读写，CLI GC 身份需对 avatars/* 读/列举/删除；本次未更改生产 OSS 权限，尚未执行生产头像验收。
+
+独立验收发现并修复：合集相邻作品 API 已返回 previous/next，但详情没有渲染。补充 CollectionNavigation，显示各所属合集的上一篇/下一篇与首末边界；链接只含公开元数据，目标正文继续通过详情权限判定。修复后重新执行 `pnpm typecheck`、`pnpm build`，均 exit 0（typecheck-navigation.txt、build-navigation.txt）；浏览器复验由独立验收代理记录。
