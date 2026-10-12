@@ -9,11 +9,15 @@ interface ApiError {
   error?: { code?: string; message?: string };
 }
 
-export function LoginForm() {
+import { notifyNotificationsChanged } from "@/lib/notification-events";
+import { safeReturnTo } from "@/lib/navigation";
+
+export function LoginForm({ returnTo }: { returnTo?: string | null }) {
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const target = safeReturnTo(returnTo) ?? "/";
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -30,8 +34,9 @@ export function LoginForm() {
         setError(data.error?.message ?? "登录失败");
         return;
       }
-      // 硬导航：登录后需要完整重建服务端渲染状态（Cookie 已种）
-      window.location.assign("/");
+      // 硬导航：登录后需要完整重建服务端渲染状态（Cookie 已种）；returnTo 经站内校验
+      notifyNotificationsChanged();
+      window.location.assign(target);
     } catch {
       setError("网络错误，请重试");
     } finally {

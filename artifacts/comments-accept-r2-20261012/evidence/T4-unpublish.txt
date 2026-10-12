@@ -1,0 +1,3 @@
+$ tsx --env-file=../../.env src/index.ts unpublish cmt-paid
+cache 599dbcde-9296-4f6e-b706-5a7666c09375: verified
+✓ cmt-paid → draft

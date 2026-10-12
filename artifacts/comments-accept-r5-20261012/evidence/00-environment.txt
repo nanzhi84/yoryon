@@ -1,0 +1,30 @@
+observedAt=2026-10-12T16:52:41Z
+ff84d8024b1a7c9acc68def07b7d78e3abc3777b
+feat/comments
+?? artifacts/comments-accept-r5-20261012/
+v24.20.0
+ProductName:		macOS
+ProductVersion:		27.0.1
+BuildVersion:		26A434
+    current_database    | inet_server_addr | inet_server_port 
+------------------------+------------------+------------------
+ yoryon_accept_comments | 172.25.0.4       |             5432
+(1 row)
+
+ migrations 
+------------
+          8
+(1 row)
+
+   slug   |  status   | visibility | preview_mode 
+----------+-----------+------------+--------------
+ cmt-free | published | public     | full
+(1 row)
+
+ username 
+----------
+(0 rows)
+
+http://127.0.0.1:4323/api/feed 200
+http://localhost:3103/ 200
+http://127.0.0.1:11126/api/v1/messages 200

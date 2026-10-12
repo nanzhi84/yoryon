@@ -1,0 +1,2 @@
+r3-free page after cleanup: 404
+r3-paid API comments after cleanup: 404

@@ -1,0 +1,10 @@
+chunk /_next/static/chunks/app/render/%5Brevision%5D/%5Bslug%5D/page-41f4f50068c13015.js contains 'locate'
+--- 定位逻辑特征串统计（page-41f4f50068c13015.js）
+occurrences of '/locate': 1
+occurrences of '#comment-': 1
+   1 contentSlug
+   1 getElementById
+   1 location.hash
+   1 replies
+   2 rootId
+   1 scrollIntoView

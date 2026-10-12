@@ -14,3 +14,7 @@ export * from "./cache-events";
 export * from "./references";
 export * from "./public-preview";
 export * from "./content-migration";
+export * from "./comments";
+export * from "./questions";
+export * from "./membership";
+export * from "./profile";

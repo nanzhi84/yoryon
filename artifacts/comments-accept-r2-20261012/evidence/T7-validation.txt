@@ -1,0 +1,16 @@
+GET comments?cursor={bad} -> 400 {"error":{"code":"invalid_cursor","message":"分页游标无效"}}
+GET comments?cursor=l=-1 -> 400 {"error":{"code":"invalid_cursor","message":"分页游标无效"}}
+GET comments?cursor=bad-date -> 400 {"error":{"code":"invalid_cursor","message":"分页游标无效"}}
+GET replies 36-hyphens -> 404 {"error":{"code":"not_found","message":"评论不存在"}}
+GET replies {bad} -> 404 {"error":{"code":"not_found","message":"评论不存在"}}
+GET replies cursor={bad} -> 400 {"error":{"code":"invalid_cursor","message":"分页游标无效"}}
+PUT like 36-hyphens -> 404 {"error":{"code":"not_found","message":"评论不存在"}}
+DELETE like 36-hyphens -> 404 {"error":{"code":"not_found","message":"评论不存在"}}
+DELETE comment {bad} -> 404 {"error":{"code":"not_found","message":"评论不存在"}}
+POST comment replyToId={bad} -> 400 {"error":{"code":"invalid_request","message":"参数错误"}}
+POST comment replyToId=36hyphens -> 400 {"error":{"code":"invalid_request","message":"参数错误"}}
+PATCH notif read 36-hyphens -> 404 {"error":{"code":"not_found","message":"通知不存在"}}
+PATCH notif read {bad} -> 404 {"error":{"code":"not_found","message":"通知不存在"}}
+GET notif cursor={bad} -> 400 {"error":{"code":"invalid_cursor","message":"分页游标无效"}}
+GET liked ids=not-a-uuid -> 400 {"error":{"code":"invalid_request","message":"参数错误"}}
+GET liked 101 ids -> 400 {"error":{"code":"invalid_request","message":"参数错误"}}

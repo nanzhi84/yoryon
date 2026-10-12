@@ -1,0 +1,60 @@
+{
+  "purpose": "Read-only correction of cleanup verification scope, not another cleanup/delete",
+  "explanation": "Original LIKE 'a4%' accidentally included an old random UUID a4104193-5e4b-4216-8539-818776f159cd from cmt data. It was never deleted, and exact old snapshot comparison passed. Use exact r4 UUID namespaces instead.",
+  "queries": [
+    {
+      "name": "ownComments",
+      "sql": "select count(*)::int n from comments where id::text like 'a4000000-0000-4000-8000-%' or id='a4100000-0000-4000-8000-000000000001' or content_id='cd410b5a-7623-43e6-9a6d-f704f372b442'",
+      "rows": [
+        {
+          "n": 0
+        }
+      ]
+    },
+    {
+      "name": "ownCommentLikes",
+      "sql": "select count(*)::int n from comment_likes where comment_id::text like 'a4000000-0000-4000-8000-%' or comment_id='a4100000-0000-4000-8000-000000000001'",
+      "rows": [
+        {
+          "n": 0
+        }
+      ]
+    },
+    {
+      "name": "falsePositivePreserved",
+      "sql": "select cm.id,c.slug,cm.like_count,(select count(*)::int from comment_likes l where l.comment_id=cm.id) existing_likes from comments cm join contents c on c.id=cm.content_id where cm.id='a4104193-5e4b-4216-8539-818776f159cd'",
+      "rows": [
+        {
+          "id": "a4104193-5e4b-4216-8539-818776f159cd",
+          "slug": "cmt-free",
+          "like_count": 1,
+          "existing_likes": 1
+        }
+      ]
+    },
+    {
+      "name": "ownNotifications",
+      "sql": "select count(*)::int n from notifications where id::text like 'a4200000-0000-4000-8000-%'",
+      "rows": [
+        {
+          "n": 0
+        }
+      ]
+    },
+    {
+      "name": "users",
+      "sql": "select count(*)::int n from users where username in ('r4_reader','r4_actor')",
+      "rows": [
+        {
+          "n": 0
+        }
+      ]
+    }
+  ],
+  "originalReceiptRetained": true,
+  "remainingOtherEntitiesZero": true,
+  "oldDataUnchanged": true,
+  "mailRemoved": true,
+  "secretsAndSourceRemoved": true,
+  "result": "PASS"
+}

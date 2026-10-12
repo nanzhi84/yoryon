@@ -12,7 +12,7 @@ import type { Context, Next } from "hono";
 import { errorResponse } from "../errors";
 
 export interface AuthSession {
-  user: AccessUser & { email: string; username: string; status: string };
+  user: AccessUser & { email: string; username: string; displayName: string | null; avatarMediaId: string | null; status: string };
   sessionId: string;
 }
 
@@ -28,7 +28,13 @@ export function authMiddleware(db: Database) {
     c.set("auth", null);
     c.set("sessionRenewedExpiresAt", null);
     // 公开线和匿名分析不执行 session 查询/续期；公开 DTO 不能随身份变化。
-    if (/^\/api\/(?:public\/|feed$|tags\/|collections$|sitemap$|cache\/|analytics\/events$)/.test(c.req.path)) { await next(); return; }
+    // 评论/回复列表与定位是公开只读接口（GET/HEAD，Hono 会把 HEAD 分派给 GET handler 且 method 仍为 HEAD；写路径不在此列）。
+    const path = c.req.path;
+    const publicLine =
+      /^\/api\/(?:public\/|feed$|paid-feed$|tags$|tags\/|collections$|sitemap$|cache\/|analytics\/events$)/.test(path) ||
+      ((c.req.method === "GET" || c.req.method === "HEAD") &&
+        /^\/api\/(?:contents\/[^/]+\/comments)$/.test(path));
+    if (publicLine) { await next(); return; }
     const header = c.req.header("authorization");
     if (header?.startsWith("Bearer ")) {
       const token = header.slice("Bearer ".length).trim();
@@ -43,7 +49,7 @@ export function authMiddleware(db: Database) {
       const row = rows[0];
       if (row && row.user.status === "active") {
         c.set("auth", {
-          user: { id: row.user.id, role: row.user.role, email: row.user.email, username: row.user.username, status: row.user.status },
+          user: { id: row.user.id, role: row.user.role, email: row.user.email, username: row.user.username, displayName: row.user.displayName, avatarMediaId: row.user.avatarMediaId, status: row.user.status },
           sessionId: row.session.id,
         });
         // 滑动续期（续期必写，同时刷新 lastUsedAt）

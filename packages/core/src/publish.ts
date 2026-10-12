@@ -221,6 +221,10 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
       // 内容 upsert（按 slug）
       const publishedAt = fm.published_at ?? new Date();
       const coverId = fm.cover ? mediaIdByRef.get(fm.cover)! : null;
+      const existingRows = await tx.select({ isPinned: contents.isPinned }).from(contents).where(eq(contents.slug, fm.slug)).limit(1);
+      if (existingRows[0]?.isPinned && fm.visibility !== "public") {
+        throw new Error(`${fm.slug} 处于首页置顶状态；改为付费前请先取消置顶`);
+      }
       const inserted = await tx
         .insert(contents)
         .values({

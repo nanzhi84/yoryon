@@ -13,7 +13,7 @@ import {
   RATE_LIMITS,
   SESSION_TTL_MS,
 } from "@yoryon/config";
-import { generateEmailCode, generateSessionToken, hashEmailCode, hashPassword, verifyPassword } from "@yoryon/core";
+import { generateEmailCode, generateSessionToken, hashEmailCode, hashPassword, verifyPassword, toAuthorDto } from "@yoryon/core";
 import type { AppDeps } from "../deps";
 import { errorResponse } from "../errors";
 import type { AppVariables } from "../middleware/auth";
@@ -78,7 +78,7 @@ async function createSession(deps: AuthDeps, c: Ctx, userId: string) {
 }
 
 function publicUser(u: typeof users.$inferSelect) {
-  return { id: u.id, email: u.email, username: u.username, role: u.role };
+  return { id: u.id, email: u.email, ...toAuthorDto(u), role: u.role };
 }
 
 async function issueVerificationCode(deps: AppDeps, email: string, purpose: "register" | "password_reset") {
@@ -296,7 +296,7 @@ export function authRoutes(deps: AppDeps) {
     const auth = c.get("auth");
     if (!auth) return errorResponse(c, 401, "unauthorized", "需要登录");
     c.header("Cache-Control", "private, no-store");
-    return c.json({ user: { id: auth.user.id, email: auth.user.email, username: auth.user.username, role: auth.user.role } });
+    return c.json({ user: { id: auth.user.id, email: auth.user.email, ...toAuthorDto(auth.user), role: auth.user.role } });
   });
 
   return app;

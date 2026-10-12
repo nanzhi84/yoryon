@@ -1,0 +1,6 @@
+{"migrationCount":9}
+{"operation":"insert root","version":"1"}
+{"operation":"change root sort","version":"2"}
+{"operation":"insert/like reply","version":"2"}
+{"operation":"cascade content deletion","remaining":{"comments":0,"versions":0}}
+{"cleanup":"transaction rolled back; no persisted business data"}

@@ -1,0 +1,42 @@
+BEGIN;
+INSERT INTO comments(id,content_id,user_id,body,created_at)
+SELECT ('a4000000-0000-4000-8000-'||lpad(i::text,12,'0'))::uuid,c.id,u.id,'r4-root-'||i,
+'2026-10-12 16:12:00.123+00'::timestamptz
+FROM generate_series(1,43) i,contents c,users u WHERE c.slug='r4-free' AND u.username='r4_actor';
+INSERT INTO comments(id,content_id,user_id,parent_id,reply_to_id,body,created_at)
+SELECT 'a4100000-0000-4000-8000-000000000001',c.id,u.id,'a4000000-0000-4000-8000-000000000043','a4000000-0000-4000-8000-000000000043','r4-reply-liked-before-read','2026-10-12 16:13:00.456+00'
+FROM contents c,users u WHERE c.slug='r4-free' AND u.username='r4_actor';
+INSERT INTO comment_likes(comment_id,user_id)
+SELECT 'a4100000-0000-4000-8000-000000000001',id FROM users WHERE username='r4_reader';
+UPDATE comments SET like_count=1 WHERE id='a4100000-0000-4000-8000-000000000001';
+INSERT INTO notifications(id,recipient_user_id,actor_user_id,type,content_id,comment_id,event_id,created_at)
+SELECT ('a4200000-0000-4000-8000-'||lpad(i::text,12,'0'))::uuid,r.id,a.id,'reply',c.id,
+'a4000000-0000-4000-8000-000000000043',gen_random_uuid(),
+'2026-10-12 13:00:00.789+00'::timestamptz + i*interval '1 minute'
+FROM generate_series(1,43) i,contents c,users r,users a WHERE c.slug='r4-free' AND r.username='r4_reader' AND a.username='r4_actor';
+COMMIT;
+{
+  "precondition": [
+    {
+      "slug": "r4-free",
+      "comments": 44,
+      "roots": 43
+    }
+  ],
+  "replyLike": [
+    {
+      "id": "a4100000-0000-4000-8000-000000000001",
+      "like_count": 1,
+      "username": "r4_reader"
+    }
+  ],
+  "notifications": [
+    {
+      "total": 43,
+      "unread": 43
+    }
+  ],
+  "oldDataSnapshotStored": "noncredential /tmp baseline for cleanup comparison"
+}
+Web r4-free 200
+Policy r4-free 200

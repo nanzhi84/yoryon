@@ -1,0 +1,232 @@
+{
+  "startedAt": "2026-10-12T16:25:40.081Z",
+  "deleted": [
+    {
+      "table": "notifications",
+      "sql": "delete from notifications where recipient_user_id=any($1::uuid[]) or actor_user_id=any($1::uuid[])",
+      "rows": 46
+    },
+    {
+      "table": "sessions",
+      "sql": "delete from sessions where user_id=any($1::uuid[])",
+      "rows": 5
+    },
+    {
+      "table": "email_verifications",
+      "sql": "delete from email_verifications where email=any($1::text[])",
+      "rows": 2
+    },
+    {
+      "table": "analytics_events",
+      "sql": "delete from analytics_events where target_id=$1",
+      "rows": 0
+    },
+    {
+      "table": "cache_events",
+      "sql": "delete from cache_events where payload::jsonb->>'contentSlug'='r4-free' returning id,state,payload",
+      "rows": 2,
+      "auditRetained": [
+        {
+          "id": "ae3f662a-d6e6-46a6-8a49-60df00a30a7a",
+          "state": "verified",
+          "payload": "{\"id\":\"ae3f662a-d6e6-46a6-8a49-60df00a30a7a\",\"tags\":[\"feed\",\"collections\",\"sitemap\",\"content:r4-free\"],\"paths\":[\"/\",\"/c\",\"/sitemap.xml\",\"/p/r4-free\"],\"contentSlug\":\"r4-free\",\"revision\":\"2026-10-12T16:13:09.317Z\"}"
+        },
+        {
+          "id": "99798045-18c6-4ead-b3bf-1ea5950a56cd",
+          "state": "verified",
+          "payload": "{\"id\":\"99798045-18c6-4ead-b3bf-1ea5950a56cd\",\"tags\":[\"feed\",\"collections\",\"sitemap\",\"content:r4-free\"],\"paths\":[\"/\",\"/c\",\"/sitemap.xml\",\"/p/r4-free\"],\"contentSlug\":\"r4-free\",\"revision\":null}"
+        }
+      ]
+    },
+    {
+      "table": "users",
+      "sql": "delete from users where id=any($1::uuid[])",
+      "rows": 2
+    }
+  ],
+  "parameterScope": "Only IDs/emails of two r4 users, r4-free content ID/slug; no credentials logged",
+  "oldDataComparison": {
+    "sql": "select json_build_object('contents',(select json_agg(t) from(select id,slug,status,visibility from contents where slug in ('cmt-free','cmt-paid') order by slug)t),'comments',(select json_agg(t) from(select c.slug,cm.id,cm.body,cm.like_count,cm.deleted_at from comments cm join contents c on c.id=cm.content_id where c.slug in ('cmt-free','cmt-paid') order by cm.id)t),'users',(select json_agg(t) from(select id,username,status,role from users where username in ('acc_u1','acc_u2','acc_u3') order by username)t)) as snapshot",
+    "baselineContents": [
+      {
+        "id": "25ed994a-b032-4146-9d34-f47b05c19f46",
+        "slug": "cmt-free",
+        "status": "published",
+        "visibility": "public"
+      },
+      {
+        "id": "fdaaa2a1-c651-437f-8ce0-50da083a601a",
+        "slug": "cmt-paid",
+        "status": "published",
+        "visibility": "paid"
+      }
+    ],
+    "afterContents": [
+      {
+        "id": "25ed994a-b032-4146-9d34-f47b05c19f46",
+        "slug": "cmt-free",
+        "status": "published",
+        "visibility": "public"
+      },
+      {
+        "id": "fdaaa2a1-c651-437f-8ce0-50da083a601a",
+        "slug": "cmt-paid",
+        "status": "published",
+        "visibility": "paid"
+      }
+    ],
+    "baselineUsers": [
+      {
+        "id": "b151280a-1724-48b9-81bc-37bb018b62e1",
+        "username": "acc_u1",
+        "status": "active",
+        "role": "user"
+      },
+      {
+        "id": "d27055d2-790d-460c-b3b7-880c297bef7a",
+        "username": "acc_u2",
+        "status": "active",
+        "role": "user"
+      },
+      {
+        "id": "4dcdb665-c2d0-4271-8bc6-2d877b55b777",
+        "username": "acc_u3",
+        "status": "active",
+        "role": "admin"
+      }
+    ],
+    "afterUsers": [
+      {
+        "id": "b151280a-1724-48b9-81bc-37bb018b62e1",
+        "username": "acc_u1",
+        "status": "active",
+        "role": "user"
+      },
+      {
+        "id": "d27055d2-790d-460c-b3b7-880c297bef7a",
+        "username": "acc_u2",
+        "status": "active",
+        "role": "user"
+      },
+      {
+        "id": "4dcdb665-c2d0-4271-8bc6-2d877b55b777",
+        "username": "acc_u3",
+        "status": "active",
+        "role": "admin"
+      }
+    ],
+    "oldCommentIds": [
+      "0663be58-4978-4d0a-80f6-c0a9c345f0bf",
+      "06b12040-f6f4-42af-9d53-b4d5343cb880",
+      "072f7ac1-2a21-46ae-ba52-71436a3f8acb",
+      "07eeb675-7f0c-40de-a1c1-450a3e005b06",
+      "0cec44d6-859a-4fd2-9eff-a34849afc0c0",
+      "0ef9f10f-26c7-4dc5-8b46-12378d01f501",
+      "20e33050-07df-4b07-812b-544d3070b724",
+      "2456b6bb-ca98-4e91-9278-95e7c7a025a4",
+      "25cb8b48-db43-4ed1-88e8-1960db90b8e0",
+      "26176913-ff9d-4456-8dd0-bd8a31912a51",
+      "270f9062-e75a-433c-94f1-f9d8c5a84930",
+      "2967a2e8-b2f3-4481-a7cb-393e79c0104b",
+      "29a46ed5-43e3-4db4-a6a8-846e3b892fe4",
+      "2c8f0014-cc1f-4790-b59e-fdd9cbacb2bc",
+      "2faf5def-412a-4a60-9c89-0dfe5f69f782",
+      "32a70271-10ef-4a88-ab3e-4b9d0e754456",
+      "36c0033b-f61d-4b66-98c0-d16251b86d75",
+      "4970b8ac-fcf6-4b48-aafe-cb7cb5b38280",
+      "4b668ad6-3ea2-4f21-adad-e42157b3350d",
+      "4c2c9bc1-b85c-4346-98d4-975ecfb63dee",
+      "52246ed2-b893-44f4-aa7d-67c2322cc6ac",
+      "5d685ca4-48f1-425c-aaaa-3fb696b10b08",
+      "636c4511-3f17-48bc-b5f8-78c4483f22e9",
+      "663ca169-ec1c-4003-8232-e9288d35b087",
+      "6740f5ab-e216-47a1-827d-ac0e0f4b3b10",
+      "67673b4b-9b4b-4668-aa7f-8d5d8edd49a2",
+      "67dc6c87-d3e7-437c-b8d1-20dd770cf975",
+      "68264116-f5be-42e6-a1fb-cd99dbbe1f93",
+      "69a0e0a2-8210-4496-b1cd-690838a7c272",
+      "710aed34-cabb-4595-b292-5b0da534ab57",
+      "780ca546-b658-4379-96f2-7fc6dca60e06",
+      "7e229e41-6145-44a0-b6b9-ae0d79bba16f",
+      "90fde467-873b-486f-ae50-58319d863870",
+      "936e0e63-d1f2-4abe-a6f7-8e97edef7d0c",
+      "94e07680-6f57-4c48-ab82-dbe920214099",
+      "9e79af53-9d0f-40f6-b8d3-02cd9eb6675e",
+      "a4104193-5e4b-4216-8539-818776f159cd",
+      "b4f91a0c-f411-43f8-847c-7a96b75f8b69",
+      "b6b9c1a0-bae5-40b1-a765-8376ad238d0a",
+      "bb918513-4a90-4abb-bdef-259d2c1dbd58",
+      "bff4357e-5c20-4695-9f11-60aa18955922",
+      "c30c5e9d-0860-4352-804b-8eaaa7e82469",
+      "d6a6cb32-7703-48df-998b-25d5bc9c113a",
+      "dc7a207d-a9ef-4b92-8193-1aa1d9e77a11",
+      "ddce8e8f-892e-4bb4-b1a2-22fc1bff492c",
+      "ef02ee03-b4a5-42dd-be1b-e1409512912f",
+      "f3e1f70e-7587-4fdd-801a-3da5534b38d0",
+      "fdfd5771-392c-411e-8d22-e73ddae08a31"
+    ],
+    "oldCommentsExactBodyLikeCountDeletedAtUnchanged": true,
+    "selectedOldSnapshotUnchanged": true
+  },
+  "remaining": [
+    {
+      "table": "contents",
+      "sql": "select count(*)::int n from contents where slug='r4-free'",
+      "count": 0
+    },
+    {
+      "table": "comments",
+      "sql": "select count(*)::int n from comments where user_id=any($1::uuid[]) or content_id=$2 or id::text like 'a4%'",
+      "count": 1
+    },
+    {
+      "table": "comment_likes",
+      "sql": "select count(*)::int n from comment_likes where user_id=any($1::uuid[]) or comment_id::text like 'a4%'",
+      "count": 1
+    },
+    {
+      "table": "notifications",
+      "sql": "select count(*)::int n from notifications where recipient_user_id=any($1::uuid[]) or actor_user_id=any($1::uuid[])",
+      "count": 0
+    },
+    {
+      "table": "users",
+      "sql": "select count(*)::int n from users where id=any($1::uuid[]) or username in ('r4_reader','r4_actor')",
+      "count": 0
+    },
+    {
+      "table": "sessions",
+      "sql": "select count(*)::int n from sessions where user_id=any($1::uuid[])",
+      "count": 0
+    },
+    {
+      "table": "email_verifications",
+      "sql": "select count(*)::int n from email_verifications where email=any($1::text[])",
+      "count": 0
+    },
+    {
+      "table": "analytics_events",
+      "sql": "select count(*)::int n from analytics_events where target_id=$1",
+      "count": 0
+    },
+    {
+      "table": "cache_events",
+      "sql": "select count(*)::int n from cache_events where payload::jsonb->>'contentSlug'='r4-free'",
+      "count": 0
+    }
+  ],
+  "ownMailIds": [
+    "17djYJNhx3fr84izQ2jchJ",
+    "7EzepFjiiGMIzH68CYI1fR"
+  ],
+  "mailDeleteStatus": 200,
+  "remainingOwnMail": 0,
+  "tempFilesRemoved": [
+    "/tmp/r4-accept-secrets.json",
+    "/tmp/r4-browser-state.json",
+    "/tmp/r4-old-baseline.json"
+  ],
+  "publishSourceRemoved": true,
+  "result": "FAIL",
+  "finishedAt": "2026-10-12T16:25:40.112Z"
+}
