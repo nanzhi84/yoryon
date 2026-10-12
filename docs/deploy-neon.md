@@ -1,6 +1,6 @@
 # 免费计划生产部署
 
-设计与限制见 [ADR-0008](../docs/adr/0008-free-plan-production.md)。Neon、Cloudflare 与 Vercel 保留免费计划；已有服务器、域名仍需续费。用户另行批准 DirectMail 超过免费额度后按量计费。
+设计与限制见 [ADR-0008](adr/0008-free-plan-production.md)。Neon、Cloudflare 与 Vercel 保留免费计划；已有服务器、域名仍需续费。用户另行批准 DirectMail 超过免费额度后按量计费。
 
 ## 环境
 
@@ -53,14 +53,14 @@ sudo docker compose -f compose.neon.yml run --rm cli publish /posts/<slug>
 sudo docker compose -f compose.neon.yml run --rm cli content list
 ```
 
-当前版本不是公开文章静态化版本；Issue #6 另行实施。FS 模式尚未做大文件流式读取，不应在这台 1 GB 实例上发布大视频。
+当前版本不是公开文章静态化版本；Issue #6 另行实施。生产媒体已切换为新加坡私有 OSS；本地/E2E 继续使用隔离 FS。
 
 ## 验收与备份
 
 ```sh
 pnpm typecheck
 pnpm e2e
-node deploy/verify-production.mjs https://yoryon.com --browser --smtp-ready
+node deploy/verify-production.mjs https://yoryon.com --browser --smtp-ready --oss
 node deploy/verify-production-mail.mjs --email <明确授权的无网站账号 Gmail 地址>
 ```
 
@@ -71,5 +71,23 @@ E2E 只使用 `e2e/helpers/env.ts` 中固定的本地 Docker PostgreSQL、Mailpi
 
 `verify-production-mail.mjs` 仅向明确授权且没有现有网站账号的邮箱发送注册和重置两封邮件。脚本输出 `AWAIT_MAIL` 后，操作者通过 Gmail 连接器验证真实邮件的 headers/labels，将 `{run,purpose,sender,messageId,labelIds,authentication:{spf,dkim,dmarc},source:"gmail_connector"}` 写入受保护配置目录的 `<purpose>.receipt.json`（0600）。Gmail 隐藏一次性验证码，由人从真实邮件取码并填写同目录 `mail-acceptance-codes.json` 的 `register` / `password_reset` 字段；保留脚本生成的 run 标识。每阶段有界等待 8 分钟，不读取数据库中的验证码。工件写入 `artifacts/directmail-20261012/attempts/<run>/`，仅含脱敏截图、消息 ID 哈希、断言和清理状态；结束擦除取码文件中的值。最新报告另存 `real-mail-acceptance.json`。临时账号按邮箱、唯一用户名与创建时间核对后删除，不修改已有账号。不保存密码、验证码、Cookie、SMTP 凭据或邮件正文。
 
-服务器以 root 执行 `deploy/backup-neon.sh`，生成数据库与媒体的校验和，保留 7 天。备份仍在同一台机器，应下载到独立设备。
+服务器以 root 执行 `/opt/yoryon/backup-neon.sh`，生成数据库与媒体的校验和，保留 7 天。OSS 模式由 `/opt/yoryon/backup-oss.py` 流式下载 `media/`，逐对象核对内容寻址 SHA256 与尺寸，归档中包含对象 manifest；本地 FS 模式仍备份文件目录。备份仍在同一台机器，应下载到独立设备。
 恢复到隔离数据库后验证，再考虑切换生产；不要直接覆盖运行数据库。应用回滚：将 `.env` 的镜像标签改回上一版，重新 `up -d --wait`，迁移兼容性另行检查。
+
+## 新加坡私有 OSS（2026-10-12）
+
+桶 `yoryon-media-1089191161022541-sg`，`oss-ap-southeast-1`，Standard/LRS，private ACL，阻止公共访问，AES256 服务端加密。公网 HTTPS endpoint 用于浏览器短期签名 URL；不把 internal endpoint 配到 API 签名器。新加坡区域及 endpoint 见 [阿里云文档](https://www.alibabacloud.com/help/en/oss/user-guide/regions-and-endpoints)。按量付费，没有购买资源包。
+
+API RAM 身份 `yoryon-oss-api` 只允许 `media/*` GetObject；CLI `yoryon-oss-cli` 允许该前缀读取、上传、删除、分片操作，以及限定 `media/` 前缀的列举。两者没有桶管理权限。密钥只在本机受保护的 `~/.config/yoryon-production/oss-credentials.json`（0600）和服务器 `/etc/yoryon/{api,cli}.env`，不写入仓库。配置前数据库和 FS 媒体都为空，因此无需迁移；配置脚本遇到非空媒体时拒绝直接切换，须另行持发布/GC 锁做迁移。
+
+初始化（已执行）：`python3 deploy/configure-production-oss.py`，然后 `node deploy/configure-production-oss.mjs`。前者使用本机受保护的 `~/.alibabacloud/credentials` 管理凭据创建专用身份，后者校验桶和权限后切换 API/CLI。当前生产配置的重复验证及验收命令：
+
+```sh
+node deploy/configure-production-oss.mjs --verify-only
+node deploy/verify-production.mjs https://yoryon.com --browser --smtp-ready --oss
+node deploy/verify-oss-backup.mjs
+```
+
+前提：本机受保护的 OSS/API/CLI 数据库凭据、SSH 权限、已安装的 E2E Chromium。验收只生成唯一标识的合成对象、文章和账号，结束仅清理这些数据；工件在 `artifacts/oss-20261012/`，不保留签名 URL、凭据或 Cookie。真实邮件仍以 `artifacts/directmail-20261012/real-mail-acceptance.json` 的独立验收为准；OSS 切换不修改 SMTP。
+
+配置切换失败会恢复 `/etc/yoryon/{api,cli}.pre-oss.env` 并重建 API。成功上线后若已经有 OSS 文章，不能直接恢复空 FS：必须先按数据库引用将媒体下载回 FS 并核对哈希，再恢复配置。保留原 FS 目录与预切换配置，不把它们当成当前媒体备份。

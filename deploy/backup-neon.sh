@@ -15,7 +15,13 @@ docker run --rm --env-file /etc/yoryon/migrate.env \
   sh -c 'pg_dump --dbname="$DATABASE_URL" --no-owner --no-acl' \
   | gzip > "$backup_dir/database.sql.gz.tmp"
 mv "$backup_dir/database.sql.gz.tmp" "$backup_dir/database.sql.gz"
-tar -C /var/lib/yoryon -czf "$backup_dir/media.tar.gz.tmp" media
+if grep -qx 'STORAGE_BACKEND=oss' /etc/yoryon/cli.env; then
+  python3 /opt/yoryon/backup-oss.py "$backup_dir/oss-media"
+  tar -C "$backup_dir/oss-media" -czf "$backup_dir/media.tar.gz.tmp" .
+  rm -rf -- "$backup_dir/oss-media"
+else
+  tar -C /var/lib/yoryon -czf "$backup_dir/media.tar.gz.tmp" media
+fi
 mv "$backup_dir/media.tar.gz.tmp" "$backup_dir/media.tar.gz"
 (cd "$backup_dir" && sha256sum database.sql.gz media.tar.gz > SHA256SUMS)
 touch "$backup_dir/COMPLETE"

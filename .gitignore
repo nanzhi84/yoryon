@@ -29,3 +29,6 @@ e2e/.data/
 e2e/test-results/
 e2e/playwright-report/
 .vercel
+
+# acceptance artifacts: exclude heavyweight archives (screenshots/logs stay)
+artifacts/**/*.tar.gz
