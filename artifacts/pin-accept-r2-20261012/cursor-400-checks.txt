@@ -1,0 +1,14 @@
+== feed with old 2-field cursor (missing p) ==
+{"error":{"code":"invalid_cursor","message":"分页游标无效，请刷新列表"}}
+HTTP:400
+== feed with garbage cursor ==
+{"error":{"code":"invalid_cursor","message":"分页游标无效，请刷新列表"}}
+HTTP:400
+== feed with base64-but-nonjson cursor ==
+{"error":{"code":"invalid_cursor","message":"分页游标无效，请刷新列表"}}
+HTTP:400
+== tag with garbage cursor ==
+{"error":{"code":"invalid_cursor","message":"分页游标无效，请刷新列表"}}
+HTTP:400
+== tag with 3-field new feed cursor (has p) — 兼容检查 ==
+{"tag":{"slug":"pinaccept","name":"pinaccept"},"version":"b9cad7f8-47ec-41c7-bcf7-3a5a1dd4259a","items":[{"kind":"content","id":"5aad7b46-46e9-4aa6-a2ae-778730dccfb8","type":"article","slug":"pin-accept-pg4","title":"置顶测试·分页·肆","description":"","visibility":"public","coverMediaId":nu

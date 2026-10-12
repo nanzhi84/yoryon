@@ -1,0 +1,36 @@
+== T0: 当前 feed version ==
+b9cad7f8-47ec-41c7-bcf7-3a5a1dd4259a
+== T0: 未决事件 ==
+                  id                  | state  | attempts |      last_error       |          created_at           
+--------------------------------------+--------+----------+-----------------------+-------------------------------
+ b52de57f-8718-4d9c-b677-22fbae9c59b2 | failed |        3 | invalidation HTTP 403 | 2026-10-12 13:51:15.822709+00
+(1 row)
+
+$ pnpm --filter @yoryon/cli start content pin pin-accept-beta
+$ tsx --env-file=../../.env src/index.ts content pin pin-accept-beta
+cache 285ac842-082d-451f-93cc-fbbc8a226637: pending (retry exhausted; blog cache retry)
+✓ pin-accept-beta pinned
+cli exit=0
+== T1: pin beta 后事件状态与版本 ==
+                  id                  | state  | attempts |      last_error       |          created_at           
+--------------------------------------+--------+----------+-----------------------+-------------------------------
+ b52de57f-8718-4d9c-b677-22fbae9c59b2 | failed |        3 | invalidation HTTP 403 | 2026-10-12 13:51:15.822709+00
+ 285ac842-082d-451f-93cc-fbbc8a226637 | failed |        3 | fetch failed          | 2026-10-12 13:56:29.083478+00
+(2 rows)
+
+       slug       | is_pinned 
+------------------+-----------
+ pin-accept-alpha | t
+ pin-accept-beta  | t
+(2 rows)
+
+== T1: feed version（应仍为 b9cad7f8，未推进）与排序（DB 已改，API 实时读库） ==
+version: b9cad7f8-47ec-41c7-bcf7-3a5a1dd4259a
+first 3: [('pin-accept-beta', True), ('pin-accept-alpha', True), ('pin-accept-gamma', False)]
+== T1: 旧 version b9cad7f8 请求 feed（投递失败窗口内，预期不 409——记录的已知权衡） ==
+HTTP:200
+== T1: 首页 HTML 缓存（投递失败，可能仍是旧缓存） ==
+置顶测试·乙
+置顶测试·乙\"}]}],false]}],[\"$\",\"time\",null,{\"className\":\"shrink-0 text-sm text-muted-foreground\",\"children\":\"2026年10月5日\"}]]}],null,\"\",[\"$\",\"div\",null,{\"className\":\"mt-2 flex flex-wrap items-center gap-2 text-xs text-muted-foreground\",\"children\":[[\"$\",\"span\",null,{\"children\":\"文章\"}],false,[[\"$\",\"$L5\",\"pinaccept\",{\"prefetch\":false,\"href\":\"/tags/pinaccept\",\"className\":\"hover:text-foreground\",\"children\":[\"#\",\"pinaccept\"]}]]]}]]}]}]\n"])
+beta 片段含徽章 span: False
+/p/pin-accept-beta"><h2 class="truncate text-lg font-medium leading-snug group-hover:underline underline-offset-4">置顶测试·乙</h2></a></div><time class="shrink-0 text-sm text-muted-foreground">2026年10月5日</time></div><div class="mt-2 flex flex-wrap items-center gap-2 text-xs text-muted-foreground"><span>文章</span><a class="hover:text-foreground" href="/tags/pinaccept">#<!-- -->pinaccept</a></div></artic

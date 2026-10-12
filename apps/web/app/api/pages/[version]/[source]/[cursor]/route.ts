@@ -10,6 +10,10 @@ export async function GET(_request: Request, { params }: { params: Promise<{ ver
   const path = source === "feed" ? "/api/feed" : `/api/tags/${tag}`;
   const query = `?version=${version}${cursor === "start" ? "" : `&cursor=${encodeURIComponent(cursor)}`}`;
   const res = await publicFetch(path + query, { revalidate: 86400, tags: [source === "feed" ? "feed" : `tag:${tag}`] });
+  // 预期错误（invalid_cursor / snapshot_expired）透传状态与错误码，私有不缓存；客户端据此引导刷新而非 500
+  if (res.status === 400 || res.status === 409) {
+    return Response.json(await res.json(), { status: res.status, headers: { "Cache-Control": "private, no-store" } });
+  }
   if (!res.ok) throw new Error(`snapshot API ${res.status}`);
   return Response.json(await res.json(), { headers: { "Cache-Control": "public, max-age=0, s-maxage=86400" } });
 }

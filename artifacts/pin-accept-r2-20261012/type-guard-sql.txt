@@ -1,0 +1,11 @@
+== SQL after failed publish ==
+       slug       |  type   | is_pinned |  status   |                 body_markdown                 
+------------------+---------+-----------+-----------+-----------------------------------------------
+ pin-accept-alpha | article | t         | published | 甲正文：较早发布的文章。（已修订 re-publish）
+(1 row)
+
+       slug       |  type   | is_pinned |  status   
+------------------+---------+-----------+-----------
+ pin-accept-alpha | article | t         | published
+(1 row)
+
