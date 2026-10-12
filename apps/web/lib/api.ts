@@ -2,8 +2,8 @@
  * SSR apiFetch（ADR-0001）：与浏览器 Route Handler 共用同一个 Cookie→Bearer 转发模块；
  * 默认 cache: 'no-store'；仅私有线（内容详情等权益相关页面）使用。
  *
- * 公开线（feed/tags/sitemap）必须改用 publicFetch：它不读取 cookies()/headers()，
- * 页面才能进入 Full Route Cache / ISR；本函数一旦出现在公开页面，动态 API 会把整页逐出静态缓存。
+ * 公开线不转发 cookies()/headers()；正文数据用 publicFetch 缓存。
+ * feed/tags 首屏通过 no-store 目录版本动态渲染，列表数据仍共享带版本的 Data Cache。
  */
 import { cookies, headers } from "next/headers";
 import { buildApiHeaders, getBffConfig, readSessionCookie, resolvePlatformClientIp } from "./bff";
@@ -19,8 +19,8 @@ function publicUrl(path: string): string {
 }
 
 /**
- * 公开线旁路：不使用 Data Cache（no-store）。仅限 sitemap 等必须反映当前库状态、
- * 且自身不被缓存的低频场景；渲染页面一律走 publicFetch。
+ * 公开线旁路：不使用 Data Cache（no-store）。用于 sitemap 和实时目录版本门禁；
+ * 列表正文仍通过 publicFetch 使用带版本的共享缓存。
  */
 export async function publicFetchNoStore(path: string): Promise<Response> {
   return fetch(publicUrl(path), { headers: { accept: "application/json" }, cache: "no-store" });

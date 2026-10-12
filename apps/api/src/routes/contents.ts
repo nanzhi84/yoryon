@@ -92,14 +92,14 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
    * - 全序 (isPinned desc, sortKey desc, id desc)；游标编码同一三元组，跨置顶边界不重复/不漏项；
    *   多取 1 条（N+1）探测终止，无更多时 nextCursor = null。
    */
-  app.get("/feed", async (c) => {
-    const version = await policy.version();
+  app.get("/feed", async (c) => deps.db.transaction(async (tx) => {
+    const version = await policy.version(tx);
     if (c.req.query("version") && c.req.query("version") !== version) return errorResponse(c, 409, "snapshot_expired", "列表已更新，请刷新页面");
     const rawCursor = c.req.query("cursor");
     const cursor = decodeCursor(rawCursor);
     if (rawCursor && !cursor) return errorResponse(c, 400, "invalid_cursor", "分页游标无效，请刷新列表");
     const contentSortKey = sql`date_trunc('milliseconds', coalesce(${contents.publishedAt}, ${contents.createdAt}))`;
-    const rows = await deps.db
+    const rows = await tx
       .select(listContentColumns)
       .from(contents)
       .where(and(eq(contents.status, "published"), keyset(cursor, contents.isPinned, contentSortKey, contents.id)))
@@ -109,7 +109,7 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
 
     const pageIds = page.map((r) => r.id);
     const tagRows = pageIds.length
-      ? await deps.db
+      ? await tx
           .select({ contentId: contentTags.contentId, slug: tags.slug, name: tags.name })
           .from(contentTags)
           .innerJoin(tags, eq(contentTags.tagId, tags.id))
@@ -136,7 +136,7 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
       // 与 tags 同一终止条件：多拉 1 条才说明有下一页
       nextCursor: rows.length > FEED_PAGE_SIZE && last ? encodeCursor(last.isPinned, last.publishedAt ?? last.createdAt, last.id) : null,
     });
-  });
+  }, { isolationLevel: "repeatable read", accessMode: "read only" }));
 
   app.get("/contents/:slug", async c => {
     c.header("Cache-Control", "private, no-store");
@@ -223,17 +223,17 @@ function tagKeyset(cursor: { t: Date; id: string } | null, timeCol: SQL | any, i
 }
 
 /** 标签筛选（公开缓存）；items 与 feed 的内容项同一合同（含 tags），供 LoadMore 直接渲染 */
-  app.get("/tags/:slug", async (c) => {
-    const version = await policy.version();
+  app.get("/tags/:slug", async (c) => deps.db.transaction(async (tx) => {
+    const version = await policy.version(tx);
     if (c.req.query("version") && c.req.query("version") !== version) return errorResponse(c, 409, "snapshot_expired", "列表已更新，请刷新页面");
-    const tagRows = await deps.db.select().from(tags).where(eq(tags.slug, c.req.param("slug"))).limit(1);
+    const tagRows = await tx.select().from(tags).where(eq(tags.slug, c.req.param("slug"))).limit(1);
     const tag = tagRows[0];
     if (!tag) return errorResponse(c, 404, "not_found", "标签不存在");
     const rawCursor = c.req.query("cursor");
     const cursor = decodeTagCursor(rawCursor);
     if (rawCursor && !cursor) return errorResponse(c, 400, "invalid_cursor", "分页游标无效，请刷新列表");
     const contentSortKey = sql`date_trunc('milliseconds', coalesce(${contents.publishedAt}, ${contents.createdAt}))`;
-    const rows = await deps.db
+    const rows = await tx
       .select(listContentColumns)
       .from(contentTags)
       .innerJoin(contents, eq(contentTags.contentId, contents.id))
@@ -243,7 +243,7 @@ function tagKeyset(cursor: { t: Date; id: string } | null, timeCol: SQL | any, i
     const page = rows.slice(0, FEED_PAGE_SIZE);
     const pageIds = page.map((r) => r.id);
     const pageTagRows = pageIds.length
-      ? await deps.db
+      ? await tx
           .select({ contentId: contentTags.contentId, slug: tags.slug, name: tags.name })
           .from(contentTags)
           .innerJoin(tags, eq(contentTags.tagId, tags.id))
@@ -270,7 +270,7 @@ function tagKeyset(cursor: { t: Date; id: string } | null, timeCol: SQL | any, i
       // 与 feed 同一终止条件：多拉 1 条才说明有下一页；标签游标维持二元格式（排序与置顶无关）
       nextCursor: rows.length > FEED_PAGE_SIZE && last ? encodeTagCursor(last.publishedAt ?? last.createdAt, last.id) : null,
     });
-  });
+  }, { isolationLevel: "repeatable read", accessMode: "read only" }));
 
   return app;
 }
