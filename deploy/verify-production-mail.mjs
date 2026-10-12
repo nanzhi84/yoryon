@@ -26,7 +26,20 @@ const username = `smtpqa${crypto.randomBytes(6).toString('hex')}`;
 const password = crypto.randomBytes(24).toString('base64url');
 const newPassword = crypto.randomBytes(24).toString('base64url');
 const credentials = JSON.parse(await fs.readFile(path.join(os.homedir(), '.config/yoryon-production/secrets.json')));
-const db = new Client({ connectionString: credentials.database_cli_url });
+// Human OTP handoffs can outlast Neon autosuspend. Hold no connection while waiting.
+async function withDatabase(work) {
+  const db = new Client({ connectionString: credentials.database_cli_url });
+  let connectionError;
+  db.on('error', error => { connectionError = error; });
+  try {
+    await db.connect();
+    const result = await work(db);
+    if (connectionError) throw connectionError;
+    return result;
+  } finally {
+    await db.end().catch(() => {});
+  }
+}
 const artifactRoot = new URL(htmlMail ? '../artifacts/email-html-production-20261012/' : '../artifacts/directmail-20261012/', import.meta.url).pathname;
 const artifactDir = path.join(artifactRoot, 'attempts', run);
 await fs.mkdir(artifactDir, { recursive: true });
@@ -37,7 +50,7 @@ await fs.chmod(codesPath, 0o600);
 const checks = [];
 const report = { run, startedAt: startedAt.toISOString(), target: base, sender, recipient: 'explicitly_authorized_gmail',
   evidenceDirectory: path.relative(artifactRoot, artifactDir), htmlMailRequired: htmlMail, checks, receipts: [] };
-let browser, connected = false, registered = false;
+let browser, registered = false;
 function check(name, ok) {
   checks.push({ name, status: ok ? 'PASS' : 'FAIL' });
   if (!ok) throw Error(`Assertion failed: ${name}`);
@@ -87,8 +100,9 @@ async function capture(page, name) {
 }
 const go = (page, route) => page.goto(base + route, { waitUntil: 'networkidle', timeout: 30000 });
 try {
-  await db.connect(); connected = true;
-  check('recipient_has_no_existing_website_account', (await db.query('select count(*)::int as n from users where email=$1', [email])).rows[0].n === 0);
+  await withDatabase(async db => {
+    check('recipient_has_no_existing_website_account', (await db.query('select count(*)::int as n from users where email=$1', [email])).rows[0].n === 0);
+  });
   browser = await chromium.launch();
   const member = await browser.newContext({ viewport: { width: 1280, height: 900 } });
   const page = await member.newPage();
@@ -162,25 +176,28 @@ try {
   process.exitCode = 1;
 } finally {
   await browser?.close().catch(() => {});
-  if (connected) {
-    try {
+  try {
+    await withDatabase(async db => {
       await db.query('begin');
-      const own = (await db.query('select id from users where email=$1 and username=$2 and created_at >= $3 for update', [email, username, startedAt])).rows[0];
-      if (own) {
-        await db.query('delete from sessions where user_id=$1', [own.id]);
-        await db.query('delete from email_verifications where email=$1 and created_at >= $2', [email, startedAt]);
-        const deleted = await db.query('delete from users where id=$1 and email=$2 and username=$3', [own.id, email, username]);
-        check('temporary_account_removed', deleted.rowCount === 1);
+      try {
+        const own = (await db.query('select id from users where email=$1 and username=$2 and created_at >= $3 for update', [email, username, startedAt])).rows[0];
+        if (own) {
+          await db.query('delete from sessions where user_id=$1', [own.id]);
+          await db.query('delete from email_verifications where email=$1 and created_at >= $2', [email, startedAt]);
+          const deleted = await db.query('delete from users where id=$1 and email=$2 and username=$3', [own.id, email, username]);
+          check('temporary_account_removed', deleted.rowCount === 1);
+        }
+        check('temporary_account_and_codes_absent', !registered || (await db.query('select count(*)::int as n from users where email=$1', [email])).rows[0].n === 0
+          && (await db.query('select count(*)::int as n from email_verifications where email=$1 and created_at >= $2', [email, startedAt])).rows[0].n === 0);
+        await db.query('commit');
+        report.cleanup = 'PASS';
+      } catch (error) {
+        await db.query('rollback').catch(() => {});
+        throw error;
       }
-      check('temporary_account_and_codes_absent', !registered || (await db.query('select count(*)::int as n from users where email=$1', [email])).rows[0].n === 0
-        && (await db.query('select count(*)::int as n from email_verifications where email=$1 and created_at >= $2', [email, startedAt])).rows[0].n === 0);
-      await db.query('commit');
-      report.cleanup = 'PASS';
-    } catch {
-      await db.query('rollback').catch(() => {});
-      report.cleanup = 'FAIL'; report.status = 'FAIL'; process.exitCode = 1;
-    }
-    await db.end();
+    });
+  } catch {
+    report.cleanup = 'FAIL'; report.status = 'FAIL'; process.exitCode = 1;
   }
   report.finishedAt = new Date().toISOString();
   await fs.writeFile(path.join(artifactDir, 'real-mail-acceptance.json'), JSON.stringify(report, null, 2) + '\n');
