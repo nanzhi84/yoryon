@@ -7,3 +7,11 @@ e2e/playwright-report/
 **/*.tmp
 deploy/.performance-baseline.mjs
 e2e/scripts/.acceptance-build.ts
+**/.env
+**/.env.*
+!**/.env.example
+**/node_modules/
+**/.next/
+**/dist/
+**/*.tsbuildinfo
+.git/
