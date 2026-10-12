@@ -5,7 +5,7 @@ e2e/playwright-report/
 .storage/
 **/*.log
 **/*.tmp
-deploy/.performance-baseline.mjs
+deploy/.performance-*.mjs
 e2e/scripts/.acceptance-build.ts
 **/.env
 **/.env.*

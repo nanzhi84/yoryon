@@ -159,7 +159,7 @@ try {
   process.exitCode = 1;
 } finally {
   for (const slug of Object.values(slugs)) {
-    try { await cli("content", "delete", slug); } catch { report.cacheCleanup = "FAIL"; process.exitCode = 1; }
+    try { await cli("content", "delete", slug); } catch { report.cacheCleanup = "FAIL"; report.status = "FAIL"; process.exitCode = 1; }
   }
   await browser?.close().catch(() => {});
   try {

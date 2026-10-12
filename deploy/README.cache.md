@@ -28,6 +28,7 @@ node deploy/verify-cache-production.mjs baseline  # 必须在旧版本执行，�
 node deploy/verify-cache-production.mjs after
 YORYON_ACCEPTANCE_ARTIFACT_DIR=../artifacts/performance-20261012/after-business/ node deploy/verify-production.mjs https://yoryon.com --browser --oss
 node deploy/verify-cli-resources.mjs
+node deploy/verify-oss-derivative.mjs
 node deploy/verify-cache-production.mjs cleanup
 pnpm exec tsx deploy/verify-notion-publication.ts
 ```
