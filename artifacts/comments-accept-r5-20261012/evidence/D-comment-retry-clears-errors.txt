@@ -1,0 +1,33 @@
+{"at":"2026-10-12T17:03:43.231Z","kind":"request","method":"GET","path":"/api/notifications/unread-count","hasCursor":false,"time":1791824623231}
+{"at":"2026-10-12T17:03:43.231Z","kind":"request","method":"GET","path":"/api/contents/cmt-free/comments","hasCursor":false,"time":1791824623231}
+{"at":"2026-10-12T17:03:43.232Z","kind":"request","method":"GET","path":"/api/contents/cmt-free/comments/context","hasCursor":false,"time":1791824623232}
+{"at":"2026-10-12T17:03:43.239Z","kind":"response","method":"GET","path":"/api/notifications/unread-count","hasCursor":false,"status":200}
+{"at":"2026-10-12T17:03:43.240Z","kind":"response","method":"GET","path":"/api/contents/cmt-free/comments/context","hasCursor":false,"status":200}
+{"at":"2026-10-12T17:03:43.245Z","kind":"response","method":"GET","path":"/api/contents/cmt-free/comments","hasCursor":false,"status":200}
+{"at":"2026-10-12T17:03:43.246Z","kind":"request","method":"GET","path":"/api/comments/liked","hasCursor":false,"time":1791824623246}
+{"at":"2026-10-12T17:03:43.264Z","kind":"response","method":"GET","path":"/api/comments/liked","hasCursor":false,"status":200}
+{"at":"2026-10-12T17:03:43.309Z","kind":"request","method":"GET","path":"/api/contents/cmt-free/comments","hasCursor":true,"time":1791824623309}
+{"at":"2026-10-12T17:03:43.322Z","kind":"response","method":"GET","path":"/api/contents/cmt-free/comments","hasCursor":true,"status":200}
+{"at":"2026-10-12T17:03:43.323Z","kind":"request","method":"GET","path":"/api/comments/liked","hasCursor":false,"time":1791824623323}
+{"at":"2026-10-12T17:03:43.328Z","kind":"response","method":"GET","path":"/api/comments/liked","hasCursor":false,"status":200}
+{"at":"2026-10-12T17:03:43.328Z","step":"D-real-paging-to-own-new-root","initialPageRoots":20,"page2Status":200,"ownBody":"r5-root-lifecycle-and-retry","initialLiked":"false","loadedRootCount":39}
+{"at":"2026-10-12T17:03:43.366Z","kind":"request","method":"PUT","path":"/api/comments/01de8571-a427-476d-a8ea-b7c0bffb822a/like","hasCursor":false,"time":1791824623366}
+{"at":"2026-10-12T17:03:43.379Z","kind":"response","method":"PUT","path":"/api/comments/01de8571-a427-476d-a8ea-b7c0bffb822a/like","hasCursor":false,"status":200}
+{"at":"2026-10-12T17:03:43.380Z","kind":"request","method":"GET","path":"/api/contents/cmt-free/comments","hasCursor":false,"time":1791824623380}
+{"at":"2026-10-12T17:03:43.380Z","step":"explicit-one-time-root-home-GET503","method":"GET","path":"/api/contents/cmt-free/comments","status":503,"injected":true}
+{"at":"2026-10-12T17:03:43.382Z","kind":"response","method":"GET","path":"/api/contents/cmt-free/comments","hasCursor":false,"status":503}
+{"at":"2026-10-12T17:03:43.412Z","step":"D-like-committed-both-old-errors-visible","likeStatus":200,"failures":1,"genericVisible":true,"refreshVisible":true,"genericText":"点赞或列表刷新失败，请重试。","refreshText":"评论列表刷新失败。重试","sql":"SELECT c.id,c.like_count,(SELECT count(*)::int FROM comment_likes l WHERE l.comment_id=c.id AND l.user_id=$2) AS own_like FROM comments c WHERE c.id=$1","parameters":["01de8571-a427-476d-a8ea-b7c0bffb822a","6e66935b-6b9d-4d07-90ee-8fcb02cd3981"],"rows":[{"id":"01de8571-a427-476d-a8ea-b7c0bffb822a","like_count":1,"own_like":1}]}
+{"at":"2026-10-12T17:03:43.497Z","kind":"request","method":"GET","path":"/api/contents/cmt-free/comments","hasCursor":false,"time":1791824623497}
+{"at":"2026-10-12T17:03:43.498Z","kind":"request","method":"GET","path":"/api/contents/cmt-free/comments/context","hasCursor":false,"time":1791824623498}
+{"at":"2026-10-12T17:03:43.513Z","kind":"response","method":"GET","path":"/api/contents/cmt-free/comments/context","hasCursor":false,"status":200}
+{"at":"2026-10-12T17:03:43.513Z","kind":"response","method":"GET","path":"/api/contents/cmt-free/comments","hasCursor":false,"status":200}
+{"at":"2026-10-12T17:03:43.514Z","kind":"request","method":"GET","path":"/api/comments/liked","hasCursor":false,"time":1791824623514}
+{"at":"2026-10-12T17:03:43.520Z","kind":"response","method":"GET","path":"/api/comments/liked","hasCursor":false,"status":200}
+{"at":"2026-10-12T17:03:43.521Z","step":"D-visible-retry-real-read-success-errors-cleared","retryStatus":200,"injectedFailures":1,"genericVisible":false,"refreshVisible":false,"rootDOMCount":20,"paginationEnabled":true,"ownRootOnFirstPage":1,"network":[{"kind":"request","method":"GET","path":"/api/contents/cmt-free/comments","hasCursor":false,"time":1791824623497},{"kind":"request","method":"GET","path":"/api/contents/cmt-free/comments/context","hasCursor":false,"time":1791824623498},{"kind":"request","method":"GET","path":"/api/comments/liked","hasCursor":false,"time":1791824623514}],"url":"http://localhost:3103/p/cmt-free"}
+{"at":"2026-10-12T17:03:43.640Z","step":"D-own-comment-and-pagination-still-usable","postRetryPageStatus":null,"ownBody":"r5-root-lifecycle-and-retry","likedPressed":"true","likeButtonEnabled":true,"replyUI":{"replyTargetVisible":true,"draftLength":20},"unsentDraftCleared":true,"genericErrorCount":0,"refreshErrorCount":0,"sqlRows":[{"id":"01de8571-a427-476d-a8ea-b7c0bffb822a","like_count":1,"own_like":1}],"loadedRootCount":20,"url":"http://localhost:3103/p/cmt-free"}
+{"at":"2026-10-12T17:03:43.691Z","result":"PASS","assertion":"Visible GET-only retry clears both old failure messages; pagination/read of own comment and unsent reply UI remain usable; no repeat like write."}
+{"at":"2026-10-12T17:03:43.692Z","kind":"request","method":"POST","path":"/api/auth/logout","hasCursor":false,"time":1791824623692}
+{"at":"2026-10-12T17:03:43.699Z","kind":"response","method":"POST","path":"/api/auth/logout","hasCursor":false,"status":200}
+{"at":"2026-10-12T17:03:43.700Z","kind":"request","method":"GET","path":"/api/auth/me","hasCursor":false,"time":1791824623700}
+{"at":"2026-10-12T17:03:43.703Z","kind":"response","method":"GET","path":"/api/auth/me","hasCursor":false,"status":401}
+{"at":"2026-10-12T17:03:43.703Z","step":"D-browser-session-cleanup","logoutStatus":200,"authMeStatus":401}

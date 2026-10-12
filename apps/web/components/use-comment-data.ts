@@ -5,6 +5,9 @@ import { useCallback, useRef, useState } from "react";
 import type { CommentItem, CommentListResponse, ReplyItem, ReplyListResponse } from "@/lib/types";
 
 const LOCATE_MAX_PAGES = 10;
+class ReadError extends Error {
+  constructor(readonly code: string) { super(code); }
+}
 export interface ReplyState {
   items: ReplyItem[];
   nextCursor: string | null;
@@ -22,6 +25,7 @@ export function useCommentData(slug: string) {
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [rootRefreshing, setRootRefreshing] = useState(false);
   const [rootRefreshError, setRootRefreshError] = useState(false);
+  const [orderingChanged, setOrderingChanged] = useState(false);
   const [liked, setLiked] = useState<Set<string>>(new Set());
   const [replies, setReplies] = useState<Record<string, ReplyState>>({});
   const [locating, setLocating] = useState(false);
@@ -42,7 +46,10 @@ export function useCommentData(slug: string) {
     const timeout = setTimeout(() => controller.abort(), 15_000);
     try {
       const res = await fetch(url, { cache: "no-store", credentials: "same-origin", signal: controller.signal });
-      if (!res.ok) throw new Error(String(res.status));
+      if (!res.ok) {
+        const body = await res.json().catch(() => null) as { error?: { code?: string } } | null;
+        throw new ReadError(body?.error?.code ?? String(res.status));
+      }
       return await res.json() as T;
     } finally {
       clearTimeout(timeout);
@@ -107,7 +114,7 @@ export function useCommentData(slug: string) {
   const endLike = useCallback((id: string) => { pendingLikes.current.delete(id); }, []);
 
   /** 首页重载同步作废旧游标；普通翻页使用游标所属代次，定位显式沿用其序列。 */
-  const loadRoots = useCallback(async (cursor: string | null, expectedGeneration?: number) => {
+  const loadRoots = useCallback(async function loadRootsPage(cursor: string | null, expectedGeneration?: number): Promise<CommentListResponse | null> {
     const refreshing = !cursor && expectedGeneration === undefined;
     const owner = rootCursor.current;
     const generation = expectedGeneration ?? (cursor ? owner?.generation : ++rootGeneration.current);
@@ -118,6 +125,7 @@ export function useCommentData(slug: string) {
       setNextCursor(null);
       setRootRefreshing(true);
       setRootRefreshError(false);
+      setOrderingChanged(false);
       setLocating(false);
       setLocateError(null);
     }
@@ -131,6 +139,12 @@ export function useCommentData(slug: string) {
       void loadLiked(data.items.filter((item) => !item.deleted).map((item) => item.id));
       return data;
     } catch (error) {
+      if (cursor && isCurrent(generation) && error instanceof ReadError && error.code === "cursor_stale") {
+        // 其他用户改变了赞数/根列表：丢弃该排序序列，从首页重新开始，不混入旧页。
+        const fresh = await loadRootsPage(null);
+        if (fresh) setOrderingChanged(true);
+        return expectedGeneration === undefined ? fresh : null;
+      }
       if (refreshing && isCurrent(generation)) setRootRefreshError(true);
       throw error;
     } finally {
@@ -196,7 +210,7 @@ export function useCommentData(slug: string) {
   }, [slug, fetchJson, isCurrent, loadRoots, loadReplies]);
 
   return {
-    roots, total, nextCursor, rootRefreshing, rootRefreshError, liked, replies, setReplies, locating, locateError,
+    roots, total, nextCursor, rootRefreshing, rootRefreshError, orderingChanged, liked, replies, setReplies, locating, locateError,
     loadRoots, loadReplies, locateHash, beginLike, commitLike, endLike,
     cancelRequests, currentGeneration, isCurrent,
   };

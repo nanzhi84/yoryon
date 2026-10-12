@@ -330,6 +330,12 @@ export const comments = pgTable(
   ],
 );
 
+/** 根评论排序版本；数据库触发器与评论变更同事务递增，旧版本游标不能继续分页。 */
+export const commentFeedVersions = pgTable("comment_feed_versions", {
+  contentId: uuid("content_id").primaryKey().references(() => contents.id, { onDelete: "cascade" }),
+  version: bigint("version", { mode: "bigint" }).notNull().default(sql`0`),
+});
+
 /** 评论点赞：(comment_id,user_id) 唯一防双赞；计数在事务内维护。 */
 export const commentLikes = pgTable(
   "comment_likes",

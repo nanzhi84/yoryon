@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import type { NotificationItem, NotificationListResponse } from "@/lib/types";
+import { notifyNotificationsChanged } from "@/lib/notification-events";
 
 function fmtTime(iso: string): string {
   return new Date(iso).toLocaleString("zh-CN", { timeZone: "Asia/Singapore", hour12: false });
@@ -103,6 +104,7 @@ export function NotificationList() {
         if (!isActive(scope)) return;
         if (!res.ok) throw new Error(String(res.status));
         setItems((prev) => isActive(scope) ? prev.map((x) => x.id === item.id ? { ...x, readAt: x.readAt ?? new Date().toISOString() } : x) : prev);
+        notifyNotificationsChanged();
       }
       if (isActive(scope) && item.link) router.push(item.link);
     } catch {
@@ -127,6 +129,7 @@ export function NotificationList() {
       if (!isActive(scope)) return; // POST 可在服务端完成，但卸载后不再启动 GET 或导航。
       if (!res.ok) throw new Error(String(res.status));
       updated = true;
+      notifyNotificationsChanged();
       // 成功后从首页重读权威状态，作废旧页；之后才提交的通知仍按服务端显示未读。
       // POST 失败不触碰列表/游标；GET 刷新失败单独提示并允许只重试读取。
       await load(null);

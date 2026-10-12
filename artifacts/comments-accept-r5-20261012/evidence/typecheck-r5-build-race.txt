@@ -1,0 +1,63 @@
+$ pnpm -r typecheck
+Scope: 6 of 7 workspace projects
+packages/config typecheck$ tsc --noEmit
+packages/config typecheck: Done
+apps/web typecheck$ tsc --noEmit
+packages/db typecheck$ tsc --noEmit
+packages/db typecheck: Done
+apps/web typecheck: error TS6053: File '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/.next/types/app/about/page.ts' not found.
+apps/web typecheck:   The file is in the program because:
+apps/web typecheck:     Matched by include pattern '.next/types/**/*.ts' in '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/tsconfig.json'
+apps/web typecheck: error TS6053: File '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/.next/types/app/api/[...path]/route.ts' not found.
+apps/web typecheck:   The file is in the program because:
+apps/web typecheck:     Matched by include pattern '.next/types/**/*.ts' in '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/tsconfig.json'
+apps/web typecheck: error TS6053: File '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/.next/types/app/api/images/v1/[id]/[variant]/route.ts' not found.
+apps/web typecheck:   The file is in the program because:
+apps/web typecheck:     Matched by include pattern '.next/types/**/*.ts' in '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/tsconfig.json'
+apps/web typecheck: error TS6053: File '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/.next/types/app/api/pages/[version]/[source]/[cursor]/route.ts' not found.
+apps/web typecheck:   The file is in the program because:
+apps/web typecheck:     Matched by include pattern '.next/types/**/*.ts' in '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/tsconfig.json'
+apps/web typecheck: error TS6053: File '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/.next/types/app/api/revalidate/route.ts' not found.
+apps/web typecheck:   The file is in the program because:
+apps/web typecheck:     Matched by include pattern '.next/types/**/*.ts' in '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/tsconfig.json'
+apps/web typecheck: error TS6053: File '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/.next/types/app/c/[slug]/page.ts' not found.
+apps/web typecheck:   The file is in the program because:
+apps/web typecheck:     Matched by include pattern '.next/types/**/*.ts' in '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/tsconfig.json'
+apps/web typecheck: error TS6053: File '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/.next/types/app/c/page.ts' not found.
+apps/web typecheck:   The file is in the program because:
+apps/web typecheck:     Matched by include pattern '.next/types/**/*.ts' in '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/tsconfig.json'
+apps/web typecheck: error TS6053: File '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/.next/types/app/login/page.ts' not found.
+apps/web typecheck:   The file is in the program because:
+apps/web typecheck:     Matched by include pattern '.next/types/**/*.ts' in '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/tsconfig.json'
+apps/web typecheck: error TS6053: File '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/.next/types/app/notifications/page.ts' not found.
+apps/web typecheck:   The file is in the program because:
+apps/web typecheck:     Matched by include pattern '.next/types/**/*.ts' in '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/tsconfig.json'
+apps/web typecheck: error TS6053: File '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/.next/types/app/p/[slug]/page.ts' not found.
+apps/web typecheck:   The file is in the program because:
+apps/web typecheck:     Matched by include pattern '.next/types/**/*.ts' in '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/tsconfig.json'
+apps/web typecheck: error TS6053: File '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/.next/types/app/page.ts' not found.
+apps/web typecheck:   The file is in the program because:
+apps/web typecheck:     Matched by include pattern '.next/types/**/*.ts' in '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/tsconfig.json'
+apps/web typecheck: error TS6053: File '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/.next/types/app/redeem/page.ts' not found.
+apps/web typecheck:   The file is in the program because:
+apps/web typecheck:     Matched by include pattern '.next/types/**/*.ts' in '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/tsconfig.json'
+apps/web typecheck: error TS6053: File '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/.next/types/app/register/page.ts' not found.
+apps/web typecheck:   The file is in the program because:
+apps/web typecheck:     Matched by include pattern '.next/types/**/*.ts' in '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/tsconfig.json'
+apps/web typecheck: error TS6053: File '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/.next/types/app/render/[revision]/[slug]/page.ts' not found.
+apps/web typecheck:   The file is in the program because:
+apps/web typecheck:     Matched by include pattern '.next/types/**/*.ts' in '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/tsconfig.json'
+apps/web typecheck: error TS6053: File '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/.next/types/app/reset-password/page.ts' not found.
+apps/web typecheck:   The file is in the program because:
+apps/web typecheck:     Matched by include pattern '.next/types/**/*.ts' in '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/tsconfig.json'
+apps/web typecheck: error TS6053: File '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/.next/types/app/tags/[slug]/page.ts' not found.
+apps/web typecheck:   The file is in the program because:
+apps/web typecheck:     Matched by include pattern '.next/types/**/*.ts' in '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/tsconfig.json'
+apps/web typecheck: error TS6053: File '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/.next/types/cache-life.d.ts' not found.
+apps/web typecheck:   The file is in the program because:
+apps/web typecheck:     Matched by include pattern '.next/types/**/*.ts' in '/Users/yoryon/Projects/yoryon-pr3-comments/apps/web/tsconfig.json'
+apps/web typecheck: Failed
+/Users/yoryon/Projects/yoryon-pr3-comments/apps/web:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @yoryon/web@0.1.0 typecheck: `tsc --noEmit`
+Exit status 2
+[ELIFECYCLE] Command failed with exit code 2.

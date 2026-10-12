@@ -1,0 +1,14 @@
+{
+  "apps/api/src/routes/comments.ts": "10cf8083c84f94c0dd0dbbe10f00d17d226432276cd93a53fc0a8d0812463da0",
+  "apps/web/app/api/[...path]/route.ts": "e0153f9d55888194fdcb99f744e8ccdf60d55d9d01c2d9e71f675da120049f06",
+  "apps/web/components/comment-section.tsx": "5dec17c644dcd9293f1c7d4cc070098d65d22e12f544d5c4566a56c11c69c68e",
+  "apps/web/components/content-view.tsx": "a2e43834b1c8d13ee42faec5c3e548f0d5469aab96f71e0961188c6dd1a264ef",
+  "apps/web/components/notification-bell.tsx": "32f9946b249542eb802bcac078ad24d72543cb575a7a045a8ada54c405bcba78",
+  "apps/web/components/notification-list.tsx": "73e899e02dcc293002f3c2572c840f76cbfbbbca326b86b5c6c3e1c8c4d43071",
+  "apps/web/components/use-comment-data.ts": "794fbc6d55b903edc1469df96f71b74ff7c14ae87be48f0ab3c50c0d90f82daf",
+  "apps/web/lib/notification-events.ts": "05609104691a25257bcf18d50d99aee919301a3a68b723dec07585d7371b8f54",
+  "packages/db/src/schema.ts": "8e4999837f54e4e60a9f4a01b19f18aabfa5650e51530af37385229997471bde",
+  "packages/db/drizzle/0008_wet_jamie_braddock.sql": "0d0afc4868b9ab1611ba75f695ed4fec84689222b2cba0169734e8ba4c14f8d2",
+  "packages/db/drizzle/meta/0008_snapshot.json": "48ee6538ee5da8241a2985c838fd44e84b0150daaa78dbf79ddfbdd96d157f96",
+  "packages/db/drizzle/meta/_journal.json": "a7bbde1c700d575fa7063f5e47ad3df59e2c82e98144f59144bfc714b868d885"
+}

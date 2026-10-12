@@ -27,7 +27,7 @@ function CommentBody({ text }: { text: string }) {
 export function CommentSection({ slug }: { slug: string }) {
   const [ctx, setCtx] = useState<CommentContext | null>(null);
   const {
-    roots, total, nextCursor, rootRefreshing, rootRefreshError, liked, replies, setReplies, locating, locateError,
+    roots, total, nextCursor, rootRefreshing, rootRefreshError, orderingChanged, liked, replies, setReplies, locating, locateError,
     loadRoots, loadReplies, locateHash, beginLike, commitLike, endLike,
     cancelRequests, currentGeneration, isCurrent,
   } = useCommentData(slug);
@@ -299,6 +299,7 @@ export function CommentSection({ slug }: { slug: string }) {
       {locating && <p role="status" className="mt-2 text-sm text-muted-foreground">正在定位评论…</p>}
       {locateError && <p role="status" className="mt-2 text-sm text-muted-foreground">{locateError}</p>}
       {rootRefreshing && !loading && <p role="status" className="mt-2 text-sm text-muted-foreground">正在刷新评论…</p>}
+      {orderingChanged && <p role="status" className="mt-2 text-sm text-muted-foreground">评论排序已更新，已从首页重新加载。</p>}
       {rootRefreshError && !error && (
         <p role="alert" className="mt-2 text-sm text-red-500">
           评论列表刷新失败。
