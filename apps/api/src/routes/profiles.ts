@@ -17,7 +17,9 @@ const AVATAR_MAX_BYTES = 2 * 1024 * 1024;
 const types: Record<string, string> = { "image/png": "png", "image/jpeg": "jpeg", "image/webp": "webp" };
 export function profileRoutes(deps: AppDeps) {
   const app = new Hono<{ Variables: AppVariables }>();
-  app.use("*", async (c, next) => { c.header("Cache-Control", "private, no-store"); await next(); });
+  for (const path of ["/me/profile", "/me/avatar", "/users/:id/profile", "/avatars/:id"]) {
+    app.use(path, async (c, next) => { c.header("Cache-Control", "private, no-store"); await next(); });
+  }
   app.use("/me/profile", bodyLimit({ maxSize: 32 * 1024, onError: c => errorResponse(c, 413, "payload_too_large", "请求体过大") }));
   app.get("/users/:id/profile", async c => {
     if (!uuidRe.test(c.req.param("id"))) return errorResponse(c, 404, "not_found", "用户不存在");

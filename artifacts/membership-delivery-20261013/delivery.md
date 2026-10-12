@@ -27,3 +27,5 @@ UNVERIFIED：会员并发额度、月界限、私密/历史回答、跨问答讨
 部署前提：OSS API 身份需有 avatars/* 读写，CLI GC 身份需对 avatars/* 读/列举/删除；本次未更改生产 OSS 权限，尚未执行生产头像验收。
 
 独立验收发现并修复：合集相邻作品 API 已返回 previous/next，但详情没有渲染。补充 CollectionNavigation，显示各所属合集的上一篇/下一篇与首末边界；链接只含公开元数据，目标正文继续通过详情权限判定。修复后重新执行 `pnpm typecheck`、`pnpm build`，均 exit 0（typecheck-navigation.txt、build-navigation.txt）；浏览器复验由独立验收代理记录。
+
+第二项独立验收缺口：Hono挂载子路由会展平通配中间件，问答32KiB bodyLimit污染同/api下头像上传，166KB合法JPEG在API/BFF均被错误拒绝。现限制直接绑定提问POST/隐私PATCH，讨论写入仍有独立32KiB限制；头像保持2MiB。问答、资料、图片的no-store中间件均限定自身路径，身份中间件设置私有默认缓存头，以保留认证失败和不存在响应的no-store，不再依赖别的模块通配头。公开线仍跳过身份查询，公开字节路由保留原身份无关缓存策略。静态检查与构建回执见typecheck-avatar-boundary.txt、build-avatar-boundary.txt；真实图片上传、流式超限和最终可见结果交由独立代理复验并记录，不以工程检查替代。

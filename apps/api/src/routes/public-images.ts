@@ -6,7 +6,9 @@ import type { PublicPolicy } from "../public-policy";
 /** Anonymous byte source for the gated Vercel cache; never exposes a signed URL. */
 export function publicImageRoutes(deps: AppDeps, policy: PublicPolicy) {
   const app = new Hono();
-  app.use("*", async (c, next) => { c.header("Cache-Control", "private, no-store"); await next(); });
+  for (const path of ["/public/image-policy/:id", "/public/images/:id/:variant"]) {
+    app.use(path, async (c, next) => { c.header("Cache-Control", "private, no-store"); await next(); });
+  }
   app.get("/public/image-policy/:id", async c => {
     if (!/^[a-f0-9-]{36}$/.test(c.req.param("id"))) return c.json({ error: "not_found" }, 404);
     const image = await policy.image(c.req.param("id"));

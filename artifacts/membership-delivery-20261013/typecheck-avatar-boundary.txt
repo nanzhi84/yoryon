@@ -1,0 +1,14 @@
+$ pnpm -r typecheck
+Scope: 6 of 7 workspace projects
+packages/config typecheck$ tsc --noEmit
+packages/config typecheck: Done
+apps/web typecheck$ tsc --noEmit
+packages/db typecheck$ tsc --noEmit
+packages/db typecheck: Done
+apps/web typecheck: Done
+packages/core typecheck$ tsc --noEmit
+packages/core typecheck: Done
+apps/cli typecheck$ tsc --noEmit
+apps/api typecheck$ tsc --noEmit
+apps/cli typecheck: Done
+apps/api typecheck: Done

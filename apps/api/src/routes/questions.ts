@@ -39,8 +39,11 @@ export function questionItem(q: MemberQuestion, author: Parameters<typeof toAuth
 
 export function questionRoutes(deps: AppDeps) {
   const app = new Hono<{ Variables: AppVariables }>();
-  app.use("*", async (c, next) => { c.header("Cache-Control", "private, no-store"); await next(); });
-  app.use("*", bodyLimit({ maxSize: 32 * 1024, onError: c => errorResponse(c, 413, "payload_too_large", "请求体过大") }));
+  // Hono子应用挂载会展平路由，通配中间件不得覆盖同/api下的头像或其他模块。
+  app.use("/questions", async (c, next) => { c.header("Cache-Control", "private, no-store"); await next(); });
+  app.use("/questions/*", async (c, next) => { c.header("Cache-Control", "private, no-store"); await next(); });
+  app.use("/me/membership", async (c, next) => { c.header("Cache-Control", "private, no-store"); await next(); });
+  const questionBodyLimit = bodyLimit({ maxSize: 32 * 1024, onError: c => errorResponse(c, 413, "payload_too_large", "请求体过大") });
   for (const scope of ["public", "mine"] as const) {
     app.get(`/questions/${scope}`, async c => {
       const auth = c.get("auth");
@@ -77,7 +80,7 @@ export function questionRoutes(deps: AppDeps) {
     const member = viewer ? await hasActiveSubscription(deps.db, viewer.id, new Date()) : false;
     return c.json({ item: questionItem(row.q, row.author, viewer, member) });
   });
-  app.post("/questions", async c => {
+  app.post("/questions", questionBodyLimit, async c => {
     const auth = requireAuth(c); if (auth instanceof Response) return auth;
     const limited = checkRate(deps, c, [{ key: `question:${auth.user.id}`, limit: 5, windowMs: 60_000 }]);
     if (limited) return limited;
@@ -88,7 +91,7 @@ export function questionRoutes(deps: AppDeps) {
     if (!result.ok) return errorResponse(c, result.error === "quota_used" ? 409 : 403, result.error, result.error === "quota_used" ? "本月提问次数已用完" : "提问需要有效订阅");
     return c.json({ item: questionItem(result.value, auth.user, auth.user, true) }, 201);
   });
-  app.patch("/questions/:id", async c => {
+  app.patch("/questions/:id", questionBodyLimit, async c => {
     const auth = requireAuth(c); if (auth instanceof Response) return auth;
     if (!uuidRe.test(c.req.param("id"))) return errorResponse(c, 404, "not_found", "问答不存在");
     const body = await c.req.json().catch(() => null) as { visibility?: unknown } | null;

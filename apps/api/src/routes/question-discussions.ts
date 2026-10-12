@@ -20,7 +20,7 @@ export async function questionDiscussionAllowed(tx: Pick<Database, "select">, vi
 }
 export function questionDiscussionRoutes(deps: AppDeps) {
   const app = new Hono<{ Variables: AppVariables }>();
-  app.use("*", async (c, next) => { c.header("Cache-Control", "private, no-store"); await next(); });
+  app.use("/questions/*", async (c, next) => { c.header("Cache-Control", "private, no-store"); await next(); });
   app.get("/questions/:id/comments", async c => {
     const id = c.req.param("id"); const auth = c.get("auth");
     if (!uuidRe.test(id)) return errorResponse(c, 404, "not_found", "问答不存在");
