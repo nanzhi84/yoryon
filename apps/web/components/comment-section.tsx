@@ -11,6 +11,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { CommentContext, CommentItem, ReplyItem } from "@/lib/types";
+import { Avatar } from "./avatar";
 import { useCommentData } from "@/components/use-comment-data";
 
 const BODY_MAX = 2000;
@@ -24,13 +25,14 @@ function CommentBody({ text }: { text: string }) {
   return <p className="mt-1 whitespace-pre-wrap break-words text-sm leading-relaxed">{text}</p>;
 }
 
-export function CommentSection({ slug }: { slug: string }) {
+export function CommentSection({ slug, questionId }: { slug: string; questionId?: string }) {
+  const basePath = questionId ? `/api/questions/${questionId}/comments` : `/api/contents/${slug}/comments`;
   const [ctx, setCtx] = useState<CommentContext | null>(null);
   const {
     roots, total, nextCursor, rootRefreshing, rootRefreshError, orderingChanged, liked, replies, setReplies, locating, locateError,
     loadRoots, loadReplies, locateHash, beginLike, commitLike, endLike,
     cancelRequests, currentGeneration, isCurrent,
-  } = useCommentData(slug);
+  } = useCommentData(slug, questionId);
   const [replyTarget, setReplyTarget] = useState<{ id: string; username: string } | null>(null);
   const [draft, setDraft] = useState("");
   const [loading, setLoading] = useState(true);
@@ -42,7 +44,7 @@ export function CommentSection({ slug }: { slug: string }) {
   const [deletedIds, setDeletedIds] = useState<Set<string>>(new Set());
   const pagingRequest = useRef(false);
 
-  const loginHref = `/login?returnTo=${encodeURIComponent(`/p/${slug}`)}`;
+  const loginHref = `/login?returnTo=${encodeURIComponent(questionId ? `/questions/${questionId}` : `/p/${slug}`)}`;
 
   const loadAll = useCallback(async () => {
     setLoading(true);
@@ -53,7 +55,7 @@ export function CommentSection({ slug }: { slug: string }) {
     const generation = currentGeneration();
     try {
       const [ctxRes, firstPage] = await Promise.all([
-        fetch(`/api/contents/${slug}/comments/context`, { cache: "no-store", credentials: "same-origin", signal: AbortSignal.timeout(15_000) }),
+        fetch(`${basePath}/context`, { cache: "no-store", credentials: "same-origin", signal: AbortSignal.timeout(15_000) }),
         firstRequest,
       ]);
       const context = ctxRes.ok ? await ctxRes.json() as CommentContext : null;
@@ -65,7 +67,7 @@ export function CommentSection({ slug }: { slug: string }) {
     } finally {
       if (isCurrent(generation)) setLoading(false);
     }
-  }, [slug, loadRoots, locateHash, currentGeneration, isCurrent]);
+  }, [basePath, loadRoots, locateHash, currentGeneration, isCurrent]);
 
   useEffect(() => {
     void loadAll();
@@ -111,7 +113,7 @@ export function CommentSection({ slug }: { slug: string }) {
     setSubmitting(true);
     setSubmitError(null);
     try {
-      const res = await fetch(`/api/contents/${slug}/comments`, {
+      const res = await fetch(basePath, {
         method: "POST",
         headers: { "content-type": "application/json" },
         credentials: "same-origin",
@@ -211,7 +213,7 @@ export function CommentSection({ slug }: { slug: string }) {
               {item.likeCount}
             </button>
             {ctx?.authenticated && ctx.canInteract && (
-              <button type="button" className="hover:text-foreground" onClick={() => setReplyTarget({ id: item.id, username: item.author?.username ?? "用户" })}>
+              <button type="button" className="hover:text-foreground" onClick={() => setReplyTarget({ id: item.id, username: item.author?.displayName ?? item.author?.username ?? "用户" })}>
                 回复
               </button>
             )}
@@ -241,7 +243,7 @@ export function CommentSection({ slug }: { slug: string }) {
         ) : (
           <>
             <div className="flex items-baseline gap-2 text-xs text-muted-foreground">
-              <span className="font-medium text-foreground">{item.author?.username}</span>
+              {item.author && <Avatar author={item.author} />}<span className="font-medium text-foreground">{item.author?.displayName ?? item.author?.username}</span>
               {item.replyTo && <span>回复 @{item.replyTo.username ?? "已删除"}</span>}
               <time>{fmtTime(item.createdAt)}</time>
             </div>
@@ -264,7 +266,7 @@ export function CommentSection({ slug }: { slug: string }) {
             <a href={loginHref} className="underline underline-offset-4">登录</a> 后参与评论
           </p>
         ) : !ctx.canInteract ? (
-          <p className="text-sm text-muted-foreground">此为付费内容，解锁完整权益后可参与评论与点赞。</p>
+          <p className="text-sm text-muted-foreground">{questionId ? "问答讨论需要有效会员资格。" : "此为付费内容，解锁完整权益后可参与评论与点赞。"}</p>
         ) : (
           <div className="space-y-2">
             {replyTarget && (
@@ -330,7 +332,7 @@ export function CommentSection({ slug }: { slug: string }) {
                 ) : (
                   <>
                     <div className="flex items-baseline gap-2 text-xs text-muted-foreground">
-                      <span className="font-medium text-foreground">{item.author?.username}</span>
+                      {item.author && <Avatar author={item.author} />}<span className="font-medium text-foreground">{item.author?.displayName ?? item.author?.username}</span>
                       <time>{fmtTime(item.createdAt)}</time>
                     </div>
                     <CommentBody text={item.body ?? ""} />

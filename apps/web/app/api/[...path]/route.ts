@@ -7,12 +7,12 @@
  * - 透传 302 Location（媒体字节不经过 Vercel）。
  */
 import { type NextRequest, NextResponse } from "next/server";
-import { buildApiHeaders, csrfCheck, getBffConfig, readBodyCapped, readSessionCookie, resolvePlatformClientIp, clearSessionCookie, setSessionCookie } from "@/lib/bff";
+import { buildApiHeaders, csrfCheck, getBffConfig, readBodyCapped, readBodyBytesCapped, readSessionCookie, resolvePlatformClientIp, clearSessionCookie, setSessionCookie } from "@/lib/bff";
 
-const ALLOWED_PATH = /^\/api\/(auth\/[a-z-]+|feed|public\/contents\/[^/]+|contents\/[^/]+(?:\/comments(?:\/context)?)?|comments\/liked|comments\/[0-9a-fA-F-]{36}(?:\/(?:like|replies|locate))?|collections(?:\/[^/]+)?|tags\/[^/]+|media\/[0-9a-fA-F-]{36}|redemptions|me\/entitlements|notifications(?:\/(?:unread-count|read-all|[0-9a-fA-F-]{36}\/read))?|analytics\/events)$/;
+const ALLOWED_PATH = /^\/api\/(auth\/[a-z-]+|feed|paid-feed|public\/contents\/[^/]+|contents\/[^/]+(?:\/comments(?:\/context)?)?|comments\/liked|comments\/[0-9a-fA-F-]{36}(?:\/(?:like|replies|locate))?|collections(?:\/[^/]+)?|tags(?:\/[^/]+)?|media\/[0-9a-fA-F-]{36}|redemptions|me\/(?:entitlements|membership|profile|avatar)|users\/[0-9a-fA-F-]{36}\/profile|avatars\/[0-9a-fA-F-]{36}|questions(?:\/(?:public|mine|[0-9a-fA-F-]{36}(?:\/comments(?:\/(?:context|[0-9a-fA-F-]{36}\/replies))?)?))?|notifications(?:\/(?:unread-count|read-all|[0-9a-fA-F-]{36}\/read))?|analytics\/events)$/;
 
-/** 小型 JSON 写入请求上限：analytics 与评论 API 均限制 32 KiB，含 chunked。 */
-const SMALL_BODY_MAX_BYTES = 32 * 1024;
+/** analytics ingest 请求体字节上限（与 API 侧 MAX_BODY_BYTES 一致） */
+const ANALYTICS_MAX_BODY_BYTES = 32 * 1024;
 
 async function proxy(req: NextRequest): Promise<Response> {
   const config = getBffConfig();
@@ -31,7 +31,6 @@ async function proxy(req: NextRequest): Promise<Response> {
 
   // analytics ingest：有上限流式读取（chunked 无 Content-Length 也能在 EOF 前拒绝）
   const isAnalyticsIngest = path === "/api/analytics/events";
-  const isCommentCreate = req.method === "POST" && /^\/api\/contents\/[^/]+\/comments$/.test(path);
 
   const sessionToken = readSessionCookie(req.headers.get("cookie"));
   const clientIp = resolvePlatformClientIp(req.headers);
@@ -41,9 +40,9 @@ async function proxy(req: NextRequest): Promise<Response> {
   if (range) headers.set("range", range);
 
   const hasBody = req.method !== "GET" && req.method !== "HEAD";
-  let bodyText: string | null = null;
+  let bodyText: string | Uint8Array<ArrayBuffer> | null = null;
   if (hasBody) {
-    bodyText = isAnalyticsIngest || isCommentCreate ? await readBodyCapped(req, SMALL_BODY_MAX_BYTES) : await req.text();
+    bodyText = path === "/api/me/avatar" ? await readBodyBytesCapped(req, 2 * 1024 * 1024) : await readBodyCapped(req, ANALYTICS_MAX_BODY_BYTES);
     if (bodyText === null) {
       return NextResponse.json({ error: { code: "payload_too_large", message: "请求体过大" } }, { status: 413 });
     }

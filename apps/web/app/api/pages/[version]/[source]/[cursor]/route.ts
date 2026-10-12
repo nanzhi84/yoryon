@@ -5,11 +5,11 @@ export const revalidate = 86400;
 export async function GET(_request: Request, { params }: { params: Promise<{ version: string; source: string; cursor: string }> }) {
   const { version, source, cursor } = await params;
   if (!/^[a-f0-9-]{36}$/.test(version) || !/^[a-z0-9][a-z0-9-]*$/.test(source) || !/^[A-Za-z0-9_-]{1,512}$/.test(cursor)) return Response.json({ error: "invalid snapshot" }, { status: 400 });
-  if (source !== "feed" && !source.startsWith("tag-")) return Response.json({ error: "invalid source" }, { status: 400 });
+  if (source !== "feed" && source !== "paid-feed" && !source.startsWith("tag-")) return Response.json({ error: "invalid source" }, { status: 400 });
   const tag = source.slice(4);
-  const path = source === "feed" ? "/api/feed" : `/api/tags/${tag}`;
+  const path = source === "feed" ? "/api/feed" : source === "paid-feed" ? "/api/paid-feed" : `/api/tags/${tag}`;
   const query = `?version=${version}${cursor === "start" ? "" : `&cursor=${encodeURIComponent(cursor)}`}`;
-  const res = await publicFetch(path + query, { revalidate: 86400, tags: [source === "feed" ? "feed" : `tag:${tag}`] });
+  const res = await publicFetch(path + query, { revalidate: 86400, tags: [(source === "feed" || source === "paid-feed") ? "feed" : `tag:${tag}`] });
   // 预期错误（invalid_cursor / snapshot_expired）透传状态与错误码，私有不缓存；客户端据此引导刷新而非 500
   if (res.status === 400 || res.status === 409) {
     return Response.json(await res.json(), { status: res.status, headers: { "Cache-Control": "private, no-store" } });

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import { safeReturnTo } from "@/lib/navigation";
 import { useRouter } from "next/navigation";
 import type { EntitlementItem } from "@/lib/types";
 import { Button } from "@/components/ui/button";
@@ -22,7 +23,8 @@ function formatRange(e: EntitlementItem): string {
 }
 
 /** 激活码兑换 + 我的权益列表（极简，非个人中心）。 */
-export function RedeemClient() {
+export function RedeemClient({ returnTo }: { returnTo?: string | null }) {
+  const target = safeReturnTo(returnTo);
   const router = useRouter();
   const [me, setMe] = useState<{ username: string; email: string } | null | undefined>(undefined);
   const [items, setItems] = useState<EntitlementItem[]>([]);
@@ -31,7 +33,8 @@ export function RedeemClient() {
   const [loading, setLoading] = useState(false);
 
   const load = useCallback(async () => {
-    const meRes = await fetch("/api/auth/me");
+    const meRes = await fetch("/api/auth/me", { cache: "no-store" });
+    if (!meRes.ok && meRes.status !== 401) throw new Error("会员状态加载失败");
     if (meRes.status === 401) {
       setMe(null);
       return;
@@ -42,11 +45,11 @@ export function RedeemClient() {
     if (listRes.ok) {
       const data = (await listRes.json()) as { items: EntitlementItem[] };
       setItems(data.items);
-    }
+    } else throw new Error("权益加载失败");
   }, []);
 
   useEffect(() => {
-    void load();
+    void load().catch(() => setMessage({ kind: "err", text: "加载失败，请刷新重试" }));
   }, [load]);
 
   async function onRedeem(e: React.FormEvent) {
@@ -66,6 +69,7 @@ export function RedeemClient() {
       }
       setMessage({ kind: "ok", text: data.idempotent ? "该激活码此前已兑换，权益已生效。" : "兑换成功，权益已生效！" });
       setCode("");
+      if (target) { window.location.assign(target); return; }
       await load();
       router.refresh();
     } catch {
@@ -78,8 +82,7 @@ export function RedeemClient() {
   if (me === undefined) {
     return (
       <div className="space-y-3">
-        <Skeleton className="h-9 w-full" />
-        <Skeleton className="h-24 w-full" />
+        {message?.kind === "err" ? <p role="alert" className="text-sm text-red-500">{message.text} <button className="underline" onClick={() => { setMessage(null); void load().catch(() => setMessage({ kind: "err", text: "加载失败，请重试" })); }}>重试</button></p> : <><Skeleton className="h-9 w-full" /><Skeleton className="h-24 w-full" /></>}
       </div>
     );
   }
@@ -87,7 +90,7 @@ export function RedeemClient() {
   if (me === null) {
     return (
       <p className="text-sm text-muted-foreground">
-        请先 <Link prefetch={false} href="/login" className="underline underline-offset-4">登录</Link> 后再兑换激活码。
+        请先 <Link prefetch={false} href={`/login?returnTo=${encodeURIComponent(`/redeem${target ? `?returnTo=${encodeURIComponent(target)}` : ""}`)}`} className="underline underline-offset-4">登录</Link> 后再兑换激活码。
       </p>
     );
   }

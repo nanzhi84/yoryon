@@ -4,7 +4,8 @@ import { RedeemClient } from "@/components/redeem-client";
 
 export const metadata: Metadata = { title: "兑换激活码" };
 
-export default function RedeemPage() {
+export default async function RedeemPage({ searchParams }: { searchParams: Promise<{ returnTo?: string }> }) {
+  const { returnTo } = await searchParams;
   return (
     <>
       <SiteHeader />
@@ -13,7 +14,7 @@ export default function RedeemPage() {
         <p className="mb-6 mt-2 text-sm text-muted-foreground">
           标准订阅 ¥29.9/月，兑换后立即解锁全部付费内容；到期自动失效。
         </p>
-        <RedeemClient />
+        <RedeemClient returnTo={returnTo ?? null} />
       </main>
     </>
   );

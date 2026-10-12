@@ -7,7 +7,7 @@
  *   4. 否则 403
  */
 import { and, eq, or } from "drizzle-orm";
-import { collections, contentMedia, contents, mediaAssets, type MediaAsset } from "@yoryon/db";
+import { collections, contentMedia, contents, mediaAssets, users, type MediaAsset } from "@yoryon/db";
 import type { Database } from "@yoryon/db";
 import { canAccess, type AccessUser } from "./entitlements";
 
@@ -70,5 +70,6 @@ export async function countMediaReferences(tx: Tx, mediaId: string): Promise<num
   const edges = await tx.select({ contentId: contentMedia.contentId }).from(contentMedia).where(eq(contentMedia.mediaId, mediaId));
   const cover1 = await tx.select({ id: contents.id }).from(contents).where(eq(contents.coverMediaId, mediaId));
   const cover2 = await tx.select({ id: collections.id }).from(collections).where(eq(collections.coverMediaId, mediaId));
-  return edges.length + cover1.length + cover2.length;
+  const avatars = await tx.select({ id: users.id }).from(users).where(eq(users.avatarMediaId, mediaId));
+  return edges.length + cover1.length + cover2.length + avatars.length;
 }

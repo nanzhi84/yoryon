@@ -1,7 +1,8 @@
 /** 站内通知路由（Issue #14 V1：reply/like）。全部仅本人可访问，private, no-store。 */
 import { Hono } from "hono";
 import { and, desc, eq, inArray, isNull, lt, or, sql, type SQL } from "drizzle-orm";
-import { comments, contents, notifications, users } from "@yoryon/db";
+import { comments, contents, memberQuestions, notifications, users } from "@yoryon/db";
+import { hasActiveSubscription, toAuthorDto } from "@yoryon/core";
 import type { AppDeps } from "../deps";
 import { errorResponse } from "../errors";
 import { requireAuth, type AppVariables } from "../middleware/auth";
@@ -53,8 +54,9 @@ export function notificationRoutes(deps: AppDeps) {
     const actorIds = [...new Set(page.map((r) => r.actorUserId))];
     const contentIds = [...new Set(page.map((r) => r.contentId).filter((x): x is string => x !== null))];
     const commentIds = [...new Set(page.map((r) => r.commentId).filter((x): x is string => x !== null))];
-    const [actorRows, contentRows, commentRows] = await Promise.all([
-      actorIds.length ? deps.db.select({ id: users.id, username: users.username }).from(users).where(inArraySafe(users.id, actorIds)) : [],
+    const questionIds = [...new Set(page.map(r => r.questionId).filter((id): id is string => id !== null))];
+    const [actorRows, contentRows, commentRows, questionRows, member] = await Promise.all([
+      actorIds.length ? deps.db.select({ id: users.id, username: users.username, displayName: users.displayName, avatarMediaId: users.avatarMediaId }).from(users).where(inArraySafe(users.id, actorIds)) : [],
       // 仅已发布作品提供跳转与标题；未发布/已删除作品视为已下线，不暴露其当前标题
       contentIds.length
         ? deps.db
@@ -65,25 +67,31 @@ export function notificationRoutes(deps: AppDeps) {
       commentIds.length
         ? deps.db.select({ id: comments.id, deletedAt: comments.deletedAt }).from(comments).where(inArraySafe(comments.id, commentIds))
         : [],
+      questionIds.length ? deps.db.select({ id: memberQuestions.id, userId: memberQuestions.userId, visibility: memberQuestions.visibility, status: memberQuestions.status }).from(memberQuestions).where(inArray(memberQuestions.id, questionIds)) : [],
+      hasActiveSubscription(deps.db, auth.user.id, new Date()),
     ]);
-    const actorMap = new Map(actorRows.map((r) => [r.id, r.username]));
+    const actorMap = new Map(actorRows.map((r) => [r.id, toAuthorDto(r)]));
     const contentMap = new Map(contentRows.map((r) => [r.id, { slug: r.slug, title: r.title }]));
     const commentAlive = new Map(commentRows.map((r) => [r.id, r.deletedAt === null]));
 
+    const questionMap = new Map(questionRows.map(q => [q.id, q]));
     const last = page[page.length - 1];
     return c.json({
       items: page.map((r) => {
         const content = r.contentId ? (contentMap.get(r.contentId) ?? null) : null;
+        const question = r.questionId ? questionMap.get(r.questionId) : null;
+        const readQuestion = question && question.status !== "hidden" && (question.visibility === "public" || question.userId === auth.user.id || auth.user.role === "admin");
+        const discussQuestion = readQuestion && question.visibility === "public" && (member || auth.user.role === "admin");
         const alive = r.commentId ? (commentAlive.get(r.commentId) ?? false) : false;
         return {
           id: r.id,
           type: r.type,
           createdAt: r.createdAt.toISOString(),
           readAt: r.readAt?.toISOString() ?? null,
-          actor: { username: actorMap.get(r.actorUserId) ?? "用户" },
+          actor: actorMap.get(r.actorUserId) ?? { username: "用户", displayName: "用户", avatarUrl: null },
           // 作品下线或评论删除时不提供跳转
-          link: content && alive ? `/p/${content.slug}#comment-${r.commentId}` : null,
-          contentTitle: content?.title ?? null,
+          link: r.questionId ? (r.type === "answer" && readQuestion ? `/questions/${r.questionId}` : discussQuestion && alive ? `/questions/${r.questionId}#comment-${r.commentId}` : null) : content && alive ? `/p/${content.slug}#comment-${r.commentId}` : null,
+          contentTitle: r.questionId ? (readQuestion ? "会员问答" : null) : content?.title ?? null,
           commentId: r.commentId,
         };
       }),

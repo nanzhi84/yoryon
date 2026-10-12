@@ -3,6 +3,7 @@
 /** 通知列表（Issue #14）：分页、标记已读、全部已读、评论锚点定位；全部私有 no-store。 */
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Avatar } from "./avatar";
 import { Button } from "@/components/ui/button";
 import type { NotificationItem, NotificationListResponse } from "@/lib/types";
 import { notifyNotificationsChanged } from "@/lib/notification-events";
@@ -189,8 +190,8 @@ export function NotificationList() {
               <span className="flex items-baseline justify-between gap-4">
                 <span className={`text-sm ${n.readAt ? "text-muted-foreground" : "font-medium"}`}>
                   {!n.readAt && <span className="mr-1.5 inline-block size-1.5 rounded-full bg-red-500 align-middle" aria-label="未读" />}
-                  <span className="font-medium">{n.actor.username}</span>{" "}
-                  {n.type === "reply" ? "回复了你的评论" : "赞了你的评论"}
+                  <span className="inline-flex items-center gap-2"><Avatar author={n.actor} /><span className="font-medium">{n.actor.displayName ?? n.actor.username}</span></span>{" "}
+                  {n.type === "answer" ? "回答了你的问题" : n.type === "reply" ? "回复了你的评论" : "赞了你的评论"}
                   {n.contentTitle ? `：《${n.contentTitle}》` : "（内容已下线）"}
                 </span>
                 <time className="shrink-0 text-xs text-muted-foreground">{fmtTime(n.createdAt)}</time>

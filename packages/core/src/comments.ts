@@ -11,10 +11,11 @@
  *   的点赞通知只发一次，含取消后重赞——防打扰语义）/ reply:<commentId>（每条回复唯一）。
  * - created_at 由应用层以毫秒精度写入（JS Date），排序/游标直接用原列（索引可用），无需 date_trunc。
  */
-import { createHash } from "node:crypto";
+import { deterministicUuid } from "./notification-events";
 import { and, eq, isNull, sql } from "drizzle-orm";
-import { comments, commentLikes, contents, notifications, type Comment, type Content, type Database } from "@yoryon/db";
+import { comments, commentLikes, contents, memberQuestions, notifications, users, type Comment, type Content, type Database } from "@yoryon/db";
 import { canAccess, type AccessUser } from "./entitlements";
+import { hasActiveSubscription } from "./membership";
 
 type Tx = Pick<Database, "select" | "insert" | "update" | "delete">;
 
@@ -33,6 +34,11 @@ export type CommentError =
 
 export type CommentResult<T> = { ok: true; value: T } | { ok: false; error: CommentError };
 
+/** 评论目标：作品（按 slug）或会员问答（按 id）。 */
+export type CommentTarget = { kind: "content"; slug: string } | { kind: "question"; questionId: string };
+
+type ResolvedTarget = { contentId: string; questionId: null } | { contentId: null; questionId: string };
+
 /** 统计字符数（按 Unicode 码点，代理对算一个字符）。 */
 export function commentBodyLength(body: string): number {
   return [...body].length;
@@ -46,19 +52,18 @@ export function validateCommentBody(body: unknown): body is string {
   return len >= 1 && len <= COMMENT_BODY_MAX;
 }
 
-/** 由业务键派生确定性 UUID（v5 风格：sha256 前 16 字节 + version/variant 位），用作通知幂等键。 */
-function deterministicUuid(businessKey: string): string {
-  const h = createHash("sha256").update(businessKey).digest();
-  h[6] = (h[6]! & 0x0f) | 0x50;
-  h[8] = (h[8]! & 0x3f) | 0x80;
-  const hex = h.subarray(0, 16).toString("hex");
-  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
-}
-
 /** 事件通知写入（同事务）；本人操作不通知自己；eventId 业务幂等键防重（重复插入由唯一索引吞掉）。 */
 async function insertNotification(
   tx: Tx,
-  params: { recipientUserId: string; actorUserId: string; type: "reply" | "like"; contentId: string; commentId: string; eventKey: string },
+  params: {
+    recipientUserId: string;
+    actorUserId: string;
+    type: "reply" | "like";
+    contentId: string | null;
+    questionId?: string | null;
+    commentId: string;
+    eventKey: string;
+  },
 ): Promise<void> {
   if (params.recipientUserId === params.actorUserId) return;
   await tx
@@ -68,6 +73,7 @@ async function insertNotification(
       actorUserId: params.actorUserId,
       type: params.type,
       contentId: params.contentId,
+      questionId: params.questionId ?? null,
       commentId: params.commentId,
       eventId: deterministicUuid(params.eventKey),
       createdAt: new Date(),
@@ -75,40 +81,78 @@ async function insertNotification(
     .onConflictDoNothing({ target: notifications.eventId });
 }
 
+/** 目标互动权益解析：content=已发布+canAccess；question=公开且未隐藏+有效订阅（或 admin）。 */
+async function resolveInteractableTarget(
+  tx: Tx,
+  user: AccessUser,
+  target: CommentTarget,
+): Promise<CommentResult<ResolvedTarget>> {
+  if (target.kind === "content") {
+    const rows = await tx
+      .select({ id: contents.id, visibility: contents.visibility })
+      .from(contents)
+      .where(and(eq(contents.slug, target.slug), eq(contents.status, "published")))
+      .limit(1);
+    const content = rows[0];
+    if (!content) return { ok: false, error: "content_not_found" };
+    if (!(await canAccess(tx, user, content, new Date()))) return { ok: false, error: "forbidden" };
+    return { ok: true, value: { contentId: content.id, questionId: null } };
+  }
+  const rows = await tx
+    .select({ id: memberQuestions.id, visibility: memberQuestions.visibility, status: memberQuestions.status })
+    .from(memberQuestions)
+    .where(eq(memberQuestions.id, target.questionId))
+    .limit(1).for("update");
+  const question = rows[0];
+  if (!question) return { ok: false, error: "content_not_found" };
+  // 私密问答不允许其他会员参与；隐藏问答关闭互动
+  if (question.visibility !== "public" || question.status === "hidden") return { ok: false, error: "forbidden" };
+  if (user.role !== "admin" && !(await hasActiveSubscription(tx, user.id, new Date()))) return { ok: false, error: "forbidden" };
+  return { ok: true, value: { contentId: null, questionId: question.id } };
+}
+
 /**
- * 创建评论/回复。replyToId 存在时：锁目标行后校验（同内容、未删除）；parent_id 取目标所在根（扁平化）。
+ * 创建评论/回复。replyToId 存在时：锁目标行后校验（同 target、未删除）；parent_id 取目标所在根（扁平化）。
  */
 export async function createComment(
   tx: Tx,
-  params: { user: AccessUser; contentSlug: string; body: string; replyToId?: string | null },
+  params: { user: AccessUser; target: CommentTarget; body: string; replyToId?: string | null },
 ): Promise<CommentResult<Comment>> {
   if (!validateCommentBody(params.body)) return { ok: false, error: "invalid_body" };
-  let replyTarget: Pick<Comment, "id" | "parentId" | "contentId" | "deletedAt" | "userId"> | undefined;
+  // 问答先锁实体再锁评论：触发器会更新问答活动，固定锁顺序避免共享锁升级或回复外键死锁。
+  if (params.target.kind === "question") {
+    await tx.select({ id: memberQuestions.id }).from(memberQuestions)
+      .where(eq(memberQuestions.id, params.target.questionId)).for("update");
+  }
+  let replyTarget: Pick<Comment, "id" | "parentId" | "contentId" | "questionId" | "deletedAt" | "userId"> | undefined;
   if (params.replyToId) {
-    // 等待目标行锁结束后再校验权益/发布状态，不能沿用等待前的时间或判定。
-    const rows = await tx
-      .select({ id: comments.id, parentId: comments.parentId, contentId: comments.contentId, deletedAt: comments.deletedAt, userId: comments.userId })
-      .from(comments)
-      .where(eq(comments.id, params.replyToId))
-      .limit(1)
-      .for("update");
+    const rows = await tx.select({ id: comments.id, parentId: comments.parentId, contentId: comments.contentId, questionId: comments.questionId, deletedAt: comments.deletedAt, userId: comments.userId })
+      .from(comments).where(eq(comments.id, params.replyToId)).limit(1).for("update");
     replyTarget = rows[0];
   }
-  const target = await checkCommentable(tx, params.user, params.contentSlug);
+  // 锁等待结束后重新判断当前资格，隐私切换/隐藏也取得同一问答行锁。
+  const target = await resolveInteractableTarget(tx, params.user, params.target);
   if (!target.ok) return target;
-
   let parentId: string | null = null;
   let replyToId: string | null = null;
   if (params.replyToId) {
-    if (!replyTarget || replyTarget.contentId !== target.value.id || replyTarget.deletedAt) return { ok: false, error: "reply_target_invalid" };
-    // 扁平化：挂在目标所在根评论下；禁止无限嵌套。
-    parentId = replyTarget.parentId ?? replyTarget.id;
-    replyToId = replyTarget.id;
+    const same = replyTarget && (target.value.contentId ? replyTarget.contentId === target.value.contentId : replyTarget.questionId === target.value.questionId);
+    if (!replyTarget || !same || replyTarget.deletedAt) return { ok: false, error: "reply_target_invalid" };
+    parentId = replyTarget.parentId ?? replyTarget.id; replyToId = replyTarget.id;
   }
 
   const inserted = await tx
     .insert(comments)
-    .values({ contentId: target.value.id, userId: params.user.id, parentId, replyToId, body: params.body.trim(), createdAt: new Date() })
+    .values({
+      contentId: target.value.contentId,
+      questionId: target.value.questionId,
+      targetKind: target.value.contentId ? "content" : "question",
+      userId: params.user.id,
+      parentId,
+      replyToId,
+      body: params.body.trim(),
+      createdAt: new Date(),
+    })
     .returning();
   const comment = inserted[0]!;
 
@@ -120,7 +164,8 @@ export async function createComment(
         recipientUserId: recipient,
         actorUserId: params.user.id,
         type: "reply",
-        contentId: target.value.id,
+        contentId: target.value.contentId,
+        questionId: target.value.questionId,
         commentId: comment.id,
         eventKey: `reply:${comment.id}`,
       });
@@ -129,24 +174,35 @@ export async function createComment(
   return { ok: true, value: comment };
 }
 
-/** 锁评论行并校验可互动（存在、未删除、内容已发布、当前权益）。like/unlike 共用前置。 */
+/** 锁评论行并校验可互动（存在、未删除、目标仍可互动）。like/unlike 共用前置。 */
 async function lockInteractable(
   tx: Tx,
   user: AccessUser,
   commentId: string,
-): Promise<CommentResult<{ comment: Comment; content: Pick<Content, "id" | "slug" | "visibility"> }>> {
+): Promise<CommentResult<{ comment: Comment }>> {
+  await lockQuestionForComment(tx, commentId);
   const rows = await tx.select().from(comments).where(eq(comments.id, commentId)).limit(1).for("update");
   const comment = rows[0];
   if (!comment || comment.deletedAt) return { ok: false, error: "comment_not_found" };
+  if (comment.targetKind === "question") {
+    const q = await tx
+      .select({ id: memberQuestions.id, visibility: memberQuestions.visibility, status: memberQuestions.status })
+      .from(memberQuestions)
+      .where(eq(memberQuestions.id, comment.questionId!))
+      .limit(1).for("update");
+    if (!q[0]) return { ok: false, error: "content_not_found" };
+    if (q[0].visibility !== "public" || q[0].status === "hidden") return { ok: false, error: "forbidden" };
+    if (user.role !== "admin" && !(await hasActiveSubscription(tx, user.id, new Date()))) return { ok: false, error: "forbidden" };
+    return { ok: true, value: { comment } };
+  }
   const content = await tx
     .select({ id: contents.id, slug: contents.slug, visibility: contents.visibility })
     .from(contents)
-    .where(and(eq(contents.id, comment.contentId), eq(contents.status, "published")))
+    .where(and(eq(contents.id, comment.contentId!), eq(contents.status, "published")))
     .limit(1);
   if (!content[0]) return { ok: false, error: "content_not_found" };
-  // 权益时间在行锁与内容查询之后取得，锁等待跨过到期时也必须拒绝。
   if (!(await canAccess(tx, user, content[0], new Date()))) return { ok: false, error: "forbidden" };
-  return { ok: true, value: { comment, content: content[0] } };
+  return { ok: true, value: { comment } };
 }
 
 /** 幂等点赞：已赞时无操作成功。评论行锁串行化并发点赞，返回计数恒为提交后真值。 */
@@ -173,6 +229,7 @@ export async function likeComment(
       actorUserId: params.user.id,
       type: "like",
       contentId: locked.value.comment.contentId,
+      questionId: locked.value.comment.questionId,
       commentId: locked.value.comment.id,
       eventKey: `like:${locked.value.comment.id}:${params.user.id}`,
     });
@@ -210,6 +267,7 @@ export async function unlikeComment(
  * 权益过期或作品下线后作者仍可撤回自己的评论。
  */
 export async function softDeleteComment(tx: Tx, params: { commentId: string; now?: Date }): Promise<CommentResult<Comment>> {
+  await lockQuestionForComment(tx, params.commentId);
   const updated = await tx
     .update(comments)
     .set({ deletedAt: params.now ?? new Date() })
@@ -220,6 +278,15 @@ export async function softDeleteComment(tx: Tx, params: { commentId: string; now
     return rows[0] ? { ok: false, error: "already_deleted" } : { ok: false, error: "comment_not_found" };
   }
   return { ok: true, value: updated[0] };
+}
+
+/** 所有问答讨论写操作都按 question → comment 取得锁，包括无需会员资格的撤回。 */
+async function lockQuestionForComment(tx: Tx, commentId: string): Promise<void> {
+  const rows = await tx.select({ questionId: comments.questionId }).from(comments)
+    .where(eq(comments.id, commentId)).limit(1);
+  const questionId = rows[0]?.questionId;
+  if (questionId) await tx.select({ id: memberQuestions.id }).from(memberQuestions)
+    .where(eq(memberQuestions.id, questionId)).for("update");
 }
 
 /** 互动权益：已发布内容 + canAccess。写操作统一入口（评论/回复/点赞；删除除外，见 softDeleteComment）。 */

@@ -54,7 +54,7 @@ export interface ContentDetail {
   bodyMarkdown: string;
   coverMediaId: string | null;
   tags: FeedTag[];
-  collections: { slug: string; title: string }[];
+  collections: { slug: string; title: string; previous: { slug: string; title: string } | null; next: { slug: string; title: string } | null }[];
   media: ContentMediaItem[];
 }
 
@@ -118,6 +118,8 @@ export interface MeResponse {
 
 export interface CommentAuthor {
   username: string;
+  displayName?: string;
+  avatarUrl?: string | null;
 }
 
 /** 根评论/回复共用条目；deleted=true 时 body/author/likeCount 为空占位。 */
@@ -155,7 +157,7 @@ export interface CommentContext {
 
 export interface NotificationItem {
   id: string;
-  type: "reply" | "like";
+  type: "reply" | "like" | "answer";
   createdAt: string;
   readAt: string | null;
   actor: CommentAuthor;
@@ -169,3 +171,17 @@ export interface NotificationListResponse {
   items: NotificationItem[];
   nextCursor: string | null;
 }
+
+export interface Membership {
+  active: boolean;
+  validUntil: string | null;
+  permanent: boolean;
+  questionsRemaining: number | null;
+  monthKey: string;
+}
+export interface QuestionItem {
+  id: string; question: string; status: "pending" | "answered" | "hidden";
+  visibility: "public" | "private"; createdAt: string; answeredAt: string | null;
+  author: CommentAuthor; own: boolean; answer: string | null; answerLocked: boolean; canDiscuss: boolean;
+}
+export interface QuestionPage { items: QuestionItem[]; nextCursor: string | null }

@@ -19,7 +19,8 @@ function dedupeById<T extends { id: string }>(items: T[]): T[] {
   return [...new Map(items.map((item) => [item.id, item])).values()];
 }
 
-export function useCommentData(slug: string) {
+export function useCommentData(slug: string, questionId?: string) {
+  const basePath = questionId ? `/api/questions/${questionId}/comments` : `/api/contents/${slug}/comments`;
   const [roots, setRoots] = useState<CommentItem[]>([]);
   const [total, setTotal] = useState(0);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
@@ -130,7 +131,7 @@ export function useCommentData(slug: string) {
       setLocateError(null);
     }
     try {
-      const data = await fetchJson<CommentListResponse>(`/api/contents/${slug}/comments${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`);
+      const data = await fetchJson<CommentListResponse>(`${basePath}${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`);
       if (!isCurrent(generation)) return null;
       rootCursor.current = { value: data.nextCursor, generation };
       setRoots((prev) => isCurrent(generation) ? dedupeById(cursor ? [...prev, ...data.items] : data.items) : prev);
@@ -150,7 +151,7 @@ export function useCommentData(slug: string) {
     } finally {
       if (refreshing && isCurrent(generation)) setRootRefreshing(false);
     }
-  }, [slug, fetchJson, isCurrent, loadLiked]);
+  }, [basePath, fetchJson, isCurrent, loadLiked]);
 
   const loadReplies = useCallback(async (rootId: string, cursor: string | null, existing: ReplyItem[], expectedRootGeneration?: number) => {
     const scope = requestScope.current;
@@ -172,9 +173,9 @@ export function useCommentData(slug: string) {
     setLocating(true);
     setLocateError(null);
     try {
-      const loc = await fetchJson<{ id: string; rootId: string; contentSlug: string }>(`/api/comments/${match[1]}/locate`);
+      const loc = await fetchJson<{ id: string; rootId: string; contentSlug?: string; questionId?: string }>(`/api/comments/${match[1]}/locate`);
       if (!isCurrent(generation)) return;
-      if (loc.contentSlug !== slug) throw new Error("wrong content");
+      if (questionId ? loc.questionId !== questionId : loc.contentSlug !== slug) throw new Error("wrong content");
       let rootFound = firstPage.items.some((item) => item.id === loc.rootId);
       let cursor = firstPage.nextCursor;
       for (let page = 1; page < LOCATE_MAX_PAGES && cursor && !rootFound; page++) {
@@ -207,7 +208,7 @@ export function useCommentData(slug: string) {
     } finally {
       if (isCurrent(generation)) setLocating(false);
     }
-  }, [slug, fetchJson, isCurrent, loadRoots, loadReplies]);
+  }, [slug, questionId, fetchJson, isCurrent, loadRoots, loadReplies]);
 
   return {
     roots, total, nextCursor, rootRefreshing, rootRefreshError, orderingChanged, liked, replies, setReplies, locating, locateError,

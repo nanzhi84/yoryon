@@ -9,12 +9,8 @@ interface ApiError {
   error?: { code?: string; message?: string };
 }
 
-/** 站内安全跳转目标：仅接受以 / 开头的站内路径（拒绝 // 协议相对与反斜杠变体）。 */
-export function safeReturnTo(value: string | null | undefined): string | null {
-  if (!value) return null;
-  if (!/^\/[a-zA-Z0-9\-_~./?&=%#]*$/.test(value) || value.startsWith("//") || value.includes("\\")) return null;
-  return value;
-}
+import { notifyNotificationsChanged } from "@/lib/notification-events";
+import { safeReturnTo } from "@/lib/navigation";
 
 export function LoginForm({ returnTo }: { returnTo?: string | null }) {
   const [emailOrUsername, setEmailOrUsername] = useState("");
@@ -39,6 +35,7 @@ export function LoginForm({ returnTo }: { returnTo?: string | null }) {
         return;
       }
       // 硬导航：登录后需要完整重建服务端渲染状态（Cookie 已种）；returnTo 经站内校验
+      notifyNotificationsChanged();
       window.location.assign(target);
     } catch {
       setError("网络错误，请重试");

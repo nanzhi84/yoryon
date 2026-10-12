@@ -40,6 +40,10 @@ export const users = pgTable(
     passwordHash: text("password_hash").notNull(),
     role: text("role", { enum: ["admin", "user"] }).notNull().default("user"),
     status: text("status", { enum: ["pending", "active", "disabled"] }).notNull().default("pending"),
+    /** 展示名：与登录标识 username 分离，允许重名；评论/问答/通知统一展示，未设置回退 username（Issue #15） */
+    displayName: text("display_name"),
+    /** 头像媒体资产（复用媒体存储/公开图片管线；GC 零引用扫描计入此引用） */
+    avatarMediaId: uuid("avatar_media_id").references((): any => mediaAssets.id),
     ...timestamps,
   },
   (t) => [uniqueIndex("users_email_unique").on(t.email), uniqueIndex("users_username_unique").on(t.username)],
@@ -96,6 +100,7 @@ export const contents = pgTable(
   (t) => [
     uniqueIndex("contents_slug_unique").on(t.slug),
     index("contents_status_published_at_idx").on(t.status, t.publishedAt),
+    uniqueIndex("contents_single_pinned_unique").on(t.isPinned).where(sql`${t.isPinned} = true`),
     check("contents_preview_percent_range", sql`${t.previewPercent} between 1 and 99`),
   ],
 );
@@ -297,40 +302,46 @@ export const cacheEvents = pgTable("cache_events", {
 export type Session = typeof sessions.$inferSelect;
 
 /**
- * 评论（Issue #14）：一级评论 parent_id=null；回复挂根评论 parent_id=根 id（展示扁平化，禁止无限递归），
+ * 评论（Issue #14；Issue #15 扩展问答目标）：一级评论 parent_id=null；回复挂根评论 parent_id=根 id（展示扁平化，禁止无限递归），
  * reply_to_id 指向直接被回复对象（UI @提示用）。软删除（deleted_at）保留回复占位；
- * 内容删除级联清理评论；用户删除不级联（PG 默认 restrict），历史通知保留。
+ * 内容/问答删除级联清理评论；用户删除不级联（PG 默认 restrict），历史通知保留。
+ * 目标由 target_kind 区分：content → content_id（FK contents），question → question_id（FK member_questions），恰好一个非空。
  */
 export const comments = pgTable(
   "comments",
   {
     id: uuid("id").primaryKey().defaultRandom(),
-    contentId: uuid("content_id")
-      .notNull()
-      .references(() => contents.id, { onDelete: "cascade" }),
+    contentId: uuid("content_id").references(() => contents.id, { onDelete: "cascade" }),
+    /** target_kind='question' 时的问答目标（级联随问答删除） */
+    questionId: uuid("question_id").references((): any => memberQuestions.id, { onDelete: "cascade" }),
+    targetKind: text("target_kind", { enum: ["content", "question"] }).notNull().default("content"),
     userId: uuid("user_id")
       .notNull()
       .references(() => users.id),
     /** 根评论 id；一级评论为 null。自引用，不加 onDelete：软删除不存在物理级联。 */
     parentId: uuid("parent_id").references((): any => comments.id),
-    /** 直接被回复的评论/回复 id（必须同 content，应用层校验） */
+    /** 直接被回复的评论/回复 id（必须同 target，应用层校验） */
     replyToId: uuid("reply_to_id").references((): any => comments.id),
     body: text("body").notNull(),
     likeCount: integer("like_count").notNull().default(0),
-    // 与 JS Date 游标同一毫秒精度；DB 直接写入也不得留下微秒边界。
     createdAt: timestamp("created_at", { withTimezone: true, mode: "date", precision: 3 }).notNull().default(sql`date_trunc('milliseconds', now())`),
     deletedAt: timestamp("deleted_at", { withTimezone: true, mode: "date" }),
   },
   (t) => [
-    // 根评论分页：where content_id=? and parent_id is null order by like_count desc, created_at desc, id desc
+    // 根评论分页：where content_id=? and parent_id is null order by like_count desc, created_at desc, id desc（question 目标同理走 question_id）
     index("comments_content_roots_idx").on(t.contentId, t.parentId, t.likeCount, t.createdAt, t.id),
+    index("comments_question_roots_idx").on(t.questionId, t.parentId, t.likeCount, t.createdAt, t.id),
     // 回复分页：where parent_id=? order by created_at asc, id asc
     index("comments_parent_created_idx").on(t.parentId, t.createdAt, t.id),
     check("comments_like_count_nonneg", sql`${t.likeCount} >= 0`),
+    check(
+      "comments_target_xor",
+      sql`(${t.targetKind} = 'content' and ${t.contentId} is not null and ${t.questionId} is null) or (${t.targetKind} = 'question' and ${t.questionId} is not null and ${t.contentId} is null)`,
+    ),
   ],
 );
 
-/** 根评论排序版本；数据库触发器与评论变更同事务递增，旧版本游标不能继续分页。 */
+/** 根评论排序版本：作品和会员问答分别维护，触发器负责同事务推进。 */
 export const commentFeedVersions = pgTable("comment_feed_versions", {
   contentId: uuid("content_id").primaryKey().references(() => contents.id, { onDelete: "cascade" }),
   version: bigint("version", { mode: "bigint" }).notNull().default(sql`0`),
@@ -367,9 +378,11 @@ export const notifications = pgTable(
     actorUserId: uuid("actor_user_id")
       .notNull()
       .references(() => users.id),
-    type: text("type", { enum: ["reply", "like"] }).notNull(),
+    type: text("type", { enum: ["reply", "like", "answer"] }).notNull(),
     contentId: uuid("content_id"),
     commentId: uuid("comment_id"),
+    /** 问答目标（Issue #15）：answer 通知与问答评论互动通知使用；不设外键，历史通知保留 */
+    questionId: uuid("question_id"),
     /** 幂等键：同一互动事件重复插入由唯一索引拒绝 */
     eventId: uuid("event_id").notNull(),
     createdAt: timestamp("created_at", { withTimezone: true, mode: "date", precision: 3 }).notNull().default(sql`date_trunc('milliseconds', now())`),
@@ -381,9 +394,45 @@ export const notifications = pgTable(
   ],
 );
 
+/**
+ * 会员问答（Issue #15）：知识星球式公共问答。
+ * - 有效订阅会员每自然月（Asia/Shanghai）最多 1 问：唯一索引 (user_id, month_key) 兜底并发。
+ * - 默认公开可设私密；公开问答的问题所有人可见，回答仅有效订阅会员可见（提问者本人恒可见）；
+ *   私密问答仅提问者与管理员（CLI）可见，不进公开问答流。
+ */
+export const memberQuestions = pgTable(
+  "member_questions",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id),
+    /** 提问所属自然月（Asia/Shanghai，格式 YYYY-MM）；月度配额键 */
+    monthKey: text("month_key").notNull(),
+    question: text("question").notNull(),
+    answer: text("answer"),
+    visibility: text("visibility", { enum: ["public", "private"] }).notNull().default("public"),
+    status: text("status", { enum: ["pending", "answered", "hidden"] }).notNull().default("pending"),
+    createdAt: timestamp("created_at", { withTimezone: true, mode: "date", precision: 3 }).notNull().default(sql`date_trunc('milliseconds', now())`),
+    answeredAt: timestamp("answered_at", { withTimezone: true, mode: "date", precision: 3 }),
+    discussionVersion: bigint("discussion_version", { mode: "bigint" }).notNull().default(sql`0`),
+    /** 最近活动排序键：提问/回答/新评论时更新 */
+    updatedAt: timestamp("updated_at", { withTimezone: true, mode: "date", precision: 3 }).notNull().default(sql`date_trunc('milliseconds', now())`),
+  },
+  (t) => [
+    uniqueIndex("member_questions_user_month_unique").on(t.userId, t.monthKey),
+    index("member_questions_public_flow_idx").on(t.visibility, t.status, t.updatedAt, t.id),
+    check("member_questions_month_format", sql`${t.monthKey} ~ '^[0-9]{4}-(0[1-9]|1[0-2])$'`),
+    check("member_questions_question_length", sql`char_length(btrim(${t.question})) between 1 and 500`),
+    check("member_questions_visibility", sql`${t.visibility} in ('public', 'private')`),
+    check("member_questions_status", sql`${t.status} in ('pending', 'answered', 'hidden')`),
+  ],
+);
+
 export type Comment = typeof comments.$inferSelect;
 export type CommentLike = typeof commentLikes.$inferSelect;
 export type Notification = typeof notifications.$inferSelect;
+export type MemberQuestion = typeof memberQuestions.$inferSelect;
 export type Content = typeof contents.$inferSelect;
 export type MediaAsset = typeof mediaAssets.$inferSelect;
 export type ContentMedia = typeof contentMedia.$inferSelect;
