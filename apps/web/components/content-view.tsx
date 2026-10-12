@@ -7,6 +7,7 @@ import { DetailTracker } from "@/components/analytics";
 import { ContentBody } from "./content-body";
 import { PrivateReader } from "./private-reader";
 import { CommentSection } from "./comment-section";
+import { CollectionNavigation } from "./collection-navigation";
 
 export function ContentView({ initial: content }: { initial: ContentDetail }) {
   return (
@@ -39,6 +40,8 @@ export function ContentView({ initial: content }: { initial: ContentDetail }) {
         </header>
 
         {content.visibility === "paid" ? <PrivateReader initial={content} preview={<ContentBody content={content} publicImages />} /> : <ContentBody content={content} publicImages />}
+
+        <CollectionNavigation collections={content.collections} />
 
         {/* post/article 共用互动；客户端加载，不进入公开缓存页面。 */}
         <CommentSection slug={content.slug} />
