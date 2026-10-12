@@ -3,8 +3,9 @@
  */
 import { runId } from "../helpers/env";
 import { test, expect } from "@playwright/test";
-import { clearMailpit, latestCodeFor } from "../helpers/mailpit";
+import { clearMailpit } from "../helpers/mailpit";
 import { apiCall, registerUser, loginUser } from "../helpers/api";
+import { verifyEmailPresentation } from "../helpers/email-presentation";
 
 const stamp = runId();
 const EMAIL = `e2e-auth-${stamp}@example.com`;
@@ -13,7 +14,7 @@ const USERNAME = `authuser${stamp}`;
 test.describe("认证全流程", () => {
   test.beforeAll(clearMailpit);
 
-  test("注册 → 收验证码 → 激活 → 自动登录", async ({ page }) => {
+  test("注册 → 收验证码 → 激活 → 自动登录", async ({ page, browser }) => {
     await page.goto("/register");
     await page.getByLabel("邮箱").fill(EMAIL);
     await page.getByLabel("用户名").fill(USERNAME);
@@ -24,7 +25,7 @@ test.describe("认证全流程", () => {
     await expect(page.getByLabel("验证码")).toBeVisible();
 
     // 从 Mailpit 取码（真实 SMTP 链路）
-    const code = await latestCodeFor(EMAIL);
+    const code = await verifyEmailPresentation(browser, EMAIL, "register");
 
     await page.getByLabel("验证码").fill(code);
     await page.getByRole("button", { name: "完成注册" }).click();
@@ -60,7 +61,7 @@ test.describe("认证全流程", () => {
     await expect(page.locator('p[role="alert"]')).toContainText("账号或密码错误");
   });
 
-  test("密码重置：发码 → 重置 → 旧会话失效 → 新密码可登录", async ({ page }) => {
+  test("密码重置：发码 → 重置 → 旧会话失效 → 新密码可登录", async ({ page, browser }) => {
     // 先建立一个旧会话
     const oldToken = await loginUser(EMAIL);
     expect((await apiCall("/api/auth/me", undefined, { token: oldToken })).status).toBe(200);
@@ -70,7 +71,7 @@ test.describe("认证全流程", () => {
     await page.getByRole("button", { name: "发送验证码" }).click();
     await expect(page.getByLabel("验证码")).toBeVisible();
 
-    const code = await latestCodeFor(EMAIL);
+    const code = await verifyEmailPresentation(browser, EMAIL, "password_reset");
 
     await page.getByLabel("验证码").fill(code);
     await page.getByLabel(/新密码/).fill("newpassword456");

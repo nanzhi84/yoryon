@@ -4,6 +4,7 @@
  */
 import nodemailer, { type Transporter } from "nodemailer";
 import type { ApiEnv } from "@yoryon/config";
+import { buildVerificationEmail } from "./email/verification";
 
 export interface Mailer {
   sendVerificationCode(to: string, code: string, purpose: "register" | "password_reset", siteUrl: string): Promise<void>;
@@ -19,13 +20,11 @@ export function createMailer(env: Pick<ApiEnv, "MAIL_SMTP_HOST" | "MAIL_SMTP_POR
 
   return {
     async sendVerificationCode(to, code, purpose, siteUrl) {
-      const subject = purpose === "register" ? "【Yoryon】注册验证码" : "【Yoryon】密码重置验证码";
-      const action = purpose === "register" ? "完成注册" : "重置密码";
+      const message = await buildVerificationEmail(code, purpose, siteUrl);
       await transporter.sendMail({
         from: env.MAIL_FROM,
         to,
-        subject,
-        text: `你的验证码是 ${code}，10 分钟内有效，用于${action}。\n如果不是本人操作，请忽略本邮件。\n${siteUrl}`,
+        ...message,
       });
     },
   };

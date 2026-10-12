@@ -19,6 +19,7 @@ const email = process.argv[process.argv.indexOf('--email') + 1];
 if (!process.argv.includes('--email') || !/^[^\s@]+@gmail\.com$/.test(email)) throw Error('Explicit Gmail recipient required');
 const base = 'https://yoryon.com';
 const sender = 'noreply@notify.yoryon.com';
+const htmlMail = process.argv.includes('--html-mail');
 const startedAt = new Date();
 const run = `smtp-${Date.now()}-${crypto.randomBytes(4).toString('hex')}`;
 const username = `smtpqa${crypto.randomBytes(6).toString('hex')}`;
@@ -26,7 +27,7 @@ const password = crypto.randomBytes(24).toString('base64url');
 const newPassword = crypto.randomBytes(24).toString('base64url');
 const credentials = JSON.parse(await fs.readFile(path.join(os.homedir(), '.config/yoryon-production/secrets.json')));
 const db = new Client({ connectionString: credentials.database_cli_url });
-const artifactRoot = new URL('../artifacts/directmail-20261012/', import.meta.url).pathname;
+const artifactRoot = new URL(htmlMail ? '../artifacts/email-html-production-20261012/' : '../artifacts/directmail-20261012/', import.meta.url).pathname;
 const artifactDir = path.join(artifactRoot, 'attempts', run);
 await fs.mkdir(artifactDir, { recursive: true });
 const handoffDir = path.join(os.homedir(), '.config/yoryon-production');
@@ -35,7 +36,7 @@ await fs.writeFile(codesPath, JSON.stringify({ run, register: '', password_reset
 await fs.chmod(codesPath, 0o600);
 const checks = [];
 const report = { run, startedAt: startedAt.toISOString(), target: base, sender, recipient: 'explicitly_authorized_gmail',
-  evidenceDirectory: path.relative(artifactRoot, artifactDir), checks, receipts: [] };
+  evidenceDirectory: path.relative(artifactRoot, artifactDir), htmlMailRequired: htmlMail, checks, receipts: [] };
 let browser, connected = false, registered = false;
 function check(name, ok) {
   checks.push({ name, status: ok ? 'PASS' : 'FAIL' });
@@ -71,8 +72,13 @@ async function receipt(purpose) {
   check(`${purpose}_expected_sender`, value.sender === sender);
   check(`${purpose}_inbox_not_spam`, value.labelIds?.includes('INBOX') && !value.labelIds.includes('SPAM'));
   for (const kind of ['spf', 'dkim', 'dmarc']) check(`${purpose}_${kind}_pass`, value.authentication?.[kind] === true);
+  if (htmlMail) {
+    check(`${purpose}_received_html_mime_alternative`, value.html === true);
+    check(`${purpose}_received_plain_text_mime_alternative`, value.plainText === true);
+  }
   check(`${purpose}_valid_code_shape`, /^\d{6}$/.test(value.code ?? ''));
-  report.receipts.push({ purpose, messageIdHash, inbox: true, spf: 'PASS', dkim: 'PASS', dmarc: 'PASS', source: value.source });
+  report.receipts.push({ purpose, messageIdHash, inbox: true, spf: 'PASS', dkim: 'PASS', dmarc: 'PASS', source: value.source,
+    ...(htmlMail ? { html: true, plainText: true } : {}) });
   return value.code;
 }
 async function capture(page, name) {
