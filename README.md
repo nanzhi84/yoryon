@@ -120,3 +120,5 @@ docker compose up -d      # postgres + migrate（建表，失败则 api 不上�
 每次变更由主 agent 开独立子 agent，按影响范围现场执行真实浏览器、CLI、API 与数据库路径，检查失败方式、权限边界和最终可见结果。详见 `AGENTS.md`。
 
 不维护固定测试套件、断言脚本或合成 fixture/harness。`pnpm typecheck` 与 `pnpm build` 只提供静态与构建证据，不能替代业务验收。验收工件保存在 `artifacts/<运行名>/`，记录版本、环境、数据前提、实际命令、结果与未覆盖项；历史工件不是当前测试入口。
+
+帖子/长文、公开预览投影、引用与迁移的设计见 [ADR-0014](docs/adr/0014-post-article-references.md)，正式迁移入口、数据核对和回滚见 [post-migration.md](docs/post-migration.md)。数据库迁移通过应用 migrator 完成派生预览回填，不能只执行 SQL 后启动新 API。
