@@ -1,5 +1,5 @@
 /** Live API acceptance. Creates uniquely named synthetic data and cleans only that data.
- * Run: node deploy/verify-production.mjs [https://api.yoryon.com|https://yoryon.com]
+ * Run: node deploy/verify-production.mjs [https://api.yoryon.com|https://yoryon.com] [--browser]
  * Requires local protected credentials, SSH access, and deployed production containers.
  * SMTP delivery is deliberately reported separately, never simulated as a production pass.
  */
@@ -18,6 +18,10 @@ const argon2 = require('argon2');
 const base = process.argv[2] ?? 'https://api.yoryon.com';
 if (!['https://api.yoryon.com', 'https://yoryon.com'].includes(base)) throw Error('Unexpected target');
 const viaBff = base === 'https://yoryon.com';
+const withBrowser = process.argv.includes('--browser');
+if (withBrowser && !viaBff) throw Error('Browser acceptance requires the production frontend');
+const artifactDir = new URL('../artifacts/production-20261012/', import.meta.url);
+await fs.mkdir(artifactDir, { recursive: true });
 const credentials = JSON.parse(await fs.readFile(path.join(os.homedir(), '.config/yoryon-production/secrets.json')));
 const run = `acceptance-${Date.now()}-${crypto.randomBytes(3).toString('hex')}`;
 const root = await fs.mkdtemp(path.join(os.tmpdir(), 'yoryon-acceptance-'));
@@ -28,7 +32,7 @@ const username = `qa${crypto.randomBytes(6).toString('hex')}`;
 const password = crypto.randomBytes(24).toString('base64url');
 const db = new Client({ connectionString: credentials.database_cli_url });
 const checks = [];
-let userId, code, token, cookie, media = [];
+let userId, code, token, cookie, browser, media = [];
 const shell = value => `'${value.replaceAll("'", "'\\''")}'`;
 const ssh = command => exec('ssh', ['-o', 'BatchMode=yes', 'admin@8.222.152.17', command], { timeout: 60000, maxBuffer: 1024 * 1024 });
 const cli = async (...args) => (await ssh(`cd /opt/yoryon && sudo docker compose -f compose.neon.yml run --rm cli ${args.map(shell).join(' ')}`)).stdout;
@@ -78,7 +82,7 @@ try {
   check('anonymous_paid_body_hidden', paidResult.status === 200 && paidResult.json.access === 'preview' && !paidResult.text.includes(`BODY-${run}-paid`));
   check('anonymous_paid_media_denied', (await request(`/api/media/${paidMedia.id}`)).status === 403);
   const signed = await request(`/api/media/${freeMedia.id}`);
-  check('public_media_signed_redirect', signed.status === 302 && signed.headers.get('cache-control').includes('public'));
+  check('public_media_redirect_rechecks_authorization', signed.status === 302 && signed.headers.get('cache-control').includes('no-store'));
   const url = new URL(signed.headers.get('location'));
   check('signed_media_https_origin', url.origin === 'https://api.yoryon.com');
   const bytes = await fetch(url, { headers: { range: 'bytes=0-9' }, signal: AbortSignal.timeout(20000) });
@@ -97,7 +101,12 @@ try {
   const output = await cli('code', 'create', '--grant-type', 'content', '--content', slugs.paid, '--count', '1', '--note', run);
   code = output.match(/[A-Z2-9]{4}(?:-[A-Z2-9]{4}){3}/)?.[0];
   if (!code) throw Error('Activation code fixture was not created');
-  const redemption = await request('/api/redemptions', { code }, true);
+  if (withBrowser) {
+    const { startBrowserAcceptance } = await import('./verify-production-browser.mjs');
+    browser = await startBrowserAcceptance({ base, slugs, run, email, password, username, check, artifactDir: artifactDir.pathname });
+    report.browser = 'Chromium desktop and mobile viewport; fresh contexts; no storage state or traces';
+  }
+  const redemption = browser ? await browser.redeem(code) : await request('/api/redemptions', { code }, true);
   check('activation_code_redeems', redemption.status === 200 && !redemption.json.idempotent);
   check('redemption_replay_idempotent', (await request('/api/redemptions', { code }, true)).json.idempotent === true);
   const unlocked = await request(`/api/contents/${slugs.paid}`, undefined, true);
@@ -105,25 +114,40 @@ try {
   const unlockedMedia = await request(`/api/media/${paidMedia.id}`, undefined, true);
   check('entitled_media_private_redirect', unlockedMedia.status === 302 && unlockedMedia.headers.get('cache-control').includes('no-store'));
   check('authenticated_read_does_not_leak_to_guest', !(await request(`/api/contents/${slugs.paid}`)).text.includes(`BODY-${run}-paid`));
+  await browser?.unlocked();
   await cli('entitlement', 'revoke', redemption.json.entitlement.id, '--reason', run);
   check('revoked_entitlement_loses_body', (await request(`/api/contents/${slugs.paid}`, undefined, true)).json.access === 'preview');
   check('revoked_entitlement_loses_media', (await request(`/api/media/${paidMedia.id}`, undefined, true)).status === 403);
+  await browser?.revoked();
   await makePost('public', 'public', '-UPDATED'); await uploadPosts(); await cli('publish', `/posts/${run}/public`);
   check('published_edit_visible', (await request(`/api/contents/${slugs.public}`)).text.includes(`BODY-${run}-public-UPDATED`));
+  await browser?.edited();
   await makePost('public', 'paid', '-UPDATED'); await uploadPosts(); await cli('publish', `/posts/${run}/public`);
   check('public_to_paid_hides_body', !(await request(`/api/contents/${slugs.public}`)).text.includes(`BODY-${run}-public`));
-  check('public_to_paid_stops_new_media_signatures', (await request(`/api/media/${freeMedia.id}`)).status === 403);
+  const convertedMedia = await request(`/api/media/${freeMedia.id}`);
+  report.convertedMedia = { status: convertedMedia.status, cacheControl: convertedMedia.headers.get('cache-control'), vercelCache: convertedMedia.headers.get('x-vercel-cache') };
+  check('public_to_paid_stops_new_media_signatures', convertedMedia.status === 403);
+  await browser?.converted();
   await cli('unpublish', slugs.public);
   check('unpublished_content_returns_404', (await request(`/api/contents/${slugs.public}`)).status === 404);
+  await browser?.unpublished();
   await request('/api/auth/logout', {}, true);
   check('logout_invalidates_session', (await request('/api/auth/me', undefined, true)).status === 401);
+  await browser?.finish();
   report.status = 'PASS';
 } catch (error) {
   report.status = 'FAIL';
   // Never serialize command output, cookies, passwords, tokens, or signed URLs.
   report.error = error.message.startsWith('Assertion failed:') ? error.message : `${error.name}: execution failed; inspect protected process state`;
+  if (browser) {
+    // Browser assertion diagnostics only; scrub fixture and infrastructure secrets before saving.
+    let diagnostic = error.message;
+    for (const value of [...Object.values(credentials), password, token, cookie, code, email].filter(v => typeof v === 'string' && v.length > 0)) diagnostic = diagnostic.replaceAll(value, '[REDACTED]');
+    report.browserDiagnostic = diagnostic.replace(/https?:\/\/[^\s"']+\?[^\s"']*/g, '[URL with query omitted]').slice(0, 1200);
+  }
   process.exitCode = 1;
 } finally {
+  await browser?.close().catch(() => {});
   try {
     await db.query('begin');
     media = (await db.query('select m.id, m.oss_key from media_assets m join content_media cm on cm.media_id=m.id join contents c on c.id=cm.content_id where c.slug=any($1)', [Object.values(slugs)])).rows;
@@ -148,8 +172,6 @@ try {
   await db.end();
   await fs.rm(root, { recursive: true, force: true });
   report.finishedAt = new Date().toISOString();
-  const artifactDir = new URL('../artifacts/production-20261012/', import.meta.url);
-  await fs.mkdir(artifactDir, { recursive: true });
   await fs.writeFile(new URL(viaBff ? 'production-bff-acceptance.json' : 'production-api-acceptance.json', artifactDir), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
 }

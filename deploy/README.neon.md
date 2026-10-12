@@ -34,6 +34,10 @@ sudo docker compose -f compose.neon.yml up -d --wait api caddy
 前端生产环境设置 `API_INTERNAL_URL=https://api.yoryon.com`、与 API 相同的 `BFF_SHARED_SECRET`、`SITE_URL=https://yoryon.com`、两个域名的 `ALLOWED_ORIGINS` 后重新部署。
 只配置 Production；预览部署不要默认连接生产数据库/管理凭据。
 
+Caddy 对 `/api/media/*` 设置 `private, no-store`，防止公开转付费后 CDN 继续返回旧鉴权跳转。首次上线该策略须在已链接的 `yoryon-web` 工作目录执行 `vercel cache purge --type cdn --yes --scope zyy2740738166-7111s-projects`。正文静态化与自动缓存撤销仍由 Issue #6 跟进。
+
+前端已获授权沿用现有 Hobby Team `zyy2740738166-7111s-projects`，保留独立项目 `yoryon-web`（`prj_xqDwJzlRrfdQA63FIMeIsRpReaRP`）。不创建 Trial 或付费团队。项目的配置、域名与部署独立，但 Hobby 配额仍按供应商的团队规则计算，不代表新增免费额度。
+
 SMTP 尚未配置时，服务器 Caddy 临时拒绝注册、重发验证码与重置密码，返回明确的 503 `mail_not_configured`，不创建无法激活的账号。
 配置 SMTP 并验收后，用仓库中的 `Caddyfile.production` 覆盖临时配置、验证后 reload，恢复这些入口。
 
@@ -54,10 +58,13 @@ sudo docker compose -f compose.neon.yml run --rm cli content list
 ```sh
 pnpm typecheck
 pnpm e2e
+node deploy/verify-production.mjs https://yoryon.com --browser
 ```
 
 E2E 只使用 `e2e/helpers/env.ts` 中固定的本地 Docker PostgreSQL、Mailpit 和合成内容，不允许替换成生产数据库。
 验收报告应区分本地完整流程、生产 API、生产浏览器以及真实邮件投递，不以 `/health` 代替业务通过。
+
+生产脚本与本地 E2E 分开：需要本机 `~/.config/yoryon-production/secrets.json` 中的生产 CLI 连接、该实例 SSH 权限，以及已安装的 E2E Chromium。它通过服务器 CLI 发布唯一前缀的合成内容，建立 active 测试账号，走页面登录、兑换、阅读、撤权和下线，最后仅清理自身数据；不会发邮件，也不会将夹具账号建立当作注册验收。运行期间临时内容可在公开站点出现。工件写入 `artifacts/production-20261012/`，不保存登录状态、密码、验证码、激活码或网络 trace。
 
 服务器以 root 执行 `deploy/backup-neon.sh`，生成数据库与媒体的校验和，保留 7 天。备份仍在同一台机器，应下载到独立设备。
 恢复到隔离数据库后验证，再考虑切换生产；不要直接覆盖运行数据库。应用回滚：将 `.env` 的镜像标签改回上一版，重新 `up -d --wait`，迁移兼容性另行检查。

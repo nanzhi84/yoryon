@@ -9,6 +9,8 @@
 Neon 新组织 Yoryon Personal，项目 yoryon-production，AWS 新加坡、Postgres 16、Free。
 应用使用池化连接；CLI 的 session advisory lock 与迁移使用直连。
 
+Vercel 经用户确认继续使用现有 Hobby Team 下的独立 `yoryon-web` 项目。当前账号新建团队仅提供 Pro/Pro Trial，因此不创建新团队或启动试用；独立项目不意味着独立的团队免费配额。
+
 为避免新增 OSS 按量费用，单机部署复用已有 FsStorage。媒体持久化在 `/var/lib/yoryon/media`，API 只读挂载，CLI 读写挂载。
 CLI 必须在服务器容器内运行，使发布媒体与 API 读取同一目录。所有媒体仍需验权和短期签名，目录不直接暴露为静态文件站点。
 
@@ -20,6 +22,7 @@ CLI 必须在服务器容器内运行，使发布媒体与 API 读取同一目�
 - Neon Free 的额度、休眠和恢复窗口由供应商控制；达到上限可能暂停服务。本配置不自动升级计划。
 - 注册/找回密码依赖真实 SMTP。SMTP 未验证前不得把这些路径报告为上线通过。
 - 公开文章静态化、发布预热、下线/转付费清缓存属于 GitHub Issue #6，当前部署不代表该需求已实现。
+- 生产 BFF 验收发现媒体公开 302 被 Vercel 缓存 300 秒：原站已拒绝或删除媒体时，边缘仍返回旧签名跳转。发布失效机制完成前，Caddy 对 `/api/media/*` 覆盖 `Cache-Control: private, no-store`，首次启用清空该项目 CDN 缓存；代价是每次获取媒体跳转都回源验权。Issue #6 完成硬失效及真实 CDN 验收后才评估恢复缓存。已经取得的媒体文件无法收回，已签发的 URL 仍遵守原有 900 秒有效期。
 
 ## 发布与恢复
 
