@@ -1,0 +1,22 @@
+[
+  {
+    "table": "users",
+    "rows": "0"
+  },
+  {
+    "table": "sessions",
+    "rows": "0"
+  },
+  {
+    "table": "activation_codes",
+    "rows": "0"
+  },
+  {
+    "table": "redemptions",
+    "rows": "0"
+  },
+  {
+    "table": "entitlements",
+    "rows": "0"
+  }
+]

@@ -1,0 +1,34 @@
+{
+  "operations": [
+    "collection create mr15-mixed --title MR15混合合集 --visibility paid",
+    "publish /tmp/mr15-posts/mr15-intro",
+    "publish /tmp/mr15-posts/mr15-free",
+    "publish /tmp/mr15-posts/mr15-paid",
+    "collection sort mr15-mixed mr15-intro mr15-free mr15-paid",
+    "content pin mr15-intro"
+  ],
+  "committed": [
+    {
+      "slug": "mr15-intro",
+      "id": "29b3ac03-6af1-452a-aa5c-d03dcac020e7"
+    },
+    {
+      "slug": "mr15-free",
+      "id": "4601e808-7427-4122-a49a-e646d263c270"
+    },
+    {
+      "slug": "mr15-paid",
+      "id": "183e62e7-1902-4b00-9495-7341e4a1212f"
+    }
+  ],
+  "events": [
+    "0278e8e9-63c3-4dcd-9a6e-765c3f31193f",
+    "6ff42875-50c4-42c6-8a39-9f85bb3f331d",
+    "df3259dd-a862-45eb-9b79-7496aa5f1a66",
+    "e2b7b474-46d4-4200-aa3b-efab487a7727",
+    "a06dc103-d4b4-4931-8a28-4ab1afea396d",
+    "ad31c81c-2a3f-4756-9427-90533e1d5032"
+  ],
+  "initialDelivery": "pending(configuration missing), owning delivery agent preparing isolated cache config",
+  "syntheticOwnedOnly": true
+}

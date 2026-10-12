@@ -1,0 +1,136 @@
+{
+  "sourceHead": "69344c7311f7630eb7a2d39ac6573593f99864f7",
+  "sqlStageOnly": true,
+  "rows": [
+    {
+      "slug": "legacy-article-full",
+      "type": "article",
+      "revision": "f5faae73-ef41-4b55-91e3-8203f305e578",
+      "preview_revision": null,
+      "pending": true
+    },
+    {
+      "slug": "legacy-article-marker",
+      "type": "article",
+      "revision": "66ff8552-12c3-47fd-a6c7-59d3db154989",
+      "preview_revision": null,
+      "pending": true
+    },
+    {
+      "slug": "legacy-article-percent",
+      "type": "article",
+      "revision": "a5a34696-af67-4596-acf8-62e7d1bbfae2",
+      "preview_revision": null,
+      "pending": true
+    },
+    {
+      "slug": "legacy-article-public",
+      "type": "article",
+      "revision": "a99600ea-9397-4d2d-9dfd-c4d258876c15",
+      "preview_revision": null,
+      "pending": true
+    },
+    {
+      "slug": "legacy-audio-full",
+      "type": "post",
+      "revision": "cb8f103e-2710-469f-a7a7-c8d38a37bff3",
+      "preview_revision": null,
+      "pending": true
+    },
+    {
+      "slug": "legacy-audio-marker",
+      "type": "post",
+      "revision": "df89fbf6-e142-4b31-9587-f85e1854cf99",
+      "preview_revision": null,
+      "pending": true
+    },
+    {
+      "slug": "legacy-audio-percent",
+      "type": "post",
+      "revision": "40a94269-cc14-4192-946f-767117dc966a",
+      "preview_revision": null,
+      "pending": true
+    },
+    {
+      "slug": "legacy-audio-public",
+      "type": "post",
+      "revision": "9f9d625b-e1db-4c1e-8def-73328bbc5aec",
+      "preview_revision": null,
+      "pending": true
+    },
+    {
+      "slug": "legacy-image-full",
+      "type": "post",
+      "revision": "35e008fc-8e25-4657-97e0-9c0d8e9fcba9",
+      "preview_revision": null,
+      "pending": true
+    },
+    {
+      "slug": "legacy-image-marker",
+      "type": "post",
+      "revision": "7e1719b1-5790-4ff5-bea7-afa3da43ba88",
+      "preview_revision": null,
+      "pending": true
+    },
+    {
+      "slug": "legacy-image-percent",
+      "type": "post",
+      "revision": "bd951867-c0fb-4571-bf49-588f246570d8",
+      "preview_revision": null,
+      "pending": true
+    },
+    {
+      "slug": "legacy-image-present",
+      "type": "post",
+      "revision": "1c43ecb1-4474-4147-bd32-05fb9898fd03",
+      "preview_revision": null,
+      "pending": true
+    },
+    {
+      "slug": "legacy-image-public",
+      "type": "post",
+      "revision": "1c53fc34-6c08-4056-921a-3a30dc670155",
+      "preview_revision": null,
+      "pending": true
+    },
+    {
+      "slug": "legacy-video-full",
+      "type": "post",
+      "revision": "5b006fd0-96ef-47a7-bff9-736ef2bac5df",
+      "preview_revision": null,
+      "pending": true
+    },
+    {
+      "slug": "legacy-video-marker",
+      "type": "post",
+      "revision": "e7634689-adb0-4e65-b008-d9d8e09b2148",
+      "preview_revision": null,
+      "pending": true
+    },
+    {
+      "slug": "legacy-video-percent",
+      "type": "post",
+      "revision": "80061d9d-d8dd-4e05-8f66-221f37e52ecd",
+      "preview_revision": null,
+      "pending": true
+    },
+    {
+      "slug": "legacy-video-public",
+      "type": "post",
+      "revision": "d35c4c95-9a12-48be-96ca-b6a8ca310a7e",
+      "preview_revision": null,
+      "pending": true
+    }
+  ],
+  "backup": [
+    {
+      "backup_rows": 13
+    }
+  ],
+  "paidResponse": {
+    "status": 200,
+    "body": "",
+    "revision": "80061d9d-d8dd-4e05-8f66-221f37e52ecd",
+    "media": []
+  }
+}

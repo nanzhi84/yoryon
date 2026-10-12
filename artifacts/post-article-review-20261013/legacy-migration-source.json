@@ -1,0 +1,26 @@
+[
+  {
+    "migration": "0000_long_lockjaw.sql",
+    "sha256": "c5f9eb107f524d96416d586d9d9ac953ed059383602ef398725988acaa2c7566"
+  },
+  {
+    "migration": "0001_foamy_archangel.sql",
+    "sha256": "8996b2847f23388802df3c8c9b8995b238a33dcbe5ce32da2071c1d7f17db629"
+  },
+  {
+    "migration": "0002_wonderful_hawkeye.sql",
+    "sha256": "0bac3e96c74233e9d1ceec593ede7f81171445c109bea5e28316137d0d260c93"
+  },
+  {
+    "migration": "0003_conscious_jackpot.sql",
+    "sha256": "2ce3e34ad9c4bfa5a9db1697bb6a92d31eb5c6650d192c56f2c97171e9e226d4"
+  },
+  {
+    "migration": "0004_curly_shooting_star.sql",
+    "sha256": "abc21a32ac77aebdac1267a3f07e4f38f8121c0c72344d4f42189b58d163f341"
+  },
+  {
+    "migration": "0005_motionless_lifeguard.sql",
+    "sha256": "d976c32100a6eae5856454f3838c9cd7b77ebc6fd7d52ec253ccb000a13947b8"
+  }
+]

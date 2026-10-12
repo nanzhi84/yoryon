@@ -1,0 +1,298 @@
+[
+  {
+    "who": "anon",
+    "kind": "roots",
+    "status": 403,
+    "body": {
+      "error": {
+        "code": "forbidden",
+        "message": "当前不能阅读此问答讨论"
+      }
+    }
+  },
+  {
+    "who": "anon",
+    "kind": "replies",
+    "status": 403,
+    "body": {
+      "error": {
+        "code": "forbidden",
+        "message": "当前不能阅读此问答讨论"
+      }
+    }
+  },
+  {
+    "who": "anon",
+    "kind": "locate",
+    "status": 403,
+    "body": {
+      "error": {
+        "code": "forbidden",
+        "message": "当前不能阅读此问答讨论"
+      }
+    }
+  },
+  {
+    "who": "anon",
+    "kind": "privateDiscuss",
+    "status": 401,
+    "body": {
+      "error": {
+        "code": "unauthorized",
+        "message": "需要登录"
+      }
+    }
+  },
+  {
+    "who": "contentOnly",
+    "kind": "roots",
+    "status": 403,
+    "body": {
+      "error": {
+        "code": "forbidden",
+        "message": "当前不能阅读此问答讨论"
+      }
+    }
+  },
+  {
+    "who": "contentOnly",
+    "kind": "replies",
+    "status": 403,
+    "body": {
+      "error": {
+        "code": "forbidden",
+        "message": "当前不能阅读此问答讨论"
+      }
+    }
+  },
+  {
+    "who": "contentOnly",
+    "kind": "locate",
+    "status": 403,
+    "body": {
+      "error": {
+        "code": "forbidden",
+        "message": "当前不能阅读此问答讨论"
+      }
+    }
+  },
+  {
+    "who": "contentOnly",
+    "kind": "privateDiscuss",
+    "status": 403,
+    "body": {
+      "error": {
+        "code": "forbidden",
+        "message": "当前无法发布评论，请核对会员资格与回复目标"
+      }
+    }
+  },
+  {
+    "who": "member",
+    "kind": "roots",
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "75e8f4a8-28b8-4c55-84c3-fb044ce14fd8",
+          "deleted": false,
+          "body": "MR15_UI_DISCUSSION_ROOT",
+          "likeCount": 1,
+          "createdAt": "2026-10-12T18:08:21.715Z",
+          "author": {
+            "username": "mr15_author",
+            "displayName": "MR15展示作者",
+            "avatarUrl": "/api/avatars/e5c82c43-0052-43ac-8374-bd74c46b9017"
+          },
+          "replyCount": 1
+        }
+      ],
+      "total": 1,
+      "nextCursor": null
+    }
+  },
+  {
+    "who": "member",
+    "kind": "replies",
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "b8e31091-119f-4f4e-8a19-fad652f26cc9",
+          "parentId": "75e8f4a8-28b8-4c55-84c3-fb044ce14fd8",
+          "deleted": false,
+          "body": "MR15_UI_MEMBER_REPLY",
+          "likeCount": 0,
+          "createdAt": "2026-10-12T18:08:45.848Z",
+          "author": {
+            "username": "mr15_actor",
+            "displayName": "mr15_actor",
+            "avatarUrl": null
+          },
+          "replyTo": {
+            "id": "75e8f4a8-28b8-4c55-84c3-fb044ce14fd8",
+            "username": "MR15展示作者"
+          }
+        }
+      ],
+      "nextCursor": null
+    }
+  },
+  {
+    "who": "member",
+    "kind": "locate",
+    "status": 200,
+    "body": {
+      "id": "b8e31091-119f-4f4e-8a19-fad652f26cc9",
+      "rootId": "75e8f4a8-28b8-4c55-84c3-fb044ce14fd8",
+      "questionId": "983847a3-9d67-4d73-a660-1f9d1b38f4e5"
+    }
+  },
+  {
+    "who": "member",
+    "kind": "privateDiscuss",
+    "status": 403,
+    "body": {
+      "error": {
+        "code": "forbidden",
+        "message": "当前无法发布评论，请核对会员资格与回复目标"
+      }
+    }
+  },
+  {
+    "kind": "crossQuestionReply",
+    "status": 403,
+    "body": {
+      "error": {
+        "code": "forbidden",
+        "message": "当前无法发布评论，请核对会员资格与回复目标"
+      }
+    }
+  },
+  {
+    "kind": "invalidName",
+    "inputClass": "empty",
+    "status": 400,
+    "body": {
+      "error": {
+        "code": "invalid_profile",
+        "message": "展示名需为 1-40 字，不含控制字符或尖括号"
+      }
+    }
+  },
+  {
+    "kind": "invalidName",
+    "inputClass": "html",
+    "status": 400,
+    "body": {
+      "error": {
+        "code": "invalid_profile",
+        "message": "展示名需为 1-40 字，不含控制字符或尖括号"
+      }
+    }
+  },
+  {
+    "kind": "invalidName",
+    "inputClass": "bidi",
+    "status": 400,
+    "body": {
+      "error": {
+        "code": "invalid_profile",
+        "message": "展示名需为 1-40 字，不含控制字符或尖括号"
+      }
+    }
+  },
+  {
+    "kind": "invalidName",
+    "inputClass": "tooLong",
+    "status": 400,
+    "body": {
+      "error": {
+        "code": "invalid_profile",
+        "message": "展示名需为 1-40 字，不含控制字符或尖括号"
+      }
+    }
+  },
+  {
+    "kind": "editAnotherIdentityField",
+    "status": 400,
+    "body": {
+      "error": {
+        "code": "invalid_profile",
+        "message": "展示名需为 1-40 字，不含控制字符或尖括号"
+      }
+    }
+  },
+  {
+    "kind": "csrf",
+    "status": 403,
+    "body": {
+      "error": {
+        "code": "csrf_rejected",
+        "message": "请求来源非法"
+      }
+    }
+  },
+  {
+    "kind": "svg",
+    "status": 400,
+    "body": {
+      "error": {
+        "code": "invalid_image",
+        "message": "头像仅支持 PNG、JPEG、WebP"
+      }
+    }
+  },
+  {
+    "kind": "fakePng",
+    "status": 400,
+    "body": {
+      "error": {
+        "code": "invalid_image",
+        "message": "图片无法解码或尺寸过大"
+      }
+    }
+  },
+  {
+    "kind": "mimeMismatch",
+    "status": 400,
+    "body": {
+      "error": {
+        "code": "invalid_image",
+        "message": "图片格式不匹配或包含动画"
+      }
+    }
+  },
+  {
+    "kind": "over2MiB",
+    "status": 413,
+    "body": {
+      "error": {
+        "code": "payload_too_large",
+        "message": "请求体过大"
+      }
+    }
+  },
+  {
+    "kind": "publicProfile",
+    "profile": {
+      "status": 200,
+      "body": {
+        "profile": {
+          "username": "mr15_author",
+          "displayName": "MR15展示作者",
+          "avatarUrl": "/api/avatars/e5c82c43-0052-43ac-8374-bd74c46b9017"
+        }
+      }
+    },
+    "noPrivateFields": true
+  },
+  {
+    "kind": "avatarRead",
+    "status": 200,
+    "mime": "image/webp",
+    "nosniff": "nosniff",
+    "cache": "private, no-store",
+    "bytes": 266
+  }
+]

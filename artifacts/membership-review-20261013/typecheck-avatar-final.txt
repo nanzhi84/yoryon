@@ -1,0 +1,20 @@
+head 17c09e45895646643bd2bad41830ee3bff7fedc5
+command pnpm typecheck
+initial output:
+$ pnpm -r typecheck
+Scope: 6 of 7 workspace projects
+packages/config typecheck$ tsc --noEmit
+packages/config typecheck: Done
+apps/web typecheck$ tsc --noEmit
+packages/db typecheck$ tsc --noEmit
+completion output:
+packages/db typecheck: Done
+apps/web typecheck: Done
+packages/core typecheck$ tsc --noEmit
+packages/core typecheck: Done
+apps/api typecheck$ tsc --noEmit
+apps/cli typecheck$ tsc --noEmit
+apps/cli typecheck: Done
+apps/api typecheck: Done
+
+exit 0

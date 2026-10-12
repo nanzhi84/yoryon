@@ -1,0 +1,37 @@
+[
+  {
+    "name": "old-media",
+    "status": 1,
+    "beforeHash": "4c36acfed000ec94367bacae6c51230e9b9319a96fdab31aa2f1bb5c8b84e5c5",
+    "afterHash": "4c36acfed000ec94367bacae6c51230e9b9319a96fdab31aa2f1bb5c8b84e5c5",
+    "unchanged": true
+  },
+  {
+    "name": "self-reference",
+    "status": 1,
+    "beforeHash": "4c36acfed000ec94367bacae6c51230e9b9319a96fdab31aa2f1bb5c8b84e5c5",
+    "afterHash": "4c36acfed000ec94367bacae6c51230e9b9319a96fdab31aa2f1bb5c8b84e5c5",
+    "unchanged": true
+  },
+  {
+    "name": "missing-target",
+    "status": 1,
+    "beforeHash": "4c36acfed000ec94367bacae6c51230e9b9319a96fdab31aa2f1bb5c8b84e5c5",
+    "afterHash": "4c36acfed000ec94367bacae6c51230e9b9319a96fdab31aa2f1bb5c8b84e5c5",
+    "unchanged": true
+  },
+  {
+    "name": "over-20",
+    "status": 1,
+    "beforeHash": "4c36acfed000ec94367bacae6c51230e9b9319a96fdab31aa2f1bb5c8b84e5c5",
+    "afterHash": "4c36acfed000ec94367bacae6c51230e9b9319a96fdab31aa2f1bb5c8b84e5c5",
+    "unchanged": true
+  },
+  {
+    "name": "invalid-id",
+    "status": 1,
+    "beforeHash": "4c36acfed000ec94367bacae6c51230e9b9319a96fdab31aa2f1bb5c8b84e5c5",
+    "afterHash": "4c36acfed000ec94367bacae6c51230e9b9319a96fdab31aa2f1bb5c8b84e5c5",
+    "unchanged": true
+  }
+]

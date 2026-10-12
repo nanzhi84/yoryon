@@ -1,0 +1,11 @@
+{
+  "bytes": 230,
+  "pages": 2,
+  "status": 400,
+  "body": {
+    "error": {
+      "code": "invalid_image",
+      "message": "图片格式不匹配或包含动画"
+    }
+  }
+}

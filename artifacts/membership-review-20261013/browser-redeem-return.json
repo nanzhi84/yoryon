@@ -1,0 +1,9 @@
+{
+  "redeemBeforeLogin": "http://127.0.0.1:3160/redeem?returnTo=%2Fsubscription%23membership",
+  "redeemLoginLink": "/login?returnTo=%2Fredeem%3FreturnTo%3D%252Fsubscription%2523membership",
+  "redeemedVisible": {
+    "membership": "我的会员到期时间：2026/11/12 02:06:34本月剩余提问次数：1 次",
+    "questionForm": true,
+    "url": "http://127.0.0.1:3160/subscription#membership"
+  }
+}

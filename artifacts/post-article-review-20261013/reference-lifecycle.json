@@ -1,0 +1,216 @@
+{
+  "cycle": {
+    "status": 200,
+    "data": {
+      "available": true,
+      "id": "a88d1603-58a4-4470-af39-3771c55235db",
+      "slug": "review-mixed-post",
+      "type": "post",
+      "title": "",
+      "description": "",
+      "summary": "混合帖开头文字：先读文字，再看两张图片。 补充文字：图片之后，下面是视频。 音频紧跟视频，点击操作应留在此页面。 末尾长段落用于观察原地展开与收起。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文",
+      "coverMediaId": null,
+      "media": {
+        "mediaId": "3ae68f3a-2f9e-4a61-a5ed-bfa0d4301cf5",
+        "position": 0,
+        "exposure": "free",
+        "mimeType": "image/png",
+        "width": 160,
+        "height": 90,
+        "durationSec": null
+      },
+      "visibility": "public",
+      "publishedAt": "2026-10-12T18:22:38.380Z"
+    }
+  },
+  "warm": [
+    {
+      "status": 200,
+      "cache": "MISS",
+      "hasMixedSummary": false,
+      "hasSecret": false,
+      "hasUpdated": false
+    },
+    {
+      "status": 200,
+      "cache": "HIT",
+      "hasMixedSummary": false,
+      "hasSecret": false,
+      "hasUpdated": false
+    }
+  ],
+  "update": {
+    "directParentRevisionChanged": true,
+    "paidParentRevisionChanged": true,
+    "paidParentPreviewCarry": true,
+    "paidParentAligned": true,
+    "grandparentUnchanged": true,
+    "oldRender": {
+      "status": 404,
+      "cache": null,
+      "hasMixedSummary": false,
+      "hasSecret": false,
+      "hasUpdated": false
+    },
+    "newRender": {
+      "status": 200,
+      "cache": "MISS",
+      "hasMixedSummary": false,
+      "hasSecret": false,
+      "hasUpdated": false
+    },
+    "reference": {
+      "status": 200,
+      "data": {
+        "available": true,
+        "id": "a88d1603-58a4-4470-af39-3771c55235db",
+        "slug": "review-mixed-post",
+        "type": "post",
+        "title": "",
+        "description": "",
+        "summary": "混合帖开头文字：先读文字，再看两张图片。 补充文字：图片之后，下面是视频。 音频紧跟视频，点击操作应留在此页面。 末尾长段落用于观察原地展开与收起。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文按作者编排顺序展示。正文",
+        "coverMediaId": null,
+        "media": {
+          "mediaId": "3ae68f3a-2f9e-4a61-a5ed-bfa0d4301cf5",
+          "position": 0,
+          "exposure": "free",
+          "mimeType": "image/png",
+          "width": 160,
+          "height": 90,
+          "durationSec": null
+        },
+        "visibility": "public",
+        "publishedAt": "2026-10-12T18:22:38.906Z"
+      }
+    }
+  },
+  "tightened": {
+    "parentRevisionChanged": true,
+    "reference": {
+      "status": 200,
+      "data": {
+        "available": true,
+        "id": "a88d1603-58a4-4470-af39-3771c55235db",
+        "slug": "review-mixed-post",
+        "type": "post",
+        "title": "",
+        "description": "",
+        "summary": "",
+        "coverMediaId": null,
+        "media": null,
+        "visibility": "paid",
+        "publishedAt": "2026-10-12T18:22:39.398Z"
+      }
+    },
+    "parentRender": {
+      "status": 200,
+      "cache": "MISS",
+      "hasMixedSummary": false,
+      "hasSecret": false,
+      "hasUpdated": false
+    }
+  },
+  "unpublish": {
+    "reference": {
+      "status": 404,
+      "data": {
+        "available": false
+      }
+    },
+    "parent": {
+      "id": "30866a89-f3c6-40b4-8cf9-ede03f9f83f3",
+      "slug": "review-references",
+      "revision": "9afecc80-541f-4211-8958-fe6cac879f1a",
+      "preview_revision": "9afecc80-541f-4211-8958-fe6cac879f1a",
+      "public_preview_markdown": "引用帖：正文中的引用应为单跳预览。\n\n::work{#a88d1603-58a4-4470-af39-3771c55235db}\n\n引用长文：\n\n::work{#cd76a7b0-96e8-4dd6-b253-18b9a62244d3}\n\n付费引用只显示公开预览：\n\n::work{#c06ce84b-8409-4845-ae56-d33a7551a975}"
+    }
+  },
+  "deleted": {
+    "reference": {
+      "status": 404,
+      "data": {
+        "available": false
+      }
+    },
+    "edges": [
+      {
+        "content_id": "30866a89-f3c6-40b4-8cf9-ede03f9f83f3",
+        "referenced_id": "a88d1603-58a4-4470-af39-3771c55235db",
+        "target_id": null
+      },
+      {
+        "content_id": "f065bc96-264d-4c68-a37d-d6cf632122d2",
+        "referenced_id": "a88d1603-58a4-4470-af39-3771c55235db",
+        "target_id": null
+      }
+    ],
+    "parent": {
+      "id": "30866a89-f3c6-40b4-8cf9-ede03f9f83f3",
+      "slug": "review-references",
+      "revision": "4f5a2ca1-f7a2-4f63-aacf-4d0d1b2c51d5",
+      "preview_revision": "4f5a2ca1-f7a2-4f63-aacf-4d0d1b2c51d5",
+      "public_preview_markdown": "引用帖：正文中的引用应为单跳预览。\n\n::work{#a88d1603-58a4-4470-af39-3771c55235db}\n\n引用长文：\n\n::work{#cd76a7b0-96e8-4dd6-b253-18b9a62244d3}\n\n付费引用只显示公开预览：\n\n::work{#c06ce84b-8409-4845-ae56-d33a7551a975}"
+    }
+  },
+  "recreated": {
+    "newTargetId": "40b04ab8-e8ad-4ffc-8755-590cbd925aaa",
+    "oldReference": {
+      "status": 404,
+      "data": {
+        "available": false
+      }
+    }
+  },
+  "repaired": {
+    "reference": {
+      "status": 200,
+      "data": {
+        "available": true,
+        "id": "c06ce84b-8409-4845-ae56-d33a7551a975",
+        "slug": "review-paid-post",
+        "type": "post",
+        "title": "",
+        "description": "",
+        "summary": "",
+        "coverMediaId": null,
+        "media": null,
+        "visibility": "paid",
+        "publishedAt": "2026-10-12T18:06:51.213Z"
+      }
+    },
+    "parentRevisionChanged": true,
+    "detail": {
+      "id": "c06ce84b-8409-4845-ae56-d33a7551a975",
+      "type": "post",
+      "slug": "review-paid-post",
+      "title": "",
+      "description": "",
+      "visibility": "paid",
+      "publishedAt": "2026-10-12T18:06:51.213Z",
+      "updatedAt": "2026-10-12T18:22:41.537Z",
+      "revision": "00dc58db-95b7-43ae-af3f-12e40f60bd33",
+      "access": "preview",
+      "hasPaidContent": true,
+      "bodyMarkdown": "",
+      "coverMediaId": null,
+      "tags": [
+        {
+          "slug": "review18",
+          "name": "review18"
+        }
+      ],
+      "collections": [],
+      "media": [
+        {
+          "mediaId": "676802b2-fc59-413b-99ba-9061ae5b12e5",
+          "position": 0,
+          "exposure": "free",
+          "mimeType": "image/png",
+          "width": 160,
+          "height": 90,
+          "durationSec": null
+        }
+      ]
+    }
+  }
+}

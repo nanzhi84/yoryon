@@ -1,0 +1,333 @@
+{
+  "guard": "127.0.0.1:54320/yoryon_member_20261013 only",
+  "deletions": [
+    {
+      "query": "update users set avatar_media_id=null where id=any($1::uuid[])",
+      "count": 24
+    },
+    {
+      "query": "delete from notifications where recipient_user_id=any($1::uuid[]) or actor_user_id=any($1::uuid[])",
+      "count": 6
+    },
+    {
+      "query": "delete from comment_likes where user_id=any($1::uuid[])",
+      "count": 1
+    },
+    {
+      "query": "delete from member_questions where user_id=any($1::uuid[])",
+      "count": 22
+    },
+    {
+      "query": "delete from comments where user_id=any($1::uuid[])",
+      "count": 0
+    },
+    {
+      "query": "delete from sessions where user_id=any($1::uuid[])",
+      "count": 27
+    },
+    {
+      "query": "delete from email_verifications where email=any($1::text[])",
+      "count": 24
+    },
+    {
+      "query": "delete from entitlements where user_id=any($1::uuid[])",
+      "count": 26
+    },
+    {
+      "query": "delete from redemptions where user_id=any($1::uuid[])",
+      "count": 26
+    },
+    {
+      "query": "delete from activation_codes where id=any($1::uuid[])",
+      "count": 6
+    },
+    {
+      "query": "delete from analytics_events where target_id=any($1::uuid[])",
+      "count": 16
+    },
+    {
+      "query": "delete from collection_items where collection_id=any($1::uuid[])",
+      "count": 3
+    },
+    {
+      "query": "delete from content_tags where content_id=any($1::uuid[])",
+      "count": 3
+    },
+    {
+      "query": "delete from contents where id=any($1::uuid[])",
+      "count": 3
+    },
+    {
+      "query": "delete from collections where id=any($1::uuid[])",
+      "count": 1
+    },
+    {
+      "query": "delete from tags where slug='mr15-tag' and not exists(select 1 from content_tags where tag_id=tags.id)",
+      "count": 1
+    },
+    {
+      "query": "delete from cache_events where id=any($1::uuid[])",
+      "count": 6
+    },
+    {
+      "query": "delete from media_assets where id=any($1::uuid[])",
+      "count": 2
+    },
+    {
+      "query": "delete from users where id=any($1::uuid[])",
+      "count": 24
+    }
+  ],
+  "before": {
+    "users": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sessions": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "email_verifications": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "contents": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "comments": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "comment_likes": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "notifications": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "member_questions": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "entitlements": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "activation_codes": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "redemptions": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "media_assets": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "collections": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "tags": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "after": {
+    "users": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sessions": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "email_verifications": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "contents": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "comments": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "comment_likes": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "notifications": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "member_questions": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "entitlements": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "activation_codes": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "redemptions": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "media_assets": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "collections": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "tags": {
+      "count": 0,
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "baselineEqual": true,
+  "allPublicTablesAfter": {
+    "activation_codes": 0,
+    "analytics_events": 0,
+    "cache_events": 0,
+    "collection_items": 0,
+    "collections": 0,
+    "comment_feed_versions": 0,
+    "comment_likes": 0,
+    "comments": 0,
+    "content_media": 0,
+    "content_tags": 0,
+    "contents": 0,
+    "email_verifications": 0,
+    "entitlements": 0,
+    "media_assets": 0,
+    "member_questions": 0,
+    "notifications": 0,
+    "redemptions": 0,
+    "sessions": 0,
+    "tags": 0,
+    "users": 0
+  },
+  "bytesRemoved": [
+    "avatars/4814c9d7f9072a04dda967c1e84b6cb6214484c78522c5bf9439194e50d87bd4.webp",
+    "avatars/5015a87f7da763b92ba04da076feb4b889c55d861afbf2877c4290012d5df584.webp"
+  ],
+  "remainingAvatarFiles": [],
+  "mailDelete": 200,
+  "mailChecks": [
+    {
+      "id": "5Y0MIjfDwqJO6qzZE8i6Fl",
+      "status": 404
+    },
+    {
+      "id": "65mR3znCDw1rWgC6yMZem5",
+      "status": 404
+    },
+    {
+      "id": "2SrfAbSsxqfYiGFpwAZEw9",
+      "status": 404
+    },
+    {
+      "id": "22pH4dEKeFHOUMaPJtxIBP",
+      "status": 404
+    },
+    {
+      "id": "2QgHvAL6ESu7YB3EtBpbOI",
+      "status": 404
+    },
+    {
+      "id": "1Sp44lTYbe1kxzYauZs5Wv",
+      "status": 404
+    },
+    {
+      "id": "2UebgV52qYdTjMETjxxScF",
+      "status": 404
+    },
+    {
+      "id": "5gVx04hQajdGS6ousf6skl",
+      "status": 404
+    },
+    {
+      "id": "7Wcz3L4Me14DP3fvg1G9lW",
+      "status": 404
+    },
+    {
+      "id": "5ffS5K31kr1J1Ttqrpy5D5",
+      "status": 404
+    },
+    {
+      "id": "15caWobfdopTmaVEHHvnlD",
+      "status": 404
+    },
+    {
+      "id": "1Arwp9rlrnbzB7boVkXumF",
+      "status": 404
+    },
+    {
+      "id": "1LBbUrtzC8aEFlWL6kyj20",
+      "status": 404
+    },
+    {
+      "id": "1BrDpIyze1D4eNDdGAPe4u",
+      "status": 404
+    },
+    {
+      "id": "1wT5DBfCYczlEuuEKI653L",
+      "status": 404
+    },
+    {
+      "id": "1b3b33ebhohdA2WOU7OEvT",
+      "status": 404
+    },
+    {
+      "id": "5IUR6GuzM0CzMFuZYLoREX",
+      "status": 404
+    },
+    {
+      "id": "1v0TYeYZzHWwskN2f3tLms",
+      "status": 404
+    },
+    {
+      "id": "1Hz3OwKXA9nD0mOQWcT9Nk",
+      "status": 404
+    },
+    {
+      "id": "2R6ftsnf3zhA68ARaPLVbR",
+      "status": 404
+    },
+    {
+      "id": "134OedV4J7qliihqUuVJ35",
+      "status": 404
+    },
+    {
+      "id": "7CP8vFFq5CDWeInuieT4RN",
+      "status": 404
+    },
+    {
+      "id": "2jaIO3YNa8tN8rv36GOEEQ",
+      "status": 404
+    },
+    {
+      "id": "0j2OynHY9QL7d93Akh4OEf",
+      "status": 404
+    }
+  ],
+  "browserTabClosed": true,
+  "privateAndTemporaryPathsRemoved": [
+    "/tmp/mr15-images",
+    "/tmp/mr15-posts",
+    "/tmp/mr15-answer-public.txt",
+    "/tmp/mr15-answer-private.txt",
+    "/tmp/mr15-private.json"
+  ],
+  "ownerEnvironmentLeftForDeliveryShutdown": true
+}

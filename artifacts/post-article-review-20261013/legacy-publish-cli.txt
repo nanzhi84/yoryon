@@ -1,0 +1,1 @@
+error: 合集不存在: legacy-review（先用 blog collection create 创建）

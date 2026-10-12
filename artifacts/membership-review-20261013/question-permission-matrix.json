@@ -1,0 +1,192 @@
+[
+  {
+    "who": "anonymous",
+    "kind": "public",
+    "apiStatus": 200,
+    "apiCache": "private, no-store",
+    "answerVisible": false,
+    "questionVisible": true,
+    "canDiscuss": false,
+    "htmlStatus": 200,
+    "htmlCache": "private, no-cache, no-store, max-age=0, must-revalidate",
+    "htmlHydrationContainsAnswer": false,
+    "htmlContainsPrivateQuestion": false
+  },
+  {
+    "who": "anonymous",
+    "kind": "private",
+    "apiStatus": 404,
+    "apiCache": "private, no-store",
+    "answerVisible": false,
+    "questionVisible": false,
+    "htmlStatus": 404,
+    "htmlCache": "private, no-cache, no-store, max-age=0, must-revalidate",
+    "htmlHydrationContainsAnswer": false,
+    "htmlContainsPrivateQuestion": false
+  },
+  {
+    "who": "mr15_author",
+    "kind": "public",
+    "apiStatus": 200,
+    "apiCache": "private, no-store",
+    "answerVisible": true,
+    "questionVisible": true,
+    "canDiscuss": true,
+    "htmlStatus": 200,
+    "htmlCache": "private, no-cache, no-store, max-age=0, must-revalidate",
+    "htmlHydrationContainsAnswer": true,
+    "htmlContainsPrivateQuestion": false
+  },
+  {
+    "who": "mr15_author",
+    "kind": "private",
+    "apiStatus": 404,
+    "apiCache": "private, no-store",
+    "answerVisible": false,
+    "questionVisible": false,
+    "htmlStatus": 404,
+    "htmlCache": "private, no-cache, no-store, max-age=0, must-revalidate",
+    "htmlHydrationContainsAnswer": false,
+    "htmlContainsPrivateQuestion": false
+  },
+  {
+    "who": "mr15_actor",
+    "kind": "public",
+    "apiStatus": 200,
+    "apiCache": "private, no-store",
+    "answerVisible": true,
+    "questionVisible": true,
+    "canDiscuss": true,
+    "htmlStatus": 200,
+    "htmlCache": "private, no-cache, no-store, max-age=0, must-revalidate",
+    "htmlHydrationContainsAnswer": true,
+    "htmlContainsPrivateQuestion": false
+  },
+  {
+    "who": "mr15_actor",
+    "kind": "private",
+    "apiStatus": 200,
+    "apiCache": "private, no-store",
+    "answerVisible": true,
+    "questionVisible": true,
+    "canDiscuss": false,
+    "htmlStatus": 200,
+    "htmlCache": "private, no-cache, no-store, max-age=0, must-revalidate",
+    "htmlHydrationContainsAnswer": true,
+    "htmlContainsPrivateQuestion": true
+  },
+  {
+    "who": "mr15_reader",
+    "kind": "public",
+    "apiStatus": 200,
+    "apiCache": "private, no-store",
+    "answerVisible": false,
+    "questionVisible": true,
+    "canDiscuss": false,
+    "htmlStatus": 200,
+    "htmlCache": "private, no-cache, no-store, max-age=0, must-revalidate",
+    "htmlHydrationContainsAnswer": false,
+    "htmlContainsPrivateQuestion": false
+  },
+  {
+    "who": "mr15_reader",
+    "kind": "private",
+    "apiStatus": 404,
+    "apiCache": "private, no-store",
+    "answerVisible": false,
+    "questionVisible": false,
+    "htmlStatus": 404,
+    "htmlCache": "private, no-cache, no-store, max-age=0, must-revalidate",
+    "htmlHydrationContainsAnswer": false,
+    "htmlContainsPrivateQuestion": false
+  },
+  {
+    "who": "mr15_admin",
+    "kind": "public",
+    "apiStatus": 200,
+    "apiCache": "private, no-store",
+    "answerVisible": true,
+    "questionVisible": true,
+    "canDiscuss": true,
+    "htmlStatus": 200,
+    "htmlCache": "private, no-cache, no-store, max-age=0, must-revalidate",
+    "htmlHydrationContainsAnswer": true,
+    "htmlContainsPrivateQuestion": false
+  },
+  {
+    "who": "mr15_admin",
+    "kind": "private",
+    "apiStatus": 200,
+    "apiCache": "private, no-store",
+    "answerVisible": true,
+    "questionVisible": true,
+    "canDiscuss": false,
+    "htmlStatus": 200,
+    "htmlCache": "private, no-cache, no-store, max-age=0, must-revalidate",
+    "htmlHydrationContainsAnswer": true,
+    "htmlContainsPrivateQuestion": true
+  },
+  {
+    "who": "mr15_author",
+    "notifications": {
+      "status": 200,
+      "body": {
+        "items": [
+          {
+            "id": "dd9a7bba-0b3b-490b-9e61-64f792f3728f",
+            "type": "answer",
+            "createdAt": "2026-10-12T18:07:19.858Z",
+            "readAt": null,
+            "actor": {
+              "username": "mr15_admin",
+              "displayName": "mr15_admin",
+              "avatarUrl": null
+            },
+            "link": "/questions/983847a3-9d67-4d73-a660-1f9d1b38f4e5",
+            "contentTitle": "会员问答",
+            "commentId": null
+          }
+        ],
+        "nextCursor": null
+      },
+      "answerBytesAbsent": true
+    }
+  },
+  {
+    "who": "mr15_actor",
+    "notifications": {
+      "status": 200,
+      "body": {
+        "items": [
+          {
+            "id": "4f184352-fdfc-4ef9-8245-2aea44568b8c",
+            "type": "answer",
+            "createdAt": "2026-10-12T18:07:20.122Z",
+            "readAt": null,
+            "actor": {
+              "username": "mr15_admin",
+              "displayName": "mr15_admin",
+              "avatarUrl": null
+            },
+            "link": "/questions/98ea171f-0529-4fbf-b130-4da63cef2c9e",
+            "contentTitle": "会员问答",
+            "commentId": null
+          }
+        ],
+        "nextCursor": null
+      },
+      "answerBytesAbsent": true
+    }
+  },
+  {
+    "who": "mr15_reader",
+    "notifications": {
+      "status": 200,
+      "body": {
+        "items": [],
+        "nextCursor": null
+      },
+      "answerBytesAbsent": true
+    }
+  }
+]

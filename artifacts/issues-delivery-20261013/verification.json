@@ -1,0 +1,23 @@
+{
+  "stage": "pre_merge",
+  "recorded_at": "2026-10-12T18:49:06.269968+00:00",
+  "status": "PASS",
+  "reviewed_source": "162919403b10760f6dd06be5cab17d255d65cb59",
+  "base_main": "ab13db42e975adf4fbddb16ca8c660c3bbd0daf5",
+  "product_source_unchanged": true,
+  "member_index_entries_verified": 63,
+  "post_index_entries_verified": 188,
+  "general_sensitive_pattern_files_scanned": 300,
+  "general_sensitive_pattern_matches": [],
+  "temporary_directories_confirmed_absent": [
+    "/tmp/yoryon-member-20261013",
+    "/tmp/yoryon-post-article-review-20261013"
+  ],
+  "commands": [
+    "pnpm typecheck",
+    "NODE_ENV=production pnpm build",
+    "git diff 1629194 -- apps packages package.json pnpm-lock.yaml",
+    "inline SHA256 and byte-size verification of frozen artifact indices"
+  ],
+  "scope": "Primary-agent source and artifact checks. Business acceptance is bounded by independent README/review reports; no production migration or acceptance, no CI claim."
+}

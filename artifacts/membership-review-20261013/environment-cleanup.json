@@ -1,0 +1,110 @@
+{
+  "recordedAt": "2026-10-12T18:46:34.047Z",
+  "status": "PASS",
+  "sourceHead": "17c09e45895646643bd2bad41830ee3bff7fedc5",
+  "mergeHead": "ab13db42e975adf4fbddb16ca8c660c3bbd0daf5",
+  "deliveryArtifactHead": "98ad7f340a740d7695060cc4e822818d082f7d6d",
+  "prerequisite": "Independent cleanup.json confirms owned business data, 24 Mailpit messages, avatar bytes and private review paths removed; review no longer needs this environment.",
+  "services": [
+    {
+      "name": "api",
+      "host": "127.0.0.1",
+      "port": 4160,
+      "sessionId": 81355,
+      "stoppedBy": "Ctrl-C",
+      "listeningAfter": false
+    },
+    {
+      "name": "web",
+      "host": "127.0.0.1",
+      "port": 3160,
+      "sessionId": 60867,
+      "stoppedBy": "Ctrl-C",
+      "listeningAfter": false
+    }
+  ],
+  "database": {
+    "host": "127.0.0.1",
+    "port": 54320,
+    "name": "yoryon_member_20261013",
+    "targetGuardMatched": true,
+    "publicTableCountsBeforeDrop": {
+      "activation_codes": 0,
+      "analytics_events": 0,
+      "cache_events": 0,
+      "collection_items": 0,
+      "collections": 0,
+      "comment_feed_versions": 0,
+      "comment_likes": 0,
+      "comments": 0,
+      "content_media": 0,
+      "content_tags": 0,
+      "contents": 0,
+      "email_verifications": 0,
+      "entitlements": 0,
+      "media_assets": 0,
+      "member_questions": 0,
+      "notifications": 0,
+      "redemptions": 0,
+      "sessions": 0,
+      "tags": 0,
+      "users": 0
+    },
+    "countsReverifiedBeforeDrop": "Owner read all public table counts from the guarded target and required every count to be zero before DROP; results match independent cleanup.json.",
+    "activeConnectionsBeforeDrop": 0,
+    "dropped": true,
+    "absenceVerified": true,
+    "absenceReverifiedAfterTemporaryFileRemoval": true
+  },
+  "temporaryPaths": [
+    {
+      "path": "/tmp/yoryon-member-20261013/env.sh",
+      "absent": true
+    },
+    {
+      "path": "/tmp/yoryon-member-20261013/storage",
+      "absent": true
+    },
+    {
+      "path": "/tmp/yoryon-member-20261013/pr-body.md",
+      "absent": true
+    }
+  ],
+  "temporaryDirectoryAbsent": true,
+  "preservedContainers": [
+    {
+      "name": "deploy-postgres-1",
+      "stillRunning": true
+    },
+    {
+      "name": "e2e-postgres-1",
+      "stillRunning": true
+    },
+    {
+      "name": "deploy-mailpit-1",
+      "stillRunning": true
+    },
+    {
+      "name": "e2e-mailpit-1",
+      "stillRunning": true
+    }
+  ],
+  "preservedScope": [
+    "Shared PostgreSQL containers",
+    "Shared Mailpit containers",
+    "Issue #18 environment",
+    "Existing source and review artifacts"
+  ],
+  "commands": [
+    "write_stdin session 81355 Ctrl-C; write_stdin session 60867 Ctrl-C",
+    "source /tmp/yoryon-member-20261013/env.sh; pnpm --filter @yoryon/db exec node --input-type=module (inline administrative cleanup)",
+    "Guard DATABASE_URL hostname=127.0.0.1, port=54320, database=yoryon_member_20261013; SELECT current_database(); SELECT counts for all public tables",
+    "SELECT count(*) FROM pg_stat_activity WHERE datname=$1; DROP DATABASE \"yoryon_member_20261013\"; SELECT FROM pg_database WHERE datname=$1",
+    "Remove only /tmp/yoryon-member-20261013/env.sh, storage, pr-body.md; remove the empty owned directory",
+    "Recheck pg_database through 127.0.0.1:54320/postgres after temporary file removal",
+    "Check TCP listeners at 127.0.0.1:4160 and :3160; docker ps --format names"
+  ],
+  "recovery": "Initial final rmSync on the empty temporary root returned EISDIR after database and files were already removed. Rechecked database absence and removed the empty root with rmdirSync; all final checks PASS.",
+  "verificationScope": "Owned local environment shutdown only; production and other issue environments were not operated on.",
+  "artifactIndex": "This new receipt must be included in SHA256SUMS and reverified by the main agent before its unified PR21 artifact commit."
+}

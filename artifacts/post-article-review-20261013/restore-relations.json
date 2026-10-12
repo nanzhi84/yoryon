@@ -1,0 +1,44 @@
+[
+  {
+    "table": "content_media",
+    "baseline": "eed02c6a20b5717bc619d25094a8d9c3fde5f1be4b306e75fdec0593a0ea4cc2",
+    "restored": "eed02c6a20b5717bc619d25094a8d9c3fde5f1be4b306e75fdec0593a0ea4cc2",
+    "exact": true
+  },
+  {
+    "table": "media_assets",
+    "baseline": "c8ab937802152ff7b5062901b3746e2be96b964338006b58cb14981e53fa698c",
+    "restored": "c8ab937802152ff7b5062901b3746e2be96b964338006b58cb14981e53fa698c",
+    "exact": true
+  },
+  {
+    "table": "content_tags",
+    "baseline": "8bc430852333cf8a5361dee1b765f63d1e9b7a86e09c2578c1d63315d3d6050f",
+    "restored": "8bc430852333cf8a5361dee1b765f63d1e9b7a86e09c2578c1d63315d3d6050f",
+    "exact": true
+  },
+  {
+    "table": "tags",
+    "baseline": "d07816d9e8c85979ec8e45c1ff4925c2473c6ffec35a9d165526fc5e664c5192",
+    "restored": "d07816d9e8c85979ec8e45c1ff4925c2473c6ffec35a9d165526fc5e664c5192",
+    "exact": true
+  },
+  {
+    "table": "collection_items",
+    "baseline": "b791337cff311028430cef2dce82f2a2b5e9cc599477dfb87be6312cbcb2c4db",
+    "restored": "b791337cff311028430cef2dce82f2a2b5e9cc599477dfb87be6312cbcb2c4db",
+    "exact": true
+  },
+  {
+    "table": "collections",
+    "baseline": "4f3ccc45b7acc00a7162f3ca86477a1c33c19d65aa52e3fcbd8262a30580d905",
+    "restored": "4f3ccc45b7acc00a7162f3ca86477a1c33c19d65aa52e3fcbd8262a30580d905",
+    "exact": true
+  },
+  {
+    "table": "analytics_events",
+    "baseline": "22eba624f5e0bbd86774aba737a2c2561dda77fb6fc5e9f5f728dec0dfb2e646",
+    "restored": "22eba624f5e0bbd86774aba737a2c2561dda77fb6fc5e9f5f728dec0dfb2e646",
+    "exact": true
+  }
+]

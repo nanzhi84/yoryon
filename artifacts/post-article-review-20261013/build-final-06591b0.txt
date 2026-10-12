@@ -1,0 +1,88 @@
+$ pnpm -r --filter='./packages/*' --filter='./apps/*' build
+Scope: 6 of 7 workspace projects
+packages/config build$ echo 'config is source-only; nothing to build'
+packages/config build: config is source-only; nothing to build
+packages/config build: Done
+packages/db build$ echo 'db is source-only; nothing to build'
+apps/web build$ next build
+packages/db build: db is source-only; nothing to build
+packages/db build: Done
+apps/web build:    ▲ Next.js 15.5.27
+apps/web build:    - Environments: .env
+apps/web build:    - Experiments (use with caution):
+apps/web build:      · staleTimes
+apps/web build:    Creating an optimized production build ...
+apps/web build:  ✓ Compiled successfully in 2.3s
+apps/web build:    Linting and checking validity of types ...
+apps/web build:    Collecting page data ...
+apps/web build:    Generating static pages (0/14) ...
+apps/web build:    Generating static pages (3/14) 
+apps/web build:    Generating static pages (6/14) 
+apps/web build:    Generating static pages (10/14) 
+apps/web build:  ✓ Generating static pages (14/14)
+apps/web build:    Finalizing page optimization ...
+apps/web build:    Collecting build traces ...
+apps/web build: Route (app)                                    Size  First Load JS  Revalidate  Expire
+apps/web build: ┌ ƒ /                                       1.98 kB         200 kB
+apps/web build: ├ ○ /_not-found                               142 B         103 kB
+apps/web build: ├ ○ /about                                   2.1 kB         147 kB
+apps/web build: ├ ƒ /api/[...path]                            142 B         103 kB
+apps/web build: ├ ƒ /api/images/v1/[id]/[variant]             142 B         103 kB
+apps/web build: ├ ○ /api/pages/[version]/[source]/[cursor]    142 B         103 kB
+apps/web build: ├ ƒ /api/revalidate                           142 B         103 kB
+apps/web build: ├ ○ /c                                        197 B         198 kB          1d      1y
+apps/web build: ├ ƒ /c/[slug]                                 196 B         198 kB
+apps/web build: ├ ○ /explore                                 2.1 kB         147 kB          1d      1y
+apps/web build: ├ ƒ /login                                  3.12 kB         148 kB
+apps/web build: ├ ƒ /notifications                          3.91 kB         149 kB
+apps/web build: ├ ƒ /p/[slug]                                 142 B         103 kB
+apps/web build: ├ ƒ /questions/[id]                         3.12 kB         154 kB
+apps/web build: ├ ƒ /redeem                                 3.99 kB         149 kB
+apps/web build: ├ ○ /register                               3.27 kB         149 kB
+apps/web build: ├ ● /render/[revision]/[slug]               1.02 kB         204 kB
+apps/web build: ├ ○ /reset-password                         3.12 kB         148 kB
+apps/web build: ├ ○ /robots.txt                               142 B         103 kB
+apps/web build: ├ ○ /settings/profile                        3.6 kB         149 kB
+apps/web build: ├ ○ /sitemap.xml                              142 B         103 kB          1d      1y
+apps/web build: ├ ƒ /subscription                           5.02 kB         203 kB
+apps/web build: └ ƒ /tags/[slug]                            1.98 kB         200 kB
+apps/web build: + First Load JS shared by all                103 kB
+apps/web build:   ├ chunks/692-789e64195d5c74c5.js          46.6 kB
+apps/web build:   ├ chunks/9a3bc300-2302e8db1ffef478.js     54.2 kB
+apps/web build:   └ other shared chunks (total)             2.52 kB
+apps/web build: ƒ Middleware                                34.9 kB
+apps/web build: ○  (Static)   prerendered as static content
+apps/web build: ●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+apps/web build: ƒ  (Dynamic)  server-rendered on demand
+apps/web build: Done
+packages/core build$ echo 'core is source-only; nothing to build'
+packages/core build: core is source-only; nothing to build
+packages/core build: Done
+apps/api build$ tsup
+apps/cli build$ tsup
+apps/api build: CLI Building entry: {"index":"src/index.ts","migrate":"src/migrate.ts"}
+apps/api build: CLI Using tsconfig: tsconfig.json
+apps/api build: CLI tsup v8.5.1
+apps/api build: CLI Using tsup config: /Users/yoryon/Projects/yoryon/apps/api/tsup.config.ts
+apps/api build: CLI Target: es2022
+apps/cli build: CLI Building entry: src/index.ts
+apps/cli build: CLI Using tsconfig: tsconfig.json
+apps/cli build: CLI tsup v8.5.1
+apps/cli build: CLI Using tsup config: /Users/yoryon/Projects/yoryon/apps/cli/tsup.config.ts
+apps/api build: CLI Cleaning output folder
+apps/cli build: CLI Target: es2022
+apps/api build: ESM Build start
+apps/cli build: CLI Cleaning output folder
+apps/cli build: ESM Build start
+apps/cli build: ESM dist/chunk-5GRMZHF2.js       67.90 KB
+apps/cli build: ESM dist/server.node-4LQSEZBF.js 1.35 MB
+apps/cli build: ESM dist/index.js                3.19 MB
+apps/cli build: ESM ⚡️ Build success in 176ms
+apps/api build: ESM dist/migrate.js              1.38 KB
+apps/api build: ESM dist/chunk-E7MZO2BK.js       67.88 KB
+apps/api build: ESM dist/index.js                99.11 KB
+apps/api build: ESM dist/server.node-4NSYQ2M5.js 1.35 MB
+apps/api build: ESM dist/chunk-ECJG4BXT.js       3.02 MB
+apps/api build: ESM ⚡️ Build success in 181ms
+apps/cli build: Done
+apps/api build: Done

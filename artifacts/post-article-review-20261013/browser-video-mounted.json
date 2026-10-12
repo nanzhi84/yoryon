@@ -1,0 +1,45 @@
+{
+  "buttons": [
+    {
+      "label": "Play",
+      "text": "",
+      "title": null
+    },
+    {
+      "label": "Mute",
+      "text": "",
+      "title": null
+    },
+    {
+      "label": null,
+      "text": "Settings",
+      "title": null
+    },
+    {
+      "label": "Start casting",
+      "text": "",
+      "title": null
+    },
+    {
+      "label": "Enter picture-in-picture",
+      "text": "",
+      "title": null
+    },
+    {
+      "label": "Enter fullscreen",
+      "text": "",
+      "title": null
+    }
+  ],
+  "media": [
+    {
+      "currentTime": 0,
+      "duration": 2,
+      "error": null,
+      "paused": true,
+      "readyState": 4,
+      "tag": "VIDEO"
+    }
+  ],
+  "url": "/"
+}

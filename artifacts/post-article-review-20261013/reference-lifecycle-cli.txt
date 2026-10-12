@@ -1,0 +1,77 @@
+{"args":["publish","/tmp/yoryon-post-article-review-20261013/posts/review-reference-parent"],"status":0}
+  published: review-reference-parent (content f065bc96-264d-4c68-a37d-d6cf632122d2)
+  cache 61ca774a-bc61-417c-8108-855d99376aaa: verified
+✓ review-reference-parent database committed (0 uploaded, 0 reused); page state is reported by cache event above
+
+{"args":["publish","/tmp/yoryon-post-article-review-20261013/posts/review-reference-grandparent"],"status":0}
+  published: review-reference-grandparent (content e26d0570-54f2-492c-92f9-ad745219c846)
+  cache 5ee37121-cb9a-4350-bae6-d73bc35762a6: verified
+✓ review-reference-grandparent database committed (0 uploaded, 0 reused); page state is reported by cache event above
+
+{"args":["publish","/tmp/yoryon-post-article-review-20261013/posts/review-mixed-post"],"status":0}
+  skip (exists): media/image.png → media/81ac6eb09954ae4852b5839ba8d6fbb10f1373cf5b9359c6a5d7d702f4d425cf.png
+  skip (exists): media/second.png → media/8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png
+  skip (exists): media/video.mp4 → media/67f76c68e1aeae4a211bdfc2a52a21bd05c6a469635c2b1d1e291d871a9eb2f6.mp4
+  skip (exists): media/audio.mp3 → media/4fd9a7812aeb16f67361aeb3da5a923585ad1333ba1ac6648929a07fde3fc29e.mp3
+  published: review-mixed-post (content a88d1603-58a4-4470-af39-3771c55235db)
+  cache 9553c32f-9a46-49a1-95c0-3eab504329bd: verified
+  cache d4562f57-dead-4c05-afb1-5d92f8c4b7a1: verified
+  cache 7fec5363-ec75-43ec-bf18-aececea9b3e4: verified
+✓ review-mixed-post database committed (0 uploaded, 4 reused); page state is reported by cache event above
+
+{"args":["publish","/tmp/yoryon-post-article-review-20261013/posts/review-mixed-post"],"status":0}
+  skip (exists): media/image.png → media/81ac6eb09954ae4852b5839ba8d6fbb10f1373cf5b9359c6a5d7d702f4d425cf.png
+  skip (exists): media/second.png → media/8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png
+  skip (exists): media/video.mp4 → media/67f76c68e1aeae4a211bdfc2a52a21bd05c6a469635c2b1d1e291d871a9eb2f6.mp4
+  skip (exists): media/audio.mp3 → media/4fd9a7812aeb16f67361aeb3da5a923585ad1333ba1ac6648929a07fde3fc29e.mp3
+  published: review-mixed-post (content a88d1603-58a4-4470-af39-3771c55235db)
+  cache 6c180762-b6d8-4ce1-bfd4-e81698f11a7f: verified
+  cache 17044a0e-97ab-46ff-8db2-1e62a0e86eb5: verified
+  cache 00862084-47e6-458b-92ec-57aed9b9917f: verified
+✓ review-mixed-post database committed (0 uploaded, 4 reused); page state is reported by cache event above
+
+{"args":["publish","/tmp/yoryon-post-article-review-20261013/posts/review-mixed-post"],"status":0}
+  skip (exists): media/image.png → media/81ac6eb09954ae4852b5839ba8d6fbb10f1373cf5b9359c6a5d7d702f4d425cf.png
+  skip (exists): media/second.png → media/8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png
+  skip (exists): media/video.mp4 → media/67f76c68e1aeae4a211bdfc2a52a21bd05c6a469635c2b1d1e291d871a9eb2f6.mp4
+  skip (exists): media/audio.mp3 → media/4fd9a7812aeb16f67361aeb3da5a923585ad1333ba1ac6648929a07fde3fc29e.mp3
+  published: review-mixed-post (content a88d1603-58a4-4470-af39-3771c55235db)
+  cache 881a95c7-779c-4fc8-a00b-5d1a0c9cac63: verified
+  cache 3be27ad6-5a93-41d7-ad08-4b46c8f3fe1b: verified
+  cache 35f8822c-d43c-4a51-aa87-51949e47fd43: verified
+✓ review-mixed-post database committed (0 uploaded, 4 reused); page state is reported by cache event above
+
+{"args":["unpublish","review-mixed-post"],"status":0}
+cache 879a9e7f-1ea2-4365-b062-b0fcfda920fb: verified
+cache 232a8d40-2227-4dc2-a14b-d2760230ad53: verified
+cache 6c5ee268-3057-49ec-86ee-37e688a08c34: verified
+✓ review-mixed-post → draft
+
+{"args":["content","delete","review-mixed-post"],"status":0}
+cache 93be3efa-1fa5-4b00-804a-e475f235eb06: verified
+cache b42324a5-242b-41ab-9fff-dad3bb3a0b53: verified
+cache 28227838-5392-46be-b685-1d7901601971: verified
+✓ review-mixed-post deleted
+
+{"args":["publish","/tmp/yoryon-post-article-review-20261013/posts/review-mixed-post"],"status":0}
+  skip (exists): media/image.png → media/81ac6eb09954ae4852b5839ba8d6fbb10f1373cf5b9359c6a5d7d702f4d425cf.png
+  skip (exists): media/second.png → media/8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png
+  skip (exists): media/video.mp4 → media/67f76c68e1aeae4a211bdfc2a52a21bd05c6a469635c2b1d1e291d871a9eb2f6.mp4
+  skip (exists): media/audio.mp3 → media/4fd9a7812aeb16f67361aeb3da5a923585ad1333ba1ac6648929a07fde3fc29e.mp3
+  published: review-mixed-post (content 40b04ab8-e8ad-4ffc-8755-590cbd925aaa)
+  cache badcf897-194a-465f-93bb-4dadb174391a: verified
+✓ review-mixed-post database committed (0 uploaded, 4 reused); page state is reported by cache event above
+
+{"args":["cache","refresh","review-paid-post"],"status":0}
+cache 7ffba963-9357-48a2-aa3b-1a924e676eff: verified
+cache 6dc03f40-5eea-4795-b2b9-8671df158683: verified
+✓ review-paid-post revision rotated; page state is reported by cache event above
+
+{"args":["publish","/tmp/yoryon-post-article-review-20261013/posts/review-paid-post"],"status":0}
+  skip (exists): media/second.png → media/8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png
+  skip (exists): media/private-video.mp4 → media/6a31734065bb162e85750324820ab377d889e763287590d643907760f2863e7b.mp4
+  skip (exists): media/private-audio.mp3 → media/38c518dc77c6429ac0e5bbe7c45e78f1537230c975cb5fd391e7efeecf366977.mp3
+  published: review-paid-post (content c06ce84b-8409-4845-ae56-d33a7551a975)
+  cache 78c12106-221e-4f78-b3a5-52fbfe1e2138: verified
+  cache 87bd8b09-8b89-4b86-b841-f0205bc5c65d: verified
+✓ review-paid-post database committed (0 uploaded, 3 reused); page state is reported by cache event above

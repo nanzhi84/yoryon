@@ -1,0 +1,23 @@
+ applied 
+---------
+       6
+(1 row)
+
+  type   | count 
+---------+-------
+ image   |     5
+ audio   |     4
+ article |     4
+ video   |     4
+(4 rows)
+
+ references_table | backup_table 
+------------------+--------------
+                  | 
+(1 row)
+
+ preview_columns 
+-----------------
+               0
+(1 row)
+

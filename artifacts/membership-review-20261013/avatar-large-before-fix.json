@@ -1,0 +1,30 @@
+{
+  "bytes": 166517,
+  "width": 512,
+  "height": 512,
+  "mime": "image/jpeg",
+  "lessThan2MiB": true,
+  "moreThan32KiB": true,
+  "receipts": [
+    {
+      "name": "API",
+      "status": 413,
+      "body": {
+        "error": {
+          "code": "payload_too_large",
+          "message": "请求体过大"
+        }
+      }
+    },
+    {
+      "name": "BFF",
+      "status": 413,
+      "body": {
+        "error": {
+          "code": "payload_too_large",
+          "message": "请求体过大"
+        }
+      }
+    }
+  ]
+}

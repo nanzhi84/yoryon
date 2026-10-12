@@ -1,0 +1,12 @@
+{
+  "head": "17c09e45895646643bd2bad41830ee3bff7fedc5",
+  "ax": "Browser tab: 3, Title: \"个人资料 · Yoryon\", URL: \"http://127.0.0.1:3160/settings/profile\".\n0 AXWebArea 个人资料 · Yoryon, URL: 127.0.0.1:3160/settings/profile\n\t1 container\n\t\t2 link Description: Yoryon, Value: 127.0.0.1:3160/\n\t\t3 link Description: 首页, Value: 127.0.0.1:3160/\n\t\t4 link Description: 订阅, Value: 127.0.0.1:3160/subscription\n\t\t5 link Description: 探索, Value: 127.0.0.1:3160/explore\n\t\t6 link Description: 资料, Value: 127.0.0.1:3160/settings/profile\n\t\t7 link Description: 通知, Value: 127.0.0.1:3160/notifications\n\t\t8 link Description: 登录, Value: 127.0.0.1:3160/login\n\t\t9 pop up button (collapsed) Description: 切换主题, ID: radix-_R_3pav5ubtb_, Secondary Actions: Expand\n\t10 container\n\t\t11 heading 个人资料, Value: 1\n\t\t\t12 text 个人资料\n\t\t13 text 展示名称\n\t\t14 text field (settable) 展示名称, Value: mr15_reader, ID: displayName\n\t\t15 container\n\t\t\t16 text 1–40 字，可与其他用户重名。登录用户名仍为  mr15_reader 。\n\t\t17 button 保存展示名称\n\t\t18 heading 头像, Value: 2\n\t\t\t19 text 头像\n\t\t20 text PNG、JPEG 或 WebP，最大 2MB；上传后裁切为正方形。\n\t\t21 button PNG、JPEG 或 WebP，最大 2MB；上传后裁切为正方形。, ID: avatar-upload\n\t\t22 button 移除头像\n\t\t23 text 个人资料已保存\n\nThe focused UI element is 0 AXWebArea 个人资料 · Yoryon, URL: 127.0.0.1:3160/settings/profile",
+  "images": [
+    {
+      "height": 320,
+      "loaded": true,
+      "src": "/api/avatars/55777ebf-be36-4a48-94ae-b60665ef0f53",
+      "width": 320
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{"args":["publish","/tmp/yoryon-post-article-review-20261013/posts/review-mixed-post"],"status":1}
+error: /tmp/yoryon-post-article-review-20261013/posts/review-mixed-post/index.md: 请将 frontmatter media 移到正文图片、::video 或 ::audio；不会静默忽略主媒体
+
+{"args":["publish","/tmp/yoryon-post-article-review-20261013/posts/review-mixed-post"],"status":1}
+  skip (exists): media/image.png → media/81ac6eb09954ae4852b5839ba8d6fbb10f1373cf5b9359c6a5d7d702f4d425cf.png
+  skip (exists): media/second.png → media/8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png
+  skip (exists): media/video.mp4 → media/67f76c68e1aeae4a211bdfc2a52a21bd05c6a469635c2b1d1e291d871a9eb2f6.mp4
+  skip (exists): media/audio.mp3 → media/4fd9a7812aeb16f67361aeb3da5a923585ad1333ba1ac6648929a07fde3fc29e.mp3
+error: 不能引用作品自身
+
+{"args":["publish","/tmp/yoryon-post-article-review-20261013/posts/review-mixed-post"],"status":1}
+  skip (exists): media/image.png → media/81ac6eb09954ae4852b5839ba8d6fbb10f1373cf5b9359c6a5d7d702f4d425cf.png
+  skip (exists): media/second.png → media/8a019a3de358fb977b6ec8ed379ca03ea89121365353c3ec4f7556c4f3a0f9a8.png
+  skip (exists): media/video.mp4 → media/67f76c68e1aeae4a211bdfc2a52a21bd05c6a469635c2b1d1e291d871a9eb2f6.mp4
+  skip (exists): media/audio.mp3 → media/4fd9a7812aeb16f67361aeb3da5a923585ad1333ba1ac6648929a07fde3fc29e.mp3
+error: 引用目标不存在或尚未发布
+
+{"args":["publish","/tmp/yoryon-post-article-review-20261013/posts/review-mixed-post"],"status":1}
+error: 每个作品最多引用 20 个不同作品
+
+{"args":["publish","/tmp/yoryon-post-article-review-20261013/posts/review-mixed-post"],"status":1}
+error: 作品引用必须是独立的 ::work{id="作品 UUID"}

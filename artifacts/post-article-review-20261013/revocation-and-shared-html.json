@@ -1,0 +1,56 @@
+{
+  "revokeStatus": 0,
+  "outputs": [
+    {
+      "path": "/contents/review-paid-post",
+      "status": 200,
+      "access": "preview",
+      "bodyHasSecret": false
+    },
+    {
+      "path": "/contents/review-paid-post/comments/context",
+      "status": 200,
+      "canInteract": false
+    },
+    {
+      "path": "/media/612298b6-733d-432f-ba5d-837083788fe6",
+      "status": 403,
+      "error": {
+        "code": "forbidden",
+        "message": "无权访问该媒体"
+      }
+    },
+    {
+      "action": "comment-after-revoke",
+      "status": 403,
+      "data": {
+        "error": {
+          "code": "forbidden",
+          "message": "当前没有该作品的互动权益"
+        }
+      }
+    }
+  ],
+  "shared": [
+    {
+      "path": "/",
+      "status": 200,
+      "leakedPrivate": false
+    },
+    {
+      "path": "/subscription",
+      "status": 200,
+      "leakedPrivate": false
+    },
+    {
+      "path": "/p/review-paid-post",
+      "status": 200,
+      "leakedPrivate": false
+    },
+    {
+      "path": "/p/review-references",
+      "status": 200,
+      "leakedPrivate": false
+    }
+  ]
+}

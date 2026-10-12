@@ -1,0 +1,10 @@
+{
+  "scannedAt": "2026-10-12T18:46:18.144Z",
+  "scannedFiles": 185,
+  "scannedKnownSecretValues": 9,
+  "hits": [],
+  "secretFilesKeptOutsideArtifacts": true,
+  "noProductionWrites": true,
+  "noRealMail": true,
+  "backupCredentialTablesEmpty": true
+}

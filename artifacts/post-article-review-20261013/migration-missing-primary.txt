@@ -1,0 +1,64 @@
+$ pnpm --filter @yoryon/api migrate
+$ tsx --env-file=../../.env src/migrate.ts
+/Users/yoryon/Projects/yoryon/node_modules/.pnpm/drizzle-orm@0.45.4_@types+pg@8.23.1_pg@8.23.1/node_modules/src/pg-core/session.ts:73
+				throw new DrizzleQueryError(queryString, params, e as Error);
+				      ^
+
+DrizzleQueryError: Failed query: 
+DO $$ BEGIN
+  IF EXISTS (
+    SELECT 1 FROM contents c WHERE c.type IN ('image','video','audio')
+    AND NOT EXISTS (SELECT 1 FROM content_media cm WHERE cm.content_id = c.id)
+  ) THEN RAISE EXCEPTION 'Legacy content is missing its primary media; migration aborted'; END IF;
+END $$;
+
+params: 
+    at NodePgPreparedQuery.queryWithCache (/Users/yoryon/Projects/yoryon/node_modules/.pnpm/drizzle-orm@0.45.4_@types+pg@8.23.1_pg@8.23.1/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (/Users/yoryon/Projects/yoryon/node_modules/.pnpm/drizzle-orm@0.45.4_@types+pg@8.23.1_pg@8.23.1/node_modules/src/pg-core/dialect.ts:102:7)
+    ... 4 lines matching cause stack trace ...
+    at async <anonymous> (/Users/yoryon/Projects/yoryon/apps/api/src/migrate.ts:19:3) {
+  query: '\n' +
+    'DO $$ BEGIN\n' +
+    '  IF EXISTS (\n' +
+    "    SELECT 1 FROM contents c WHERE c.type IN ('image','video','audio')\n" +
+    '    AND NOT EXISTS (SELECT 1 FROM content_media cm WHERE cm.content_id = c.id)\n' +
+    "  ) THEN RAISE EXCEPTION 'Legacy content is missing its primary media; migration aborted'; END IF;\n" +
+    'END $$;\n',
+  params: [],
+  cause: error: Legacy content is missing its primary media; migration aborted
+      at /Users/yoryon/Projects/yoryon/node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async <anonymous> (/Users/yoryon/Projects/yoryon/node_modules/.pnpm/drizzle-orm@0.45.4_@types+pg@8.23.1_pg@8.23.1/node_modules/src/node-postgres/session.ts:149:14)
+      at async NodePgPreparedQuery.queryWithCache (/Users/yoryon/Projects/yoryon/node_modules/.pnpm/drizzle-orm@0.45.4_@types+pg@8.23.1_pg@8.23.1/node_modules/src/pg-core/session.ts:71:12)
+      at async <anonymous> (/Users/yoryon/Projects/yoryon/node_modules/.pnpm/drizzle-orm@0.45.4_@types+pg@8.23.1_pg@8.23.1/node_modules/src/pg-core/dialect.ts:102:7)
+      at async NodePgSession.transaction (/Users/yoryon/Projects/yoryon/node_modules/.pnpm/drizzle-orm@0.45.4_@types+pg@8.23.1_pg@8.23.1/node_modules/src/node-postgres/session.ts:259:19)
+      at async PgDialect.migrate (/Users/yoryon/Projects/yoryon/node_modules/.pnpm/drizzle-orm@0.45.4_@types+pg@8.23.1_pg@8.23.1/node_modules/src/pg-core/dialect.ts:95:3)
+      at async migrate (/Users/yoryon/Projects/yoryon/node_modules/.pnpm/drizzle-orm@0.45.4_@types+pg@8.23.1_pg@8.23.1/node_modules/src/node-postgres/migrator.ts:10:2)
+      at async runMigrations (/Users/yoryon/Projects/yoryon/packages/db/src/migrate.ts:11:5)
+      at async <anonymous> (/Users/yoryon/Projects/yoryon/apps/api/src/migrate.ts:19:3) {
+    length: 177,
+    severity: 'ERROR',
+    code: 'P0001',
+    detail: undefined,
+    hint: undefined,
+    position: undefined,
+    internalPosition: undefined,
+    internalQuery: undefined,
+    where: 'PL/pgSQL function inline_code_block line 5 at RAISE',
+    schema: undefined,
+    table: undefined,
+    column: undefined,
+    dataType: undefined,
+    constraint: undefined,
+    file: 'pl_exec.c',
+    line: '3911',
+    routine: 'exec_stmt_raise'
+  }
+}
+
+Node.js v24.20.0
+/Users/yoryon/Projects/yoryon/apps/api:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @yoryon/api@0.1.0 migrate: `tsx --env-file=../../.env src/migrate.ts`
+Exit status 1
+[ELIFECYCLE] Command failed with exit code 1.

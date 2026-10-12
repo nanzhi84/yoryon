@@ -1,0 +1,24 @@
+{
+  "apiBundleSHA256": "e20face9b921479cf4c7be7beb2f67f88249e256a017ee0913015127c7913443",
+  "cliBundleSHA256": "43d444d827b4882c956126d46bf4344e40cd9d66714f00cb60aafd2662eec326",
+  "webBuildID": "c1tN75YTAcpA1GU8BgGyo",
+  "services": {
+    "api": "81355",
+    "web": "60867"
+  },
+  "buildExecution": "delivery agent final pnpm build; reviewer read frozen receipt and exercised bundle",
+  "reviewerTypecheck": "PASS exact head",
+  "testedSourceHead": "17c09e45895646643bd2bad41830ee3bff7fedc5",
+  "checkoutHeadAtCapture": "98ad7f340a740d7695060cc4e822818d082f7d6d",
+  "postMergeArtifactOnlyDiff": [
+    "artifacts/membership-delivery-20261013/delivery.md"
+  ],
+  "merge": {
+    "headRefOid": "17c09e45895646643bd2bad41830ee3bff7fedc5",
+    "mergeCommit": {
+      "oid": "ab13db42e975adf4fbddb16ca8c660c3bbd0daf5"
+    },
+    "mergedAt": "2026-10-12T18:34:59Z",
+    "state": "MERGED"
+  }
+}
