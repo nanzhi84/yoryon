@@ -7,9 +7,9 @@ import { errorResponse } from "../errors";
 import { requireAuth, type AppVariables } from "../middleware/auth";
 
 const NOTIFICATION_PAGE_SIZE = 20;
-const uuidRe = /^[0-9a-fA-F-]{36}$/;
+const uuidRe = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
 
-/** 通知游标：(毫秒 createdAt, id)，与 ORDER BY created_at DESC, id DESC 同一全序 */
+/** 通知游标：(createdAt, id)，与 ORDER BY created_at DESC, id DESC 同一全序（created_at 应用层毫秒精度写入） */
 function encodeCursor(t: Date, id: string): string {
   return Buffer.from(JSON.stringify({ t: t.toISOString(), id }), "utf8").toString("base64url");
 }
@@ -18,7 +18,7 @@ function decodeCursor(raw: string | undefined): { t: Date; id: string } | null {
   try {
     const v = JSON.parse(Buffer.from(raw, "base64url").toString("utf8")) as { t: string; id: string };
     const t = new Date(v.t);
-    if (Number.isNaN(t.getTime()) || typeof v.id !== "string") return null;
+    if (Number.isNaN(t.getTime()) || typeof v.id !== "string" || !uuidRe.test(v.id)) return null;
     return { t, id: v.id };
   } catch {
     return null;
@@ -37,16 +37,15 @@ export function notificationRoutes(deps: AppDeps) {
     const cursor = decodeCursor(rawCursor);
     if (rawCursor && !cursor) return errorResponse(c, 400, "invalid_cursor", "分页游标无效");
 
-    const sortKey = sql`date_trunc('milliseconds', ${notifications.createdAt})`;
     const keyset = cursor
-      ? (or(lt(sortKey, cursor.t), and(eq(sortKey, cursor.t), lt(notifications.id, cursor.id))) as SQL)
+      ? (or(lt(notifications.createdAt, cursor.t), and(eq(notifications.createdAt, cursor.t), lt(notifications.id, cursor.id))) as SQL)
       : undefined;
 
     const rows = await deps.db
       .select()
       .from(notifications)
       .where(and(eq(notifications.recipientUserId, auth.user.id), keyset))
-      .orderBy(desc(sortKey), desc(notifications.id))
+      .orderBy(desc(notifications.createdAt), desc(notifications.id))
       .limit(NOTIFICATION_PAGE_SIZE + 1);
     const page = rows.slice(0, NOTIFICATION_PAGE_SIZE);
 
@@ -56,8 +55,12 @@ export function notificationRoutes(deps: AppDeps) {
     const commentIds = [...new Set(page.map((r) => r.commentId).filter((x): x is string => x !== null))];
     const [actorRows, contentRows, commentRows] = await Promise.all([
       actorIds.length ? deps.db.select({ id: users.id, username: users.username }).from(users).where(inArraySafe(users.id, actorIds)) : [],
+      // 仅已发布作品提供跳转与标题；未发布/已删除作品视为已下线，不暴露其当前标题
       contentIds.length
-        ? deps.db.select({ id: contents.id, slug: contents.slug, title: contents.title }).from(contents).where(inArraySafe(contents.id, contentIds))
+        ? deps.db
+            .select({ id: contents.id, slug: contents.slug, title: contents.title })
+            .from(contents)
+            .where(and(inArraySafe(contents.id, contentIds), eq(contents.status, "published")))
         : [],
       commentIds.length
         ? deps.db.select({ id: comments.id, deletedAt: comments.deletedAt }).from(comments).where(inArraySafe(comments.id, commentIds))

@@ -25,9 +25,9 @@ import { errorResponse } from "../errors";
 import { requireAuth, type AppVariables } from "../middleware/auth";
 import { checkRate } from "./auth";
 
-const uuidRe = /^[0-9a-fA-F-]{36}$/;
+const uuidRe = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
 
-/** 根评论游标：(likeCount, 毫秒 createdAt, id) 与 ORDER BY 同一全序 */
+/** 根评论游标：(likeCount, createdAt, id) 与 ORDER BY 同一全序。id 必须合法 UUID，否则在进入 SQL 前拒绝。 */
 interface RootCursor { l: number; t: Date; id: string }
 
 function encodeRootCursor(l: number, t: Date, id: string): string {
@@ -38,14 +38,15 @@ function decodeRootCursor(raw: string | undefined): RootCursor | null {
   try {
     const v = JSON.parse(Buffer.from(raw, "base64url").toString("utf8")) as { l?: unknown; t: string; id: string };
     const t = new Date(v.t);
-    if (typeof v.l !== "number" || !Number.isInteger(v.l) || Number.isNaN(t.getTime()) || typeof v.id !== "string") return null;
+    if (typeof v.l !== "number" || !Number.isInteger(v.l) || v.l < 0 || v.l > 2147483647) return null;
+    if (Number.isNaN(t.getTime()) || typeof v.id !== "string" || !uuidRe.test(v.id)) return null;
     return { l: v.l, t, id: v.id };
   } catch {
     return null;
   }
 }
 
-/** 回复游标：(毫秒 createdAt, id)，时间正序 */
+/** 回复游标：(createdAt, id)，时间正序 */
 function encodeReplyCursor(t: Date, id: string): string {
   return Buffer.from(JSON.stringify({ t: t.toISOString(), id }), "utf8").toString("base64url");
 }
@@ -54,7 +55,7 @@ function decodeReplyCursor(raw: string | undefined): { t: Date; id: string } | n
   try {
     const v = JSON.parse(Buffer.from(raw, "base64url").toString("utf8")) as { t: string; id: string };
     const t = new Date(v.t);
-    if (Number.isNaN(t.getTime()) || typeof v.id !== "string") return null;
+    if (Number.isNaN(t.getTime()) || typeof v.id !== "string" || !uuidRe.test(v.id)) return null;
     return { t, id: v.id };
   } catch {
     return null;
@@ -110,12 +111,12 @@ export function commentRoutes(deps: AppDeps) {
     const cursor = decodeRootCursor(rawCursor);
     if (rawCursor && !cursor) return errorResponse(c, 400, "invalid_cursor", "分页游标无效");
 
-    const sortKey = sql`date_trunc('milliseconds', ${comments.createdAt})`;
+    // created_at 由应用层以毫秒精度写入（packages/core/comments.ts），排序/过滤直接用原列，索引可用
     const keyset = cursor
       ? (or(
           lt(comments.likeCount, cursor.l),
-          and(eq(comments.likeCount, cursor.l), lt(sortKey, cursor.t)),
-          and(eq(comments.likeCount, cursor.l), eq(sortKey, cursor.t), lt(comments.id, cursor.id)),
+          and(eq(comments.likeCount, cursor.l), lt(comments.createdAt, cursor.t)),
+          and(eq(comments.likeCount, cursor.l), eq(comments.createdAt, cursor.t), lt(comments.id, cursor.id)),
         ) as SQL)
       : undefined;
 
@@ -123,7 +124,7 @@ export function commentRoutes(deps: AppDeps) {
       .select()
       .from(comments)
       .where(and(eq(comments.contentId, content.id), isNull(comments.parentId), keyset))
-      .orderBy(desc(comments.likeCount), desc(sortKey), desc(comments.id))
+      .orderBy(desc(comments.likeCount), desc(comments.createdAt), desc(comments.id))
       .limit(COMMENT_PAGE_SIZE + 1);
     const page = rows.slice(0, COMMENT_PAGE_SIZE);
 
@@ -185,24 +186,23 @@ export function commentRoutes(deps: AppDeps) {
     const cursor = decodeReplyCursor(rawCursor);
     if (rawCursor && !cursor) return errorResponse(c, 400, "invalid_cursor", "分页游标无效");
 
-    const sortKey = sql`date_trunc('milliseconds', ${comments.createdAt})`;
-    const keyset = cursor ? (or(gt(sortKey, cursor.t), and(eq(sortKey, cursor.t), gt(comments.id, cursor.id))) as SQL) : undefined;
+    const keyset = cursor ? (or(gt(comments.createdAt, cursor.t), and(eq(comments.createdAt, cursor.t), gt(comments.id, cursor.id))) as SQL) : undefined;
 
     const rows = await deps.db
       .select()
       .from(comments)
       .where(and(eq(comments.parentId, root.id), keyset))
-      .orderBy(asc(sortKey), asc(comments.id))
+      .orderBy(asc(comments.createdAt), asc(comments.id))
       .limit(REPLY_PAGE_SIZE + 1);
     const page = rows.slice(0, REPLY_PAGE_SIZE);
 
     // 被回复对象展示名（@提示）；目标已删除时 username=null，UI 显示「已删除」
     const replyToIds = [...new Set(page.map((r) => r.replyToId).filter((x): x is string => x !== null))];
     const replyToRows = replyToIds.length
-      ? await deps.db.select({ id: comments.id, userId: comments.userId }).from(comments).where(inArray(comments.id, replyToIds))
+      ? await deps.db.select({ id: comments.id, userId: comments.userId, deletedAt: comments.deletedAt }).from(comments).where(inArray(comments.id, replyToIds))
       : [];
     const authorMap = await loadAuthorMap(deps.db, [...page.map((r) => r.userId), ...replyToRows.map((r) => r.userId)]);
-    const replyToMap = new Map(replyToRows.map((r) => [r.id, authorMap.get(r.userId) ?? null]));
+    const replyToMap = new Map(replyToRows.map((r) => [r.id, r.deletedAt === null ? (authorMap.get(r.userId) ?? null) : null]));
 
     const last = page[page.length - 1];
     c.header("Cache-Control", "public, max-age=0, must-revalidate");
@@ -222,6 +222,28 @@ export function commentRoutes(deps: AppDeps) {
       }),
       nextCursor: rows.length > REPLY_PAGE_SIZE && last ? encodeReplyCursor(last.createdAt, last.id) : null,
     });
+  });
+
+  /** 评论定位（公开）：通知锚点跳转时由客户端展开所属根线程。 */
+  app.get("/comments/:id/locate", async (c) => {
+    const id = c.req.param("id");
+    if (!uuidRe.test(id)) return errorResponse(c, 404, "not_found", "评论不存在");
+    const rows = await deps.db
+      .select({ id: comments.id, parentId: comments.parentId, contentId: comments.contentId })
+      .from(comments)
+      .where(eq(comments.id, id))
+      .limit(1);
+    const row = rows[0];
+    if (!row) return errorResponse(c, 404, "not_found", "评论不存在");
+    // 已取消发布的作品不公开评论定位
+    const contentRows = await deps.db
+      .select({ id: contents.id, slug: contents.slug })
+      .from(contents)
+      .where(and(eq(contents.id, row.contentId), eq(contents.status, "published")))
+      .limit(1);
+    if (!contentRows[0]) return errorResponse(c, 404, "not_found", "内容不存在");
+    c.header("Cache-Control", "public, max-age=0, must-revalidate");
+    return c.json({ id: row.id, rootId: row.parentId ?? row.id, contentSlug: contentRows[0].slug });
   });
 
   /** 互动上下文（私有 no-store）：登录态 + 当前互动权益（权益过期/撤销即 false）。 */

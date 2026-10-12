@@ -9,7 +9,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { buildApiHeaders, csrfCheck, getBffConfig, readBodyCapped, readSessionCookie, resolvePlatformClientIp, clearSessionCookie, setSessionCookie } from "@/lib/bff";
 
-const ALLOWED_PATH = /^\/api\/(auth\/[a-z-]+|feed|public\/contents\/[^/]+|contents\/[^/]+(?:\/comments(?:\/context)?)?|comments\/liked|comments\/[0-9a-fA-F-]{36}(?:\/(?:like|replies))?|collections(?:\/[^/]+)?|tags\/[^/]+|media\/[0-9a-fA-F-]{36}|redemptions|me\/entitlements|notifications(?:\/(?:unread-count|read-all|[0-9a-fA-F-]{36}\/read))?|analytics\/events)$/;
+const ALLOWED_PATH = /^\/api\/(auth\/[a-z-]+|feed|public\/contents\/[^/]+|contents\/[^/]+(?:\/comments(?:\/context)?)?|comments\/liked|comments\/[0-9a-fA-F-]{36}(?:\/(?:like|replies|locate))?|collections(?:\/[^/]+)?|tags\/[^/]+|media\/[0-9a-fA-F-]{36}|redemptions|me\/entitlements|notifications(?:\/(?:unread-count|read-all|[0-9a-fA-F-]{36}\/read))?|analytics\/events)$/;
 
 /** analytics ingest 请求体字节上限（与 API 侧 MAX_BODY_BYTES 一致） */
 const ANALYTICS_MAX_BODY_BYTES = 32 * 1024;

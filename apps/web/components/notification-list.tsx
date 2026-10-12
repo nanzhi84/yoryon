@@ -15,7 +15,9 @@ export function NotificationList() {
   const [items, setItems] = useState<NotificationItem[]>([]);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [paging, setPaging] = useState(false);
   const [error, setError] = useState(false);
+  const [actionError, setActionError] = useState(false);
 
   const load = useCallback(async (cursor: string | null) => {
     const res = await fetch(`/api/notifications${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ""}`, { cache: "no-store", credentials: "same-origin" });
@@ -45,15 +47,26 @@ export function NotificationList() {
 
   async function markRead(item: NotificationItem) {
     if (!item.readAt) {
+      // 乐观更新 + 失败回滚
       setItems((prev) => prev.map((x) => (x.id === item.id ? { ...x, readAt: new Date().toISOString() } : x)));
-      void fetch(`/api/notifications/${item.id}/read`, { method: "PATCH", credentials: "same-origin" });
+      const res = await fetch(`/api/notifications/${item.id}/read`, { method: "PATCH", credentials: "same-origin" }).catch(() => null);
+      if (!res?.ok) {
+        setItems((prev) => prev.map((x) => (x.id === item.id ? { ...x, readAt: null } : x)));
+        setActionError(true);
+        return;
+      }
     }
     if (item.link) router.push(item.link);
   }
 
   async function readAll() {
+    const backup = items;
     setItems((prev) => prev.map((x) => ({ ...x, readAt: x.readAt ?? new Date().toISOString() })));
-    await fetch("/api/notifications/read-all", { method: "POST", credentials: "same-origin" });
+    const res = await fetch("/api/notifications/read-all", { method: "POST", credentials: "same-origin" }).catch(() => null);
+    if (!res?.ok) {
+      setItems(backup);
+      setActionError(true);
+    }
   }
 
   if (loading) return <p className="py-12 text-center text-sm text-muted-foreground">加载中…</p>;
@@ -70,6 +83,11 @@ export function NotificationList() {
 
   return (
     <div>
+      {actionError && (
+        <p role="alert" className="mb-3 text-sm text-red-500">
+          操作失败，请重试。
+        </p>
+      )}
       <div className="mb-4 flex justify-end">
         <Button variant="outline" size="sm" onClick={() => void readAll()}>
           全部标为已读
@@ -98,8 +116,17 @@ export function NotificationList() {
       </ul>
       {nextCursor && (
         <div className="mt-4 flex justify-center">
-          <Button variant="outline" size="sm" onClick={() => void load(nextCursor)}>
-            加载更多
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={paging}
+            onClick={() => {
+              if (paging) return;
+              setPaging(true);
+              void load(nextCursor).catch(() => {}).finally(() => setPaging(false));
+            }}
+          >
+            {paging ? "加载中…" : "加载更多"}
           </Button>
         </div>
       )}
