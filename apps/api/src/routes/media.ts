@@ -5,6 +5,7 @@
  */
 import { Hono } from "hono";
 import { MEDIA_FREE_CACHE_MAX_AGE_SEC } from "@yoryon/config";
+import { IMAGE_WIDTHS } from "@yoryon/config/image-variants";
 import { findMediaById, FsStorage, isValidMediaKey, mimeForFile, resolveMediaAccess } from "@yoryon/core";
 import type { AppDeps } from "../deps";
 import { errorResponse } from "../errors";
@@ -20,6 +21,9 @@ export function mediaRoutes(deps: AppDeps) {
     if (!UUID_RE.test(id)) return errorResponse(c, 404, "not_found", "媒体不存在");
     const media = await findMediaById(deps.db, id.toLowerCase());
     if (!media) return errorResponse(c, 404, "not_found", "媒体不存在");
+    const rawWidth = c.req.query("width");
+    const width = rawWidth === undefined ? undefined : Number(rawWidth);
+    if (width !== undefined && (!IMAGE_WIDTHS.includes(width as typeof IMAGE_WIDTHS[number]) || String(width) !== rawWidth)) return errorResponse(c, 400, "invalid_width", "图片宽度不在允许档位");
 
     const auth = c.get("auth");
     const access = await resolveMediaAccess(deps.db, media.id, auth?.user ?? null, new Date());
@@ -28,7 +32,8 @@ export function mediaRoutes(deps: AppDeps) {
       return errorResponse(c, 403, "forbidden", "无权访问该媒体");
     }
 
-    const url = await deps.storage.signGetUrl(media.ossKey, deps.env.MEDIA_SIGN_TTL);
+    const resize = width && /^(image\/jpeg|image\/png|image\/webp)$/.test(media.mimeType) && (media.width ?? 0) > width ? width : undefined;
+    const url = await deps.storage.signGetUrl(media.ossKey, deps.env.MEDIA_SIGN_TTL, resize);
     if (access.via === "entitlement") {
       // 权益命中：缓存付费 302 = 签名 URL 泄露（ADR-0003）
       c.header("Cache-Control", "private, no-store");
@@ -47,11 +52,17 @@ export function mediaRoutes(deps: AppDeps) {
       if (!isValidMediaKey(key)) return errorResponse(c, 404, "not_found", "对象不存在");
       const expires = Number(c.req.query("expires"));
       const sig = c.req.query("sig") ?? "";
-      if (!Number.isFinite(expires) || !fsStorage.verifyGetSignature(key, expires, sig)) {
+      const width = c.req.query("width") === undefined ? undefined : Number(c.req.query("width"));
+      if (width !== undefined && !IMAGE_WIDTHS.includes(width as typeof IMAGE_WIDTHS[number])) return errorResponse(c, 403, "invalid_signature", "派生宽度无效");
+      if (!Number.isFinite(expires) || !fsStorage.verifyGetSignature(key, expires, sig, width)) {
         return errorResponse(c, 403, "invalid_signature", "签名无效或已过期");
       }
-      const data = await fsStorage.read(key);
+      let data = await fsStorage.read(key);
       if (data === null) return errorResponse(c, 404, "not_found", "对象不存在");
+      if (width) {
+        const { default: sharp } = await import("sharp");
+        data = await sharp(data, { limitInputPixels: 40_000_000 }).rotate().resize({ width, withoutEnlargement: true }).toBuffer();
+      }
 
       const contentType = mimeForFile(key);
       const range = c.req.header("range");

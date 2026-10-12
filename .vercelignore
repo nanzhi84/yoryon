@@ -1,0 +1,17 @@
+artifacts/
+e2e/.data/
+e2e/test-results/
+e2e/playwright-report/
+.storage/
+**/*.log
+**/*.tmp
+deploy/.performance-*.mjs
+e2e/scripts/.acceptance-build.ts
+**/.env
+**/.env.*
+!**/.env.example
+**/node_modules/
+**/.next/
+**/dist/
+**/*.tsbuildinfo
+.git/

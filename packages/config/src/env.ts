@@ -76,7 +76,7 @@ const webEnvSchema = z.object({
   /** 允许的外部 Origin 白名单，逗号分隔（CSRF 防线，ADR-0001） */
   ALLOWED_ORIGINS: z.string().min(1),
   /** 信息流公开缓存 revalidate 秒数（ADR-0003 公开线） */
-  FEED_REVALIDATE_SEC: z.coerce.number().int().nonnegative().default(60),
+  FEED_REVALIDATE_SEC: z.coerce.number().int().nonnegative().default(86400),
   SITE_URL: z.string().url().default("http://localhost:3000"),
 });
 

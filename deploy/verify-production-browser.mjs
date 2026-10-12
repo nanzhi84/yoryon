@@ -87,8 +87,9 @@ export async function startBrowserAcceptance({ base, slugs, run, email, password
       await visible('browser_public_to_paid_shows_wall', anonymous.locator('main'), '本内容为订阅专享');
     },
     async unpublished() {
-      await anonymous.reload({ waitUntil: 'networkidle' });
-      await visible('browser_unpublished_shows_not_found', anonymous.locator('main'), '页面不存在');
+      const response = await anonymous.reload({ waitUntil: 'networkidle' });
+      check('browser_unpublished_http_404', response.status() === 404);
+      await visible('browser_unpublished_shows_not_found', anonymous.locator('body'), '内容不存在');
       await hidden('browser_unpublished_body_absent', anonymous, bodyMarker('public'));
     },
     async finish() {
@@ -112,11 +113,12 @@ export async function startBrowserAcceptance({ base, slugs, run, email, password
       await anonymous.getByLabel('用户名', { exact: true }).fill(username);
       await anonymous.getByLabel(/密码/).fill(password);
       await anonymous.getByRole('button', { name: '注册', exact: true }).click();
-      await visible('browser_pending_smtp_has_clear_error', anonymous.locator('main').getByRole('alert'), '邮件服务尚未配置');
+      // This existing synthetic account must be rejected before any email delivery.
+      await visible('browser_duplicate_active_email_rejected', anonymous.locator('main').getByRole('alert'), '该邮箱已注册');
       // Clear inputs before evidence capture; no password/email/code is saved.
       for (const locator of ['邮箱', '用户名']) await anonymous.getByLabel(locator, { exact: true }).fill('');
       await anonymous.getByLabel(/密码/).fill('');
-      await screenshot(anonymous, 'browser-smtp-pending');
+      await screenshot(anonymous, 'browser-duplicate-registration');
       check('browser_no_uncaught_javascript_errors', errors.length === 0);
     },
     close: () => browser.close(),

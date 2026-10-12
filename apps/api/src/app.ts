@@ -14,6 +14,9 @@ import { contentRoutes } from "./routes/contents";
 import { mediaRoutes } from "./routes/media";
 import { redemptionRoutes } from "./routes/redemptions";
 import { analyticsRoutes } from "./routes/analytics";
+import { cacheRoutes } from "./routes/cache";
+import { sitemapRoutes } from "./routes/sitemap";
+import { createPublicPolicy } from "./public-policy";
 
 export function createApp(deps: AppDeps) {
   const app = new Hono<{ Variables: AppVariables }>();
@@ -54,10 +57,13 @@ export function createApp(deps: AppDeps) {
   app.get("/health", (c) => c.json({ ok: true }));
 
   app.route("/api/auth", authRoutes(deps));
-  app.route("/api", contentRoutes(deps));
+  const policy = createPublicPolicy(deps.db);
+  app.route("/api", contentRoutes(deps, policy));
   app.route("/api", mediaRoutes(deps));
   app.route("/api", redemptionRoutes(deps));
   app.route("/api", analyticsRoutes(deps));
+  app.route("/api", cacheRoutes(deps, policy));
+  app.route("/api", sitemapRoutes(deps));
 
   app.notFound((c) => errorResponse(c, 404, "not_found", "接口不存在"));
 

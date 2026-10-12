@@ -35,6 +35,8 @@ export function apiEnv(): NodeJS.ProcessEnv {
     DATABASE_URL: E2E.databaseUrl,
     BFF_SHARED_SECRET: E2E.bffSecret,
     SITE_URL: E2E.webUrl,
+    CACHE_REVALIDATE_SECRET: "e2e-cache-secret-0123456789abcdef0123456789",
+    CACHE_REVALIDATE_URL: `${E2E.webUrl}/api/revalidate`,
     API_PUBLIC_URL: E2E.caddyUrl, // 签名 URL 经 Caddy（模拟生产拓扑）
     STORAGE_BACKEND: "fs",
     FS_STORAGE_ROOT: E2E.storageRoot,
@@ -56,8 +58,10 @@ export function webEnv(): NodeJS.ProcessEnv {
     BFF_SHARED_SECRET: E2E.bffSecret,
     ALLOWED_ORIGINS: E2E.webUrl,
     SITE_URL: E2E.webUrl,
+    CACHE_REVALIDATE_SECRET: "e2e-cache-secret-0123456789abcdef0123456789",
+    CACHE_REVALIDATE_URL: `${E2E.webUrl}/api/revalidate`,
     // 缩短公开数据缓存窗口，保证 sitemap/标签页等 ISR 断言不受旧缓存干扰
-    FEED_REVALIDATE_SEC: "1",
+    FEED_REVALIDATE_SEC: "86400",
   };
 }
 

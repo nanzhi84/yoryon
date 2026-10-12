@@ -1,3 +1,4 @@
+import { imageSrcSet } from "@yoryon/config/image-variants";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { TrackClickLink, TrackImpression } from "@/components/analytics";
@@ -12,7 +13,7 @@ export const TYPE_LABEL: Record<FeedContentItem["type"], string> = {
 
 export function formatDate(iso: string | null): string {
   if (!iso) return "";
-  return new Date(iso).toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric" });
+  return new Date(iso).toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric", timeZone: "Asia/Singapore" });
 }
 
 /** 信息流内容条目：标题 + 日期 / 封面 + 简介 / 类型 + 标签，点进详情。 */
@@ -33,7 +34,7 @@ function ContentEntry({ item }: { item: FeedContentItem }) {
             {/* 受控比例容器（明确的 UI 裁切选择）+ 加载前占位，消除封面 CLS（F08） */}
             <div className="aspect-video w-full overflow-hidden rounded-lg bg-muted">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`/api/media/${item.coverMediaId}`} alt={item.title} loading="lazy" className="h-full w-full object-cover" />
+              <img src={`/api/media/${item.coverMediaId}`} srcSet={imageSrcSet(item.coverMediaId)} sizes="(max-width: 768px) 100vw, 768px" alt={item.title} loading="lazy" className="h-full w-full object-cover" />
             </div>
           </TrackClickLink>
         )}
@@ -42,7 +43,7 @@ function ContentEntry({ item }: { item: FeedContentItem }) {
         <span>{TYPE_LABEL[item.type]}</span>
         {item.visibility === "paid" && <Badge variant="secondary">付费</Badge>}
         {item.tags.map((t) => (
-          <Link key={t.slug} href={`/tags/${t.slug}`} className="hover:text-foreground">
+          <Link prefetch={false} key={t.slug} href={`/tags/${t.slug}`} className="hover:text-foreground">
             #{t.name}
           </Link>
         ))}

@@ -5,7 +5,10 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./constants": "./src/constants.ts"
+    "./constants": "./src/constants.ts",
+    "./cache": "./src/cache.ts",
+    "./cache-signing": "./src/cache-signing.ts",
+    "./image-variants": "./src/image-variants.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

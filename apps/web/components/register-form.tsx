@@ -113,7 +113,7 @@ export function RegisterForm() {
         {loading ? "发送验证码…" : "注册"}
       </Button>
       <p className="text-center text-sm text-muted-foreground">
-        已有账号？<Link href="/login" className="underline underline-offset-4">登录</Link>
+        已有账号？<Link prefetch={false} href="/login" className="underline underline-offset-4">登录</Link>
       </p>
     </form>
   );

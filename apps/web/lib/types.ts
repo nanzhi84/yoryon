@@ -22,6 +22,7 @@ export interface FeedContentItem {
 export type FeedItem = FeedContentItem;
 
 export interface FeedResponse {
+  version: string;
   items: FeedItem[];
   nextCursor: string | null;
 }
@@ -37,6 +38,8 @@ export interface ContentMediaItem {
 }
 
 export interface ContentDetail {
+  updatedAt: string;
+  revision: string;
   id: string;
   type: "article" | "image" | "video" | "audio";
   slug: string;
@@ -85,6 +88,7 @@ export interface CollectionDetail {
 }
 
 export interface TagDetailResponse {
+  version: string;
   tag: FeedTag;
   /** 与 feed 的内容项同一合同（含 tags），LoadMore 可直接渲染 */
   items: FeedContentItem[];

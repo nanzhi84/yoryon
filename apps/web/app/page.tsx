@@ -5,16 +5,12 @@ import { SiteHeader } from "@/components/site-header";
 import { LoadMore } from "@/components/load-more";
 import { AnalyticsListProvider } from "@/components/analytics";
 
-const revalidateSec = Number(process.env.FEED_REVALIDATE_SEC ?? 60);
+const revalidateSec = Number(process.env.FEED_REVALIDATE_SEC ?? 86400);
 
-async function getFeed(): Promise<FeedResponse | null> {
-  try {
-    const res = await publicFetch("/api/feed", { revalidate: revalidateSec });
-    if (!res.ok) return null;
-    return (await res.json()) as FeedResponse;
-  } catch {
-    return null;
-  }
+async function getFeed(): Promise<FeedResponse> {
+  const res = await publicFetch("/api/feed", { revalidate: revalidateSec, tags: ["feed"] });
+  if (!res.ok) throw new Error(`feed API ${res.status}`);
+  return await res.json() as FeedResponse;
 }
 
 /** 首页：纯内容信息流（合集为顶层结构，仅在 /c 列表展示，不混入 feed）。容器宽度由 layout 统一控制。 */
@@ -25,7 +21,7 @@ export default async function HomePage() {
   return (
     <>
       <SiteHeader />
-      <main className="pb-20">
+      <main data-catalog-version={feed.version} className="pb-20">
         {items.length === 0 ? (
           <p className="py-20 text-center text-sm text-muted-foreground">还没有内容，敬请期待。</p>
         ) : (
@@ -34,7 +30,7 @@ export default async function HomePage() {
             <div className="divide-y divide-border">
               <FeedTimeline items={items} />
             </div>
-            {feed?.nextCursor && <LoadMore initialCursor={feed.nextCursor} />}
+            {feed?.nextCursor && <LoadMore version={feed.version} initialCursor={feed.nextCursor} />}
           </AnalyticsListProvider>
         )}
       </main>

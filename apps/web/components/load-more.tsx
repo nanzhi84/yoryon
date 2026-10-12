@@ -6,18 +6,20 @@ import { FeedTimeline } from "./feed-timeline";
 import { Button } from "./ui/button";
 
 /** 信息流/标签页"加载更多"（游标分页，经同源 BFF）。 */
-export function LoadMore({ initialCursor, basePath = "/api/feed" }: { initialCursor: string; basePath?: string }) {
+export function LoadMore({ initialCursor, version, basePath = "/api/feed" }: { initialCursor: string; version: string; basePath?: string }) {
   const [cursor, setCursor] = useState<string | null>(initialCursor);
   const [items, setItems] = useState<FeedItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [expired, setExpired] = useState(false);
 
   async function load() {
     if (!cursor) return;
     setLoading(true);
     setError(false);
     try {
-      const res = await fetch(`${basePath}${basePath.includes("?") ? "&" : "?"}cursor=${encodeURIComponent(cursor)}`);
+      const res = await fetch(`/api/pages/${version}/${basePath === "/api/feed" ? "feed" : `tag-${basePath.slice("/api/tags/".length)}`}/${encodeURIComponent(cursor)}`);
+      if (res.status === 409) { setExpired(true); return; }
       if (!res.ok) throw new Error(String(res.status));
       const data = (await res.json()) as FeedResponse;
       setItems((prev) => [...prev, ...data.items]);
@@ -33,7 +35,8 @@ export function LoadMore({ initialCursor, basePath = "/api/feed" }: { initialCur
     <div className="py-6">
       <FeedTimeline items={items} />
       {error && <p className="py-2 text-center text-sm text-red-500">加载失败，请重试。</p>}
-      {cursor && (
+      {expired && <p role="status">列表已更新。<button className="underline" onClick={() => window.location.reload()}>刷新列表</button></p>}
+      {cursor && !expired && (
         <div className="flex justify-center">
           <Button variant="outline" onClick={load} disabled={loading}>
             {loading ? "加载中…" : "加载更多"}

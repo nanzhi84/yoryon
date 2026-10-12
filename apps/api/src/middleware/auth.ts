@@ -27,6 +27,8 @@ export function authMiddleware(db: Database) {
   return async (c: Context<{ Variables: AppVariables }>, next: Next) => {
     c.set("auth", null);
     c.set("sessionRenewedExpiresAt", null);
+    // 公开线和匿名分析不执行 session 查询/续期；公开 DTO 不能随身份变化。
+    if (/^\/api\/(?:public\/|feed$|tags\/|collections$|sitemap$|cache\/|analytics\/events$)/.test(c.req.path)) { await next(); return; }
     const header = c.req.header("authorization");
     if (header?.startsWith("Bearer ")) {
       const token = header.slice("Bearer ".length).trim();

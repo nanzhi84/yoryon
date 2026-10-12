@@ -178,6 +178,7 @@ test("标题点击记 click（placement=home_feed）并正常导航；标签链�
 });
 
 test("预取不产生 view；站外直达只有 view 无 click；刷新产生新浏览实例；前台 10s 记一次 read", async ({ page }) => {
+  const readsBefore = await countEvents(articleId, "read");
   // 首页停留期间 Link 预取已发生，但不得产生 view
   const viewsBefore = await countEvents(articleId, "view");
   const clicksBefore = await countEvents(articleId, "click");
@@ -196,10 +197,10 @@ test("预取不产生 view；站外直达只有 view 无 click；刷新产生新
   await page.reload();
   await pollEvents(articleId, "view", viewsBefore + 2);
 
-  // 前台累计 10s：read 恰好一次，继续等待不重复
-  await pollEvents(articleId, "read", 1, 25_000);
+  // view 等待合批 12s，两个浏览实例都已满足前台 10s，各记一次 read。
+  await pollEvents(articleId, "read", readsBefore + 2, 25_000);
   await page.waitForTimeout(3_000);
-  expect(await countEvents(articleId, "read")).toBe(1);
+  expect(await countEvents(articleId, "read")).toBe(readsBefore + 2);
 });
 
 test("合集独立统计：/c 列表 impression(placement=collection_list) + click；合集详情 view；read 后台暂停", async ({ page }) => {
@@ -219,11 +220,11 @@ test("合集独立统计：/c 列表 impression(placement=collection_list) + cli
   await page.getByRole("link", { name: COLL_TITLE }).first().click();
   await page.waitForURL(`/c/${COLL}`);
   await pollEvents(collId, "click", 1);
-  await pollEvents(collId, "view", 1);
 
   // read 暂停语义：可见 4s → 后台 8s（不得触发 read）→ 回前台补足 10s 才触发
   await page.waitForTimeout(4_000);
   await setHidden(page, true);
+  await pollEvents(collId, "view", 1); // 隐藏立即 flush view，不等待合批窗口。
   await page.waitForTimeout(8_000);
   expect(await countEvents(collId, "read")).toBe(0);
   await setHidden(page, false);

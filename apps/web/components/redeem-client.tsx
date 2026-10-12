@@ -87,7 +87,7 @@ export function RedeemClient() {
   if (me === null) {
     return (
       <p className="text-sm text-muted-foreground">
-        请先 <Link href="/login" className="underline underline-offset-4">登录</Link> 后再兑换激活码。
+        请先 <Link prefetch={false} href="/login" className="underline underline-offset-4">登录</Link> 后再兑换激活码。
       </p>
     );
   }

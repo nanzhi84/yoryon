@@ -53,6 +53,9 @@ services:
 
   cli:
     profiles: [ops]
+    mem_limit: 256m
+    cpus: 0.5
+    pids_limit: 64
     image: ${YORYON_IMAGE:?}
     env_file: /etc/yoryon/cli.env
     entrypoint: [node, /cli/dist/index.js]
