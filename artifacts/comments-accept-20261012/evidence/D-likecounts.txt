@@ -1,0 +1,2 @@
+likeCount mismatches: none
+B1 root likeCount: 1 (expected 1, U1 self-like)

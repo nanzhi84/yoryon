@@ -1,0 +1,2 @@
+$ tsx --env-file=../../.env src/index.ts user promote acc-u3@test.local
+✓ acc-u3@test.local → admin
