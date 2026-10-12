@@ -1,0 +1,22 @@
+[
+  {
+    "url": "http://localhost:3139/p/audit-06",
+    "status": 404,
+    "syntheticBody": false
+  },
+  {
+    "url": "http://localhost:4439/api/public/contents/audit-06",
+    "status": 404,
+    "syntheticBody": false
+  },
+  {
+    "url": "http://localhost:3139/p/audit-07",
+    "status": 404,
+    "syntheticBody": false
+  },
+  {
+    "url": "http://localhost:4439/api/public/contents/audit-07",
+    "status": 404,
+    "syntheticBody": false
+  }
+]

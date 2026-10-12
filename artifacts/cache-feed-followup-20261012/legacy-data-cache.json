@@ -1,0 +1,9 @@
+{
+  "oldKey": "fe67d11a8b1a9201ddecf6327f7ab4fcf76a990ea88185a49476dc4c9abd36d6",
+  "oldURL": "http://127.0.0.1:4439/api/feed",
+  "revalidate": 86400,
+  "preservedFileExists": true,
+  "htmlContainsOldCursor": false,
+  "status": 200,
+  "htmlContainsActualNewCursor": true
+}

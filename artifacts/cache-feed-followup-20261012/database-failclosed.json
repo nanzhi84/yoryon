@@ -1,0 +1,16 @@
+[
+  {
+    "path": "/p/audit-03",
+    "status": 503,
+    "elapsedMs": 3076,
+    "restricted": false,
+    "body": "内容暂时无法验证，请稍后重试。"
+  },
+  {
+    "path": "/api/pages/00000000-0000-0000-0000-000000000000/feed/invalid",
+    "status": 503,
+    "elapsedMs": 3019,
+    "restricted": false,
+    "body": "{\"error\":\"policy_unavailable\"}"
+  }
+]

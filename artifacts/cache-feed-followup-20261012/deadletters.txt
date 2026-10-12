@@ -1,0 +1,17 @@
+ state  | attempts | count
+--------+----------+-------
+ failed |        6 |   100
+ failed |        3 |     5
+(2 rows)
+
+  state   | attempts
+----------+----------
+ verified |        1
+(1 row)
+
+  state   | attempts | count
+----------+----------+-------
+ verified |        7 |    95
+ failed   |        6 |     5
+ verified |        4 |     5
+(3 rows)

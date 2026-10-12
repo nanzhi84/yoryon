@@ -1,0 +1,27 @@
+{
+  "old": "8c8f1e08-d8c6-43c4-afb8-a53ca5aa1e01",
+  "fresh": "667e0998-70fb-4388-8ceb-917ba281a831",
+  "statuses": [
+    409,
+    200
+  ],
+  "event": "failed|3",
+  "pages": [
+    {
+      "n": 20,
+      "pins": 20
+    },
+    {
+      "n": 20,
+      "pins": 5
+    },
+    {
+      "n": 8,
+      "pins": 0
+    }
+  ],
+  "total": 48,
+  "unique": 48,
+  "sqlExactOrder": true,
+  "audit46Pinned": true
+}
