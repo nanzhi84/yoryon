@@ -1,5 +1,6 @@
 /** 应用级数据迁移：数据库包只负责 SQL，公开正文投影使用生产同一 Markdown 规则。 */
 import { and, eq, isNull, sql } from "drizzle-orm";
+import { randomUUID } from "node:crypto";
 import { contents, type Database } from "@yoryon/db";
 import { truncateForPreview } from "./preview";
 import { enqueueCacheEvent } from "./cache-events";
@@ -20,7 +21,9 @@ export async function backfillContentPreviews(db: Database, mediaBlockWeight: nu
         const body = typeof original?.body_markdown === "string" ? original.body_markdown : row.bodyMarkdown;
         const preview = row.visibility === "public" ? row.bodyMarkdown
           : truncateForPreview(body, row.previewMode, row.previewPercent, { mediaBlockWeight }).freeMarkdown;
-        await tx.update(contents).set({ publicPreviewMarkdown: preview, previewRevision: row.revision })
+        const revision = randomUUID();
+        // null 阶段若曾生成空预览缓存，回填轮换门禁版本，旧 key 立即不可达。
+        await tx.update(contents).set({ publicPreviewMarkdown: preview, previewRevision: revision, revision, updatedAt: new Date() })
           .where(and(eq(contents.id, row.id), eq(contents.revision, row.revision)));
       }
       // 同事务推进版本，保证回填后的 Feed 不复用迁移中空预览的缓存。
