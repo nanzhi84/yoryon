@@ -70,11 +70,10 @@ test.describe("内容展示与预览截断", () => {
     await page.goto(`/p/${PUBLIC_SLUG}`);
     await expect(page.getByRole("heading", { name: "公开文章" })).toBeVisible();
     await expect(page.getByText("公开标题")).toBeVisible();
-    const img = page.locator(`img[src^="/api/media/"]`).first();
+    const img = page.locator(`img[src^="/api/images/"]`).first();
     await expect(img).toBeVisible();
-    // 图片可加载（经 BFF 302 → 签名 URL）
-    const naturalWidth = await img.evaluate((el: HTMLImageElement) => el.naturalWidth);
-    expect(naturalWidth).toBeGreaterThan(0);
+    // Anonymous images use the gated byte cache, including original vector SVG.
+    await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.naturalWidth)).toBeGreaterThan(0);
   });
 
   test("草稿状态内容对外不可见", async ({ page }) => {

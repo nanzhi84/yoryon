@@ -27,7 +27,7 @@ test("图片派生：白名单宽度、真实缩放、签名防篡改与付费�
   expect(data.readUInt32BE(20)).toBe(180);
   expect((await request.get(location.replace("width=320", "width=640"))).status()).toBe(403);
   await page.goto(`/p/${slug}`);
-  await expect(page.getByRole("img", { name: "可缩放图片" })).toHaveAttribute("srcset", /width=320/);
+  await expect(page.getByRole("img", { name: "可缩放图片" })).toHaveAttribute("srcset", /\/320 320w/);
   await runCliOk(["publish", await createPost({ ...spec, visibility: "paid", previewMode: "none" })]);
   expect((await request.get(`/api/media/${id}?width=320`, { maxRedirects: 0 })).status()).toBe(403);
   await info.attach("image variants", { body: JSON.stringify({ width: 320, height: 180, assertions: ["invalid width rejected", "real resize", "signature bound to width"] }), contentType: "application/json" });

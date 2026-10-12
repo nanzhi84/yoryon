@@ -37,7 +37,7 @@ export function ContentView({ initial: content }: { initial: ContentDetail }) {
           </div>
         </header>
 
-        {content.visibility === "paid" ? <PrivateReader initial={content} preview={<ContentBody content={content} />} /> : <ContentBody content={content} />}
+        {content.visibility === "paid" ? <PrivateReader initial={content} preview={<ContentBody content={content} publicImages />} /> : <ContentBody content={content} publicImages />}
       </main>
     </>
   );

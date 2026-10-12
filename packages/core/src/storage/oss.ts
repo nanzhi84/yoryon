@@ -4,6 +4,7 @@
  * - 仅签发短期签名 GET URL；桶写/删权限只授予 CLI 发布身份（ADR §12 凭证分离）。
  */
 import OSS from "ali-oss";
+import { IMAGE_WEBP_QUALITY } from "@yoryon/config/image-variants";
 import { BYTES_CACHE_CONTROL, type ListedObject, type MediaStorage, type StoredObjectMeta } from "./interface";
 
 export interface OssStorageOptions {
@@ -79,7 +80,8 @@ export class OssStorage implements MediaStorage {
     return out;
   }
 
-  async signGetUrl(key: string, ttlSec: number, width?: number): Promise<string> {
-    return this.client.signatureUrl(key, { expires: ttlSec, ...(width ? { process: `image/resize,w_${width},limit_1` } : {}) });
+  async signGetUrl(key: string, ttlSec: number, width?: number, format?: "webp"): Promise<string> {
+    const process = ["image", ...(width ? [`resize,w_${width},limit_1`] : []), ...(format ? [`quality,Q_${IMAGE_WEBP_QUALITY}`, "format,webp"] : [])].join("/");
+    return this.client.signatureUrl(key, { expires: ttlSec, ...(width || format ? { process } : {}) });
   }
 }

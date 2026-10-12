@@ -1,5 +1,5 @@
 {$API_DOMAIN} {
-	# Until Issue #6 implements publication invalidation, never cache an authorization redirect.
+	# Signed authorization redirects stay private; the web byte cache has its own live gate.
 	header /api/media/* >Cache-Control "private, no-store"
 	reverse_proxy api:4000 {
 		header_up X-Forwarded-For {remote_host}

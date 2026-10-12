@@ -56,3 +56,8 @@ body {
   margin-top: 1em;
   margin-bottom: 1em;
 }
+/* Semantic inline code already conveys its boundary; no Markdown decoration. */
+.prose-yoryon :where(code)::before,
+.prose-yoryon :where(code)::after {
+  content: none;
+}

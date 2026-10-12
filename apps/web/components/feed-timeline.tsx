@@ -1,4 +1,4 @@
-import { imageSrcSet } from "@yoryon/config/image-variants";
+import { imageSrcSet, publicImageUrl } from "@yoryon/config/image-variants";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { TrackClickLink, TrackImpression } from "@/components/analytics";
@@ -34,7 +34,7 @@ function ContentEntry({ item }: { item: FeedContentItem }) {
             {/* 受控比例容器（明确的 UI 裁切选择）+ 加载前占位，消除封面 CLS（F08） */}
             <div className="aspect-video w-full overflow-hidden rounded-lg bg-muted">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`/api/media/${item.coverMediaId}`} srcSet={imageSrcSet(item.coverMediaId)} sizes="(max-width: 768px) 100vw, 768px" alt={item.title} loading="lazy" className="h-full w-full object-cover" />
+              <img src={publicImageUrl(item.coverMediaId)} srcSet={imageSrcSet(item.coverMediaId, undefined, true)} sizes="(max-width: 768px) 100vw, 768px" alt={item.title} loading="lazy" className="h-full w-full object-cover" />
             </div>
           </TrackClickLink>
         )}

@@ -11,12 +11,13 @@ import type { Root, RootContent, Image, Paragraph } from "mdast";
 import type { LeafDirective } from "mdast-util-directive";
 import remarkParse from "remark-parse";
 import remarkDirective from "remark-directive";
+import remarkCjkFriendly from "remark-cjk-friendly/parseOnly";
 import { unified } from "unified";
 import { visit } from "unist-util-visit";
 
 export const MEDIA_URL_PREFIX = "/api/media/";
 
-export const parser = unified().use(remarkParse).use(remarkDirective);
+export const parser = unified().use(remarkParse).use(remarkCjkFriendly).use(remarkDirective);
 
 export function parseMarkdown(markdown: string): Root {
   return parser.parse(markdown) as Root;

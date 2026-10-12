@@ -17,6 +17,7 @@ import { analyticsRoutes } from "./routes/analytics";
 import { cacheRoutes } from "./routes/cache";
 import { sitemapRoutes } from "./routes/sitemap";
 import { createPublicPolicy } from "./public-policy";
+import { publicImageRoutes } from "./routes/public-images";
 
 export function createApp(deps: AppDeps) {
   const app = new Hono<{ Variables: AppVariables }>();
@@ -60,6 +61,7 @@ export function createApp(deps: AppDeps) {
   const policy = createPublicPolicy(deps.db);
   app.route("/api", contentRoutes(deps, policy));
   app.route("/api", mediaRoutes(deps));
+  app.route("/api", publicImageRoutes(deps, policy));
   app.route("/api", redemptionRoutes(deps));
   app.route("/api", analyticsRoutes(deps));
   app.route("/api", cacheRoutes(deps, policy));
