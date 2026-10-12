@@ -35,6 +35,8 @@ export function authMiddleware(db: Database) {
       ((c.req.method === "GET" || c.req.method === "HEAD") &&
         /^\/api\/(?:contents\/[^/]+\/comments)$/.test(path));
     if (publicLine) { await next(); return; }
+    // 身份线默认禁止共享缓存，包含认证失败/不存在的错误；公开字节路由自行声明身份无关的缓存策略。
+    c.header("Cache-Control", "private, no-store");
     const header = c.req.header("authorization");
     if (header?.startsWith("Bearer ")) {
       const token = header.slice("Bearer ".length).trim();
