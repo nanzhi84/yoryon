@@ -1,0 +1,15 @@
+# dd445c6 分页错误链路闭环验证（主 agent 现场执行，2026-10-12）
+# 环境：隔离 API :4321 / Web :3101（含 dd445c6 重建）
+
+## 1. 旧格式 feed 游标经 BFF 版本化分页路由
+GET /api/pages/<当前version>/feed/<base64url({"t","id"} 无 p 字段)>
+HTTP 400  cache-control: private, no-store
+body: {"error":{"code":"invalid_cursor","message":"分页游标无效，请刷新列表"}}
+→ Route Handler 透传 400 与错误码，不再是 500；LoadMore 对 invalid_cursor 走刷新恢复路径（load-more.tsx）
+
+## 2. 旧版本经 middleware
+GET /api/pages/00000000-0000-0000-0000-000000000000/feed/<任意游标>
+HTTP 409  body: {"error":"snapshot_expired"}
+→ LoadMore 已有 409 刷新入口
+
+结论：PASS。错误链路闭环：API 400 → BFF 透传 → 客户端刷新提示。
