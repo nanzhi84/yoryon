@@ -1,0 +1,19 @@
+Independent agent executed: pnpm typecheck
+Environment: /Users/yoryon/Projects/yoryon; Node v24.20.0; pnpm 11.8.0
+Command tool session: 84685; final exit_code: 0
+Result receipt from actual command output:
+✓ Lockfile passes supply-chain policies (654 entries in 14.2s)
+Scope: 6 of 7 workspace projects
+packages/config typecheck$ tsc --noEmit
+packages/config typecheck: Done
+apps/web typecheck$ tsc --noEmit
+packages/db typecheck$ tsc --noEmit
+apps/web typecheck: Done
+packages/db typecheck: Done
+packages/core typecheck$ tsc --noEmit
+packages/core typecheck: Done
+apps/cli typecheck$ tsc --noEmit
+apps/api typecheck$ tsc --noEmit
+apps/cli typecheck: Done
+apps/api typecheck: Done
+Limitation: static types only, not business acceptance.

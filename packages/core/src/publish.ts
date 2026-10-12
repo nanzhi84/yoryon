@@ -142,7 +142,6 @@ async function withRetry<T>(fn: () => Promise<T>, what: string): Promise<T> {
 
 /**
  * 发布目录（按 slug upsert，幂等可重试）。
- * 测试钩子：环境变量 BLOG_PUBLISH_TEST_HOOK=fail-after-upload 在上传完成后、事务前抛错（E2E 用）。
  */
 export async function publishPost(deps: PublishDeps, dir: string): Promise<PublishResult> {
   const log = deps.logger ?? (() => {});
@@ -184,28 +183,6 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
       await withRetry(() => deps.storage.put(f.ossKey, data, { contentType: f.mime }), `PUT ${f.ossKey}`);
       uploaded.push(f.ossKey);
       log(`uploaded: ${ref} → ${f.ossKey}`);
-    }
-
-    // ---- 测试钩子（E2E 同步点；生产不设置） ----
-    const testHook = process.env.BLOG_PUBLISH_TEST_HOOK;
-    if (testHook === "fail-after-upload") {
-      throw new Error("BLOG_PUBLISH_TEST_HOOK: fail-after-upload");
-    }
-    if (testHook === "signal-after-upload") {
-      // 持锁暂停：写 paused-<slug> 信号文件，等待 resume-<slug> 出现（竞态测试的可控同步点）
-      const dir = process.env.BLOG_TEST_SIGNAL_DIR;
-      if (!dir) throw new Error("BLOG_TEST_SIGNAL_DIR required for signal-after-upload");
-      const fs = await import("node:fs/promises");
-      const pathMod = await import("node:path");
-      await fs.mkdir(dir, { recursive: true });
-      await fs.writeFile(pathMod.join(dir, `paused-${fm.slug}`), String(Date.now()));
-      const deadline = Date.now() + 60_000;
-      for (;;) {
-        const resume = await fs.stat(pathMod.join(dir, `resume-${fm.slug}`)).then(() => true, () => false);
-        if (resume) break;
-        if (Date.now() > deadline) throw new Error("signal-after-upload: resume timeout");
-        await new Promise((r) => setTimeout(r, 100));
-      }
     }
 
     // ---- 阶段 B：单事务提交（与锁同一连接） ----

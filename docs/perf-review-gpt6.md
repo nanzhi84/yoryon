@@ -1,5 +1,6 @@
 # Yoryon monorepo 深度性能 Review
 
+> 历史证据：文中的测试套件与固定验证脚本已移除，不作为当前运行入口；后续验收遵循根目录 AGENTS.md 的独立子 agent 规则。
 > 审计范围：`apps/web`、`apps/api`、`packages/core`、`packages/db`，以及相关部署配置、ADR 和 E2E 测试。  
 > 版本依据：`apps/web/package.json:26`、`pnpm-lock.yaml:136-138`，并核对本地安装的 Next.js **15.5.27** 实现。  
 > 审计方式：只读源码审计；没有运行构建、测试、Lighthouse、生产请求或 SQL。下文严格区分【已确认事实】与【推断／待生产验证】。未修改已有文件。

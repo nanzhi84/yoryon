@@ -11,7 +11,7 @@ coverage/
 .env.*
 !.env.example
 
-# e2e artifacts
+# historical local acceptance data (preserve existing previews)
 e2e/test-results/
 e2e/playwright-report/
 e2e/.data/
@@ -24,10 +24,6 @@ e2e/.data/
 
 # build info
 *.tsbuildinfo
-# e2e artifacts
-e2e/.data/
-e2e/test-results/
-e2e/playwright-report/
 .vercel
 
 # acceptance artifacts: exclude heavyweight archives (screenshots/logs stay)

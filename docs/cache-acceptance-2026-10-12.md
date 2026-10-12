@@ -1,5 +1,6 @@
 # Issue #5 / #6 验收，2026-10-12
 
+> 历史证据：文中的测试套件与固定验证脚本已移除，不作为当前运行入口；后续验收遵循根目录 AGENTS.md 的独立子 agent 规则。
 实现 API/CLI 镜像源为 `8390932763146fe2a23b6dec07e408c4ab374576`；实际 Vercel Production 候选验证后提升为 `dpl_2oWmXAMwuG7RvqSPxkTqKGjb6yiB`，源 `ea26f985161e70b54dd291669dcaabc0cccb932c`。后续提交仅部署资源隔离、工件排除、诊断及验收脚本/E2E，API/web/core 运行时代码未变。main 合并后的 Vercel 部署须另行核对最终 SHA。
 
 | 环境与合同 | 结果与边界 |

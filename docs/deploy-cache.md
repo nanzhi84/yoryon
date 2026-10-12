@@ -17,23 +17,7 @@ sudo /opt/yoryon/blog cache retry
 
 前端：核对 `.vercel/project.json` 的 team/project/root，`vercel deploy --prod --skip-domain --meta githubCommitSha=<full SHA>`；候选部署真实 GET 返回正确正文、重复读取 HIT、缺失 slug 404 后才 promote。`.vercelignore` 排除本地来源、工件、环境和构建输出。Preview 只读取公开 API；使用独立非生产 BFF secret、不可匹配的 Origin allowlist，禁止写入，不含数据库/缓存管理凭据。
 
-可重复验证（按顺序执行，禁止并行）：
-
-```sh
-pnpm typecheck
-pnpm e2e
-# pnpm build 的静态生成需要 e2e/helpers/env.ts 的隔离 API/数据库环境
-node deploy/verify-cache-production.mjs baseline  # 必须在旧版本执行，保留相同 fixture
-# 部署完成后
-node deploy/verify-cache-production.mjs after
-YORYON_ACCEPTANCE_ARTIFACT_DIR=../artifacts/performance-20261012/after-business/ node deploy/verify-production.mjs https://yoryon.com --browser --oss
-node deploy/verify-cli-resources.mjs
-node deploy/verify-oss-derivative.mjs
-node deploy/verify-cache-production.mjs cleanup
-pnpm exec tsx deploy/verify-notion-publication.ts
-```
-
-baseline/after 会在公开站点短暂创建唯一前缀合成文章，cleanup 只删除其自身 fixture。依赖 SSH 权限、已安装 Playwright Chromium、protected cache config；不保存密钥、Cookie、付费内容或签名 URL。文章来源目录与图片 manifest 放在本地 artifacts，验收脚本只读取不修改 Notion。
+验收由独立子 agent 按影响范围现场执行，生产 CLI 操作必须串行。核对真实公开文章与缓存回执，涉及权益时覆盖匿名和授权结果、撤销后的访问边界。生产写入与邮件发送须具备用户授权，验收工件脱敏；不维护合成 fixture 或固定断言脚本。文章来源及图片 manifest 只读核对，不修改 Notion。
 
 缓存工件在 `artifacts/performance-20261012/`；文章工件在 `artifacts/notion-publication-20261012/`。请求日志统计 `serverless` 与 `edge-middleware/static`，结合相同 slug 的 API 正文/门禁调用计数；两类调用不能合并为“零函数调用”。免费计划聚合指标查询会返回 payment_required，不能据此声称平台总体用量下降。
 
@@ -45,9 +29,5 @@ baseline/after 会在公开站点短暂创建唯一前缀合成文章，cleanup 
 
 Vercel 字节 TTL 86400 秒；浏览器每次校验，合法 ETag 返回 304。转付费或下架后的新请求（含旧 ETag）拒绝，暖 CDN 字节不得旁路门禁。原图/付费媒体继续通过 `/api/media/` 私有鉴权链路；浏览器已取得的副本不在可召回范围。
 
-```sh
-pnpm --dir e2e test tests/article-formatting.spec.ts tests/public-image-cache.spec.ts
-node deploy/verify-public-image-cache.mjs  # 串行唯一生产 fixture；创建后自动清理
-pnpm exec tsx deploy/verify-notion-publication.ts
-node deploy/verify-article-images.mjs     # 三篇真实文章、压缩/缓存/浏览器证据
-```
+
+后续缓存与发布验收由独立子 agent 按根目录 `AGENTS.md` 现场执行，记录匿名/授权缓存隔离、撤权、图片实际字节与最终浏览器结果；历史工件不作为当前测试入口。

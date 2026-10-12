@@ -69,7 +69,7 @@
 | 会话 | DB Session + HttpOnly Cookie（host-only） | 可撤销，30 天滑动过期 |
 | OSS | ali-oss SDK | 统一私有桶 + 签名 URL |
 | 邮件 | nodemailer（SMTP） | 生产接 DirectMail SMTP，开发用 Mailpit，一套代码 |
-| 测试 | Playwright E2E | 唯一测试机制，走真实用户路径 |
+| 验收 | 独立子 agent | 按变更影响现场验证真实用户路径，记录证据与未覆盖项 |
 
 明确排除：Magic UI、Aceternity 及一切动画框架；HLS 转码、DRM 与视频处理平台；Redis、消息队列与工作流引擎；微服务。
 
@@ -86,7 +86,6 @@ yoryon/
 │  ├─ core/       # 领域逻辑：canAccess、预览截断、激活码、邮件（api 与 cli 共用）
 │  └─ config/     # 环境变量校验（zod）、共享类型与常量
 ├─ deploy/        # docker-compose.yml、Caddyfile、备份脚本
-├─ e2e/           # Playwright 端到端测试
 └─ docs/          # 本文档 + adr/
 ```
 
@@ -481,7 +480,7 @@ IP 解析优先级（API 侧）：
 | `/api/media/:id` 302 — 命中免费规则（§6.3 规则 1/2，身份无关） | `Cache-Control: public, max-age=300`（必须 < 签名 TTL 900s） |
 | `/api/media/:id` 302 — 命中权益规则（§6.3 规则 3） | `Cache-Control: private, no-store`（缓存付费 302 = 签名 URL 泄露） |
 
-硬性规则：任何渲染权益相关内容的页面禁止 ISR/revalidate；任何读取 session 的端点必须 no-store。由 E2E 验证（§13）。
+硬性规则：任何渲染权益相关内容的页面禁止 ISR/revalidate；任何读取 session 的端点必须 no-store。由独立子 agent 现场验收（§13）。
 
 ## 11. CLI 管理工具（apps/cli）
 
@@ -529,7 +528,7 @@ published_at: 2026-01-01
 - **域名**：`www.example.com` → Vercel；`api.example.com` → ECS（Caddy 自动 TLS）。需自有域名；ECS 在境内需备案。Vercel 境内访问不稳定，若读者主要在境内，web 层可整体平移阿里云（前后端已解耦，BFF 代理摘掉即可直连）。
 - **Caddy**：终止 TLS；`reverse_proxy` 覆写 `X-Forwarded-For` 为连接方真实 IP（丢弃客户端传入值）。
 - **docker-compose**：`postgres`（数据卷）+ `migrate`（建表/迁移，`service_completed_successfully` 后才启动 `api`）+ `api` + `caddy`。Postgres 仅容器内网与宿主机回环（SSH 隧道）；Caddy 为唯一公网入口。
-- **存量库升级预检**：0001 迁移把 `users.username` 转为 citext（大小写不敏感唯一）。若历史库已存在仅大小写不同的用户名（如 Alice / alice），迁移会因唯一约束冲突失败——迁移在单事务中执行，失败即整体回滚，数据库保持一致（E2E `migration.spec.ts` 锁定）。升级前先执行预检并人工合并冲突账号：
+- **存量库升级预检**：0001 迁移把 `users.username` 转为 citext（大小写不敏感唯一）。若历史库已存在仅大小写不同的用户名（如 Alice / alice），迁移会因唯一约束冲突失败——迁移在单事务中执行，失败即整体回滚，数据库保持一致（变更涉及迁移时由独立子 agent 现场验收）。升级前先执行预检并人工合并冲突账号：
   ```sql
   SELECT lower(username), count(*) FROM users GROUP BY 1 HAVING count(*) > 1;
   ```
@@ -539,29 +538,13 @@ published_at: 2026-01-01
 - **备份**：每日 cron `pg_dump | gzip` → OSS 私有备份桶（lifecycle 保留 30 天）。
 - **日志**：api 结构化日志（请求 id、用户 id、解析后 IP 及来源、耗时），不记录密码、验证码、激活码明文、签名 URL 参数。
 
-## 13. E2E 验收策略（唯一测试机制）
+## 13. 独立子 agent 验收
 
-环境：本地 `docker compose`（api + postgres + Mailpit + web dev server）+ seed 数据隔离；Playwright 走真实浏览器路径；产出 HTML 报告、截图、trace 作为验收工件（不含敏感信息）。对象存储经 packages/core 的存储接口抽象（生产 = ali-oss；E2E = 文件系统实现 + 本地模拟签名 URL），媒体路径可在本地完整验收——该接口仅服务可测试性，不是插件机制。
+验收规则以根目录 `AGENTS.md` 为准。不维护固定测试套件、断言脚本或合成 fixture/harness；由独立子 agent 按实际变更选择用户路径、失败方式和边界，现场执行浏览器、CLI、API、SQL、媒体字节及最终可见结果核对。
 
-验收路径：
+涉及认证与付费内容时覆盖登录、预览、兑换、撤权和缓存隔离；涉及发布与存储时覆盖幂等、失败恢复、媒体访问和 GC 并发；涉及前端时覆盖深浅主题、手机视口、错误与重试。上述是按影响选择的业务风险，不是固定断言清单。
 
-1. 注册 → Mailpit 收码 → 验证 → 登录 → 登出；密码重置全流程，重置后旧会话失效。
-2. 匿名可读公开内容全文；草稿状态内容对外不可见。
-3. 付费文章：匿名/未授权仅见预览（分别验证 percent 与 marker 两种模式，断言付费块与付费媒体不出现在响应中）。
-4. CLI 生成激活码 → 用户兑换 → 同内容全文可见；重复兑换返回幂等成功且计数不增；同码并发兑换不超发。
-5. **订阅区间链**：连续兑换两个 30 天订阅 → 有效覆盖 60 天（断言 `valid_until` 接续）；不同订阅码并发兑换 → 有效期不丢失（总覆盖 = 两码之和）；撤销中间一笔 → 剩余区间计算正确（空洞语义明确）；全部撤销 → 回落预览态；过期（短时权益 seed）→ 回落预览态。
-6. 合集授权 → 合集内成员解锁；CLI 向合集新增内容后，旧授权自动覆盖新内容。
-7. 订阅兑换 → 全部付费内容解锁。
-8. **CSRF**：非法 Origin 的 Cookie 写请求被 403；无 Origin 且 `Sec-Fetch-Site: cross-site` 被拒；合法 Origin 正常放行。
-9. **IP 信任**：直连 API 伪造 `X-Forwarded-For` / `X-Client-IP`（无有效 BFF Token）→ 限流按真实连接 IP 计数，无法绕过；审计日志记录解析后 IP 与来源。
-10. **媒体播放**：预览区媒体匿名可加载（302 且为公共缓存头）；付费区媒体匿名 403；授权后 302 可取字节；Video.js 播放私有视频时 Range 请求返回 206；签名 URL 过期后播放器自动重取并恢复播放进度。
-11. **曝光翻转**：曾免费的媒体转为付费后，匿名访问立即 403（无历史公开 URL 残留）。
-12. **发布管线**：模拟 DB 失败 → 重跑 `blog publish` 幂等收敛（同 slug upsert、媒体不重复上传）；更新已发布内容中途失败 → 旧版本仍可访问；多文引用同一媒体时，取消发布/删除其一 → 媒体仍可访问且 GC 不误删；GC dry-run 报告与实际删除一致。
-13. **缓存隔离**：授权用户访问详情页后，匿名请求同 URL 仍为预览版，并断言响应头；付费媒体 302 无共享缓存头；免费媒体 302 公共缓存头 max-age < 签名 TTL。
-14. 撤销兑换 → 用户回落预览态，媒体同步 403。
-15. 限流触发：login/redeem 超阈值返回 429，恢复窗口后可正常操作。
-16. **GC 与发布并发**：构造年龄 >24h 的孤儿对象，同时执行 `blog publish`（命中 HEAD 跳过上传的路径）与 `blog media gc --apply` → 两者经 advisory lock 串行；断言最终已发布内容引用的全部媒体经 `/api/media/:id` 可访问，无悬挂引用。
-17. **Analytics V1**（docs/analytics.md）：首页卡片 ≥50% 可视且连续 1s 记一次 impression（重复进出视口/后台不重复计数）；标题/封面点击记 click 且预取不产生事件；站外直达详情页只有 view 无 click；刷新/客户端导航各计一个 view 实例；前台累计 10s 记一次 read（切后台暂停）；合集与作品独立统计；非法/超批/重放事件被校验、幂等去重；CLI 四项指标与 CTR/Read Rate（分母零 N/A）正确。
+使用隔离数据库、配置与存储，记录 PASS / FAIL / UNVERIFIED / UNKNOWN 和未覆盖项。工件放入 `artifacts/<运行名>/`，留存版本、实际命令、环境与必要脱敏证据；不新增可执行测试程序。构建、HTTP 成功或历史报告不能单独证明业务通过。
 
 ## 14. ADR 索引
 

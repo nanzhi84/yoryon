@@ -1,0 +1,35 @@
+{
+  "blocks": [
+    {
+      "background": "rgb(246, 248, 250)",
+      "colors": [
+        "rgb(36, 41, 46)",
+        "rgb(106, 115, 125)",
+        "rgb(215, 58, 73)",
+        "rgb(111, 66, 193)",
+        "rgb(3, 47, 98)"
+      ],
+      "text": "# 中文注释\ndef answer(state):\n    return \"<script>alert(1)</script>\"\n"
+    },
+    {
+      "background": "rgb(246, 248, 250)",
+      "colors": [
+        "rgb(36, 41, 46)",
+        "rgb(215, 58, 73)",
+        "rgb(0, 92, 197)"
+      ],
+      "text": "const answer = true;\n"
+    },
+    {
+      "background": "rgb(246, 248, 250)",
+      "colors": [],
+      "text": "    literal <b> & `tick`\n"
+    },
+    {
+      "background": "rgb(246, 248, 250)",
+      "colors": [],
+      "text": "    literal <b> & `tick`\n"
+    }
+  ],
+  "theme": ""
+}

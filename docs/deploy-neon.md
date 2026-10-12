@@ -53,23 +53,17 @@ sudo docker compose -f compose.neon.yml run --rm cli publish /posts/<slug>
 sudo docker compose -f compose.neon.yml run --rm cli content list
 ```
 
-当前版本不是公开文章静态化版本；Issue #6 另行实施。生产媒体已切换为新加坡私有 OSS；本地/E2E 继续使用隔离 FS。
+当前版本不是公开文章静态化版本；Issue #6 另行实施。生产媒体已切换为新加坡私有 OSS；本地开发与隔离验收继续使用 FS。
 
 ## 验收与备份
 
 ```sh
 pnpm typecheck
-pnpm e2e
-node deploy/verify-production.mjs https://yoryon.com --browser --smtp-ready --oss
-node deploy/verify-production-mail.mjs --email <明确授权的无网站账号 Gmail 地址>
 ```
 
-E2E 只使用 `e2e/helpers/env.ts` 中固定的本地 Docker PostgreSQL、Mailpit 和合成内容，不允许替换成生产数据库。
-验收报告应区分本地完整流程、生产 API、生产浏览器以及真实邮件投递，不以 `/health` 代替业务通过。
+由主 agent 开独立子 agent，按根目录 `AGENTS.md` 现场验收。报告应区分本地完整流程、生产 API、生产浏览器以及真实邮件投递，不以 `/health` 代替业务通过；真实邮件只发送给明确授权的收件人。固定验证脚本已移除，历史验收工件仅为当时证据。
 
-生产脚本与本地 E2E 分开：需要本机 `~/.config/yoryon-production/secrets.json` 中的生产 CLI 连接、该实例 SSH 权限，以及已安装的 E2E Chromium。`verify-production.mjs` 通过服务器 CLI 发布唯一前缀的合成内容，建立 active 测试账号，走页面登录、兑换、阅读、撤权和下线，最后仅清理自身数据；不会发邮件，也不会将夹具账号建立当作注册验收。运行期间临时内容可在公开站点出现。`--smtp-ready` 工件写入 `artifacts/production-mail-ready-20261012/`，此前 SMTP 关闭阶段的 `artifacts/production-20261012/` 保留历史记录。
 
-`verify-production-mail.mjs` 仅向明确授权且没有现有网站账号的邮箱发送注册和重置两封邮件。脚本输出 `AWAIT_MAIL` 后，操作者通过 Gmail 连接器验证真实邮件的 headers/labels，将 `{run,purpose,sender,messageId,labelIds,authentication:{spf,dkim,dmarc},source:"gmail_connector"}` 写入受保护配置目录的 `<purpose>.receipt.json`（0600）。Gmail 隐藏一次性验证码，由人从真实邮件取码并填写同目录 `mail-acceptance-codes.json` 的 `register` / `password_reset` 字段；保留脚本生成的 run 标识。每阶段有界等待 8 分钟，不读取数据库中的验证码。工件写入 `artifacts/directmail-20261012/attempts/<run>/`，仅含脱敏截图、消息 ID 哈希、断言和清理状态；结束擦除取码文件中的值。最新报告另存 `real-mail-acceptance.json`。临时账号按邮箱、唯一用户名与创建时间核对后删除，不修改已有账号。不保存密码、验证码、Cookie、SMTP 凭据或邮件正文。
 
 服务器以 root 执行 `/opt/yoryon/backup-neon.sh`，生成数据库与媒体的校验和，保留 7 天。OSS 模式由 `/opt/yoryon/backup-oss.py` 流式下载 `media/`，逐对象核对内容寻址 SHA256 与尺寸，归档中包含对象 manifest；本地 FS 模式仍备份文件目录。备份仍在同一台机器，应下载到独立设备。
 恢复到隔离数据库后验证，再考虑切换生产；不要直接覆盖运行数据库。应用回滚：将 `.env` 的镜像标签改回上一版，重新 `up -d --wait`，迁移兼容性另行检查。
@@ -84,10 +78,7 @@ API RAM 身份 `yoryon-oss-api` 只允许 `media/*` GetObject；CLI `yoryon-oss-
 
 ```sh
 node deploy/configure-production-oss.mjs --verify-only
-node deploy/verify-production.mjs https://yoryon.com --browser --smtp-ready --oss
-node deploy/verify-oss-backup.mjs
 ```
 
-前提：本机受保护的 OSS/API/CLI 数据库凭据、SSH 权限、已安装的 E2E Chromium。验收只生成唯一标识的合成对象、文章和账号，结束仅清理这些数据；工件在 `artifacts/oss-20261012/`，不保留签名 URL、凭据或 Cookie。真实邮件仍以 `artifacts/directmail-20261012/real-mail-acceptance.json` 的独立验收为准；OSS 切换不修改 SMTP。
 
 配置切换失败会恢复 `/etc/yoryon/{api,cli}.pre-oss.env` 并重建 API。成功上线后若已经有 OSS 文章，不能直接恢复空 FS：必须先按数据库引用将媒体下载回 FS 并核对哈希，再恢复配置。保留原 FS 目录与预切换配置，不把它们当成当前媒体备份。

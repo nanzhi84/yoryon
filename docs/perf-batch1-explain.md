@@ -1,5 +1,6 @@
 # F09a 索引取证（issue #3 批次一 §4.7：只测量，不改索引）
 
+> 历史证据：文中的测试套件与固定验证脚本已移除，不作为当前运行入口；后续验收遵循根目录 AGENTS.md 的独立子 agent 规则。
 > **基线性质声明**：数据来自 E2E 测试库 `yoryon_test`（56 篇 published / 2 个标签 / 49 条 content_tags），
 > 采集于 2026-10-11（完整 `pnpm --filter @yoryon/e2e test` 之后）。这是**测试库基线，生产取证待完成**——
 > 生产内容量增长后需以生产 `EXPLAIN (ANALYZE, BUFFERS)` 复核，本文不替代生产测量。

@@ -1,8 +1,0 @@
-# E2E：模拟生产 Caddy 行为（覆写 XFF 为连接方真实 IP）
-:4199 {
-	encode zstd gzip
-	reverse_proxy host.docker.internal:4101 {
-		header_up X-Forwarded-For {remote_host}
-		header_up -X-Real-Ip
-	}
-}

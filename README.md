@@ -16,7 +16,6 @@ Monorepo（pnpm workspaces）：
 | `packages/db` | Drizzle schema + 迁移 |
 | `packages/config` | zod 环境变量校验（启动即失败） |
 | `deploy/` | 生产 docker-compose（postgres + migrate + api + caddy）、备份/恢复脚本 |
-| `e2e/` | Playwright 端到端测试（唯一自动化测试机制） |
 
 架构与关键决策见 `docs/architecture.md` 与 `docs/adr/0001~0006`。
 
@@ -41,7 +40,6 @@ pnpm build          # 全部构建（api/cli 走 tsup，web 走 next build）
 pnpm typecheck      # 全部类型检查
 pnpm db:generate    # 改 schema 后生成迁移
 pnpm db:migrate     # 执行迁移
-pnpm e2e            # 端到端测试（见下）
 ```
 
 ## CLI（本地管理，经 SSH 隧道连生产库）
@@ -117,23 +115,8 @@ docker compose up -d      # postgres + migrate（建表，失败则 api 不上�
 
 前端 `apps/web` 部署到 Vercel，环境变量：`API_INTERNAL_URL=https://<API_DOMAIN>`、`BFF_SHARED_SECRET`（与 API 相同）、`ALLOWED_ORIGINS=https://<域名>`、`SITE_URL`。Vercel 无法直连 ECS 内网，BFF 统一经 Caddy 公网入口回源；终端用户 IP 由 BFF 共享密钥 + `X-Client-IP` 传递（ADR-0001 §9.5），不依赖内网直达。也可把 web 一并跑在 compose 里（自行加服务，此时 `API_INTERNAL_URL=http://api:4000`），Caddyfile 按域名拆分调整。
 
-## 端到端测试（唯一自动化测试机制）
+## 验收
 
-```bash
-pnpm e2e          # 或 cd e2e && pnpm exec playwright test
-```
+每次变更由主 agent 开独立子 agent，按影响范围现场执行真实浏览器、CLI、API 与数据库路径，检查失败方式、权限边界和最终可见结果。详见 `AGENTS.md`。
 
-- 基建：`e2e/docker-compose.e2e.yml`（postgres 54329 + mailpit 11125/11126 + caddy 4199 模拟 CDN/边缘回源）。
-- 每次运行：`global-setup.ts` 重建库（drop schema + migrate）、清空存储目录、用 ffmpeg 生成真实媒体 fixture、写 run-id。
-- 存储用文件系统模拟私有桶（`STORAGE_BACKEND=fs`），签名 URL 语义与 OSS 一致（HMAC + expires + 302 + Range）。
-- 可控同步点：`BLOG_PUBLISH_TEST_HOOK=signal-after-upload` + `BLOG_TEST_SIGNAL_DIR` 让发布进程在“已上传未入库”处停住，验证 GC/发布互斥与失败恢复。
-- 50 个用例覆盖全部 16 项验收与 PR 评审安全回归（`e2e/tests/`，用例头注释标注对应验收编号）。工件：`.data/`（api/web 日志、存储、posts）、`test-results/`（失败时 trace/截图）。
-
-## 关键不变量（实现与测试共同锁定）
-
-1. 付费正文与付费媒体 URL 绝不出现在未授权响应（API 层两路验证）。
-2. 媒体免费/付费判定取“该媒体可访问内容的免费最大份额”；内容按付费份额排序比较；曾免费的媒体转付费后 `/api/media/:id` 立即 403、停止签发新 URL（已签发 URL 在 TTL 内仍可取字节，见 architecture §6.3 撤销时效边界）。
-3. 兑换在单事务内：用户行锁 → 码行锁 → 幂等查重 → 条件 UPDATE 防超发 → 插入 redemption + entitlement；并发不超发、重复兑换幂等。
-4. 订阅接续：`valid_from = max(now, 未撤销订阅的最大 valid_until)`；撤销后回落预览态。
-5. 发布两阶段（先传对象后单事务入库），任意中断可安全重跑；与 GC 经 Advisory Lock 互斥；GC 宽限期（孤儿 24h / 零引用 7d）。
-6. 缓存隔离：公开线 `s-maxage`/`public`，私有线一律 `private, no-store`；BFF 写操作 CSRF 检查；API 仅信任带 BFF Token 的 `X-Client-IP`。
+不维护固定测试套件、断言脚本或合成 fixture/harness。`pnpm typecheck` 与 `pnpm build` 只提供静态与构建证据，不能替代业务验收。验收工件保存在 `artifacts/<运行名>/`，记录版本、环境、数据前提、实际命令、结果与未覆盖项；历史工件不是当前测试入口。
