@@ -111,6 +111,19 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
     });
   });
 
+  /** 标签总览（公开线；探索页用）：含已发布内容数，按数量降序。 */
+  app.get("/tags", async (c) => {
+    const rows = await deps.db
+      .select({ slug: tags.slug, name: tags.name, count: sql<number>`count(${contents.id})::int` })
+      .from(tags)
+      .leftJoin(contentTags, eq(contentTags.tagId, tags.id))
+      .leftJoin(contents, and(eq(contents.id, contentTags.contentId), eq(contents.status, "published")))
+      .groupBy(tags.id, tags.slug, tags.name)
+      .orderBy(desc(sql`count(${contents.id})`), tags.slug);
+    c.header("Cache-Control", "public, max-age=0, must-revalidate");
+    return c.json({ tags: rows });
+  });
+
   app.get("/contents/:slug", async c => {
     c.header("Cache-Control", "private, no-store");
     const data = await loadContentDetail(deps, c.req.param("slug"), c.get("auth")?.user ?? null);
