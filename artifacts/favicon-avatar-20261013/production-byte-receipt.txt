@@ -1,0 +1,5 @@
+favicon.ico 200 image/x-icon 6c506863076d35300d7fa4565c9c3012593a687b9ecc39f181313fd9f43bc53b local_equal True
+decoded (48, 48) {(32, 32), (16, 16), (48, 48)}
+6c506863076d35300d7fa4565c9c3012593a687b9ecc39f181313fd9f43bc53b  artifacts/favicon-avatar-20261013/production-favicon.ico
+33c7dc318b7e1f18621c61f30ef98096e88803aafeecbbe2b14bcde587286237  artifacts/favicon-avatar-20261013/production-icon.png
+57ecc0227b68904110ec833b1e58f92819777e430d7b8c43595c342bf343b785  artifacts/favicon-avatar-20261013/production-apple-icon.png
