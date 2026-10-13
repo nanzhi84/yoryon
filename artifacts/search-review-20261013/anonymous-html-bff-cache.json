@@ -1,0 +1,27 @@
+[
+  {
+    "case": "anonymous-paid-html",
+    "status": 200,
+    "privateProbePresent": false,
+    "codePrivatePresent": false
+  },
+  {
+    "case": "BFF-anonymous-search-network-exhausted",
+    "status": 429,
+    "cacheControl": "private, no-store",
+    "referrerPolicy": "no-referrer",
+    "internalAnonymousHeaderExposed": false,
+    "cookieHttpOnly": true,
+    "cookieSecure": true,
+    "response": {
+      "error": {
+        "code": "search_quota_exhausted",
+        "message": "本小时搜索次数已用完"
+      },
+      "quota": {
+        "remaining": 0,
+        "releasesAt": "2026-10-13T07:23:56.089Z"
+      }
+    }
+  }
+]

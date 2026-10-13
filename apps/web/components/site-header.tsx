@@ -6,6 +6,7 @@ import { ChevronDown, UserRound } from "lucide-react";
 import { Button } from "./ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { ThemeMenuItems } from "./theme-menu-items";
+import { SearchDialog } from "./search-dialog";
 import { NotificationBell } from "./notification-bell";
 
 export function SiteHeader() {
@@ -21,6 +22,7 @@ export function SiteHeader() {
           Yoryon
         </Link>
         <div className="flex items-center gap-1 sm:gap-2">
+          <SearchDialog />
           <NotificationBell />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

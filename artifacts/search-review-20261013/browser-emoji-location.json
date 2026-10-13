@@ -1,0 +1,9 @@
+{
+  "url": "http://localhost:3173/p/search-review-3#search=70d88b1a-b844-427a-b23e-9f66e8b3c63c&revision=3f94b37e-d469-46a3-a85f-4913c67318fe&start=36",
+  "text": "Yoryon\n首页\n订阅\n探索\n正文命中 1 / 1\n上一处\n下一处\n从首处开始\n帖子\n·\n2026年10月13日\n现场作品3\n\n描述连续词 XYZ\n\n精确字符标题\n\n中文连续原文 abcABC 空格 双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n\n重复命中 重复命中 重复命中 重复命中\n\nconst literal = \"代码连续命中\";\n\n\n跨行 连续文本\n\n评论\n\n登录 后参与评论\n\n还没有评论。",
+  "highlights": [
+    "Emoji😀跨",
+    "强调命中"
+  ],
+  "highlightCss": "rgb(253, 224, 71)"
+}

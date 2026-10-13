@@ -1,0 +1,153 @@
+[
+  {
+    "query": "独立父作品可搜",
+    "status": 200,
+    "response": {
+      "session": "0a62480d-d9af-42b9-abe0-7f0f84cbb1e8",
+      "query": "独立父作品可搜",
+      "results": [
+        {
+          "id": "4f5daf1e-c8cd-4958-bc60-8458fd679c53",
+          "type": "article",
+          "slug": "search-referrer",
+          "title": "引用父作品",
+          "description": "",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:30:45.694+08",
+          "canAccess": true,
+          "revision": "a0181c07-dbe1-4899-9aeb-31f71a914fc3",
+          "hits": [
+            {
+              "start": 0,
+              "end": 7,
+              "contextStart": 0,
+              "context": "独立父作品可搜正文。\n",
+              "nodes": [
+                {
+                  "id": "t0",
+                  "start": 0,
+                  "end": 7
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "nextCursor": null,
+      "quota": {
+        "remaining": null,
+        "releasesAt": null
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "query": "目标新标题",
+    "status": 200,
+    "response": {
+      "session": "8ff3bc65-d8e8-4fbf-9682-2eb7d8cd5048",
+      "query": "目标新标题",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": null,
+        "releasesAt": null
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "query": "代码连续命中",
+    "status": 200,
+    "response": {
+      "session": "8c6ebab6-9c7d-49f4-a1f5-96663b21db8e",
+      "query": "代码连续命中",
+      "results": [
+        {
+          "id": "69491f1a-8fb6-403a-b0b2-b395a830a46f",
+          "type": "article",
+          "slug": "search-review-0",
+          "title": "现场作品0",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:25:24.552+08",
+          "canAccess": true,
+          "revision": "10d6d9be-a6ed-4ddc-9e1f-eeab62fe82a9",
+          "hits": [
+            {
+              "start": 93,
+              "end": 99,
+              "contextStart": 48,
+              "context": "与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n",
+              "nodes": [
+                {
+                  "id": "t7",
+                  "start": 17,
+                  "end": 23
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "a544245e-0b90-4617-8ee8-0e66d1ca2542",
+          "type": "post",
+          "slug": "search-review-3",
+          "title": "现场作品3",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.714+08",
+          "canAccess": true,
+          "revision": "3f94b37e-d469-46a3-a85f-4913c67318fe",
+          "hits": [
+            {
+              "start": 93,
+              "end": 99,
+              "contextStart": 48,
+              "context": "与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n",
+              "nodes": [
+                {
+                  "id": "t7",
+                  "start": 17,
+                  "end": 23
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "830947d3-bc17-4c31-a7cc-77f26b33cf72",
+          "type": "article",
+          "slug": "search-review-1",
+          "title": "现场作品1",
+          "description": "描述连续词 XYZ",
+          "visibility": "paid",
+          "publishedAt": "2026-10-13 14:19:45.668+08",
+          "canAccess": true,
+          "revision": "42bd7b77-e191-49cd-8370-7e28f634dac6",
+          "hits": [
+            {
+              "start": 93,
+              "end": 99,
+              "contextStart": 48,
+              "context": "与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n秘密付费探针连续字。\n",
+              "nodes": [
+                {
+                  "id": "t7",
+                  "start": 17,
+                  "end": 23
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "nextCursor": null,
+      "quota": {
+        "remaining": null,
+        "releasesAt": null
+      },
+      "bodySearch": true
+    }
+  }
+]

@@ -24,9 +24,11 @@ export async function MarkdownBody({
     langs: languages as (keyof typeof bundledLanguages)[],
   }) : undefined;
   return <MarkdownSurface markdown={markdown} className={className} mediaSizes={mediaSizes} publicImages={publicImages} components={{
-code: ({ className, children, node: _node, ...props }) => {
+code: ({ className, children, node, ...props }) => {
               const language = /(?:^|\s)language-([\w+-]+)/.exec(className ?? "")?.[1];
-              const source = String(children ?? "");
+              const leaves = (node?.children ?? []) as any[];
+              const searchId = leaves[0]?.properties?.["data-search-node"];
+              const source = searchId ? String(leaves[0]?.children?.[0]?.value ?? "") : String(children ?? "");
               if (!language || !highlighter || !(language in bundledLanguages)) {
                 return <code className={className} {...props}>{children}</code>;
               }
@@ -35,13 +37,13 @@ code: ({ className, children, node: _node, ...props }) => {
                 themes: { light: "github-light", dark: "github-dark" },
               });
               return <code className={`${className} syntax-highlight`} {...props}>
-                {tokens.map((line, index) => <span key={index}>
+                <span {...(searchId ? { "data-search-node": searchId } : {})}>{tokens.map((line, index) => <span key={index}>
                   {index > 0 ? "\n" : null}
                   {line.map((token, tokenIndex) => <span key={tokenIndex} style={{
                     "--syntax-light": token.variants?.light?.color,
                     "--syntax-dark": token.variants?.dark?.color,
                   } as CSSProperties}>{token.content}</span>)}
-                </span>)}
+                </span>)}</span>
               </code>;
             },
   } as Components} />;

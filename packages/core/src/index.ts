@@ -18,3 +18,5 @@ export * from "./comments";
 export * from "./questions";
 export * from "./membership";
 export * from "./profile";
+
+export * from "./search-projection";

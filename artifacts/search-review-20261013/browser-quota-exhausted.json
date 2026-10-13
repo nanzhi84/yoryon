@@ -1,0 +1,52 @@
+{
+  "requests": [
+    {
+      "status": 200,
+      "quota": {
+        "remaining": 4,
+        "releasesAt": "2026-10-13T07:27:54.514Z"
+      }
+    },
+    {
+      "status": 200,
+      "quota": {
+        "remaining": 3,
+        "releasesAt": "2026-10-13T07:27:54.514Z"
+      }
+    },
+    {
+      "status": 200,
+      "quota": {
+        "remaining": 2,
+        "releasesAt": "2026-10-13T07:27:54.514Z"
+      }
+    },
+    {
+      "status": 200,
+      "quota": {
+        "remaining": 1,
+        "releasesAt": "2026-10-13T07:27:54.514Z"
+      }
+    },
+    {
+      "status": 200,
+      "quota": {
+        "remaining": 0,
+        "releasesAt": "2026-10-13T07:23:56.089Z"
+      }
+    },
+    {
+      "status": 429,
+      "quota": {
+        "remaining": 0,
+        "releasesAt": "2026-10-13T07:23:56.089Z"
+      },
+      "error": {
+        "code": "search_quota_exhausted",
+        "message": "本小时搜索次数已用完"
+      }
+    }
+  ],
+  "text": "全站搜索\n\n精确匹配连续原文，区分大小写、空格与标点。正文查询需含至少三个连续文字或数字；较短查询只搜索标题和描述。\n\n搜索\n\n本小时搜索次数已用完\n\n恢复时间：15:23:56\n\n开通订阅，解锁无限搜索\n\n本小时剩余 0 次搜索\n\n没有找到匹配内容",
+  "redeemHref": "/redeem"
+}

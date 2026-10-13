@@ -10,6 +10,7 @@ import {
   index,
   inet,
   integer,
+  jsonb,
   pgTable,
   primaryKey,
   text,
@@ -458,3 +459,23 @@ export type ActivationCode = typeof activationCodes.$inferSelect;
 export type Redemption = typeof redemptions.$inferSelect;
 export type Entitlement = typeof entitlements.$inferSelect;
 export type AnalyticsEvent = typeof analyticsEvents.$inferSelect;
+
+/** Issue #23 derived search text; rebuildable, never an entitlement source. */
+export const searchProjections = pgTable('search_projections', {
+  contentId: uuid('content_id').primaryKey().references(() => contents.id, { onDelete: 'cascade' }),
+  revision: uuid('revision').notNull(),
+  title: text('title').notNull(), description: text('description').notNull(),
+  bodyText: text('body_text').notNull(), textNodes: jsonb('text_nodes').notNull(),
+}, t => [index('search_title_trgm').using('gin', t.title.op('gin_trgm_ops')), index('search_description_trgm').using('gin', t.description.op('gin_trgm_ops')), index('search_body_trgm').using('gin', t.bodyText.op('gin_trgm_ops'))]);
+export const searchEpoch = pgTable('search_epoch', {
+  id: integer('id').primaryKey(), version: bigint('version', { mode: 'bigint' }).notNull().default(sql`0`),
+}, t => [check('search_epoch_id_check', sql`${t.id}=1`)]);
+export const searchSessions = pgTable('search_sessions', {
+  id: uuid('id').primaryKey(), identity: text('identity').notNull(), network: text('network').notNull(), requestId: uuid('request_id').notNull(),
+  queryHash: text('query_hash').notNull(), queryCipher: text('query_cipher').notNull(), epoch: bigint('epoch', { mode: 'bigint' }).notNull(),
+  results: jsonb('results').notNull(), metered: boolean('metered').notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().default(sql`clock_timestamp()`),
+  expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+}, t => [unique('search_sessions_identity_request_id_key').on(t.identity,t.requestId),
+  index('search_quota_identity').on(t.identity,t.createdAt).where(sql`${t.metered}`),
+  index('search_quota_network').on(t.network,t.createdAt).where(sql`${t.metered}`), index('search_sessions_expiry').on(t.expiresAt)]);

@@ -1,0 +1,5 @@
+      slug       | projection_current 
+-----------------+--------------------
+ search-referrer | t
+(1 row)
+

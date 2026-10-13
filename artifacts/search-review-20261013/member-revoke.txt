@@ -1,0 +1,3 @@
+$ pnpm --filter @yoryon/cli start entitlement revoke 163cb717-86d1-488e-a42f-bbb541a4a003 --reason '独立验收撤销'
+$ tsx --env-file=../../.env src/index.ts entitlement revoke 163cb717-86d1-488e-a42f-bbb541a4a003 --reason '独立验收撤销'
+✓ entitlement 163cb717-86d1-488e-a42f-bbb541a4a003 revoked

@@ -1,0 +1,17 @@
+{
+  "firstCount": 20,
+  "secondCount": 1,
+  "nextCursor": null,
+  "visibleArticles": 21,
+  "firstQuota": {
+    "remaining": null,
+    "releasesAt": null
+  },
+  "secondQuota": {
+    "remaining": null,
+    "releasesAt": null
+  },
+  "emptyText": "全站搜索\n\n精确匹配连续原文，区分大小写、空格与标点。正文查询需含至少三个连续文字或数字；较短查询只搜索标题和描述。\n\n搜索\n\n订阅用户：无限搜索\n\n没有找到匹配内容",
+  "dialogCount": 0,
+  "focus": null
+}

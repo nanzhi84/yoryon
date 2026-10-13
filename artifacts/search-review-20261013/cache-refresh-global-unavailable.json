@@ -1,0 +1,9 @@
+{
+  "status": 503,
+  "response": {
+    "error": {
+      "code": "search_unavailable",
+      "message": "搜索索引正在重建，请稍后重试"
+    }
+  }
+}

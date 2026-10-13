@@ -1,0 +1,6 @@
+      slug       |  status   | projection_current 
+-----------------+-----------+--------------------
+ search-review-2 | draft     | 
+ search-referrer | published | t
+(2 rows)
+

@@ -1,0 +1,191 @@
+[
+  {
+    "case": "initial",
+    "status": 200,
+    "quota": {
+      "remaining": 9,
+      "releasesAt": "2026-10-13T07:33:04.356Z"
+    }
+  },
+  {
+    "case": "initial",
+    "status": 200,
+    "quota": {
+      "remaining": 8,
+      "releasesAt": "2026-10-13T07:33:04.356Z"
+    }
+  },
+  {
+    "case": "initial",
+    "status": 200,
+    "quota": {
+      "remaining": 7,
+      "releasesAt": "2026-10-13T07:33:04.356Z"
+    }
+  },
+  {
+    "case": "initial",
+    "status": 200,
+    "quota": {
+      "remaining": 6,
+      "releasesAt": "2026-10-13T07:33:04.356Z"
+    }
+  },
+  {
+    "case": "initial",
+    "status": 200,
+    "quota": {
+      "remaining": 5,
+      "releasesAt": "2026-10-13T07:33:04.356Z"
+    }
+  },
+  {
+    "case": "initial",
+    "status": 200,
+    "quota": {
+      "remaining": 4,
+      "releasesAt": "2026-10-13T07:33:04.356Z"
+    }
+  },
+  {
+    "case": "initial",
+    "status": 200,
+    "quota": {
+      "remaining": 3,
+      "releasesAt": "2026-10-13T07:33:04.356Z"
+    }
+  },
+  {
+    "case": "initial",
+    "status": 200,
+    "quota": {
+      "remaining": 2,
+      "releasesAt": "2026-10-13T07:33:04.356Z"
+    }
+  },
+  {
+    "case": "initial",
+    "status": 200,
+    "quota": {
+      "remaining": 1,
+      "releasesAt": "2026-10-13T07:33:04.356Z"
+    }
+  },
+  {
+    "case": "concurrent-edge",
+    "status": 200,
+    "quota": {
+      "remaining": 0,
+      "releasesAt": "2026-10-13T07:33:04.356Z"
+    },
+    "error": null
+  },
+  {
+    "case": "concurrent-edge",
+    "status": 429,
+    "quota": {
+      "remaining": 0,
+      "releasesAt": "2026-10-13T07:33:04.356Z"
+    },
+    "error": {
+      "code": "search_quota_exhausted",
+      "message": "本小时搜索次数已用完"
+    }
+  },
+  {
+    "case": "concurrent-edge",
+    "status": 429,
+    "quota": {
+      "remaining": 0,
+      "releasesAt": "2026-10-13T07:33:04.356Z"
+    },
+    "error": {
+      "code": "search_quota_exhausted",
+      "message": "本小时搜索次数已用完"
+    }
+  },
+  {
+    "case": "concurrent-edge",
+    "status": 429,
+    "quota": {
+      "remaining": 0,
+      "releasesAt": "2026-10-13T07:33:04.356Z"
+    },
+    "error": {
+      "code": "search_quota_exhausted",
+      "message": "本小时搜索次数已用完"
+    }
+  },
+  {
+    "case": "concurrent-edge",
+    "status": 429,
+    "quota": null,
+    "error": {
+      "code": "search_busy",
+      "message": "搜索繁忙，请稍后重试"
+    }
+  },
+  {
+    "case": "concurrent-edge",
+    "status": 429,
+    "quota": null,
+    "error": {
+      "code": "search_busy",
+      "message": "搜索繁忙，请稍后重试"
+    }
+  },
+  {
+    "case": "concurrent-edge",
+    "status": 429,
+    "quota": null,
+    "error": {
+      "code": "search_busy",
+      "message": "搜索繁忙，请稍后重试"
+    }
+  },
+  {
+    "case": "concurrent-edge",
+    "status": 429,
+    "quota": null,
+    "error": {
+      "code": "search_busy",
+      "message": "搜索繁忙，请稍后重试"
+    }
+  },
+  {
+    "case": "concurrent-edge",
+    "status": 429,
+    "quota": null,
+    "error": {
+      "code": "search_busy",
+      "message": "搜索繁忙，请稍后重试"
+    }
+  },
+  {
+    "case": "concurrent-edge",
+    "status": 429,
+    "quota": null,
+    "error": {
+      "code": "search_busy",
+      "message": "搜索繁忙，请稍后重试"
+    }
+  },
+  {
+    "case": "concurrent-edge",
+    "status": 429,
+    "quota": null,
+    "error": {
+      "code": "search_busy",
+      "message": "搜索繁忙，请稍后重试"
+    }
+  },
+  {
+    "case": "concurrent-edge",
+    "status": 429,
+    "quota": null,
+    "error": {
+      "code": "search_busy",
+      "message": "搜索繁忙，请稍后重试"
+    }
+  }
+]

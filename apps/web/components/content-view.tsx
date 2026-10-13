@@ -1,3 +1,4 @@
+import { SearchLocation } from "./search-location";
 import Link from "next/link";
 import type { ContentDetail } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
@@ -16,6 +17,7 @@ export function ContentView({ initial: content }: { initial: ContentDetail }) {
       {/* 正文与页头同栏（布局容器 max-w-3xl），不再收窄 */}
       <main className="py-8" data-revision={content.updatedAt}>
         <DetailTracker targetKind="work" targetId={content.id} />
+        <SearchLocation slug={content.slug} />
         <header>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <span>{TYPE_LABEL[content.type]}</span>

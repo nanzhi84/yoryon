@@ -14,7 +14,7 @@ export function ContentBody({ content, publicImages = false }: { content: Conten
   return <>
         {/* 正文（已按权益裁剪） */}
         {content.bodyMarkdown && (
-          <div className="mt-8">
+          <div className="mt-8" data-search-content={content.slug} data-search-revision={content.access === "full" ? content.revision : "preview"}>
             <MarkdownBody markdown={content.bodyMarkdown} mediaSizes={mediaSizes} publicImages={publicImages} />
           </div>
         )}

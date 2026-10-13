@@ -8,7 +8,8 @@
     "./constants": "./src/constants.ts",
     "./cache": "./src/cache.ts",
     "./cache-signing": "./src/cache-signing.ts",
-    "./image-variants": "./src/image-variants.ts"
+    "./image-variants": "./src/image-variants.ts",
+    "./search-text": "./src/search-text.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

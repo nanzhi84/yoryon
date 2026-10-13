@@ -8,6 +8,8 @@ import { registerCacheCommands } from "./commands/cache";
 
 import { registerQuestionCommands } from "./commands/question";
 
+import { registerSearchCommands } from "./commands/search";
+
 const program = new Command();
 program.name("blog").description("Yoryon Blog 管理 CLI（所有管理操作不经 Web API）").version("0.1.0");
 
@@ -20,6 +22,7 @@ registerDbCommands(program);
 registerAnalyticsCommands(program);
 registerCacheCommands(program);
 registerQuestionCommands(program);
+registerSearchCommands(program);
 
 try {
   await program.parseAsync(process.argv);

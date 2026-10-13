@@ -1,0 +1,3 @@
+$ pnpm --filter @yoryon/cli start entitlement grant --user searchmember --scope subscription --days 1
+$ tsx --env-file=../../.env src/index.ts entitlement grant --user searchmember --scope subscription --days 1
+✓ granted subscription to searchmember@example.invalid → entitlement 163cb717-86d1-488e-a42f-bbb541a4a003

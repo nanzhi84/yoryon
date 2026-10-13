@@ -1,0 +1,43 @@
+{
+  "head": "b791565e985347d74c85e3a9ef41cf25f48c5485",
+  "status": 200,
+  "response": {
+    "session": "6d9b7dc3-698f-4a1c-a743-3d48b59831e2",
+    "query": "独立父作品可搜",
+    "results": [
+      {
+        "id": "4f5daf1e-c8cd-4958-bc60-8458fd679c53",
+        "type": "article",
+        "slug": "search-referrer",
+        "title": "引用父作品",
+        "description": "",
+        "visibility": "public",
+        "publishedAt": "2026-10-13T06:30:45.694Z",
+        "canAccess": true,
+        "revision": "a0181c07-dbe1-4899-9aeb-31f71a914fc3",
+        "hits": [
+          {
+            "start": 0,
+            "end": 7,
+            "contextStart": 0,
+            "context": "独立父作品可搜正文。\n",
+            "nodes": [
+              {
+                "id": "t0",
+                "start": 0,
+                "end": 7
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "nextCursor": null,
+    "quota": {
+      "remaining": null,
+      "releasesAt": null
+    },
+    "bodySearch": true
+  },
+  "isoDate": true
+}

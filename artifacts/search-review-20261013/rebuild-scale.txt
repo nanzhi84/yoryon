@@ -1,0 +1,3 @@
+$ pnpm --filter @yoryon/cli start search rebuild
+$ tsx --env-file=../../.env src/index.ts search rebuild
+{"rebuilt":10025}
