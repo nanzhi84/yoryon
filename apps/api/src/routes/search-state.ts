@@ -50,7 +50,7 @@ export async function page(tx: SearchTx, saved: StoredSearch, offset: number, qu
     const r = found.find(r => r.id === s.id)!;
     const allowed = access.get(r.id) === true;
     return { id: r.id, type: r.type, slug: r.slug, title: r.title, description: r.description, visibility: r.visibility,
-      publishedAt: r.published_at, canAccess: allowed,
+      publishedAt: r.published_at == null ? null : new Date(r.published_at).toISOString(), canAccess: allowed,
       // Unauthorized body gets neither revision/location/count nor a body-match flag.
       ...(allowed ? { revision: r.revision, hits: bodySearch ? literalHits(r.body_text, query, r.text_nodes, 3) : [] } : {}) };
   });
