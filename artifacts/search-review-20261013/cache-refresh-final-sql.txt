@@ -1,0 +1,5 @@
+ missing_published_projections 
+-------------------------------
+                             0
+(1 row)
+

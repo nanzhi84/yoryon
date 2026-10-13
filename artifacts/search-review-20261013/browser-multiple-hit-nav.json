@@ -1,0 +1,38 @@
+[
+  {
+    "label": "正文命中 1 / 4\n上一处\n下一处\n从首处开始",
+    "highlights": [
+      {
+        "text": "重复命中",
+        "offset": 0
+      }
+    ]
+  },
+  {
+    "label": "正文命中 2 / 4\n上一处\n下一处\n从首处开始",
+    "highlights": [
+      {
+        "text": "重复命中",
+        "offset": 5
+      }
+    ]
+  },
+  {
+    "label": "正文命中 3 / 4\n上一处\n下一处\n从首处开始",
+    "highlights": [
+      {
+        "text": "重复命中",
+        "offset": 10
+      }
+    ]
+  },
+  {
+    "label": "正文命中 4 / 4\n上一处\n下一处\n从首处开始",
+    "highlights": [
+      {
+        "text": "重复命中",
+        "offset": 15
+      }
+    ]
+  }
+]

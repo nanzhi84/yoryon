@@ -1,0 +1,18 @@
+$ tsup
+CLI Building entry: {"index":"src/index.ts","migrate":"src/migrate.ts"}
+CLI Using tsconfig: tsconfig.json
+CLI tsup v8.5.1
+CLI Using tsup config: /Users/yoryon/Projects/yoryon/apps/api/tsup.config.ts
+CLI Target: es2022
+CLI Cleaning output folder
+ESM Build start
+ESM dist/chunk-NOXK44O3.js       65.47 KB
+ESM dist/search-text-OHZSM2RK.js 332.00 B
+ESM dist/chunk-JYURC6FJ.js       2.19 KB
+ESM dist/migrate.js              1.53 KB
+ESM dist/chunk-5ZH3LQ2H.js       2.63 KB
+ESM dist/src-7WCP4UCY.js         3.33 KB
+ESM dist/index.js                114.75 KB
+ESM dist/server.node-473PTIIS.js 1.35 MB
+ESM dist/chunk-QO2EJKGM.js       3.09 MB
+ESM ⚡️ Build success in 140ms

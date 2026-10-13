@@ -1,0 +1,25 @@
+                                                                        QUERY PLAN                                                                         
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=214.86..225.90 rows=3 width=16) (actual time=0.102..0.955 rows=100 loops=1)
+   Buffers: shared hit=486
+   ->  Bitmap Heap Scan on search_projections  (cost=214.86..225.90 rows=3 width=16) (actual time=0.101..0.951 rows=100 loops=1)
+         Recheck Cond: ((title ~~ '%中文稀有精确探针%'::text) OR (description ~~ '%中文稀有精确探针%'::text) OR (body_text ~~ '%中文稀有精确探针%'::text))
+         Heap Blocks: exact=80
+         Buffers: shared hit=486
+         ->  BitmapOr  (cost=214.86..214.86 rows=3 width=0) (actual time=0.058..0.058 rows=0 loops=1)
+               Buffers: shared hit=45
+               ->  Bitmap Index Scan on search_title_trgm  (cost=0.00..56.23 rows=1 width=0) (actual time=0.015..0.015 rows=0 loops=1)
+                     Index Cond: (title ~~ '%中文稀有精确探针%'::text)
+                     Buffers: shared hit=13
+               ->  Bitmap Index Scan on search_description_trgm  (cost=0.00..56.22 rows=1 width=0) (actual time=0.008..0.008 rows=0 loops=1)
+                     Index Cond: (description ~~ '%中文稀有精确探针%'::text)
+                     Buffers: shared hit=13
+               ->  Bitmap Index Scan on search_body_trgm  (cost=0.00..102.41 rows=1 width=0) (actual time=0.034..0.034 rows=100 loops=1)
+                     Index Cond: (body_text ~~ '%中文稀有精确探针%'::text)
+                     Buffers: shared hit=19
+ Planning:
+   Buffers: shared hit=121 read=1
+ Planning Time: 0.858 ms
+ Execution Time: 1.008 ms
+(21 rows)
+

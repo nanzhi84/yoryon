@@ -1,0 +1,58 @@
+[
+  {
+    "case": "initial",
+    "status": 200,
+    "response": {
+      "session": "62829f0c-8ee8-4aa3-8a05-feeb6fb43dc6",
+      "query": "TTL-reusable-empty",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": 9,
+        "releasesAt": "2026-10-13T07:31:21.705Z"
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "case": "same-request-after-expiry",
+    "status": 200,
+    "response": {
+      "session": "52214bee-5bdb-47c8-ac51-293d4e969567",
+      "query": "TTL-reusable-empty",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": 9,
+        "releasesAt": "2026-10-13T07:31:21.765Z"
+      },
+      "bodySearch": true
+    },
+    "sessionChanged": true
+  },
+  {
+    "case": "database-lock-timeout",
+    "status": 503,
+    "response": {
+      "error": {
+        "code": "search_unavailable",
+        "message": "搜索暂时不可用，请稍后重试"
+      }
+    }
+  },
+  {
+    "case": "after-timeout",
+    "status": 200,
+    "response": {
+      "session": "72e666d7-025b-4049-a6bd-38c052b8a76b",
+      "query": "after-timeout-empty",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": 8,
+        "releasesAt": "2026-10-13T07:31:21.765Z"
+      },
+      "bodySearch": true
+    }
+  }
+]

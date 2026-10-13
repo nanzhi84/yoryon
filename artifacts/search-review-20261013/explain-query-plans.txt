@@ -1,0 +1,55 @@
+                                                                            QUERY PLAN                                                                             
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=650.49..650.49 rows=1 width=44) (actual time=60.129..60.131 rows=100 loops=1)
+   Sort Key: candidates.rank, candidates.published_at DESC NULLS LAST, candidates.id DESC
+   Sort Method: quicksort  Memory: 31kB
+   Buffers: shared hit=27174 read=6870 dirtied=215 written=3238
+   CTE candidates
+     ->  Limit  (cost=0.29..650.46 rows=1 width=44) (actual time=0.305..60.041 rows=100 loops=1)
+           Buffers: shared hit=27165 read=6870 dirtied=215 written=3238
+           ->  Nested Loop  (cost=0.29..650.46 rows=1 width=44) (actual time=0.305..60.033 rows=100 loops=1)
+                 Buffers: shared hit=27165 read=6870 dirtied=215 written=3238
+                 ->  Seq Scan on search_projections p  (cost=0.00..617.18 rows=4 width=72) (actual time=0.296..59.463 rows=100 loops=1)
+                       Filter: ((title ~~ '%中文稀有精确探针%'::text) OR (description ~~ '%中文稀有精确探针%'::text) OR (body_text ~~ '%中文稀有精确探针%'::text))
+                       Rows Removed by Filter: 9925
+                       Buffers: shared hit=26941 read=6794 dirtied=215 written=3207
+                 ->  Index Scan using contents_pkey on contents c  (cost=0.29..8.31 rows=1 width=40) (actual time=0.005..0.005 rows=1 loops=100)
+                       Index Cond: (id = p.content_id)
+                       Filter: ((status = 'published'::text) AND (p.revision = revision))
+                       Buffers: shared hit=224 read=76 written=31
+   ->  CTE Scan on candidates  (cost=0.00..0.02 rows=1 width=44) (actual time=0.307..60.087 rows=100 loops=1)
+         Buffers: shared hit=27165 read=6870 dirtied=215 written=3238
+ Planning:
+   Buffers: shared hit=255 read=45 dirtied=4 written=44
+ Planning Time: 1.731 ms
+ Execution Time: 60.161 ms
+(23 rows)
+
+                                                      QUERY PLAN                                                       
+-----------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=0.00..583.85 rows=3 width=16) (actual time=1.388..1.388 rows=0 loops=1)
+   Buffers: shared hit=119 read=255 written=139
+   ->  Seq Scan on search_projections p  (cost=0.00..583.85 rows=3 width=16) (actual time=1.387..1.387 rows=0 loops=1)
+         Filter: ((title ~~ '%精确%'::text) OR (description ~~ '%精确%'::text))
+         Rows Removed by Filter: 10025
+         Buffers: shared hit=119 read=255 written=139
+ Planning:
+   Buffers: shared hit=2
+ Planning Time: 0.064 ms
+ Execution Time: 1.393 ms
+(10 rows)
+
+                                                      QUERY PLAN                                                       
+-----------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=0.00..583.85 rows=3 width=16) (actual time=0.637..0.637 rows=0 loops=1)
+   Buffers: shared hit=374
+   ->  Seq Scan on search_projections p  (cost=0.00..583.85 rows=3 width=16) (actual time=0.637..0.637 rows=0 loops=1)
+         Filter: ((title ~~ '%，%'::text) OR (description ~~ '%，%'::text))
+         Rows Removed by Filter: 10025
+         Buffers: shared hit=374
+ Planning:
+   Buffers: shared hit=2
+ Planning Time: 0.042 ms
+ Execution Time: 0.641 ms
+(10 rows)
+

@@ -1,0 +1,12 @@
+{
+  "ownPortsClosed": {
+    "55473": true,
+    "4473": true,
+    "3173": true
+  },
+  "temporaryDirectoryRemoved": true,
+  "browserCurrentContextClosed": true,
+  "earlierReplResetBrowserProcessCleanup": "UNVERIFIED; did not kill unrelated browser processes",
+  "productionModified": false,
+  "otherProjectArtifactsRemoved": false
+}

@@ -1,0 +1,8 @@
+{
+  "url": "http://localhost:3173/p/search-review-3#search=1bf7fcc1-ed32-4d44-9b4e-c9328a2d0f6b&revision=3f94b37e-d469-46a3-a85f-4913c67318fe&start=93",
+  "text": "const literal = \"代码连续命中\";\n",
+  "textContent": "const literal = \"代码连续命中\";\n",
+  "highlights": [
+    "代码连续命中"
+  ]
+}

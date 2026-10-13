@@ -1,0 +1,25 @@
+{
+  "response": {
+    "session": "068fecac-fb98-4f89-989a-9ff24ab3a88d",
+    "query": "秘密付费探针",
+    "results": [
+      {
+        "id": "830947d3-bc17-4c31-a7cc-77f26b33cf72",
+        "type": "article",
+        "slug": "search-review-1",
+        "title": "现场作品1",
+        "description": "描述连续词 XYZ",
+        "visibility": "paid",
+        "publishedAt": "2026-10-13 14:19:45.668+08",
+        "canAccess": false
+      }
+    ],
+    "nextCursor": null,
+    "quota": {
+      "remaining": 5,
+      "releasesAt": "2026-10-13T07:27:54.514Z"
+    },
+    "bodySearch": true
+  },
+  "dialogText": "全站搜索\n\n精确匹配连续原文，区分大小写、空格与标点。正文查询需含至少三个连续文字或数字；较短查询只搜索标题和描述。\n\n搜索\n\n本小时剩余 5 次搜索\n\n现场作品1\n\n付费 · 2026-10-13\n\n描述连续词 XYZ\n\n开通订阅，查看正文命中位置"
+}

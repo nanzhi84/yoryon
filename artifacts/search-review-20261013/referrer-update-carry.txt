@@ -1,0 +1,6 @@
+      slug       | projection_current 
+-----------------+--------------------
+ search-review-2 | t
+ search-referrer | t
+(2 rows)
+

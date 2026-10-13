@@ -1,0 +1,64 @@
+[
+  {
+    "endpoint": "search",
+    "status": 409,
+    "response": {
+      "error": {
+        "code": "search_expired",
+        "message": "内容已更新，请重新搜索"
+      }
+    }
+  },
+  {
+    "endpoint": "search/locate",
+    "status": 409,
+    "response": {
+      "error": {
+        "code": "search_expired",
+        "message": "内容已更新，请重新搜索"
+      }
+    }
+  },
+  {
+    "endpoint": "search",
+    "status": 200,
+    "response": {
+      "session": "1305f4e2-6aa4-4e26-8ebf-551dec5c6f81",
+      "query": "已经更新字符",
+      "results": [
+        {
+          "id": "69491f1a-8fb6-403a-b0b2-b395a830a46f",
+          "type": "article",
+          "slug": "search-review-0",
+          "title": "现场作品0",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:25:24.552+08",
+          "canAccess": true,
+          "revision": "10d6d9be-a6ed-4ddc-9e1f-eeab62fe82a9",
+          "hits": [
+            {
+              "start": 7,
+              "end": 13,
+              "contextStart": 0,
+              "context": "精确字符标题\n已经更新字符 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nco",
+              "nodes": [
+                {
+                  "id": "t1",
+                  "start": 0,
+                  "end": 6
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "nextCursor": null,
+      "quota": {
+        "remaining": null,
+        "releasesAt": null
+      },
+      "bodySearch": true
+    }
+  }
+]

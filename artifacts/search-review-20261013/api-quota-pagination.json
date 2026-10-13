@@ -1,0 +1,1017 @@
+[
+  {
+    "case": "invalid",
+    "status": 400,
+    "response": {
+      "error": {
+        "code": "invalid_search",
+        "message": "搜索参数无效（最多 120 个字符）"
+      }
+    }
+  },
+  {
+    "case": "invalid",
+    "status": 400,
+    "response": {
+      "error": {
+        "code": "invalid_search",
+        "message": "搜索参数无效（最多 120 个字符）"
+      }
+    }
+  },
+  {
+    "case": "invalid",
+    "status": 400,
+    "response": {
+      "error": {
+        "code": "invalid_search",
+        "message": "搜索参数无效（最多 120 个字符）"
+      }
+    }
+  },
+  {
+    "case": "zero-result-1",
+    "status": 200,
+    "response": {
+      "session": "a2f9a608-ecae-46ad-9c24-b787aa51b362",
+      "query": "无结果额度0",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": 9,
+        "releasesAt": "2026-10-13T07:22:03.703Z"
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "case": "zero-result-2",
+    "status": 200,
+    "response": {
+      "session": "135a5a1c-4113-46de-8b27-7ca399687490",
+      "query": "无结果额度1",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": 8,
+        "releasesAt": "2026-10-13T07:22:03.703Z"
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "case": "zero-result-3",
+    "status": 200,
+    "response": {
+      "session": "a842c307-e6ab-4ac4-90aa-03939aaeaa0d",
+      "query": "无结果额度2",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": 7,
+        "releasesAt": "2026-10-13T07:22:03.703Z"
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "case": "zero-result-4",
+    "status": 200,
+    "response": {
+      "session": "ae6041f8-58a3-4276-9e22-cfb72b8a3bb5",
+      "query": "无结果额度3",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": 6,
+        "releasesAt": "2026-10-13T07:22:03.703Z"
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "case": "zero-result-5",
+    "status": 200,
+    "response": {
+      "session": "5e826e27-ae88-4cd8-86d9-743a4098a616",
+      "query": "无结果额度4",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": 5,
+        "releasesAt": "2026-10-13T07:22:03.703Z"
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "case": "zero-result-6",
+    "status": 200,
+    "response": {
+      "session": "2de8ed14-6e63-4eb5-a420-6199b385c084",
+      "query": "无结果额度5",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": 4,
+        "releasesAt": "2026-10-13T07:22:03.703Z"
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "case": "zero-result-7",
+    "status": 200,
+    "response": {
+      "session": "2c12bcbc-ad6a-4661-b379-6d5b95bf2a9c",
+      "query": "无结果额度6",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": 3,
+        "releasesAt": "2026-10-13T07:22:03.703Z"
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "case": "zero-result-8",
+    "status": 200,
+    "response": {
+      "session": "9d3a208f-2d4a-49fa-ade6-830388526aba",
+      "query": "无结果额度7",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": 2,
+        "releasesAt": "2026-10-13T07:22:03.703Z"
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "case": "zero-result-9",
+    "status": 200,
+    "response": {
+      "session": "fedf3650-9c1d-46e5-b3c9-db95de25274a",
+      "query": "无结果额度8",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": 1,
+        "releasesAt": "2026-10-13T07:22:03.703Z"
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "case": "zero-result-10",
+    "status": 200,
+    "response": {
+      "session": "0dcf844a-b428-47fe-96b0-0a3d70333ea5",
+      "query": "无结果额度9",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": 0,
+        "releasesAt": "2026-10-13T07:22:03.703Z"
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "case": "eleventh",
+    "status": 429,
+    "response": {
+      "error": {
+        "code": "search_quota_exhausted",
+        "message": "本小时搜索次数已用完"
+      },
+      "quota": {
+        "remaining": 0,
+        "releasesAt": "2026-10-13T07:22:03.703Z"
+      }
+    }
+  },
+  {
+    "case": "clear-cookie",
+    "status": 429,
+    "response": {
+      "error": {
+        "code": "search_quota_exhausted",
+        "message": "本小时搜索次数已用完"
+      },
+      "quota": {
+        "remaining": 0,
+        "releasesAt": "2026-10-13T07:22:03.703Z"
+      }
+    }
+  },
+  {
+    "case": "replay",
+    "status": 200,
+    "response": {
+      "session": "a2f9a608-ecae-46ad-9c24-b787aa51b362",
+      "query": "无结果额度0",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": 0,
+        "releasesAt": "2026-10-13T07:22:03.703Z"
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "case": "changed-replay",
+    "status": 400,
+    "response": {
+      "error": {
+        "code": "search_replay",
+        "message": "重复请求参数不一致"
+      }
+    }
+  },
+  {
+    "case": "member-on-exhausted-network",
+    "status": 200,
+    "response": {
+      "session": "ecf3ea45-474f-4b63-b5e2-a52f2acb8338",
+      "query": "会员超过十次",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": null,
+        "releasesAt": null
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "case": "free-login-on-exhausted-network",
+    "status": 429,
+    "response": {
+      "error": {
+        "code": "search_quota_exhausted",
+        "message": "本小时搜索次数已用完"
+      },
+      "quota": {
+        "remaining": 0,
+        "releasesAt": "2026-10-13T07:22:03.703Z"
+      }
+    }
+  },
+  {
+    "case": "pagination-first",
+    "status": 200,
+    "response": {
+      "session": "cd4c9720-507e-4d53-889d-789ec17238c0",
+      "query": "分页共同词",
+      "results": [
+        {
+          "id": "d58704bf-b948-43c8-b0d3-37030b5a9dd2",
+          "type": "article",
+          "slug": "search-review-9",
+          "title": "现场作品9",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.728+08",
+          "canAccess": true,
+          "revision": "4c48168d-525b-48c7-b8d9-3e5eafa2b068",
+          "hits": [
+            {
+              "start": 0,
+              "end": 5,
+              "contextStart": 0,
+              "context": "分页共同词现场正文。\n",
+              "nodes": [
+                {
+                  "id": "t0",
+                  "start": 0,
+                  "end": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "fe9dc314-9228-47a9-bb4c-34ce1475a5a4",
+          "type": "article",
+          "slug": "search-review-8",
+          "title": "现场作品8",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.725+08",
+          "canAccess": true,
+          "revision": "ebc2a95f-e93c-4586-880c-98e4bae29a86",
+          "hits": [
+            {
+              "start": 0,
+              "end": 5,
+              "contextStart": 0,
+              "context": "分页共同词现场正文。\n",
+              "nodes": [
+                {
+                  "id": "t0",
+                  "start": 0,
+                  "end": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "a48f4837-1af9-4e47-b7cd-e2a733a88169",
+          "type": "article",
+          "slug": "search-review-7",
+          "title": "现场作品7",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.723+08",
+          "canAccess": true,
+          "revision": "6abef1ce-8fcc-4279-ae37-b7fa352826e4",
+          "hits": [
+            {
+              "start": 0,
+              "end": 5,
+              "contextStart": 0,
+              "context": "分页共同词现场正文。\n",
+              "nodes": [
+                {
+                  "id": "t0",
+                  "start": 0,
+                  "end": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2466f3b6-ab88-4366-ba10-0dfe336b9e3f",
+          "type": "article",
+          "slug": "search-review-6",
+          "title": "现场作品6",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.721+08",
+          "canAccess": true,
+          "revision": "24835004-d9a1-46f4-b3ff-b9effbf5fba2",
+          "hits": [
+            {
+              "start": 0,
+              "end": 5,
+              "contextStart": 0,
+              "context": "分页共同词现场正文。\n",
+              "nodes": [
+                {
+                  "id": "t0",
+                  "start": 0,
+                  "end": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "13e684da-4bd1-49cd-a89d-9e936b1bb728",
+          "type": "article",
+          "slug": "search-review-5",
+          "title": "现场作品5",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.719+08",
+          "canAccess": true,
+          "revision": "36e42920-38d4-4c3e-8244-511d97cac503",
+          "hits": [
+            {
+              "start": 0,
+              "end": 5,
+              "contextStart": 0,
+              "context": "分页共同词现场正文。\n",
+              "nodes": [
+                {
+                  "id": "t0",
+                  "start": 0,
+                  "end": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "b1554956-2ff6-4cf6-9776-5d6f4195027a",
+          "type": "article",
+          "slug": "search-review-4",
+          "title": "现场作品4",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.716+08",
+          "canAccess": true,
+          "revision": "0d9e1e98-fc96-4f29-a67d-71e535531e0d",
+          "hits": [
+            {
+              "start": 0,
+              "end": 5,
+              "contextStart": 0,
+              "context": "分页共同词现场正文。\n",
+              "nodes": [
+                {
+                  "id": "t0",
+                  "start": 0,
+                  "end": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9546e373-99a3-4430-9387-f8771b83013b",
+          "type": "article",
+          "slug": "search-review-24",
+          "title": "现场作品24",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.711+08",
+          "canAccess": true,
+          "revision": "acd25805-b266-4527-aeff-d738313973a6",
+          "hits": [
+            {
+              "start": 0,
+              "end": 5,
+              "contextStart": 0,
+              "context": "分页共同词现场正文。\n",
+              "nodes": [
+                {
+                  "id": "t0",
+                  "start": 0,
+                  "end": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "e77b8357-e1a3-4ef8-96b3-4b5636e012e8",
+          "type": "article",
+          "slug": "search-review-23",
+          "title": "现场作品23",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.708+08",
+          "canAccess": true,
+          "revision": "4a8c41c2-ad97-4e6b-bb8e-fa5ce877c998",
+          "hits": [
+            {
+              "start": 0,
+              "end": 5,
+              "contextStart": 0,
+              "context": "分页共同词现场正文。\n",
+              "nodes": [
+                {
+                  "id": "t0",
+                  "start": 0,
+                  "end": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "85a6f8ad-2deb-4fbb-b37c-0c1399a8aae2",
+          "type": "article",
+          "slug": "search-review-22",
+          "title": "现场作品22",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.706+08",
+          "canAccess": true,
+          "revision": "79d1327d-e18a-4e29-b32b-b0c08b8ab27c",
+          "hits": [
+            {
+              "start": 0,
+              "end": 5,
+              "contextStart": 0,
+              "context": "分页共同词现场正文。\n",
+              "nodes": [
+                {
+                  "id": "t0",
+                  "start": 0,
+                  "end": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cfc2bf4c-58c9-44c8-b9ad-50ff9a0971ed",
+          "type": "article",
+          "slug": "search-review-21",
+          "title": "现场作品21",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.704+08",
+          "canAccess": true,
+          "revision": "ebfad06f-012b-4e74-a2f5-175c1bc885b9",
+          "hits": [
+            {
+              "start": 0,
+              "end": 5,
+              "contextStart": 0,
+              "context": "分页共同词现场正文。\n",
+              "nodes": [
+                {
+                  "id": "t0",
+                  "start": 0,
+                  "end": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "a416f260-7c86-44a0-a718-62898394f91a",
+          "type": "article",
+          "slug": "search-review-20",
+          "title": "现场作品20",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.702+08",
+          "canAccess": true,
+          "revision": "eb37acde-8812-4fe2-baaf-5557ee62401d",
+          "hits": [
+            {
+              "start": 0,
+              "end": 5,
+              "contextStart": 0,
+              "context": "分页共同词现场正文。\n",
+              "nodes": [
+                {
+                  "id": "t0",
+                  "start": 0,
+                  "end": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6e35cdc4-6b15-492b-b184-954279a5279b",
+          "type": "article",
+          "slug": "search-review-19",
+          "title": "现场作品19",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.696+08",
+          "canAccess": true,
+          "revision": "3b75f1af-a8bf-45d8-bbc8-9d23be1f6f81",
+          "hits": [
+            {
+              "start": 0,
+              "end": 5,
+              "contextStart": 0,
+              "context": "分页共同词现场正文。\n",
+              "nodes": [
+                {
+                  "id": "t0",
+                  "start": 0,
+                  "end": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "eb3d203e-3c85-4f0e-a0d0-0691ad79a995",
+          "type": "article",
+          "slug": "search-review-18",
+          "title": "现场作品18",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.693+08",
+          "canAccess": true,
+          "revision": "5dd23035-e038-4fe5-b3f2-31a19fb71c06",
+          "hits": [
+            {
+              "start": 0,
+              "end": 5,
+              "contextStart": 0,
+              "context": "分页共同词现场正文。\n",
+              "nodes": [
+                {
+                  "id": "t0",
+                  "start": 0,
+                  "end": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "f346e2b4-6b26-459b-bc60-f63ade713802",
+          "type": "article",
+          "slug": "search-review-17",
+          "title": "现场作品17",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.691+08",
+          "canAccess": true,
+          "revision": "888cbcd5-f739-4a9c-8b63-6b202acc78c6",
+          "hits": [
+            {
+              "start": 0,
+              "end": 5,
+              "contextStart": 0,
+              "context": "分页共同词现场正文。\n",
+              "nodes": [
+                {
+                  "id": "t0",
+                  "start": 0,
+                  "end": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "e5a83c15-3ace-4fdb-92ae-e40ba636d9c6",
+          "type": "article",
+          "slug": "search-review-16",
+          "title": "现场作品16",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.688+08",
+          "canAccess": true,
+          "revision": "f96c52ab-13e8-4923-ac03-704ac886f99c",
+          "hits": [
+            {
+              "start": 0,
+              "end": 5,
+              "contextStart": 0,
+              "context": "分页共同词现场正文。\n",
+              "nodes": [
+                {
+                  "id": "t0",
+                  "start": 0,
+                  "end": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "421fe335-c279-4e77-9f3c-4733ac40af4a",
+          "type": "article",
+          "slug": "search-review-15",
+          "title": "现场作品15",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.686+08",
+          "canAccess": true,
+          "revision": "cd0ac2a7-0f8f-45e8-acad-fc55f5d963e7",
+          "hits": [
+            {
+              "start": 0,
+              "end": 5,
+              "contextStart": 0,
+              "context": "分页共同词现场正文。\n",
+              "nodes": [
+                {
+                  "id": "t0",
+                  "start": 0,
+                  "end": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "f3f3b4f1-8c7d-4302-8b33-463e59f65544",
+          "type": "article",
+          "slug": "search-review-14",
+          "title": "现场作品14",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.683+08",
+          "canAccess": true,
+          "revision": "0794c600-ff58-4a51-8af4-e3c8111f435c",
+          "hits": [
+            {
+              "start": 0,
+              "end": 5,
+              "contextStart": 0,
+              "context": "分页共同词现场正文。\n",
+              "nodes": [
+                {
+                  "id": "t0",
+                  "start": 0,
+                  "end": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "d39db308-d895-45fa-b371-dc642869af96",
+          "type": "article",
+          "slug": "search-review-13",
+          "title": "现场作品13",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.68+08",
+          "canAccess": true,
+          "revision": "6b299db9-c135-428d-9abe-2af5e9d578ca",
+          "hits": [
+            {
+              "start": 0,
+              "end": 5,
+              "contextStart": 0,
+              "context": "分页共同词现场正文。\n",
+              "nodes": [
+                {
+                  "id": "t0",
+                  "start": 0,
+                  "end": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "d68ed28d-0400-4bc0-bb80-0d77c6778bc7",
+          "type": "article",
+          "slug": "search-review-12",
+          "title": "现场作品12",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.677+08",
+          "canAccess": true,
+          "revision": "311e17de-3a12-40d8-bb1f-2b69846e30cc",
+          "hits": [
+            {
+              "start": 0,
+              "end": 5,
+              "contextStart": 0,
+              "context": "分页共同词现场正文。\n",
+              "nodes": [
+                {
+                  "id": "t0",
+                  "start": 0,
+                  "end": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1d01af99-3cec-499f-bef4-366a282df286",
+          "type": "article",
+          "slug": "search-review-11",
+          "title": "现场作品11",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.674+08",
+          "canAccess": true,
+          "revision": "2e2a580d-8087-4c71-bcc4-785f7f3617d4",
+          "hits": [
+            {
+              "start": 0,
+              "end": 5,
+              "contextStart": 0,
+              "context": "分页共同词现场正文。\n",
+              "nodes": [
+                {
+                  "id": "t0",
+                  "start": 0,
+                  "end": 5
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "nextCursor": 20,
+      "quota": {
+        "remaining": 9,
+        "releasesAt": "2026-10-13T07:22:03.740Z"
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "case": "next",
+    "status": 200,
+    "response": {
+      "session": "cd4c9720-507e-4d53-889d-789ec17238c0",
+      "query": "分页共同词",
+      "results": [
+        {
+          "id": "a2548e78-0f88-444a-999f-9057bc56d8a1",
+          "type": "article",
+          "slug": "search-review-10",
+          "title": "现场作品10",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.672+08",
+          "canAccess": true,
+          "revision": "1af263fc-41cf-4add-984f-a356a33ad0d3",
+          "hits": [
+            {
+              "start": 0,
+              "end": 5,
+              "contextStart": 0,
+              "context": "分页共同词现场正文。\n",
+              "nodes": [
+                {
+                  "id": "t0",
+                  "start": 0,
+                  "end": 5
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "nextCursor": null,
+      "quota": {
+        "remaining": 9,
+        "releasesAt": "2026-10-13T07:22:03.740Z"
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "case": "foreign",
+    "status": 409,
+    "response": {
+      "error": {
+        "code": "search_expired",
+        "message": "搜索会话已失效，请重新搜索"
+      }
+    }
+  },
+  {
+    "case": "fake-cursor",
+    "status": 400,
+    "response": {
+      "error": {
+        "code": "invalid_search",
+        "message": "搜索参数无效（最多 120 个字符）"
+      }
+    }
+  },
+  {
+    "case": "parallel-initial",
+    "status": 200,
+    "response": {
+      "session": "f21ebaeb-73a6-4f6b-aae4-82b8544f2247",
+      "query": "first parallel",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": 9,
+        "releasesAt": "2026-10-13T07:22:03.747Z"
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "case": "parallel",
+    "status": 200,
+    "response": {
+      "session": "be8da71e-bfe2-4607-8dfe-ed374331b368",
+      "query": "并发零结果0",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": 8,
+        "releasesAt": "2026-10-13T07:22:03.747Z"
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "case": "parallel",
+    "status": 429,
+    "response": {
+      "error": {
+        "code": "search_busy",
+        "message": "搜索繁忙，请稍后重试"
+      }
+    }
+  },
+  {
+    "case": "parallel",
+    "status": 200,
+    "response": {
+      "session": "cd2bd165-766c-4165-9b1a-082b19d3c74d",
+      "query": "并发零结果2",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": 7,
+        "releasesAt": "2026-10-13T07:22:03.747Z"
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "case": "parallel",
+    "status": 200,
+    "response": {
+      "session": "8cd9138f-5bf8-41d2-a6df-f2fff6e90407",
+      "query": "并发零结果3",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": 5,
+        "releasesAt": "2026-10-13T07:22:03.747Z"
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "case": "parallel",
+    "status": 429,
+    "response": {
+      "error": {
+        "code": "search_busy",
+        "message": "搜索繁忙，请稍后重试"
+      }
+    }
+  },
+  {
+    "case": "parallel",
+    "status": 429,
+    "response": {
+      "error": {
+        "code": "search_busy",
+        "message": "搜索繁忙，请稍后重试"
+      }
+    }
+  },
+  {
+    "case": "parallel",
+    "status": 429,
+    "response": {
+      "error": {
+        "code": "search_busy",
+        "message": "搜索繁忙，请稍后重试"
+      }
+    }
+  },
+  {
+    "case": "parallel",
+    "status": 200,
+    "response": {
+      "session": "3db25be3-d97f-44b4-8b79-3f26778cbfd8",
+      "query": "并发零结果7",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": 6,
+        "releasesAt": "2026-10-13T07:22:03.747Z"
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "case": "parallel",
+    "status": 429,
+    "response": {
+      "error": {
+        "code": "search_busy",
+        "message": "搜索繁忙，请稍后重试"
+      }
+    }
+  },
+  {
+    "case": "parallel",
+    "status": 429,
+    "response": {
+      "error": {
+        "code": "search_busy",
+        "message": "搜索繁忙，请稍后重试"
+      }
+    }
+  },
+  {
+    "case": "parallel",
+    "status": 429,
+    "response": {
+      "error": {
+        "code": "search_busy",
+        "message": "搜索繁忙，请稍后重试"
+      }
+    }
+  },
+  {
+    "case": "parallel",
+    "status": 429,
+    "response": {
+      "error": {
+        "code": "search_busy",
+        "message": "搜索繁忙，请稍后重试"
+      }
+    }
+  }
+]

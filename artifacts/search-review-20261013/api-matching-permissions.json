@@ -1,0 +1,1757 @@
+[
+  {
+    "query": "中文连续原文",
+    "status": 200,
+    "cacheControl": "private, no-store",
+    "response": {
+      "session": "61f054dc-71a1-4668-98b1-0cb822741e0e",
+      "query": "中文连续原文",
+      "results": [
+        {
+          "id": "a544245e-0b90-4617-8ee8-0e66d1ca2542",
+          "type": "post",
+          "slug": "search-review-3",
+          "title": "现场作品3",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.714+08",
+          "canAccess": true,
+          "revision": "3f94b37e-d469-46a3-a85f-4913c67318fe",
+          "hits": [
+            {
+              "start": 7,
+              "end": 13,
+              "contextStart": 0,
+              "context": "精确字符标题\n中文连续原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nco",
+              "nodes": [
+                {
+                  "id": "t1",
+                  "start": 0,
+                  "end": 6
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "22ad22cd-010e-43ee-910e-bb449e8f470e",
+          "type": "article",
+          "slug": "search-review-2",
+          "title": "匹配标题 ABC",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.699+08",
+          "canAccess": true,
+          "revision": "86e3c46f-860b-4229-8a83-f5ba72fb9a9c",
+          "hits": [
+            {
+              "start": 7,
+              "end": 13,
+              "contextStart": 0,
+              "context": "精确字符标题\n中文连续原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nco",
+              "nodes": [
+                {
+                  "id": "t1",
+                  "start": 0,
+                  "end": 6
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "830947d3-bc17-4c31-a7cc-77f26b33cf72",
+          "type": "article",
+          "slug": "search-review-1",
+          "title": "现场作品1",
+          "description": "描述连续词 XYZ",
+          "visibility": "paid",
+          "publishedAt": "2026-10-13 14:19:45.668+08",
+          "canAccess": true,
+          "revision": "42bd7b77-e191-49cd-8370-7e28f634dac6",
+          "hits": [
+            {
+              "start": 7,
+              "end": 13,
+              "contextStart": 0,
+              "context": "精确字符标题\n中文连续原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nco",
+              "nodes": [
+                {
+                  "id": "t1",
+                  "start": 0,
+                  "end": 6
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "69491f1a-8fb6-403a-b0b2-b395a830a46f",
+          "type": "article",
+          "slug": "search-review-0",
+          "title": "现场作品0",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.657+08",
+          "canAccess": true,
+          "revision": "3d5b207e-22d5-4a13-a169-e934f7071783",
+          "hits": [
+            {
+              "start": 7,
+              "end": 13,
+              "contextStart": 0,
+              "context": "精确字符标题\n中文连续原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nco",
+              "nodes": [
+                {
+                  "id": "t1",
+                  "start": 0,
+                  "end": 6
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "nextCursor": null,
+      "quota": {
+        "remaining": null,
+        "releasesAt": null
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "query": "abcABC",
+    "status": 200,
+    "cacheControl": "private, no-store",
+    "response": {
+      "session": "e9b82209-2257-4697-963c-ab9f6892b4f6",
+      "query": "abcABC",
+      "results": [
+        {
+          "id": "a544245e-0b90-4617-8ee8-0e66d1ca2542",
+          "type": "post",
+          "slug": "search-review-3",
+          "title": "现场作品3",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.714+08",
+          "canAccess": true,
+          "revision": "3f94b37e-d469-46a3-a85f-4913c67318fe",
+          "hits": [
+            {
+              "start": 14,
+              "end": 20,
+              "contextStart": 0,
+              "context": "精确字符标题\n中文连续原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst lit",
+              "nodes": [
+                {
+                  "id": "t1",
+                  "start": 7,
+                  "end": 13
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "22ad22cd-010e-43ee-910e-bb449e8f470e",
+          "type": "article",
+          "slug": "search-review-2",
+          "title": "匹配标题 ABC",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.699+08",
+          "canAccess": true,
+          "revision": "86e3c46f-860b-4229-8a83-f5ba72fb9a9c",
+          "hits": [
+            {
+              "start": 14,
+              "end": 20,
+              "contextStart": 0,
+              "context": "精确字符标题\n中文连续原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst lit",
+              "nodes": [
+                {
+                  "id": "t1",
+                  "start": 7,
+                  "end": 13
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "830947d3-bc17-4c31-a7cc-77f26b33cf72",
+          "type": "article",
+          "slug": "search-review-1",
+          "title": "现场作品1",
+          "description": "描述连续词 XYZ",
+          "visibility": "paid",
+          "publishedAt": "2026-10-13 14:19:45.668+08",
+          "canAccess": true,
+          "revision": "42bd7b77-e191-49cd-8370-7e28f634dac6",
+          "hits": [
+            {
+              "start": 14,
+              "end": 20,
+              "contextStart": 0,
+              "context": "精确字符标题\n中文连续原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst lit",
+              "nodes": [
+                {
+                  "id": "t1",
+                  "start": 7,
+                  "end": 13
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "69491f1a-8fb6-403a-b0b2-b395a830a46f",
+          "type": "article",
+          "slug": "search-review-0",
+          "title": "现场作品0",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.657+08",
+          "canAccess": true,
+          "revision": "3d5b207e-22d5-4a13-a169-e934f7071783",
+          "hits": [
+            {
+              "start": 14,
+              "end": 20,
+              "contextStart": 0,
+              "context": "精确字符标题\n中文连续原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst lit",
+              "nodes": [
+                {
+                  "id": "t1",
+                  "start": 7,
+                  "end": 13
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "nextCursor": null,
+      "quota": {
+        "remaining": null,
+        "releasesAt": null
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "query": "abcabc",
+    "status": 200,
+    "cacheControl": "private, no-store",
+    "response": {
+      "session": "41d3e736-3cc9-472a-b8aa-beabfa48dd7f",
+      "query": "abcabc",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": null,
+        "releasesAt": null
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "query": "空格  双空格",
+    "status": 200,
+    "cacheControl": "private, no-store",
+    "response": {
+      "session": "ac49f158-a2da-4413-82df-2bbf6ab494b3",
+      "query": "空格  双空格",
+      "results": [
+        {
+          "id": "a544245e-0b90-4617-8ee8-0e66d1ca2542",
+          "type": "post",
+          "slug": "search-review-3",
+          "title": "现场作品3",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.714+08",
+          "canAccess": true,
+          "revision": "3f94b37e-d469-46a3-a85f-4913c67318fe",
+          "hits": [
+            {
+              "start": 21,
+              "end": 28,
+              "contextStart": 0,
+              "context": "精确字符标题\n中文连续原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"",
+              "nodes": [
+                {
+                  "id": "t1",
+                  "start": 14,
+                  "end": 21
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "22ad22cd-010e-43ee-910e-bb449e8f470e",
+          "type": "article",
+          "slug": "search-review-2",
+          "title": "匹配标题 ABC",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.699+08",
+          "canAccess": true,
+          "revision": "86e3c46f-860b-4229-8a83-f5ba72fb9a9c",
+          "hits": [
+            {
+              "start": 21,
+              "end": 28,
+              "contextStart": 0,
+              "context": "精确字符标题\n中文连续原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"",
+              "nodes": [
+                {
+                  "id": "t1",
+                  "start": 14,
+                  "end": 21
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "830947d3-bc17-4c31-a7cc-77f26b33cf72",
+          "type": "article",
+          "slug": "search-review-1",
+          "title": "现场作品1",
+          "description": "描述连续词 XYZ",
+          "visibility": "paid",
+          "publishedAt": "2026-10-13 14:19:45.668+08",
+          "canAccess": true,
+          "revision": "42bd7b77-e191-49cd-8370-7e28f634dac6",
+          "hits": [
+            {
+              "start": 21,
+              "end": 28,
+              "contextStart": 0,
+              "context": "精确字符标题\n中文连续原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"",
+              "nodes": [
+                {
+                  "id": "t1",
+                  "start": 14,
+                  "end": 21
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "69491f1a-8fb6-403a-b0b2-b395a830a46f",
+          "type": "article",
+          "slug": "search-review-0",
+          "title": "现场作品0",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.657+08",
+          "canAccess": true,
+          "revision": "3d5b207e-22d5-4a13-a169-e934f7071783",
+          "hits": [
+            {
+              "start": 21,
+              "end": 28,
+              "contextStart": 0,
+              "context": "精确字符标题\n中文连续原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"",
+              "nodes": [
+                {
+                  "id": "t1",
+                  "start": 14,
+                  "end": 21
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "nextCursor": null,
+      "quota": {
+        "remaining": null,
+        "releasesAt": null
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "query": "空格 双空格",
+    "status": 200,
+    "cacheControl": "private, no-store",
+    "response": {
+      "session": "6d19134c-b310-4a76-bfc5-c10e171b217b",
+      "query": "空格 双空格",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": null,
+        "releasesAt": null
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "query": "标点，测试",
+    "status": 200,
+    "cacheControl": "private, no-store",
+    "response": {
+      "session": "9018703d-343e-4946-9fad-817f0b3b9cb2",
+      "query": "标点，测试",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": null,
+        "releasesAt": null
+      },
+      "bodySearch": false
+    }
+  },
+  {
+    "query": "Emoji😀跨强调命中",
+    "status": 200,
+    "cacheControl": "private, no-store",
+    "response": {
+      "session": "7ae679b2-d69e-4771-9628-470f999c92c1",
+      "query": "Emoji😀跨强调命中",
+      "results": [
+        {
+          "id": "a544245e-0b90-4617-8ee8-0e66d1ca2542",
+          "type": "post",
+          "slug": "search-review-3",
+          "title": "现场作品3",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.714+08",
+          "canAccess": true,
+          "revision": "3f94b37e-d469-46a3-a85f-4913c67318fe",
+          "hits": [
+            {
+              "start": 36,
+              "end": 48,
+              "contextStart": 0,
+              "context": "精确字符标题\n中文连续原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n",
+              "nodes": [
+                {
+                  "id": "t1",
+                  "start": 29,
+                  "end": 37
+                },
+                {
+                  "id": "t2",
+                  "start": 0,
+                  "end": 4
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "22ad22cd-010e-43ee-910e-bb449e8f470e",
+          "type": "article",
+          "slug": "search-review-2",
+          "title": "匹配标题 ABC",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.699+08",
+          "canAccess": true,
+          "revision": "86e3c46f-860b-4229-8a83-f5ba72fb9a9c",
+          "hits": [
+            {
+              "start": 36,
+              "end": 48,
+              "contextStart": 0,
+              "context": "精确字符标题\n中文连续原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n",
+              "nodes": [
+                {
+                  "id": "t1",
+                  "start": 29,
+                  "end": 37
+                },
+                {
+                  "id": "t2",
+                  "start": 0,
+                  "end": 4
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "830947d3-bc17-4c31-a7cc-77f26b33cf72",
+          "type": "article",
+          "slug": "search-review-1",
+          "title": "现场作品1",
+          "description": "描述连续词 XYZ",
+          "visibility": "paid",
+          "publishedAt": "2026-10-13 14:19:45.668+08",
+          "canAccess": true,
+          "revision": "42bd7b77-e191-49cd-8370-7e28f634dac6",
+          "hits": [
+            {
+              "start": 36,
+              "end": 48,
+              "contextStart": 0,
+              "context": "精确字符标题\n中文连续原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n秘密付",
+              "nodes": [
+                {
+                  "id": "t1",
+                  "start": 29,
+                  "end": 37
+                },
+                {
+                  "id": "t2",
+                  "start": 0,
+                  "end": 4
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "69491f1a-8fb6-403a-b0b2-b395a830a46f",
+          "type": "article",
+          "slug": "search-review-0",
+          "title": "现场作品0",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.657+08",
+          "canAccess": true,
+          "revision": "3d5b207e-22d5-4a13-a169-e934f7071783",
+          "hits": [
+            {
+              "start": 36,
+              "end": 48,
+              "contextStart": 0,
+              "context": "精确字符标题\n中文连续原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n",
+              "nodes": [
+                {
+                  "id": "t1",
+                  "start": 29,
+                  "end": 37
+                },
+                {
+                  "id": "t2",
+                  "start": 0,
+                  "end": 4
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "nextCursor": null,
+      "quota": {
+        "remaining": null,
+        "releasesAt": null
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "query": "代码连续命中",
+    "status": 200,
+    "cacheControl": "private, no-store",
+    "response": {
+      "session": "00adadda-5407-486e-ae2e-c782c2d2c241",
+      "query": "代码连续命中",
+      "results": [
+        {
+          "id": "a544245e-0b90-4617-8ee8-0e66d1ca2542",
+          "type": "post",
+          "slug": "search-review-3",
+          "title": "现场作品3",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.714+08",
+          "canAccess": true,
+          "revision": "3f94b37e-d469-46a3-a85f-4913c67318fe",
+          "hits": [
+            {
+              "start": 93,
+              "end": 99,
+              "contextStart": 48,
+              "context": "与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n",
+              "nodes": [
+                {
+                  "id": "t7",
+                  "start": 17,
+                  "end": 23
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "22ad22cd-010e-43ee-910e-bb449e8f470e",
+          "type": "article",
+          "slug": "search-review-2",
+          "title": "匹配标题 ABC",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.699+08",
+          "canAccess": true,
+          "revision": "86e3c46f-860b-4229-8a83-f5ba72fb9a9c",
+          "hits": [
+            {
+              "start": 93,
+              "end": 99,
+              "contextStart": 48,
+              "context": "与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n",
+              "nodes": [
+                {
+                  "id": "t7",
+                  "start": 17,
+                  "end": 23
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "830947d3-bc17-4c31-a7cc-77f26b33cf72",
+          "type": "article",
+          "slug": "search-review-1",
+          "title": "现场作品1",
+          "description": "描述连续词 XYZ",
+          "visibility": "paid",
+          "publishedAt": "2026-10-13 14:19:45.668+08",
+          "canAccess": true,
+          "revision": "42bd7b77-e191-49cd-8370-7e28f634dac6",
+          "hits": [
+            {
+              "start": 93,
+              "end": 99,
+              "contextStart": 48,
+              "context": "与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n秘密付费探针连续字。\n",
+              "nodes": [
+                {
+                  "id": "t7",
+                  "start": 17,
+                  "end": 23
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "69491f1a-8fb6-403a-b0b2-b395a830a46f",
+          "type": "article",
+          "slug": "search-review-0",
+          "title": "现场作品0",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.657+08",
+          "canAccess": true,
+          "revision": "3d5b207e-22d5-4a13-a169-e934f7071783",
+          "hits": [
+            {
+              "start": 93,
+              "end": 99,
+              "contextStart": 48,
+              "context": "与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n",
+              "nodes": [
+                {
+                  "id": "t7",
+                  "start": 17,
+                  "end": 23
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "nextCursor": null,
+      "quota": {
+        "remaining": null,
+        "releasesAt": null
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "query": "重复命中",
+    "status": 200,
+    "cacheControl": "private, no-store",
+    "response": {
+      "session": "1677db22-d9db-43bb-9809-4e2a599d3405",
+      "query": "重复命中",
+      "results": [
+        {
+          "id": "a544245e-0b90-4617-8ee8-0e66d1ca2542",
+          "type": "post",
+          "slug": "search-review-3",
+          "title": "现场作品3",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.714+08",
+          "canAccess": true,
+          "revision": "3f94b37e-d469-46a3-a85f-4913c67318fe",
+          "hits": [
+            {
+              "start": 56,
+              "end": 60,
+              "contextStart": 11,
+              "context": "原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n",
+              "nodes": [
+                {
+                  "id": "t6",
+                  "start": 0,
+                  "end": 4
+                }
+              ]
+            },
+            {
+              "start": 61,
+              "end": 65,
+              "contextStart": 16,
+              "context": "cABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n",
+              "nodes": [
+                {
+                  "id": "t6",
+                  "start": 5,
+                  "end": 9
+                }
+              ]
+            },
+            {
+              "start": 66,
+              "end": 70,
+              "contextStart": 21,
+              "context": "空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n",
+              "nodes": [
+                {
+                  "id": "t6",
+                  "start": 10,
+                  "end": 14
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "22ad22cd-010e-43ee-910e-bb449e8f470e",
+          "type": "article",
+          "slug": "search-review-2",
+          "title": "匹配标题 ABC",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.699+08",
+          "canAccess": true,
+          "revision": "86e3c46f-860b-4229-8a83-f5ba72fb9a9c",
+          "hits": [
+            {
+              "start": 56,
+              "end": 60,
+              "contextStart": 11,
+              "context": "原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n",
+              "nodes": [
+                {
+                  "id": "t6",
+                  "start": 0,
+                  "end": 4
+                }
+              ]
+            },
+            {
+              "start": 61,
+              "end": 65,
+              "contextStart": 16,
+              "context": "cABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n",
+              "nodes": [
+                {
+                  "id": "t6",
+                  "start": 5,
+                  "end": 9
+                }
+              ]
+            },
+            {
+              "start": 66,
+              "end": 70,
+              "contextStart": 21,
+              "context": "空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n",
+              "nodes": [
+                {
+                  "id": "t6",
+                  "start": 10,
+                  "end": 14
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "830947d3-bc17-4c31-a7cc-77f26b33cf72",
+          "type": "article",
+          "slug": "search-review-1",
+          "title": "现场作品1",
+          "description": "描述连续词 XYZ",
+          "visibility": "paid",
+          "publishedAt": "2026-10-13 14:19:45.668+08",
+          "canAccess": true,
+          "revision": "42bd7b77-e191-49cd-8370-7e28f634dac6",
+          "hits": [
+            {
+              "start": 56,
+              "end": 60,
+              "contextStart": 11,
+              "context": "原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n秘密付费探针连续字。\n",
+              "nodes": [
+                {
+                  "id": "t6",
+                  "start": 0,
+                  "end": 4
+                }
+              ]
+            },
+            {
+              "start": 61,
+              "end": 65,
+              "contextStart": 16,
+              "context": "cABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n秘密付费探针连续字。\n",
+              "nodes": [
+                {
+                  "id": "t6",
+                  "start": 5,
+                  "end": 9
+                }
+              ]
+            },
+            {
+              "start": 66,
+              "end": 70,
+              "contextStart": 21,
+              "context": "空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n秘密付费探针连续字。\n",
+              "nodes": [
+                {
+                  "id": "t6",
+                  "start": 10,
+                  "end": 14
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "69491f1a-8fb6-403a-b0b2-b395a830a46f",
+          "type": "article",
+          "slug": "search-review-0",
+          "title": "现场作品0",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.657+08",
+          "canAccess": true,
+          "revision": "3d5b207e-22d5-4a13-a169-e934f7071783",
+          "hits": [
+            {
+              "start": 56,
+              "end": 60,
+              "contextStart": 11,
+              "context": "原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n",
+              "nodes": [
+                {
+                  "id": "t6",
+                  "start": 0,
+                  "end": 4
+                }
+              ]
+            },
+            {
+              "start": 61,
+              "end": 65,
+              "contextStart": 16,
+              "context": "cABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n",
+              "nodes": [
+                {
+                  "id": "t6",
+                  "start": 5,
+                  "end": 9
+                }
+              ]
+            },
+            {
+              "start": 66,
+              "end": 70,
+              "contextStart": 21,
+              "context": "空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n",
+              "nodes": [
+                {
+                  "id": "t6",
+                  "start": 10,
+                  "end": 14
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "nextCursor": null,
+      "quota": {
+        "remaining": null,
+        "releasesAt": null
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "query": "描述连续词",
+    "status": 200,
+    "cacheControl": "private, no-store",
+    "response": {
+      "session": "7caced25-20e0-4e7a-93a5-38de7fcd2c8f",
+      "query": "描述连续词",
+      "results": [
+        {
+          "id": "d58704bf-b948-43c8-b0d3-37030b5a9dd2",
+          "type": "article",
+          "slug": "search-review-9",
+          "title": "现场作品9",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.728+08",
+          "canAccess": true,
+          "revision": "4c48168d-525b-48c7-b8d9-3e5eafa2b068",
+          "hits": []
+        },
+        {
+          "id": "fe9dc314-9228-47a9-bb4c-34ce1475a5a4",
+          "type": "article",
+          "slug": "search-review-8",
+          "title": "现场作品8",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.725+08",
+          "canAccess": true,
+          "revision": "ebc2a95f-e93c-4586-880c-98e4bae29a86",
+          "hits": []
+        },
+        {
+          "id": "a48f4837-1af9-4e47-b7cd-e2a733a88169",
+          "type": "article",
+          "slug": "search-review-7",
+          "title": "现场作品7",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.723+08",
+          "canAccess": true,
+          "revision": "6abef1ce-8fcc-4279-ae37-b7fa352826e4",
+          "hits": []
+        },
+        {
+          "id": "2466f3b6-ab88-4366-ba10-0dfe336b9e3f",
+          "type": "article",
+          "slug": "search-review-6",
+          "title": "现场作品6",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.721+08",
+          "canAccess": true,
+          "revision": "24835004-d9a1-46f4-b3ff-b9effbf5fba2",
+          "hits": []
+        },
+        {
+          "id": "13e684da-4bd1-49cd-a89d-9e936b1bb728",
+          "type": "article",
+          "slug": "search-review-5",
+          "title": "现场作品5",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.719+08",
+          "canAccess": true,
+          "revision": "36e42920-38d4-4c3e-8244-511d97cac503",
+          "hits": []
+        },
+        {
+          "id": "b1554956-2ff6-4cf6-9776-5d6f4195027a",
+          "type": "article",
+          "slug": "search-review-4",
+          "title": "现场作品4",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.716+08",
+          "canAccess": true,
+          "revision": "0d9e1e98-fc96-4f29-a67d-71e535531e0d",
+          "hits": []
+        },
+        {
+          "id": "a544245e-0b90-4617-8ee8-0e66d1ca2542",
+          "type": "post",
+          "slug": "search-review-3",
+          "title": "现场作品3",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.714+08",
+          "canAccess": true,
+          "revision": "3f94b37e-d469-46a3-a85f-4913c67318fe",
+          "hits": []
+        },
+        {
+          "id": "9546e373-99a3-4430-9387-f8771b83013b",
+          "type": "article",
+          "slug": "search-review-24",
+          "title": "现场作品24",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.711+08",
+          "canAccess": true,
+          "revision": "acd25805-b266-4527-aeff-d738313973a6",
+          "hits": []
+        },
+        {
+          "id": "e77b8357-e1a3-4ef8-96b3-4b5636e012e8",
+          "type": "article",
+          "slug": "search-review-23",
+          "title": "现场作品23",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.708+08",
+          "canAccess": true,
+          "revision": "4a8c41c2-ad97-4e6b-bb8e-fa5ce877c998",
+          "hits": []
+        },
+        {
+          "id": "85a6f8ad-2deb-4fbb-b37c-0c1399a8aae2",
+          "type": "article",
+          "slug": "search-review-22",
+          "title": "现场作品22",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.706+08",
+          "canAccess": true,
+          "revision": "79d1327d-e18a-4e29-b32b-b0c08b8ab27c",
+          "hits": []
+        },
+        {
+          "id": "cfc2bf4c-58c9-44c8-b9ad-50ff9a0971ed",
+          "type": "article",
+          "slug": "search-review-21",
+          "title": "现场作品21",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.704+08",
+          "canAccess": true,
+          "revision": "ebfad06f-012b-4e74-a2f5-175c1bc885b9",
+          "hits": []
+        },
+        {
+          "id": "a416f260-7c86-44a0-a718-62898394f91a",
+          "type": "article",
+          "slug": "search-review-20",
+          "title": "现场作品20",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.702+08",
+          "canAccess": true,
+          "revision": "eb37acde-8812-4fe2-baaf-5557ee62401d",
+          "hits": []
+        },
+        {
+          "id": "22ad22cd-010e-43ee-910e-bb449e8f470e",
+          "type": "article",
+          "slug": "search-review-2",
+          "title": "匹配标题 ABC",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.699+08",
+          "canAccess": true,
+          "revision": "86e3c46f-860b-4229-8a83-f5ba72fb9a9c",
+          "hits": []
+        },
+        {
+          "id": "6e35cdc4-6b15-492b-b184-954279a5279b",
+          "type": "article",
+          "slug": "search-review-19",
+          "title": "现场作品19",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.696+08",
+          "canAccess": true,
+          "revision": "3b75f1af-a8bf-45d8-bbc8-9d23be1f6f81",
+          "hits": []
+        },
+        {
+          "id": "eb3d203e-3c85-4f0e-a0d0-0691ad79a995",
+          "type": "article",
+          "slug": "search-review-18",
+          "title": "现场作品18",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.693+08",
+          "canAccess": true,
+          "revision": "5dd23035-e038-4fe5-b3f2-31a19fb71c06",
+          "hits": []
+        },
+        {
+          "id": "f346e2b4-6b26-459b-bc60-f63ade713802",
+          "type": "article",
+          "slug": "search-review-17",
+          "title": "现场作品17",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.691+08",
+          "canAccess": true,
+          "revision": "888cbcd5-f739-4a9c-8b63-6b202acc78c6",
+          "hits": []
+        },
+        {
+          "id": "e5a83c15-3ace-4fdb-92ae-e40ba636d9c6",
+          "type": "article",
+          "slug": "search-review-16",
+          "title": "现场作品16",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.688+08",
+          "canAccess": true,
+          "revision": "f96c52ab-13e8-4923-ac03-704ac886f99c",
+          "hits": []
+        },
+        {
+          "id": "421fe335-c279-4e77-9f3c-4733ac40af4a",
+          "type": "article",
+          "slug": "search-review-15",
+          "title": "现场作品15",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.686+08",
+          "canAccess": true,
+          "revision": "cd0ac2a7-0f8f-45e8-acad-fc55f5d963e7",
+          "hits": []
+        },
+        {
+          "id": "f3f3b4f1-8c7d-4302-8b33-463e59f65544",
+          "type": "article",
+          "slug": "search-review-14",
+          "title": "现场作品14",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.683+08",
+          "canAccess": true,
+          "revision": "0794c600-ff58-4a51-8af4-e3c8111f435c",
+          "hits": []
+        },
+        {
+          "id": "d39db308-d895-45fa-b371-dc642869af96",
+          "type": "article",
+          "slug": "search-review-13",
+          "title": "现场作品13",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.68+08",
+          "canAccess": true,
+          "revision": "6b299db9-c135-428d-9abe-2af5e9d578ca",
+          "hits": []
+        }
+      ],
+      "nextCursor": 20,
+      "quota": {
+        "remaining": null,
+        "releasesAt": null
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "query": "XYZ",
+    "status": 200,
+    "cacheControl": "private, no-store",
+    "response": {
+      "session": "c28e7936-c0dc-4e27-bde9-8c1c0eaeb623",
+      "query": "XYZ",
+      "results": [
+        {
+          "id": "d58704bf-b948-43c8-b0d3-37030b5a9dd2",
+          "type": "article",
+          "slug": "search-review-9",
+          "title": "现场作品9",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.728+08",
+          "canAccess": true,
+          "revision": "4c48168d-525b-48c7-b8d9-3e5eafa2b068",
+          "hits": []
+        },
+        {
+          "id": "fe9dc314-9228-47a9-bb4c-34ce1475a5a4",
+          "type": "article",
+          "slug": "search-review-8",
+          "title": "现场作品8",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.725+08",
+          "canAccess": true,
+          "revision": "ebc2a95f-e93c-4586-880c-98e4bae29a86",
+          "hits": []
+        },
+        {
+          "id": "a48f4837-1af9-4e47-b7cd-e2a733a88169",
+          "type": "article",
+          "slug": "search-review-7",
+          "title": "现场作品7",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.723+08",
+          "canAccess": true,
+          "revision": "6abef1ce-8fcc-4279-ae37-b7fa352826e4",
+          "hits": []
+        },
+        {
+          "id": "2466f3b6-ab88-4366-ba10-0dfe336b9e3f",
+          "type": "article",
+          "slug": "search-review-6",
+          "title": "现场作品6",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.721+08",
+          "canAccess": true,
+          "revision": "24835004-d9a1-46f4-b3ff-b9effbf5fba2",
+          "hits": []
+        },
+        {
+          "id": "13e684da-4bd1-49cd-a89d-9e936b1bb728",
+          "type": "article",
+          "slug": "search-review-5",
+          "title": "现场作品5",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.719+08",
+          "canAccess": true,
+          "revision": "36e42920-38d4-4c3e-8244-511d97cac503",
+          "hits": []
+        },
+        {
+          "id": "b1554956-2ff6-4cf6-9776-5d6f4195027a",
+          "type": "article",
+          "slug": "search-review-4",
+          "title": "现场作品4",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.716+08",
+          "canAccess": true,
+          "revision": "0d9e1e98-fc96-4f29-a67d-71e535531e0d",
+          "hits": []
+        },
+        {
+          "id": "a544245e-0b90-4617-8ee8-0e66d1ca2542",
+          "type": "post",
+          "slug": "search-review-3",
+          "title": "现场作品3",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.714+08",
+          "canAccess": true,
+          "revision": "3f94b37e-d469-46a3-a85f-4913c67318fe",
+          "hits": []
+        },
+        {
+          "id": "9546e373-99a3-4430-9387-f8771b83013b",
+          "type": "article",
+          "slug": "search-review-24",
+          "title": "现场作品24",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.711+08",
+          "canAccess": true,
+          "revision": "acd25805-b266-4527-aeff-d738313973a6",
+          "hits": []
+        },
+        {
+          "id": "e77b8357-e1a3-4ef8-96b3-4b5636e012e8",
+          "type": "article",
+          "slug": "search-review-23",
+          "title": "现场作品23",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.708+08",
+          "canAccess": true,
+          "revision": "4a8c41c2-ad97-4e6b-bb8e-fa5ce877c998",
+          "hits": []
+        },
+        {
+          "id": "85a6f8ad-2deb-4fbb-b37c-0c1399a8aae2",
+          "type": "article",
+          "slug": "search-review-22",
+          "title": "现场作品22",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.706+08",
+          "canAccess": true,
+          "revision": "79d1327d-e18a-4e29-b32b-b0c08b8ab27c",
+          "hits": []
+        },
+        {
+          "id": "cfc2bf4c-58c9-44c8-b9ad-50ff9a0971ed",
+          "type": "article",
+          "slug": "search-review-21",
+          "title": "现场作品21",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.704+08",
+          "canAccess": true,
+          "revision": "ebfad06f-012b-4e74-a2f5-175c1bc885b9",
+          "hits": []
+        },
+        {
+          "id": "a416f260-7c86-44a0-a718-62898394f91a",
+          "type": "article",
+          "slug": "search-review-20",
+          "title": "现场作品20",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.702+08",
+          "canAccess": true,
+          "revision": "eb37acde-8812-4fe2-baaf-5557ee62401d",
+          "hits": []
+        },
+        {
+          "id": "22ad22cd-010e-43ee-910e-bb449e8f470e",
+          "type": "article",
+          "slug": "search-review-2",
+          "title": "匹配标题 ABC",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.699+08",
+          "canAccess": true,
+          "revision": "86e3c46f-860b-4229-8a83-f5ba72fb9a9c",
+          "hits": []
+        },
+        {
+          "id": "6e35cdc4-6b15-492b-b184-954279a5279b",
+          "type": "article",
+          "slug": "search-review-19",
+          "title": "现场作品19",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.696+08",
+          "canAccess": true,
+          "revision": "3b75f1af-a8bf-45d8-bbc8-9d23be1f6f81",
+          "hits": []
+        },
+        {
+          "id": "eb3d203e-3c85-4f0e-a0d0-0691ad79a995",
+          "type": "article",
+          "slug": "search-review-18",
+          "title": "现场作品18",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.693+08",
+          "canAccess": true,
+          "revision": "5dd23035-e038-4fe5-b3f2-31a19fb71c06",
+          "hits": []
+        },
+        {
+          "id": "f346e2b4-6b26-459b-bc60-f63ade713802",
+          "type": "article",
+          "slug": "search-review-17",
+          "title": "现场作品17",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.691+08",
+          "canAccess": true,
+          "revision": "888cbcd5-f739-4a9c-8b63-6b202acc78c6",
+          "hits": []
+        },
+        {
+          "id": "e5a83c15-3ace-4fdb-92ae-e40ba636d9c6",
+          "type": "article",
+          "slug": "search-review-16",
+          "title": "现场作品16",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.688+08",
+          "canAccess": true,
+          "revision": "f96c52ab-13e8-4923-ac03-704ac886f99c",
+          "hits": []
+        },
+        {
+          "id": "421fe335-c279-4e77-9f3c-4733ac40af4a",
+          "type": "article",
+          "slug": "search-review-15",
+          "title": "现场作品15",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.686+08",
+          "canAccess": true,
+          "revision": "cd0ac2a7-0f8f-45e8-acad-fc55f5d963e7",
+          "hits": []
+        },
+        {
+          "id": "f3f3b4f1-8c7d-4302-8b33-463e59f65544",
+          "type": "article",
+          "slug": "search-review-14",
+          "title": "现场作品14",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.683+08",
+          "canAccess": true,
+          "revision": "0794c600-ff58-4a51-8af4-e3c8111f435c",
+          "hits": []
+        },
+        {
+          "id": "d39db308-d895-45fa-b371-dc642869af96",
+          "type": "article",
+          "slug": "search-review-13",
+          "title": "现场作品13",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.68+08",
+          "canAccess": true,
+          "revision": "6b299db9-c135-428d-9abe-2af5e9d578ca",
+          "hits": []
+        }
+      ],
+      "nextCursor": 20,
+      "quota": {
+        "remaining": null,
+        "releasesAt": null
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "query": "ABC",
+    "status": 200,
+    "cacheControl": "private, no-store",
+    "response": {
+      "session": "7c5b2247-7e09-4704-9d2d-906ce7588568",
+      "query": "ABC",
+      "results": [
+        {
+          "id": "22ad22cd-010e-43ee-910e-bb449e8f470e",
+          "type": "article",
+          "slug": "search-review-2",
+          "title": "匹配标题 ABC",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.699+08",
+          "canAccess": true,
+          "revision": "86e3c46f-860b-4229-8a83-f5ba72fb9a9c",
+          "hits": [
+            {
+              "start": 17,
+              "end": 20,
+              "contextStart": 0,
+              "context": "精确字符标题\n中文连续原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst lit",
+              "nodes": [
+                {
+                  "id": "t1",
+                  "start": 10,
+                  "end": 13
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "a544245e-0b90-4617-8ee8-0e66d1ca2542",
+          "type": "post",
+          "slug": "search-review-3",
+          "title": "现场作品3",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.714+08",
+          "canAccess": true,
+          "revision": "3f94b37e-d469-46a3-a85f-4913c67318fe",
+          "hits": [
+            {
+              "start": 17,
+              "end": 20,
+              "contextStart": 0,
+              "context": "精确字符标题\n中文连续原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst lit",
+              "nodes": [
+                {
+                  "id": "t1",
+                  "start": 10,
+                  "end": 13
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "830947d3-bc17-4c31-a7cc-77f26b33cf72",
+          "type": "article",
+          "slug": "search-review-1",
+          "title": "现场作品1",
+          "description": "描述连续词 XYZ",
+          "visibility": "paid",
+          "publishedAt": "2026-10-13 14:19:45.668+08",
+          "canAccess": true,
+          "revision": "42bd7b77-e191-49cd-8370-7e28f634dac6",
+          "hits": [
+            {
+              "start": 17,
+              "end": 20,
+              "contextStart": 0,
+              "context": "精确字符标题\n中文连续原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst lit",
+              "nodes": [
+                {
+                  "id": "t1",
+                  "start": 10,
+                  "end": 13
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "69491f1a-8fb6-403a-b0b2-b395a830a46f",
+          "type": "article",
+          "slug": "search-review-0",
+          "title": "现场作品0",
+          "description": "描述连续词 XYZ",
+          "visibility": "public",
+          "publishedAt": "2026-10-13 14:19:45.657+08",
+          "canAccess": true,
+          "revision": "3d5b207e-22d5-4a13-a169-e934f7071783",
+          "hits": [
+            {
+              "start": 17,
+              "end": 20,
+              "contextStart": 0,
+              "context": "精确字符标题\n中文连续原文 abcABC 空格  双空格 标点，测试！ Emoji😀跨强调命中与 链接文本。\n重复命中 重复命中 重复命中 重复命中\nconst lit",
+              "nodes": [
+                {
+                  "id": "t1",
+                  "start": 10,
+                  "end": 13
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "nextCursor": null,
+      "quota": {
+        "remaining": null,
+        "releasesAt": null
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "query": "😀",
+    "status": 200,
+    "cacheControl": "private, no-store",
+    "response": {
+      "session": "3cbc1b91-e64c-46ca-aa3f-1dbdf4e21852",
+      "query": "😀",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": null,
+        "releasesAt": null
+      },
+      "bodySearch": false
+    }
+  },
+  {
+    "query": "不存在连续词",
+    "status": 200,
+    "cacheControl": "private, no-store",
+    "response": {
+      "session": "fc1f3f66-528a-4b77-910d-5086cda9c6ef",
+      "query": "不存在连续词",
+      "results": [],
+      "nextCursor": null,
+      "quota": {
+        "remaining": null,
+        "releasesAt": null
+      },
+      "bodySearch": true
+    }
+  },
+  {
+    "role": "anonymous",
+    "status": 200,
+    "cacheControl": "private, no-store",
+    "response": {
+      "session": "f3f5d5e6-3f44-436d-b130-00d2a22dd481",
+      "query": "秘密付费探针",
+      "results": [
+        {
+          "id": "830947d3-bc17-4c31-a7cc-77f26b33cf72",
+          "type": "article",
+          "slug": "search-review-1",
+          "title": "现场作品1",
+          "description": "描述连续词 XYZ",
+          "visibility": "paid",
+          "publishedAt": "2026-10-13 14:19:45.668+08",
+          "canAccess": false
+        }
+      ],
+      "nextCursor": null,
+      "quota": {
+        "remaining": 9,
+        "releasesAt": "2026-10-13T07:21:02.559Z"
+      },
+      "bodySearch": true
+    },
+    "locateStatus": 403,
+    "locateResponse": {
+      "error": {
+        "code": "search_forbidden",
+        "message": "开通订阅后可查看正文命中位置"
+      }
+    }
+  },
+  {
+    "role": "searchfree",
+    "status": 200,
+    "cacheControl": "private, no-store",
+    "response": {
+      "session": "353e2525-6adb-4180-9fb5-6b29f5674c53",
+      "query": "秘密付费探针",
+      "results": [
+        {
+          "id": "830947d3-bc17-4c31-a7cc-77f26b33cf72",
+          "type": "article",
+          "slug": "search-review-1",
+          "title": "现场作品1",
+          "description": "描述连续词 XYZ",
+          "visibility": "paid",
+          "publishedAt": "2026-10-13 14:19:45.668+08",
+          "canAccess": false
+        }
+      ],
+      "nextCursor": null,
+      "quota": {
+        "remaining": 9,
+        "releasesAt": "2026-10-13T07:21:02.566Z"
+      },
+      "bodySearch": true
+    },
+    "locateStatus": 403,
+    "locateResponse": {
+      "error": {
+        "code": "search_forbidden",
+        "message": "开通订阅后可查看正文命中位置"
+      }
+    }
+  },
+  {
+    "role": "searchmember",
+    "status": 200,
+    "cacheControl": "private, no-store",
+    "response": {
+      "session": "62b04b7e-5f43-4ff6-9864-394a0947f44e",
+      "query": "秘密付费探针",
+      "results": [
+        {
+          "id": "830947d3-bc17-4c31-a7cc-77f26b33cf72",
+          "type": "article",
+          "slug": "search-review-1",
+          "title": "现场作品1",
+          "description": "描述连续词 XYZ",
+          "visibility": "paid",
+          "publishedAt": "2026-10-13 14:19:45.668+08",
+          "canAccess": true,
+          "revision": "42bd7b77-e191-49cd-8370-7e28f634dac6",
+          "hits": [
+            {
+              "start": 110,
+              "end": 116,
+              "contextStart": 65,
+              "context": " 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n秘密付费探针连续字。\n",
+              "nodes": [
+                {
+                  "id": "t9",
+                  "start": 0,
+                  "end": 6
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "nextCursor": null,
+      "quota": {
+        "remaining": null,
+        "releasesAt": null
+      },
+      "bodySearch": true
+    },
+    "locateStatus": 200,
+    "locateResponse": {
+      "revision": "42bd7b77-e191-49cd-8370-7e28f634dac6",
+      "hits": [
+        {
+          "start": 110,
+          "end": 116,
+          "nodes": [
+            {
+              "id": "t9",
+              "start": 0,
+              "end": 6
+            }
+          ]
+        }
+      ],
+      "nextAfter": null
+    }
+  },
+  {
+    "role": "searchadmin",
+    "status": 200,
+    "cacheControl": "private, no-store",
+    "response": {
+      "session": "379d49e5-144a-4d35-ac30-3f498e425e3c",
+      "query": "秘密付费探针",
+      "results": [
+        {
+          "id": "830947d3-bc17-4c31-a7cc-77f26b33cf72",
+          "type": "article",
+          "slug": "search-review-1",
+          "title": "现场作品1",
+          "description": "描述连续词 XYZ",
+          "visibility": "paid",
+          "publishedAt": "2026-10-13 14:19:45.668+08",
+          "canAccess": true,
+          "revision": "42bd7b77-e191-49cd-8370-7e28f634dac6",
+          "hits": [
+            {
+              "start": 110,
+              "end": 116,
+              "contextStart": 65,
+              "context": " 重复命中 重复命中\nconst literal = \"代码连续命中\";\n跨行\n连续文本\n秘密付费探针连续字。\n",
+              "nodes": [
+                {
+                  "id": "t9",
+                  "start": 0,
+                  "end": 6
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "nextCursor": null,
+      "quota": {
+        "remaining": null,
+        "releasesAt": null
+      },
+      "bodySearch": true
+    },
+    "locateStatus": 200,
+    "locateResponse": {
+      "revision": "42bd7b77-e191-49cd-8370-7e28f634dac6",
+      "hits": [
+        {
+          "start": 110,
+          "end": 116,
+          "nodes": [
+            {
+              "id": "t9",
+              "start": 0,
+              "end": 6
+            }
+          ]
+        }
+      ],
+      "nextAfter": null
+    }
+  }
+]

@@ -1,0 +1,29 @@
+ANALYZE
+ANALYZE
+                                                                     QUERY PLAN                                                                      
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=0.00..409.44 rows=3 width=16) (actual time=0.076..39.903 rows=100 loops=1)
+   Buffers: shared hit=31048 read=2547 written=3
+   ->  Seq Scan on search_projections  (cost=0.00..409.44 rows=3 width=16) (actual time=0.076..39.898 rows=100 loops=1)
+         Filter: ((title ~~ '%中文稀有精确探针%'::text) OR (description ~~ '%中文稀有精确探针%'::text) OR (body_text ~~ '%中文稀有精确探针%'::text))
+         Rows Removed by Filter: 9925
+         Buffers: shared hit=31048 read=2547 written=3
+ Planning:
+   Buffers: shared hit=51 read=4
+ Planning Time: 0.925 ms
+ Execution Time: 39.915 ms
+(10 rows)
+
+                                                         QUERY PLAN                                                         
+----------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=0.00..38.38 rows=1001 width=16) (actual time=0.003..0.079 rows=1001 loops=1)
+   Buffers: shared hit=25
+   ->  Seq Scan on search_projections  (cost=0.00..384.38 rows=10024 width=16) (actual time=0.003..0.051 rows=1001 loops=1)
+         Filter: ((title ~~ '%作%'::text) OR (description ~~ '%作%'::text))
+         Buffers: shared hit=25
+ Planning:
+   Buffers: shared hit=2
+ Planning Time: 0.055 ms
+ Execution Time: 0.098 ms
+(9 rows)
+
