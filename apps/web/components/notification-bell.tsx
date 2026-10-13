@@ -1,6 +1,6 @@
 "use client";
 
-/** 站内通知入口（Issue #14）：未读角标；仅登录用户可见；未登录不渲染。 */
+/** 通知入口常驻；仅登录用户展示未读角标，匿名访问由通知页引导登录。 */
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -46,11 +46,10 @@ export function NotificationBell() {
     };
   }, [pathname]);
 
-  if (count === null) return null;
   return (
-    <Link prefetch={false} href="/notifications" className="relative rounded-md px-2 py-1.5 text-muted-foreground hover:text-foreground" aria-label={count > 0 ? `通知（${count} 条未读）` : "通知"}>
-      <Bell className="size-4" />
-      {count > 0 && (
+    <Link prefetch={false} href="/notifications" className="relative flex size-11 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/20" aria-label={count !== null && count > 0 ? `通知（${count} 条未读）` : "通知"}>
+      <Bell className="size-5" aria-hidden="true" />
+      {count !== null && count > 0 && (
         <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-medium text-white">
           {count > 99 ? "99+" : count}
         </span>
