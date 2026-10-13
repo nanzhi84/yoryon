@@ -1,0 +1,116 @@
+[
+  {
+    "path": "/health",
+    "headersSent": {},
+    "status": 200,
+    "cacheControl": null,
+    "setCookie": null,
+    "body": {
+      "ok": true
+    }
+  },
+  {
+    "path": "/api/feed",
+    "headersSent": {},
+    "status": 200,
+    "cacheControl": "public, max-age=0, must-revalidate",
+    "setCookie": null,
+    "body": {
+      "bodyBytes": 1593
+    }
+  },
+  {
+    "path": "/api/tags",
+    "headersSent": {},
+    "status": 200,
+    "cacheControl": "public, max-age=0, must-revalidate",
+    "setCookie": null,
+    "body": {
+      "tags": [
+        {
+          "slug": "agents",
+          "name": "agents",
+          "count": 3
+        },
+        {
+          "slug": "engineering",
+          "name": "engineering",
+          "count": 3
+        },
+        {
+          "slug": "cacheproof",
+          "name": "cacheproof",
+          "count": 0
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/tags",
+    "headersSent": {
+      "Authorization": "Bearer invalid-review"
+    },
+    "status": 200,
+    "cacheControl": "public, max-age=0, must-revalidate",
+    "setCookie": null,
+    "body": {
+      "tags": [
+        {
+          "slug": "agents",
+          "name": "agents",
+          "count": 3
+        },
+        {
+          "slug": "engineering",
+          "name": "engineering",
+          "count": 3
+        },
+        {
+          "slug": "cacheproof",
+          "name": "cacheproof",
+          "count": 0
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/tags",
+    "headersSent": {
+      "Cookie": "session=invalid-review"
+    },
+    "status": 200,
+    "cacheControl": "public, max-age=0, must-revalidate",
+    "setCookie": null,
+    "body": {
+      "tags": [
+        {
+          "slug": "agents",
+          "name": "agents",
+          "count": 3
+        },
+        {
+          "slug": "engineering",
+          "name": "engineering",
+          "count": 3
+        },
+        {
+          "slug": "cacheproof",
+          "name": "cacheproof",
+          "count": 0
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/tags/agents",
+    "status": 200,
+    "cacheControl": "public, max-age=0, must-revalidate",
+    "bodyKeys": [
+      "tag",
+      "version",
+      "items",
+      "nextCursor"
+    ],
+    "itemCount": 3
+  }
+]

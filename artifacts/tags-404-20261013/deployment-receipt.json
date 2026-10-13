@@ -1,0 +1,7 @@
+{
+  "chunk_id": "593360",
+  "wall_time_seconds": 0.000004375,
+  "exit_code": 0,
+  "original_token_count": 109,
+  "output": " Container yoryon-api-1  Healthy\n{\"status\":200,\"cacheControl\":\"public, max-age=0, must-revalidate\",\"body\":{\"tags\":[{\"slug\":\"agents\",\"name\":\"agents\",\"count\":3},{\"slug\":\"engineering\",\"name\":\"engineering\",\"count\":3},{\"slug\":\"cacheproof\",\"name\":\"cacheproof\",\"count\":0}]}}\nyoryon-api:8ac4c1a98f96653a218bdc78beb99a936e5c1078 sha256:a687b43f65c20962f647b5c7913848e82cbf573e7907a27ab7631d23339cd6da 8ac4c1a98f96653a218bdc78beb99a936e5c1078\n"
+}
