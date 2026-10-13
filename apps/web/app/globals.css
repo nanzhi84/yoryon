@@ -92,3 +92,8 @@ body {
 .dark .prose-yoryon .syntax-highlight span {
   color: var(--syntax-dark, inherit);
 }
+
+::highlight(search-hit) { background-color: #fde047; color: #18181b; }
+/* Literal search preserves source whitespace as visible text, including soft breaks. */
+[data-search-body] [data-search-node] { white-space: pre-wrap; }
+[data-search-body] pre [data-search-node] { white-space: inherit; }

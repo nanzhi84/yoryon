@@ -78,6 +78,13 @@
       "when": 1791827768854,
       "tag": "0010_dark_brother_voodoo",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1791856800000,
+      "tag": "0011_literal_search",
+      "breakpoints": true
     }
   ]
 }

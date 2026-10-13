@@ -1,3 +1,4 @@
+import { rehypeSearchText } from "@yoryon/config/search-text";
 import { imageSrcSet, publicImageUrl } from "@yoryon/config/image-variants";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkDirective from "remark-directive";
@@ -32,8 +33,8 @@ export function MarkdownSurface({ markdown, className, mediaSizes, publicImages 
   mediaSizes?: Record<string, { width: number; height: number; mimeType?: string }> | undefined;
   components?: Components;
 }) {
-  return <div className={cn("prose prose-zinc dark:prose-invert prose-yoryon max-w-none", className)}>
-    <ReactMarkdown remarkPlugins={[remarkCjkFriendly, remarkDirective, remarkMediaDirectives]} components={{
+  return <div data-search-body className={cn("prose prose-zinc dark:prose-invert prose-yoryon max-w-none", className)}>
+    <ReactMarkdown rehypePlugins={[rehypeSearchText]} remarkPlugins={[remarkCjkFriendly, remarkDirective, remarkMediaDirectives]} components={{
             img: ({ src, alt, node: _node, ...props }) => {
               const size = mediaSizes ? mediaSizes[mediaIdFromSrc(src) ?? ""] : undefined;
               const id = mediaIdFromSrc(src);

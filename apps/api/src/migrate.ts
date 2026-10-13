@@ -2,7 +2,7 @@
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { createDb, createLockClient, runMigrations } from "@yoryon/db";
-import { acquirePublishGcLock, backfillContentPreviews } from "@yoryon/core";
+import { acquirePublishGcLock, backfillContentPreviews, rebuildSearch } from "@yoryon/core";
 
 const url = process.env.DATABASE_URL;
 if (!url) throw new Error("DATABASE_URL is required");
@@ -18,6 +18,7 @@ try {
   await client.query("set statement_timeout = 0");
   await runMigrations(url, folder);
   await backfillContentPreviews(db, mediaBlockWeight);
+  console.log(JSON.stringify({ searchProjections: await rebuildSearch(db) }));
   console.log("SQL migrations and public preview backfill applied");
 } finally {
   try { await lock?.release(); }

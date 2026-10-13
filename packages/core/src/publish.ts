@@ -35,6 +35,8 @@ import * as schema from "@yoryon/db/schema";
 import { associations, contentTargets, deliverCacheEvents, enqueueCacheEvent } from "./cache-events";
 import { collectWorkReferences, invalidateReferrers, replaceWorkReferences } from "./references";
 
+import { syncSearchProjection } from "./search-projection";
+
 const frontmatterSchema = z.object({
   title: z.string().trim().max(200).default(""),
   slug: z
@@ -268,6 +270,7 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
         })
         .returning({ id: contents.id });
       const contentId = inserted[0]!.id;
+      await syncSearchProjection(tx, { id: contentId, revision: version, title: fm.title, description: fm.description, bodyMarkdown: rewritten });
       await replaceWorkReferences(tx, contentId, collectWorkReferences(parseMarkdown(rewritten)));
 
       // content_media 替换（含 exposure 重算）
