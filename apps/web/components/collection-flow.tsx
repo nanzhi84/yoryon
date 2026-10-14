@@ -17,7 +17,9 @@ export function CollectionFlowProvider({ children }: { children: ReactNode }) {
       const link = event.target instanceof Element ? event.target.closest("a[href]") as HTMLAnchorElement | null : null;
       if (!link || link.target === "_blank" || link.hasAttribute("download")) return;
       const url = new URL(link.href, location.href);
-      if (url.href !== location.href && flow.current) flow.current.navigating = true;
+      if (url.origin !== location.origin || url.pathname !== location.pathname || url.search !== location.search) {
+        if (flow.current) flow.current.navigating = true;
+      }
     }
     const pop = () => { if (flow.current) flow.current.navigating = true; };
     document.addEventListener("click", departure, true);

@@ -152,9 +152,18 @@ export function DetailTracker({ targetKind, targetId, readEnabled = true, instan
 
   useEffect(() => {
     if (analyticsDisabled()) return;
+    const show = () => {
+      if (document.visibilityState === "visible") {
+        trackOnce(`view:${pageViewId}`, { eventType: "view", targetKind, targetId, pageViewId });
+      }
+    };
+    show();
+    document.addEventListener("visibilitychange", show);
+    return () => document.removeEventListener("visibilitychange", show);
+  }, [pageViewId, targetKind, targetId]);
 
-    trackOnce(`view:${pageViewId}`, { eventType: "view", targetKind, targetId, pageViewId });
-
+  useEffect(() => {
+    if (analyticsDisabled()) return;
     if (!readEnabled || readProgress?.current.done) return;
 
     // read：前台累计可见 ≥10s；切后台暂停累计，回前台继续
