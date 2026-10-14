@@ -153,3 +153,7 @@ Georgia, "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "SimSun", seri
 - `packages/core/src/markdown.ts`、`search-projection.ts`：发布解析与搜索投影。
 
 新增或修改语法时，同时检查发布、预览、私有全文与搜索节点契约；以真实内容在隔离环境验收，按项目 `AGENTS.md` 保存工件，不维护固定测试脚本。
+
+### 段内硬换行与搜索标记
+
+Markdown 的两个行末空格（或反斜杠）表示一次段内换行。渲染管线在搜索节点装饰后隐藏 `<br>` 后由 remark-rehype 生成的首个格式化换行符，避免 `white-space: pre-wrap` 将其再次显示为空行；该字符仍保留在 `textContent` 中，搜索节点 ID 与 UTF-16 偏移保持不变。普通软换行、作者明确留出的空白段和代码块不受此处理影响。
