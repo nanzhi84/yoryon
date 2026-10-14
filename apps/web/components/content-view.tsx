@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { ChapterContextProvider } from "./chapter-reading";
 import { SearchLocation } from "./search-location";
 import Link from "next/link";
 import type { ContentDetail } from "@/lib/types";
@@ -17,7 +18,7 @@ export function ContentView({ initial: content }: { initial: ContentDetail }) {
     <>
       <SiteHeader />
       {/* 阅读列与站点导航共享宽度；私有全文与公开预览共享排版。 */}
-      <WorkDetailProvider targetId={content.id}><main className="editorial-reader py-5" data-revision={content.updatedAt}>
+      <Suspense fallback={<p className="py-5 text-sm text-muted-foreground">正在加载章节…</p>}><ChapterContextProvider contentId={content.id}><WorkDetailProvider targetId={content.id}><main className="editorial-reader py-5" data-revision={content.updatedAt}>
         <BackButton />
         <SearchLocation slug={content.slug} />
         <header className={content.type === "article" ? "editorial-title" : "mb-5"}>
@@ -46,7 +47,7 @@ export function ContentView({ initial: content }: { initial: ContentDetail }) {
 
         {/* post/article 共用互动；客户端加载，不进入公开缓存页面。 */}
         <CommentSection slug={content.slug} />
-      </main></WorkDetailProvider>
+      </main></WorkDetailProvider></ChapterContextProvider></Suspense>
     </>
   );
 }
