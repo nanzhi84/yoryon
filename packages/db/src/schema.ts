@@ -99,6 +99,8 @@ export const contents = pgTable(
     publishedAt: timestamp("published_at", { withTimezone: true, mode: "date" }),
     /** 首页置顶：post/article 共用；重新发布保留。 */
     isPinned: boolean("is_pinned").notNull().default(false),
+    /** 与合集归属及阅读权限独立；迁移保留既有作品为 true。 */
+    showInHome: boolean("show_in_home").notNull().default(true),
     ...timestamps,
   },
   (t) => [
@@ -173,6 +175,7 @@ export const collections = pgTable(
     description: text("description").notNull().default(""),
     visibility: text("visibility", { enum: ["public", "paid"] }).notNull().default("public"),
     coverMediaId: uuid("cover_media_id").references((): any => mediaAssets.id),
+    isPinned: boolean("is_pinned").notNull().default(false),
     ...timestamps,
   },
   (t) => [uniqueIndex("collections_slug_unique").on(t.slug)],

@@ -1,0 +1,11 @@
+{
+  "scenario": "directory 4s + authorized chapter 6.5s + next chapter + return",
+  "eventsForSameCollectionFlow": [
+    {
+      "event_type": "read",
+      "n": 1
+    }
+  ],
+  "expected": "one collection read",
+  "pass": true
+}

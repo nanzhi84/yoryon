@@ -9,12 +9,12 @@ export async function collectionNavigation(db: Database, contentId: string) {
     async function neighbor(previous: boolean) {
       const before = sql`(${collectionItems.sortOrder}, ${contents.id}) < (${coll.order}, ${contentId}::uuid)`;
       const after = sql`(${collectionItems.sortOrder}, ${contents.id}) > (${coll.order}, ${contentId}::uuid)`;
-      const rows = await db.select({ slug: contents.slug, title: contents.title }).from(collectionItems).innerJoin(contents, eq(contents.id, collectionItems.contentId))
+      const rows = await db.select({ id: contents.id, slug: contents.slug, title: contents.title }).from(collectionItems).innerJoin(contents, eq(contents.id, collectionItems.contentId))
         .where(and(eq(collectionItems.collectionId, coll.id), eq(contents.status, "published"), previous ? before : after))
         .orderBy(previous ? desc(collectionItems.sortOrder) : asc(collectionItems.sortOrder), previous ? desc(contents.id) : asc(contents.id)).limit(1);
       return rows[0] ?? null;
     }
     const [previous, next] = await Promise.all([neighbor(true), neighbor(false)]);
-    return { slug: coll.slug, title: coll.title, previous, next };
+    return { id: coll.id, slug: coll.slug, title: coll.title, previous, next };
   }));
 }

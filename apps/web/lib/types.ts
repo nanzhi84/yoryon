@@ -71,10 +71,13 @@ export interface CollectionListItem {
   visibility: "public" | "paid";
   coverMediaId: string | null;
   itemCount: number;
+  isPinned: boolean;
   updatedAt: string;
 }
 
 export interface CollectionDetail {
+  updatedAt: string;
+  isPinned: boolean;
   id: string;
   slug: string;
   title: string;
@@ -82,6 +85,7 @@ export interface CollectionDetail {
   visibility: "public" | "paid";
   coverMediaId: string | null;
   items: {
+    id: string;
     slug: string;
     title: string;
     description: string;

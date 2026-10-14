@@ -1,10 +1,11 @@
+import { Suspense } from "react";
 import { SearchLocation } from "./search-location";
 import Link from "next/link";
 import type { ContentDetail } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { SiteHeader } from "@/components/site-header";
 import { formatDate } from "@/lib/date";
-import { DetailTracker } from "@/components/analytics";
+import { WorkDetailProvider } from "@/components/analytics";
 import { ContentBody } from "./content-body";
 import { PrivateReader } from "./private-reader";
 import { CommentSection } from "./comment-section";
@@ -16,9 +17,8 @@ export function ContentView({ initial: content }: { initial: ContentDetail }) {
     <>
       <SiteHeader />
       {/* 阅读列与站点导航共享宽度；私有全文与公开预览共享排版。 */}
-      <main className="editorial-reader py-5" data-revision={content.updatedAt}>
+      <WorkDetailProvider targetId={content.id}><main className="editorial-reader py-5" data-revision={content.updatedAt}>
         <BackButton />
-        <DetailTracker targetKind="work" targetId={content.id} />
         <SearchLocation slug={content.slug} />
         <header className={content.type === "article" ? "editorial-title" : "mb-5"}>
           {content.type === "article" && <h1 className="font-semibold">{content.title || "未命名内容"}</h1>}
@@ -42,11 +42,11 @@ export function ContentView({ initial: content }: { initial: ContentDetail }) {
 
         {content.visibility === "paid" ? <PrivateReader initial={content} preview={<ContentBody content={content} publicImages />} /> : <ContentBody content={content} publicImages />}
 
-        <CollectionNavigation collections={content.collections} />
+        <Suspense fallback={<p className="mt-6 text-sm text-muted-foreground">正在加载章节导航…</p>}><CollectionNavigation contentId={content.id} collections={content.collections} /></Suspense>
 
         {/* post/article 共用互动；客户端加载，不进入公开缓存页面。 */}
         <CommentSection slug={content.slug} />
-      </main>
+      </main></WorkDetailProvider>
     </>
   );
 }

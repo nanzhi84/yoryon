@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { publicFetch } from "@/lib/api";
+import { publicFetchNoStore } from "@/lib/api";
 import type { CollectionListItem } from "@/lib/types";
 import { SiteHeader } from "@/components/site-header";
 import { CollectionEntry } from "@/components/feed-timeline";
@@ -7,10 +7,10 @@ import { AnalyticsListProvider } from "@/components/analytics";
 
 export const metadata: Metadata = { title: "合集" };
 
-const revalidateSec = Number(process.env.FEED_REVALIDATE_SEC ?? 86400);
+export const dynamic = "force-dynamic";
 
 export default async function CollectionsPage() {
-  const res = await publicFetch("/api/collections", { revalidate: revalidateSec, tags: ["collections"] });
+  const res = await publicFetchNoStore("/api/collections");
   if (!res.ok) throw new Error(`collections API ${res.status}`);
   const data = await res.json() as { items: CollectionListItem[]; version: string };
   const items = data.items;

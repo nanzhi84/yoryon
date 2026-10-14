@@ -7,27 +7,26 @@
  *
  * 事务提交 = 发布成功的唯一判定；全程持有 advisory lock（与 GC 互斥）。
  */
-import { createHash, randomUUID } from "node:crypto";
+import { randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import yaml from "js-yaml";
 import { z } from "zod";
-import { and, eq, isNull, notInArray, or, sql } from "drizzle-orm";
+import { and, eq, inArray, notInArray, sql } from "drizzle-orm";
 import {
   collectionItems,
   collections,
   contentMedia,
   contents,
   contentTags,
-  mediaAssets,
   tags,
   type Database,
 } from "@yoryon/db";
 import { PUBLISH_GC_LOCK_NAME } from "@yoryon/config";
 import { collectRelativeMediaRefs, collectStoredMediaIds, parseMarkdown, rewriteMediaRefs } from "./markdown";
 import { hasPreviewMarker, stringifyMarkdown, truncateForPreview } from "./preview";
-import { contentAddressedKey, type MediaStorage } from "./storage";
-import { probeImageDimensions } from "./image";
+import type { MediaStorage } from "./storage";
+import { prepareLocalMedia, uploadPreparedMedia, upsertPreparedMedia, type PreparedMedia } from "./media-upload";
 import { acquirePublishGcLock, type LockClient } from "./locks";
 import type pg from "pg";
 import { drizzle } from "drizzle-orm/node-postgres";
@@ -52,7 +51,8 @@ const frontmatterSchema = z.object({
     })
     .default({}),
   tags: z.array(z.string()).default([]),
-  collections: z.array(z.string()).default([]),
+  collections: z.array(z.string().regex(/^[a-z0-9][a-z0-9-]*$/)).default([]),
+  show_in_home: z.boolean().optional(),
   published_at: z.coerce.date().optional(),
   cover: z.string().optional(),
 }).transform((fm) => ({
@@ -130,21 +130,6 @@ export interface PublishResult {
   mediaCount: number;
 }
 
-const UPLOAD_RETRIES = 3;
-
-async function withRetry<T>(fn: () => Promise<T>, what: string): Promise<T> {
-  let lastErr: unknown;
-  for (let i = 0; i < UPLOAD_RETRIES; i++) {
-    try {
-      return await fn();
-    } catch (err) {
-      lastErr = err;
-      await new Promise((r) => setTimeout(r, 200 * (i + 1)));
-    }
-  }
-  throw new Error(`${what} 失败（重试 ${UPLOAD_RETRIES} 次）: ${String(lastErr)}`);
-}
-
 /**
  * 发布目录（按 slug upsert，幂等可重试）。
  */
@@ -161,59 +146,30 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
     const extraRefs = [fm.cover].filter((x): x is string => typeof x === "string" && x.length > 0);
     const allRefs = [...new Set([...bodyRefs, ...extraRefs])];
 
-    // 相对引用 → 本地文件 + sha256 + oss key（图片同步探测尺寸，入库一次、展示处处复用）
-    const files = new Map<
-      string,
-      { absPath: string; sha256: string; ossKey: string; mime: string; size: number; dims: { width: number; height: number } | null }
-    >();
+    const files = new Map<string, Omit<PreparedMedia, "data">>();
+    const uploaded: string[] = [];
+    const skippedExisting: string[] = [];
     for (const ref of allRefs) {
       const absPath = path.resolve(post.dir, ref);
       if (!absPath.startsWith(path.resolve(post.dir) + path.sep)) throw new Error(`媒体引用越出发布目录: ${ref}`);
-      const data = await fs.readFile(absPath);
-      const sha256 = createHash("sha256").update(data).digest("hex");
-      const ossKey = await contentAddressedKey(sha256, absPath);
-      files.set(ref, { absPath, sha256, ossKey, mime: mimeForFile(absPath), size: data.byteLength, dims: probeImageDimensions(data, mimeForFile(absPath)) });
-    }
-
-    const uploaded: string[] = [];
-    const skippedExisting: string[] = [];
-    for (const [ref, f] of files) {
-      const head = await withRetry(() => deps.storage.head(f.ossKey), `HEAD ${f.ossKey}`);
-      if (head) {
-        skippedExisting.push(f.ossKey);
-        log(`skip (exists): ${ref} → ${f.ossKey}`);
-        continue;
-      }
-      const data = await fs.readFile(f.absPath);
-      await withRetry(() => deps.storage.put(f.ossKey, data, { contentType: f.mime }), `PUT ${f.ossKey}`);
-      uploaded.push(f.ossKey);
-      log(`uploaded: ${ref} → ${f.ossKey}`);
+      const file = await prepareLocalMedia(absPath, mimeForFile(absPath));
+      const state = await uploadPreparedMedia(deps.storage, file);
+      (state === "uploaded" ? uploaded : skippedExisting).push(file.ossKey);
+      log(`${state === "uploaded" ? "uploaded" : "skip (exists)"}: ${ref} → ${file.ossKey}`);
+      const { data: _data, ...metadata } = file;
+      files.set(ref, metadata);
     }
 
     // ---- 阶段 B：单事务提交（与锁同一连接） ----
     const txDb = drizzle(deps.lockClient, { schema }) as unknown as Database;
     const result = await txDb.transaction(async (tx) => {
-      const prior = await tx.select({ id: contents.id }).from(contents).where(eq(contents.slug, fm.slug)).limit(1);
+      const prior = await tx.select({ id: contents.id, showInHome: contents.showInHome }).from(contents).where(eq(contents.slug, fm.slug)).limit(1);
       const old = prior[0] ? await associations(tx, prior[0].id) : { tags: [], collections: [] };
       const revision = new Date();
       const version = randomUUID();
       // media_assets upsert（ON CONFLICT oss_key DO NOTHING 后取 id）
       const mediaIdByRef = new Map<string, string>();
-      for (const [ref, f] of files) {
-        await tx
-          .insert(mediaAssets)
-          .values({ ossKey: f.ossKey, mimeType: f.mime, sizeBytes: f.size, width: f.dims?.width ?? null, height: f.dims?.height ?? null })
-          .onConflictDoNothing({ target: mediaAssets.ossKey });
-        // 旧资产补刷：已存在但缺尺寸记录且本次探测成功时回填（内容寻址不可变，尺寸不会过期）
-        if (f.dims) {
-          await tx
-            .update(mediaAssets)
-            .set({ width: f.dims.width, height: f.dims.height })
-            .where(and(eq(mediaAssets.ossKey, f.ossKey), or(isNull(mediaAssets.width), isNull(mediaAssets.height))));
-        }
-        const rows = await tx.select({ id: mediaAssets.id }).from(mediaAssets).where(eq(mediaAssets.ossKey, f.ossKey)).limit(1);
-        mediaIdByRef.set(ref, rows[0]!.id);
-      }
+      for (const [ref, file] of files) mediaIdByRef.set(ref, await upsertPreparedMedia(tx, file));
 
       // 改写正文媒体引用 → /api/media/<id>
       const mapping = new Map<string, string>();
@@ -229,6 +185,7 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
 
       // 内容 upsert（按 slug）
       const publishedAt = fm.published_at ?? new Date();
+      const showInHome = fm.show_in_home ?? prior[0]?.showInHome ?? fm.collections.length === 0;
       const coverId = fm.cover ? mediaIdByRef.get(fm.cover)! : null;
       const existingRows = await tx.select({ isPinned: contents.isPinned }).from(contents).where(eq(contents.slug, fm.slug)).limit(1);
       if (existingRows[0]?.isPinned && fm.visibility !== "public") {
@@ -249,9 +206,10 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
           previewMode: fm.preview.mode,
           previewPercent: fm.preview.mode === "percent" ? fm.preview.percent! : null,
           coverMediaId: coverId,
+          showInHome,
           publishedAt,
           updatedAt: revision,
-            revision: version,
+          revision: version,
         })
         .onConflictDoUpdate({
           target: contents.slug,
@@ -267,6 +225,7 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
             previewMode: fm.preview.mode,
             previewPercent: fm.preview.mode === "percent" ? fm.preview.percent! : null,
             coverMediaId: coverId,
+            showInHome,
             publishedAt,
             updatedAt: revision,
             revision: version,
@@ -304,6 +263,10 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
         if (coll.length === 0) throw new Error(`合集不存在: ${collSlug}（先用 blog collection create 创建）`);
         wantedCollIds.push(coll[0]!.id);
       }
+      // Collection row locks serialize append/reorder even when another writer uses a different content slug.
+      const affectedSlugs = [...new Set([...old.collections, ...fm.collections])];
+      if (affectedSlugs.length) await tx.select({ id: collections.id }).from(collections)
+        .where(inArray(collections.slug, affectedSlugs)).orderBy(collections.id).for("update");
       await tx
         .delete(collectionItems)
         .where(
@@ -322,6 +285,7 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
           .onConflictDoNothing();
       }
 
+      if (affectedSlugs.length) await tx.update(collections).set({ updatedAt: revision }).where(inArray(collections.slug, affectedSlugs));
       await enqueueCacheEvent(tx, contentTargets(fm.slug, [...old.tags, ...fm.tags], [...old.collections, ...fm.collections]), fm.slug, revision.toISOString());
       await invalidateReferrers(tx, contentId);
       return { contentId };

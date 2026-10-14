@@ -1,0 +1,19 @@
+INSERT 0 4
+INSERT 0 1
+INSERT 0 2
+{"searchProjections":4}
+SQL migrations and public preview backfill applied
+        slug        | visibility |  status   | show_in_home 
+--------------------+------------+-----------+--------------
+ legacy-free        | public     | published | t
+ legacy-paid        | paid       | published | f
+ legacy-series-free | public     | published | t
+ legacy-series-paid | paid       | published | f
+(4 rows)
+
+        slug        | sort_order 
+--------------------+------------
+ legacy-series-free |          1
+ legacy-series-paid |          2
+(2 rows)
+

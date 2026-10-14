@@ -6,6 +6,7 @@ export * from "./media-access";
 export * from "./storage";
 export * from "./mail";
 export * from "./publish";
+export * from "./collection-cover";
 export * from "./image";
 export * from "./gc";
 export * from "./locks";

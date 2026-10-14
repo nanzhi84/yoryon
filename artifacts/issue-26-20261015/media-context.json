@@ -1,0 +1,66 @@
+{
+  "homepagePaidEntry": {
+    "kind": "content",
+    "id": "e197c868-23fd-4778-b786-6d269c71e1b3",
+    "type": "article",
+    "slug": "diary-three",
+    "title": "第三章：会员阅读",
+    "description": "",
+    "excerpt": "",
+    "readerLayout": [],
+    "visibility": "paid",
+    "coverMediaId": null,
+    "publishedAt": "2026-10-14T18:20:00.383Z",
+    "isPinned": false,
+    "post": null,
+    "tags": [
+      {
+        "slug": "reading-notes",
+        "name": "reading-notes"
+      }
+    ]
+  },
+  "paidBodyLength": 0,
+  "cover": {
+    "status": 302,
+    "cache": "public, max-age=300",
+    "bytes": 3603,
+    "sourceBytes": 3603,
+    "sha256": "530a155c60120aee2049ee44652e48a26bd9243a65604a5da8862de61bba0f59",
+    "bytesMatch": true
+  },
+  "context": {
+    "validStatus": 200,
+    "validBody": {
+      "collection": {
+        "id": "e1697016-a958-4c34-951a-e460c0df64d8",
+        "slug": "reading-diary",
+        "title": "阅读日记"
+      },
+      "chapter": {
+        "id": "b7c476cc-3cdf-47d0-b924-e8d38281eee9",
+        "slug": "diary-one",
+        "title": "第一章：初次阅读",
+        "visibility": "public",
+        "publishedAt": "2026-10-14T18:19:59.164Z",
+        "sortOrder": 1
+      },
+      "previous": null,
+      "next": {
+        "id": "1026605c-81d1-424b-bc88-0762ada9ad0a",
+        "slug": "diary-two",
+        "title": "第二章：再次阅读",
+        "visibility": "public",
+        "publishedAt": "2026-10-14T18:19:59.769Z",
+        "sortOrder": 2
+      }
+    },
+    "invalidStatus": 404,
+    "invalidBody": {
+      "error": {
+        "code": "not_found",
+        "message": "章节不属于该合集"
+      }
+    }
+  }
+}

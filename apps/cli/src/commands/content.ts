@@ -80,6 +80,7 @@ export function registerContentCommands(program: Command) {
             status: contents.status,
             visibility: contents.visibility,
             isPinned: contents.isPinned,
+            showInHome: contents.showInHome,
             title: contents.title,
             publishedAt: contents.publishedAt,
           })
@@ -87,19 +88,35 @@ export function registerContentCommands(program: Command) {
           .orderBy(desc(contents.createdAt));
         for (const r of rows) {
           if (!opts.all && r.status !== "published") continue;
-          console.log(`${r.status}\t${r.visibility}\t${r.type}\t${r.isPinned ? "pinned" : "-"}\t${r.slug}\t${r.title}`);
+          console.log(`${r.status}\t${r.visibility}\t${r.type}\t${r.isPinned ? "pinned" : "-"}\t${r.showInHome ? "home" : "hidden"}\t${r.slug}\t${r.title}`);
         }
       } finally {
         await closeContext();
       }
     });
 
+  for (const [command, showInHome] of [["home", true], ["hide", false]] as const) {
+    content.command(command).argument("<slug>").description(showInHome ? "在首页展示作品（权限独立）" : "从首页隐藏作品（仍可从合集及直达阅读）")
+      .action(async (slug: string) => {
+        try {
+          await withCacheTransaction(async tx => {
+            const [row] = await tx.select({ id: contents.id }).from(contents).where(eq(contents.slug, slug)).limit(1);
+            if (!row) throw new Error(`内容不存在: ${slug}`);
+            await tx.update(contents).set({ showInHome }).where(eq(contents.id, row.id));
+            const related = await associations(tx, row.id);
+            await enqueueCacheEvent(tx, contentTargets(slug, related.tags, related.collections), slug);
+          });
+          console.log(`✓ ${slug} ${showInHome ? "shown on home" : "hidden from home"}`);
+        } finally { await closeContext(); }
+      });
+  }
+
   /** pin/unpin 共用：事务内更新置顶标记与列表版本事件。
    * 门禁实时读已提交的版本；投递失败不影响旧游标 409，retry 负责清理和预热缓存。 */
   async function setPinned(slug: string, pinned: boolean) {
     await withCacheTransaction(async (tx) => {
       const rows = await tx
-        .select({ id: contents.id, type: contents.type, status: contents.status, visibility: contents.visibility, isPinned: contents.isPinned })
+        .select({ id: contents.id, type: contents.type, status: contents.status, visibility: contents.visibility, isPinned: contents.isPinned, showInHome: contents.showInHome })
         .from(contents)
         .where(eq(contents.slug, slug));
       const row = rows[0];
@@ -107,6 +124,7 @@ export function registerContentCommands(program: Command) {
       if (pinned) {
         if (row.visibility !== "public") throw new Error("首页仅支持置顶免费作品");
         if (row.status !== "published") throw new Error(`仅支持置顶已发布内容，当前状态: ${row.status}`);
+        if (!row.showInHome) throw new Error("作品尚未展示在首页，请先使用 blog content home");
       }
       if (row.isPinned === pinned) {
         console.log(`- ${slug} 已是${pinned ? "置顶" : "非置顶"}状态，无需变更`);

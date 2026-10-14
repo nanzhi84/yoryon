@@ -1,3 +1,6 @@
+import { Suspense } from "react";
+import { WorkBodyTracker } from "./analytics";
+import { ChapterReading } from "./chapter-reading";
 import Link from "next/link";
 import { Lock } from "lucide-react";
 import { ArticleSummary } from "./article-summary";
@@ -13,6 +16,7 @@ export function ContentBody({ content, publicImages = false }: { content: Conten
   }
 
   return <>
+        {content.access === "full" && <Suspense fallback={null}><WorkBodyTracker /><ChapterReading contentId={content.id} /></Suspense>}
         <ArticleSummary description={content.description} markdown={content.bodyMarkdown} />
         {/* 正文（已按权益裁剪） */}
         {content.bodyMarkdown && (

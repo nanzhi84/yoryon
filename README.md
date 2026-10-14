@@ -53,18 +53,26 @@ node apps/cli/dist/index.js --help
 
 内容包约定：`index.md`（frontmatter + 正文）+ `media/`（相对引用 `./media/x.png`）。`type` 支持 `article`（标题必填的长文）和 `post`（标题可空的帖子），均可按正文顺序组合多媒体。正文媒体语法：图片 `![alt](./media/x.png)`；视频/音频 `::video{src="./media/x.mp4"}` / `::audio{src="./media/x.mp3"}`；站内作品引用 `::work{id="作品 UUID"}`（目标必须已发布，最多 20 个，不可引用自身）；付费预览标记 `<!-- more -->`（`preview.mode=marker` 时必需，缺失拒绝发布）。付费文章省略 preview 配置时默认 `none`（正文全付费）；需要全篇免费预览必须显式声明 `preview.mode: full`。
 
+首页展示由作品的 `show_in_home` 独立管理，与 `visibility`、`collections` 无隐式联动。首次发布未归属合集的作品默认展示，首次在已有合集内发布的作品默认隐藏；迁移按原首页规则保留既有免费作品展示、会员作品隐藏，包括既有免费合集章节。重新发布省略 `show_in_home` 时保留数据库设置；明确提供 `show_in_home: true` 或 `false` 时应用该值。也可以用 `blog content home/hide` 改设置（之后的源文件不要保留相反的显式值）。合集目录只收已发布作品，编辑旧作品刷新全部所属合集的更新时间，并保留加入顺序。
+
 ```bash
 # 发布 / 更新 / 取消发布（幂等，可安全重跑）
 blog publish ./posts/my-article      # 目录（含 index.md）、index.md 路径，或多篇内容的父目录
 blog unpublish my-article
 blog content list [--all]            # 默认只列已发布
 blog content delete my-article
+blog content home my-article         # 开启首页展示；会员正文仍需权益
+blog content hide my-article         # 关闭首页展示，不影响合集与直达阅读
 
 # 合集与标签
 # 合集成员的唯一事实源是文章 frontmatter 的 collections: [slug]，随发布生效；
 # CLI 仅管理合集元数据与排序（不提供成员增删命令，避免与发布互相覆盖）。
 blog collection create <slug> --title "Go 合集" [--visibility paid]
 blog collection list
+blog collection cover <slug> ./cover.png      # 上传到现有媒体存储，切换公开介绍封面
+blog collection clear-cover <slug>            # 清除关联；旧对象沿用引用计数与 GC
+blog collection pin <slug>                    # 可同时置顶多个合集
+blog collection unpin <slug>
 blog collection sort <slug> <content-slug...>   # 未列出的成员排到末尾
 blog tag list                        # 标签由发布时 frontmatter tags 自动创建，无需手动 add
 
