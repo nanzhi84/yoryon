@@ -1,0 +1,11 @@
+{
+  "role": "user",
+  "access": "full",
+  "bodyLength": 81,
+  "detailCache": "private, no-store",
+  "mediaStatus": 302,
+  "mediaCache": "private, no-store",
+  "mediaByteLength": 3605,
+  "mediaBytesMatch": true,
+  "mediaSha256": "b1bd09236e08ea46bce78a9909a4b7ee10c5174b4741c70ab50509e326b77fcd"
+}

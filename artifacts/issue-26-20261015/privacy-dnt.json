@@ -1,0 +1,8 @@
+{
+  "signal": "DNT=1",
+  "mode": "SIMULATED navigator WebAPI",
+  "baseline": "fresh document at subscription page before any list or detail analytics",
+  "analyticsRequests": 0,
+  "pageRendered": true,
+  "discardedAttempt": "earlier modified a document that already queued events; one pre-signal batch flushed, so it was not used as evidence"
+}

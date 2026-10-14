@@ -1,0 +1,19 @@
+     target     | target_kind | event_type | count 
+----------------+-------------+------------+-------
+ diary-one      | work        | read       |     1
+ diary-one      | work        | view       |     1
+ diary-two      | work        | read       |     1
+ diary-two      | work        | view       |     1
+ empty-notes    | collection  | impression |     1
+ parallel-notes | collection  | impression |     1
+ reading-diary  | collection  | click      |     1
+ reading-diary  | collection  | impression |     1
+ reading-diary  | collection  | read       |     1
+ reading-diary  | collection  | view       |     1
+(10 rows)
+
+  state   | count 
+----------+-------
+ verified |    11
+(1 row)
+

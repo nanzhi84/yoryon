@@ -1,0 +1,15 @@
+{
+  "noContext": {
+    "path": "/p/diary-one",
+    "bodyVisible": true,
+    "flowCreated": false,
+    "waitMs": 13000
+  },
+  "invalidMember": {
+    "path": "/p/solo-article?collection=reading-diary",
+    "bodyVisible": true,
+    "flowCreated": false,
+    "collectionNavigationCount": 0,
+    "waitMs": 13000
+  }
+}

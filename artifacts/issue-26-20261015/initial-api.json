@@ -1,0 +1,206 @@
+[
+  {
+    "path": "/feed",
+    "status": 200,
+    "cache": "public, max-age=0, must-revalidate",
+    "body": {
+      "version": "25ab76eb-08e1-4bd0-a5ce-4df8890fcbe7",
+      "items": [
+        {
+          "kind": "content",
+          "id": "9eec65d3-da8c-47ad-a837-4177e0b531d7",
+          "type": "post",
+          "slug": "solo-post",
+          "title": "午间短帖",
+          "description": "",
+          "excerpt": "",
+          "readerLayout": null,
+          "visibility": "public",
+          "coverMediaId": null,
+          "publishedAt": "2026-10-14T18:19:58.539Z",
+          "isPinned": false,
+          "post": {
+            "bodyMarkdown": "今天先核对发布与阅读入口。短帖也应该默认进入首页。\n",
+            "collapsed": false,
+            "media": []
+          },
+          "tags": [
+            {
+              "slug": "reading-notes",
+              "name": "reading-notes"
+            }
+          ]
+        },
+        {
+          "kind": "content",
+          "id": "50c4857b-b1d7-4e26-ac04-aa7fae5c2d32",
+          "type": "article",
+          "slug": "solo-article",
+          "title": "独立文章：阅读入口",
+          "description": "",
+          "excerpt": "本文记录一次独立文章的发布。独立文章应该出现在首页，而不是依赖合集入口。",
+          "readerLayout": [
+            {
+              "kind": "paragraph",
+              "lengths": [
+                36
+              ]
+            }
+          ],
+          "visibility": "public",
+          "coverMediaId": null,
+          "publishedAt": "2026-10-14T18:19:57.885Z",
+          "isPinned": false,
+          "post": null,
+          "tags": [
+            {
+              "slug": "reading-notes",
+              "name": "reading-notes"
+            }
+          ]
+        }
+      ],
+      "nextCursor": null
+    }
+  },
+  {
+    "path": "/collections",
+    "status": 200,
+    "cache": "public, max-age=0, must-revalidate",
+    "body": {
+      "version": "25ab76eb-08e1-4bd0-a5ce-4df8890fcbe7",
+      "items": [
+        {
+          "id": "98e37b8f-1ff8-4fd7-9d7f-808477161688",
+          "slug": "parallel-notes",
+          "title": "并行札记",
+          "description": "同一章节可以属于不同合集。",
+          "visibility": "public",
+          "coverMediaId": null,
+          "isPinned": false,
+          "updatedAt": "2026-10-14T18:20:01.024Z",
+          "cover": null,
+          "itemCount": 2
+        },
+        {
+          "id": "e1697016-a958-4c34-951a-e460c0df64d8",
+          "slug": "reading-diary",
+          "title": "阅读日记",
+          "description": "从目录走到章节，记录真实阅读的位置。",
+          "visibility": "public",
+          "coverMediaId": null,
+          "isPinned": false,
+          "updatedAt": "2026-10-14T18:20:00.376Z",
+          "cover": null,
+          "itemCount": 3
+        },
+        {
+          "id": "7b063b38-2b82-463e-97f1-d446fa2b656b",
+          "slug": "empty-notes",
+          "title": "尚未开篇",
+          "description": "",
+          "visibility": "public",
+          "coverMediaId": null,
+          "isPinned": false,
+          "updatedAt": "2026-10-14T18:19:57.223Z",
+          "cover": null,
+          "itemCount": 0
+        }
+      ]
+    }
+  },
+  {
+    "path": "/collections/reading-diary",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "id": "e1697016-a958-4c34-951a-e460c0df64d8",
+      "slug": "reading-diary",
+      "title": "阅读日记",
+      "description": "从目录走到章节，记录真实阅读的位置。",
+      "visibility": "public",
+      "coverMediaId": null,
+      "isPinned": false,
+      "updatedAt": "2026-10-14T18:20:00.376Z",
+      "cover": null,
+      "items": [
+        {
+          "id": "b7c476cc-3cdf-47d0-b924-e8d38281eee9",
+          "slug": "diary-one",
+          "title": "第一章：初次阅读",
+          "description": "",
+          "type": "article",
+          "visibility": "public",
+          "publishedAt": "2026-10-14T18:19:59.164Z",
+          "coverMediaId": null,
+          "sortOrder": 1,
+          "access": "full"
+        },
+        {
+          "id": "1026605c-81d1-424b-bc88-0762ada9ad0a",
+          "slug": "diary-two",
+          "title": "第二章：再次阅读",
+          "description": "",
+          "type": "article",
+          "visibility": "public",
+          "publishedAt": "2026-10-14T18:19:59.769Z",
+          "coverMediaId": null,
+          "sortOrder": 2,
+          "access": "full"
+        },
+        {
+          "id": "e197c868-23fd-4778-b786-6d269c71e1b3",
+          "slug": "diary-three",
+          "title": "第三章：会员阅读",
+          "description": "",
+          "type": "article",
+          "visibility": "paid",
+          "publishedAt": "2026-10-14T18:20:00.383Z",
+          "coverMediaId": null,
+          "sortOrder": 3,
+          "access": "preview"
+        }
+      ]
+    }
+  },
+  {
+    "path": "/contents/diary-three",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "id": "e197c868-23fd-4778-b786-6d269c71e1b3",
+      "type": "article",
+      "slug": "diary-three",
+      "title": "第三章：会员阅读",
+      "description": "",
+      "visibility": "paid",
+      "publishedAt": "2026-10-14T18:20:00.383Z",
+      "updatedAt": "2026-10-14T18:20:00.376Z",
+      "revision": "47524d65-adfa-41cb-8510-9f78b50e9c38",
+      "access": "preview",
+      "hasPaidContent": true,
+      "bodyMarkdown": "",
+      "coverMediaId": null,
+      "tags": [
+        {
+          "slug": "reading-notes",
+          "name": "reading-notes"
+        }
+      ],
+      "collections": [
+        {
+          "id": "e1697016-a958-4c34-951a-e460c0df64d8",
+          "slug": "reading-diary",
+          "title": "阅读日记",
+          "previous": {
+            "id": "1026605c-81d1-424b-bc88-0762ada9ad0a",
+            "slug": "diary-two",
+            "title": "第二章：再次阅读"
+          },
+          "next": null
+        }
+      ],
+      "media": []
+    }
+  }
+]

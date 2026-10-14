@@ -1,0 +1,37 @@
+cache 92ebd3ff-590e-43d0-9725-874e0d110d6e: verified
+✓ collection reading-diary upserted
+cache 4f5c8f06-00b1-4129-8b26-3ce065f498de: verified
+✓ collection parallel-notes upserted
+cache 039b9539-659c-4f3f-aa77-37c41d4f1e24: verified
+✓ collection empty-notes upserted
+  published: solo-article (content 640366ae-dedb-4210-89a6-23af67dbfa0d)
+  cache 5f8e1fe8-7c7e-42b7-a5c9-1020a33cfdd9: verified
+✓ solo-article database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  published: solo-post (content 61bd27cd-9449-489a-9dd9-5f5c86b96816)
+  cache 4b7cbd43-7324-462e-a992-d6514f0df78a: verified
+✓ solo-post database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  skip (exists): ./media/shared.png → media/530a155c60120aee2049ee44652e48a26bd9243a65604a5da8862de61bba0f59.png
+  published: diary-one (content 8eb2b16f-6340-4198-8154-d8d2b696ea4b)
+  cache 4623486a-f4b0-4e84-a780-8f11d64e5718: verified
+✓ diary-one database committed (0 uploaded, 1 reused); page state is reported by cache event above
+  published: diary-two (content ca62bc77-b38f-4c25-8bb4-0bbf68666142)
+  cache 5fd7172e-96e0-426b-a4f7-d434baf5ae84: verified
+✓ diary-two database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  skip (exists): ./media/private.png → media/b1bd09236e08ea46bce78a9909a4b7ee10c5174b4741c70ab50509e326b77fcd.png
+  published: diary-three (content 5ae48215-dec1-4bbf-bc92-72ec628ba052)
+  cache 68dab9f6-c37a-4aa1-bb1c-90150ab79d65: verified
+✓ diary-three database committed (0 uploaded, 1 reused); page state is reported by cache event above
+  published: notes-one (content 71f999e1-70a5-4e27-885a-ec8c0e41aaee)
+  cache efaf3c23-565c-4176-99fa-3c87abe02f30: verified
+✓ notes-one database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  published: diary-four (content 77c8f231-f2d5-4ab5-9722-b975db84f03c)
+  cache 83a7d584-ad4e-4a0a-b180-01da3fbe8112: verified
+✓ diary-four database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  published: diary-five (content 2a927790-e3d9-4720-8082-dd6369bc50d3)
+  cache 95347b8b-6f89-4a3c-babd-d3d3d6865e74: verified
+✓ diary-five database committed (0 uploaded, 0 reused); page state is reported by cache event above
+cover existing
+cache 8618942b-8b6e-4190-ab0c-2665dffbd3b2: verified
+✓ collection reading-diary cover 2244241f-08bf-4ec0-881a-4b6e6d6df450
+cache 3e9f2509-2d52-43e8-849e-4a699d566e0d: verified
+✓ diary-three shown on home

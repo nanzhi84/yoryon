@@ -1,0 +1,6 @@
+{
+  "scenario": "upload succeeds then association transaction rejected",
+  "coverUnchanged": true,
+  "updatedAtUnchanged": true,
+  "faultRemoved": true
+}

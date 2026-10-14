@@ -11,6 +11,7 @@ import { clientIpMiddleware } from "./middleware/ip";
 import type { AppDeps } from "./deps";
 import { authRoutes } from "./routes/auth";
 import { contentRoutes } from "./routes/contents";
+import { collectionRoutes } from "./routes/collections";
 import { mediaRoutes } from "./routes/media";
 import { redemptionRoutes } from "./routes/redemptions";
 import { analyticsRoutes } from "./routes/analytics";
@@ -70,6 +71,7 @@ export function createApp(deps: AppDeps) {
   app.route("/api/auth", authRoutes(deps));
   const policy = createPublicPolicy(deps.db);
   app.route("/api", contentRoutes(deps, policy));
+  app.route("/api", collectionRoutes(deps, policy));
   app.route("/api", referenceRoutes(deps));
   app.route("/api", searchRoutes(deps));
   app.route("/api", searchLocateRoutes(deps));

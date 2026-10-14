@@ -1,0 +1,27 @@
+{
+  "sourceHead": "3038fda97569dd5aeff1f95e39c505b2615dc639",
+  "timeZone": "Asia/Singapore",
+  "runtime": "production local: next start 3026, bundled API 4026, bundled CLI, fs, isolated PG",
+  "files": [
+    {
+      "path": "apps/web/.next/BUILD_ID",
+      "sha256": "87e59bcb59cd5999f4433509bde599b9997f111e2925aa6c7378ab658058bef8"
+    },
+    {
+      "path": "apps/api/dist/index.js",
+      "sha256": "e942bea799191bc7514f1303b52fe61ead5babc2bc685c40351a8d3618642b73"
+    },
+    {
+      "path": "apps/cli/dist/index.js",
+      "sha256": "25fa188c7cac4912274675092a18776aba96c1096a9477885470b103dc499146"
+    },
+    {
+      "path": "packages/db/drizzle/meta/_journal.json",
+      "sha256": "29af7c48250735aed93b26dbd883cdf06a37a5e96157dab7571c7eeb5f9d9987"
+    },
+    {
+      "path": "apps/web/components/chapter-reading.tsx",
+      "sha256": "22d1f01953c17bae5e949a9c7c195fb3bc03dee26acd1bca13a0387f4d47b367"
+    }
+  ]
+}

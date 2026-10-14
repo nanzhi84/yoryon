@@ -1,0 +1,7 @@
+{
+  "directoryWaitMs": 4000,
+  "authorizedChapterWaitMs": 6500,
+  "secondChapterWaitMs": 2200,
+  "directoryToBodyMs": 4165,
+  "overallMs": 13628
+}

@@ -28,6 +28,7 @@ const listContentColumns = {
   publishedAt: contents.publishedAt,
   createdAt: contents.createdAt,
   isPinned: contents.isPinned,
+  showInHome: contents.showInHome,
 } as const;
 
 interface FeedCursor {
@@ -84,7 +85,7 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
   const app = new Hono<{ Variables: AppVariables }>();
 
   /**
-   * 首屏信息流：仅免费内容条目（Issue #15：首页=免费时间线；付费条目经 /api/paid-feed 在订阅页曝光；
+   * 首屏信息流：已发布且独立开启首页展示的作品；免费全文和会员匿名预览共用信息流，
    * 合集是顶层结构，只经 /api/collections → /c 入口曝光，不混排；公开缓存；不读 session —— ADR-0003 公开线）
    *
    * 分页不变量：
@@ -104,7 +105,7 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
     const rows = await tx
       .select(listContentColumns)
       .from(contents)
-      .where(and(eq(contents.status, "published"), eq(contents.visibility, "public"), keyset(cursor, contents.isPinned, contentSortKey, contents.id)))
+      .where(and(eq(contents.status, "published"), eq(contents.showInHome, true), keyset(cursor, contents.isPinned, contentSortKey, contents.id)))
       .orderBy(desc(contents.isPinned), desc(contentSortKey), desc(contents.id))
       .limit(FEED_PAGE_SIZE + 1);
     const page = rows.slice(0, FEED_PAGE_SIZE);
@@ -229,73 +230,6 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
     c.header("Cache-Control", "public, max-age=0, must-revalidate");
     const data = await loadContentDetail(deps, c.req.param("slug"), null);
     return data ? c.json(data) : errorResponse(c, 404, "not_found", "内容不存在");
-  });
-
-  /** 合集列表（公开缓存；不读 session —— 与 feed 同一公开线约定，ADR-0003）。个人站合集量级小，不分页。 */
-  app.get("/collections", async (c) => {
-    const version = await policy.version();
-    const rows = await deps.db.select().from(collections).orderBy(desc(collections.updatedAt));
-    const itemCounts = rows.length
-      ? await deps.db
-          .select({ collectionId: collectionItems.collectionId, count: sql<number>`count(*)::int` })
-          .from(collectionItems)
-          .innerJoin(contents, eq(collectionItems.contentId, contents.id))
-          .where(and(inArray(collectionItems.collectionId, rows.map((r) => r.id)), eq(contents.status, "published")))
-          .groupBy(collectionItems.collectionId)
-      : [];
-    c.header("Cache-Control", "public, max-age=0, must-revalidate");
-    return c.json({
-      version,
-      items: rows.map((r) => ({
-        id: r.id,
-        slug: r.slug,
-        title: r.title,
-        description: r.description,
-        visibility: r.visibility,
-        coverMediaId: r.coverMediaId,
-        itemCount: itemCounts.find((x) => x.collectionId === r.id)?.count ?? 0,
-        updatedAt: r.updatedAt.toISOString(),
-      })),
-    });
-  });
-
-  /** 合集页：成员按 sort_order；批量权益判定（F09b，消除逐项 canAccess 的 N+1）；no-store */
-  app.get("/collections/:slug", async (c) => {
-    const rows = await deps.db.select().from(collections).where(eq(collections.slug, c.req.param("slug"))).limit(1);
-    const collection = rows[0];
-    if (!collection) return errorResponse(c, 404, "not_found", "合集不存在");
-
-    const items = await deps.db
-      .select({ ...listContentColumns, sortOrder: collectionItems.sortOrder })
-      .from(collectionItems)
-      .innerJoin(contents, eq(collectionItems.contentId, contents.id))
-      .where(and(eq(collectionItems.collectionId, collection.id), eq(contents.status, "published")))
-      .orderBy(collectionItems.sortOrder);
-
-    const auth = c.get("auth");
-    const accessMap = await canAccessMany(deps.db, auth?.user ?? null, items, new Date());
-    const renderedItems = items.map((content) => ({
-      slug: content.slug,
-      title: content.title,
-      description: content.description,
-      type: content.type,
-      visibility: content.visibility,
-      publishedAt: content.publishedAt?.toISOString() ?? null,
-      coverMediaId: content.coverMediaId,
-      access: (accessMap.get(content.id) ? "full" : "preview") as "full" | "preview",
-      sortOrder: content.sortOrder,
-    }));
-
-    c.header("Cache-Control", "private, no-store");
-    return c.json({
-      id: collection.id,
-      slug: collection.slug,
-      title: collection.title,
-      description: collection.description,
-      visibility: collection.visibility,
-      coverMediaId: collection.coverMediaId,
-      items: renderedItems,
-    });
   });
 
   /** 标签页 keyset：仅 (sortKey desc, id desc)，不受置顶影响（标签页维持现有行为）。 */

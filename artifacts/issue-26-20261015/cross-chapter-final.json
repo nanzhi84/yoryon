@@ -1,0 +1,8 @@
+{
+  "source": "3038fda production",
+  "directoryWaitMs": 4000,
+  "firstBodyWaitMs": 6500,
+  "nextBodyWaitMs": 2200,
+  "flowPreservedAcrossAllFourSurfaces": true,
+  "continuedChapterPath": "/p/diary-two"
+}

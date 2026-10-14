@@ -63,12 +63,17 @@ export function CollectionEntry({ item }: { item: CollectionListItem }) {
               {item.title}
             </h2>
           </TrackClickLink>
-          <time className="shrink-0 text-sm text-muted-foreground">{formatDate(item.updatedAt)}</time>
+          <time dateTime={item.updatedAt} className="shrink-0 text-xs text-muted-foreground">更新于 {formatDate(item.updatedAt)}</time>
         </div>
-      {item.description && <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{item.description}</p>}
+      <div className="mt-2 flex items-start gap-4">
+        <div className="min-w-0 flex-1">{item.description && <p className="line-clamp-3 text-[15px] leading-6 text-foreground">{item.description}</p>}</div>
+        {item.coverMediaId && <TrackClickLink targetKind="collection" targetId={item.id} href={`/c/${item.slug}`} aria-label={`查看合集：${item.title}`} className="block w-28 shrink-0 sm:w-36">
+          <div className="aspect-[4/3] overflow-hidden rounded-lg bg-muted"><img src={`/api/media/${item.coverMediaId}`} alt={item.title} loading="lazy" className="h-full w-full object-cover" /></div>
+        </TrackClickLink>}
+      </div>
       <div className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
         <span>合集 · {item.itemCount} 篇内容</span>
-        {item.visibility === "paid" && <Badge variant="secondary">付费</Badge>}
+        {item.isPinned && <Badge variant="secondary">置顶</Badge>}
       </div>
       </article>
     </TrackImpression>

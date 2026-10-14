@@ -1,0 +1,26 @@
+{
+  "entries": [
+    {
+      "idx": 12,
+      "tag": "0012_yielding_paper_doll",
+      "when": 1791906277406
+    },
+    {
+      "idx": 13,
+      "tag": "0013_anonymous_visitors",
+      "when": 1792001860032
+    },
+    {
+      "idx": 14,
+      "tag": "0014_collection_reading",
+      "when": 1792003726666
+    }
+  ],
+  "strictlyIncreasing": true,
+  "lastMigrationNotFuture": true,
+  "snapshot14PreviousMatches13": true,
+  "hasVisitors": true,
+  "hasVisitorId": true,
+  "hasShowInHome": true,
+  "hasPinned": true
+}

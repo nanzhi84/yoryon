@@ -1,0 +1,18 @@
+     target     | target_kind | event_type | count 
+----------------+-------------+------------+-------
+ diary-one      | work        | read       |     4
+ diary-one      | work        | view       |     7
+ diary-three    | work        | read       |     3
+ diary-three    | work        | view       |     4
+ diary-two      | work        | read       |     3
+ diary-two      | work        | view       |     5
+ empty-notes    | collection  | impression |     1
+ parallel-notes | collection  | impression |     1
+ parallel-notes | collection  | read       |     1
+ parallel-notes | collection  | view       |     1
+ reading-diary  | collection  | click      |     1
+ reading-diary  | collection  | impression |     1
+ reading-diary  | collection  | read       |    10
+ reading-diary  | collection  | view       |    15
+(14 rows)
+

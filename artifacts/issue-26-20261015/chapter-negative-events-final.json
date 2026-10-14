@@ -1,0 +1,6 @@
+{
+  "scenarios": "work direct without collection + valid slug but nonmember, 13s each",
+  "collectionReadsBefore": 6,
+  "collectionReadsAfter": 6,
+  "additionalCollectionReads": 0
+}

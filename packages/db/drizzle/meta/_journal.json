@@ -99,6 +99,13 @@
       "when": 1792001860032,
       "tag": "0013_anonymous_visitors",
       "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1792003726666,
+      "tag": "0014_collection_reading",
+      "breakpoints": true
     }
   ]
 }

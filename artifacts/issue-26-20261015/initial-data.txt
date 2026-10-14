@@ -1,0 +1,19 @@
+     slug     |  type   | visibility |  status   | show_in_home 
+--------------+---------+------------+-----------+--------------
+ solo-article | article | public     | published | t
+ solo-post    | post    | public     | published | t
+ diary-one    | article | public     | published | f
+ diary-two    | article | public     | published | f
+ diary-three  | article | paid       | published | f
+ notes-one    | article | public     | published | f
+(6 rows)
+
+      slug      |    slug     | sort_order 
+----------------+-------------+------------
+ parallel-notes | diary-two   |          1
+ parallel-notes | notes-one   |          2
+ reading-diary  | diary-one   |          1
+ reading-diary  | diary-two   |          2
+ reading-diary  | diary-three |          3
+(5 rows)
+

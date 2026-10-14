@@ -1,0 +1,24 @@
+统计窗口: 2026-10-13T19:12:15.335Z ~ 2026-10-14T19:12:15.335Z（UTC，按服务端 received_at）
+
+[collection] reading-diary — 阅读日记
+kind        slug           impressions  clicks  ctr     views  reads  read_rate
+collection  reading-diary  1            2       200.0%  9      7      77.8%    
+统计窗口: 2026-10-13T19:12:15.588Z ~ 2026-10-14T19:12:15.588Z（UTC，按服务端 received_at）
+
+[work] targets=4 impressions=0 clicks=0 ctr=N/A views=16 reads=7 read_rate=43.8%
+
+[collection] targets=3 impressions=3 clicks=2 ctr=66.7% views=9 reads=8 read_rate=88.9%
+
+[匿名访客] 仅代表产生有效采集事件的浏览器环境，不是真实人数或全站所有到访人数
+identified_events=45 missing_visitor_events=0 coverage=100.0%
+unique_visitors=1 new_visitors=1 returning_visitors=0
+统计窗口: 2026-10-13T19:12:15.877Z ~ 2026-10-14T19:12:15.877Z（UTC，按服务端 received_at）
+
+kind          slug            impressions  clicks  ctr     views  reads  read_rate
+collection    reading-diary   1            2       200.0%  9      7      77.8%    
+work/article  diary-one       0            0       N/A     11     5      45.5%    
+collection    parallel-notes  1            0       0.0%    0      1      N/A      
+work/article  solo-article    0            0       N/A     1      1      100.0%   
+work/article  diary-two       0            0       N/A     3      1      33.3%    
+collection    empty-notes     1            0       0.0%    0      0      N/A      
+work/article  diary-three     0            0       N/A     1      0      0.0%     

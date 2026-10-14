@@ -131,22 +131,50 @@ export function TrackClickLink({
     <Link prefetch={prefetchShell ? null : false} {...(onNavigate ? { onNavigate } : {})} {...props}>{children}</Link>;
 }
 
-export function DetailTracker({ targetKind, targetId }: { targetKind: AnalyticsTargetKind; targetId: string }) {
+type ReadProgress = { elapsed: number; done: boolean };
+const WorkDetailContext = createContext<{ targetId: string; pageViewId: string; progress: { current: ReadProgress } } | null>(null);
+
+export function WorkDetailProvider({ targetId, children }: { targetId: string; children: ReactNode }) {
   const [pageViewId] = useState(() => crypto.randomUUID());
+  const progress = useRef<ReadProgress>({ elapsed: 0, done: false });
+  const value = useMemo(() => ({ targetId, pageViewId, progress }), [targetId, pageViewId]);
+  return <WorkDetailContext.Provider value={value}><DetailTracker targetKind="work" targetId={targetId} instanceId={pageViewId} readEnabled={false} />{children}</WorkDetailContext.Provider>;
+}
+
+export function WorkBodyTracker() {
+  const context = useContext(WorkDetailContext);
+  return context ? <DetailTracker targetKind="work" targetId={context.targetId} instanceId={context.pageViewId} readProgress={context.progress} /> : null;
+}
+
+export function DetailTracker({ targetKind, targetId, readEnabled = true, instanceId, readProgress }: { targetKind: AnalyticsTargetKind; targetId: string; readEnabled?: boolean; instanceId?: string; readProgress?: { current: ReadProgress } }) {
+  const [generatedId] = useState(() => crypto.randomUUID());
+  const pageViewId = instanceId ?? generatedId;
 
   useEffect(() => {
     if (analyticsDisabled()) return;
+    const show = () => {
+      if (document.visibilityState === "visible") {
+        trackOnce(`view:${pageViewId}`, { eventType: "view", targetKind, targetId, pageViewId });
+      }
+    };
+    show();
+    document.addEventListener("visibilitychange", show);
+    return () => document.removeEventListener("visibilitychange", show);
+  }, [pageViewId, targetKind, targetId]);
 
-    trackOnce(`view:${pageViewId}`, { eventType: "view", targetKind, targetId, pageViewId });
+  useEffect(() => {
+    if (analyticsDisabled()) return;
+    if (!readEnabled || readProgress?.current.done) return;
 
     // read：前台累计可见 ≥10s；切后台暂停累计，回前台继续
-    let accumulated = 0;
+    let accumulated = readProgress?.current.elapsed ?? 0;
     let visibleSince: number | null = document.visibilityState === "visible" ? performance.now() : null;
     let done = false;
 
     const finish = () => {
       if (done) return;
       done = true;
+      if (readProgress) readProgress.current.done = true;
       window.clearInterval(interval);
       document.removeEventListener("visibilitychange", onVisibility);
       trackOnce(`read:${pageViewId}`, { eventType: "read", targetKind, targetId, pageViewId });
@@ -170,10 +198,11 @@ export function DetailTracker({ targetKind, targetId }: { targetKind: AnalyticsT
     const interval = window.setInterval(check, 500);
     document.addEventListener("visibilitychange", onVisibility);
     return () => {
+      if (readProgress) readProgress.current.elapsed = accumulated + (visibleSince !== null ? performance.now() - visibleSince : 0);
       window.clearInterval(interval);
       document.removeEventListener("visibilitychange", onVisibility);
     };
-  }, [pageViewId, targetKind, targetId]);
+  }, [pageViewId, targetKind, targetId, readEnabled, readProgress]);
 
   return null;
 }

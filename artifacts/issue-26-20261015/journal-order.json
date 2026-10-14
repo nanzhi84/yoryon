@@ -1,0 +1,7 @@
+{
+  "previousWhen": 1792001860032,
+  "currentWhen": 1792003726666,
+  "oldFutureTimestamp": 1792022400000,
+  "strictlyIncreasing": true,
+  "reason": "Avoid a future migration timestamp causing later generated migrations to be skipped"
+}

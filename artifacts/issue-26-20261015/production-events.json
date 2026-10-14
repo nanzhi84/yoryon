@@ -1,0 +1,10 @@
+{
+  "runtime": "bundled API + next start + bundled CLI",
+  "sameProductionFlowCollectionReads": 1,
+  "visitorStats": {
+    "events": 14,
+    "events_with_visitor": 14,
+    "visitorRows": 1
+  },
+  "noVisitorIdentifiersExported": true
+}

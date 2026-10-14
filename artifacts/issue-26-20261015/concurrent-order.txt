@@ -1,0 +1,9 @@
+    slug     | sort_order 
+-------------+------------
+ diary-one   |          1
+ diary-two   |          2
+ diary-three |          3
+ diary-five  |          4
+ diary-four  |          5
+(5 rows)
+

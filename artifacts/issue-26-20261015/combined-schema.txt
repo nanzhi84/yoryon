@@ -1,0 +1,14 @@
+ applied_migrations 
+--------------------
+                 15
+(1 row)
+
+     table_name     |  column_name  
+--------------------+---------------
+ contents           | show_in_home
+ analytics_visitors | visitor_id
+ analytics_visitors | first_seen_at
+ analytics_events   | visitor_id
+ collections        | is_pinned
+(5 rows)
+

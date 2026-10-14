@@ -1,0 +1,9 @@
+{
+  "runtime": "3038fda final production build",
+  "directoryWaitMs": 4000,
+  "bodyWaitMs": 6500,
+  "afterBackWaitMs": 3200,
+  "returnedBareDirectory": true,
+  "flowPreserved": true,
+  "caption": "上次读到：第一章：初次阅读"
+}

@@ -13,7 +13,8 @@ import { NotificationBell } from "./notification-bell";
 export function SiteHeader() {
   const pathname = usePathname();
   const subscriptionActive = pathname === "/subscription" || pathname.startsWith("/questions/");
-  const exploreActive = pathname === "/explore" || pathname === "/c" || pathname.startsWith("/c/") || pathname === "/tags" || pathname.startsWith("/tags/");
+  const collectionActive = pathname === "/c" || pathname.startsWith("/c/");
+  const exploreActive = pathname === "/explore" || pathname === "/tags" || pathname.startsWith("/tags/");
   const tabClass = "relative flex min-h-11 min-w-11 items-center text-base transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary";
 
   return (
@@ -42,9 +43,12 @@ export function SiteHeader() {
         </div>
       </div>
       <nav aria-label="主导航" className="flex items-center justify-between gap-4">
-        <div className="flex gap-6">
+        <div className="flex gap-3 sm:gap-6">
           <Link prefetch={false} href="/" aria-current={pathname === "/" ? "page" : undefined} className={`${tabClass} ${pathname === "/" ? "font-semibold text-foreground after:bg-primary" : "text-muted-foreground hover:text-foreground"}`}>
             首页
+          </Link>
+          <Link prefetch={false} href="/c" aria-current={collectionActive ? pathname === "/c" ? "page" : "location" : undefined} className={`${tabClass} ${collectionActive ? "font-semibold text-foreground after:bg-primary" : "text-muted-foreground hover:text-foreground"}`}>
+            合集
           </Link>
           <Link prefetch={false} href="/subscription" aria-current={subscriptionActive ? pathname === "/subscription" ? "page" : "location" : undefined} className={`${tabClass} gap-2 ${subscriptionActive ? "font-semibold text-foreground after:bg-primary" : "text-muted-foreground hover:text-foreground"}`}>
             订阅 <Star className="size-3 text-primary" aria-hidden="true" />
@@ -57,7 +61,6 @@ export function SiteHeader() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="min-w-40 [&_[role=menuitem]]:min-h-11">
-            <DropdownMenuItem asChild><Link prefetch={false} href="/c">合集</Link></DropdownMenuItem>
             <DropdownMenuItem asChild><Link prefetch={false} href="/tags">标签</Link></DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
