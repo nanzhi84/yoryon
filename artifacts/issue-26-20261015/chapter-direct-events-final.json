@@ -1,0 +1,10 @@
+{
+  "events": [
+    {
+      "slug": "parallel-notes",
+      "event_type": "read",
+      "n": 1
+    }
+  ],
+  "onlySelectedCollectionRead": true
+}

@@ -1,0 +1,19 @@
+cover existing
+cache c3186cf4-c81f-481f-a84d-993d3f3acabf: verified
+✓ collection reading-diary cover 3f22342b-a355-412c-94d5-106481530938
+cache 9721e68b-9fc6-43af-b65a-fc8eed9861ea: verified
+✓ collection reading-diary cover cleared
+UPDATE 3
+== GC dry-run（加 --apply 执行删除）==
+孤儿对象（无 DB 记录，年龄 >24h）: 0
+零引用资产（>7 天）: 1
+  3f22342b-a355-412c-94d5-106481530938	media/914b3cd5dfcbe512dc7844356a8a6000d8dcdf227fbf669438beb8f253260ed1.png
+  deleted zero-ref asset 3f22342b-a355-412c-94d5-106481530938 (media/914b3cd5dfcbe512dc7844356a8a6000d8dcdf227fbf669438beb8f253260ed1.png)
+== GC applied ==
+孤儿对象（无 DB 记录，年龄 >24h）: 0
+零引用资产（>7 天）: 1
+  3f22342b-a355-412c-94d5-106481530938	media/914b3cd5dfcbe512dc7844356a8a6000d8dcdf227fbf669438beb8f253260ed1.png
+已删除对象 1 个、DB 行 1 行
+cover existing
+cache 35a6332f-87b8-434d-b87c-d1f32d516367: verified
+✓ collection reading-diary cover a23a902a-967f-45d8-8852-f76ea362d240

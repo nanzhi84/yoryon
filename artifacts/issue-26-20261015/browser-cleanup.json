@@ -1,0 +1,9 @@
+{
+  "ownedCollectionPositionKeysRemoved": 7,
+  "cookiesRemovedAfterMatchingOwnDatabase": [
+    "yoryon_analytics_vid",
+    "yoryon_session"
+  ],
+  "temporaryFaultTabsClosed": true,
+  "ownRemainingTabsClosed": true
+}

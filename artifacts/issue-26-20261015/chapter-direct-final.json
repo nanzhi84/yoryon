@@ -1,0 +1,8 @@
+{
+  "runtime": "3038fda production artifact",
+  "path": "/p/diary-two?collection=parallel-notes",
+  "bodyShown": true,
+  "flowNormalized": true,
+  "returnTargetPath": "/c/parallel-notes",
+  "waitMs": 13000
+}

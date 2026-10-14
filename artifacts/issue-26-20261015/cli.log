@@ -1,0 +1,76 @@
+cache 02cb22df-a013-4eba-bb8d-64bedfe1928e: pending (configuration missing)
+✓ collection reading-diary upserted
+cache 02cb22df-a013-4eba-bb8d-64bedfe1928e: pending (configuration missing)
+cache 3a98920e-f119-4925-ac08-2e73980a0cde: pending (configuration missing)
+✓ collection parallel-notes upserted
+cache 02cb22df-a013-4eba-bb8d-64bedfe1928e: pending (configuration missing)
+cache 3a98920e-f119-4925-ac08-2e73980a0cde: pending (configuration missing)
+cache 807ada79-2f82-4634-baf4-af1b8bb5553a: pending (configuration missing)
+✓ collection empty-notes upserted
+  published: solo-article (content 50c4857b-b1d7-4e26-ac04-aa7fae5c2d32)
+  cache 02cb22df-a013-4eba-bb8d-64bedfe1928e: pending (configuration missing)
+  cache 3a98920e-f119-4925-ac08-2e73980a0cde: pending (configuration missing)
+  cache 807ada79-2f82-4634-baf4-af1b8bb5553a: pending (configuration missing)
+  cache 4a107434-0a42-47c7-81a7-65aadd0b06dc: pending (configuration missing)
+✓ solo-article database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  published: solo-post (content 9eec65d3-da8c-47ad-a837-4177e0b531d7)
+  cache 02cb22df-a013-4eba-bb8d-64bedfe1928e: pending (configuration missing)
+  cache 3a98920e-f119-4925-ac08-2e73980a0cde: pending (configuration missing)
+  cache 807ada79-2f82-4634-baf4-af1b8bb5553a: pending (configuration missing)
+  cache 4a107434-0a42-47c7-81a7-65aadd0b06dc: pending (configuration missing)
+  cache 96024cb4-85b6-4e37-ac09-5ecfde3956ca: pending (configuration missing)
+✓ solo-post database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  uploaded: ./media/shared.png → media/530a155c60120aee2049ee44652e48a26bd9243a65604a5da8862de61bba0f59.png
+  published: diary-one (content b7c476cc-3cdf-47d0-b924-e8d38281eee9)
+  cache 02cb22df-a013-4eba-bb8d-64bedfe1928e: pending (configuration missing)
+  cache 3a98920e-f119-4925-ac08-2e73980a0cde: pending (configuration missing)
+  cache 807ada79-2f82-4634-baf4-af1b8bb5553a: pending (configuration missing)
+  cache 4a107434-0a42-47c7-81a7-65aadd0b06dc: pending (configuration missing)
+  cache 96024cb4-85b6-4e37-ac09-5ecfde3956ca: pending (configuration missing)
+  cache 7cf66485-ea0e-49fd-9e5e-6362dc68f476: pending (configuration missing)
+✓ diary-one database committed (1 uploaded, 0 reused); page state is reported by cache event above
+  published: diary-two (content 1026605c-81d1-424b-bc88-0762ada9ad0a)
+  cache 02cb22df-a013-4eba-bb8d-64bedfe1928e: pending (configuration missing)
+  cache 3a98920e-f119-4925-ac08-2e73980a0cde: pending (configuration missing)
+  cache 807ada79-2f82-4634-baf4-af1b8bb5553a: pending (configuration missing)
+  cache 4a107434-0a42-47c7-81a7-65aadd0b06dc: pending (configuration missing)
+  cache 96024cb4-85b6-4e37-ac09-5ecfde3956ca: pending (configuration missing)
+  cache 7cf66485-ea0e-49fd-9e5e-6362dc68f476: pending (configuration missing)
+  cache c3a19935-f291-4429-ba80-661f909fc399: pending (configuration missing)
+✓ diary-two database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  uploaded: ./media/private.png → media/b1bd09236e08ea46bce78a9909a4b7ee10c5174b4741c70ab50509e326b77fcd.png
+  published: diary-three (content e197c868-23fd-4778-b786-6d269c71e1b3)
+  cache 02cb22df-a013-4eba-bb8d-64bedfe1928e: pending (configuration missing)
+  cache 3a98920e-f119-4925-ac08-2e73980a0cde: pending (configuration missing)
+  cache 807ada79-2f82-4634-baf4-af1b8bb5553a: pending (configuration missing)
+  cache 4a107434-0a42-47c7-81a7-65aadd0b06dc: pending (configuration missing)
+  cache 96024cb4-85b6-4e37-ac09-5ecfde3956ca: pending (configuration missing)
+  cache 7cf66485-ea0e-49fd-9e5e-6362dc68f476: pending (configuration missing)
+  cache c3a19935-f291-4429-ba80-661f909fc399: pending (configuration missing)
+  cache d31725b3-e747-4004-aa9b-191c8db69b54: pending (configuration missing)
+✓ diary-three database committed (1 uploaded, 0 reused); page state is reported by cache event above
+  published: notes-one (content bac708ff-3c23-4732-a218-5410d989db84)
+  cache 02cb22df-a013-4eba-bb8d-64bedfe1928e: pending (configuration missing)
+  cache 3a98920e-f119-4925-ac08-2e73980a0cde: pending (configuration missing)
+  cache 807ada79-2f82-4634-baf4-af1b8bb5553a: pending (configuration missing)
+  cache 4a107434-0a42-47c7-81a7-65aadd0b06dc: pending (configuration missing)
+  cache 96024cb4-85b6-4e37-ac09-5ecfde3956ca: pending (configuration missing)
+  cache 7cf66485-ea0e-49fd-9e5e-6362dc68f476: pending (configuration missing)
+  cache c3a19935-f291-4429-ba80-661f909fc399: pending (configuration missing)
+  cache d31725b3-e747-4004-aa9b-191c8db69b54: pending (configuration missing)
+  cache 25ab76eb-08e1-4bd0-a5ce-4df8890fcbe7: pending (configuration missing)
+✓ notes-one database committed (0 uploaded, 0 reused); page state is reported by cache event above
+cache 02cb22df-a013-4eba-bb8d-64bedfe1928e: pending (retry exhausted; blog cache retry)
+cache 3a98920e-f119-4925-ac08-2e73980a0cde: pending (retry exhausted; blog cache retry)
+cache 807ada79-2f82-4634-baf4-af1b8bb5553a: pending (retry exhausted; blog cache retry)
+cache 4a107434-0a42-47c7-81a7-65aadd0b06dc: pending (retry exhausted; blog cache retry)
+cache 96024cb4-85b6-4e37-ac09-5ecfde3956ca: pending (retry exhausted; blog cache retry)
+cache 7cf66485-ea0e-49fd-9e5e-6362dc68f476: pending (retry exhausted; blog cache retry)
+cache c3a19935-f291-4429-ba80-661f909fc399: pending (retry exhausted; blog cache retry)
+cache d31725b3-e747-4004-aa9b-191c8db69b54: pending (retry exhausted; blog cache retry)
+cache 25ab76eb-08e1-4bd0-a5ce-4df8890fcbe7: pending (retry exhausted; blog cache retry)
+cache 5e6bcb7d-1471-448b-997a-54ce77f45e98: pending (retry exhausted; blog cache retry)
+✓ diary-three shown on home
+cover existing
+cache 44fe211d-0235-4aa8-8880-be313b437879: pending (retry exhausted; blog cache retry)
+✓ collection reading-diary cover a23a902a-967f-45d8-8852-f76ea362d240

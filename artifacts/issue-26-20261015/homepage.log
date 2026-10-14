@@ -1,0 +1,29 @@
+cache bb453123-2a00-46cc-a359-436f0f992f5c: verified
+✓ solo-article hidden from home
+  published: solo-article (content 50c4857b-b1d7-4e26-ac04-aa7fae5c2d32)
+  cache bc1a1e20-cbc7-4a53-a68f-9bd095efa6af: verified
+✓ solo-article database committed (0 uploaded, 0 reused); page state is reported by cache event above
+cache 51f6c4d4-3b18-4ef5-a1a0-70e8f3a895db: verified
+✓ diary-two shown on home
+  published: diary-two (content 1026605c-81d1-424b-bc88-0762ada9ad0a)
+  cache 740bd79b-d2ae-4fc2-9294-4ea87d17ae8b: verified
+✓ diary-two database committed (0 uploaded, 0 reused); page state is reported by cache event above
+     slug     | visibility | show_in_home 
+--------------+------------+--------------
+ diary-one    | public     | f
+ diary-three  | paid       | t
+ diary-two    | public     | t
+ notes-one    | public     | f
+ solo-article | public     | f
+ solo-post    | public     | t
+(6 rows)
+
+      slug      |    slug     | sort_order 
+----------------+-------------+------------
+ parallel-notes | diary-two   |          1
+ parallel-notes | notes-one   |          2
+ reading-diary  | diary-one   |          1
+ reading-diary  | diary-two   |          2
+ reading-diary  | diary-three |          3
+(5 rows)
+

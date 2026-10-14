@@ -1,0 +1,43 @@
+{
+  "scope": "only databases, temp sources/env/storage, local browser data created by this acceptance",
+  "databasesBefore": [
+    {
+      "database": "yoryon_issue26_20261015",
+      "contents": 8,
+      "users": 2,
+      "analyticsEvents": 66
+    },
+    {
+      "database": "yoryon_issue26_legacy_20261015",
+      "contents": 4,
+      "users": 0,
+      "analyticsEvents": 0
+    },
+    {
+      "database": "yoryon_issue26_combined_20261015",
+      "contents": 8,
+      "users": 0,
+      "analyticsEvents": 45
+    }
+  ],
+  "cleanupCompleted": true,
+  "databasesRemoved": [
+    "yoryon_issue26_20261015",
+    "yoryon_issue26_legacy_20261015",
+    "yoryon_issue26_combined_20261015"
+  ],
+  "remainingOwnedDatabases": [],
+  "ports4026And3026HaveNoListeners": true,
+  "tempSourcesEnvStorageRawIdentifiersRemoved": true,
+  "browserCleanup": {
+    "ownedCollectionPositionKeysRemoved": 7,
+    "cookiesRemovedAfterMatchingOwnDatabase": [
+      "yoryon_analytics_vid",
+      "yoryon_session"
+    ],
+    "temporaryFaultTabsClosed": true,
+    "ownRemainingTabsClosed": true
+  },
+  "productionTouched": false,
+  "mailSent": false
+}

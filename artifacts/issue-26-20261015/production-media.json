@@ -1,0 +1,8 @@
+{
+  "backend": "bundled API fs",
+  "status": 302,
+  "cache": "public, max-age=300",
+  "bytes": 3603,
+  "bytesMatch": true,
+  "sha256": "530a155c60120aee2049ee44652e48a26bd9243a65604a5da8862de61bba0f59"
+}

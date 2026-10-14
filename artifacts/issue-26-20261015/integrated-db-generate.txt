@@ -1,0 +1,33 @@
+$ pnpm --filter @yoryon/db generate
+$ drizzle-kit generate
+No config path provided, using default 'drizzle.config.ts'
+Reading config file '/Users/yoryon/Projects/yoryon/packages/db/drizzle.config.ts'
+26 tables
+activation_codes 13 columns 1 indexes 0 fks
+cache_events 8 columns 0 indexes 0 fks
+collection_items 3 columns 1 indexes 2 fks
+collections 9 columns 1 indexes 1 fks
+comment_feed_versions 2 columns 0 indexes 1 fks
+comment_likes 3 columns 1 indexes 2 fks
+comments 11 columns 3 indexes 5 fks
+content_likes 3 columns 1 indexes 2 fks
+content_media 4 columns 1 indexes 2 fks
+content_references 3 columns 1 indexes 2 fks
+content_tags 2 columns 1 indexes 2 fks
+contents 19 columns 3 indexes 1 fks
+email_verifications 8 columns 0 indexes 0 fks
+entitlements 11 columns 2 indexes 2 fks
+media_assets 8 columns 1 indexes 0 fks
+member_questions 11 columns 2 indexes 1 fks
+notifications 10 columns 2 indexes 2 fks
+redemptions 4 columns 0 indexes 2 fks
+search_epoch 2 columns 0 indexes 0 fks
+search_projections 6 columns 3 indexes 1 fks
+search_sessions 11 columns 3 indexes 0 fks
+sessions 8 columns 2 indexes 1 fks
+tags 3 columns 1 indexes 0 fks
+users 10 columns 2 indexes 1 fks
+analytics_events 10 columns 4 indexes 0 fks
+analytics_visitors 2 columns 0 indexes 0 fks
+
+No schema changes, nothing to migrate 😴

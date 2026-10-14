@@ -1,0 +1,4 @@
+cover uploaded
+error: Failed query: update "collections" set "cover_media_id" = $1, "updated_at" = $2 where "collections"."id" = $3
+params: 7a3366dc-f146-4000-85ad-7f4e8f9c8ca8,2026-10-14T18:33:39.118Z,e1697016-a958-4c34-951a-e460c0df64d8
+error: 媒体 PUT 失败（重试 3 次）: Error: ENOTDIR: not a directory, mkdir '/tmp/yoryon-issue26-HJGFGZ/fs-denied-file/media'

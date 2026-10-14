@@ -1,0 +1,6 @@
+{
+  "mode": "SIMULATED visibility WebAPI",
+  "collectionViewRowsAfterFirstForeground": 1,
+  "collectionReadsAfter4sForegroundAnd12sHidden": 0,
+  "workReadsAfter4sForegroundAnd12sHidden": 0
+}

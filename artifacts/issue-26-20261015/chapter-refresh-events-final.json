@@ -1,0 +1,9 @@
+{
+  "case": "real chapter reload does not inherit elapsed time",
+  "collectionReads": {
+    "before": 0,
+    "first": 0,
+    "second": 1
+  },
+  "pass": true
+}

@@ -1,0 +1,15 @@
+{
+  "mode": "SIMULATED document.visibilityState + visibilitychange, not native background",
+  "hiddenInitialWaitMs": 12000,
+  "hiddenInitialAnalyticsRequests": 1,
+  "firstForegroundSentEventTypes": [
+    "view"
+  ],
+  "hiddenInitialEventTypes": [
+    "click"
+  ],
+  "hiddenInitialViewReadEvents": 0,
+  "authorizedBodyForegroundFirstMs": 4000,
+  "authorizedBodyHiddenMs": 12000,
+  "authorizedBodyForegroundResumeMs": 7000
+}

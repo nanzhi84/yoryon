@@ -1,0 +1,10 @@
+{
+  "runtime": "pre-fix production artifact",
+  "path": "/p/diary-one?collection=reading-diary",
+  "waitMs": 13000,
+  "authorizedBodyVisible": true,
+  "flowNormalized": false,
+  "eventTypes": [],
+  "result": "FAIL confirmed from unchanged URL without flow and the reviewed pre-fix provider: valid external collection context had no in-memory reading process",
+  "networkObservationLimit": "monitor was enabled after initial load; later empty capture cannot prove prior events absent"
+}

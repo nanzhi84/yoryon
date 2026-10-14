@@ -1,0 +1,5 @@
+{
+  "mode": "SIMULATED visibility WebAPI",
+  "collectionReadsAfterResume": 1,
+  "workReadsAfterResume": 1
+}

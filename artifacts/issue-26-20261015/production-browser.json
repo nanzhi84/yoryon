@@ -1,0 +1,8 @@
+{
+  "runtime": "next start / bundled API / bundled CLI",
+  "directoryWaitMs": 4000,
+  "authorizedBodyWaitMs": 6500,
+  "nextChapterWaitMs": 2200,
+  "elapsedMs": 13808,
+  "continueChapterPath": "/p/diary-two"
+}

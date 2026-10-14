@@ -1,0 +1,6 @@
+cache 9b25f66d-5964-4d2b-a5f6-dbf2afb0af11: pending (retry exhausted; blog cache retry)
+✓ diary-one → draft
+  skip (exists): ./media/shared.png → media/530a155c60120aee2049ee44652e48a26bd9243a65604a5da8862de61bba0f59.png
+  published: diary-one (content b7c476cc-3cdf-47d0-b924-e8d38281eee9)
+  cache 0d82893b-b677-4d3d-94a6-49fbe8c5aa32: verified
+✓ diary-one database committed (0 uploaded, 1 reused); page state is reported by cache event above
