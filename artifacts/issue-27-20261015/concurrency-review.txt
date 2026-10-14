@@ -1,0 +1,6 @@
+controlled_existing_visitor_A_lock { blockedLedgerTransactions: 2 }
+parallel_A_B_and_B_A_after_release [
+  { status: 200, body: { accepted: 2 } },
+  { status: 200, body: { accepted: 2 } }
+]
+ledger { visitors: 2 }

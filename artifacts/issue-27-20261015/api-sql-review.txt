@@ -1,0 +1,15 @@
+invalid_uuid {
+  status: 400,
+  body: { error: { code: 'invalid_events', message: '事件格式不合法' } }
+}
+legacy { status: 200, body: { accepted: 1 } } { events: 1, identified: 0 }
+retry_and_client_clock {
+  first: { status: 200, body: { accepted: 1 } },
+  second: { status: 200, body: { accepted: 1 } },
+  changed: { status: 200, body: { accepted: 1 } },
+  row: { events: 1, visitors: 1, server_clock: true },
+  fabricatedVisitorRows: 0
+}
+invalid_target { response: { status: 200, body: { accepted: 0 } }, ledger: 0 }
+parallel_ledger_initial 200
+parallel_reverse_order_30_batches { '200': 30 }

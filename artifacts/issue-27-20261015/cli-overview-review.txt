@@ -1,0 +1,10 @@
+统计窗口: 2026-10-07T18:33:35.716Z ~ 2026-10-14T18:33:35.716Z（UTC，按服务端 received_at）
+
+[work] targets=1 impressions=2 clicks=0 ctr=0.0% views=636 reads=5 read_rate=0.8%
+
+[collection] targets=1 impressions=0 clicks=0 ctr=N/A views=1 reads=1 read_rate=100.0%
+
+[匿名访客] 仅代表产生有效采集事件的浏览器环境，不是真实人数或全站所有到访人数
+identified_events=642 missing_visitor_events=3 coverage=99.5%
+unique_visitors=23 new_visitors=23 returning_visitors=0
+缺省身份流量不计入上述访客数，历史事件不能据 session_id 还原 visitor_id。

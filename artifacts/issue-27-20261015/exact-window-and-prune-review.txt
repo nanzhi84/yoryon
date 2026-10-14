@@ -1,0 +1,18 @@
+prune_repeat_API_insert 200
+✓ 已删除 1 条早于 2025-10-14T18:37:17.368Z（UTC）的事件
+首次观察账本保留；已观察访客不会因原始事件清理重新变成新访客。
+
+prune_repeat_API_return 200
+first_seen_preserved_exact_postgres_precision { unchanged: true, returning: true }
+exact_window 2026-10-14T18:36:16.422Z 2026-10-14T18:36:17.422Z
+
+[匿名访客] 仅代表产生有效采集事件的浏览器环境，不是真实人数或全站所有到访人数
+identified_events=2 missing_visitor_events=0 coverage=100.0%
+unique_visitors=2 new_visitors=1 returning_visitors=1
+
+标签页会话次数：窗口内每位访客的不同 session_id 数；无 30 分钟超时机制。最多显示 20 位。
+行号仅标识本次报表的行，不持久、不输出访客 UUID；缺省 session 的事件不虚构次数。
+row  visitor_type  known_tab_sessions  missing_session_events
+1  returning  1  0
+2  new  1  0
+

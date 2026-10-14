@@ -1,0 +1,32 @@
+$ pnpm -r --filter='./packages/*' --filter='./apps/*' build
+Scope: 6 of 7 workspace projects
+packages/config build$ echo 'config is source-only; nothing to build'
+packages/config build: config is source-only; nothing to build
+packages/config build: Done
+apps/web build$ next build
+packages/db build$ echo 'db is source-only; nothing to build'
+packages/db build: db is source-only; nothing to build
+packages/db build: Done
+apps/web build:  ⚠ You are using a non-standard "NODE_ENV" value in your environment. This creates inconsistencies in the project and is strongly advised against. Read more: https://nextjs.org/docs/messages/non-standard-node-env
+apps/web build:    ▲ Next.js 15.5.27
+apps/web build:    - Experiments (use with caution):
+apps/web build:      · staleTimes
+apps/web build:    Creating an optimized production build ...
+apps/web build:  ✓ Compiled successfully in 6.2s
+apps/web build:    Linting and checking validity of types ...
+apps/web build:    Collecting page data ...
+apps/web build:    Generating static pages (0/18) ...
+apps/web build: Error: <Html> should not be imported outside of pages/_document.
+apps/web build: Read more: https://nextjs.org/docs/messages/no-document-import-in-page
+apps/web build:     at x (.next/server/chunks/911.js:6:1351)
+apps/web build: Error occurred prerendering page "/500". Read more: https://nextjs.org/docs/messages/prerender-error
+apps/web build: Error: <Html> should not be imported outside of pages/_document.
+apps/web build: Read more: https://nextjs.org/docs/messages/no-document-import-in-page
+apps/web build:     at x (.next/server/chunks/911.js:6:1351)
+apps/web build: Export encountered an error on /_error: /500, exiting the build.
+apps/web build:  ⨯ Next.js build worker exited with code: 1 and signal: null
+apps/web build: Failed
+/Users/yoryon/.codex/worktrees/issue-27-visitors/yoryon/apps/web:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @yoryon/web@0.1.0 build: `next build`
+Exit status 1
+[ELIFECYCLE] Command failed with exit code 1.
