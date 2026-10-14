@@ -16,11 +16,11 @@ export function formatDate(iso: string | null): string {
 function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem; showPinnedBadge?: boolean }) {
   return (
     <TrackImpression targetKind="work" targetId={item.id}>
-      <article className="group py-5">
+      <article className="editorial-entry group py-5">
         <div className="flex items-baseline justify-between gap-4">
           <div className="flex min-w-0 items-baseline gap-2">
             <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="min-w-0">
-              <h2 className="truncate text-lg font-semibold leading-[26px] group-hover:underline underline-offset-4">
+              <h2 className="line-clamp-2 text-lg font-semibold leading-[26px] group-hover:underline underline-offset-4">
                 {item.title || "未命名内容"}
               </h2>
             </TrackClickLink>
@@ -35,7 +35,7 @@ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem
         </div>
         {item.type === "article" ? <div className="mt-2 flex items-start justify-between gap-4">
           <div className="min-w-0 flex-1">
-            {(item.description || item.excerpt) && <p className="line-clamp-3 text-[15px] leading-6 text-foreground">{item.description || item.excerpt}</p>}
+            {(item.description || item.excerpt) && <p className="editorial-excerpt line-clamp-3 text-[15px] leading-6 text-foreground">{item.description || item.excerpt}</p>}
             <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="mt-1 inline-flex min-h-8 items-center gap-1.5 text-[13px] leading-5 text-primary hover:underline underline-offset-4">
               阅读全文 <ArrowRight className="size-4" aria-hidden="true" />
             </TrackClickLink>

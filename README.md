@@ -19,6 +19,8 @@ Monorepo（pnpm workspaces）：
 
 架构与关键决策见 `docs/architecture.md` 与 `docs/adr/0001~0006`。
 
+内容写作与当前渲染约定见 [Markdown 写作与渲染规则](docs/markdown-rendering.md)。
+
 ## 本地从零运行
 
 前置：Node ≥ 20、pnpm ≥ 9、Docker（本地 Postgres 与 Mailpit）。

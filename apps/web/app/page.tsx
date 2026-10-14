@@ -4,12 +4,10 @@ import { FeedTimeline } from "@/components/feed-timeline";
 import { SiteHeader } from "@/components/site-header";
 import { LoadMore } from "@/components/load-more";
 import { AnalyticsListProvider } from "@/components/analytics";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
 const revalidateSec = Number(process.env.FEED_REVALIDATE_SEC ?? 86400);
 
-/** 首页以真实内容时间线为主；合集仍仅在 /c 展示，底部提示进入订阅页。 */
+/** 首页以真实内容时间线为主；合集仍仅在 /c 展示。 */
 export default async function HomePage() {
   const res = await fetchCatalog("/api/feed", { revalidate: revalidateSec, tags: ["feed"] });
   if (!res.ok) throw new Error(`feed API ${res.status}`);
@@ -31,12 +29,6 @@ export default async function HomePage() {
             {feed?.nextCursor && <LoadMore version={feed.version} initialCursor={feed.nextCursor} showPinnedBadge />}
           </AnalyticsListProvider>
         )}
-        <section aria-label="订阅支持" className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-border px-5 py-5">
-          <p className="text-sm font-medium">更深入的作品，更直接的交流。</p>
-          <Link href="/subscription" prefetch={false} className="inline-flex min-h-11 items-center gap-2 text-sm text-primary hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
-            了解订阅 <ArrowRight className="size-4" aria-hidden="true" />
-          </Link>
-        </section>
       </main>
     </>
   );

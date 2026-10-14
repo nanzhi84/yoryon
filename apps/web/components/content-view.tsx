@@ -15,19 +15,19 @@ export function ContentView({ initial: content }: { initial: ContentDetail }) {
   return (
     <>
       <SiteHeader />
-      {/* 正文与页头同栏（布局容器 max-w-3xl），不再收窄 */}
-      <main className="py-5" data-revision={content.updatedAt}>
+      {/* 阅读列独立于站点导航宽度；私有全文与公开预览共享排版。 */}
+      <main className="editorial-reader py-5" data-revision={content.updatedAt}>
         <BackButton />
         <DetailTracker targetKind="work" targetId={content.id} />
         <SearchLocation slug={content.slug} />
-        <header>
-          <div className="flex items-center gap-2 text-xs leading-[18px] text-muted-foreground">
-            <time>{formatDate(content.publishedAt)}</time>
+        <header className="editorial-title">
+          <h1 className="font-semibold">{content.title || "未命名内容"}</h1>
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[13px] leading-[1.6] text-muted-foreground">
+            <time dateTime={content.publishedAt ?? undefined}>{formatDate(content.publishedAt)}</time>
+            {content.description && <><span aria-hidden="true">·</span><span>{content.description}</span></>}
             {content.visibility === "paid" && <Badge variant="secondary">付费</Badge>}
           </div>
-          <h1 className="mt-2 text-[28px] font-semibold leading-[38px]">{content.title || "未命名内容"}</h1>
-          {content.description && <p className="mt-2 text-[15px] leading-6 text-muted-foreground">{content.description}</p>}
-          <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs leading-[18px] text-muted-foreground">
+          <div className="mt-3 flex flex-wrap justify-center gap-x-3 gap-y-1 text-xs leading-[18px] text-muted-foreground">
             {content.tags.map((t) => (
               <Link prefetch={false} key={t.slug} href={`/tags/${t.slug}`} className="hover:text-foreground">
                 #{t.name}

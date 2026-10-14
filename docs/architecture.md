@@ -391,7 +391,8 @@ POST /api/analytics/events         Analytics 批量 ingest（≤20 条/批且请
 
 ### 8.3 正文排版
 
-- Markdown 渲染结果统一套 `prose`（dark 下 `prose-invert`），经 `--tw-prose-*` 变量做中文排印调优：CJK 系统字体栈（PingFang SC / Hiragino Sans GB / Microsoft YaHei / Noto Sans SC）、`line-height ≈ 1.8`、段落间距；阅读栏与站点页头同宽（布局容器 `max-w-3xl`），不再单独收窄。
+- Markdown 渲染结果统一套 `prose`（dark 下 `prose-invert`）；详情阅读列最大 660px，正文使用系统衬线字体，桌面 17px / 1.85、640px 及以下 16px / 1.85。导航容器仍为 `max-w-3xl`，界面使用无衬线字体，信息流正文独立保持 15px / 24px。
+- 页面浅色背景为 `#ffffff`，深色为 `#151514`；蓝灰品牌控件、强调色与交互语义保留。字体、可选要点卡片、统一 Caption 和媒体语法的当前约定见 [Markdown 写作与渲染规则](markdown-rendering.md)。
 
 ### 8.4 多媒体播放
 

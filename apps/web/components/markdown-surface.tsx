@@ -9,6 +9,9 @@ import { InlineMedia } from "./inline-media";
 import { WorkReference } from "./work-reference";
 import { MarkdownImage } from "./markdown-image";
 import { cn } from "@/lib/utils";
+import { rehypeEditorialSummary } from "@/lib/rehype-editorial-summary";
+import { rehypeCaption } from "@/lib/rehype-caption";
+import { Caption } from "./caption";
 /** 把 leaf directive 转成自定义 HTML 元素，供 components 映射。 */
 function remarkMediaDirectives() {
   return (tree: Root) => {
@@ -34,7 +37,10 @@ export function MarkdownSurface({ markdown, className, mediaSizes, publicImages 
   components?: Components;
 }) {
   return <div data-search-body className={cn("prose prose-zinc dark:prose-invert prose-yoryon max-w-none", className)}>
-    <ReactMarkdown rehypePlugins={[rehypeSearchText]} remarkPlugins={[remarkCjkFriendly, remarkDirective, remarkMediaDirectives]} components={{
+    <ReactMarkdown rehypePlugins={[rehypeSearchText, rehypeEditorialSummary, rehypeCaption]} remarkPlugins={[remarkCjkFriendly, remarkDirective, remarkMediaDirectives]} components={{
+            p: ({ node: _node, className, ...props }) => className?.split(" ").includes("editorial-caption")
+              ? <Caption className={className} {...props} />
+              : <p className={className} {...props} />,
             img: ({ src, alt, node: _node, ...props }) => {
               const size = mediaSizes ? mediaSizes[mediaIdFromSrc(src) ?? ""] : undefined;
               const id = mediaIdFromSrc(src);
