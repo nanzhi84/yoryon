@@ -7,6 +7,7 @@ import type { Command } from "commander";
 import { and, eq, gte, inArray, lt, sql } from "drizzle-orm";
 import { analyticsEvents, collections, contents } from "@yoryon/db";
 import { closeContext, getContext } from "../context";
+import { printVisitorSessions, printVisitorSummary } from "./analytics-visitors";
 
 type EventType = "impression" | "click" | "view" | "read";
 
@@ -149,6 +150,25 @@ export function registerAnalyticsCommands(program: Command) {
               `ctr=${fmtRate(sum.clicks, sum.impressions)} views=${sum.views} reads=${sum.reads} read_rate=${fmtRate(sum.reads, sum.views)}`,
           );
         }
+        await printVisitorSummary(w);
+      } finally {
+        await closeContext();
+      }
+    });
+
+  analytics
+    .command("visitors")
+    .description("匿名访客覆盖、新访客、回访访客与每位访客的标签页会话次数")
+    .option("--days <n>", "统计最近 N 天（滚动窗口）", "7")
+    .option("--limit <n>", "最多显示的访客行数（不输出 UUID）", "20")
+    .action(async (opts: { days: string; limit: string }) => {
+      try {
+        const limit = Number(opts.limit);
+        if (!Number.isInteger(limit) || limit < 1 || limit > 1000) throw new Error(`--limit 需为 1-1000 的整数: ${opts.limit}`);
+        const w = parseWindow(opts.days);
+        console.log(windowLine(w));
+        await printVisitorSummary(w);
+        await printVisitorSessions(w, limit);
       } finally {
         await closeContext();
       }
@@ -238,6 +258,7 @@ export function registerAnalyticsCommands(program: Command) {
         const { db } = getContext();
         const deleted = await db.delete(analyticsEvents).where(lt(analyticsEvents.receivedAt, cutoff)).returning({ id: analyticsEvents.id });
         console.log(`✓ 已删除 ${deleted.length} 条早于 ${cutoff.toISOString()}（UTC）的事件`);
+        console.log("首次观察账本保留；已观察访客不会因原始事件清理重新变成新访客。");
       } finally {
         await closeContext();
       }

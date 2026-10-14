@@ -1,0 +1,15 @@
+same_browser_events {
+  events: 9,
+  visitors: 1,
+  tab_sessions: 3,
+  page_views: 5,
+  collection_events: 2,
+  article_events: 7
+}
+known_browser_sessions { known_sessions: 3 }
+ledger_matches_first_received { matched: false }
+ ledger_within_js_date_precision 
+---------------------------------
+ t
+(1 row)
+

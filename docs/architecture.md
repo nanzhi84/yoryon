@@ -215,10 +215,18 @@ analytics_events(
   placement text,                         -- home_feed | collection_list，仅 impression/click
   page_view_id uuid not null,
   session_id uuid,                        -- sessionStorage 级匿名标识；不存 IP/UA/URL
+  visitor_id uuid,                        -- 180 天主机限定随机 Cookie 身份，历史不回填
   received_at timestamptz not null default now()   -- 服务端可信接收时间
 )
 create index on analytics_events (target_kind, target_id, received_at);
 create index on analytics_events (received_at);
+create index on analytics_events (visitor_id, received_at);
+
+-- 最小首次观察账本（ADR-0017），原始事件 prune 不删除此表
+analytics_visitors(
+  visitor_id uuid pk,
+  first_seen_at timestamptz not null       -- 同事务中实际插入有效事件的最早服务端 received_at
+)
 ```
 
 语义约定：

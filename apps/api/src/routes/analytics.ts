@@ -7,11 +7,11 @@
  * - 不写 IP/UA/URL；received_at 由服务端生成（defaultNow），不信任客户端时钟。
  */
 import { Hono } from "hono";
-import { and, eq, inArray } from "drizzle-orm";
+import { and, eq, inArray, sql } from "drizzle-orm";
 import { z } from "zod";
 import { ANALYTICS_MAX_BATCH, RATE_LIMITS } from "@yoryon/config";
 import { readBodyCapped } from "@yoryon/core";
-import { analyticsEvents, collections, contents } from "@yoryon/db";
+import { analyticsEvents, analyticsVisitors, collections, contents } from "@yoryon/db";
 import type { AppDeps } from "../deps";
 import { errorResponse } from "../errors";
 import type { AppVariables } from "../middleware/auth";
@@ -24,6 +24,7 @@ const eventSchema = z.object({
   placement: z.enum(["home_feed", "collection_list"]).nullish(),
   pageViewId: z.uuid(),
   sessionId: z.uuid().nullish(),
+  visitorId: z.uuid().nullish(),
 });
 
 const batchSchema = z.object({
@@ -108,9 +109,33 @@ export function analyticsRoutes(deps: AppDeps) {
         placement: e.placement,
         pageViewId: e.pageViewId,
         sessionId: e.sessionId ?? null,
+        visitorId: e.visitorId ?? null,
       }));
     if (rows.length) {
-      await deps.db.insert(analyticsEvents).values(rows).onConflictDoNothing({ target: analyticsEvents.eventId });
+      try {
+        await deps.db.transaction(async (tx) => {
+          const inserted = await tx.insert(analyticsEvents).values(rows)
+            .onConflictDoNothing({ target: analyticsEvents.eventId })
+            .returning({ visitorId: analyticsEvents.visitorId, receivedAt: analyticsEvents.receivedAt });
+          // 只观察实际插入的事件：相同 event_id 换 visitor 重投不能制造虚假首次访客。
+          const firstSeen = new Map<string, Date>();
+          for (const event of inserted) {
+            if (!event.visitorId) continue;
+            const previous = firstSeen.get(event.visitorId);
+            if (!previous || event.receivedAt < previous) firstSeen.set(event.visitorId, event.receivedAt);
+          }
+          if (firstSeen.size) await tx.insert(analyticsVisitors)
+            .values([...firstSeen].map(([visitorId, firstSeenAt]) => ({ visitorId, firstSeenAt })))
+            .onConflictDoUpdate({
+              target: analyticsVisitors.visitorId,
+              set: { firstSeenAt: sql`least(${analyticsVisitors.firstSeenAt}, excluded.first_seen_at)` },
+            });
+        });
+      } catch {
+        // Drizzle 错误可能包含 SQL 参数；访客 UUID 不得进入普通日志或公开响应。
+        console.error(JSON.stringify({ level: "error", msg: "analytics persistence failed", requestId: c.get("requestId") }));
+        return errorResponse(c, 500, "internal_error", "统计事件暂时无法保存");
+      }
     }
     return c.json({ accepted: rows.length });
   });

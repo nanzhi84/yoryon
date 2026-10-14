@@ -1,0 +1,75 @@
+populated_v1_migration_SQL_transaction_rolled_back {
+  before: 649,
+  after: { events: 649, identified: 0 },
+  ledger: { visitors: 0 },
+  rowCountPreserved: true
+}
+CLI_missing_identity_only_window
+统计窗口: 2026-10-13T18:36:01.515Z ~ 2026-10-14T18:36:01.515Z（UTC，按服务端 received_at）
+
+[匿名访客] 仅代表产生有效采集事件的浏览器环境，不是真实人数或全站所有到访人数
+identified_events=0 missing_visitor_events=5 coverage=0.0%
+unique_visitors=N/A new_visitors=N/A returning_visitors=N/A（无可识别事件；历史/缺省身份不可计算）
+
+标签页会话次数：窗口内每位访客的不同 session_id 数；无 30 分钟超时机制。最多显示 100 位。
+行号仅标识本次报表的行，不持久、不输出访客 UUID；缺省 session 的事件不虚构次数。
+（无可识别访客）
+
+missing_session_event { status: 200, body: { accepted: 1 } }
+same_visitor_repeat_session_and_new_session { status: 200, body: { accepted: 3 } }
+known_tab_session_SQL { events: 3, sessions: 2 }
+old_first_event { status: 200, body: { accepted: 1 } }
+CLI_prune_365
+✓ 已删除 1 条早于 2025-10-14T18:36:02.348Z（UTC）的事件
+首次观察账本保留；已观察访客不会因原始事件清理重新变成新访客。
+
+prune_retained_ledger { old_raw_events: 0, ledger_rows: 1 }
+return_after_prune { status: 200, body: { accepted: 1 } }
+first_seen_still_original { unchanged: false, returning: true }
+CLI_mixed_new_returning_and_missing_sessions
+统计窗口: 2026-10-07T18:36:03.141Z ~ 2026-10-14T18:36:03.141Z（UTC，按服务端 received_at）
+
+[匿名访客] 仅代表产生有效采集事件的浏览器环境，不是真实人数或全站所有到访人数
+identified_events=649 missing_visitor_events=5 coverage=99.2%
+unique_visitors=27 new_visitors=26 returning_visitors=1
+缺省身份流量不计入上述访客数，历史事件不能据 session_id 还原 visitor_id。
+
+标签页会话次数：窗口内每位访客的不同 session_id 数；无 30 分钟超时机制。最多显示 100 位。
+行号仅标识本次报表的行，不持久、不输出访客 UUID；缺省 session 的事件不虚构次数。
+row  visitor_type  known_tab_sessions  missing_session_events
+1  new  35  0
+2  new  35  0
+3  new  31  0
+4  new  31  0
+5  new  31  0
+6  new  31  0
+7  new  31  0
+8  new  31  0
+9  new  31  0
+10  new  31  0
+11  new  31  0
+12  new  31  0
+13  new  31  0
+14  new  31  0
+15  new  31  0
+16  new  31  0
+17  new  31  0
+18  new  31  0
+19  new  31  0
+20  new  31  0
+21  new  3  0
+22  new  2  0
+23  new  2  0
+24  returning  1  0
+25  new  1  0
+26  new  1  0
+27  new  N/A  1
+
+ledger_temporarily_unavailable {
+  status: 500,
+  body: { error: { code: 'internal_error', message: '统计事件暂时无法保存' } }
+}
+transaction_rolled_back_event { events: 0 }
+CLI_window_invalid_arguments
+days_0_rejected true
+limit_0_rejected true

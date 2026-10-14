@@ -1,0 +1,7 @@
+browser_parallel_first_initialization {
+  events: 4,
+  visitors: 1,
+  tab_sessions: 2,
+  same_persisted_cookie: true
+}
+browser_storage_unavailable { events: 2, identified: 0, sessions: 0 }

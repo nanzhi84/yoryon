@@ -286,33 +286,7 @@ export const entitlements = pgTable(
   ],
 );
 
-/**
- * Analytics 事件表（ADR-0007）：单表原始事件，多态 target（work→contents / collection→collections）。
- * target_id 故意不设外键：作品/合集删除后历史统计保留；合法性由写入路径（ingest API）在应用层校验。
- * 不存 IP / UA / 完整 URL 等个人数据；session_id 为浏览器 sessionStorage 级短生命周期匿名标识。
- */
-export const analyticsEvents = pgTable(
-  "analytics_events",
-  {
-    id: uuid("id").primaryKey().defaultRandom(),
-    /** 客户端生成的幂等键：重试/重复投递去重 */
-    eventId: uuid("event_id").notNull(),
-    eventType: text("event_type", { enum: ["impression", "click", "view", "read"] }).notNull(),
-    targetKind: text("target_kind", { enum: ["work", "collection"] }).notNull(),
-    targetId: uuid("target_id").notNull(),
-    /** 仅 impression/click 携带；view/read 恒为 null */
-    placement: text("placement", { enum: ["home_feed", "collection_list"] }),
-    pageViewId: uuid("page_view_id").notNull(),
-    sessionId: uuid("session_id"),
-    /** 服务端可信接收时间（统计一律以它为准，不信任客户端时钟） */
-    receivedAt: timestamp("received_at", { withTimezone: true, mode: "date" }).notNull().defaultNow(),
-  },
-  (t) => [
-    uniqueIndex("analytics_events_event_id_unique").on(t.eventId),
-    index("analytics_events_target_time_idx").on(t.targetKind, t.targetId, t.receivedAt),
-    index("analytics_events_received_at_idx").on(t.receivedAt),
-  ],
-);
+export * from "./schema-analytics";
 
 export type User = typeof users.$inferSelect;
 /** 生命周期不级联到内容：删除后仍须保留失效与重试证据。 */
@@ -468,7 +442,6 @@ export type Tag = typeof tags.$inferSelect;
 export type ActivationCode = typeof activationCodes.$inferSelect;
 export type Redemption = typeof redemptions.$inferSelect;
 export type Entitlement = typeof entitlements.$inferSelect;
-export type AnalyticsEvent = typeof analyticsEvents.$inferSelect;
 
 /** Issue #23 derived search text; rebuildable, never an entitlement source. */
 export const searchProjections = pgTable('search_projections', {

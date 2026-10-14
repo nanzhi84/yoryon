@@ -1,0 +1,64 @@
+{
+  "cookie": {
+    "secure": true,
+    "sameSite": "Lax",
+    "path": "/",
+    "host": "localhost",
+    "remainingDays": 180
+  },
+  "refresh": {
+    "sameVisitor": true,
+    "sameSession": true,
+    "expiryUnchanged": true
+  },
+  "navigation": {
+    "articleAndCollectionVisible": true,
+    "sameVisitor": true
+  },
+  "multipleTabs": {
+    "sameVisitor": true,
+    "differentSessions": true
+  },
+  "closeReopen": {
+    "sameVisitor": true,
+    "newSession": true
+  },
+  "firstInitializationRace": {
+    "locksSupported": true,
+    "sharedCookie": true,
+    "newIdentityAfterCookieClear": true,
+    "differentSessions": true,
+    "eventsA": 2,
+    "eventsB": 2,
+    "allEventsSamePersistedVisitor": true
+  },
+  "privacy": {
+    "emulatedAtBrowserWebApiBoundary": true,
+    "DNT": {
+      "enabled": true,
+      "analyticsRequests": 0
+    },
+    "GPC": {
+      "enabled": true,
+      "analyticsRequests": 0
+    },
+    "cookieAbsent": true
+  },
+  "storageUnavailable": {
+    "emulatedCookieWriteBlockedAndSessionSecurityError": true,
+    "normalPageVisible": true,
+    "eventsPosted": 2,
+    "allVisitorsMissing": true,
+    "allSessionsMissing": true,
+    "cookieWriteAttempts": 1
+  },
+  "cookieExpiry": {
+    "browserExpiredCookieAbsent": true,
+    "newIdentityCreated": true
+  },
+  "hostIsolation": {
+    "localhostAndLoopbackDifferentCookies": true,
+    "loopbackCookieHost": "127.0.0.1",
+    "independentBrowserContext": "UNVERIFIED: Chrome not available; host isolation is not a second browser context"
+  }
+}

@@ -1,7 +1,9 @@
 {
   "git": {
     "deploymentEnabled": {
-      "fix/cache-permission-feed-recovery": false
+      "main": false,
+      "fix/cache-permission-feed-recovery": false,
+      "codex/issue-27-visitors": false
     }
   }
 }

@@ -1,0 +1,13 @@
+first_A_B_waiting_A 1
+second_B_A_waiting_A 2
+distinct_visitors true
+waiting_queries {
+  statements: [
+    'insert into "analytics_visitors" ("visitor_id", "first_seen_at") values ($1, $2), ($3, $4) on conflict ("visitor_id") do update set "first_seen_at" = least("analytics_visitors"."first_seen_at", excluded.first_seen_at)',
+    'insert into "analytics_visitors" ("visitor_id", "first_seen_at") values ($1, $2), ($3, $4) on conflict ("visitor_id") do update set "first_seen_at" = least("analytics_visitors"."first_seen_at", excluded.first_seen_at)'
+  ]
+}
+after_release [
+  { status: 200, body: { accepted: 2 } },
+  { status: 200, body: { accepted: 2 } }
+]
