@@ -359,14 +359,15 @@ POST /api/auth/logout
 POST /api/auth/password-reset      { email } → 发码；{ email, code, newPassword } → 重置并撤销全部会话
 GET  /api/auth/me
 
-GET  /api/feed?cursor=             首屏信息流（仅内容条目，游标分页；不读 session，公开缓存；
+GET  /api/feed?cursor=             首屏信息流（已发布且 show_in_home 的作品，游标分页；不读 session，公开缓存；
                                    合集是顶层结构，只经 /api/collections → /c 列表曝光，不混排）
                                    排序键：coalesce(published_at, created_at) 经 date_trunc('milliseconds',·)
                                    截断（与 JS Date/游标毫秒精度对齐，微秒写入不分页错乱）；
                                    全序 (sortKey desc, id desc)；N+1 探测终止
 GET  /api/contents/:slug           内容详情（按权益返回 full | preview；no-store）
-GET  /api/collections              合集列表（不读 session，公开缓存；个人站量级不分页）
-GET  /api/collections/:slug        合集页（成员按权益裁剪正文；no-store）
+GET  /api/collections              合集信息流（公开介绍与封面，置顶优先／更新时间排序；个人站量级不分页）
+GET  /api/collections/:slug        合集介绍与已发布章节目录（稳定 ID、按章节顺序；无正文；private,no-store）
+GET  /api/collections/:slug/chapters/:contentId  校验已发布成员，返回当前／上一篇／下一篇元数据（不授予权限）
 GET  /api/tags/:slug?cursor=       标签筛选（公开缓存）
 GET  /api/media/:id                媒体验权 → 302 签名 URL（缓存策略见 §10）
 
@@ -415,9 +416,9 @@ POST /api/analytics/events         Analytics 批量 ingest（≤20 条/批且请
 |---|---|
 | `/` | 首页：纯内容信息流（条目 = 标题/封面/简介 + 类型/标签，点进详情）；对所有人一致，可公开缓存 |
 | `/p/[slug]` | 内容详情（文章/图集/视频/音频）；按权益渲染全文或预览 + 解锁引导；左上角返回恢复来源列表位置 |
-| `/c` | 合集列表页：全部合集（公开缓存） |
-| `/c/[slug]` | 合集页：合集信息 + 成员内容流（按 sort_order） |
-| `/tags` | 仅标签索引；旧 `/explore` 重定向至此；探索菜单只含合集和标签 |
+| `/c` | 合集信息流：公开介绍／封面、更新时间、置顶优先；实时读取版本与列表 |
+| `/c/[slug]` | 合集介绍 + 唯一开始／继续阅读入口 + 紧凑正倒序章节目录；本地定位与跨章前台流程停留 |
+| `/tags` | 仅标签索引；旧 `/explore` 重定向至此；主导航为首页、合集、订阅、探索；探索折叠菜单只含标签 |
 | `/tags/[slug]` | 标签筛选结果，支持返回与追加分页位置恢复 |
 | `/search` | 独立搜索页；返回保留查询、服务器会话与已加载分页，重新核验当前权限 |
 | `/subscription` | 会员状态及会员作品 / 会员问答两个tab |
