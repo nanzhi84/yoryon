@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { analyticsDisabled, trackOnce } from "@/lib/analytics";
 
 export type CollectionFlow = {
-  id: string; collectionId: string; slug: string; elapsed: number; sent: boolean; navigating: boolean;
+  id: string; collectionId: string; slug: string; elapsed: number; sent: boolean; navigating: boolean; route?: string;
 };
 const FlowContext = createContext<MutableRefObject<CollectionFlow | null> | null>(null);
 
@@ -21,7 +21,9 @@ export function CollectionFlowProvider({ children }: { children: ReactNode }) {
         if (flow.current) flow.current.navigating = true;
       }
     }
-    const pop = () => { if (flow.current) flow.current.navigating = true; };
+    const pop = () => {
+      if (flow.current && flow.current.route !== location.pathname + location.search) flow.current.navigating = true;
+    };
     document.addEventListener("click", departure, true);
     window.addEventListener("popstate", pop);
     return () => { document.removeEventListener("click", departure, true); window.removeEventListener("popstate", pop); };
@@ -64,6 +66,7 @@ export function useCollectionTime(flowId: string | null, eligible: boolean) {
     const flow = holder.current;
     if (!eligible || !flow || flow.id !== flowId) return;
     flow.navigating = false;
+    flow.route = location.pathname + location.search;
     let since = performance.now();
     let visible = document.visibilityState === "visible";
     const accrue = () => {
