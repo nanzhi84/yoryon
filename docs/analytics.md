@@ -48,7 +48,8 @@ POST /api/analytics/events        （经同源 BFF；批量，单批 ≤ 20 条�
     "targetId":  uuid,
     "placement": "home_feed" | "collection_list" | null,   // impression/click 必填；view/read 恒为 null
     "pageViewId": uuid,            // 浏览实例 id（列表实例 / 详情页实例）
-    "sessionId":  uuid | null      // 可选，sessionStorage 级短生命周期匿名标识
+    "sessionId":  uuid | null,     // 可选，sessionStorage 标签页会话，不做 30 分钟超时
+    "visitorId":  uuid | null      // 可选，主机限定第一方 Cookie 的随机匿名浏览器身份
   }]
 }
 → 200 { accepted: n }              // 非法目标（不存在/未发布）静默丢弃，不视为错误
@@ -66,7 +67,9 @@ POST /api/analytics/events        （经同源 BFF；批量，单批 ≤ 20 条�
 
 ## 5. 存储与保留
 
-单表 `analytics_events`（迁移 0002）：`id`、`event_id`（唯一）、`event_type`、`target_kind`、`target_id`、`placement`、`page_view_id`、`session_id`、`received_at`；索引 `(target_kind, target_id, received_at)` 与 `(received_at)`。
+原始事件 `analytics_events`（迁移 0002，0013 新增可空 `visitor_id`）：`id`、`event_id`（唯一）、`event_type`、`target_kind`、`target_id`、`placement`、`page_view_id`、`session_id`、`visitor_id`、`received_at`；索引 `(target_kind, target_id, received_at)`、`(received_at)` 与 `(visitor_id, received_at)`。
+
+最小首次观察账本 `analytics_visitors(visitor_id PRIMARY KEY, first_seen_at)`（0013）：仅存随机身份与首次成功入库的有效事件服务端时间，不存最后访问、IP、账号或设备信息。事件去重与账本 upsert 在同一事务中，只有实际插入的事件更新账本；重复 `event_id` 重试不会创建额外访客，非法目标/placement 不创建访客。
 
 - `target_id` 是**无 FK 的多态引用**：作品/合集删除后历史统计保留（CLI 显示 `(已删除 <id前缀>)`），避免错误级联。
 - 不建汇总表 / 物化视图 / 分区；聚合直接 SQL GROUP BY，实测瓶颈后再优化。
@@ -76,26 +79,48 @@ POST /api/analytics/events        （经同源 BFF；批量，单批 ≤ 20 条�
   blog analytics prune --days 365
   ```
 
+- 首次观察账本**长期保留，不随 prune 删除**：事件过期、目标删除都不能将已有身份重新判为新访客。Cookie 有效期不因记录账本而延长；账本不用于复建 Cookie 或关联其他身份。若决定整体停止此统计并删除身份历史，应显式删除账本与相应事件；这会重置首次观察口径（ADR-0017）。
+- 历史事件 `visitor_id` 保持 NULL，不按 session、IP 或账号回填；上线前窗口的匿名独立/新/回访访客不可计算，不能报为 0。报表无可识别事件时打印 N/A，混合窗口单列缺省身份流量，只对已识别部分计算。
+
 ## 6. 隐私
 
-- 不采集 IP、User-Agent、邮箱、激活码、完整 URL 或任何账号标识；`session_id` 为浏览器 sessionStorage 中的随机 UUID，关闭标签页即失效，无法跨会话关联。
-- 尊重拒绝追踪信号：浏览器开启 **Do Not Track** 或 **Global Privacy Control** 时，采集端完全不发送事件。
+- 不采集 IP、User-Agent、邮箱、激活码、完整 URL 或任何账号标识；`visitor_id` 仅由 `crypto.randomUUID()` 随机生成，不使用设备指纹、不关联登录身份、不做跨设备跟踪。它表示**浏览器环境，不是真实人数或全站全部到访人数**。
+- 第一次需要采集事件时读取/创建 `yoryon_analytics_vid` Cookie：`Secure; SameSite=Lax; Path=/; Max-Age=15552000`，不设置 Domain，限定当前主机，180 天从创建时起计算。复用时只读、不无限续期。`session_id` 仍为 sessionStorage 级标签页会话，`page_view_id` 为列表/详情浏览实例，三者不互相替代。
+- 支持 Web Locks 的浏览器在锁内再次读取并初始化 Cookie，投递前重读 Cookie；不支持锁时使用写后读取并在后续投递时重读，避免标签页长期沿用不同内存身份。Cookie 不可写时本页只尝试一次，正常浏览和既有事件继续，但 `visitor_id` 缺省；不为每个事件生成新访客。若在初始化锁完成前卸载，beacon 允许身份缺省。
+- 清除/过期 Cookie、更换浏览器、无痕环境、更换设备可能产生新身份；共享浏览器可能计为同一访客。sessionStorage 的浏览器恢复/复制语义仍适用，不代表实际访次。
+- 尊重拒绝追踪信号：浏览器开启 **Do Not Track** 或 **Global Privacy Control** 时，不创建/刷新持久 Cookie，完全不发送事件；投递前再次检查，丢弃尚未发送的队列。
 - API 请求日志仍按既有策略记录解析后 IP（安全审计用途），但不进入 `analytics_events` 表。
+- 持久访客 UUID 不进入普通日志、公开响应、CLI 输出或验收工件；持久化失败日志只保留请求 ID 和静态错误上下文，不打印可能包含 SQL 参数的异常。
 
 ## 7. 时间窗口与时区
 
 CLI 报表使用**滚动窗口** `[now - N×24h, now)`，按服务端 `received_at` 过滤；窗口端点以 UTC ISO8601 打印在每次输出首行，不做自然日对齐。派生率分母为零显示 N/A。
 
+匿名访客指标：
+
+| 指标 | 定义 |
+| --- | --- |
+| 匿名独立访客 | 窗口内至少有一个有效事件的不同 `visitor_id` 数 |
+| 新访客 | 上述活跃身份的站内 `first_seen_at` 位于 `[from,to)` |
+| 回访访客 | 上述活跃身份的站内 `first_seen_at < from`；与新访客互斥 |
+| 已知标签页会话次数 | 窗口内每个身份关联的不同非 NULL `session_id` 数；缺省 session 事件单列，全部缺省时次数为 N/A |
+| 身份覆盖 | 有 visitor_id 的事件数 / 全部有效事件数；缺省身份不计入上述访客指标 |
+
+窗口内第一次出现后多次回来的身份仍属于该窗口的新访客。多个 page_view 不等于多个标签页会话，不能据会话数证明真实访问次数。
+
 ## 8. CLI 报表
 
 ```bash
 blog analytics overview --days 7                 # Work / Collection 分开汇总
+blog analytics visitors --days 7 --limit 20      # 匿名访客、覆盖情况、每位访客的已知标签页会话次数
 blog analytics top --metric views --days 30      # impressions|clicks|views|reads|ctr
 blog analytics top --metric ctr --days 30 --min-impressions 20   # CTR 排行默认最小曝光 20
 blog analytics content <slug> --days 30
 blog analytics collection <slug> --days 30
 blog analytics prune --days 365
 ```
+
+`overview` 同时展示匿名访客概览。`visitors` 行号仅标识本次报表的行，不持久、不输出 UUID；按已知会话次数排序，最多展示 `--limit` 位（1–1000，默认 20），概览汇总始终覆盖完整窗口。
 
 ## 帖子与引用的统计边界
 

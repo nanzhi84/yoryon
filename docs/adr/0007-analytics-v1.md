@@ -2,6 +2,8 @@
 
 状态：已接受（2026-10-11）
 
+2026-10-15：匿名跨会话身份与首次观察保留由 [ADR-0017](0017-anonymous-visitors.md) 扩展；原始事件聚合、目标边界、幂等与采集旁路原则保持适用。
+
 ## 背景
 
 需要量化首页标题/简介/封面的吸引力与详情页有效消费，限定 Impressions / Clicks / Views / Reads 四项指标（Issue #1）。不引入第三方 Analytics SDK、Redis/Kafka/ClickHouse、独立 Worker 或 Web Admin。

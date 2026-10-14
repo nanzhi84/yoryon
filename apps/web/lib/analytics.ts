@@ -4,10 +4,13 @@
  *   页面隐藏/卸载与点击（可能伴随导航）用 sendBeacon；
  * - 失败有界重试一次（复用同一 event_id，服务端按 event_id 幂等去重），随后丢弃——
  *   采集失败绝不阻塞内容展示与导航；
- * - 隐私：尊重 DNT / GPC 拒绝追踪信号；不采集 IP/UA/URL；session_id 为 sessionStorage
- *   级短生命周期匿名标识（关标签页即失效）。
+ * - 隐私：尊重 DNT / GPC；visitor_id 为主机限定 180 天 Cookie 的随机 UUID，
+ *   session_id 为 sessionStorage 标签页会话，page_view_id 为当前浏览实例。
  */
 "use client";
+
+import { analyticsDisabled, prepareVisitorIdentity, readVisitorId, visitorPreparation } from "./analytics-visitor";
+export { analyticsDisabled } from "./analytics-visitor";
 
 export type AnalyticsTargetKind = "work" | "collection";
 export type AnalyticsEventType = "impression" | "click" | "view" | "read";
@@ -31,6 +34,8 @@ interface QueuedEvent {
   placement: AnalyticsPlacement | null;
   pageViewId: string;
   sessionId: string | null;
+  /** 首次投递前读取共享 Cookie，重试保留原事件身份。undefined 表示尚未投递。 */
+  visitorId?: string | null;
   /** 已重投次数（不进入请求体） */
   requeues: number;
 }
@@ -49,12 +54,6 @@ let flushing = false;
 /** 同一浏览实例内已发送的 impression/view 去重键（防御 Strict Mode 与 effect 重放） */
 const sentOnceKeys = new Set<string>();
 
-export function analyticsDisabled(): boolean {
-  if (typeof navigator === "undefined") return true;
-  const nav = navigator as Navigator & { globalPrivacyControl?: boolean };
-  return nav.doNotTrack === "1" || nav.globalPrivacyControl === true;
-}
-
 function sessionId(): string | null {
   try {
     let v = window.sessionStorage.getItem(SESSION_KEY);
@@ -70,6 +69,7 @@ function sessionId(): string | null {
 
 export function trackEvent(input: TrackInput): void {
   if (typeof window === "undefined" || analyticsDisabled()) return;
+  const identityReady = prepareVisitorIdentity();
   queue.push({
     eventId: crypto.randomUUID(),
     eventType: input.eventType,
@@ -81,7 +81,7 @@ export function trackEvent(input: TrackInput): void {
     requeues: 0,
   });
   if (input.eventType === "click") {
-    flush("beacon"); // 点击常伴随导航，立即投递
+    void identityReady.then(() => flush("beacon")); // 锁内身份就绪后投递；离页监听仍同步 beacon
   } else {
     scheduleFlush(input.eventType === "view" ? DETAIL_FLUSH_INTERVAL_MS : FLUSH_INTERVAL_MS);
   }
@@ -104,9 +104,17 @@ function scheduleFlush(delay = FLUSH_INTERVAL_MS): void {
 
 function flush(mode: "fetch" | "beacon"): void {
   if (mode === "beacon" && flushTimer !== null) { window.clearTimeout(flushTimer); flushTimer = null; }
+  if (analyticsDisabled()) { queue.length = 0; return; }
   if (queue.length === 0) return;
   if (mode === "fetch" && flushing) return;
+  const preparing = visitorPreparation();
+  if (mode === "fetch" && preparing) {
+    void preparing.then(() => flush("fetch"));
+    return;
+  }
   const batch = queue.splice(0, MAX_BATCH);
+  const currentVisitor = readVisitorId();
+  for (const event of batch) if (event.visitorId === undefined) event.visitorId = currentVisitor;
   const body = JSON.stringify({ events: batch.map(({ requeues: _r, ...e }) => e) });
 
   if (mode === "beacon") {
