@@ -1,0 +1,50 @@
+(node:1) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+  published: note-2026-04-20-1 (content f718b3fc-41f4-4b71-9ea0-ff28f8ae04ab)
+  cache 2c53ec09-d633-4398-aa53-cb09b27e998c: verified
+✓ note-2026-04-20-1 database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  published: note-2026-04-21-1 (content 4475f713-edd0-4fbe-92c4-01a302a0d854)
+  cache be534976-1151-45e8-b1be-82539f402115: verified
+✓ note-2026-04-21-1 database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  published: note-2026-04-24-1 (content cde40088-1b9b-4811-83c2-a40383e279ed)
+  cache 9649c9ae-5179-4117-a6ce-7cfd92748471: verified
+✓ note-2026-04-24-1 database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  published: note-2026-04-24-2 (content e0451ba1-13a6-4bbd-8cc9-e8a9ca6ae255)
+  cache 13b40131-9b39-40e6-819b-1ad02b51a0f3: verified
+✓ note-2026-04-24-2 database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  published: note-2026-04-27-1 (content c2f24b8d-40bf-4c79-a113-244006a27c6e)
+  cache 0ed497b1-b24c-4fcf-aed5-0348d81b6dde: verified
+✓ note-2026-04-27-1 database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  published: note-2026-05-02-1 (content 1606506b-2624-403a-af08-72a03cc93d22)
+  cache 0bb73b86-e4a2-4743-9fd7-3c9921b30be7: verified
+✓ note-2026-05-02-1 database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  published: note-2026-05-24-1 (content 1ca06316-e596-4f8b-8c84-9b1ac92703d5)
+  cache 208306e1-297b-47c7-a5de-6e2228d05f11: verified
+✓ note-2026-05-24-1 database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  published: note-2026-07-23-1 (content 65c8695d-9140-4b3a-949a-2834dfa3b219)
+  cache 4b593c94-a6d0-4060-8c8b-7639a1dd85ec: verified
+✓ note-2026-07-23-1 database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  published: note-2026-07-24-1 (content 05b20bb6-2232-4488-8a52-816a8f865c9e)
+  cache c5a059d2-922b-45e4-b3ee-2dd5347d4e75: verified
+✓ note-2026-07-24-1 database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  published: note-2026-08-04-1 (content bc46055c-fb0c-4a53-b334-94fdb6e8a782)
+  cache 7e918577-ab7d-4c6e-ae32-457579878aab: verified
+✓ note-2026-08-04-1 database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  published: note-2026-08-24-1 (content 4dfe8ffa-c0e5-4d04-a1be-bb1fbdd2fa65)
+  cache 241870e6-a755-4555-8df9-1dd7a2daffa8: verified
+✓ note-2026-08-24-1 database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  published: note-2026-09-05-1 (content be6f4289-0c25-41be-a352-23f9c55549c0)
+  cache 8e320d32-c1ff-4bf5-b499-21bb48ed92a7: verified
+✓ note-2026-09-05-1 database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  published: note-2026-09-08-1 (content 40f192b6-e7dd-4010-ae03-817236c45b26)
+  cache 64faa87c-dfb0-44e7-ac18-e41b42d11f57: verified
+✓ note-2026-09-08-1 database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  published: note-2026-09-09-1 (content fbbab9f6-06eb-430e-9add-aae31c20efa5)
+  cache 1cbe5eb0-be8c-4a2c-a6c3-e2b31561b1a7: verified
+✓ note-2026-09-09-1 database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  published: note-2026-09-20-1 (content b20a9ed3-fc5f-455a-9522-b26633602fe7)
+  cache 1b5569ad-ad3e-4605-a185-d5dab034e522: verified
+✓ note-2026-09-20-1 database committed (0 uploaded, 0 reused); page state is reported by cache event above
+  published: note-2026-09-27-1 (content a8d43ca9-9d1e-4c76-a0b3-fa5d480e90cb)
+  cache 1b1a20b5-2162-48e6-b5cb-c59b71fcdf7c: verified
+✓ note-2026-09-27-1 database committed (0 uploaded, 0 reused); page state is reported by cache event above

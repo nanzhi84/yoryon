@@ -10,5 +10,6 @@
 **/playwright-report
 artifacts
 .storage
+.local
 *.log
 **/*.tsbuildinfo

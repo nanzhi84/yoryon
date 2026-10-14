@@ -1,0 +1,54 @@
+{
+  "measuredAt": "2026-10-14T17:00:49.625241+00:00",
+  "method": "curl independent requests default cache; anonymous; no artificial delay; not browser interaction latency",
+  "samples": [
+    {
+      "path": "/api/contents/note-2026-09-27-1",
+      "trial": 1,
+      "status": 200,
+      "ttfbMs": 678.615,
+      "totalMs": 678.8140000000001,
+      "bytes": 978
+    },
+    {
+      "path": "/api/contents/note-2026-09-27-1",
+      "trial": 2,
+      "status": 200,
+      "ttfbMs": 254.558,
+      "totalMs": 255.37500000000003,
+      "bytes": 978
+    },
+    {
+      "path": "/api/contents/note-2026-09-27-1",
+      "trial": 3,
+      "status": 200,
+      "ttfbMs": 230.06099999999998,
+      "totalMs": 232.26,
+      "bytes": 978
+    },
+    {
+      "path": "/p/freedom-before-wealth",
+      "trial": 1,
+      "status": 200,
+      "ttfbMs": 252.091,
+      "totalMs": 401.721,
+      "bytes": 62164
+    },
+    {
+      "path": "/p/freedom-before-wealth",
+      "trial": 2,
+      "status": 200,
+      "ttfbMs": 370.894,
+      "totalMs": 487.93399999999997,
+      "bytes": 62164
+    },
+    {
+      "path": "/p/freedom-before-wealth",
+      "trial": 3,
+      "status": 200,
+      "ttfbMs": 243.855,
+      "totalMs": 318.476,
+      "bytes": 62164
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+Vercel CLI 54.14.5 (Node.js 24.20.0)
+Retrieving project…
+> Environment Variables found for zyy2740738166-7111s-projects/yoryon-web [333ms]
+
+ name                       value               environments        created    
+ CACHE_REVALIDATE_SECRET    Encrypted           Production          2d ago     
+ BFF_SHARED_SECRET          Encrypted           Production          3d ago     
+ API_INTERNAL_URL           Encrypted           Production          3d ago     
+ FEED_REVALIDATE_SEC        Encrypted           Production          3d ago     
+ ALLOWED_ORIGINS            Encrypted           Production          3d ago     
+ SITE_URL                   Encrypted           Production          3d ago     
+
+Common next commands:
+- `vercel env add`
+- `vercel env rm`
+- `vercel env pull`

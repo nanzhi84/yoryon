@@ -1,0 +1,10 @@
+[
+  {
+    "path": "/tools/post-format",
+    "status": "404"
+  },
+  {
+    "path": "/api/local-post-editor",
+    "status": "404"
+  }
+]

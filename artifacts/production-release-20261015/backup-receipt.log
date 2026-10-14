@@ -1,0 +1,6 @@
+YORYON_IMAGE=yoryon-api:ce35856b3cb1f794439dea7e986c6f55e8462b33-amd64
+NAME             IMAGE                                                                             COMMAND                  SERVICE   CREATED       STATUS                 PORTS
+yoryon-api-1     yoryon-api:ce35856b3cb1f794439dea7e986c6f55e8462b33-amd64                         "docker-entrypoint.s…"   api       9 hours ago   Up 9 hours (healthy)   4000/tcp
+yoryon-caddy-1   caddy:2@sha256:f2a1290d0463aad60660d4ec134943f183ee2a5f6c3eb7bf32dd984f2f020772   "caddy run --config …"   caddy     2 days ago    Up 2 days              0.0.0.0:80->80/tcp, [::]:80->80/tcp, 0.0.0.0:443->443/tcp, [::]:443->443/tcp, 443/udp, 2019/tcp
+{"mediaObjects": 20, "status": "PASS"}
+backup completed: 20261014T163850Z

@@ -1,0 +1,192 @@
+#0 building with "colima" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.production
+#1 transferring dockerfile: 2.03kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:24-bookworm-slim
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:24-bookworm-slim
+#3 DONE 0.0s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 194B done
+#4 DONE 0.0s
+
+#5 [native 1/2] FROM docker.io/library/node:24-bookworm-slim@sha256:ba849c60be29959425b8734d57b8b4b7d56f98edd9504c9af091d5281095a71e
+#5 resolve docker.io/library/node:24-bookworm-slim@sha256:ba849c60be29959425b8734d57b8b4b7d56f98edd9504c9af091d5281095a71e done
+#5 DONE 0.0s
+
+#6 [stage-2 1/9] FROM docker.io/library/node:24-bookworm-slim@sha256:ba849c60be29959425b8734d57b8b4b7d56f98edd9504c9af091d5281095a71e
+#6 resolve docker.io/library/node:24-bookworm-slim@sha256:ba849c60be29959425b8734d57b8b4b7d56f98edd9504c9af091d5281095a71e done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 22.28kB done
+#7 DONE 0.0s
+
+#8 [build  9/16] COPY apps/cli/package.json apps/cli/package.json
+#8 CACHED
+
+#9 [build 10/16] RUN pnpm install --frozen-lockfile
+#9 CACHED
+
+#10 [build  5/16] COPY packages/config/package.json packages/config/package.json
+#10 CACHED
+
+#11 [build  7/16] COPY packages/core/package.json packages/core/package.json
+#11 CACHED
+
+#12 [build  8/16] COPY apps/api/package.json apps/api/package.json
+#12 CACHED
+
+#13 [build  2/16] RUN corepack enable && corepack prepare pnpm@11.8.0 --activate
+#13 CACHED
+
+#14 [build  3/16] WORKDIR /app
+#14 CACHED
+
+#15 [build  4/16] COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
+#15 CACHED
+
+#16 [build  6/16] COPY packages/db/package.json packages/db/package.json
+#16 CACHED
+
+#17 [build 11/16] COPY tsconfig.base.json ./
+#17 CACHED
+
+#18 [build 12/16] COPY packages ./packages
+#18 DONE 0.0s
+
+#19 [build 13/16] COPY apps/api ./apps/api
+#19 DONE 0.0s
+
+#20 [build 14/16] COPY apps/cli ./apps/cli
+#20 DONE 0.0s
+
+#21 [build 15/16] RUN pnpm --filter @yoryon/api build && pnpm --filter @yoryon/cli build
+#21 0.266 $ tsup
+#21 0.423 CLI Building entry: {"index":"src/index.ts","migrate":"src/migrate.ts"}
+#21 0.423 CLI Using tsconfig: tsconfig.json
+#21 0.423 CLI tsup v8.5.1
+#21 0.423 CLI Using tsup config: /app/apps/api/tsup.config.ts
+#21 0.424 CLI Target: es2022
+#21 0.425 CLI Cleaning output folder
+#21 0.425 ESM Build start
+#21 0.599 ESM dist/src-ZMCU4OT7.js         3.42 KB
+#21 0.599 ESM dist/chunk-JYURC6FJ.js       2.19 KB
+#21 0.599 ESM dist/chunk-5ZH3LQ2H.js       2.63 KB
+#21 0.599 ESM dist/migrate.js              1.53 KB
+#21 0.599 ESM dist/index.js                121.15 KB
+#21 0.599 ESM dist/search-text-OHZSM2RK.js 332.00 B
+#21 0.599 ESM dist/chunk-NOXK44O3.js       65.47 KB
+#21 0.599 ESM dist/server.node-473PTIIS.js 1.35 MB
+#21 0.599 ESM dist/chunk-UFRPWEA7.js       3.07 MB
+#21 0.599 ESM ⚡️ Build success in 174ms
+#21 0.802 $ tsup
+#21 0.956 CLI Building entry: src/index.ts
+#21 0.957 CLI Using tsconfig: tsconfig.json
+#21 0.957 CLI tsup v8.5.1
+#21 0.957 CLI Using tsup config: /app/apps/cli/tsup.config.ts
+#21 0.958 CLI Target: es2022
+#21 0.958 CLI Cleaning output folder
+#21 0.958 ESM Build start
+#21 1.164 ESM dist/chunk-5GRMZHF2.js       67.90 KB
+#21 1.164 ESM dist/server.node-4LQSEZBF.js 1.35 MB
+#21 1.164 ESM dist/index.js                3.21 MB
+#21 1.164 ESM ⚡️ Build success in 205ms
+#21 DONE 1.2s
+
+#22 [build 16/16] RUN pnpm --filter @yoryon/api --prod deploy /out-api --legacy  && pnpm --filter @yoryon/cli --prod deploy /out-cli --legacy
+#22 0.290 [WARN] Shared workspace lockfile detected but configuration forces legacy deploy implementation.
+#22 0.315 Packages are copied from the content-addressable store to the virtual store.
+#22 0.315   Content-addressable store is at: /root/.local/share/pnpm/store/v11
+#22 0.315   Virtual store is at:             ../out-api/node_modules/.pnpm
+#22 0.316 ✓ Lockfile passes supply-chain policies (verified 2m ago)
+#22 0.334 Progress: resolved 1, reused 0, downloaded 0, added 0
+#22 1.334 Progress: resolved 36, reused 0, downloaded 0, added 0
+#22 4.833 Progress: resolved 37, reused 0, downloaded 0, added 0
+#22 5.836 Progress: resolved 38, reused 0, downloaded 0, added 0
+#22 7.139 Progress: resolved 39, reused 0, downloaded 0, added 0
+#22 8.140 Progress: resolved 149, reused 0, downloaded 0, added 0
+#22 9.145 Progress: resolved 151, reused 0, downloaded 0, added 0
+#22 10.15 Progress: resolved 152, reused 0, downloaded 0, added 0
+#22 11.15 Progress: resolved 154, reused 0, downloaded 0, added 0
+#22 12.15 Progress: resolved 157, reused 0, downloaded 0, added 0
+#22 13.16 Progress: resolved 160, reused 0, downloaded 0, added 0
+#22 14.18 Progress: resolved 161, reused 0, downloaded 0, added 0
+#22 15.18 Progress: resolved 162, reused 0, downloaded 0, added 0
+#22 16.18 Progress: resolved 169, reused 0, downloaded 0, added 0
+#22 17.19 Progress: resolved 172, reused 0, downloaded 0, added 0
+#22 18.61 [WARN] Request took 11456ms: https://registry.npmjs.org/@img%2Fsharp-libvips-linux-ppc64
+#22 18.61 Progress: resolved 173, reused 0, downloaded 0, added 0
+#22 19.19 [WARN] Request took 12035ms: https://registry.npmjs.org/@img%2Fsharp-libvips-darwin-arm64
+#22 19.61 Progress: resolved 174, reused 0, downloaded 0, added 0
+#22 21.76 Progress: resolved 175, reused 0, downloaded 0, added 0
+#22 22.76 Progress: resolved 311, reused 0, downloaded 0, added 0
+#22 23.76 Progress: resolved 372, reused 0, downloaded 0, added 0
+#22 24.76 Progress: resolved 375, reused 0, downloaded 0, added 0
+#22 25.76 Progress: resolved 381, reused 0, downloaded 0, added 0
+#22 26.76 Progress: resolved 383, reused 0, downloaded 0, added 0
+#22 27.76 Progress: resolved 390, reused 0, downloaded 0, added 0
+#22 28.76 Progress: resolved 518, reused 0, downloaded 0, added 0
+#22 29.76 Progress: resolved 520, reused 0, downloaded 0, added 0
+#22 29.89 [WARN] 2 deprecated subdependencies found: @esbuild-kit/core-utils@3.3.2, @esbuild-kit/esm-loader@2.6.5
+#22 29.89 Progress: resolved 521, reused 0, downloaded 0, added 0, done
+#22 29.90 [WARN] Issues with peer dependencies found. Run "pnpm peers check" to list them.
+#22 29.92 .                                        | +316 ++++++++++++++++++++++++++++++++
+#22 32.58 .../sharp@0.34.5/node_modules/sharp install$ node install/check.js || npm run build
+#22 32.58 .../argon2@0.44.0/node_modules/argon2 install$ cross-env ZERO_AR_DATE=1 node-gyp-build
+#22 32.61 .../sharp@0.34.5/node_modules/sharp install: Done
+#22 32.64 .../argon2@0.44.0/node_modules/argon2 install: Done
+#22 32.89 [WARN] Shared workspace lockfile detected but configuration forces legacy deploy implementation.
+#22 32.91 Packages are copied from the content-addressable store to the virtual store.
+#22 32.91   Content-addressable store is at: /root/.local/share/pnpm/store/v11
+#22 32.91   Virtual store is at:             ../out-cli/node_modules/.pnpm
+#22 32.91 ✓ Lockfile passes supply-chain policies (verified 2m ago)
+#22 32.93 Progress: resolved 1, reused 0, downloaded 0, added 0
+#22 33.61 [WARN] 2 deprecated subdependencies found: @esbuild-kit/core-utils@3.3.2, @esbuild-kit/esm-loader@2.6.5
+#22 33.61 Progress: resolved 521, reused 0, downloaded 0, added 0, done
+#22 33.61 [WARN] Issues with peer dependencies found. Run "pnpm peers check" to list them.
+#22 33.63 .                                        | +310 +++++++++++++++++++++++++++++++
+#22 33.87 .../argon2@0.44.0/node_modules/argon2 install$ cross-env ZERO_AR_DATE=1 node-gyp-build
+#22 33.93 .../argon2@0.44.0/node_modules/argon2 install: Done
+#22 DONE 34.1s
+
+#23 [stage-2 2/9] WORKDIR /app
+#23 CACHED
+
+#24 [native 2/2] RUN npm install --force --prefix /native --ignore-scripts --os=linux --cpu=x64 --no-audit --no-fund @img/sharp-linux-x64@0.34.5 @img/sharp-libvips-linux-x64@1.2.4
+#24 CACHED
+
+#25 [stage-2 3/9] COPY --from=build /out-api/node_modules ./node_modules
+#25 DONE 0.5s
+
+#26 [stage-2 4/9] COPY --from=build /app/apps/api/dist ./dist
+#26 DONE 0.1s
+
+#27 [stage-2 5/9] COPY --from=build /app/packages/db/drizzle ./drizzle
+#27 DONE 0.0s
+
+#28 [stage-2 6/9] COPY --from=build /out-cli/node_modules /cli/node_modules
+#28 DONE 0.4s
+
+#29 [stage-2 7/9] COPY --from=build /app/apps/cli/dist /cli/dist
+#29 DONE 0.0s
+
+#30 [stage-2 8/9] COPY --from=native /native/node_modules/@img /app/node_modules/@img
+#30 DONE 0.0s
+
+#31 [stage-2 9/9] COPY --from=native /native/node_modules/@img /cli/node_modules/@img
+#31 DONE 0.0s
+
+#32 exporting to image
+#32 exporting layers
+#32 exporting layers 2.0s done
+#32 exporting manifest sha256:6f704336352ebee67ac7858496102279f4c9662dcc335368806f7f58450b8c8f done
+#32 exporting config sha256:ce440e00e7a03799f6b8d9accc2bed7a8d7b7f275f2e58c49bdf41c5bfeee9d4 done
+#32 exporting attestation manifest sha256:f35f444e689e57dac48972a4e46abd541a98ffd83c053c90ac867c6328b3a7b8 done
+#32 exporting manifest list sha256:e71964fe8a090fd8cf67fcfb7e91bf09e25dcf139918e55f1cab06d3966c2243 done
+#32 naming to docker.io/library/yoryon-api:release-20261015 done
+#32 DONE 2.0s

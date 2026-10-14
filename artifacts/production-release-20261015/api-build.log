@@ -1,0 +1,287 @@
+#0 building with "colima" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.production
+#1 transferring dockerfile: 2.03kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:24-bookworm-slim
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:24-bookworm-slim
+#3 DONE 0.0s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 194B done
+#4 DONE 0.0s
+
+#5 [stage-2 1/9] FROM docker.io/library/node:24-bookworm-slim@sha256:ba849c60be29959425b8734d57b8b4b7d56f98edd9504c9af091d5281095a71e
+#5 resolve docker.io/library/node:24-bookworm-slim@sha256:ba849c60be29959425b8734d57b8b4b7d56f98edd9504c9af091d5281095a71e done
+#5 DONE 0.0s
+
+#6 [native 1/2] FROM docker.io/library/node:24-bookworm-slim@sha256:ba849c60be29959425b8734d57b8b4b7d56f98edd9504c9af091d5281095a71e
+#6 resolve docker.io/library/node:24-bookworm-slim@sha256:ba849c60be29959425b8734d57b8b4b7d56f98edd9504c9af091d5281095a71e done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 32.25kB done
+#7 DONE 0.0s
+
+#8 [build  2/16] RUN corepack enable && corepack prepare pnpm@11.8.0 --activate
+#8 CACHED
+
+#9 [build  3/16] WORKDIR /app
+#9 CACHED
+
+#10 [build  4/16] COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
+#10 CACHED
+
+#11 [build  5/16] COPY packages/config/package.json packages/config/package.json
+#11 DONE 0.0s
+
+#12 [build  6/16] COPY packages/db/package.json packages/db/package.json
+#12 DONE 0.0s
+
+#13 [build  7/16] COPY packages/core/package.json packages/core/package.json
+#13 DONE 0.0s
+
+#14 [build  8/16] COPY apps/api/package.json apps/api/package.json
+#14 DONE 0.0s
+
+#15 [build  9/16] COPY apps/cli/package.json apps/cli/package.json
+#15 DONE 0.0s
+
+#16 [build 10/16] RUN pnpm install --frozen-lockfile
+#16 0.399 Scope: all 6 workspace projects
+#16 0.448 ? Verifying lockfile against supply-chain policies (654 entries)...
+#16 0.452 Lockfile is up to date, resolution step is skipped
+#16 0.487 Progress: resolved 1, reused 0, downloaded 0, added 0
+#16 0.508 Packages: +373
+#16 0.508 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#16 1.491 Progress: resolved 373, reused 0, downloaded 0, added 0
+#16 2.504 Progress: resolved 373, reused 0, downloaded 1, added 0
+#16 3.505 Progress: resolved 373, reused 0, downloaded 8, added 8
+#16 3.773 
+#16 3.773    ╭───────────────────────────────────────────────╮
+#16 3.773    │                                               │
+#16 3.773    │      Update available! 11.8.0 → 12.11.2.      │
+#16 3.773    │     Changelog: https://pnpm.io/v/12.11.2      │
+#16 3.773    │   To update, run: corepack use pnpm@12.11.2   │
+#16 3.773    │                                               │
+#16 3.773    ╰───────────────────────────────────────────────╯
+#16 3.773 
+#16 4.510 Progress: resolved 373, reused 0, downloaded 15, added 15
+#16 5.511 Progress: resolved 373, reused 0, downloaded 20, added 20
+#16 6.511 Progress: resolved 373, reused 0, downloaded 25, added 25
+#16 7.452 [WARN] Tarball download average speed 29 KiB/s (size 84 KiB) is below 50 KiB/s: https://registry.npmjs.org/tsup/-/tsup-8.5.1.tgz (GET)
+#16 7.512 Progress: resolved 373, reused 0, downloaded 35, added 35
+#16 8.513 Progress: resolved 373, reused 0, downloaded 46, added 46
+#16 8.730 [WARN] Tarball download average speed 8 KiB/s (size 24 KiB) is below 50 KiB/s: https://registry.npmjs.org/chokidar/-/chokidar-4.0.3.tgz (GET)
+#16 9.514 Progress: resolved 373, reused 0, downloaded 77, added 77
+#16 9.810 [WARN] Tarball download average speed 14 KiB/s (size 17 KiB) is below 50 KiB/s: https://registry.npmjs.org/@jridgewell/gen-mapping/-/gen-mapping-0.3.13.tgz (GET)
+#16 10.49 [WARN] Tarball download average speed 2 KiB/s (size 4 KiB) is below 50 KiB/s: https://registry.npmjs.org/joycon/-/joycon-3.1.1.tgz (GET)
+#16 10.51 Progress: resolved 373, reused 0, downloaded 127, added 127
+#16 10.77 [WARN] Request took 10311ms: https://registry.npmjs.org/@esbuild%2Fandroid-arm
+#16 10.81 [WARN] Request took 10345ms: https://registry.npmjs.org/@esbuild%2Ffreebsd-arm64
+#16 11.04 [WARN] Tarball download average speed 1 KiB/s (size 3 KiB) is below 50 KiB/s: https://registry.npmjs.org/thenify/-/thenify-3.3.1.tgz (GET)
+#16 11.09 [WARN] Request took 10634ms: https://registry.npmjs.org/@esbuild%2Fdarwin-x64
+#16 11.51 Progress: resolved 373, reused 0, downloaded 180, added 180
+#16 11.63 [WARN] Request took 11164ms: https://registry.npmjs.org/@esbuild%2Flinux-mips64el
+#16 11.89 [WARN] Request took 11438ms: https://registry.npmjs.org/@babel%2Fhelper-globals
+#16 12.26 [WARN] Request took 11793ms: https://registry.npmjs.org/@esbuild%2Flinux-ia32
+#16 12.33 [WARN] Tarball download average speed 2 KiB/s (size 4 KiB) is below 50 KiB/s: https://registry.npmjs.org/string_decoder/-/string_decoder-1.1.1.tgz (GET)
+#16 12.52 Progress: resolved 373, reused 0, downloaded 207, added 207
+#16 12.52 [WARN] Request took 12063ms: https://registry.npmjs.org/@esbuild%2Ffreebsd-x64
+#16 12.57 [WARN] Tarball download average speed 3 KiB/s (size 4 KiB) is below 50 KiB/s: https://registry.npmjs.org/micromark-factory-title/-/micromark-factory-title-2.0.1.tgz (GET)
+#16 13.49 [WARN] Tarball download average speed 5 KiB/s (size 13 KiB) is below 50 KiB/s: https://registry.npmjs.org/utility/-/utility-1.18.0.tgz (GET)
+#16 13.52 Progress: resolved 373, reused 0, downloaded 226, added 226
+#16 13.95 [WARN] Request took 13485ms: https://registry.npmjs.org/@esbuild%2Flinux-arm
+#16 14.52 Progress: resolved 373, reused 0, downloaded 239, added 239
+#16 15.04 [WARN] Tarball download average speed 20 KiB/s (size 23 KiB) is below 50 KiB/s: https://registry.npmjs.org/domutils/-/domutils-3.2.2.tgz (GET)
+#16 15.12 [WARN] Tarball download average speed 2 KiB/s (size 8 KiB) is below 50 KiB/s: https://registry.npmjs.org/parse-entities/-/parse-entities-4.0.2.tgz (GET)
+#16 15.46 [WARN] Tarball download average speed 23 KiB/s (size 37 KiB) is below 50 KiB/s: https://registry.npmjs.org/htmlparser2/-/htmlparser2-8.0.2.tgz (GET)
+#16 15.52 Progress: resolved 373, reused 0, downloaded 255, added 255
+#16 15.92 [WARN] Tarball download average speed 4 KiB/s (size 9 KiB) is below 50 KiB/s: https://registry.npmjs.org/parseley/-/parseley-0.12.1.tgz (GET)
+#16 16.52 Progress: resolved 373, reused 0, downloaded 273, added 273
+#16 16.68 [WARN] Tarball download average speed 2 KiB/s (size 3 KiB) is below 50 KiB/s: https://registry.npmjs.org/stubborn-utils/-/stubborn-utils-1.0.2.tgz (GET)
+#16 16.68 [WARN] Request took 16222ms: https://registry.npmjs.org/@esbuild%2Flinux-arm64
+#16 16.69 [WARN] Tarball download average speed 1 KiB/s (size 4 KiB) is below 50 KiB/s: https://registry.npmjs.org/micromark-factory-space/-/micromark-factory-space-2.1.0.tgz (GET)
+#16 16.93 [WARN] Tarball download average speed 26 KiB/s (size 38 KiB) is below 50 KiB/s: https://registry.npmjs.org/pg-protocol/-/pg-protocol-1.16.1.tgz (GET)
+#16 17.02 [WARN] Tarball download average speed 1 KiB/s (size 5 KiB) is below 50 KiB/s: https://registry.npmjs.org/get-east-asian-width/-/get-east-asian-width-1.7.0.tgz (GET)
+#16 17.52 Progress: resolved 373, reused 0, downloaded 301, added 301
+#16 18.52 Progress: resolved 373, reused 0, downloaded 330, added 330
+#16 18.52 [WARN] Tarball download average speed 4 KiB/s (size 15 KiB) is below 50 KiB/s: https://registry.npmjs.org/ajv-formats/-/ajv-formats-3.0.1.tgz (GET)
+#16 19.10 [WARN] Request took 18640ms: https://registry.npmjs.org/@esbuild%2Flinux-loong64
+#16 19.42 [WARN] Tarball download average speed 29 KiB/s (size 31 KiB) is below 50 KiB/s: https://registry.npmjs.org/mdast-util-to-hast/-/mdast-util-to-hast-13.2.1.tgz (GET)
+#16 19.52 Progress: resolved 373, reused 0, downloaded 344, added 344
+#16 20.48 [WARN] Tarball download average speed 0 KiB/s (size 5 KiB) is below 50 KiB/s: https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.8.4.tgz (GET)
+#16 20.52 Progress: resolved 373, reused 0, downloaded 359, added 359
+#16 21.52 Progress: resolved 373, reused 0, downloaded 363, added 363
+#16 22.52 Progress: resolved 373, reused 0, downloaded 366, added 366
+#16 22.71 [WARN] Request took 11082ms: https://registry.npmjs.org/@next%2Fswc-darwin-x64
+#16 22.73 [WARN] Request took 11099ms: https://registry.npmjs.org/@next%2Fswc-linux-arm64-musl
+#16 24.00 [WARN] Tarball download average speed 19 KiB/s (size 148 KiB) is below 50 KiB/s: https://registry.npmjs.org/type-fest/-/type-fest-5.10.0.tgz (GET)
+#16 24.01 Progress: resolved 373, reused 0, downloaded 367, added 366
+#16 24.26 [WARN] Tarball download average speed 29 KiB/s (size 111 KiB) is below 50 KiB/s: https://registry.npmjs.org/@babel/generator/-/generator-7.29.8.tgz (GET)
+#16 24.87 [WARN] Tarball download average speed 14 KiB/s (size 164 KiB) is below 50 KiB/s: https://registry.npmjs.org/@babel/traverse/-/traverse-7.29.0.tgz (GET)
+#16 25.01 Progress: resolved 373, reused 0, downloaded 370, added 370
+#16 26.47 [WARN] Tarball download average speed 33 KiB/s (size 428 KiB) is below 50 KiB/s: https://registry.npmjs.org/@babel/parser/-/parser-7.29.9.tgz (GET)
+#16 26.48 Progress: resolved 373, reused 0, downloaded 371, added 370
+#16 27.48 Progress: resolved 373, reused 0, downloaded 371, added 371
+#16 28.10 Progress: resolved 373, reused 0, downloaded 373, added 373, done
+#16 33.03 [WARN] Request took 21370ms: https://registry.npmjs.org/@next%2Fswc-win32-x64-msvc
+#16 38.30 [WARN] Request took 26664ms: https://registry.npmjs.org/@next%2Fswc-linux-x64-musl
+#16 42.69 [WARN] Request took 17402ms: https://registry.npmjs.org/scheduler
+#16 43.00 [WARN] Request took 26139ms: https://registry.npmjs.org/@tailwindcss%2Fpostcss
+#16 49.34 [WARN] Request took 25334ms: https://registry.npmjs.org/next
+#16 57.99 [WARN] Request took 30020ms: https://registry.npmjs.org/typescript
+#16 58.00 ✓ Lockfile passes supply-chain policies (654 entries in 57.5s)
+#16 58.01 .../argon2@0.44.0/node_modules/argon2 install$ cross-env ZERO_AR_DATE=1 node-gyp-build
+#16 58.01 .../sharp@0.34.5/node_modules/sharp install$ node install/check.js || npm run build
+#16 58.03 .../esbuild@0.27.7/node_modules/esbuild postinstall$ node install.js
+#16 58.03 .../esbuild@0.18.20/node_modules/esbuild postinstall$ node install.js
+#16 58.03 .../esbuild@0.28.2/node_modules/esbuild postinstall$ node install.js
+#16 58.07 .../sharp@0.34.5/node_modules/sharp install: Done
+#16 58.08 .../esbuild@0.27.7/node_modules/esbuild postinstall: Done
+#16 58.08 .../esbuild@0.18.20/node_modules/esbuild postinstall: Done
+#16 58.10 .../esbuild@0.28.2/node_modules/esbuild postinstall: Done
+#16 58.10 .../esbuild@0.25.12/node_modules/esbuild postinstall$ node install.js
+#16 58.11 .../argon2@0.44.0/node_modules/argon2 install: Done
+#16 58.14 .../esbuild@0.25.12/node_modules/esbuild postinstall: Done
+#16 58.21 
+#16 58.21 devDependencies:
+#16 58.21 + tsx 4.23.15
+#16 58.21 + typescript 5.9.3
+#16 58.21 
+#16 58.25 Done in 58.1s using pnpm v11.8.0
+#16 DONE 58.4s
+
+#17 [build 11/16] COPY tsconfig.base.json ./
+#17 DONE 0.1s
+
+#18 [build 12/16] COPY packages ./packages
+#18 DONE 0.0s
+
+#19 [build 13/16] COPY apps/api ./apps/api
+#19 DONE 0.0s
+
+#20 [build 14/16] COPY apps/cli ./apps/cli
+#20 DONE 0.0s
+
+#21 [build 15/16] RUN pnpm --filter @yoryon/api build && pnpm --filter @yoryon/cli build
+#21 0.299 $ tsup
+#21 0.440 CLI Building entry: {"index":"src/index.ts","migrate":"src/migrate.ts"}
+#21 0.440 CLI Using tsconfig: tsconfig.json
+#21 0.440 CLI tsup v8.5.1
+#21 0.440 CLI Using tsup config: /app/apps/api/tsup.config.ts
+#21 0.441 CLI Target: es2022
+#21 0.442 CLI Cleaning output folder
+#21 0.442 ESM Build start
+#21 0.617 ESM dist/migrate.js              1.53 KB
+#21 0.617 ESM dist/index.js                121.15 KB
+#21 0.617 ESM dist/src-IZUB7GCA.js         3.42 KB
+#21 0.617 ESM dist/chunk-NOXK44O3.js       65.47 KB
+#21 0.617 ESM dist/chunk-JYURC6FJ.js       2.19 KB
+#21 0.617 ESM dist/chunk-5ZH3LQ2H.js       2.63 KB
+#21 0.617 ESM dist/search-text-OHZSM2RK.js 332.00 B
+#21 0.617 ESM dist/server.node-473PTIIS.js 1.35 MB
+#21 0.617 ESM dist/chunk-7GH2MA77.js       3.07 MB
+#21 0.617 ESM ⚡️ Build success in 174ms
+#21 0.823 $ tsup
+#21 0.953 CLI Building entry: src/index.ts
+#21 0.953 CLI Using tsconfig: tsconfig.json
+#21 0.953 CLI tsup v8.5.1
+#21 0.953 CLI Using tsup config: /app/apps/cli/tsup.config.ts
+#21 0.954 CLI Target: es2022
+#21 0.955 CLI Cleaning output folder
+#21 0.955 ESM Build start
+#21 1.105 ESM dist/chunk-5GRMZHF2.js       67.90 KB
+#21 1.105 ESM dist/server.node-4LQSEZBF.js 1.35 MB
+#21 1.105 ESM dist/index.js                3.21 MB
+#21 1.105 ESM ⚡️ Build success in 150ms
+#21 DONE 1.1s
+
+#22 [build 16/16] RUN pnpm --filter @yoryon/api --prod deploy /out-api --legacy  && pnpm --filter @yoryon/cli --prod deploy /out-cli --legacy
+#22 0.268 [WARN] Shared workspace lockfile detected but configuration forces legacy deploy implementation.
+#22 0.293 Packages are copied from the content-addressable store to the virtual store.
+#22 0.293   Content-addressable store is at: /root/.local/share/pnpm/store/v11
+#22 0.293   Virtual store is at:             ../out-api/node_modules/.pnpm
+#22 0.294 ✓ Lockfile passes supply-chain policies (verified 1s ago)
+#22 0.312 Progress: resolved 1, reused 0, downloaded 0, added 0
+#22 1.318 Progress: resolved 36, reused 0, downloaded 0, added 0
+#22 5.591 Progress: resolved 37, reused 0, downloaded 0, added 0
+#22 8.233 Progress: resolved 38, reused 0, downloaded 0, added 0
+#22 9.237 Progress: resolved 150, reused 0, downloaded 0, added 0
+#22 10.79 Progress: resolved 151, reused 0, downloaded 0, added 0
+#22 11.79 Progress: resolved 155, reused 0, downloaded 0, added 0
+#22 12.79 Progress: resolved 159, reused 0, downloaded 0, added 0
+#22 13.79 Progress: resolved 167, reused 0, downloaded 0, added 0
+#22 14.79 Progress: resolved 168, reused 0, downloaded 0, added 0
+#22 15.80 Progress: resolved 173, reused 0, downloaded 0, added 0
+#22 16.80 Progress: resolved 280, reused 0, downloaded 0, added 0
+#22 17.80 Progress: resolved 371, reused 0, downloaded 0, added 0
+#22 18.80 Progress: resolved 379, reused 0, downloaded 0, added 0
+#22 19.80 Progress: resolved 384, reused 0, downloaded 0, added 0
+#22 20.81 Progress: resolved 391, reused 0, downloaded 0, added 0
+#22 23.96 Progress: resolved 392, reused 0, downloaded 0, added 0
+#22 24.96 Progress: resolved 519, reused 0, downloaded 0, added 0
+#22 25.54 [WARN] 2 deprecated subdependencies found: @esbuild-kit/core-utils@3.3.2, @esbuild-kit/esm-loader@2.6.5
+#22 25.54 Progress: resolved 521, reused 0, downloaded 0, added 0, done
+#22 25.54 [WARN] Issues with peer dependencies found. Run "pnpm peers check" to list them.
+#22 25.56 .                                        | +316 ++++++++++++++++++++++++++++++++
+#22 29.23 .../sharp@0.34.5/node_modules/sharp install$ node install/check.js || npm run build
+#22 29.23 .../argon2@0.44.0/node_modules/argon2 install$ cross-env ZERO_AR_DATE=1 node-gyp-build
+#22 29.26 .../sharp@0.34.5/node_modules/sharp install: Done
+#22 29.29 .../argon2@0.44.0/node_modules/argon2 install: Done
+#22 29.55 [WARN] Shared workspace lockfile detected but configuration forces legacy deploy implementation.
+#22 29.57 Packages are copied from the content-addressable store to the virtual store.
+#22 29.57   Content-addressable store is at: /root/.local/share/pnpm/store/v11
+#22 29.57   Virtual store is at:             ../out-cli/node_modules/.pnpm
+#22 29.57 ✓ Lockfile passes supply-chain policies (verified 31s ago)
+#22 29.59 Progress: resolved 1, reused 0, downloaded 0, added 0
+#22 30.21 [WARN] 2 deprecated subdependencies found: @esbuild-kit/core-utils@3.3.2, @esbuild-kit/esm-loader@2.6.5
+#22 30.21 Progress: resolved 521, reused 0, downloaded 0, added 0, done
+#22 30.21 [WARN] Issues with peer dependencies found. Run "pnpm peers check" to list them.
+#22 30.23 .                                        | +310 +++++++++++++++++++++++++++++++
+#22 30.46 .../argon2@0.44.0/node_modules/argon2 install$ cross-env ZERO_AR_DATE=1 node-gyp-build
+#22 30.51 .../argon2@0.44.0/node_modules/argon2 install: Done
+#22 DONE 30.6s
+
+#23 [stage-2 2/9] WORKDIR /app
+#23 CACHED
+
+#24 [stage-2 3/9] COPY --from=build /out-api/node_modules ./node_modules
+#24 ...
+
+#25 [native 2/2] RUN npm install --force --prefix /native --ignore-scripts --os=linux --cpu=x64 --no-audit --no-fund @img/sharp-linux-x64@0.34.5 @img/sharp-libvips-linux-x64@1.2.4
+#25 CACHED
+
+#24 [stage-2 3/9] COPY --from=build /out-api/node_modules ./node_modules
+#24 DONE 0.6s
+
+#26 [stage-2 4/9] COPY --from=build /app/apps/api/dist ./dist
+#26 DONE 0.0s
+
+#27 [stage-2 5/9] COPY --from=build /app/packages/db/drizzle ./drizzle
+#27 DONE 0.0s
+
+#28 [stage-2 6/9] COPY --from=build /out-cli/node_modules /cli/node_modules
+#28 DONE 0.5s
+
+#29 [stage-2 7/9] COPY --from=build /app/apps/cli/dist /cli/dist
+#29 DONE 0.0s
+
+#30 [stage-2 8/9] COPY --from=native /native/node_modules/@img /app/node_modules/@img
+#30 DONE 0.0s
+
+#31 [stage-2 9/9] COPY --from=native /native/node_modules/@img /cli/node_modules/@img
+#31 DONE 0.0s
+
+#32 exporting to image
+#32 exporting layers
+#32 exporting layers 2.1s done
+#32 exporting manifest sha256:c9cc842379abca8cee1e6c4f49e09947920ff499295161ee23eb9ecd0c47ae04 done
+#32 exporting config sha256:966c25c952388605aac0a7a5f9129595201a5d6382eabacd05c420e69cf06c50 done
+#32 exporting attestation manifest sha256:80115bb3fd87069204ad5d0d231f135c47930fe2eb045a6934e2c98e441e8fe0 done
+#32 exporting manifest list sha256:c52386667726757041b2968917a4797a387c48eeea3a990c59ec9df67bbe57ba done
+#32 naming to docker.io/library/yoryon-api:release-20261015 done
+#32 DONE 2.1s
