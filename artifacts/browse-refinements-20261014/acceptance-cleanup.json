@@ -1,0 +1,133 @@
+{
+  "database": "yoryon_page_redesign_20261013",
+  "contentCliDeleted": 26,
+  "deleted": {
+    "searchSessions": 5,
+    "analytics": 38,
+    "notifications": 0,
+    "commentLikes": 0,
+    "contentLikes": 0,
+    "entitlements": 1,
+    "redemptions": 1,
+    "activationCodes": 1,
+    "sessions": 0,
+    "emailVerifications": 0,
+    "users": 1,
+    "cacheEvents": 52,
+    "tag": 1
+  },
+  "ownSearchBefore": [
+    {
+      "id": "a84f2f46-ff15-4455-ad8d-c7cccf75d867",
+      "request_id": "c290d6f5-7f88-4a9a-8acc-eea0b1348a24",
+      "metered": true,
+      "result_count": 25
+    },
+    {
+      "id": "4483de01-d336-47ca-9e0a-567349ee2a47",
+      "request_id": "9e543546-b68d-4053-b5dc-575957290254",
+      "metered": true,
+      "result_count": 0
+    },
+    {
+      "id": "7c7f0e76-c10f-4061-8840-995bb8100824",
+      "request_id": "8b82aa47-16b4-4faf-b94c-829829ca083b",
+      "metered": true,
+      "result_count": 1
+    },
+    {
+      "id": "7bcdc8f2-d6a3-48ab-bd02-159dd9c5d90f",
+      "request_id": "a9dd3257-2c85-4ddc-a585-2eed3e8d8f9c",
+      "metered": false,
+      "result_count": 1
+    },
+    {
+      "id": "b0e0e554-20a0-4175-8f47-baf647674af4",
+      "request_id": "3d897ad8-0b32-42a9-bf88-0ddf59c8110c",
+      "metered": true,
+      "result_count": 25
+    }
+  ],
+  "userSessionsBeforeCleanup": 0,
+  "requestIds": [
+    "c290d6f5-7f88-4a9a-8acc-eea0b1348a24",
+    "9e543546-b68d-4053-b5dc-575957290254",
+    "7fdc195d-37c7-44fb-ae29-e36be53d00a9",
+    "3d897ad8-0b32-42a9-bf88-0ddf59c8110c",
+    "8b82aa47-16b4-4faf-b94c-829829ca083b",
+    "a9dd3257-2c85-4ddc-a585-2eed3e8d8f9c"
+  ],
+  "sessionIds": [
+    "a84f2f46-ff15-4455-ad8d-c7cccf75d867",
+    "b0e0e554-20a0-4175-8f47-baf647674af4",
+    "e6e96d29-014a-405c-b8c0-f4359dcd8bb0",
+    "7c7f0e76-c10f-4061-8840-995bb8100824",
+    "7bcdc8f2-d6a3-48ab-bd02-159dd9c5d90f"
+  ],
+  "residual": {
+    "own_contents": 0,
+    "own_users": 0,
+    "own_sessions": 0,
+    "own_entitlements": 0,
+    "own_search": 0,
+    "own_analytics": 0,
+    "own_tag": 0
+  },
+  "originalPreserved": true,
+  "finalContents": [
+    {
+      "id": "8c154081-fafc-4e76-9f24-f5251bc8645f",
+      "slug": "demo-audio",
+      "status": "published"
+    },
+    {
+      "id": "ac0dd1f8-fe11-432a-af65-bbf23d27c6f2",
+      "slug": "demo-ep1",
+      "status": "published"
+    },
+    {
+      "id": "dc558bcb-6fa0-4885-84b9-532cdf93bde7",
+      "slug": "demo-ep2",
+      "status": "published"
+    },
+    {
+      "id": "4cd20260-6f0c-488d-8ffa-3933793d046f",
+      "slug": "demo-gallery",
+      "status": "published"
+    },
+    {
+      "id": "8ba6d2dc-5b4a-4a9c-9630-175c24994165",
+      "slug": "demo-paid",
+      "status": "published"
+    },
+    {
+      "id": "d2526ef1-d392-463d-bba0-9d1bf7d1386b",
+      "slug": "demo-video",
+      "status": "published"
+    },
+    {
+      "id": "216e604c-9f00-4d2c-bdce-957496be9c15",
+      "slug": "hello-world",
+      "status": "published"
+    }
+  ],
+  "originalSearchPreserved": true,
+  "finalSearch": [
+    {
+      "id": "eba5e06a-b94b-44fc-833d-516eb4d3fe0b",
+      "metered": true
+    }
+  ],
+  "tags": [
+    "demo",
+    "test"
+  ],
+  "secretScan": {
+    "files": 119,
+    "matches": []
+  },
+  "privateFileRemoved": true,
+  "sourceRemoved": true,
+  "productionChanged": false,
+  "cleanupRecovery": "The final CDP ring buffer had evicted older requests; exact request/session IDs were recovered from the earlier complete request receipt and each already-saved search memory receipt. No global identity or network delete was used."
+}

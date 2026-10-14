@@ -1,0 +1,13 @@
+{
+  "sameFileAvatarState": {
+    "avatar": "/api/avatars/31690ac8-0795-4b62-9e11-c31283b9efbc",
+    "draft": "未保存的资料草稿",
+    "status": "头像已上传"
+  },
+  "removedAvatarState": {
+    "avatar": null,
+    "draft": "未保存的资料草稿",
+    "placeholder": "🙂",
+    "status": "头像已移除"
+  }
+}

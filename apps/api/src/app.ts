@@ -16,6 +16,7 @@ import { redemptionRoutes } from "./routes/redemptions";
 import { analyticsRoutes } from "./routes/analytics";
 import { cacheRoutes } from "./routes/cache";
 import { commentRoutes } from "./routes/comments";
+import { contentInteractionRoutes } from "./routes/content-interactions";
 import { notificationRoutes } from "./routes/notifications";
 import { questionDiscussionRoutes } from "./routes/question-discussions";
 import { questionRoutes } from "./routes/questions";
@@ -76,6 +77,7 @@ export function createApp(deps: AppDeps) {
   app.route("/api", publicImageRoutes(deps, policy));
   app.route("/api", redemptionRoutes(deps));
   app.route("/api", commentRoutes(deps));
+  app.route("/api", contentInteractionRoutes(deps));
   app.route("/api", notificationRoutes(deps));
   app.route("/api", questionRoutes(deps));
   app.route("/api", questionDiscussionRoutes(deps));

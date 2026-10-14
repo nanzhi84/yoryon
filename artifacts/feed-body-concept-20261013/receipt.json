@@ -1,0 +1,13 @@
+{
+  "generated_by": "imagegen built-in edit",
+  "image": "yoryon-feed-body-v1.png",
+  "dimensions": [
+    948,
+    1659
+  ],
+  "sha256": "8debf0fcb7ed0e4f53531dfe956de19afbac5b8582f8f6fe788941f7be11d0f7",
+  "reference": "../page-redesign-20261013/browser-home-final.jpg",
+  "scope": "single-width content-body design only",
+  "content_rows_have_author_identity": false,
+  "application_code_changed_in_this_revision": false
+}

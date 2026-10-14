@@ -1,21 +1,29 @@
 import Link from "next/link";
 import type { ContentDetail } from "@/lib/types";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 
 /** 只导航到公开可发现的作品地址，目标正文继续由详情接口判断阅读权限。 */
 export function CollectionNavigation({ collections }: { collections: ContentDetail["collections"] }) {
   if (!collections.length) return null;
-  return <nav aria-label="合集上下篇导航" className="mt-10 space-y-6 border-t pt-6">
+  const cardClass = "min-h-[88px] rounded-[10px] border border-border p-3.5";
+  const linkClass = `${cardClass} transition-colors hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary`;
+  return <nav aria-label="合集上下篇导航" className="mt-7 space-y-6">
     {collections.map(collection => <section key={collection.slug} aria-label={`合集：${collection.title}`}>
-      <Link prefetch={false} href={`/c/${collection.slug}`} className="text-sm font-medium underline underline-offset-4">合集：{collection.title}</Link>
-      <div className="mt-3 grid gap-3 text-sm sm:grid-cols-2">
-        {collection.previous ? <Link prefetch={false} href={`/p/${collection.previous.slug}`} rel="prev" className="rounded-md border p-3 hover:bg-muted">
-          <span className="block text-xs text-muted-foreground">上一篇</span>
-          <span className="mt-1 block break-words">{collection.previous.title || collection.previous.slug}</span>
-        </Link> : <p className="p-3 text-muted-foreground">已是合集第一篇</p>}
-        {collection.next ? <Link prefetch={false} href={`/p/${collection.next.slug}`} rel="next" className="rounded-md border p-3 hover:bg-muted">
-          <span className="block text-xs text-muted-foreground">下一篇</span>
-          <span className="mt-1 block break-words">{collection.next.title || collection.next.slug}</span>
-        </Link> : <p className="p-3 text-muted-foreground">已是合集最后一篇</p>}
+      <div className="flex items-baseline justify-between gap-3">
+        <h2 className="text-[15px] font-semibold leading-6">继续阅读</h2>
+        <Link prefetch={false} href={`/c/${collection.slug}`} className="inline-flex min-w-0 items-center gap-1 text-xs leading-[18px] text-primary hover:underline underline-offset-4">
+          <span className="truncate">{collection.title}</span><ArrowUpRight className="size-3.5 shrink-0" aria-hidden="true" />
+        </Link>
+      </div>
+      <div className="mt-3 grid grid-cols-2 gap-3">
+        {collection.previous ? <Link prefetch={false} href={`/p/${collection.previous.slug}`} rel="prev" className={linkClass}>
+          <span className="flex items-center gap-1 text-xs leading-[18px] text-primary"><ArrowLeft className="size-3.5" aria-hidden="true" />上一篇</span>
+          <span className="mt-2 block break-words text-[15px] font-medium leading-[22px]">{collection.previous.title || collection.previous.slug}</span>
+        </Link> : <div aria-disabled="true" className={`${cardClass} text-muted-foreground`}><span className="block text-xs leading-[18px]">上一篇</span><p className="mt-2 text-[13px] leading-5">已是合集第一篇</p></div>}
+        {collection.next ? <Link prefetch={false} href={`/p/${collection.next.slug}`} rel="next" className={linkClass}>
+          <span className="flex items-center gap-1 text-xs leading-[18px] text-primary">下一篇<ArrowRight className="size-3.5" aria-hidden="true" /></span>
+          <span className="mt-2 block break-words text-[15px] font-medium leading-[22px]">{collection.next.title || collection.next.slug}</span>
+        </Link> : <div aria-disabled="true" className={`${cardClass} text-muted-foreground`}><span className="block text-xs leading-[18px]">下一篇</span><p className="mt-2 text-[13px] leading-5">已是合集最后一篇</p></div>}
       </div>
     </section>)}
   </nav>;

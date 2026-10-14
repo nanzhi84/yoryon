@@ -1,0 +1,115 @@
+Browser tab: 1, Title: "Yoryon", URL: "http://localhost:3015/".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 217
++		221 container
++			222 link Description: 浏览连续体验 · 阅读记录 11, Value: localhost:3015/p/browse-20261014-11
++			223 text 2026.10.10 这是第 11 篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。
++			224 link Description: 阅读全文, Value: localhost:3015/p/browse-20261014-11
++			225 text 长文
++			226 link Description: #browse-refinements, Value: localhost:3015/tags/browse-refinements
++			227 container 内容互动
++				228 link Description: 评论，0条, Value: localhost:3015/p/browse-20261014-11#comments
++				229 checkbox Description: 点赞，0个赞, Value: 0
++				230 button 转发，复制链接
++		231 container
++			232 link Description: 浏览连续体验 · 阅读记录 10, Value: localhost:3015/p/browse-20261014-10
++			233 text 2026.10.10 这是第 10 篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。
++			234 link Description: 阅读全文, Value: localhost:3015/p/browse-20261014-10
++			235 text 长文
++			236 link Description: #browse-refinements, Value: localhost:3015/tags/browse-refinements
++			237 container 内容互动
++				238 link Description: 评论，0条, Value: localhost:3015/p/browse-20261014-10#comments
++				239 checkbox Description: 点赞，0个赞, Value: 0
++				240 button 转发，复制链接
++		241 container
++			242 link Description: 浏览连续体验 · 阅读记录 09, Value: localhost:3015/p/browse-20261014-09
++			243 text 2026.10.10 这是第 09 篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。
++			244 link Description: 阅读全文, Value: localhost:3015/p/browse-20261014-09
++			245 text 长文
++			246 link Description: #browse-refinements, Value: localhost:3015/tags/browse-refinements
++			247 container 内容互动
++				248 link Description: 评论，0条, Value: localhost:3015/p/browse-20261014-09#comments
++				249 checkbox Description: 点赞，0个赞, Value: 0
++				250 button 转发，复制链接
++		251 container
++			252 link Description: 浏览连续体验 · 阅读记录 08, Value: localhost:3015/p/browse-20261014-08
++			253 text 2026.10.10 这是第 08 篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。
++			254 link Description: 阅读全文, Value: localhost:3015/p/browse-20261014-08
++			255 text 长文
++			256 link Description: #browse-refinements, Value: localhost:3015/tags/browse-refinements
++			257 container 内容互动
++				258 link Description: 评论，0条, Value: localhost:3015/p/browse-20261014-08#comments
++				259 checkbox Description: 点赞，0个赞, Value: 0
++				260 button 转发，复制链接
++		261 container
++			262 link Description: 浏览连续体验 · 阅读记录 07, Value: localhost:3015/p/browse-20261014-07
++			263 text 2026.10.10 这是第 07 篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。
++			264 link Description: 阅读全文, Value: localhost:3015/p/browse-20261014-07
++			265 text 长文
++			266 link Description: #browse-refinements, Value: localhost:3015/tags/browse-refinements
++			267 container 内容互动
++				268 link Description: 评论，0条, Value: localhost:3015/p/browse-20261014-07#comments
++				269 checkbox Description: 点赞，0个赞, Value: 0
++				270 button 转发，复制链接
++		271 container
++			272 link Description: 浏览连续体验 · 阅读记录 06, Value: localhost:3015/p/browse-20261014-06
++			273 text 2026.10.10 这是第 06 篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。
++			274 link Description: 阅读全文, Value: localhost:3015/p/browse-20261014-06
++			275 text 长文
++			276 link Description: #browse-refinements, Value: localhost:3015/tags/browse-refinements
++			277 container 内容互动
++				278 link Description: 评论，0条, Value: localhost:3015/p/browse-20261014-06#comments
++				279 checkbox Description: 点赞，0个赞, Value: 0
++				280 button 转发，复制链接
++		281 container
++			282 link Description: 浏览连续体验 · 阅读记录 05, Value: localhost:3015/p/browse-20261014-05
++			283 text 2026.10.10 这是第 05 篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。
++			284 link Description: 阅读全文, Value: localhost:3015/p/browse-20261014-05
++			285 text 长文
++			286 link Description: #browse-refinements, Value: localhost:3015/tags/browse-refinements
++			287 container 内容互动
++				288 link Description: 评论，0条, Value: localhost:3015/p/browse-20261014-05#comments
++				289 checkbox Description: 点赞，0个赞, Value: 0
++				290 button 转发，复制链接
++		291 container
++			292 link Description: 浏览连续体验 · 阅读记录 04, Value: localhost:3015/p/browse-20261014-04
++			293 text 2026.10.10 这是第 04 篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。
++			294 link Description: 阅读全文, Value: localhost:3015/p/browse-20261014-04
++			295 text 长文
++			296 link Description: #browse-refinements, Value: …
++			297 container 内容互动
++				298 link Description: 评论，0条, Value: …
++				299 checkbox Description: 点赞，0个赞, Value: 0
++				300 button 转发，复制链接
++		301 container
++			302 link Description: 浏览连续体验 · 阅读记录 03, Value: …
++			303 text 2026.10.10 这是第 03 篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。
++			304 link Description: 阅读全文, Value: …
++			305 text 长文
++			306 link Description: #browse-refinements, Value: …
++			307 container 内容互动
++				308 link Description: 评论，0条, Value: …
++				309 checkbox Description: 点赞，0个赞, Value: 0
++				310 button 转发，复制链接
++		311 container
++			312 link Description: 浏览连续体验 · 阅读记录 02, Value: …
++			313 text 2026.10.10 这是第 02 篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。
++			314 link Description: 阅读全文, Value: …
++			315 text 长文
++			316 link Description: #browse-refinements, Value: …
++			317 container 内容互动
++				318 link Description: 评论，0条, Value: …
++				319 checkbox Description: 点赞，0个赞, Value: 0
++				320 button 转发，复制链接
++		321 container
++			322 link Description: 浏览连续体验 · 阅读记录 01, Value: …
++			323 text 2026.10.10 这是第 01 篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。
++			324 link Description: 阅读全文, Value: …
++			325 text 长文
++			326 link Description: #browse-refinements, Value: …
++			327 container 内容互动
++				328 link Description: 评论，0条, Value: …
++				329 checkbox Description: 点赞，0个赞, Value: 0
++				330 button 转发，复制链接
+~			220 link Description: 了解订阅, Value: …
+The focused UI element is 1 AXWebArea Yoryon, URL: localhost:3015/

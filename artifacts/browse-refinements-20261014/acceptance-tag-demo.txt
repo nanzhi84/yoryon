@@ -1,0 +1,83 @@
+Browser tab: 1, Title: "#demo · Yoryon", URL: "http://localhost:3015/tags/demo".
+1 AXWebArea #demo · Yoryon, URL: localhost:3015/tags/demo
+	2 container
+		19 link Description: Yoryon, Value: localhost:3015/
+		20 link Description: 全站搜索, Value: localhost:3015/search
+		21 link Description: 通知, Value: localhost:3015/notifications
+		22 pop up button (collapsed) Description: 账户菜单, ID: radix-_r_6_, Secondary Actions: Expand
+		23 container 主导航
+			24 link Description: 首页, Value: localhost:3015/
+			25 link Description: 订阅, Value: localhost:3015/subscription
+			26 pop up button (collapsed) 探索, ID: radix-_r_8_, Secondary Actions: Expand
+		27 button 返回上一页
+		28 heading #demo, Value: 1
+			29 text # demo
+		30 container
+			31 link Description: 演示音频, Value: localhost:3015/p/demo-audio
+			32 text 2026.10.11
+			33 container post-8c154081-fafc-4e76-9f24-f5251bc8645f
+				34 button 播放音频
+				35 text 音频
+				36 slider (disabled, settable, integer) Description: 音频进度, Value: 0
+				37 text 00:00  /  --:--
+				38 text 这里是音频的文字说明（shownotes）：正文区域照常支持 Markdown，可以放时间轴、链接与参考资料。
+			39 text 帖子
+			40 link Description: #demo, Value: localhost:3015/tags/demo
+			41 container 内容互动
+				42 link Description: 评论，0条, Value: localhost:3015/p/demo-audio#comments
+				43 checkbox Description: 点赞，0个赞, Value: 0
+				44 button 转发，复制链接
+		45 container
+			46 link Description: 付费演示文章（含图片与视频）, Value: localhost:3015/p/demo-paid
+			47 text 2026.10.11 付费墙 + 内联多媒体演示
+			48 link Description: 阅读全文, Value: localhost:3015/p/demo-paid
+			49 text 长文 付费
+			50 link Description: #demo, Value: localhost:3015/tags/demo
+			51 container 内容互动
+				52 link Description: 评论，0条, Value: localhost:3015/p/demo-paid#comments
+				53 checkbox Description: 点赞，0个赞, Value: 0
+				54 button 转发，复制链接
+		55 container
+			56 link Description: 演示视频, Value: localhost:3015/p/demo-video
+			57 text 2026.10.11
+			58 button 播放视频
+			59 text 帖子
+			60 link Description: #demo, Value: localhost:3015/tags/demo
+			61 container 内容互动
+				62 link Description: 评论，0条, Value: localhost:3015/p/demo-video#comments
+				63 checkbox Description: 点赞，0个赞, Value: 0
+				64 button 转发，复制链接
+		65 container
+			66 link Description: 演示图集, Value: localhost:3015/p/demo-gallery
+			67 text 2026.10.11
+			68 button 查看图片：作品图片
+				69 image 作品图片
+			70 text 帖子
+			71 link Description: #demo, Value: localhost:3015/tags/demo
+			72 container 内容互动
+				73 link Description: 评论，0条, Value: localhost:3015/p/demo-gallery#comments
+				74 checkbox Description: 点赞，0个赞, Value: 0
+				75 button 转发，复制链接
+		76 container
+			77 link Description: 示例系列 · 第二话, Value: localhost:3015/p/demo-ep2
+			78 text 2026.10.11 这是示例系列的第二篇正文。
+			79 link Description: 阅读全文, Value: localhost:3015/p/demo-ep2
+			80 text 长文
+			81 link Description: #demo, Value: localhost:3015/tags/demo
+			82 container 内容互动
+				83 link Description: 评论，0条, Value: localhost:3015/p/demo-ep2#comments
+				84 checkbox Description: 点赞，0个赞, Value: 0
+				85 button 转发，复制链接
+		86 container
+			87 link Description: 示例系列 · 第一话, Value: localhost:3015/p/demo-ep1
+			88 text 2026.10.11 这是示例系列的第一篇正文。
+			89 link Description: 阅读全文, Value: localhost:3015/p/demo-ep1
+			90 text 长文
+			91 link Description: #demo, Value: localhost:3015/tags/demo
+			92 container 内容互动
+				93 link Description: 评论，0条, Value: localhost:3015/p/demo-ep1#comments
+				94 checkbox Description: 点赞，0个赞, Value: 0
+				95 button 转发，复制链接
+		18 text #demo · Yoryon
+
+The focused UI element is 1 AXWebArea #demo · Yoryon, URL: localhost:3015/tags/demo

@@ -13,7 +13,7 @@ export default async function QuestionPage({ params }: { params: Promise<{ id: s
   if (res.status === 404) notFound();
   if (!res.ok) throw new Error(`question API ${res.status}`);
   const { item } = await res.json() as { item: QuestionItem };
-  return <><SiteHeader /><main className="py-8"><Link href="/subscription" className="text-sm text-muted-foreground underline">返回订阅</Link><QuestionCard item={item} />
+  return <><SiteHeader /><main className="py-5"><Link href="/subscription" className="text-sm text-muted-foreground underline">返回订阅</Link><QuestionCard item={item} />
     {item.canDiscuss && <CommentSection slug="" questionId={id} />}
   </main></>;
 }

@@ -1,0 +1,17 @@
+{
+  "generated_by": "imagegen built-in",
+  "file": "yoryon-x-feed-v1.png",
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "sha256": "668ee6d4652db80a4500881a6b1d21a0c89cc1c84c15dde8d5929ac21702f858",
+  "references": [
+    "../design-concept-20261013/avatar-reference.jpg",
+    "../design-concept-20261013/yoryon-local-design-v3.png"
+  ],
+  "scope": "new static X-inspired timeline concept, desktop and mobile",
+  "code_changed": false,
+  "current_app_source_matches_previous_preview": true,
+  "app_source_differences": []
+}

@@ -1,0 +1,1042 @@
+{
+  "hasMore": false,
+  "truncated": true,
+  "events": [
+    {
+      "sequence": 897,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/958-b1c94df525676150.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 899,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/958-b1c94df525676150.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 902,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/app/render/%5Brevision%5D/%5Bslug%5D/page-f49b9c6c11cd1b78.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 904,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/app/render/%5Brevision%5D/%5Bslug%5D/page-f49b9c6c11cd1b78.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 935,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/css/4713cacb171bc626.css",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 937,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/css/4713cacb171bc626.css",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 940,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/webpack-e87609aa1268a65a.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 942,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/webpack-e87609aa1268a65a.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 945,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/698603b8-09222843f8deb901.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 947,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/698603b8-09222843f8deb901.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 950,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/768-c862577c29bf7d0c.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 952,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/768-c862577c29bf7d0c.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 955,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/main-app-a322b805dbfe7bd3.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 957,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/main-app-a322b805dbfe7bd3.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 960,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/120-3cfdc34564f49ec1.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 962,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/120-3cfdc34564f49ec1.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 965,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/app/error-9371de263bdc8e9d.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 967,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/app/error-9371de263bdc8e9d.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 970,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/59-31aafc06a396cf30.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 972,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/59-31aafc06a396cf30.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 975,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/619-7900fd880f677238.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 977,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/619-7900fd880f677238.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 980,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/225-42c41cb23b6d167a.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 982,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/225-42c41cb23b6d167a.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 985,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/18-1e5c40c7c708357e.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 987,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/18-1e5c40c7c708357e.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 990,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/958-0678af730852e916.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 991,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/app/render/%5Brevision%5D/%5Bslug%5D/page-b270c1814baa6e3f.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 998,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/958-0678af730852e916.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1002,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/app/render/%5Brevision%5D/%5Bslug%5D/page-b270c1814baa6e3f.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1062,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/app/page-f285590f09e9fa07.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1064,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/app/page-f285590f09e9fa07.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1159,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/app/subscription/page-7e7b2a3edab69b5f.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1164,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/app/subscription/page-7e7b2a3edab69b5f.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1191,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/p/demo-paid?_rsc=VhDUE-NoDTY05IIa",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1194,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/p/demo-paid?_rsc=VhDUE-NoDTY05IIa",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1292,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/css/4713cacb171bc626.css",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1294,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/css/4713cacb171bc626.css",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1299,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/webpack-e87609aa1268a65a.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1301,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/webpack-e87609aa1268a65a.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1304,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/698603b8-09222843f8deb901.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1306,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/698603b8-09222843f8deb901.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1309,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/768-c862577c29bf7d0c.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1311,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/768-c862577c29bf7d0c.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1314,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/main-app-a322b805dbfe7bd3.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1316,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/main-app-a322b805dbfe7bd3.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1319,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/120-3cfdc34564f49ec1.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1321,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/120-3cfdc34564f49ec1.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1324,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/app/error-9371de263bdc8e9d.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1326,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/app/error-9371de263bdc8e9d.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1329,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/59-31aafc06a396cf30.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1331,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/59-31aafc06a396cf30.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1334,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/619-7900fd880f677238.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1336,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/619-7900fd880f677238.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1339,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/225-42c41cb23b6d167a.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1341,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/225-42c41cb23b6d167a.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1344,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/18-1e5c40c7c708357e.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1346,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/18-1e5c40c7c708357e.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1349,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/app/page-f285590f09e9fa07.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1351,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/app/page-f285590f09e9fa07.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1433,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/css/4713cacb171bc626.css",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1435,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/css/4713cacb171bc626.css",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1440,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/webpack-e87609aa1268a65a.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1442,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/webpack-e87609aa1268a65a.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1445,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/698603b8-09222843f8deb901.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1447,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/698603b8-09222843f8deb901.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1450,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/768-c862577c29bf7d0c.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1452,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/768-c862577c29bf7d0c.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1455,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/main-app-a322b805dbfe7bd3.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1457,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/main-app-a322b805dbfe7bd3.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1460,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/120-3cfdc34564f49ec1.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1462,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/120-3cfdc34564f49ec1.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1465,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/app/error-9371de263bdc8e9d.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1467,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/app/error-9371de263bdc8e9d.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1470,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/59-31aafc06a396cf30.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1472,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/59-31aafc06a396cf30.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1475,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/619-7900fd880f677238.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1477,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/619-7900fd880f677238.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1480,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/225-42c41cb23b6d167a.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1482,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/225-42c41cb23b6d167a.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1485,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/18-1e5c40c7c708357e.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1487,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/18-1e5c40c7c708357e.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1490,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/app/page-f285590f09e9fa07.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1492,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/app/page-f285590f09e9fa07.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1566,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/css/4713cacb171bc626.css",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1568,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/css/4713cacb171bc626.css",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1573,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/webpack-e87609aa1268a65a.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1575,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/webpack-e87609aa1268a65a.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1578,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/698603b8-09222843f8deb901.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1580,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/698603b8-09222843f8deb901.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1583,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/768-c862577c29bf7d0c.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1585,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/768-c862577c29bf7d0c.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1588,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/main-app-a322b805dbfe7bd3.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1590,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/main-app-a322b805dbfe7bd3.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1593,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/120-3cfdc34564f49ec1.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1595,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/120-3cfdc34564f49ec1.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1598,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/app/error-483d24483d4567a3.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1599,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/59-31aafc06a396cf30.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1601,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/59-31aafc06a396cf30.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1604,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/619-7900fd880f677238.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1606,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/619-7900fd880f677238.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1609,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/225-42c41cb23b6d167a.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1611,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/225-42c41cb23b6d167a.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1614,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/977-ee11bf58d71fd68a.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1615,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/app/page-95347cbe81dba8c9.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1631,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/app/error-483d24483d4567a3.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1641,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/app/page-95347cbe81dba8c9.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1645,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/977-ee11bf58d71fd68a.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1689,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/app/subscription/page-eb61b40e42c5fee7.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1694,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/app/subscription/page-eb61b40e42c5fee7.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1727,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/p/demo-paid?_rsc=VhDUE-NoDTY05IIa",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1728,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/p/demo-paid?_rsc=VhDUE-NoDTY05IIa",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1731,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/18-1e5c40c7c708357e.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1733,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/18-1e5c40c7c708357e.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1736,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/958-0678af730852e916.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1738,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/958-0678af730852e916.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1741,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/app/render/%5Brevision%5D/%5Bslug%5D/page-b270c1814baa6e3f.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1743,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/app/render/%5Brevision%5D/%5Bslug%5D/page-b270c1814baa6e3f.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1746,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/p/demo-paid?_rsc=VhDUE-NoDTY05IIa",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1752,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/p/demo-paid",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1758,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/p/demo-paid?_rsc=VhDUE-NoDTY05IIa",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1759,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/p/demo-paid",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1773,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/css/4713cacb171bc626.css",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1775,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/css/4713cacb171bc626.css",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1778,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/webpack-e87609aa1268a65a.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1780,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/webpack-e87609aa1268a65a.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1783,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/698603b8-09222843f8deb901.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1785,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/698603b8-09222843f8deb901.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1788,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/768-c862577c29bf7d0c.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1790,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/768-c862577c29bf7d0c.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1793,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/main-app-a322b805dbfe7bd3.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1795,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/main-app-a322b805dbfe7bd3.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1798,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/120-3cfdc34564f49ec1.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1800,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/120-3cfdc34564f49ec1.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1803,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/app/error-483d24483d4567a3.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1805,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/app/error-483d24483d4567a3.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1808,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/59-31aafc06a396cf30.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1810,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/59-31aafc06a396cf30.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1813,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/619-7900fd880f677238.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1815,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/619-7900fd880f677238.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1818,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/225-42c41cb23b6d167a.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1820,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/225-42c41cb23b6d167a.js",
+      "status": 200,
+      "fromDiskCache": true,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1823,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/977-ee11bf58d71fd68a.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1825,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/977-ee11bf58d71fd68a.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1828,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/958-0678af730852e916.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1830,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/958-0678af730852e916.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    },
+    {
+      "sequence": 1833,
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3015/_next/static/chunks/app/render/%5Brevision%5D/%5Bslug%5D/page-710a663702ca4dee.js",
+      "requestMethod": "GET"
+    },
+    {
+      "sequence": 1840,
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3015/_next/static/chunks/app/render/%5Brevision%5D/%5Bslug%5D/page-710a663702ca4dee.js",
+      "status": 200,
+      "fromDiskCache": false,
+      "fromServiceWorker": false
+    }
+  ]
+}

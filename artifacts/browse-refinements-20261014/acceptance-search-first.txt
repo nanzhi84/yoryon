@@ -1,0 +1,104 @@
+Browser tab: 1, Title: "搜索 · Yoryon", URL: "http://localhost:3015/search".
+1 AXWebArea 搜索 · Yoryon, URL: localhost:3015/search
+	2 container
+		19 link Description: Yoryon, Value: localhost:3015/
+		20 link Description: 全站搜索, Value: localhost:3015/search
+		21 link Description: 通知, Value: localhost:3015/notifications
+		22 pop up button (collapsed) Description: 账户菜单, ID: radix-_r_1c_, Secondary Actions: Expand
+		23 container 主导航
+			24 link Description: 首页, Value: localhost:3015/
+			25 link Description: 订阅, Value: localhost:3015/subscription
+			26 pop up button (collapsed) 探索, ID: radix-_r_1e_, Secondary Actions: Expand
+		27 button 返回上一页
+		28 heading 搜索, Value: 1
+			29 text 搜索
+		30 text 输入想找的原文。区分大小写、空格与标点；至少三个连续文字或数字时，也会搜索正文。
+		31 container
+			32 text field (settable) Description: 搜索原文, Value: 浏览连续体验
+			33 button 搜索
+		34 container
+			35 text 本小时剩余 8 次搜索
+			36 link Description: 浏览连续体验 · 阅读记录 25, Value: localhost:3015/p/browse-20261014-25
+			37 container
+				38 text 免费  ·  2026-10-10
+			39 link Description:  篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。 定位原文 →, Value: localhost:3015/p/browse-20261014-25#search=a84f2f46-ff15-4455-ad8d-c7cccf75d867&revision=e71f84cd-eaea-4f67-938b-06237201d2b4&start=51
+			40 link Description: 浏览连续体验 · 阅读记录 24, Value: localhost:3015/p/browse-20261014-24
+			41 container
+				42 text 免费  ·  2026-10-10
+			43 link Description:  篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。 定位原文 →, Value: localhost:3015/p/browse-20261014-24#search=a84f2f46-ff15-4455-ad8d-c7cccf75d867&revision=5380d906-04f9-4e11-aea0-83a11a74f931&start=51
+			44 link Description: 浏览连续体验 · 阅读记录 23, Value: localhost:3015/p/browse-20261014-23
+			45 container
+				46 text 免费  ·  2026-10-10
+			47 link Description:  篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。 定位原文 →, Value: localhost:3015/p/browse-20261014-23#search=a84f2f46-ff15-4455-ad8d-c7cccf75d867&revision=9ba6de8a-8fde-4a60-9e3a-21a396b66c40&start=51
+			48 link Description: 浏览连续体验 · 阅读记录 22, Value: localhost:3015/p/browse-20261014-22
+			49 container
+				50 text 免费  ·  2026-10-10
+			51 link Description:  篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。 定位原文 →, Value: localhost:3015/p/browse-20261014-22#search=a84f2f46-ff15-4455-ad8d-c7cccf75d867&revision=c4f82a30-d75a-489a-b210-b3847430ba54&start=51
+			52 link Description: 浏览连续体验 · 阅读记录 21, Value: localhost:3015/p/browse-20261014-21
+			53 container
+				54 text 免费  ·  2026-10-10
+			55 link Description:  篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。 定位原文 →, Value: localhost:3015/p/browse-20261014-21#search=a84f2f46-ff15-4455-ad8d-c7cccf75d867&revision=a3db60da-2033-4bdf-9fa9-676c79cd9318&start=51
+			56 link Description: 浏览连续体验 · 阅读记录 20, Value: localhost:3015/p/browse-20261014-20
+			57 container
+				58 text 免费  ·  2026-10-10
+			59 link Description:  篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。 定位原文 →, Value: localhost:3015/p/browse-20261014-20#search=a84f2f46-ff15-4455-ad8d-c7cccf75d867&revision=d8ab3720-38a5-4326-be5b-5f83a49e9dcb&start=51
+			60 link Description: 浏览连续体验 · 阅读记录 19, Value: localhost:3015/p/browse-20261014-19
+			61 container
+				62 text 免费  ·  2026-10-10
+			63 link Description:  篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。 定位原文 →, Value: localhost:3015/p/browse-20261014-19#search=a84f2f46-ff15-4455-ad8d-c7cccf75d867&revision=00bb6ed2-5cd9-4700-aac3-8214b866f590&start=51
+			64 link Description: 浏览连续体验 · 阅读记录 18, Value: localhost:3015/p/browse-20261014-18
+			65 container
+				66 text 免费  ·  2026-10-10
+			67 link Description:  篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。 定位原文 →, Value: localhost:3015/p/browse-20261014-18#search=a84f2f46-ff15-4455-ad8d-c7cccf75d867&revision=bcabd408-c2bb-4a39-889d-737a6430d4c6&start=51
+			68 link Description: 浏览连续体验 · 阅读记录 17, Value: localhost:3015/p/browse-20261014-17
+			69 container
+				70 text 免费  ·  2026-10-10
+			71 link Description:  篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。 定位原文 →, Value: localhost:3015/p/browse-20261014-17#search=a84f2f46-ff15-4455-ad8d-c7cccf75d867&revision=36a0c540-7548-4a33-a344-69978538be1b&start=51
+			72 link Description: 浏览连续体验 · 阅读记录 16, Value: localhost:3015/p/browse-20261014-16
+			73 container
+				74 text 免费  ·  2026-10-10
+			75 link Description:  篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。 定位原文 →, Value: localhost:3015/p/browse-20261014-16#search=a84f2f46-ff15-4455-ad8d-c7cccf75d867&revision=b5f737dd-9f9f-4cd1-b45a-a63cebf4b941&start=51
+			76 link Description: 浏览连续体验 · 阅读记录 15, Value: localhost:3015/p/browse-20261014-15
+			77 container
+				78 text 免费  ·  2026-10-09
+			79 link Description:  篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。 定位原文 →, Value: localhost:3015/p/browse-20261014-15#search=a84f2f46-ff15-4455-ad8d-c7cccf75d867&revision=63b11ff0-ef5b-4aa4-9d42-2b6a0d22e56e&start=51
+			80 link Description: 浏览连续体验 · 阅读记录 14, Value: localhost:3015/p/browse-20261014-14
+			81 container
+				82 text 免费  ·  2026-10-09
+			83 link Description:  篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。 定位原文 →, Value: localhost:3015/p/browse-20261014-14#search=a84f2f46-ff15-4455-ad8d-c7cccf75d867&revision=61c71842-b444-4b3f-b4cf-16966a26f707&start=51
+			84 link Description: 浏览连续体验 · 阅读记录 13, Value: localhost:3015/p/browse-20261014-13
+			85 container
+				86 text 免费  ·  2026-10-09
+			87 link Description:  篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。 定位原文 →, Value: localhost:3015/p/browse-20261014-13#search=a84f2f46-ff15-4455-ad8d-c7cccf75d867&revision=83c1d72d-688f-414a-a5a5-5118467c1caf&start=51
+			88 link Description: 浏览连续体验 · 阅读记录 12, Value: localhost:3015/p/browse-20261014-12
+			89 container
+				90 text 免费  ·  2026-10-09
+			91 link Description:  篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。 定位原文 →, Value: localhost:3015/p/browse-20261014-12#search=a84f2f46-ff15-4455-ad8d-c7cccf75d867&revision=5b30c596-d0c0-4f61-92a6-7a1c8e7e075c&start=51
+			92 link Description: 浏览连续体验 · 阅读记录 11, Value: localhost:3015/p/browse-20261014-11
+			93 container
+				94 text 免费  ·  2026-10-09
+			95 link Description:  篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。 定位原文 →, Value: localhost:3015/p/browse-20261014-11#search=a84f2f46-ff15-4455-ad8d-c7cccf75d867&revision=ede4f136-2ff9-456b-b726-7418704deee6&start=51
+			96 link Description: 浏览连续体验 · 阅读记录 10, Value: localhost:3015/p/browse-20261014-10
+			97 container
+				98 text 免费  ·  2026-10-09
+			99 link Description:  篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。 定位原文 →, Value: localhost:3015/p/browse-20261014-10#search=a84f2f46-ff15-4455-ad8d-c7cccf75d867&revision=d57e89e4-8a1b-4000-816f-1f5906349518&start=51
+			100 link Description: 浏览连续体验 · 阅读记录 09, Value: localhost:3015/p/browse-20261014-09
+			101 container
+				102 text 免费  ·  2026-10-09
+			103 link Description:  篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。 定位原文 →, Value: localhost:3015/p/browse-20261014-09#search=a84f2f46-ff15-4455-ad8d-c7cccf75d867&revision=33bec1a7-3157-4859-a933-16d4852cd103&start=51
+			104 link Description: 浏览连续体验 · 阅读记录 08, Value: localhost:3015/p/browse-20261014-08
+			105 container
+				106 text 免费  ·  2026-10-09
+			107 link Description:  篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。 定位原文 →, Value: localhost:3015/p/browse-20261014-08#search=a84f2f46-ff15-4455-ad8d-c7cccf75d867&revision=e2bb8f7b-248a-4f83-af5d-950fc088363f&start=51
+			108 link Description: 浏览连续体验 · 阅读记录 07, Value: localhost:3015/p/browse-20261014-07
+			109 container
+				110 text 免费  ·  2026-10-09
+			111 link Description:  篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。 定位原文 →, Value: localhost:3015/p/browse-20261014-07#search=a84f2f46-ff15-4455-ad8d-c7cccf75d867&revision=fe23de59-5094-490e-8a51-c2de6b6e2f6c&start=51
+			112 link Description: 浏览连续体验 · 阅读记录 06, Value: localhost:3015/p/browse-20261014-06
+			113 container
+				114 text 免费  ·  2026-10-09
+			115 link Description:  篇浏览体验记录。阅读中的思考需要在返回列表后继续，页面应记住已经加载的内容与停留位置。 浏览连续体验的练习：读完一段文字，点开一篇文章，再回到同一个位置，继续阅读下一篇。 定位原文 →, Value: localhost:3015/p/browse-20261014-06#search=a84f2f46-ff15-4455-ad8d-c7cccf75d867&revision=a25924e1-a6f1-4524-af0c-929c0673c6b4&start=51
+			116 button 加载更多
+		18 text 搜索 · Yoryon
+
+The focused UI element is 1 AXWebArea 搜索 · Yoryon, URL: localhost:3015/search

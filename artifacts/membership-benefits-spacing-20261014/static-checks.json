@@ -1,0 +1,15 @@
+{
+  "typecheck": {
+    "command": "pnpm typecheck",
+    "exitCode": 0,
+    "log": "typecheck-final.log"
+  },
+  "build": {
+    "command": "pnpm build",
+    "exitCode": 0,
+    "log": "build-final.log",
+    "isolatedApi": "http://127.0.0.1:4115",
+    "frozenWorkspace": "/var/folders/d_/8w6ff22d7gn6r0vr84g21d5r0000gn/T/yoryon-membership-spacing-final-0kbjtb8b/workspace"
+  },
+  "productionChanged": false
+}

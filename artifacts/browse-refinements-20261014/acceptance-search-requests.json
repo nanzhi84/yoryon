@@ -1,0 +1,83 @@
+{
+  "truncated": true,
+  "hasMore": false,
+  "requests": [
+    {
+      "requestId": "89284.383",
+      "body": {
+        "query": "浏览连续体验",
+        "requestId": "c290d6f5-7f88-4a9a-8acc-eea0b1348a24"
+      }
+    },
+    {
+      "requestId": "89284.384",
+      "body": {
+        "session": "a84f2f46-ff15-4455-ad8d-c7cccf75d867",
+        "cursor": 20
+      }
+    },
+    {
+      "requestId": "89284.462",
+      "body": {
+        "session": "a84f2f46-ff15-4455-ad8d-c7cccf75d867",
+        "cursor": 0
+      }
+    },
+    {
+      "requestId": "89284.463",
+      "body": {
+        "session": "a84f2f46-ff15-4455-ad8d-c7cccf75d867",
+        "cursor": 20
+      }
+    },
+    {
+      "requestId": "89284.501",
+      "body": {
+        "session": "a84f2f46-ff15-4455-ad8d-c7cccf75d867",
+        "cursor": 0
+      }
+    },
+    {
+      "requestId": "89284.502",
+      "body": {
+        "session": "a84f2f46-ff15-4455-ad8d-c7cccf75d867",
+        "cursor": 20
+      }
+    },
+    {
+      "requestId": "89284.581",
+      "body": {
+        "session": "a84f2f46-ff15-4455-ad8d-c7cccf75d867",
+        "cursor": 0
+      }
+    },
+    {
+      "requestId": "89284.582",
+      "body": {
+        "session": "a84f2f46-ff15-4455-ad8d-c7cccf75d867",
+        "cursor": 20
+      }
+    },
+    {
+      "requestId": "89284.583",
+      "body": {
+        "query": "未出现的浏览记录原文",
+        "requestId": "9e543546-b68d-4053-b5dc-575957290254"
+      }
+    },
+    {
+      "requestId": "89284.584",
+      "body": {
+        "query": "未出现的浏览记录原文",
+        "requestId": "9e543546-b68d-4053-b5dc-575957290254"
+      }
+    },
+    {
+      "requestId": "89284.585",
+      "body": {
+        "query": "私有边界检验词玄鹤",
+        "requestId": "7fdc195d-37c7-44fb-ae29-e36be53d00a9"
+      }
+    }
+  ]
+}

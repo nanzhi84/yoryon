@@ -1,37 +1,52 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* ADR-0005：Zinc 中性色；dark 经 class 策略 */
+/* ADR-0005：头像取色的浅蓝灰品牌色；dark 经 class 策略。 */
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.141 0.005 285.823);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --border: oklch(0.92 0.004 286.32);
-  --accent: oklch(0.21 0.006 285.885);
-  --accent-foreground: oklch(0.985 0 0);
+  --background: #fdfeff;
+  --canvas: #fdfeff;
+  --foreground: #253947;
+  --muted: #edf5fa;
+  --muted-foreground: #607383;
+  --border: #dfeaf0;
+  --primary: #47758f;
+  --primary-foreground: #ffffff;
+  --accent: #eaf4fa;
+  --accent-foreground: #253947;
+  --surface: #f1f8fc;
+  --surface-border: #d5e7f1;
 }
 
 :root[class~="dark"] {
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.985 0 0);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --border: oklch(1 0 0 / 10%);
-  --accent: oklch(0.92 0.004 286.32);
-  --accent-foreground: oklch(0.21 0.006 285.885);
+  --background: #14212a;
+  --canvas: #14212a;
+  --foreground: #e7f1f6;
+  --muted: #22343f;
+  --muted-foreground: #a1b6c3;
+  --border: #2c404d;
+  --primary: #9cc7dd;
+  --primary-foreground: #142b38;
+  --accent: #263e4d;
+  --accent-foreground: #e7f1f6;
+  --surface: #192c38;
+  --surface-border: #365465;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-canvas: var(--canvas);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-surface: var(--surface);
+  --color-surface-border: var(--surface-border);
   --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Segoe UI", sans-serif;
 }
 
@@ -41,14 +56,28 @@ html {
 }
 
 body {
-  background: var(--background);
+  background: var(--canvas);
   color: var(--foreground);
   font-family: var(--font-sans);
 }
 
 /* 中文排印调优（ADR-0005 §8.3） */
 .prose-yoryon {
-  line-height: 1.8;
+  --tw-prose-body: var(--foreground);
+  --tw-prose-headings: var(--foreground);
+  --tw-prose-lead: var(--muted-foreground);
+  --tw-prose-links: var(--primary);
+  --tw-prose-bold: var(--foreground);
+  --tw-prose-counters: var(--muted-foreground);
+  --tw-prose-bullets: var(--muted-foreground);
+  --tw-prose-hr: var(--border);
+  --tw-prose-quotes: var(--foreground);
+  --tw-prose-quote-borders: var(--border);
+  --tw-prose-captions: var(--muted-foreground);
+  --tw-prose-th-borders: var(--border);
+  --tw-prose-td-borders: var(--border);
+  font-size: 16px;
+  line-height: 28px;
   /* Long source URLs wrap; preformatted code retains its own scrolling area. */
   overflow-wrap: anywhere;
 }
@@ -56,6 +85,12 @@ body {
   margin-top: 1em;
   margin-bottom: 1em;
 }
+/* 信息流条内密度独立于详情排版，保持同一字号，不按设备切换布局。 */
+.prose-feed { font-size: 15px; line-height: 24px; }
+.prose-feed :where(p):not(:where([class~="not-prose"] *)) { margin-block: 8px; }
+.prose-feed :where(img):not(:where([class~="not-prose"] *)) { margin-block: 0; }
+.prose-yoryon > :first-child { margin-top: 0; }
+.prose-yoryon > :last-child { margin-bottom: 0; }
 /* Semantic inline code already conveys its boundary; no Markdown decoration. */
 .prose-yoryon :where(code)::before,
 .prose-yoryon :where(code)::after {

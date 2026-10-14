@@ -1,0 +1,14 @@
+{
+  "database": "yoryon_page_redesign_20261013",
+  "createdUsers": [
+    {
+      "id": "129fb790-6c09-4f82-a10b-27be7481043c",
+      "username": "feed_acceptance_0_37fcf6"
+    },
+    {
+      "id": "9133eecc-1670-4ffa-bbbd-39b69768e922",
+      "username": "feed_acceptance_1_03fb7f"
+    }
+  ],
+  "purpose": "isolated local content interactions acceptance; no real user and no outbound email"
+}

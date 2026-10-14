@@ -1,0 +1,20 @@
+{
+  "before": {
+    "count": 26,
+    "path": "/tags/browse-refinements",
+    "privateExcerptPresent": false,
+    "publicExcerptPresent": true,
+    "visible": [
+      "浏览连续体验 · 阅读记录 09",
+      "浏览连续体验 · 阅读记录 08",
+      "浏览连续体验 · 阅读记录 07",
+      "浏览连续体验 · 阅读记录 06"
+    ],
+    "y": 4980.5
+  },
+  "after": {
+    "count": 26,
+    "path": "/tags/browse-refinements",
+    "y": 5290
+  }
+}

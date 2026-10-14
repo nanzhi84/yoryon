@@ -1,0 +1,413 @@
+[
+  {
+    "label": "paid without entitlement read",
+    "method": "GET",
+    "path": "/content-interactions?ids=8ba6d2dc-5b4a-4a9c-9630-175c24994165",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "authenticated": true,
+      "items": [
+        {
+          "id": "8ba6d2dc-5b4a-4a9c-9630-175c24994165",
+          "commentCount": 0,
+          "likeCount": 0,
+          "liked": false,
+          "canLike": false
+        }
+      ]
+    }
+  },
+  {
+    "label": "paid without entitlement PUT rejected",
+    "method": "PUT",
+    "path": "/content-interactions/8ba6d2dc-5b4a-4a9c-9630-175c24994165/like",
+    "status": 403,
+    "cache": "private, no-store",
+    "body": {
+      "error": {
+        "code": "forbidden",
+        "message": "订阅或兑换此作品后可点赞"
+      }
+    }
+  },
+  {
+    "label": "paid valid content grant read",
+    "method": "GET",
+    "path": "/content-interactions?ids=8ba6d2dc-5b4a-4a9c-9630-175c24994165",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "authenticated": true,
+      "items": [
+        {
+          "id": "8ba6d2dc-5b4a-4a9c-9630-175c24994165",
+          "commentCount": 0,
+          "likeCount": 0,
+          "liked": false,
+          "canLike": true
+        }
+      ]
+    }
+  },
+  {
+    "label": "paid valid content grant PUT",
+    "method": "PUT",
+    "path": "/content-interactions/8ba6d2dc-5b4a-4a9c-9630-175c24994165/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 1,
+      "liked": true
+    }
+  },
+  {
+    "label": "paid expired read",
+    "method": "GET",
+    "path": "/content-interactions?ids=8ba6d2dc-5b4a-4a9c-9630-175c24994165",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "authenticated": true,
+      "items": [
+        {
+          "id": "8ba6d2dc-5b4a-4a9c-9630-175c24994165",
+          "commentCount": 0,
+          "likeCount": 1,
+          "liked": true,
+          "canLike": false
+        }
+      ]
+    }
+  },
+  {
+    "label": "paid expired PUT rejected",
+    "method": "PUT",
+    "path": "/content-interactions/8ba6d2dc-5b4a-4a9c-9630-175c24994165/like",
+    "status": 403,
+    "cache": "private, no-store",
+    "body": {
+      "error": {
+        "code": "forbidden",
+        "message": "订阅或兑换此作品后可点赞"
+      }
+    }
+  },
+  {
+    "label": "paid expired DELETE rejected",
+    "method": "DELETE",
+    "path": "/content-interactions/8ba6d2dc-5b4a-4a9c-9630-175c24994165/like",
+    "status": 403,
+    "cache": "private, no-store",
+    "body": {
+      "error": {
+        "code": "forbidden",
+        "message": "订阅或兑换此作品后可点赞"
+      }
+    }
+  },
+  {
+    "label": "paid revoked read",
+    "method": "GET",
+    "path": "/content-interactions?ids=8ba6d2dc-5b4a-4a9c-9630-175c24994165",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "authenticated": true,
+      "items": [
+        {
+          "id": "8ba6d2dc-5b4a-4a9c-9630-175c24994165",
+          "commentCount": 0,
+          "likeCount": 1,
+          "liked": true,
+          "canLike": false
+        }
+      ]
+    }
+  },
+  {
+    "label": "paid revoked PUT rejected",
+    "method": "PUT",
+    "path": "/content-interactions/8ba6d2dc-5b4a-4a9c-9630-175c24994165/like",
+    "status": 403,
+    "cache": "private, no-store",
+    "body": {
+      "error": {
+        "code": "forbidden",
+        "message": "订阅或兑换此作品后可点赞"
+      }
+    }
+  },
+  {
+    "label": "paid revoked DELETE rejected",
+    "method": "DELETE",
+    "path": "/content-interactions/8ba6d2dc-5b4a-4a9c-9630-175c24994165/like",
+    "status": 403,
+    "cache": "private, no-store",
+    "body": {
+      "error": {
+        "code": "forbidden",
+        "message": "订阅或兑换此作品后可点赞"
+      }
+    }
+  },
+  {
+    "label": "paid future read",
+    "method": "GET",
+    "path": "/content-interactions?ids=8ba6d2dc-5b4a-4a9c-9630-175c24994165",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "authenticated": true,
+      "items": [
+        {
+          "id": "8ba6d2dc-5b4a-4a9c-9630-175c24994165",
+          "commentCount": 0,
+          "likeCount": 1,
+          "liked": true,
+          "canLike": false
+        }
+      ]
+    }
+  },
+  {
+    "label": "paid future PUT rejected",
+    "method": "PUT",
+    "path": "/content-interactions/8ba6d2dc-5b4a-4a9c-9630-175c24994165/like",
+    "status": 403,
+    "cache": "private, no-store",
+    "body": {
+      "error": {
+        "code": "forbidden",
+        "message": "订阅或兑换此作品后可点赞"
+      }
+    }
+  },
+  {
+    "label": "paid future DELETE rejected",
+    "method": "DELETE",
+    "path": "/content-interactions/8ba6d2dc-5b4a-4a9c-9630-175c24994165/like",
+    "status": 403,
+    "cache": "private, no-store",
+    "body": {
+      "error": {
+        "code": "forbidden",
+        "message": "订阅或兑换此作品后可点赞"
+      }
+    }
+  },
+  {
+    "label": "paid valid subscription read",
+    "method": "GET",
+    "path": "/content-interactions?ids=8ba6d2dc-5b4a-4a9c-9630-175c24994165",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "authenticated": true,
+      "items": [
+        {
+          "id": "8ba6d2dc-5b4a-4a9c-9630-175c24994165",
+          "commentCount": 0,
+          "likeCount": 1,
+          "liked": true,
+          "canLike": true
+        }
+      ]
+    }
+  },
+  {
+    "label": "paid valid subscription DELETE",
+    "method": "DELETE",
+    "path": "/content-interactions/8ba6d2dc-5b4a-4a9c-9630-175c24994165/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 0,
+      "liked": false
+    }
+  },
+  {
+    "label": "other user without paid grant",
+    "method": "PUT",
+    "path": "/content-interactions/8ba6d2dc-5b4a-4a9c-9630-175c24994165/like",
+    "status": 403,
+    "cache": "private, no-store",
+    "body": {
+      "error": {
+        "code": "forbidden",
+        "message": "订阅或兑换此作品后可点赞"
+      }
+    }
+  },
+  {
+    "label": "draft content omitted",
+    "method": "GET",
+    "path": "/content-interactions?ids=bf2e1a39-af29-41f1-960a-629334c7eaf2",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "authenticated": true,
+      "items": []
+    }
+  },
+  {
+    "label": "draft like rejected",
+    "method": "PUT",
+    "path": "/content-interactions/bf2e1a39-af29-41f1-960a-629334c7eaf2/like",
+    "status": 404,
+    "cache": "private, no-store",
+    "body": {
+      "error": {
+        "code": "not_found",
+        "message": "内容不存在或未发布"
+      }
+    }
+  },
+  {
+    "label": "boundary published PUT",
+    "method": "PUT",
+    "path": "/content-interactions/bf2e1a39-af29-41f1-960a-629334c7eaf2/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 1,
+      "liked": true
+    }
+  },
+  {
+    "label": "unpublished content omitted",
+    "method": "GET",
+    "path": "/content-interactions?ids=bf2e1a39-af29-41f1-960a-629334c7eaf2",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "authenticated": true,
+      "items": []
+    }
+  },
+  {
+    "label": "unpublished DELETE rejected",
+    "method": "DELETE",
+    "path": "/content-interactions/bf2e1a39-af29-41f1-960a-629334c7eaf2/like",
+    "status": 404,
+    "cache": "private, no-store",
+    "body": {
+      "error": {
+        "code": "not_found",
+        "message": "内容不存在或未发布"
+      }
+    }
+  },
+  {
+    "label": "deleted content cascade",
+    "rows": []
+  },
+  {
+    "label": "deleted content PUT rejected",
+    "method": "PUT",
+    "path": "/content-interactions/bf2e1a39-af29-41f1-960a-629334c7eaf2/like",
+    "status": 404,
+    "cache": "private, no-store",
+    "body": {
+      "error": {
+        "code": "not_found",
+        "message": "内容不存在或未发布"
+      }
+    }
+  },
+  {
+    "label": "disabled user invalidated",
+    "method": "PUT",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 401,
+    "cache": "private, no-store",
+    "body": {
+      "error": {
+        "code": "unauthorized",
+        "message": "需要登录"
+      }
+    }
+  },
+  {
+    "label": "create isolated root comment",
+    "method": "POST",
+    "path": "/contents/demo-audio/comments",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "id": "9e3cd522-62ba-42b2-bf64-722a88eb9a5e",
+      "parentId": null,
+      "createdAt": "2026-10-13T15:54:00.944Z",
+      "author": {
+        "username": "feed_acceptance_0_37fcf6",
+        "displayName": "信息流验收 0",
+        "avatarUrl": null
+      }
+    }
+  },
+  {
+    "label": "create isolated reply",
+    "method": "POST",
+    "path": "/contents/demo-audio/comments",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "id": "95deaa7b-18e1-4f7f-b1b4-0c27a5164dfa",
+      "parentId": "9e3cd522-62ba-42b2-bf64-722a88eb9a5e",
+      "createdAt": "2026-10-13T15:54:00.953Z",
+      "author": {
+        "username": "feed_acceptance_1_03fb7f",
+        "displayName": "信息流验收 1",
+        "avatarUrl": null
+      }
+    }
+  },
+  {
+    "label": "comment count includes root and reply",
+    "method": "GET",
+    "path": "/content-interactions?ids=8c154081-fafc-4e76-9f24-f5251bc8645f",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "authenticated": true,
+      "items": [
+        {
+          "id": "8c154081-fafc-4e76-9f24-f5251bc8645f",
+          "commentCount": 2,
+          "likeCount": 0,
+          "liked": false,
+          "canLike": true
+        }
+      ]
+    }
+  },
+  {
+    "label": "soft delete isolated reply",
+    "method": "DELETE",
+    "path": "/comments/95deaa7b-18e1-4f7f-b1b4-0c27a5164dfa",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "ok": true
+    }
+  },
+  {
+    "label": "comment count excludes soft deletion",
+    "method": "GET",
+    "path": "/content-interactions?ids=8c154081-fafc-4e76-9f24-f5251bc8645f",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "authenticated": true,
+      "items": [
+        {
+          "id": "8c154081-fafc-4e76-9f24-f5251bc8645f",
+          "commentCount": 1,
+          "likeCount": 0,
+          "liked": false,
+          "canLike": true
+        }
+      ]
+    }
+  }
+]

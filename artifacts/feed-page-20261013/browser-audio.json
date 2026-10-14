@@ -1,0 +1,19 @@
+{
+  "audio": [
+    {
+      "duration": 3,
+      "paused": true,
+      "readyState": 4
+    }
+  ],
+  "audioSkin": {
+    "background": "rgba(0, 0, 0, 0)",
+    "controlsBackground": "transparent",
+    "mediaBackground": "transparent"
+  },
+  "canvas": "rgb(253, 254, 255)",
+  "reading": {
+    "background": "rgba(0, 0, 0, 0)",
+    "width": 768
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "scope": "artifact bytes vs private environment values; independent agent also scanned its random credentials",
+  "filesChecked": 127,
+  "findings": [],
+  "productionChanged": false
+}

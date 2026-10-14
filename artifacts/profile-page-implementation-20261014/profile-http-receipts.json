@@ -1,0 +1,90 @@
+{
+  "truncated": false,
+  "hasMore": false,
+  "responses": [
+    {
+      "path": "/api/me/profile",
+      "status": 200,
+      "mimeType": "application/json",
+      "sequence": 91
+    },
+    {
+      "path": "/api/me/profile",
+      "status": 200,
+      "mimeType": "application/json",
+      "sequence": 203
+    },
+    {
+      "path": "/api/me/avatar",
+      "status": 200,
+      "mimeType": "application/json",
+      "sequence": 229
+    },
+    {
+      "path": "/api/avatars/31690ac8-0795-4b62-9e11-c31283b9efbc",
+      "status": 200,
+      "mimeType": "image/webp",
+      "sequence": 235
+    },
+    {
+      "path": "/api/me/avatar",
+      "status": 200,
+      "mimeType": "application/json",
+      "sequence": 243
+    },
+    {
+      "path": "/api/me/avatar",
+      "status": 200,
+      "mimeType": "application/json",
+      "sequence": 249
+    },
+    {
+      "path": "/api/me/profile",
+      "status": 400,
+      "mimeType": "application/json",
+      "sequence": 257
+    },
+    {
+      "path": "/api/me/profile",
+      "status": 200,
+      "mimeType": "application/json",
+      "sequence": 268
+    },
+    {
+      "path": "/api/me/profile",
+      "status": 200,
+      "mimeType": "application/json",
+      "sequence": 278
+    },
+    {
+      "path": "/api/me/profile",
+      "status": 200,
+      "mimeType": "application/json",
+      "sequence": 518
+    },
+    {
+      "path": "/api/me/profile",
+      "status": 200,
+      "mimeType": "application/json",
+      "sequence": 530
+    },
+    {
+      "path": "/api/me/profile",
+      "status": 200,
+      "mimeType": "application/json",
+      "sequence": 654
+    },
+    {
+      "path": "/api/auth/logout",
+      "status": 200,
+      "mimeType": "application/json",
+      "sequence": 677
+    },
+    {
+      "path": "/api/me/profile",
+      "status": 401,
+      "mimeType": "application/json",
+      "sequence": 947
+    }
+  ]
+}

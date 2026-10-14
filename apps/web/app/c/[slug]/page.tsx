@@ -6,7 +6,7 @@ import { apiFetch } from "@/lib/api";
 import type { CollectionDetail } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { SiteHeader } from "@/components/site-header";
-import { formatDate, TYPE_LABEL } from "@/components/feed-timeline";
+import { formatDate } from "@/components/feed-timeline";
 import { DetailTracker } from "@/components/analytics";
 
 export const dynamic = "force-dynamic";
@@ -38,7 +38,7 @@ export default async function CollectionPage({ params }: Props) {
     <>
       <SiteHeader />
       {/* 与文章页同一阅读栏（布局容器 max-w-3xl） */}
-      <main className="py-8">
+      <main className="py-5">
         <DetailTracker targetKind="collection" targetId={collection.id} />
         <header>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -49,8 +49,8 @@ export default async function CollectionPage({ params }: Props) {
           {collection.description && <p className="mt-3 text-muted-foreground">{collection.description}</p>}
         </header>
 
-        <div className="mt-8 divide-y divide-border">
-          {collection.items.length === 0 && <p className="py-10 text-center text-sm text-muted-foreground">合集暂无内容。</p>}
+        <div className="mt-5 divide-y divide-border">
+          {collection.items.length === 0 && <p className="py-6 text-center text-sm text-muted-foreground">合集暂无内容。</p>}
           {collection.items.map((item, i) => (
             <article key={item.slug} className="group flex items-baseline gap-4 py-4">
               <span className="shrink-0 text-sm tabular-nums text-muted-foreground">{String(i + 1).padStart(2, "0")}</span>
@@ -60,7 +60,6 @@ export default async function CollectionPage({ params }: Props) {
                 </Link>
                 {item.description && <p className="mt-1 line-clamp-1 text-sm text-muted-foreground">{item.description}</p>}
                 <div className="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
-                  <span>{TYPE_LABEL[item.type]}</span>
                   <time>{formatDate(item.publishedAt)}</time>
                   {item.access === "preview" && item.visibility === "paid" && (
                     <span className="inline-flex items-center gap-1">

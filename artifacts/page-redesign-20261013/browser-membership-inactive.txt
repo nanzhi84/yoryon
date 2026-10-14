@@ -1,0 +1,79 @@
+Window: "订阅 · Yoryon", App: Google Chrome.
+0 standard window 订阅 · Yoryon - Google Chrome (Incognito), URL: localhost:3015/subscription, Secondary Actions: Raise
+	1 container 订阅 · Yoryon - Google Chrome (Incognito), URL: localhost:3015/subscription
+		2 container
+			3 toolbar
+				4 button Back
+				5 button (disabled) Forward
+				6 button Reload
+				7 container
+					8 pop up button View site information
+					9 text field (settable) Address and search bar, Value: localhost:3015/subscription, Placeholder: Ask Google or type a URL
+					10 button Bookmark this tab
+				11 button Incognito
+				12 pop up button Chrome
+			13 container
+				14 scroll area
+					15 HTML content 订阅 · Yoryon, URL: localhost:3015/subscription
+						16 container
+							17 link Yoryon, Value: localhost:3015/
+							18 pop up button 全站搜索
+							19 link 通知, Value: localhost:3015/notifications
+							20 pop up button 账户菜单
+							21 container 主导航
+								22 link 首页, Value: localhost:3015/
+								23 link 订阅, Value: localhost:3015/subscription
+								24 pop up button 探索
+						25 container
+							26 container 会员状态
+								27 heading 支持我的持续创作, Value: 1
+									28 text 支持我的持续创作
+								29 container
+									30 text ¥29.9  / 月
+								31 text 读得更深入，交流更直接。
+								32 container
+									33 text 专属作品   每月一次提问   会员讨论
+								34 link 兑换激活码，开通会员, Value: localhost:3015/redeem?returnTo=%2Fsubscription%23membership
+								35 text 使用已有激活码兑换会员权益。
+							36 container 会员问答
+								37 heading 会员问答, Value: 2
+									38 text 会员问答
+								39 text 公开问题所有人可读，回答和讨论向会员开放。每个自然月可提问一次。
+								40 toggle button 公开问答, Value: 1
+								41 toggle button 我的问答, Value: 0
+								42 text 还没有公开问答。
+							43 container 会员作品
+								44 heading 会员作品, Value: 2
+									45 text 会员作品
+								46 text 未订阅时可查看作品介绍和公开预览。
+								47 container
+									48 link 付费演示文章（含图片与视频）, Value: localhost:3015/p/demo-paid
+									49 text 2026.10.11 付费墙 + 内联多媒体演示 长文 付费
+									50 link #demo, Value: localhost:3015/tags/demo
+						51 text 订阅 · Yoryon
+			52 tab group
+				53 container
+					54 button Expand Tabs
+					55 pop up button Tab search
+				56 container
+					57 scroll area
+					58 scroll area
+						59 tab (selected, settable, boolean) 订阅 · Yoryon - Memory usage - 117 MB, Value: on
+				60 button New tab
+		61 text localhost:3015/subscription
+	62 close button
+	63 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	64 minimize button
+65 menu bar
+	66 Chrome
+	67 File
+	68 Edit
+	69 View
+	70 History
+	71 Bookmarks
+	72 Profiles
+	73 Tab
+	74 Window
+	75 Help
+
+The focused UI element is 15 HTML content 订阅 · Yoryon, URL: localhost:3015/subscription

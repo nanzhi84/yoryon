@@ -1,0 +1,21 @@
+{
+  "dark": true,
+  "items": [
+    {
+      "checked": null,
+      "role": "menuitem",
+      "text": "登录"
+    },
+    {
+      "checked": null,
+      "role": "menuitem",
+      "text": "注册"
+    },
+    {
+      "checked": "true",
+      "role": "menuitemcheckbox",
+      "text": "深色外观"
+    }
+  ],
+  "text": "登录注册外观深色外观"
+}

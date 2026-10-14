@@ -1,0 +1,746 @@
+diff --git a/apps/api/src/app.ts b/apps/api/src/app.ts
+index b6d9296..2507f95 100644
+--- a/apps/api/src/app.ts
++++ b/apps/api/src/app.ts
+@@ -16,6 +16,7 @@ import { redemptionRoutes } from "./routes/redemptions";
+ import { analyticsRoutes } from "./routes/analytics";
+ import { cacheRoutes } from "./routes/cache";
+ import { commentRoutes } from "./routes/comments";
++import { contentInteractionRoutes } from "./routes/content-interactions";
+ import { notificationRoutes } from "./routes/notifications";
+ import { questionDiscussionRoutes } from "./routes/question-discussions";
+ import { questionRoutes } from "./routes/questions";
+@@ -76,6 +77,7 @@ export function createApp(deps: AppDeps) {
+   app.route("/api", publicImageRoutes(deps, policy));
+   app.route("/api", redemptionRoutes(deps));
+   app.route("/api", commentRoutes(deps));
++  app.route("/api", contentInteractionRoutes(deps));
+   app.route("/api", notificationRoutes(deps));
+   app.route("/api", questionRoutes(deps));
+   app.route("/api", questionDiscussionRoutes(deps));
+diff --git a/apps/api/src/routes/post-feed.ts b/apps/api/src/routes/post-feed.ts
+index 9640adf..5079f1b 100644
+--- a/apps/api/src/routes/post-feed.ts
++++ b/apps/api/src/routes/post-feed.ts
+@@ -12,7 +12,7 @@ export async function postFeedBodies(db: Reader, ids: string[], mediaBlockWeight
+     previewMode: contents.previewMode, previewPercent: contents.previewPercent }).from(contents)
+     .where(and(inArray(contents.id, ids), eq(contents.type, "post"), eq(contents.status, "published")));
+   const media = await db.select({ contentId: contentMedia.contentId, mediaId: contentMedia.mediaId,
+-    exposure: contentMedia.exposure, mimeType: mediaAssets.mimeType, width: mediaAssets.width, height: mediaAssets.height }).from(contentMedia)
++    exposure: contentMedia.exposure, mimeType: mediaAssets.mimeType, width: mediaAssets.width, height: mediaAssets.height, durationSec: mediaAssets.durationSec }).from(contentMedia)
+     .innerJoin(mediaAssets, eq(contentMedia.mediaId, mediaAssets.id)).where(inArray(contentMedia.contentId, ids));
+   return new Map(rows.map(row => {
+     const preview = publicPreview(row, mediaBlockWeight);
+diff --git a/apps/web/app/api/[...path]/route.ts b/apps/web/app/api/[...path]/route.ts
+index c4dceb0..03401ec 100644
+--- a/apps/web/app/api/[...path]/route.ts
++++ b/apps/web/app/api/[...path]/route.ts
+@@ -9,7 +9,7 @@
+ import { type NextRequest, NextResponse } from "next/server";
+ import { buildApiHeaders, csrfCheck, getBffConfig, readBodyCapped, readBodyBytesCapped, readSessionCookie, resolvePlatformClientIp, clearSessionCookie, setSessionCookie } from "@/lib/bff";
+ 
+-const ALLOWED_PATH = /^\/api\/(search(?:\/locate)?|auth\/[a-z-]+|feed|paid-feed|public\/(?:contents\/[^/]+|references\/[0-9a-fA-F-]{36})|contents\/[^/]+(?:\/comments(?:\/context)?)?|comments\/liked|comments\/[0-9a-fA-F-]{36}(?:\/(?:like|replies|locate))?|collections(?:\/[^/]+)?|tags(?:\/[^/]+)?|media\/[0-9a-fA-F-]{36}|redemptions|me\/(?:entitlements|membership|profile|avatar)|users\/[0-9a-fA-F-]{36}\/profile|avatars\/[0-9a-fA-F-]{36}|questions(?:\/(?:public|mine|[0-9a-fA-F-]{36}(?:\/comments(?:\/(?:context|[0-9a-fA-F-]{36}\/replies))?)?))?|notifications(?:\/(?:unread-count|read-all|[0-9a-fA-F-]{36}\/read))?|analytics\/events)$/;
++const ALLOWED_PATH = /^\/api\/(search(?:\/locate)?|auth\/[a-z-]+|feed|paid-feed|public\/(?:contents\/[^/]+|references\/[0-9a-fA-F-]{36})|contents\/[^/]+(?:\/comments(?:\/context)?)?|content-interactions(?:\/[0-9a-fA-F-]{36}\/like)?|comments\/liked|comments\/[0-9a-fA-F-]{36}(?:\/(?:like|replies|locate))?|collections(?:\/[^/]+)?|tags(?:\/[^/]+)?|media\/[0-9a-fA-F-]{36}|redemptions|me\/(?:entitlements|membership|profile|avatar)|users\/[0-9a-fA-F-]{36}\/profile|avatars\/[0-9a-fA-F-]{36}|questions(?:\/(?:public|mine|[0-9a-fA-F-]{36}(?:\/comments(?:\/(?:context|[0-9a-fA-F-]{36}\/replies))?)?))?|notifications(?:\/(?:unread-count|read-all|[0-9a-fA-F-]{36}\/read))?|analytics\/events)$/;
+ 
+ /** analytics ingest 请求体字节上限（与 API 侧 MAX_BODY_BYTES 一致） */
+ const ANALYTICS_MAX_BODY_BYTES = 32 * 1024;
+diff --git a/apps/web/app/globals.css b/apps/web/app/globals.css
+index 63f5045..fcbb6dd 100644
+--- a/apps/web/app/globals.css
++++ b/apps/web/app/globals.css
+@@ -1,37 +1,52 @@
+ @import "tailwindcss";
+ @plugin "@tailwindcss/typography";
+ 
+-/* ADR-0005：Zinc 中性色；dark 经 class 策略 */
++/* ADR-0005：头像取色的浅蓝灰品牌色；dark 经 class 策略。 */
+ @custom-variant dark (&:where(.dark, .dark *));
+ 
+ :root {
+-  --background: oklch(1 0 0);
+-  --foreground: oklch(0.141 0.005 285.823);
+-  --muted: oklch(0.967 0.001 286.375);
+-  --muted-foreground: oklch(0.552 0.016 285.938);
+-  --border: oklch(0.92 0.004 286.32);
+-  --accent: oklch(0.21 0.006 285.885);
+-  --accent-foreground: oklch(0.985 0 0);
++  --background: #fdfeff;
++  --canvas: #fdfeff;
++  --foreground: #253947;
++  --muted: #edf5fa;
++  --muted-foreground: #607383;
++  --border: #dfeaf0;
++  --primary: #47758f;
++  --primary-foreground: #ffffff;
++  --accent: #eaf4fa;
++  --accent-foreground: #253947;
++  --surface: #f1f8fc;
++  --surface-border: #d5e7f1;
+ }
+ 
+ :root[class~="dark"] {
+-  --background: oklch(0.141 0.005 285.823);
+-  --foreground: oklch(0.985 0 0);
+-  --muted: oklch(0.274 0.006 286.033);
+-  --muted-foreground: oklch(0.705 0.015 286.067);
+-  --border: oklch(1 0 0 / 10%);
+-  --accent: oklch(0.92 0.004 286.32);
+-  --accent-foreground: oklch(0.21 0.006 285.885);
++  --background: #14212a;
++  --canvas: #14212a;
++  --foreground: #e7f1f6;
++  --muted: #22343f;
++  --muted-foreground: #a1b6c3;
++  --border: #2c404d;
++  --primary: #9cc7dd;
++  --primary-foreground: #142b38;
++  --accent: #263e4d;
++  --accent-foreground: #e7f1f6;
++  --surface: #192c38;
++  --surface-border: #365465;
+ }
+ 
+ @theme inline {
+   --color-background: var(--background);
++  --color-canvas: var(--canvas);
+   --color-foreground: var(--foreground);
+   --color-muted: var(--muted);
+   --color-muted-foreground: var(--muted-foreground);
+   --color-border: var(--border);
++  --color-primary: var(--primary);
++  --color-primary-foreground: var(--primary-foreground);
+   --color-accent: var(--accent);
+   --color-accent-foreground: var(--accent-foreground);
++  --color-surface: var(--surface);
++  --color-surface-border: var(--surface-border);
+   --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Segoe UI", sans-serif;
+ }
+ 
+@@ -41,13 +56,41 @@ html {
+ }
+ 
+ body {
+-  background: var(--background);
++  background: var(--canvas);
+   color: var(--foreground);
+   font-family: var(--font-sans);
+ }
+ 
++/* 已安装 Video.js audio skin 的语义变量：播放后继续与阅读页融为一体。 */
++.yoryon-audio-player {
++  --media-background: transparent;
++  --media-controls: transparent;
++  --media-border: transparent;
++  --media-surface-border: transparent;
++  --media-foreground: var(--foreground);
++  --media-controls-foreground: var(--foreground);
++  --media-muted-foreground: var(--muted-foreground);
++  --media-default-accent-color: var(--primary);
++  --media-default-accent-text-color: var(--primary-foreground);
++  --media-popover: var(--background);
++  --media-popover-foreground: var(--foreground);
++}
++
+ /* 中文排印调优（ADR-0005 §8.3） */
+ .prose-yoryon {
++  --tw-prose-body: var(--foreground);
++  --tw-prose-headings: var(--foreground);
++  --tw-prose-lead: var(--muted-foreground);
++  --tw-prose-links: var(--primary);
++  --tw-prose-bold: var(--foreground);
++  --tw-prose-counters: var(--muted-foreground);
++  --tw-prose-bullets: var(--muted-foreground);
++  --tw-prose-hr: var(--border);
++  --tw-prose-quotes: var(--foreground);
++  --tw-prose-quote-borders: var(--border);
++  --tw-prose-captions: var(--muted-foreground);
++  --tw-prose-th-borders: var(--border);
++  --tw-prose-td-borders: var(--border);
+   line-height: 1.8;
+   /* Long source URLs wrap; preformatted code retains its own scrolling area. */
+   overflow-wrap: anywhere;
+diff --git a/apps/web/app/layout.tsx b/apps/web/app/layout.tsx
+index f6a86fa..e6887dd 100644
+--- a/apps/web/app/layout.tsx
++++ b/apps/web/app/layout.tsx
+@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode })
+         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+       </head>
+       <body className="min-h-screen antialiased">
+-        <div className="mx-auto max-w-3xl px-4 sm:px-6">
++        <div className="mx-auto min-h-screen max-w-3xl px-4 sm:px-6">
+           {children}
+         </div>
+       </body>
+diff --git a/apps/web/app/page.tsx b/apps/web/app/page.tsx
+index 0c74ac1..e85d0cc 100644
+--- a/apps/web/app/page.tsx
++++ b/apps/web/app/page.tsx
+@@ -4,10 +4,12 @@ import { FeedTimeline } from "@/components/feed-timeline";
+ import { SiteHeader } from "@/components/site-header";
+ import { LoadMore } from "@/components/load-more";
+ import { AnalyticsListProvider } from "@/components/analytics";
++import Link from "next/link";
++import { ArrowRight } from "lucide-react";
+ 
+ const revalidateSec = Number(process.env.FEED_REVALIDATE_SEC ?? 86400);
+ 
+-/** 首页：纯内容信息流（合集为顶层结构，仅在 /c 列表展示，不混入 feed）。容器宽度由 layout 统一控制。 */
++/** 首页以真实内容时间线为主；合集仍仅在 /c 展示，底部提示进入订阅页。 */
+ export default async function HomePage() {
+   const res = await fetchCatalog("/api/feed", { revalidate: revalidateSec, tags: ["feed"] });
+   if (!res.ok) throw new Error(`feed API ${res.status}`);
+@@ -29,6 +31,12 @@ export default async function HomePage() {
+             {feed?.nextCursor && <LoadMore version={feed.version} initialCursor={feed.nextCursor} showPinnedBadge />}
+           </AnalyticsListProvider>
+         )}
++        <section aria-label="订阅支持" className="mt-6 flex flex-wrap items-center justify-between gap-4 py-5">
++          <p className="text-sm font-medium">更深入的作品，更直接的交流。</p>
++          <Link href="/subscription" prefetch={false} className="inline-flex min-h-11 items-center gap-2 text-sm text-primary hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
++            了解订阅 <ArrowRight className="size-4" aria-hidden="true" />
++          </Link>
++        </section>
+       </main>
+     </>
+   );
+diff --git a/apps/web/components/analytics.tsx b/apps/web/components/analytics.tsx
+index 0c8e60d..bf12873 100644
+--- a/apps/web/components/analytics.tsx
++++ b/apps/web/components/analytics.tsx
+@@ -10,7 +10,7 @@
+  */
+ "use client";
+ 
+-import { createContext, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
++import { createContext, useContext, useEffect, useMemo, useRef, useState, type ReactNode, type MouseEvent } from "react";
+ import Link from "next/link";
+ import {
+   analyticsDisabled,
+@@ -112,25 +112,19 @@ export function TrackClickLink({
+   href,
+   className,
+   children,
+-}: TrackableProps & { href: string; className?: string }) {
++  "aria-label": ariaLabel,
++  native = false,
++}: TrackableProps & { href: string; className?: string; "aria-label"?: string; native?: boolean }) {
+   const ctx = useContext(AnalyticsListContext);
+   const send = () => {
+     if (!ctx) return;
+     trackEvent({ eventType: "click", targetKind, targetId, placement: ctx.placement, pageViewId: ctx.listViewId });
+   };
+-  return (
+-    <Link prefetch={false}
+-      href={href}
+-      className={className}
+-      onClick={send}
+-      // 鼠标中键新标签打开走 auxclick（button=1），同样是主动点击入口；右键（button=2）不计
+-      onAuxClick={(e) => {
+-        if (e.button === 1) send();
+-      }}
+-    >
+-      {children}
+-    </Link>
+-  );
++  const props = { href, className, "aria-label": ariaLabel, onClick: send,
++    // 鼠标中键是主动入口，右键不计；原生锚点导航沿用相同指标口径。
++    onAuxClick: (event: MouseEvent<HTMLAnchorElement>) => { if (event.button === 1) send(); } };
++  // Next 客户端首次跨 revision rewrite 导航会丢失 fragment；评论用完整文档导航保留锚点。
++  return native ? <a {...props}>{children}</a> : <Link prefetch={false} {...props}>{children}</Link>;
+ }
+ 
+ export function DetailTracker({ targetKind, targetId }: { targetKind: AnalyticsTargetKind; targetId: string }) {
+diff --git a/apps/web/components/comment-section.tsx b/apps/web/components/comment-section.tsx
+index fa634eb..34102af 100644
+--- a/apps/web/components/comment-section.tsx
++++ b/apps/web/components/comment-section.tsx
+@@ -256,7 +256,7 @@ export function CommentSection({ slug, questionId }: { slug: string; questionId?
+   }
+ 
+   return (
+-    <section className="mt-12 border-t pt-8" aria-label="评论区">
++    <section id={questionId ? undefined : "comments"} className="mt-12 scroll-mt-6 border-t pt-8" aria-label="评论区">
+       <h2 className="text-lg font-medium">评论{total > 0 ? `（${total}）` : ""}</h2>
+ 
+       {/* 输入区：按互动上下文呈现 */}
+diff --git a/apps/web/components/feed-timeline.tsx b/apps/web/components/feed-timeline.tsx
+index 85bb792..6e3a6c7 100644
+--- a/apps/web/components/feed-timeline.tsx
++++ b/apps/web/components/feed-timeline.tsx
+@@ -4,6 +4,8 @@ import { Badge } from "@/components/ui/badge";
+ import { TrackClickLink, TrackImpression } from "@/components/analytics";
+ import type { CollectionListItem, FeedContentItem, FeedItem } from "@/lib/types";
+ import { PostEntry } from "./post-entry";
++import { ContentActions, ContentInteractions } from "./content-actions";
++import { ArrowRight } from "lucide-react";
+ 
+ export const TYPE_LABEL: Record<FeedContentItem["type"], string> = {
+   article: "长文",
+@@ -12,18 +14,18 @@ export const TYPE_LABEL: Record<FeedContentItem["type"], string> = {
+ 
+ export function formatDate(iso: string | null): string {
+   if (!iso) return "";
+-  return new Date(iso).toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric", timeZone: "Asia/Singapore" });
++  return new Date(iso).toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit", timeZone: "Asia/Singapore" }).replaceAll("/", ".");
+ }
+ 
+ /** 信息流内容条目：标题 + 日期 / 封面 + 简介 / 类型 + 标签，点进详情。 */
+ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem; showPinnedBadge?: boolean }) {
+   return (
+     <TrackImpression targetKind="work" targetId={item.id}>
+-      <article className="group py-6">
++      <article className="group py-7">
+         <div className="flex items-baseline justify-between gap-4">
+           <div className="flex min-w-0 items-baseline gap-2">
+             <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="min-w-0">
+-              <h2 className="truncate text-lg font-medium leading-snug group-hover:underline underline-offset-4">
++              <h2 className="truncate text-lg font-semibold leading-snug group-hover:underline underline-offset-4 sm:text-xl">
+                 {item.title || `${TYPE_LABEL[item.type]} · ${formatDate(item.publishedAt)}`}
+               </h2>
+             </TrackClickLink>
+@@ -33,27 +35,33 @@ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem
+               </Badge>
+             )}
+           </div>
+-          <time className="shrink-0 text-sm text-muted-foreground">{formatDate(item.publishedAt)}</time>
++          <time dateTime={item.publishedAt ?? undefined} className="shrink-0 text-xs text-muted-foreground">{formatDate(item.publishedAt)}</time>
+         </div>
+-        {item.type === "article" && item.coverMediaId && (
+-          <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="mt-3 block">
++        {item.type === "article" ? <div className="mt-3 flex items-start justify-between gap-5">
++          <div className="min-w-0 flex-1">
++            {item.description && <p className="line-clamp-3 text-sm leading-relaxed text-muted-foreground">{item.description}</p>}
++            <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="mt-3 inline-flex min-h-8 items-center gap-1.5 text-sm text-primary hover:underline underline-offset-4">
++              阅读全文 <ArrowRight className="size-4" aria-hidden="true" />
++            </TrackClickLink>
++          </div>
++          {item.coverMediaId && <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="block w-28 shrink-0 sm:w-36">
+             {/* 受控比例容器（明确的 UI 裁切选择）+ 加载前占位，消除封面 CLS（F08） */}
+-            <div className="aspect-video w-full overflow-hidden rounded-lg bg-muted">
++            <div className="aspect-[4/3] w-full overflow-hidden rounded-lg">
+               {/* eslint-disable-next-line @next/next/no-img-element */}
+-              <img src={publicImageUrl(item.coverMediaId)} srcSet={imageSrcSet(item.coverMediaId, undefined, true)} sizes="(max-width: 768px) 100vw, 768px" alt={item.title} loading="lazy" className="h-full w-full object-cover" />
++              <img src={publicImageUrl(item.coverMediaId)} srcSet={imageSrcSet(item.coverMediaId, undefined, true)} sizes="144px" alt={item.title} loading="lazy" className="h-full w-full object-cover" />
+             </div>
+-          </TrackClickLink>
+-        )}
+-      {item.type === "post" ? <PostEntry item={item} /> : item.description && <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{item.description}</p>}
+-      <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
++          </TrackClickLink>}
++        </div> : <PostEntry item={item} />}
++      <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+         <span>{TYPE_LABEL[item.type]}</span>
+-        {item.visibility === "paid" && <Badge variant="secondary">付费</Badge>}
++        {item.visibility === "paid" && <Badge variant="secondary" className="text-primary">付费</Badge>}
+         {item.tags.map((t) => (
+           <Link prefetch={false} key={t.slug} href={`/tags/${t.slug}`} className="hover:text-foreground">
+             #{t.name}
+           </Link>
+         ))}
+       </div>
++      <ContentActions id={item.id} slug={item.slug} />
+       </article>
+     </TrackImpression>
+   );
+@@ -86,10 +94,10 @@ export function CollectionEntry({ item }: { item: CollectionListItem }) {
+  *  showPinnedBadge 仅首页开启：置顶是 feed 排序语义，标签页不显示标记。 */
+ export function FeedTimeline({ items, showPinnedBadge = false }: { items: FeedItem[]; showPinnedBadge?: boolean }) {
+   return (
+-    <>
++    <ContentInteractions ids={items.map(item => item.id)}>
+       {items.map((item) => (
+         <ContentEntry key={item.id} item={item} showPinnedBadge={showPinnedBadge} />
+       ))}
+-    </>
++    </ContentInteractions>
+   );
+ }
+diff --git a/apps/web/components/inline-media.tsx b/apps/web/components/inline-media.tsx
+index 5c3d656..da7e4b3 100644
+--- a/apps/web/components/inline-media.tsx
++++ b/apps/web/components/inline-media.tsx
+@@ -1,25 +1,60 @@
+ "use client";
+ import { useEffect, useId, useRef, useState } from "react";
+ import { AudioPlayerLazy, VideoPlayerLazy } from "./media-player";
++import { Play } from "lucide-react";
+ 
+-/** 用户点击才挂载播放器；另一个媒体开始或离开视口时卸载，防止长 Feed 同时占用资源。 */
+-export function InlineMedia({ mediaId, kind }: { mediaId: string; kind: "audio" | "video" }) {
++function duration(seconds: number | null | undefined) {
++  if (seconds == null || seconds < 0) return null;
++  return `${Math.floor(seconds / 60).toString().padStart(2, "0")}:${Math.floor(seconds % 60).toString().padStart(2, "0")}`;
++}
++
++/** 控件无卡片底色；仅视口内视频读取真实首帧，播放器仍在点击后才挂载。 */
++export function InlineMedia({ mediaId, kind, durationSec }: { mediaId: string; kind: "audio" | "video"; durationSec?: number | null | undefined }) {
+   const [active, setActive] = useState(false);
++  const [visible, setVisible] = useState(false);
++  const [previewFailed, setPreviewFailed] = useState(false);
+   const id = useId();
+   const host = useRef<HTMLDivElement>(null);
++  const preview = useRef<HTMLVideoElement>(null);
+   useEffect(() => {
+     const change = (event: Event) => { if ((event as CustomEvent<string>).detail !== id) setActive(false); };
+     window.addEventListener("yoryon:media-active", change);
+-    const observer = new IntersectionObserver(entries => { if (!entries.some(e => e.isIntersecting)) setActive(false); });
++    const observer = new IntersectionObserver(entries => {
++      const shown = entries.some(entry => entry.isIntersecting);
++      setVisible(shown); if (!shown) setActive(false);
++    });
+     if (host.current) observer.observe(host.current);
+     return () => { window.removeEventListener("yoryon:media-active", change); observer.disconnect(); };
+   }, [id]);
++  useEffect(() => {
++    const element = preview.current;
++    return () => { if (element) { element.pause(); element.removeAttribute("src"); element.load(); } };
++  }, [visible, active]);
++  const label = `播放${kind === "audio" ? "音频" : "视频"}`;
++  const time = duration(durationSec);
++  function play() {
++    window.dispatchEvent(new CustomEvent("yoryon:media-active", { detail: id })); setActive(true);
++  }
+   return <div ref={host} className="not-prose my-4">
+     {active ? <>
+       {kind === "audio" ? <AudioPlayerLazy mediaId={mediaId} /> : <VideoPlayerLazy mediaId={mediaId} />}
+-      <button type="button" onClick={() => setActive(false)} className="mt-2 text-sm underline">停止并关闭{kind === "audio" ? "音频" : "视频"}</button>
+-    </> : <button type="button" className="w-full rounded-lg border bg-muted p-5 text-left" onClick={() => {
+-      window.dispatchEvent(new CustomEvent("yoryon:media-active", { detail: id })); setActive(true);
+-    }}>播放{kind === "audio" ? "音频" : "视频"}</button>}
++      <button type="button" onClick={() => setActive(false)} className="mt-2 min-h-8 text-xs text-muted-foreground hover:text-primary">停止并关闭{kind === "audio" ? "音频" : "视频"}</button>
++    </> : kind === "audio" ? <button type="button" aria-label={label} onClick={play}
++      className="flex min-h-16 w-full items-center gap-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
++      <span className="flex size-10 shrink-0 items-center justify-center rounded-full text-primary"><Play className="size-5 fill-current" aria-hidden="true" /></span>
++      <span className="text-sm font-medium">{label}</span>
++      <span className="h-px flex-1 bg-border" aria-hidden="true" />
++      {time && <span className="text-xs tabular-nums text-muted-foreground">00:00 / {time}</span>}
++    </button> : <button type="button" aria-label={label} onClick={play}
++      className="relative block aspect-video w-full overflow-hidden rounded-lg text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
++      {visible && !previewFailed && <video ref={preview} src={`/api/media/${mediaId}`} muted playsInline preload="metadata" aria-hidden="true"
++        className="pointer-events-none h-full w-full object-cover" onError={() => setPreviewFailed(true)}
++        onLoadedMetadata={event => { event.currentTarget.currentTime = Math.min(0.01, event.currentTarget.duration / 2); }} />}
++      <span className="absolute inset-0 flex items-center justify-center">
++        <span className="flex size-12 items-center justify-center rounded-full bg-background/90"><Play className="size-5 fill-current" aria-hidden="true" /></span>
++      </span>
++      {previewFailed && <span className="absolute inset-x-0 bottom-3 text-xs text-muted-foreground">预览未加载，点击播放重试</span>}
++      {time && !previewFailed && <span className="absolute right-3 bottom-3 rounded bg-black/50 px-2 py-1 text-xs tabular-nums text-white">{time}</span>}
++    </button>}
+   </div>;
+ }
+diff --git a/apps/web/components/markdown-surface.tsx b/apps/web/components/markdown-surface.tsx
+index e35a5b8..e3fada0 100644
+--- a/apps/web/components/markdown-surface.tsx
++++ b/apps/web/components/markdown-surface.tsx
+@@ -30,7 +30,7 @@ function mediaIdFromSrc(src: unknown): string | null {
+ 
+ export function MarkdownSurface({ markdown, className, mediaSizes, publicImages = false, components = {} }: {
+   markdown: string; className?: string | undefined; publicImages?: boolean;
+-  mediaSizes?: Record<string, { width: number; height: number; mimeType?: string }> | undefined;
++  mediaSizes?: Record<string, { width: number | null; height: number | null; mimeType?: string; durationSec?: number | null }> | undefined;
+   components?: Components;
+ }) {
+   return <div data-search-body className={cn("prose prose-zinc dark:prose-invert prose-yoryon max-w-none", className)}>
+@@ -43,12 +43,12 @@ export function MarkdownSurface({ markdown, className, mediaSizes, publicImages
+                 // eslint-disable-next-line @next/next/no-img-element
+                 <MarkdownImage
+                   src={id && publicImages ? publicImageUrl(id, svg ? "original" : 1280) : typeof src === "string" ? src : ""}
+-                  srcSet={size && id && !svg ? imageSrcSet(id, size.width, publicImages) : undefined}
++                  srcSet={size && id && !svg ? imageSrcSet(id, size.width ?? undefined, publicImages) : undefined}
+                   sizes="(max-width: 768px) 100vw, 768px"
+                   alt={alt ?? ""}
+                   loading="lazy"
+                   decoding="async"
+-                  {...(size ? { width: size.width, height: size.height } : {})}
++                  {...(size?.width && size.height ? { width: size.width, height: size.height } : {})}
+                   className="h-auto max-w-full rounded-lg"
+                   {...props}
+                 />
+@@ -57,12 +57,12 @@ export function MarkdownSurface({ markdown, className, mediaSizes, publicImages
+             "video-player": ({ src }: { src?: string }) => {
+               const id = mediaIdFromSrc(src);
+               if (!id) return null;
+-              return <InlineMedia mediaId={id} kind="video" />;
++              return <InlineMedia mediaId={id} kind="video" durationSec={mediaSizes?.[id]?.durationSec} />;
+             },
+             "audio-player": ({ src }: { src?: string }) => {
+               const id = mediaIdFromSrc(src);
+               if (!id) return null;
+-              return <InlineMedia mediaId={id} kind="audio" />;
++              return <InlineMedia mediaId={id} kind="audio" durationSec={mediaSizes?.[id]?.durationSec} />;
+             },
+             "work-reference": ({ id }: { id?: string }) => id && /^[0-9a-f-]{36}$/i.test(id) ? <WorkReference id={id} /> : null,
+             a: ({ href, children, ...props }) => (
+diff --git a/apps/web/components/member-questions.tsx b/apps/web/components/member-questions.tsx
+index eefe616..ae4714e 100644
+--- a/apps/web/components/member-questions.tsx
++++ b/apps/web/components/member-questions.tsx
+@@ -4,6 +4,7 @@ import Link from "next/link";
+ import type { QuestionItem, QuestionPage } from "@/lib/types";
+ import { Button } from "./ui/button";
+ import { QuestionCard } from "./question-card";
++import { MessageCircle } from "lucide-react";
+ export function MemberQuestions({ active, remaining, authenticated, onAsked }: { active: boolean; remaining: number; authenticated: boolean; onAsked: () => Promise<void> }) {
+   const [scope, setScope] = useState<"public" | "mine">("public");
+   const [items, setItems] = useState<QuestionItem[]>([]);
+@@ -58,13 +59,13 @@ export function MemberQuestions({ active, remaining, authenticated, onAsked }: {
+     {active && remaining > 0 ? <form onSubmit={submit} className="mt-5 space-y-3">
+       <label htmlFor="member-question" className="text-sm font-medium">向创作者提问</label>
+       <textarea id="member-question" rows={3} maxLength={1000} value={draft} onChange={e => setDraft(e.target.value)} className="w-full rounded-md border bg-transparent p-3 text-sm" required />
+-      <div className="flex items-center justify-between gap-4 text-xs"><label className="flex gap-2"><input type="checkbox" checked={privateQuestion} onChange={e => setPrivate(e.target.checked)} />私密问题（仅本人和创作者可读）</label><span>{[...draft].length}/500</span></div>
++      <div className="flex flex-wrap items-center justify-between gap-3 text-xs"><label className="flex items-start gap-2"><input type="checkbox" className="mt-0.5 accent-primary" checked={privateQuestion} onChange={e => setPrivate(e.target.checked)} />私密问题（仅本人和创作者可读）</label><span className="shrink-0">{[...draft].length}/500</span></div>
+       <Button disabled={submitting || [...draft.trim()].length > 500}>{submitting ? "提交中…" : "提交问题"}</Button>
+     </form> : active ? <p className="mt-4 text-sm text-muted-foreground">本月提问次数已用完，下个自然月恢复。</p> : !authenticated ? <p className="mt-4 text-sm"><Link href="/login?returnTo=%2Fsubscription" className="underline">登录</Link> 后查看自己的历史问答。</p> : null}
+     {receipt && <p role="status" className="mt-3 text-sm">{receipt}</p>}{submitError && <p role="alert" className="mt-3 text-sm text-red-500">{submitError}</p>}
+-    <div className="mt-6 flex gap-4 text-sm"><button aria-pressed={scope === "public"} className={scope === "public" ? "font-medium" : "text-muted-foreground"} onClick={() => setScope("public")}>公开问答</button>{authenticated && <button aria-pressed={scope === "mine"} className={scope === "mine" ? "font-medium" : "text-muted-foreground"} onClick={() => setScope("mine")}>我的问答</button>}</div>
++    <div className="mt-5 flex gap-5 border-b border-border text-sm"><button aria-pressed={scope === "public"} className={`min-h-11 border-b-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${scope === "public" ? "border-primary font-medium" : "border-transparent text-muted-foreground"}`} onClick={() => setScope("public")}>公开问答</button>{authenticated && <button aria-pressed={scope === "mine"} className={`min-h-11 border-b-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${scope === "mine" ? "border-primary font-medium" : "border-transparent text-muted-foreground"}`} onClick={() => setScope("mine")}>我的问答</button>}</div>
+     {loading ? <p role="status" className="py-6 text-sm text-muted-foreground">加载中…</p> : <>{error && <p role="alert" className="py-4 text-sm text-red-500">{error} <button className="underline" onClick={() => void refresh()}>刷新列表</button></p>}
+-      {!items.length && !error ? <p className="py-6 text-sm text-muted-foreground">{scope === "mine" ? "还没有提问记录。" : "还没有公开问答。"}</p> : <div className="divide-y divide-border">{items.map(q => <QuestionCard key={q.id} item={q} onPrivacyChanged={() => void refresh()} />)}</div>}
++      {!items.length && !error ? <div className="flex flex-col items-center gap-3 border-b border-border py-8 text-sm text-muted-foreground"><MessageCircle className="size-7 stroke-1" aria-hidden="true" /><p>{scope === "mine" ? "还没有提问记录。" : "还没有公开问答。"}</p></div> : <div className="divide-y divide-border">{items.map(q => <QuestionCard key={q.id} item={q} onPrivacyChanged={() => void refresh()} />)}</div>}
+       {cursor && <Button variant="outline" disabled={paging} onClick={() => { setPaging(true); void load(cursor).catch(e => setError(e.message)).finally(() => setPaging(false)); }}>{paging ? "加载中…" : "加载更多问答"}</Button>}
+     </>}
+   </section>;
+diff --git a/apps/web/components/membership-panel.tsx b/apps/web/components/membership-panel.tsx
+index c2bb7a8..d1ea61e 100644
+--- a/apps/web/components/membership-panel.tsx
++++ b/apps/web/components/membership-panel.tsx
+@@ -3,6 +3,7 @@ import { useState } from "react";
+ import Link from "next/link";
+ import type { Membership } from "@/lib/types";
+ import { MemberQuestions } from "./member-questions";
++import { Button } from "./ui/button";
+ 
+ export function MembershipPanel({ initial, authenticated, unavailable = false }: { initial: Membership | null; authenticated: boolean; unavailable?: boolean }) {
+   const [logged, setLogged] = useState(authenticated);
+@@ -17,14 +18,31 @@ export function MembershipPanel({ initial, authenticated, unavailable = false }:
+     } catch { setError(true); }
+   }
+   return <>
+-    <section id="membership" className="mb-12 rounded-lg bg-muted/50 px-6 py-7" aria-label="会员状态">
+-      {error ? <p role="alert">会员状态加载失败。<button className="underline" onClick={() => void refresh()}>重试</button></p>
+-        : membership?.active ? <><h1 className="text-2xl font-semibold">我的会员</h1>
+-          <p className="mt-3 text-sm">{membership.permanent ? "长期有效" : `到期时间：${new Date(membership.validUntil!).toLocaleString("zh-CN", { timeZone: "Asia/Shanghai", hour12: false })}`}</p>
+-          <p className="mt-2 text-sm">本月剩余提问次数：{membership.questionsRemaining ?? 0} 次</p></>
+-        : <><h1 className="text-2xl font-semibold">支持我的持续创作</h1><p className="mt-3 text-sm text-muted-foreground">¥29.9/月。每月一次会员问答，阅读专属作品，参与会员讨论。</p>
+-          <Link href="/redeem?returnTo=%2Fsubscription%23membership" prefetch={false} className="mt-5 inline-flex rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground">兑换激活码，开通会员</Link>
+-          <p className="mt-2 text-xs text-muted-foreground">使用已有激活码兑换会员权益。</p></>}
++    <section id="membership" className="mb-10 rounded-lg border border-surface-border bg-surface px-5 py-6 sm:px-7" aria-label="会员状态">
++      {error ? <>
++        <h1 className="text-xl font-semibold">会员状态</h1>
++        <p role="alert" className="mt-3 text-sm">会员状态加载失败。<button className="ml-2 min-h-11 text-primary underline underline-offset-4" onClick={() => void refresh()}>重试</button></p>
++      </> : membership?.active ? <>
++        <div className="flex flex-wrap items-center justify-between gap-3">
++          <h1 className="text-xl font-semibold">我的会员</h1>
++          <span className="text-sm text-primary">已开通</span>
++        </div>
++        <p className="mt-4 text-sm text-muted-foreground">{membership.permanent ? "长期有效" : `到期时间：${new Date(membership.validUntil!).toLocaleString("zh-CN", { timeZone: "Asia/Shanghai", hour12: false })}`}</p>
++        <p className="mt-2 text-sm">本月剩余提问次数：{membership.questionsRemaining ?? 0} 次</p>
++      </> : <>
++        <div className="flex flex-wrap items-baseline justify-between gap-x-5 gap-y-2">
++          <h1 className="text-xl font-semibold">支持我的持续创作</h1>
++          <p className="shrink-0 whitespace-nowrap text-sm"><span className="text-xl font-semibold">¥29.9</span> / 月</p>
++        </div>
++        <p className="mt-2 text-sm text-muted-foreground">读得更深入，交流更直接。</p>
++        <p className="mt-5 text-sm leading-relaxed text-muted-foreground">专属作品 <span aria-hidden="true">·</span> 每月一次提问 <span aria-hidden="true">·</span> 会员讨论</p>
++        <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
++          <Button asChild className="min-h-11 px-5">
++            <Link href="/redeem?returnTo=%2Fsubscription%23membership" prefetch={false}>兑换激活码，开通会员</Link>
++          </Button>
++          <p className="text-xs leading-relaxed text-muted-foreground">使用已有激活码兑换会员权益。</p>
++        </div>
++      </>}
+     </section>
+     <MemberQuestions active={!!membership?.active} remaining={membership?.questionsRemaining ?? 0} authenticated={logged} onAsked={refresh} />
+   </>;
+diff --git a/apps/web/components/player.tsx b/apps/web/components/player.tsx
+index d1d5656..86d68e0 100644
+--- a/apps/web/components/player.tsx
++++ b/apps/web/components/player.tsx
+@@ -162,7 +162,7 @@ export function AudioPlayerView({ mediaId }: { mediaId: string }) {
+   if (failed) return <FailedPanel onRetry={manualRetry} compact />;
+   return (
+     <AudioPlayer>
+-      <AudioSkin className="rounded-lg">
++      <AudioSkin className="yoryon-audio-player">
+         <Audio key={retry} src={src} ref={attachMedia as React.Ref<HTMLAudioElement>} preload="metadata" />
+       </AudioSkin>
+     </AudioPlayer>
+diff --git a/apps/web/components/post-entry.tsx b/apps/web/components/post-entry.tsx
+index a0f3cba..83230fe 100644
+--- a/apps/web/components/post-entry.tsx
++++ b/apps/web/components/post-entry.tsx
+@@ -2,7 +2,6 @@
+ import { useCallback, useEffect, useRef, useState } from "react";
+ import type { ContentDetail, FeedContentItem } from "@/lib/types";
+ import { MarkdownSurface } from "./markdown-surface";
+-import { TrackClickLink } from "./analytics";
+ 
+ export function PostEntry({ item }: { item: FeedContentItem }) {
+   const [expanded, setExpanded] = useState<ContentDetail | null>(null);
+@@ -38,16 +37,13 @@ export function PostEntry({ item }: { item: FeedContentItem }) {
+   }
+   const markdown = expanded?.bodyMarkdown ?? item.post?.bodyMarkdown ?? "";
+   const media = expanded?.media ?? item.post?.media ?? [];
+-  const mediaSizes = Object.fromEntries(media.filter(m => m.width && m.height).map(m => [m.mediaId, { width: m.width!, height: m.height!, mimeType: m.mimeType }]));
++  const mediaSizes = Object.fromEntries(media.map(m => [m.mediaId, { width: m.width, height: m.height, mimeType: m.mimeType, durationSec: m.durationSec }]));
+   return <div className="mt-3">
+     <div ref={host} id={`post-${item.id}`} className={expanded ? "" : "max-h-[32rem] overflow-hidden"}>
+       <MarkdownSurface key={expanded ? "expanded" : "folded"} markdown={markdown} mediaSizes={mediaSizes} publicImages={!expanded} />
+     </div>
+     {expanded?.access === "preview" && expanded.hasPaidContent && <p className="mt-3 text-sm text-muted-foreground">以上为当前允许的付费预览，兑换订阅后可阅读全文。</p>}
+     {error && <p role="alert" className="mt-2">帖子加载失败。<button className="underline" onClick={() => void expand()}>重试</button></p>}
+-    <div className="mt-3 flex items-center gap-4 text-sm">
+-      {(item.post?.collapsed || clipped || expanded) && <button type="button" disabled={loading} aria-expanded={!!expanded} aria-controls={`post-${item.id}`} className="underline" onClick={() => expanded ? collapse() : void expand()}>{loading ? "加载中…" : expanded ? "收起" : "展开"}</button>}
+-      <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}#comments`} className="text-muted-foreground underline">详情与评论</TrackClickLink>
+-    </div>
++    {(item.post?.collapsed || clipped || expanded) && <button type="button" disabled={loading} aria-expanded={!!expanded} aria-controls={`post-${item.id}`} className="mt-3 text-sm text-primary hover:underline" onClick={() => expanded ? collapse() : void expand()}>{loading ? "加载中…" : expanded ? "收起" : "展开"}</button>}
+   </div>;
+ }
+diff --git a/apps/web/components/site-header.tsx b/apps/web/components/site-header.tsx
+index 950a558..e2c12a6 100644
+--- a/apps/web/components/site-header.tsx
++++ b/apps/web/components/site-header.tsx
+@@ -1,8 +1,9 @@
+ "use client";
+ 
+ import Link from "next/link";
++import Image from "next/image";
+ import { usePathname } from "next/navigation";
+-import { ChevronDown, UserRound } from "lucide-react";
++import { ChevronDown, Star, UserRound } from "lucide-react";
+ import { Button } from "./ui/button";
+ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
+ import { ThemeMenuItems } from "./theme-menu-items";
+@@ -13,13 +14,14 @@ export function SiteHeader() {
+   const pathname = usePathname();
+   const subscriptionActive = pathname === "/subscription" || pathname.startsWith("/questions/");
+   const exploreActive = pathname === "/explore" || pathname === "/c" || pathname.startsWith("/c/") || pathname.startsWith("/tags/") || pathname === "/about";
+-  const tabClass = "relative flex min-h-14 min-w-11 items-center text-lg transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 sm:text-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/20";
++  const tabClass = "relative flex min-h-14 min-w-11 items-center text-lg transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 sm:text-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary";
+ 
+   return (
+     <header className="border-b border-border pt-6 sm:pt-8">
+-      <div className="flex items-center justify-between gap-4 pb-5 sm:pb-6">
+-        <Link prefetch={false} href="/" className="flex min-h-11 items-center rounded-sm text-2xl font-semibold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/20 sm:text-3xl">
+-          Yoryon
++      <div className="flex items-center justify-between gap-3 pb-5 sm:gap-4 sm:pb-6">
++        <Link prefetch={false} href="/" className="flex min-h-11 shrink-0 items-center gap-2.5 rounded-sm text-xl font-semibold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:gap-3 sm:text-3xl">
++          <Image src="/images/author-avatar.jpg" alt="" width={44} height={44} priority className="size-9 rounded-full border border-surface-border object-cover object-[50%_30%] sm:size-11" />
++          <span>Yoryon</span>
+         </Link>
+         <div className="flex items-center gap-1 sm:gap-2">
+           <SearchDialog />
+@@ -44,11 +46,11 @@ export function SiteHeader() {
+       </div>
+       <nav aria-label="主导航" className="flex items-center justify-between gap-4">
+         <div className="flex gap-6 sm:gap-8">
+-          <Link prefetch={false} href="/" aria-current={pathname === "/" ? "page" : undefined} className={`${tabClass} ${pathname === "/" ? "font-semibold text-foreground after:bg-foreground" : "text-muted-foreground hover:text-foreground"}`}>
++          <Link prefetch={false} href="/" aria-current={pathname === "/" ? "page" : undefined} className={`${tabClass} ${pathname === "/" ? "font-semibold text-foreground after:bg-primary" : "text-muted-foreground hover:text-foreground"}`}>
+             首页
+           </Link>
+-          <Link prefetch={false} href="/subscription" aria-current={subscriptionActive ? pathname === "/subscription" ? "page" : "location" : undefined} className={`${tabClass} ${subscriptionActive ? "font-semibold text-foreground after:bg-foreground" : "text-muted-foreground hover:text-foreground"}`}>
+-            订阅
++          <Link prefetch={false} href="/subscription" aria-current={subscriptionActive ? pathname === "/subscription" ? "page" : "location" : undefined} className={`${tabClass} gap-2 ${subscriptionActive ? "font-semibold text-foreground after:bg-primary" : "text-muted-foreground hover:text-foreground"}`}>
++            订阅 <Star className="size-3 text-primary" aria-hidden="true" />
+           </Link>
+         </div>
+         <DropdownMenu>
+diff --git a/apps/web/components/ui/button.tsx b/apps/web/components/ui/button.tsx
+index 80fc019..014aa81 100644
+--- a/apps/web/components/ui/button.tsx
++++ b/apps/web/components/ui/button.tsx
+@@ -5,11 +5,11 @@ import { cva, type VariantProps } from "class-variance-authority";
+ import { cn } from "@/lib/utils";
+ 
+ const buttonVariants = cva(
+-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/20 disabled:pointer-events-none disabled:opacity-50 cursor-pointer",
++  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 cursor-pointer",
+   {
+     variants: {
+       variant: {
+-        default: "bg-foreground text-background hover:bg-foreground/90",
++        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+         outline: "border border-border bg-transparent hover:bg-muted",
+         ghost: "hover:bg-muted",
+         link: "underline-offset-4 hover:underline",
+diff --git a/apps/web/lib/types.ts b/apps/web/lib/types.ts
+index f349e92..27ed428 100644
+--- a/apps/web/lib/types.ts
++++ b/apps/web/lib/types.ts
+@@ -18,7 +18,7 @@ export interface FeedContentItem {
+   /** 首页置顶标记（仅 feed 排序使用；标签页同一合同但排序不置顶） */
+   isPinned: boolean;
+   tags: FeedTag[];
+-  post?: { bodyMarkdown: string; collapsed: boolean; media: Pick<ContentMediaItem, "mediaId" | "mimeType" | "width" | "height">[] } | null;
++  post?: { bodyMarkdown: string; collapsed: boolean; media: Pick<ContentMediaItem, "mediaId" | "mimeType" | "width" | "height" | "durationSec">[] } | null;
+ }
+ 
+ /** feed 仅含内容条目；合集是顶层结构，只经 /api/collections 列表曝光，不参与混排。 */
+diff --git a/docs/adr/0005-frontend-stack.md b/docs/adr/0005-frontend-stack.md
+index ece738b..109d8f8 100644
+--- a/docs/adr/0005-frontend-stack.md
++++ b/docs/adr/0005-frontend-stack.md
+@@ -22,9 +22,9 @@ v1 需要定稿 UI 组件、正文排版与多媒体播放器方案。约束：
+ 
+ 细则：
+ 
+-1. **设计系统**：Zinc 中性色，Light/Dark Mode（class 策略，dark 变量经 `:root[class~="dark"]`）。
++1. **设计系统**：2026-10-13 按作者确认的头像设计稿改为浅蓝灰品牌色，页面与阅读区使用相同背景，不用外侧画布形成围合边界；信息流媒体入口与长文预览直接融入页面。原始头像由本地静态资产提供，Next Image 优化加载、CSS 圆形裁切。Light/Dark Mode 继续使用 class 策略，双主题语义色经 `:root[class~="dark"]` 切换。正文代码高亮的既有独立配色继续保留。
+ 2. **中文排版**：正文统一 `prose`（dark 下 `prose-invert`），经 `--tw-prose-*` 变量调优：CJK 系统字体栈（PingFang SC / Hiragino Sans GB / Microsoft YaHei / Noto Sans SC）、`line-height ≈ 1.8`、段落间距；阅读栏与站点页头同宽（布局容器 `max-w-3xl`；初版曾为 ≈42rem 居中收窄，后应作者要求取消）。
+-3. **信息流**：轻量时间线形态，以分隔线与留白组织条目；文章不强制封面；不套用企业后台风格的 Card。
++3. **信息流**：保持一栏阅读宽度，日期置于条目上方，正文下方依次为评论、内容点赞、转发。转发只复制永久链接，不采集渠道或新增统计。互动状态在客户端批量读取私有 no-store 接口，不进入公开内容快照。以细分隔线与留白组织条目；文章不强制封面，不使用围合卡片。
+ 4. **播放器**：使用 Video.js 10 模块化 API（`createPlayer({ features })` 按需组合），不使用 v8 的全局 `videojs()` / id 注册表 API；经 `next/dynamic` 按需加载，首页信息流不含播放器代码；音频复用同一播放器。
+ 5. **私有媒体兼容**：播放器 `src` 恒指向 `/api/media/:id`（302 → 15 分钟签名 URL）；签名过期或网络错误时重新请求端点、重置 `src` 并恢复 `currentTime`；OSS 签名 GET 原生支持 HTTP Range（206）；v1 仅直接文件播放，无需桶级 CORS 配置（未来启用 HLS/字幕时再开白名单）。
+ 6. **明确排除**：Magic UI、Aceternity 及一切动画框架；HLS 转码、DRM、视频处理平台。
+diff --git a/packages/core/src/index.ts b/packages/core/src/index.ts
+index 15ce478..e11f8a3 100644
+--- a/packages/core/src/index.ts
++++ b/packages/core/src/index.ts
+@@ -15,6 +15,7 @@ export * from "./references";
+ export * from "./public-preview";
+ export * from "./content-migration";
+ export * from "./comments";
++export * from "./content-interactions";
+ export * from "./questions";
+ export * from "./membership";
+ export * from "./profile";
+diff --git a/packages/db/drizzle/meta/_journal.json b/packages/db/drizzle/meta/_journal.json
+index 11d67c4..84e6869 100644
+--- a/packages/db/drizzle/meta/_journal.json
++++ b/packages/db/drizzle/meta/_journal.json
+@@ -85,6 +85,13 @@
+       "when": 1791856800000,
+       "tag": "0011_literal_search",
+       "breakpoints": true
++    },
++    {
++      "idx": 12,
++      "version": "7",
++      "when": 1791906277406,
++      "tag": "0012_yielding_paper_doll",
++      "breakpoints": true
+     }
+   ]
+-}
++}
+\ No newline at end of file
+diff --git a/packages/db/src/schema.ts b/packages/db/src/schema.ts
+index 453e684..a901f52 100644
+--- a/packages/db/src/schema.ts
++++ b/packages/db/src/schema.ts
+@@ -111,6 +111,16 @@ export const contents = pgTable(
+   ],
+ );
+ 
++/** 内容点赞独立于评论点赞；唯一键保证同一用户一赞，统计直接从事实行读取。 */
++export const contentLikes = pgTable("content_likes", {
++  contentId: uuid("content_id").notNull().references(() => contents.id, { onDelete: "cascade" }),
++  userId: uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
++  createdAt: timestamp("created_at", { withTimezone: true, mode: "date" }).notNull().defaultNow(),
++}, t => [
++  primaryKey({ columns: [t.contentId, t.userId] }),
++  index("content_likes_user_idx").on(t.userId),
++]);
++
+ /** referencedId 保留目标身份；删除目标仅清空 FK，不级联删除引用作品。 */
+ export const contentReferences = pgTable("content_references", {
+   contentId: uuid("content_id").notNull().references(() => contents.id, { onDelete: "cascade" }),

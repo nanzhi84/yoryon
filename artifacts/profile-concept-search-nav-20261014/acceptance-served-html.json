@@ -1,0 +1,45 @@
+{
+  "url": "http://localhost:3015/search",
+  "anonymousNoCookies": true,
+  "htmlSha256": "b0bf930b8b48b2102986ba9f3bb36d2e5bf2d6352ae3db275cd9c86881f1b0b8",
+  "main": [
+    {
+      "class": "py-5 pb-20"
+    }
+  ],
+  "firstMainElement": "h1",
+  "headings": [
+    {
+      "tag": "h1",
+      "attributes": {
+        "class": "text-2xl font-semibold"
+      },
+      "text": "搜索"
+    }
+  ],
+  "controls": [
+    {
+      "tag": "input",
+      "attributes": {
+        "aria-label": "搜索原文",
+        "maxlength": "120",
+        "placeholder": "输入关键词或连续原文",
+        "class": "min-h-11 min-w-0 flex-1 rounded-md border border-border bg-transparent px-3 text-sm focus-visible:outline-primary",
+        "value": ""
+      },
+      "text": ""
+    },
+    {
+      "tag": "button",
+      "attributes": {
+        "class": "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2",
+        "disabled": "",
+        "type": "submit"
+      },
+      "text": "搜索"
+    }
+  ],
+  "returnButtonCount": 0,
+  "searchSubmitted": false,
+  "browserNotExecuted": true
+}

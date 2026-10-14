@@ -1,0 +1,14 @@
+{
+  "initialLoadError": "个人资料加载失败，请重试。重试",
+  "restored": true,
+  "avatarTabFocus": {
+    "id": "displayName",
+    "tag": "INPUT",
+    "text": ""
+  },
+  "nameTabFocus": {
+    "id": "",
+    "tag": "BUTTON",
+    "text": "保存展示名称"
+  }
+}

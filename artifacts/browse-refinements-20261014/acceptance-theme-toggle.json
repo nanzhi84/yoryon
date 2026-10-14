@@ -1,0 +1,12 @@
+{
+  "initialDark": true,
+  "themeDark": {
+    "checked": "false",
+    "dark": false
+  },
+  "themeLight": {
+    "checked": "true",
+    "dark": true
+  },
+  "storedTheme": "dark"
+}

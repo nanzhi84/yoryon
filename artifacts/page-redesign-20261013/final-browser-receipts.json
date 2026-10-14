@@ -1,0 +1,38 @@
+{
+  "subscription": {
+    "avatarLoaded": true,
+    "avatarWidth": 48,
+    "heading": "支持我的持续创作",
+    "route": "/subscription",
+    "theme": "",
+    "title": "订阅 · Yoryon"
+  },
+  "videoMounted": {
+    "route": "/",
+    "videos": [
+      {
+        "controls": false,
+        "duration": 4,
+        "paused": true,
+        "readyState": 4,
+        "rect": {
+          "bottom": 725.09375,
+          "height": 405,
+          "left": 280,
+          "right": 1000,
+          "top": 320.09375,
+          "width": 720,
+          "x": 280,
+          "y": 320.09375
+        }
+      }
+    ]
+  },
+  "videoClosed": {
+    "avatarLoaded": true,
+    "playVideoButtons": 1,
+    "route": "/",
+    "title": "Yoryon",
+    "videoElements": 0
+  }
+}

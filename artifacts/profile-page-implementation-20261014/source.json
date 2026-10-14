@@ -1,0 +1,22 @@
+{
+  "head": "b8e7098e941f80d899cd6483a9ce236732e5ddf6",
+  "files": [
+    {
+      "path": "apps/web/components/profile-settings.tsx",
+      "sha256": "6ec2208d68f2337f7434dbaf2e13f63bae1bbcdef2337a81e04b263c77992df4",
+      "lines": 89
+    },
+    {
+      "path": "apps/web/components/avatar.tsx",
+      "sha256": "bfc9a85a7ec858f76316a8bf0aa8436ae9ffa2ebe2a32c2a47dfb0006c664c37",
+      "lines": 6
+    },
+    {
+      "path": "apps/web/app/settings/profile/page.tsx",
+      "sha256": "aa948c68cd43f978204d898828f6343f953f77598f14f679debeac06d03c7236",
+      "lines": 6
+    }
+  ],
+  "sourceOnly": true,
+  "newBackupCreated": false
+}

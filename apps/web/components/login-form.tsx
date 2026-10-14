@@ -11,6 +11,7 @@ interface ApiError {
 
 import { notifyNotificationsChanged } from "@/lib/notification-events";
 import { safeReturnTo } from "@/lib/navigation";
+import { clearSearchMemory } from "@/lib/browse-memory";
 
 export function LoginForm({ returnTo }: { returnTo?: string | null }) {
   const [emailOrUsername, setEmailOrUsername] = useState("");
@@ -36,6 +37,7 @@ export function LoginForm({ returnTo }: { returnTo?: string | null }) {
       }
       // 硬导航：登录后需要完整重建服务端渲染状态（Cookie 已种）；returnTo 经站内校验
       notifyNotificationsChanged();
+      clearSearchMemory();
       window.location.assign(target);
     } catch {
       setError("网络错误，请重试");

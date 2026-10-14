@@ -1,0 +1,7 @@
+{
+  "web": "http://localhost:3015",
+  "webPid": 54718,
+  "api": "http://127.0.0.1:4115",
+  "isolatedDatabase": "yoryon_page_redesign_20261013",
+  "productionChanged": false
+}

@@ -1,0 +1,10 @@
+{
+  "fault": "writeText rejected with NotAllowedError in this local document through CDP; no production code change",
+  "selection": {
+    "end": 34,
+    "readOnly": true,
+    "start": 0,
+    "value": "http://localhost:3015/p/demo-audio"
+  },
+  "clipboardAfterManualCopy": "http://localhost:3015/p/demo-audio"
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "username": "feed_acceptance_0_37fcf6",
+    "status": 200,
+    "tokenIssued": true,
+    "userId": "129fb790-6c09-4f82-a10b-27be7481043c"
+  },
+  {
+    "username": "feed_acceptance_1_03fb7f",
+    "status": 200,
+    "tokenIssued": true,
+    "userId": "9133eecc-1670-4ffa-bbbd-39b69768e922"
+  }
+]

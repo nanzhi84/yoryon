@@ -1,0 +1,44 @@
+- banner:
+  - link "Yoryon":
+    - /url: /
+    - generic: Yoryon
+  - button "全站搜索":
+  - link "通知":
+    - /url: /notifications
+  - button "账户菜单":
+  - navigation "主导航":
+    - link "首页":
+      - /url: /
+    - link "订阅":
+      - /url: /subscription
+      - text: 订阅
+    - button "探索":
+      - text: 探索
+- main:
+  - generic: 长文
+  - generic: ·
+  - time: 2026.10.11
+  - generic: 付费
+  - heading "付费演示文章（含图片与视频）" [level=1]
+  - paragraph: 付费墙 + 内联多媒体演示
+  - link "#demo":
+    - /url: /tags/demo
+  - paragraph:
+    - button "查看图片：演示配图":
+      - img "演示配图"
+  - paragraph: 第 1 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 1 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 1 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。
+  - paragraph: 第 2 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 2 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 2 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。
+  - paragraph: 第 3 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 3 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 3 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。
+  - paragraph: 第 4 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 4 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 4 段：这是一段用于演示付费预览截
+  - paragraph: 本内容为订阅专享，以上为免费预览。
+  - paragraph: 标准订阅 ¥29.9/月：解锁站内全部付费内容，到期自动恢复锁定。
+  - link "兑换订阅激活码":
+    - /url: /redeem
+  - region "评论区":
+    - heading "评论" [level=2]
+    - paragraph:
+      - link "登录":
+        - /url: /login?returnTo=%2Fp%2Fdemo-paid
+      - text: 后参与评论
+    - paragraph: 还没有评论。
+- alert

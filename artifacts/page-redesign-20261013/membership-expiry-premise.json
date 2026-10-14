@@ -1,0 +1,21 @@
+{
+  "scope": "only own disposable isolated acceptance entitlement",
+  "userId": "24a2181d-f9b0-486d-890a-30c1413b19f3",
+  "before": [
+    {
+      "scope_type": "subscription",
+      "valid_from": "2026-10-13T13:34:33.949Z",
+      "valid_until": "2026-11-12T13:34:33.949Z",
+      "revoked_at": null
+    }
+  ],
+  "after": [
+    {
+      "scope_type": "subscription",
+      "valid_from": "2026-09-12T13:37:14.574Z",
+      "valid_until": "2026-10-12T13:37:14.574Z",
+      "revoked_at": null
+    }
+  ],
+  "operation": "controlled expiry data premise; not a real clock transition"
+}

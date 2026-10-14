@@ -12,7 +12,7 @@ export async function postFeedBodies(db: Reader, ids: string[], mediaBlockWeight
     previewMode: contents.previewMode, previewPercent: contents.previewPercent }).from(contents)
     .where(and(inArray(contents.id, ids), eq(contents.type, "post"), eq(contents.status, "published")));
   const media = await db.select({ contentId: contentMedia.contentId, mediaId: contentMedia.mediaId,
-    exposure: contentMedia.exposure, mimeType: mediaAssets.mimeType, width: mediaAssets.width, height: mediaAssets.height }).from(contentMedia)
+    exposure: contentMedia.exposure, mimeType: mediaAssets.mimeType, width: mediaAssets.width, height: mediaAssets.height, durationSec: mediaAssets.durationSec }).from(contentMedia)
     .innerJoin(mediaAssets, eq(contentMedia.mediaId, mediaAssets.id)).where(inArray(contentMedia.contentId, ids));
   return new Map(rows.map(row => {
     const preview = publicPreview(row, mediaBlockWeight);

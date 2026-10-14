@@ -1,0 +1,86 @@
+[
+  {
+    "clientWidth": 375,
+    "header": {
+      "bottom": 145,
+      "height": 145,
+      "left": 16,
+      "right": 359,
+      "top": 0,
+      "width": 343,
+      "x": 16,
+      "y": 0
+    },
+    "panel": {
+      "bottom": 421.25,
+      "height": 244.25,
+      "left": 16,
+      "right": 359,
+      "top": 177,
+      "width": 343,
+      "x": 16,
+      "y": 177
+    },
+    "route": "/subscription",
+    "scrollWidth": 375,
+    "viewport": 390
+  },
+  {
+    "clientWidth": 375,
+    "header": {
+      "bottom": 145,
+      "height": 145,
+      "left": 16,
+      "right": 359,
+      "top": 0,
+      "width": 343,
+      "x": 16,
+      "y": 0
+    },
+    "route": "/",
+    "scrollWidth": 375,
+    "viewport": 390
+  },
+  {
+    "clientWidth": 305,
+    "header": {
+      "bottom": 145,
+      "height": 145,
+      "left": 16,
+      "right": 289,
+      "top": 0,
+      "width": 273,
+      "x": 16,
+      "y": 0
+    },
+    "route": "/",
+    "scrollWidth": 305,
+    "viewport": 320
+  },
+  {
+    "clientWidth": 305,
+    "header": {
+      "bottom": 145,
+      "height": 145,
+      "left": 16,
+      "right": 289,
+      "top": 0,
+      "width": 273,
+      "x": 16,
+      "y": 0
+    },
+    "panel": {
+      "bottom": 457.25,
+      "height": 280.25,
+      "left": 16,
+      "right": 289,
+      "top": 177,
+      "width": 273,
+      "x": 16,
+      "y": 177
+    },
+    "route": "/subscription",
+    "scrollWidth": 305,
+    "viewport": 320
+  }
+]

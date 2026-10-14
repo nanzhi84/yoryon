@@ -1,0 +1,48 @@
+{
+  "truncated": true,
+  "hasMore": false,
+  "requests": [
+    {
+      "requestId": "89284.1173",
+      "body": {
+        "query": "浏览连续体验",
+        "requestId": "3d897ad8-0b32-42a9-bf88-0ddf59c8110c"
+      }
+    },
+    {
+      "requestId": "89284.1174",
+      "body": {
+        "session": "b0e0e554-20a0-4175-8f47-baf647674af4",
+        "cursor": 20
+      }
+    },
+    {
+      "requestId": "89284.1252",
+      "body": {
+        "session": "b0e0e554-20a0-4175-8f47-baf647674af4",
+        "cursor": 0
+      }
+    },
+    {
+      "requestId": "89284.1253",
+      "body": {
+        "session": "b0e0e554-20a0-4175-8f47-baf647674af4",
+        "cursor": 20
+      }
+    },
+    {
+      "requestId": "89284.1331",
+      "body": {
+        "session": "b0e0e554-20a0-4175-8f47-baf647674af4",
+        "cursor": 0
+      }
+    },
+    {
+      "requestId": "89284.1332",
+      "body": {
+        "session": "b0e0e554-20a0-4175-8f47-baf647674af4",
+        "cursor": 20
+      }
+    }
+  ]
+}

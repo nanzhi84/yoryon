@@ -1,0 +1,372 @@
+diff --git a/apps/web/app/globals.css b/apps/web/app/globals.css
+index 63f5045..071e5e6 100644
+--- a/apps/web/app/globals.css
++++ b/apps/web/app/globals.css
+@@ -1,37 +1,52 @@
+ @import "tailwindcss";
+ @plugin "@tailwindcss/typography";
+ 
+-/* ADR-0005：Zinc 中性色；dark 经 class 策略 */
++/* ADR-0005：头像取色的浅蓝灰品牌色；dark 经 class 策略。 */
+ @custom-variant dark (&:where(.dark, .dark *));
+ 
+ :root {
+-  --background: oklch(1 0 0);
+-  --foreground: oklch(0.141 0.005 285.823);
+-  --muted: oklch(0.967 0.001 286.375);
+-  --muted-foreground: oklch(0.552 0.016 285.938);
+-  --border: oklch(0.92 0.004 286.32);
+-  --accent: oklch(0.21 0.006 285.885);
+-  --accent-foreground: oklch(0.985 0 0);
++  --background: #fdfeff;
++  --canvas: #edf5f9;
++  --foreground: #253947;
++  --muted: #edf5fa;
++  --muted-foreground: #607383;
++  --border: #dfeaf0;
++  --primary: #47758f;
++  --primary-foreground: #ffffff;
++  --accent: #eaf4fa;
++  --accent-foreground: #253947;
++  --surface: #f1f8fc;
++  --surface-border: #d5e7f1;
+ }
+ 
+ :root[class~="dark"] {
+-  --background: oklch(0.141 0.005 285.823);
+-  --foreground: oklch(0.985 0 0);
+-  --muted: oklch(0.274 0.006 286.033);
+-  --muted-foreground: oklch(0.705 0.015 286.067);
+-  --border: oklch(1 0 0 / 10%);
+-  --accent: oklch(0.92 0.004 286.32);
+-  --accent-foreground: oklch(0.21 0.006 285.885);
++  --background: #14212a;
++  --canvas: #0d171e;
++  --foreground: #e7f1f6;
++  --muted: #22343f;
++  --muted-foreground: #a1b6c3;
++  --border: #2c404d;
++  --primary: #9cc7dd;
++  --primary-foreground: #142b38;
++  --accent: #263e4d;
++  --accent-foreground: #e7f1f6;
++  --surface: #192c38;
++  --surface-border: #365465;
+ }
+ 
+ @theme inline {
+   --color-background: var(--background);
++  --color-canvas: var(--canvas);
+   --color-foreground: var(--foreground);
+   --color-muted: var(--muted);
+   --color-muted-foreground: var(--muted-foreground);
+   --color-border: var(--border);
++  --color-primary: var(--primary);
++  --color-primary-foreground: var(--primary-foreground);
+   --color-accent: var(--accent);
+   --color-accent-foreground: var(--accent-foreground);
++  --color-surface: var(--surface);
++  --color-surface-border: var(--surface-border);
+   --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Segoe UI", sans-serif;
+ }
+ 
+@@ -41,13 +56,26 @@ html {
+ }
+ 
+ body {
+-  background: var(--background);
++  background: var(--canvas);
+   color: var(--foreground);
+   font-family: var(--font-sans);
+ }
+ 
+ /* 中文排印调优（ADR-0005 §8.3） */
+ .prose-yoryon {
++  --tw-prose-body: var(--foreground);
++  --tw-prose-headings: var(--foreground);
++  --tw-prose-lead: var(--muted-foreground);
++  --tw-prose-links: var(--primary);
++  --tw-prose-bold: var(--foreground);
++  --tw-prose-counters: var(--muted-foreground);
++  --tw-prose-bullets: var(--muted-foreground);
++  --tw-prose-hr: var(--border);
++  --tw-prose-quotes: var(--foreground);
++  --tw-prose-quote-borders: var(--border);
++  --tw-prose-captions: var(--muted-foreground);
++  --tw-prose-th-borders: var(--border);
++  --tw-prose-td-borders: var(--border);
+   line-height: 1.8;
+   /* Long source URLs wrap; preformatted code retains its own scrolling area. */
+   overflow-wrap: anywhere;
+diff --git a/apps/web/app/layout.tsx b/apps/web/app/layout.tsx
+index f6a86fa..1c991be 100644
+--- a/apps/web/app/layout.tsx
++++ b/apps/web/app/layout.tsx
+@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode })
+         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+       </head>
+       <body className="min-h-screen antialiased">
+-        <div className="mx-auto max-w-3xl px-4 sm:px-6">
++        <div className="mx-auto min-h-screen max-w-3xl bg-background px-4 sm:px-6">
+           {children}
+         </div>
+       </body>
+diff --git a/apps/web/app/page.tsx b/apps/web/app/page.tsx
+index 0c74ac1..af8008a 100644
+--- a/apps/web/app/page.tsx
++++ b/apps/web/app/page.tsx
+@@ -4,10 +4,12 @@ import { FeedTimeline } from "@/components/feed-timeline";
+ import { SiteHeader } from "@/components/site-header";
+ import { LoadMore } from "@/components/load-more";
+ import { AnalyticsListProvider } from "@/components/analytics";
++import Link from "next/link";
++import { ArrowRight } from "lucide-react";
+ 
+ const revalidateSec = Number(process.env.FEED_REVALIDATE_SEC ?? 86400);
+ 
+-/** 首页：纯内容信息流（合集为顶层结构，仅在 /c 列表展示，不混入 feed）。容器宽度由 layout 统一控制。 */
++/** 首页以真实内容时间线为主；合集仍仅在 /c 展示，底部提示进入订阅页。 */
+ export default async function HomePage() {
+   const res = await fetchCatalog("/api/feed", { revalidate: revalidateSec, tags: ["feed"] });
+   if (!res.ok) throw new Error(`feed API ${res.status}`);
+@@ -29,6 +31,12 @@ export default async function HomePage() {
+             {feed?.nextCursor && <LoadMore version={feed.version} initialCursor={feed.nextCursor} showPinnedBadge />}
+           </AnalyticsListProvider>
+         )}
++        <section aria-label="订阅支持" className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-lg border border-surface-border bg-surface px-5 py-5 sm:px-6">
++          <p className="text-sm font-medium">更深入的作品，更直接的交流。</p>
++          <Link href="/subscription" prefetch={false} className="inline-flex min-h-11 items-center gap-2 text-sm text-primary hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
++            了解订阅 <ArrowRight className="size-4" aria-hidden="true" />
++          </Link>
++        </section>
+       </main>
+     </>
+   );
+diff --git a/apps/web/components/feed-timeline.tsx b/apps/web/components/feed-timeline.tsx
+index 85bb792..ea66e11 100644
+--- a/apps/web/components/feed-timeline.tsx
++++ b/apps/web/components/feed-timeline.tsx
+@@ -12,18 +12,18 @@ export const TYPE_LABEL: Record<FeedContentItem["type"], string> = {
+ 
+ export function formatDate(iso: string | null): string {
+   if (!iso) return "";
+-  return new Date(iso).toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric", timeZone: "Asia/Singapore" });
++  return new Date(iso).toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit", timeZone: "Asia/Singapore" }).replaceAll("/", ".");
+ }
+ 
+ /** 信息流内容条目：标题 + 日期 / 封面 + 简介 / 类型 + 标签，点进详情。 */
+ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem; showPinnedBadge?: boolean }) {
+   return (
+     <TrackImpression targetKind="work" targetId={item.id}>
+-      <article className="group py-6">
++      <article className="group py-7">
+         <div className="flex items-baseline justify-between gap-4">
+           <div className="flex min-w-0 items-baseline gap-2">
+             <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="min-w-0">
+-              <h2 className="truncate text-lg font-medium leading-snug group-hover:underline underline-offset-4">
++              <h2 className="truncate text-lg font-semibold leading-snug group-hover:underline underline-offset-4 sm:text-xl">
+                 {item.title || `${TYPE_LABEL[item.type]} · ${formatDate(item.publishedAt)}`}
+               </h2>
+             </TrackClickLink>
+@@ -33,7 +33,7 @@ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem
+               </Badge>
+             )}
+           </div>
+-          <time className="shrink-0 text-sm text-muted-foreground">{formatDate(item.publishedAt)}</time>
++          <time className="shrink-0 text-xs text-muted-foreground">{formatDate(item.publishedAt)}</time>
+         </div>
+         {item.type === "article" && item.coverMediaId && (
+           <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="mt-3 block">
+@@ -47,7 +47,7 @@ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem
+       {item.type === "post" ? <PostEntry item={item} /> : item.description && <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{item.description}</p>}
+       <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+         <span>{TYPE_LABEL[item.type]}</span>
+-        {item.visibility === "paid" && <Badge variant="secondary">付费</Badge>}
++        {item.visibility === "paid" && <Badge variant="secondary" className="text-primary">付费</Badge>}
+         {item.tags.map((t) => (
+           <Link prefetch={false} key={t.slug} href={`/tags/${t.slug}`} className="hover:text-foreground">
+             #{t.name}
+diff --git a/apps/web/components/inline-media.tsx b/apps/web/components/inline-media.tsx
+index 5c3d656..3e355dc 100644
+--- a/apps/web/components/inline-media.tsx
++++ b/apps/web/components/inline-media.tsx
+@@ -1,6 +1,7 @@
+ "use client";
+ import { useEffect, useId, useRef, useState } from "react";
+ import { AudioPlayerLazy, VideoPlayerLazy } from "./media-player";
++import { Play } from "lucide-react";
+ 
+ /** 用户点击才挂载播放器；另一个媒体开始或离开视口时卸载，防止长 Feed 同时占用资源。 */
+ export function InlineMedia({ mediaId, kind }: { mediaId: string; kind: "audio" | "video" }) {
+@@ -18,8 +19,8 @@ export function InlineMedia({ mediaId, kind }: { mediaId: string; kind: "audio"
+     {active ? <>
+       {kind === "audio" ? <AudioPlayerLazy mediaId={mediaId} /> : <VideoPlayerLazy mediaId={mediaId} />}
+       <button type="button" onClick={() => setActive(false)} className="mt-2 text-sm underline">停止并关闭{kind === "audio" ? "音频" : "视频"}</button>
+-    </> : <button type="button" className="w-full rounded-lg border bg-muted p-5 text-left" onClick={() => {
++    </> : <button type="button" className="flex min-h-20 w-full items-center gap-4 rounded-lg border border-border bg-muted/60 p-4 text-left transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" onClick={() => {
+       window.dispatchEvent(new CustomEvent("yoryon:media-active", { detail: id })); setActive(true);
+-    }}>播放{kind === "audio" ? "音频" : "视频"}</button>}
++    }}><span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-surface-border bg-background text-primary"><Play className="size-4 fill-current" aria-hidden="true" /></span><span className="text-sm font-medium">播放{kind === "audio" ? "音频" : "视频"}</span></button>}
+   </div>;
+ }
+diff --git a/apps/web/components/member-questions.tsx b/apps/web/components/member-questions.tsx
+index eefe616..ae4714e 100644
+--- a/apps/web/components/member-questions.tsx
++++ b/apps/web/components/member-questions.tsx
+@@ -4,6 +4,7 @@ import Link from "next/link";
+ import type { QuestionItem, QuestionPage } from "@/lib/types";
+ import { Button } from "./ui/button";
+ import { QuestionCard } from "./question-card";
++import { MessageCircle } from "lucide-react";
+ export function MemberQuestions({ active, remaining, authenticated, onAsked }: { active: boolean; remaining: number; authenticated: boolean; onAsked: () => Promise<void> }) {
+   const [scope, setScope] = useState<"public" | "mine">("public");
+   const [items, setItems] = useState<QuestionItem[]>([]);
+@@ -58,13 +59,13 @@ export function MemberQuestions({ active, remaining, authenticated, onAsked }: {
+     {active && remaining > 0 ? <form onSubmit={submit} className="mt-5 space-y-3">
+       <label htmlFor="member-question" className="text-sm font-medium">向创作者提问</label>
+       <textarea id="member-question" rows={3} maxLength={1000} value={draft} onChange={e => setDraft(e.target.value)} className="w-full rounded-md border bg-transparent p-3 text-sm" required />
+-      <div className="flex items-center justify-between gap-4 text-xs"><label className="flex gap-2"><input type="checkbox" checked={privateQuestion} onChange={e => setPrivate(e.target.checked)} />私密问题（仅本人和创作者可读）</label><span>{[...draft].length}/500</span></div>
++      <div className="flex flex-wrap items-center justify-between gap-3 text-xs"><label className="flex items-start gap-2"><input type="checkbox" className="mt-0.5 accent-primary" checked={privateQuestion} onChange={e => setPrivate(e.target.checked)} />私密问题（仅本人和创作者可读）</label><span className="shrink-0">{[...draft].length}/500</span></div>
+       <Button disabled={submitting || [...draft.trim()].length > 500}>{submitting ? "提交中…" : "提交问题"}</Button>
+     </form> : active ? <p className="mt-4 text-sm text-muted-foreground">本月提问次数已用完，下个自然月恢复。</p> : !authenticated ? <p className="mt-4 text-sm"><Link href="/login?returnTo=%2Fsubscription" className="underline">登录</Link> 后查看自己的历史问答。</p> : null}
+     {receipt && <p role="status" className="mt-3 text-sm">{receipt}</p>}{submitError && <p role="alert" className="mt-3 text-sm text-red-500">{submitError}</p>}
+-    <div className="mt-6 flex gap-4 text-sm"><button aria-pressed={scope === "public"} className={scope === "public" ? "font-medium" : "text-muted-foreground"} onClick={() => setScope("public")}>公开问答</button>{authenticated && <button aria-pressed={scope === "mine"} className={scope === "mine" ? "font-medium" : "text-muted-foreground"} onClick={() => setScope("mine")}>我的问答</button>}</div>
++    <div className="mt-5 flex gap-5 border-b border-border text-sm"><button aria-pressed={scope === "public"} className={`min-h-11 border-b-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${scope === "public" ? "border-primary font-medium" : "border-transparent text-muted-foreground"}`} onClick={() => setScope("public")}>公开问答</button>{authenticated && <button aria-pressed={scope === "mine"} className={`min-h-11 border-b-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${scope === "mine" ? "border-primary font-medium" : "border-transparent text-muted-foreground"}`} onClick={() => setScope("mine")}>我的问答</button>}</div>
+     {loading ? <p role="status" className="py-6 text-sm text-muted-foreground">加载中…</p> : <>{error && <p role="alert" className="py-4 text-sm text-red-500">{error} <button className="underline" onClick={() => void refresh()}>刷新列表</button></p>}
+-      {!items.length && !error ? <p className="py-6 text-sm text-muted-foreground">{scope === "mine" ? "还没有提问记录。" : "还没有公开问答。"}</p> : <div className="divide-y divide-border">{items.map(q => <QuestionCard key={q.id} item={q} onPrivacyChanged={() => void refresh()} />)}</div>}
++      {!items.length && !error ? <div className="flex flex-col items-center gap-3 border-b border-border py-8 text-sm text-muted-foreground"><MessageCircle className="size-7 stroke-1" aria-hidden="true" /><p>{scope === "mine" ? "还没有提问记录。" : "还没有公开问答。"}</p></div> : <div className="divide-y divide-border">{items.map(q => <QuestionCard key={q.id} item={q} onPrivacyChanged={() => void refresh()} />)}</div>}
+       {cursor && <Button variant="outline" disabled={paging} onClick={() => { setPaging(true); void load(cursor).catch(e => setError(e.message)).finally(() => setPaging(false)); }}>{paging ? "加载中…" : "加载更多问答"}</Button>}
+     </>}
+   </section>;
+diff --git a/apps/web/components/membership-panel.tsx b/apps/web/components/membership-panel.tsx
+index c2bb7a8..d1ea61e 100644
+--- a/apps/web/components/membership-panel.tsx
++++ b/apps/web/components/membership-panel.tsx
+@@ -3,6 +3,7 @@ import { useState } from "react";
+ import Link from "next/link";
+ import type { Membership } from "@/lib/types";
+ import { MemberQuestions } from "./member-questions";
++import { Button } from "./ui/button";
+ 
+ export function MembershipPanel({ initial, authenticated, unavailable = false }: { initial: Membership | null; authenticated: boolean; unavailable?: boolean }) {
+   const [logged, setLogged] = useState(authenticated);
+@@ -17,14 +18,31 @@ export function MembershipPanel({ initial, authenticated, unavailable = false }:
+     } catch { setError(true); }
+   }
+   return <>
+-    <section id="membership" className="mb-12 rounded-lg bg-muted/50 px-6 py-7" aria-label="会员状态">
+-      {error ? <p role="alert">会员状态加载失败。<button className="underline" onClick={() => void refresh()}>重试</button></p>
+-        : membership?.active ? <><h1 className="text-2xl font-semibold">我的会员</h1>
+-          <p className="mt-3 text-sm">{membership.permanent ? "长期有效" : `到期时间：${new Date(membership.validUntil!).toLocaleString("zh-CN", { timeZone: "Asia/Shanghai", hour12: false })}`}</p>
+-          <p className="mt-2 text-sm">本月剩余提问次数：{membership.questionsRemaining ?? 0} 次</p></>
+-        : <><h1 className="text-2xl font-semibold">支持我的持续创作</h1><p className="mt-3 text-sm text-muted-foreground">¥29.9/月。每月一次会员问答，阅读专属作品，参与会员讨论。</p>
+-          <Link href="/redeem?returnTo=%2Fsubscription%23membership" prefetch={false} className="mt-5 inline-flex rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground">兑换激活码，开通会员</Link>
+-          <p className="mt-2 text-xs text-muted-foreground">使用已有激活码兑换会员权益。</p></>}
++    <section id="membership" className="mb-10 rounded-lg border border-surface-border bg-surface px-5 py-6 sm:px-7" aria-label="会员状态">
++      {error ? <>
++        <h1 className="text-xl font-semibold">会员状态</h1>
++        <p role="alert" className="mt-3 text-sm">会员状态加载失败。<button className="ml-2 min-h-11 text-primary underline underline-offset-4" onClick={() => void refresh()}>重试</button></p>
++      </> : membership?.active ? <>
++        <div className="flex flex-wrap items-center justify-between gap-3">
++          <h1 className="text-xl font-semibold">我的会员</h1>
++          <span className="text-sm text-primary">已开通</span>
++        </div>
++        <p className="mt-4 text-sm text-muted-foreground">{membership.permanent ? "长期有效" : `到期时间：${new Date(membership.validUntil!).toLocaleString("zh-CN", { timeZone: "Asia/Shanghai", hour12: false })}`}</p>
++        <p className="mt-2 text-sm">本月剩余提问次数：{membership.questionsRemaining ?? 0} 次</p>
++      </> : <>
++        <div className="flex flex-wrap items-baseline justify-between gap-x-5 gap-y-2">
++          <h1 className="text-xl font-semibold">支持我的持续创作</h1>
++          <p className="shrink-0 whitespace-nowrap text-sm"><span className="text-xl font-semibold">¥29.9</span> / 月</p>
++        </div>
++        <p className="mt-2 text-sm text-muted-foreground">读得更深入，交流更直接。</p>
++        <p className="mt-5 text-sm leading-relaxed text-muted-foreground">专属作品 <span aria-hidden="true">·</span> 每月一次提问 <span aria-hidden="true">·</span> 会员讨论</p>
++        <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
++          <Button asChild className="min-h-11 px-5">
++            <Link href="/redeem?returnTo=%2Fsubscription%23membership" prefetch={false}>兑换激活码，开通会员</Link>
++          </Button>
++          <p className="text-xs leading-relaxed text-muted-foreground">使用已有激活码兑换会员权益。</p>
++        </div>
++      </>}
+     </section>
+     <MemberQuestions active={!!membership?.active} remaining={membership?.questionsRemaining ?? 0} authenticated={logged} onAsked={refresh} />
+   </>;
+diff --git a/apps/web/components/site-header.tsx b/apps/web/components/site-header.tsx
+index 950a558..e2c12a6 100644
+--- a/apps/web/components/site-header.tsx
++++ b/apps/web/components/site-header.tsx
+@@ -1,8 +1,9 @@
+ "use client";
+ 
+ import Link from "next/link";
++import Image from "next/image";
+ import { usePathname } from "next/navigation";
+-import { ChevronDown, UserRound } from "lucide-react";
++import { ChevronDown, Star, UserRound } from "lucide-react";
+ import { Button } from "./ui/button";
+ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
+ import { ThemeMenuItems } from "./theme-menu-items";
+@@ -13,13 +14,14 @@ export function SiteHeader() {
+   const pathname = usePathname();
+   const subscriptionActive = pathname === "/subscription" || pathname.startsWith("/questions/");
+   const exploreActive = pathname === "/explore" || pathname === "/c" || pathname.startsWith("/c/") || pathname.startsWith("/tags/") || pathname === "/about";
+-  const tabClass = "relative flex min-h-14 min-w-11 items-center text-lg transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 sm:text-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/20";
++  const tabClass = "relative flex min-h-14 min-w-11 items-center text-lg transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 sm:text-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary";
+ 
+   return (
+     <header className="border-b border-border pt-6 sm:pt-8">
+-      <div className="flex items-center justify-between gap-4 pb-5 sm:pb-6">
+-        <Link prefetch={false} href="/" className="flex min-h-11 items-center rounded-sm text-2xl font-semibold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/20 sm:text-3xl">
+-          Yoryon
++      <div className="flex items-center justify-between gap-3 pb-5 sm:gap-4 sm:pb-6">
++        <Link prefetch={false} href="/" className="flex min-h-11 shrink-0 items-center gap-2.5 rounded-sm text-xl font-semibold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:gap-3 sm:text-3xl">
++          <Image src="/images/author-avatar.jpg" alt="" width={44} height={44} priority className="size-9 rounded-full border border-surface-border object-cover object-[50%_30%] sm:size-11" />
++          <span>Yoryon</span>
+         </Link>
+         <div className="flex items-center gap-1 sm:gap-2">
+           <SearchDialog />
+@@ -44,11 +46,11 @@ export function SiteHeader() {
+       </div>
+       <nav aria-label="主导航" className="flex items-center justify-between gap-4">
+         <div className="flex gap-6 sm:gap-8">
+-          <Link prefetch={false} href="/" aria-current={pathname === "/" ? "page" : undefined} className={`${tabClass} ${pathname === "/" ? "font-semibold text-foreground after:bg-foreground" : "text-muted-foreground hover:text-foreground"}`}>
++          <Link prefetch={false} href="/" aria-current={pathname === "/" ? "page" : undefined} className={`${tabClass} ${pathname === "/" ? "font-semibold text-foreground after:bg-primary" : "text-muted-foreground hover:text-foreground"}`}>
+             首页
+           </Link>
+-          <Link prefetch={false} href="/subscription" aria-current={subscriptionActive ? pathname === "/subscription" ? "page" : "location" : undefined} className={`${tabClass} ${subscriptionActive ? "font-semibold text-foreground after:bg-foreground" : "text-muted-foreground hover:text-foreground"}`}>
+-            订阅
++          <Link prefetch={false} href="/subscription" aria-current={subscriptionActive ? pathname === "/subscription" ? "page" : "location" : undefined} className={`${tabClass} gap-2 ${subscriptionActive ? "font-semibold text-foreground after:bg-primary" : "text-muted-foreground hover:text-foreground"}`}>
++            订阅 <Star className="size-3 text-primary" aria-hidden="true" />
+           </Link>
+         </div>
+         <DropdownMenu>
+diff --git a/apps/web/components/ui/button.tsx b/apps/web/components/ui/button.tsx
+index 80fc019..014aa81 100644
+--- a/apps/web/components/ui/button.tsx
++++ b/apps/web/components/ui/button.tsx
+@@ -5,11 +5,11 @@ import { cva, type VariantProps } from "class-variance-authority";
+ import { cn } from "@/lib/utils";
+ 
+ const buttonVariants = cva(
+-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/20 disabled:pointer-events-none disabled:opacity-50 cursor-pointer",
++  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 cursor-pointer",
+   {
+     variants: {
+       variant: {
+-        default: "bg-foreground text-background hover:bg-foreground/90",
++        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+         outline: "border border-border bg-transparent hover:bg-muted",
+         ghost: "hover:bg-muted",
+         link: "underline-offset-4 hover:underline",
+diff --git a/docs/adr/0005-frontend-stack.md b/docs/adr/0005-frontend-stack.md
+index ece738b..ec0683d 100644
+--- a/docs/adr/0005-frontend-stack.md
++++ b/docs/adr/0005-frontend-stack.md
+@@ -22,7 +22,7 @@ v1 需要定稿 UI 组件、正文排版与多媒体播放器方案。约束：
+ 
+ 细则：
+ 
+-1. **设计系统**：Zinc 中性色，Light/Dark Mode（class 策略，dark 变量经 `:root[class~="dark"]`）。
++1. **设计系统**：2026-10-13 按作者确认的头像设计稿改为浅蓝灰品牌色（白色阅读栏、浅蓝画布与紧凑订阅面板），原始头像由本地静态资产提供，Next Image 优化加载、CSS 圆形裁切。Light/Dark Mode 继续使用 class 策略，双主题语义色经 `:root[class~="dark"]` 切换。正文代码高亮的既有独立配色继续保留。
+ 2. **中文排版**：正文统一 `prose`（dark 下 `prose-invert`），经 `--tw-prose-*` 变量调优：CJK 系统字体栈（PingFang SC / Hiragino Sans GB / Microsoft YaHei / Noto Sans SC）、`line-height ≈ 1.8`、段落间距；阅读栏与站点页头同宽（布局容器 `max-w-3xl`；初版曾为 ≈42rem 居中收窄，后应作者要求取消）。
+ 3. **信息流**：轻量时间线形态，以分隔线与留白组织条目；文章不强制封面；不套用企业后台风格的 Card。
+ 4. **播放器**：使用 Video.js 10 模块化 API（`createPlayer({ features })` 按需组合），不使用 v8 的全局 `videojs()` / id 注册表 API；经 `next/dynamic` 按需加载，首页信息流不含播放器代码；音频复用同一播放器。

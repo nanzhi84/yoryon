@@ -1,0 +1,28 @@
+{
+  "subscription": {
+    "bodyBackground": "rgb(20, 33, 42)",
+    "emptyBorder": "0px",
+    "textColor": "rgb(231, 241, 246)",
+    "theme": "dark"
+  },
+  "article": {
+    "bodyBackground": "rgb(20, 33, 42)",
+    "cards": [
+      {
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(44, 64, 77)",
+        "color": "rgb(161, 182, 195)",
+        "text": "上一篇已是合集第一篇"
+      },
+      {
+        "background": "rgba(0, 0, 0, 0)",
+        "border": "rgb(44, 64, 77)",
+        "color": "rgb(231, 241, 246)",
+        "text": "下一篇示例系列 · 第二话"
+      }
+    ],
+    "commentsBorder": "rgb(44, 64, 77)",
+    "textColor": "rgb(231, 241, 246)",
+    "theme": "dark"
+  }
+}

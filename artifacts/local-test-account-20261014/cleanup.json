@@ -1,0 +1,31 @@
+{
+  "database": "yoryon_page_redesign_20261013",
+  "deletedOwnAnalytics": 8,
+  "before": {
+    "others": 167,
+    "users": 1,
+    "contents": 7,
+    "entitlements": 1,
+    "redemptions": 1,
+    "sessions": 0,
+    "comments": 0,
+    "likes": 0,
+    "questions": 0
+  },
+  "after": {
+    "own": 0,
+    "others": 167,
+    "users": 1,
+    "contents": 7,
+    "entitlements": 1,
+    "redemptions": 1,
+    "sessions": 0,
+    "comments": 0,
+    "likes": 0,
+    "questions": 0
+  },
+  "loggedOutSessions": 0,
+  "accountAndMembershipPreserved": true,
+  "otherAnalyticsUnchanged": true,
+  "productionChanged": false
+}

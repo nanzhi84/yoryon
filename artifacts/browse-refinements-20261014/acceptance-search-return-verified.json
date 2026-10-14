@@ -1,0 +1,27 @@
+{
+  "saved": {
+    "search": {
+      "query": "浏览连续体验",
+      "request": {
+        "query": "浏览连续体验",
+        "requestId": "3d897ad8-0b32-42a9-bf88-0ddf59c8110c"
+      },
+      "session": "b0e0e554-20a0-4175-8f47-baf647674af4",
+      "offsets": [
+        0,
+        20
+      ]
+    },
+    "position": {
+      "y": 3305,
+      "time": 1791912186536
+    }
+  },
+  "returned": {
+    "path": "/search",
+    "query": "浏览连续体验",
+    "quota": "本小时剩余 5 次搜索",
+    "results": 25,
+    "y": 3305
+  }
+}

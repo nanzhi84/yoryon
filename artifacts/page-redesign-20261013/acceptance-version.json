@@ -1,0 +1,69 @@
+{
+  "recordedAt": "2026-10-13T13:40:06.558Z",
+  "head": "b8e7098e941f80d899cd6483a9ce236732e5ddf6",
+  "workingTreeChanges": true,
+  "previewWorkspace": "/tmp/yoryon-page-redesign-m0NxxV/workspace",
+  "buildId": "R6m5f7vPngLBeNx0GYwWg",
+  "sourceComparisons": [
+    {
+      "path": "apps/web/app/globals.css",
+      "sourceSha256": "50674525b2e38111df39814d01b1313a59066569ce55ecc2eda18f50b843c341",
+      "previewSha256": "50674525b2e38111df39814d01b1313a59066569ce55ecc2eda18f50b843c341",
+      "sameBytes": true
+    },
+    {
+      "path": "apps/web/app/layout.tsx",
+      "sourceSha256": "fe16d66566323b56897276a05696a56651c97a30407f5d8900ac082486dce5cb",
+      "previewSha256": "fe16d66566323b56897276a05696a56651c97a30407f5d8900ac082486dce5cb",
+      "sameBytes": true
+    },
+    {
+      "path": "apps/web/app/page.tsx",
+      "sourceSha256": "f3d562d14ef884a9d496f5202d897611e97925edb81447265e7c947872d132a8",
+      "previewSha256": "f3d562d14ef884a9d496f5202d897611e97925edb81447265e7c947872d132a8",
+      "sameBytes": true
+    },
+    {
+      "path": "apps/web/components/feed-timeline.tsx",
+      "sourceSha256": "1cacf3656e70dd5293e4e6291e50f1fa07635fd216b00c0149bb3c90d653e8cb",
+      "previewSha256": "1cacf3656e70dd5293e4e6291e50f1fa07635fd216b00c0149bb3c90d653e8cb",
+      "sameBytes": true
+    },
+    {
+      "path": "apps/web/components/inline-media.tsx",
+      "sourceSha256": "c44781338822697506ec3a8a3db7aaeb7bde53bc01feab6d13e711c10baf8862",
+      "previewSha256": "c44781338822697506ec3a8a3db7aaeb7bde53bc01feab6d13e711c10baf8862",
+      "sameBytes": true
+    },
+    {
+      "path": "apps/web/components/member-questions.tsx",
+      "sourceSha256": "3143f5bed26add7fdd690d3e4971d077a96a31bd98247bcb1e2682906d31949d",
+      "previewSha256": "3143f5bed26add7fdd690d3e4971d077a96a31bd98247bcb1e2682906d31949d",
+      "sameBytes": true
+    },
+    {
+      "path": "apps/web/components/membership-panel.tsx",
+      "sourceSha256": "9ec7b58e8d1ab93bbdca81e1bf1715fb1f712f286189ea9686c63a73f0f74b88",
+      "previewSha256": "9ec7b58e8d1ab93bbdca81e1bf1715fb1f712f286189ea9686c63a73f0f74b88",
+      "sameBytes": true
+    },
+    {
+      "path": "apps/web/components/site-header.tsx",
+      "sourceSha256": "b1d8d393752f05fcffc56c80bc3c995eacac9351e49568e3aefb737916ca865b",
+      "previewSha256": "b1d8d393752f05fcffc56c80bc3c995eacac9351e49568e3aefb737916ca865b",
+      "sameBytes": true
+    },
+    {
+      "path": "apps/web/components/ui/button.tsx",
+      "sourceSha256": "5f527b032fd9fd7a1f4ef8838c023bda7b4197c568929334e8e252df4f11d49f",
+      "previewSha256": "5f527b032fd9fd7a1f4ef8838c023bda7b4197c568929334e8e252df4f11d49f",
+      "sameBytes": true
+    },
+    {
+      "path": "apps/web/public/images/author-avatar.jpg",
+      "sourceSha256": "ea6a595c414948ea999b977baec292715fa39dbeee761c618d8a21d5990f4578",
+      "previewSha256": "ea6a595c414948ea999b977baec292715fa39dbeee761c618d8a21d5990f4578",
+      "sameBytes": true
+    }
+  ]
+}

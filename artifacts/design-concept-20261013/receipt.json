@@ -1,0 +1,13 @@
+{
+  "generated_by": "imagegen built-in",
+  "reference": "current local source and anonymous localhost:3015 screenshots",
+  "source_commit": "b8e7098e941f80d899cd6483a9ce236732e5ddf6",
+  "image": "yoryon-local-design.png",
+  "dimensions": [
+    1495,
+    1052
+  ],
+  "sha256": "c09c545479fb13684abf3ffd6ed53153d20b8aeef025ba559ea69be6f4935e8b",
+  "scope": "static design concept only",
+  "production_reference_used": false
+}

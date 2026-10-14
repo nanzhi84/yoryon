@@ -1,0 +1,10 @@
+{
+  "registered": true,
+  "registerStatus": 200,
+  "verifyStatus": 200,
+  "mail": "local Mailpit only",
+  "accountDomain": "example.invalid",
+  "userId": "24a2181d-f9b0-486d-890a-30c1413b19f3",
+  "activationCodeCLI": "node --env-file=<private-env> --import tsx apps/cli/src/index.ts code create --grant-type subscription --days 30 --count 1 --note <run-name>",
+  "activationCodeCreated": true
+}

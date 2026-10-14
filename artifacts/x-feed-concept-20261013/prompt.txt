@@ -1,0 +1,53 @@
+Use case: ui-mockup.
+Create a NEW high-fidelity Yoryon website design concept inspired by the interaction hierarchy and visual rhythm of X. The user dislikes the current editorial feed and specifically asks for an X-like new DESIGN IMAGE.
+Input image 1: the user's exact avatar artwork, white-haired illustrated side-profile against airy pale blue. Preserve its identity in every avatar crop.
+Input image 2: current Yoryon approved brand palette reference ONLY (pale-blue/white/slate) and restrained subscription styling. Do NOT reuse its old two-row masthead and big title/date editorial rows. The feed layout is being radically redesigned.
+
+DELIVERABLE:
+One polished wide landscape design board, approximately 2400x1600, with a complete large desktop homepage on the left (about 75% of usable width) and a complete realistic mobile homepage on the right (about 23%). Very pale blue board backdrop, small gray labels outside the views "桌面" and "手机". Flat UI, no perspective, no glossy device shells, no browser chrome, no diagram annotations.
+Desktop homepage visibly follows X's THREE-COLUMN composition:
+1) quiet LEFT NAVIGATION rail, approximately 220 CSS px;
+2) PRIMARY TIMELINE about 600 CSS px with subtle 1px vertical separators;
+3) RIGHT SUPPORTING rail about 280 CSS px.
+White website surface and very pale sky-blue surrounding canvas. Precise system/PingFang SC Chinese typography. Charcoal/slate main text (#253947), muted slate metadata (#697e8a), accent muted blue (#4c89a8), soft surfaces (#f1f8fc), fine separators (#e0eaf0). Preserve a mature understated personal publication, not a corporate dashboard.
+
+LEFT NAVIGATION:
+At top: circular author avatar from image 1, about 44px, beside black/slate wordmark "Yoryon". Navigation rows with elegant 22px thin outline icons and labels EXACTLY "首页", "探索", "订阅", "通知", "账户". 首页 active with a subtle powder-blue pill highlight. No X logo, no verification badge, no Grok, DMs, trends or huge publish button.
+Near bottom a small low-key appearance control "外观". Keep the rail open and uncluttered.
+
+CENTER TIMELINE:
+Top header about 58px high, title "首页", small gray secondary text "记录、思考与实践". A second compact tab row with "全部", "帖子", "长文"; 全部 selected with short blue underline. No reader composer, since this is a single-author personal site.
+Below, a genuinely X-like continuous timeline with thin separators and COMPACT entries. Every entry has a 40px circular crop of the SAME supplied avatar in a narrow LEFT avatar gutter. All content aligns to the RIGHT of that avatar, never full-width dated headings.
+Each entry begins with an INLINE author metadata row: bold "Yoryon", muted "@yoryon", a small centered dot, short muted date like "10月13日", and a tiny ellipsis at far right. A standard hierarchy: compact author row → readable short body → optional embedded media/article → subtle interaction row. Keep vertical spacing efficient but breathable.
+Give 4 diverse meaningful sample entries:
+POST 1, short text-first thought, no headline:
+"最近在想：一个好的 Agent，不该只是把工具串起来。
+真正难的是边界、反馈，以及什么时候停下来。"
+A small blue topical link "#AI产品" below or inline. Thin low-key action row with reply bubble and "评论" at left, "查看详情" in the middle, share arrow at right. No fake likes/counts/social metrics. No repost or bookmark controls.
+POST 2, short image post:
+"把想法写下来，也给日常留一点空白。"
+A beautiful softly colored pale-blue coastal/sky landscape photograph in a wide 16:9 gently rounded rectangle EMBEDDED WITHIN the content body. Image width ends at the text column bounds, avatar stays outside. It is ordinary sample feed imagery, no oversized hero.
+Same quiet action row.
+POST 3, long-article entry:
+Author metadata, then compact sentence "把最近的一次构建过程，整理成了长文。"
+An embedded rounded, thin-outlined ARTICLE PREVIEW card, compact horizontal layout with a small pale-blue abstract notebook thumbnail on the left and on the right exact title "从想法到产品", subtitle "选择、边界与一次实践复盘", tiny type label "长文" and link "阅读全文 →". This card is visually distinct from a normal post while belonging to the same timeline. No huge image/title.
+Same quiet comments/detail/share row.
+POST 4, compact audio entry near the lower portion:
+"一些关于创作的想法。"
+A compact real-looking pale-blue AUDIO capsule, about 60px tall, circular play control, concise title "创作随记", understated waveform and "03:24". No massive player placeholder. The waveform/time are sample design content. Same quiet action row.
+All entry avatars, author rows, body text and media align perfectly. A consistent dense readable timeline, not spaced-out blog cards.
+
+RIGHT RAIL:
+A simple rounded search field at top with magnifier and placeholder "搜索作品".
+A small creator bio block with avatar 48px, "Yoryon", quiet tagline "AI、产品与日常"; no follower/member counts.
+Then a SMALL understated subscription support block, pale-blue fill and thin outline, modest 10px radius and no shadow. Text EXACTLY "支持持续创作", concise benefits "专属作品 · 每月一次提问" and "会员讨论", price "¥29.9 / 月" in normal 20px type. Standard small muted-blue CTA "兑换激活码". It must feel like part of the site, never a luxury VIP advertisement.
+A quiet "合集" section below with text links "AI 与产品", "构建笔记". No popularity rankings, fake metrics or recommendation algorithms.
+
+MOBILE:
+Show the SAME content design in a realistic approximately 390 CSS px wide mobile viewport. White surface, a compact header with avatar+Yoryon on left, search and account outline icons on right. Three tabs "全部", "帖子", "长文"; selected short blue underline. Same avatar-gutter post design, same sample author's text-first first post and coastal second post, followed by the compact long-article preview partly or fully visible. Make mobile Chinese text legible; adapt line wrapping naturally. No right sidebar. A calm thin-bordered bottom navigation with five icons/labels "首页", "探索", "订阅", "通知", "账户", 首页 blue.
+Subscription is reached through the normal tab/nav; do not inject a big membership ad into mobile feed.
+
+CONSTRAINTS:
+This is a personal Yoryon publication, not an X clone branded as X. Keep supplied avatar recognizable, airy light-blue accents, all Chinese copy clean, alignment impeccable. No heavy shadows, giant VIP slab, glass effects, gradients, oversized floating cards, rainbow icons, fake subscriber/testimonial/social counts, reader posting composer, pricing tiers, checkout or payment UI.
+A tiny outside-board footer note EXACTLY "X 风格信息流提案 · 图文与互动为设计示意".
+This is a NEW design image only. Existing app code is not being modified by this request.

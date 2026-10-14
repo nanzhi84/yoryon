@@ -256,14 +256,14 @@ export function CommentSection({ slug, questionId }: { slug: string; questionId?
   }
 
   return (
-    <section className="mt-12 border-t pt-8" aria-label="评论区">
-      <h2 className="text-lg font-medium">评论{total > 0 ? `（${total}）` : ""}</h2>
+    <section id={questionId ? undefined : "comments"} className="mt-6 scroll-mt-6 border-t border-border pt-6" aria-label="评论区">
+      <h2 className="text-lg font-semibold leading-[26px]">评论{total > 0 ? `（${total}）` : ""}</h2>
 
       {/* 输入区：按互动上下文呈现 */}
-      <div className="mt-4">
+      <div className="mt-3">
         {!ctx || !ctx.authenticated ? (
           <p className="text-sm text-muted-foreground">
-            <a href={loginHref} className="underline underline-offset-4">登录</a> 后参与评论
+            <a href={loginHref} className="text-primary underline underline-offset-4">登录</a> 后参与评论
           </p>
         ) : !ctx.canInteract ? (
           <p className="text-sm text-muted-foreground">{questionId ? "问答讨论需要有效会员资格。" : "此为付费内容，解锁完整权益后可参与评论与点赞。"}</p>

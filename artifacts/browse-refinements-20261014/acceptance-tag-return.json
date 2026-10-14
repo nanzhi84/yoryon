@@ -1,0 +1,11 @@
+{
+  "demoTag": {
+    "back": true,
+    "heading": "#demo",
+    "path": "/tags/demo"
+  },
+  "tagsBack": {
+    "heading": "标签",
+    "path": "/tags"
+  }
+}

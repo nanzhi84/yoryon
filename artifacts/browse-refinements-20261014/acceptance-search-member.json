@@ -1,0 +1,19 @@
+{
+  "activePaidSearch": {
+    "hits": 1,
+    "quota": "订阅用户：无限搜索",
+    "results": 1,
+    "text": "会员阅读边界记录付费 · 2026-10-10这是公开阅读预览，只允许公开部分生成摘要。\n私有边界检验词玄鹤：这段正文仅会员可读，不能出现在公开摘要中。\n定位原文 →"
+  },
+  "memory": {
+    "query": "私有边界检验词玄鹤",
+    "request": {
+      "query": "私有边界检验词玄鹤",
+      "requestId": "a9dd3257-2c85-4ddc-a585-2eed3e8d8f9c"
+    },
+    "session": "7bcdc8f2-d6a3-48ab-bd02-159dd9c5d90f",
+    "offsets": [
+      0
+    ]
+  }
+}

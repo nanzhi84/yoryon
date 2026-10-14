@@ -1,0 +1,13 @@
+{
+  "database": "yoryon_page_redesign_20261013",
+  "api": "http://127.0.0.1:4115",
+  "web": "http://127.0.0.1:3015",
+  "id": "60b71192-8f39-473f-a7b5-29a64b57f16c",
+  "username": "profile_check_f13165ec",
+  "role": "user",
+  "status": "active",
+  "membership": false,
+  "emailSent": false,
+  "baselineAssetCount": 4,
+  "privateCredentialsLocation": "/tmp/yoryon-page-redesign-m0NxxV/profile-acceptance-user.json"
+}

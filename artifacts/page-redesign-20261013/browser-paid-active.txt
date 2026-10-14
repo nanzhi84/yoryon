@@ -1,0 +1,71 @@
+Window: "付费演示文章（含图片与视频） · Yoryon", App: Google Chrome.
+0 standard window 付费演示文章（含图片与视频） · Yoryon - Google Chrome (Incognito), URL: localhost:3015/p/demo-paid, Secondary Actions: Raise
+	1 container 付费演示文章（含图片与视频） · Yoryon - Google Chrome (Incognito), URL: localhost:3015/p/demo-paid
+		2 container
+			3 toolbar
+				4 button Back
+				5 button (disabled) Forward
+				6 button Reload
+				7 container
+					8 pop up button View site information
+					9 text field (settable) Address and search bar, Value: localhost:3015/p/demo-paid, Placeholder: Ask Google or type a URL
+					10 button Bookmark this tab
+				11 button Incognito
+				12 pop up button Chrome
+			13 container
+				14 scroll area
+					15 HTML content 付费演示文章（含图片与视频） · Yoryon, URL: localhost:3015/p/demo-paid
+						16 container
+							17 link Yoryon, Value: localhost:3015/
+							18 pop up button 全站搜索
+							19 link 通知, Value: localhost:3015/notifications
+							20 pop up button 账户菜单
+							21 container 主导航
+								22 link 首页, Value: localhost:3015/
+								23 link 订阅, Value: localhost:3015/subscription
+								24 pop up button 探索
+						25 container
+							26 text 长文 ·
+							27 text 2026.10.11
+							28 text 付费
+							29 heading 付费演示文章（含图片与视频）, Value: 1
+								30 text 付费演示文章（含图片与视频）
+							31 text 付费墙 + 内联多媒体演示
+							32 link #demo, Value: localhost:3015/tags/demo
+							33 button 查看图片：演示配图
+							34 text 第 1 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 1 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 1 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。 第 2 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 2 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 2 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。 第 3 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 3 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 3 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。 第 4 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 4 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 4 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。 第 5 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 5 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 5 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。 第 6 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 6 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 6 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。 第 7 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 7 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 7 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。 第 8 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 8 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 8 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。
+							35 button 播放视频
+							36 text 第 1 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 1 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 1 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。 第 2 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 2 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 2 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。 第 3 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 3 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 3 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。 第 4 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 4 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 4 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。 第 5 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 5 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 5 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。 第 6 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 6 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 6 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。 第 7 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 7 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 7 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。 第 8 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 8 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 8 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。
+							37 container 评论区
+								38 heading 评论, Value: 2
+									39 text 评论
+								40 text entry area (settable) 评论输入框, Placeholder: 写下你的评论…
+								41 text 0 / 2000
+								42 button (disabled) 发送
+								43 text 还没有评论。
+						44 text 付费演示文章（含图片与视频） · Yoryon
+			45 tab group
+				46 container
+					47 button Expand Tabs
+					48 pop up button Tab search
+				49 container
+					50 scroll area
+					51 scroll area
+						52 tab (selected, settable, boolean) 付费演示文章（含图片与视频） · Yoryon - Memory usage - 109 MB, Value: on
+				53 button New tab
+	54 close button
+	55 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	56 minimize button
+57 menu bar
+	58 Chrome
+	59 File
+	60 Edit
+	61 View
+	62 History
+	63 Bookmarks
+	64 Profiles
+	65 Tab
+	66 Window
+	67 Help
+
+The focused UI element is 15 HTML content 付费演示文章（含图片与视频） · Yoryon, URL: localhost:3015/p/demo-paid

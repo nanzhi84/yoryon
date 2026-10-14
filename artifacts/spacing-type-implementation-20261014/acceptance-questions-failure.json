@@ -1,0 +1,18 @@
+{
+  "blockedUrl": "http://localhost:3015/api/questions/public*",
+  "alerts": [
+    "Failed to fetch 刷新列表",
+    ""
+  ],
+  "events": [
+    {
+      "method": "Network.loadingFailed",
+      "errorText": "",
+      "blockedReason": "inspector"
+    },
+    {
+      "method": "Network.loadingFailed",
+      "errorText": "net::ERR_ABORTED"
+    }
+  ]
+}

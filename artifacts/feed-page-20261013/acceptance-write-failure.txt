@@ -1,0 +1,142 @@
+- banner:
+  - link "Yoryon":
+    - /url: /
+    - generic: Yoryon
+  - button "全站搜索":
+  - link "通知":
+    - /url: /notifications
+  - button "账户菜单":
+  - navigation "主导航":
+    - link "首页":
+      - /url: /
+    - link "订阅":
+      - /url: /subscription
+      - text: 订阅
+    - button "探索":
+      - text: 探索
+- main:
+  - article:
+    - link "演示音频":
+      - /url: /p/demo-audio
+      - heading "演示音频" [level=2]
+    - time: 2026.10.11
+    - button "播放音频":
+      - generic: 播放音频
+    - paragraph: 这里是音频的文字说明（shownotes）：正文区域照常支持 Markdown，可以放时间轴、链接与参考资料。
+    - generic: 帖子
+    - link "#demo":
+      - /url: /tags/demo
+    - generic "内容互动":
+      - link "评论，1条":
+        - /url: /p/demo-audio#comments
+        - generic: "1"
+      - button "点赞，1个赞":
+        - generic: "1"
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+    - alert: Failed to fetch
+  - article:
+    - link "演示视频":
+      - /url: /p/demo-video
+      - heading "演示视频" [level=2]
+    - time: 2026.10.11
+    - button "播放视频":
+    - generic: 帖子
+    - link "#demo":
+      - /url: /tags/demo
+    - generic "内容互动":
+      - link "评论，0条":
+        - /url: /p/demo-video#comments
+        - generic: 评论
+      - button "点赞，0个赞":
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "演示图集":
+      - /url: /p/demo-gallery
+      - heading "演示图集" [level=2]
+    - time: 2026.10.11
+    - paragraph:
+      - button "查看图片：作品图片":
+        - img "作品图片"
+    - generic: 帖子
+    - link "#demo":
+      - /url: /tags/demo
+    - generic "内容互动":
+      - link "评论，0条":
+        - /url: /p/demo-gallery#comments
+        - generic: 评论
+      - button "点赞，0个赞":
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "示例系列 · 第二话":
+      - /url: /p/demo-ep2
+      - heading "示例系列 · 第二话" [level=2]
+    - time: 2026.10.11
+    - link "阅读全文":
+      - /url: /p/demo-ep2
+      - text: 阅读全文
+    - generic: 长文
+    - link "#demo":
+      - /url: /tags/demo
+    - generic "内容互动":
+      - link "评论，0条":
+        - /url: /p/demo-ep2#comments
+        - generic: 评论
+      - button "点赞，0个赞":
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "示例系列 · 第一话":
+      - /url: /p/demo-ep1
+      - heading "示例系列 · 第一话" [level=2]
+    - time: 2026.10.11
+    - link "阅读全文":
+      - /url: /p/demo-ep1
+      - text: 阅读全文
+    - generic: 长文
+    - link "#demo":
+      - /url: /tags/demo
+    - generic "内容互动":
+      - link "评论，0条":
+        - /url: /p/demo-ep1#comments
+        - generic: 评论
+      - button "点赞，0个赞":
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "测试文章":
+      - /url: /p/hello-world
+      - heading "测试文章" [level=2]
+    - time: 2026.10.11
+    - link "阅读全文":
+      - /url: /p/hello-world
+      - text: 阅读全文
+    - generic: 长文
+    - link "#test":
+      - /url: /tags/test
+    - generic "内容互动":
+      - link "评论，0条":
+        - /url: /p/hello-world#comments
+        - generic: 评论
+      - button "点赞，0个赞":
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - region "订阅支持":
+    - paragraph: 更深入的作品，更直接的交流。
+    - link "了解订阅":
+      - /url: /subscription
+      - text: 了解订阅
+- alert

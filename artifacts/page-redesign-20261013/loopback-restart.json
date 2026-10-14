@@ -1,0 +1,22 @@
+{
+  "recordedAt": "2026-10-13T13:43:17.010Z",
+  "health": {
+    "ok": true
+  },
+  "homeText": {
+    "containsDemoAudio": true,
+    "containsAuthorImage": true
+  },
+  "subscriptionText": {
+    "containsMemberCTA": true,
+    "containsPaidDemo": true
+  },
+  "anonymousAudio": {
+    "status": 200,
+    "mime": "audio/mpeg",
+    "bytes": 24468
+  },
+  "listeners": "COMMAND   PID   USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME\nnode    30129 yoryon   12u  IPv4 0x668317c8f8d0bbf9      0t0  TCP 127.0.0.1:3015 (LISTEN)\nnode    46065 yoryon   16u  IPv4 0x8d11913b6470e957      0t0  TCP 127.0.0.1:4115 (LISTEN)\n",
+  "apiPid": 46065,
+  "scope": "health/HTML/media receipt after runtime bind change; browser visibility independently checked before restart"
+}

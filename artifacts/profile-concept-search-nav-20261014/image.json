@@ -1,0 +1,12 @@
+{
+  "tool": "builtin image_gen",
+  "mode": "ui-mockup from reference screenshot",
+  "path": "/Users/yoryon/.codex/generated_images/01a134a1-db9a-72a2-aa74-da2ac899d522/exec-85ea209b-69ac-4d39-b6de-3cdb1f71c6f5.png",
+  "sha256": "85a1daefdc8f84710a4cb8c9adbcf67dff9bdfb99f9ce9cf29aa68ef6d60f621",
+  "purpose": "preview-only profile redesign concept",
+  "notUsedInRuntime": true,
+  "profileRuntimeChanged": false,
+  "prompt": "prompt.txt",
+  "logicalTypographySpec": "design.md",
+  "knownApproximation": "Generated avatar about84 logical px vs64px design target; implementation should use64px. No claim of pixel-perfect generated UI."
+}

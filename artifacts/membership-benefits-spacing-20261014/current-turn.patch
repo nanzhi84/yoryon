@@ -1,0 +1,296 @@
+--- before/apps/web/app/c/[slug]/page.tsx
++++ after/apps/web/app/c/[slug]/page.tsx
+@@ -38,7 +38,7 @@
+     <>
+       <SiteHeader />
+       {/* 与文章页同一阅读栏（布局容器 max-w-3xl） */}
+-      <main className="py-8">
++      <main className="py-5">
+         <DetailTracker targetKind="collection" targetId={collection.id} />
+         <header>
+           <div className="flex items-center gap-2 text-sm text-muted-foreground">
+@@ -49,8 +49,8 @@
+           {collection.description && <p className="mt-3 text-muted-foreground">{collection.description}</p>}
+         </header>
+ 
+-        <div className="mt-8 divide-y divide-border">
+-          {collection.items.length === 0 && <p className="py-10 text-center text-sm text-muted-foreground">合集暂无内容。</p>}
++        <div className="mt-5 divide-y divide-border">
++          {collection.items.length === 0 && <p className="py-6 text-center text-sm text-muted-foreground">合集暂无内容。</p>}
+           {collection.items.map((item, i) => (
+             <article key={item.slug} className="group flex items-baseline gap-4 py-4">
+               <span className="shrink-0 text-sm tabular-nums text-muted-foreground">{String(i + 1).padStart(2, "0")}</span>
+--- before/apps/web/app/c/page.tsx
++++ after/apps/web/app/c/page.tsx
+@@ -20,7 +20,7 @@
+       <SiteHeader />
+       <main data-catalog-version={data.version}>
+         {items.length === 0 ? (
+-          <p className="py-16 text-center text-sm text-muted-foreground">还没有合集。</p>
++          <p className="py-6 text-center text-sm text-muted-foreground">还没有合集。</p>
+         ) : (
+           // 合集列表是合集的唯一列表曝光面（feed 纯内容流），placement=collection_list
+           <AnalyticsListProvider placement="collection_list">
+--- before/apps/web/app/error.tsx
++++ after/apps/web/app/error.tsx
+@@ -5,7 +5,7 @@
+ export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+   void error;
+   return (
+-    <main className="py-24 text-center">
++    <main className="py-8 text-center">
+       <h1 className="text-2xl font-semibold">出错了</h1>
+       <p className="mt-3 text-muted-foreground">页面加载失败，请稍后重试。</p>
+       <Button className="mt-6" onClick={reset}>重试</Button>
+--- before/apps/web/app/login/page.tsx
++++ after/apps/web/app/login/page.tsx
+@@ -9,8 +9,8 @@
+   return (
+     <>
+       <SiteHeader />
+-      <main className="mx-auto max-w-sm py-12">
+-        <h1 className="mb-6 text-2xl font-semibold">登录</h1>
++      <main className="mx-auto max-w-sm py-5">
++        <h1 className="mb-4 text-2xl font-semibold">登录</h1>
+         <LoginForm returnTo={returnTo ?? null} />
+       </main>
+     </>
+--- before/apps/web/app/not-found.tsx
++++ after/apps/web/app/not-found.tsx
+@@ -5,7 +5,7 @@
+   return (
+     <>
+       <SiteHeader />
+-      <main className="py-24 text-center">
++      <main className="py-8 text-center">
+         <h1 className="text-4xl font-semibold">404</h1>
+         <p className="mt-3 text-muted-foreground">页面不存在。</p>
+         <Link prefetch={false} href="/" className="mt-6 inline-block underline underline-offset-4">回到首页</Link>
+--- before/apps/web/app/notifications/page.tsx
++++ after/apps/web/app/notifications/page.tsx
+@@ -9,7 +9,7 @@
+   return (
+     <>
+       <SiteHeader />
+-      <main className="mx-auto max-w-2xl py-8">
++      <main className="mx-auto max-w-2xl py-5">
+         <h1 className="mb-4 text-2xl font-semibold">通知</h1>
+         <NotificationList />
+       </main>
+--- before/apps/web/app/questions/[id]/page.tsx
++++ after/apps/web/app/questions/[id]/page.tsx
+@@ -13,7 +13,7 @@
+   if (res.status === 404) notFound();
+   if (!res.ok) throw new Error(`question API ${res.status}`);
+   const { item } = await res.json() as { item: QuestionItem };
+-  return <><SiteHeader /><main className="py-8"><Link href="/subscription" className="text-sm text-muted-foreground underline">返回订阅</Link><QuestionCard item={item} />
++  return <><SiteHeader /><main className="py-5"><Link href="/subscription" className="text-sm text-muted-foreground underline">返回订阅</Link><QuestionCard item={item} />
+     {item.canDiscuss && <CommentSection slug="" questionId={id} />}
+   </main></>;
+ }
+--- before/apps/web/app/redeem/page.tsx
++++ after/apps/web/app/redeem/page.tsx
+@@ -10,7 +10,7 @@
+   return (
+     <>
+       <SiteHeader />
+-      <main className="py-12">
++      <main className="py-5">
+         <BackButton fallback={returnTo ?? "/subscription"} />
+         <h1 className="text-2xl font-semibold">兑换激活码</h1>
+         <p className="mb-6 mt-2 text-sm text-muted-foreground">
+--- before/apps/web/app/register/page.tsx
++++ after/apps/web/app/register/page.tsx
+@@ -8,8 +8,8 @@
+   return (
+     <>
+       <SiteHeader />
+-      <main className="mx-auto max-w-sm py-12">
+-        <h1 className="mb-6 text-2xl font-semibold">注册</h1>
++      <main className="mx-auto max-w-sm py-5">
++        <h1 className="mb-4 text-2xl font-semibold">注册</h1>
+         <RegisterForm />
+       </main>
+     </>
+--- before/apps/web/app/reset-password/page.tsx
++++ after/apps/web/app/reset-password/page.tsx
+@@ -8,8 +8,8 @@
+   return (
+     <>
+       <SiteHeader />
+-      <main className="mx-auto max-w-sm py-12">
+-        <h1 className="mb-6 text-2xl font-semibold">重置密码</h1>
++      <main className="mx-auto max-w-sm py-5">
++        <h1 className="mb-4 text-2xl font-semibold">重置密码</h1>
+         <ResetPasswordForm />
+       </main>
+     </>
+--- before/apps/web/app/search/page.tsx
++++ after/apps/web/app/search/page.tsx
+@@ -2,4 +2,4 @@
+ import { BackButton } from "@/components/back-button";
+ import { SearchPageClient } from "@/components/search-page-client";
+ export const metadata = { title: "搜索", referrer: "no-referrer" as const };
+-export default function SearchPage() { return <><SiteHeader /><main className="py-8 pb-20"><BackButton /><h1 className="text-2xl font-semibold">搜索</h1><SearchPageClient /></main></>; }
++export default function SearchPage() { return <><SiteHeader /><main className="py-5 pb-20"><BackButton /><h1 className="text-2xl font-semibold">搜索</h1><SearchPageClient /></main></>; }
+--- before/apps/web/app/settings/profile/page.tsx
++++ after/apps/web/app/settings/profile/page.tsx
+@@ -2,5 +2,5 @@
+ import { ProfileSettings } from "@/components/profile-settings";
+ export const metadata = { title: "个人资料" };
+ export default function ProfilePage() {
+-  return <><SiteHeader /><main className="space-y-6 py-8"><h1 className="text-2xl font-semibold">个人资料</h1><ProfileSettings /></main></>;
++  return <><SiteHeader /><main className="space-y-4 py-5"><h1 className="text-2xl font-semibold">个人资料</h1><ProfileSettings /></main></>;
+ }
+--- before/apps/web/app/subscription/page.tsx
++++ after/apps/web/app/subscription/page.tsx
+@@ -14,7 +14,7 @@
+   if (!feedRes.ok) throw new Error(`paid feed API ${feedRes.status}`);
+   const feed = await feedRes.json() as FeedResponse;
+   const membership = state?.ok ? await state.json() as Membership : null;
+-  return <><SiteHeader /><main data-catalog-version={feed.version} className="py-6 pb-20">
++  return <><SiteHeader /><main data-catalog-version={feed.version} className="py-5 pb-20">
+     <MembershipPanel initial={membership} authenticated={!!state?.ok} unavailable={!state || (!state.ok && state.status !== 401)} works={<section aria-label="会员作品"><h2 className="sr-only">会员作品</h2><p className="text-sm text-muted-foreground">未订阅时可查看作品介绍和公开预览。</p>
+       {feed.items.length ? <div className="divide-y divide-border"><FeedTimeline items={feed.items} /></div> : <p className="py-8 text-sm text-muted-foreground">还没有会员作品。</p>}
+       {feed.nextCursor && <LoadMore basePath="/api/paid-feed" version={feed.version} initialCursor={feed.nextCursor} />}
+--- before/apps/web/app/tags/[slug]/page.tsx
++++ after/apps/web/app/tags/[slug]/page.tsx
+@@ -35,7 +35,7 @@
+   return (
+     <>
+       <SiteHeader />
+-      <main data-catalog-version={data.version} className="py-8">
++      <main data-catalog-version={data.version} className="py-5">
+         <BackButton fallback="/tags" />
+         <h1 className="text-2xl font-semibold">#{data.tag.name}</h1>
+         <div className="mt-4">
+--- before/apps/web/app/tags/page.tsx
++++ after/apps/web/app/tags/page.tsx
+@@ -7,7 +7,7 @@
+   const response = await publicFetch("/api/tags", { revalidate: 86400, tags: ["feed"] });
+   if (!response.ok) throw new Error(`tags API ${response.status}`);
+   const data = await response.json() as { tags: { slug: string; name: string; count: number }[] };
+-  return <><SiteHeader /><main className="py-8"><BackButton /><h1 className="text-2xl font-semibold">标签</h1>
+-    {data.tags.length ? <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-4">{data.tags.map(tag => <li key={tag.slug}><Link href={`/tags/${tag.slug}`} prefetch={false} className="inline-flex min-h-11 items-center gap-2 text-sm hover:text-primary">#{tag.name}<span className="text-muted-foreground">{tag.count}</span></Link></li>)}</ul> : <p className="py-8 text-sm text-muted-foreground">还没有标签。</p>}
++  return <><SiteHeader /><main className="py-5"><BackButton /><h1 className="text-2xl font-semibold">标签</h1>
++    {data.tags.length ? <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-4">{data.tags.map(tag => <li key={tag.slug}><Link href={`/tags/${tag.slug}`} prefetch={false} className="inline-flex min-h-11 items-center gap-2 text-sm hover:text-primary">#{tag.name}<span className="text-muted-foreground">{tag.count}</span></Link></li>)}</ul> : <p className="py-6 text-sm text-muted-foreground">还没有标签。</p>}
+   </main></>;
+ }
+--- before/apps/web/components/back-button.tsx
++++ after/apps/web/components/back-button.tsx
+@@ -11,7 +11,7 @@
+       writeBrowse("restore", { path }); history.back();
+     } else { window.location.assign(safeReturnTo(fallback) ?? "/"); }
+   }
+-  return <button type="button" onClick={back} className="mb-4 inline-flex min-h-11 items-center gap-2 rounded-sm text-[13px] leading-5 text-muted-foreground hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-label="返回上一页">
++  return <button type="button" onClick={back} className="mb-2 inline-flex min-h-11 items-center gap-2 rounded-sm text-[13px] leading-5 text-muted-foreground hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-label="返回上一页">
+     <ArrowLeft className="size-4" aria-hidden="true" />返回
+   </button>;
+ }
+--- before/apps/web/components/content-view.tsx
++++ after/apps/web/components/content-view.tsx
+@@ -16,7 +16,7 @@
+     <>
+       <SiteHeader />
+       {/* 正文与页头同栏（布局容器 max-w-3xl），不再收窄 */}
+-      <main className="py-6" data-revision={content.updatedAt}>
++      <main className="py-5" data-revision={content.updatedAt}>
+         <BackButton />
+         <DetailTracker targetKind="work" targetId={content.id} />
+         <SearchLocation slug={content.slug} />
+--- before/apps/web/components/markdown-image.tsx
++++ after/apps/web/components/markdown-image.tsx
+@@ -3,6 +3,7 @@
+ import { createPortal } from "react-dom";
+ 
+ export function MarkdownImage(props: ImgHTMLAttributes<HTMLImageElement>) {
++  const intrinsicWidth = typeof props.width === "number" && props.width > 0 ? props.width : undefined;
+   const [open, setOpen] = useState(false);
+   const [failed, setFailed] = useState(false);
+   const [retry, setRetry] = useState(0);
+@@ -15,7 +16,7 @@
+   }, [open]);
+   return <span>
+     {failed ? <span role="alert">图片加载失败。<button type="button" onClick={() => { setFailed(false); setRetry(n => n + 1); }}>重试</button></span>
+-      : <button type="button" onClick={() => setOpen(true)} className="block max-w-full cursor-zoom-in" aria-label={`查看图片：${props.alt || "作品图片"}`}>
++      : <button type="button" onClick={() => setOpen(true)} className="block w-full max-w-full cursor-zoom-in" style={{ width: intrinsicWidth }} aria-label={`查看图片：${props.alt || "作品图片"}`}>
+         <img {...props} key={retry} onError={() => setFailed(true)} />
+       </button>}
+     {open && createPortal(<dialog ref={dialog} aria-label="图片预览，按Esc或点击空白关闭" onClose={() => setOpen(false)}
+--- before/apps/web/components/markdown-surface.tsx
++++ after/apps/web/components/markdown-surface.tsx
+@@ -43,13 +43,13 @@
+                 // eslint-disable-next-line @next/next/no-img-element
+                 <MarkdownImage
+                   src={id && publicImages ? publicImageUrl(id, svg ? "original" : 1280) : typeof src === "string" ? src : ""}
+-                  srcSet={size && id && !svg ? imageSrcSet(id, size.width ?? undefined, publicImages) : undefined}
++                  srcSet={size?.width && id && !svg ? imageSrcSet(id, size.width, publicImages) : undefined}
+                   sizes="(max-width: 768px) 100vw, 768px"
+                   alt={alt ?? ""}
+                   loading="lazy"
+                   decoding="async"
+                   {...(size?.width && size.height ? { width: size.width, height: size.height } : {})}
+-                  className="h-auto max-w-full rounded-lg"
++                  className="h-auto w-full max-w-full rounded-lg"
+                   {...props}
+                 />
+               );
+--- before/apps/web/components/membership-panel.tsx
++++ after/apps/web/components/membership-panel.tsx
+@@ -1,6 +1,7 @@
+ "use client";
+ import { useCallback, useEffect, useRef, useState } from "react";
+ import Link from "next/link";
++import { BookOpen, CircleHelp, MessagesSquare } from "lucide-react";
+ import type { Membership } from "@/lib/types";
+ import { MemberQuestions } from "./member-questions";
+ import { Button } from "./ui/button";
+@@ -49,13 +50,24 @@
+           <h1 className="text-lg font-semibold leading-[26px]">支持我的持续创作</h1>
+           <p className="shrink-0 whitespace-nowrap text-sm"><span className="text-xl font-semibold">¥29.9</span> / 月</p>
+         </div>
+-        <p className="mt-2 text-sm leading-[23px] text-muted-foreground">读得更深入，交流更直接。</p>
+-        <p className="mt-3 text-xs leading-5 text-muted-foreground">专属作品 <span aria-hidden="true">·</span> 每月一次提问 <span aria-hidden="true">·</span> 会员讨论</p>
+-        <div className="mt-4 flex flex-col items-start gap-2">
++        <ul aria-label="会员权益" className="mt-4 grid grid-cols-3 gap-4">
++          <li className="min-w-0">
++            <div className="flex items-center gap-2 text-sm font-medium leading-5"><BookOpen className="size-[18px] shrink-0 text-primary" aria-hidden="true" />专属作品</div>
++            <p className="mt-1 text-xs leading-5 text-muted-foreground">解锁全部付费内容</p>
++          </li>
++          <li className="min-w-0">
++            <div className="flex items-center gap-2 text-sm font-medium leading-5"><CircleHelp className="size-[18px] shrink-0 text-primary" aria-hidden="true" />每月提问</div>
++            <p className="mt-1 text-xs leading-5 text-muted-foreground">每个自然月 1 次</p>
++          </li>
++          <li className="min-w-0">
++            <div className="flex items-center gap-2 text-sm font-medium leading-5"><MessagesSquare className="size-[18px] shrink-0 text-primary" aria-hidden="true" />会员讨论</div>
++            <p className="mt-1 text-xs leading-5 text-muted-foreground">阅读回答，参与讨论</p>
++          </li>
++        </ul>
++        <div className="mt-5">
+           <Button asChild className="min-h-11 rounded-md px-5 text-sm">
+             <Link href="/redeem?returnTo=%2Fsubscription%23membership" prefetch={false}>兑换激活码，开通会员</Link>
+           </Button>
+-          <p className="text-xs leading-5 text-muted-foreground">使用已有激活码兑换会员权益。</p>
+         </div>
+       </>}
+     </section>
+--- before/apps/web/components/search-page-client.tsx
++++ after/apps/web/components/search-page-client.tsx
+@@ -118,7 +118,7 @@
+       {exhausted && <div className="pb-4 text-sm"><p className="text-muted-foreground">{releases && `恢复时间：${new Date(releases).toLocaleTimeString("zh-CN", { timeZone: "Asia/Singapore" })}`}</p><Link prefetch={false} href="/redeem" className="mt-2 inline-block text-primary underline">开通订阅，解锁无限搜索</Link></div>}
+       {result && <>
+         <p className="mb-2 text-xs text-muted-foreground">{result.quota.remaining === null ? "订阅用户：无限搜索" : `本小时剩余 ${result.quota.remaining} 次搜索`}{!result.bodySearch && " · 本次只搜索标题与描述"}</p>
+-        {!result.results.length && <p className="py-12 text-center text-sm text-muted-foreground">没有找到匹配内容</p>}
++        {!result.results.length && <p className="py-6 text-center text-sm text-muted-foreground">没有找到匹配内容</p>}
+         {result.results.map(item => <article key={item.id} className="py-5">
+           <a href={`/p/${item.slug}`} onClick={leave} className="font-semibold hover:underline"><Highlight text={item.title || "帖子"} query={result.query} /></a>
+           <p className="mt-1 text-xs text-muted-foreground">{item.visibility === "paid" ? "付费" : "免费"} · {item.publishedAt?.slice(0, 10)}</p>
+@@ -128,7 +128,7 @@
+         </article>)}
+         {result.nextCursor !== null && <Button variant="outline" className="my-4 w-full" disabled={busy} onClick={() => void submit(true)}>加载更多</Button>}
+       </>}
+-      {!result && !busy && !error && <p className="py-12 text-center text-sm text-muted-foreground">搜索文章、帖子和正文中的内容。</p>}
++      {!result && !busy && !error && <p className="py-6 text-center text-sm text-muted-foreground">搜索文章、帖子和正文中的内容。</p>}
+     </div>
+   </>;
+ }

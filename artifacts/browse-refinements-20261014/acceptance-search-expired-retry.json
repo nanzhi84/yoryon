@@ -1,0 +1,18 @@
+{
+  "recoveredSearch": {
+    "alerts": 0,
+    "query": "私有边界检验词玄鹤",
+    "results": 1
+  },
+  "memory": {
+    "query": "私有边界检验词玄鹤",
+    "request": {
+      "query": "私有边界检验词玄鹤",
+      "requestId": "8b82aa47-16b4-4faf-b94c-829829ca083b"
+    },
+    "session": "7c7f0e76-c10f-4061-8840-995bb8100824",
+    "offsets": [
+      0
+    ]
+  }
+}

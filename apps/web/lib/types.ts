@@ -12,13 +12,15 @@ export interface FeedContentItem {
   slug: string;
   title: string;
   description: string;
+  /** 描述为空时，仅从匿名可见正文派生的摘要。 */
+  excerpt?: string;
   visibility: "public" | "paid";
   coverMediaId: string | null;
   publishedAt: string | null;
   /** 首页置顶标记（仅 feed 排序使用；标签页同一合同但排序不置顶） */
   isPinned: boolean;
   tags: FeedTag[];
-  post?: { bodyMarkdown: string; collapsed: boolean; media: Pick<ContentMediaItem, "mediaId" | "mimeType" | "width" | "height">[] } | null;
+  post?: { bodyMarkdown: string; collapsed: boolean; media: Pick<ContentMediaItem, "mediaId" | "mimeType" | "width" | "height" | "durationSec">[] } | null;
 }
 
 /** feed 仅含内容条目；合集是顶层结构，只经 /api/collections 列表曝光，不参与混排。 */

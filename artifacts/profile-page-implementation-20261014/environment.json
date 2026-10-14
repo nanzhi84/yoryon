@@ -1,0 +1,14 @@
+{
+  "web": "http://localhost:3015/",
+  "api": "http://127.0.0.1:4115",
+  "webPid": 61659,
+  "apiPid": 62175,
+  "workspace": "/Users/yoryon/Projects/yoryon",
+  "envFile": "/tmp/yoryon-page-redesign-m0NxxV/preview.env",
+  "isolatedDatabase": "yoryon_page_redesign_20261013",
+  "storage": "/tmp/yoryon-page-redesign-m0NxxV/storage",
+  "webLog": "/tmp/yoryon-page-redesign-m0NxxV/web-profile-design.log",
+  "productionChanged": false,
+  "workspaceType": "repository",
+  "webRebuildFromPid": 24870
+}

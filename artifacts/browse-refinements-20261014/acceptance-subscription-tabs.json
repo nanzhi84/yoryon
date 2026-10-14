@@ -1,0 +1,39 @@
+{
+  "qaTab": {
+    "panels": [
+      {
+        "hidden": true,
+        "id": "subscription-works-panel"
+      },
+      {
+        "hidden": false,
+        "id": "subscription-questions-panel"
+      }
+    ],
+    "tabs": [
+      {
+        "name": "会员作品",
+        "selected": "false",
+        "tabIndex": -1
+      },
+      {
+        "name": "会员问答",
+        "selected": "true",
+        "tabIndex": 0
+      }
+    ]
+  },
+  "worksTab": {
+    "focused": "会员作品",
+    "panels": [
+      {
+        "hidden": false,
+        "id": "subscription-works-panel"
+      },
+      {
+        "hidden": true,
+        "id": "subscription-questions-panel"
+      }
+    ]
+  }
+}

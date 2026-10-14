@@ -1,0 +1,18 @@
+{
+  "database": "yoryon_page_redesign_20261013",
+  "username": "preview_test",
+  "email": "preview-test@example.test",
+  "userId": "7acc95fa-f216-46c7-9bbe-78630ae7c9fe",
+  "role": "user",
+  "status": "active",
+  "membershipDays": 30,
+  "validUntil": "2026-11-13T05:51:12.832Z",
+  "entitlementId": "30fbbf19-793f-4df1-8c89-9ea6d87b61b8",
+  "redemptionId": "07f45687-d7a5-45b3-9fe5-15a92ed89aca",
+  "codeId": "d9c9a7e8-3a7f-4418-a5e3-7bfa95752d78",
+  "credentialFileStoredPrivately": true,
+  "userRequestedAccountPreserved": true,
+  "emailsSent": 0,
+  "sourceChanged": false,
+  "productionChanged": false
+}

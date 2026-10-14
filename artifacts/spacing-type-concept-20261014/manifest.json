@@ -1,0 +1,28 @@
+{
+  "generator": "built-in image_gen",
+  "purpose": "visual concept only",
+  "logicalWidthCssPx": 525,
+  "productionChanged": false,
+  "runtimeCodeChanged": false,
+  "baseCommit": "b8e7098e941f80d899cd6483a9ce236732e5ddf6",
+  "files": [
+    {
+      "path": "/Users/yoryon/Projects/yoryon/artifacts/spacing-type-concept-20261014/home-v2.png",
+      "width": 927,
+      "height": 1697,
+      "sha256": "8a664716d1b40af4161cfee360e5837e724a59c197b8eabde41f04f9180c7aa1"
+    },
+    {
+      "path": "/Users/yoryon/Projects/yoryon/artifacts/spacing-type-concept-20261014/article-v1.png",
+      "width": 973,
+      "height": 1616,
+      "sha256": "a839d5b006533065532ec84e57ba2201a1b3b0a4077280a516c6dcedd0e5051d"
+    },
+    {
+      "path": "/Users/yoryon/Projects/yoryon/artifacts/spacing-type-concept-20261014/subscription-v1.png",
+      "width": 971,
+      "height": 1620,
+      "sha256": "dfdec9c5f7c39f0d035084ae650912d589965130f1c2618c9c547f501594bb5c"
+    }
+  ]
+}

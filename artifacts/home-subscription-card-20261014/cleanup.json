@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "database": "yoryon_page_redesign_20261013",
+  "scope": "Exact own browser SID only, private value omitted",
+  "ownBefore": 5,
+  "removed": 5,
+  "ownAfter": 0,
+  "otherBefore": 187,
+  "otherAfter": 187,
+  "privateSidFileDeleted": true
+}

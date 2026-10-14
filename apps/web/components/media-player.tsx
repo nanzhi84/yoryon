@@ -8,8 +8,3 @@ export const VideoPlayerLazy = dynamic(() => import("@/components/player").then(
   ssr: false,
   loading: () => <Skeleton className="aspect-video w-full rounded-lg" />,
 });
-
-export const AudioPlayerLazy = dynamic(() => import("@/components/player").then((m) => m.AudioPlayerView), {
-  ssr: false,
-  loading: () => <Skeleton className="h-14 w-full rounded-lg" />,
-});

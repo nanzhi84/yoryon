@@ -10,7 +10,7 @@
  */
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useMemo, useRef, useState, type ReactNode, type MouseEvent } from "react";
 import Link from "next/link";
 import {
   analyticsDisabled,
@@ -112,25 +112,19 @@ export function TrackClickLink({
   href,
   className,
   children,
-}: TrackableProps & { href: string; className?: string }) {
+  "aria-label": ariaLabel,
+  native = false,
+}: TrackableProps & { href: string; className?: string; "aria-label"?: string; native?: boolean }) {
   const ctx = useContext(AnalyticsListContext);
   const send = () => {
     if (!ctx) return;
     trackEvent({ eventType: "click", targetKind, targetId, placement: ctx.placement, pageViewId: ctx.listViewId });
   };
-  return (
-    <Link prefetch={false}
-      href={href}
-      className={className}
-      onClick={send}
-      // 鼠标中键新标签打开走 auxclick（button=1），同样是主动点击入口；右键（button=2）不计
-      onAuxClick={(e) => {
-        if (e.button === 1) send();
-      }}
-    >
-      {children}
-    </Link>
-  );
+  const props = { href, className, "aria-label": ariaLabel, onClick: send,
+    // 鼠标中键是主动入口，右键不计；原生锚点导航沿用相同指标口径。
+    onAuxClick: (event: MouseEvent<HTMLAnchorElement>) => { if (event.button === 1) send(); } };
+  // Next 客户端首次跨 revision rewrite 导航会丢失 fragment；评论用完整文档导航保留锚点。
+  return native ? <a {...props}>{children}</a> : <Link prefetch={false} {...props}>{children}</Link>;
 }
 
 export function DetailTracker({ targetKind, targetId }: { targetKind: AnalyticsTargetKind; targetId: string }) {

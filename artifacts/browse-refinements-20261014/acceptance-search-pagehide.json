@@ -1,0 +1,11 @@
+{
+  "beforeFreeze": {
+    "hits": 1,
+    "path": "/search"
+  },
+  "pagehide": {
+    "persisted": false,
+    "searchInputs": 1,
+    "bodyHits": 1
+  }
+}

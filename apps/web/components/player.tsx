@@ -13,9 +13,7 @@
  */
 import { useCallback, useEffect, useRef, useState } from "react";
 import { VideoPlayer, VideoSkin, Video } from "@videojs/react/video";
-import { AudioPlayer, AudioSkin, Audio } from "@videojs/react/audio";
 import "@videojs/react/video/skin.css";
-import "@videojs/react/audio/skin.css";
 
 /** 自动重试上限：签名过期一次刷新即可恢复；仍失败视为持续故障，转人工 */
 const AUTO_RETRY_MAX = 1;
@@ -154,17 +152,5 @@ export function VideoPlayerView({ mediaId }: { mediaId: string }) {
         <Video key={retry} src={src} ref={attachMedia as React.Ref<HTMLVideoElement>} playsInline preload="metadata" />
       </VideoSkin>
     </VideoPlayer>
-  );
-}
-
-export function AudioPlayerView({ mediaId }: { mediaId: string }) {
-  const { src, attachMedia, manualRetry, retry, failed } = useRefreshableSource(mediaId);
-  if (failed) return <FailedPanel onRetry={manualRetry} compact />;
-  return (
-    <AudioPlayer>
-      <AudioSkin className="rounded-lg">
-        <Audio key={retry} src={src} ref={attachMedia as React.Ref<HTMLAudioElement>} preload="metadata" />
-      </AudioSkin>
-    </AudioPlayer>
   );
 }

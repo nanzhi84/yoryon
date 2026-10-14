@@ -1,0 +1,16 @@
+Use case: precise-object-edit (ui-mockup revision)
+Edit target: the supplied Yoryon two-page local-code design board. The user finds the subscription/VIP card too exaggerated. Change ONLY the membership promotion block near the top of the RIGHT subscription page, and reflow the sections below it upward to fit its reduced height. Preserve the LEFT homepage exactly, the two-row headers, page labels, typography family, all membership functionality/copy, member Q&A and member works, and overall flat editorial layout.
+
+Replace the large dark premium card with a much quieter, compact editorial subscription panel:
+- Remove all charcoal background, orbit decorations, stars within the card, oversized type, and the uppercase English membership label.
+- A very pale warm off-white surface (#faf9f6), a delicate warm-gray 1px outline (#e8e5dd), restrained 8px corner radius, zero shadow. It should blend with the white reading page.
+- Reduce the block height by about 35 percent. Keep its width aligned with the reading column; comfortable 24px internal padding, ample whitespace without looking like an advertisement.
+- Title EXACTLY "支持我的持续创作", dark neutral text, approximately 22 CSS px, medium weight, similar scale to the page's normal section headings.
+- Price EXACTLY "¥29.9 / 月" on the upper right, approximately 22 CSS px, calm medium weight; much smaller than the old huge number.
+- Supporting line EXACTLY "读得更深入，交流更直接。", ordinary 14px gray text.
+- Show the three existing benefits as ONE simple muted text row EXACTLY "专属作品 · 每月一次提问 · 会员讨论". No decorative icon grid.
+- A standard SMALL charcoal CTA button, natural content width (approximately 210 CSS px) and 38px height, at the lower left, white text EXACTLY "兑换激活码，开通会员". Remove the old wide gold button.
+- Next to or just below the button, small muted note EXACTLY "使用已有激活码兑换会员权益。".
+- Use the warm off-white surface and fine border as the primary distinction from ordinary feed content; warm accent color should be barely noticeable. The visual emphasis must be balanced with the rest of the page.
+Move the member Q&A and member works sections upward naturally after this compact panel, retaining their text and tidy spacing. Do not add new elements, benefits, badges, illustrations, tiers, payment interfaces or promotional claims.
+Keep the left homepage identical to the source image, including its photograph, audio bar, titles, metadata, bottom teaser, and header. Keep the whole board dimensions/aspect ratio the same. Crisp accurate Chinese and impeccable alignments.

@@ -20,7 +20,7 @@ export default async function CollectionsPage() {
       <SiteHeader />
       <main data-catalog-version={data.version}>
         {items.length === 0 ? (
-          <p className="py-16 text-center text-sm text-muted-foreground">还没有合集。</p>
+          <p className="py-6 text-center text-sm text-muted-foreground">还没有合集。</p>
         ) : (
           // 合集列表是合集的唯一列表曝光面（feed 纯内容流），placement=collection_list
           <AnalyticsListProvider placement="collection_list">

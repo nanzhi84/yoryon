@@ -1,0 +1,27 @@
+{
+  "page": "http://localhost:3015/search",
+  "anonymousNoCookies": true,
+  "returnedBackControlCount": 1,
+  "resources": [
+    {
+      "url": "/_next/static/css/c5b6ee514b5c76d0.css",
+      "bytes": 44561,
+      "sha256": "f9d4ab44973ae1c070e5f3297c2aeeead6ef5a44c9be5ae29dad8b088c99183c",
+      "relevantExcerpt": [
+        "lock:calc(var(--spacing) * 4)}.py-5{padding-block:calc(var(--spacing) * 5)}.py-6{padding-block:calc(var(--spacing) * 6)}.py-8{padding-block:calc(var(--spacing) * 8)}.py-1",
+        "{margin-bottom:var(--spacing)}.mb-2{margin-bottom:calc(var(--spacing) * 2)}.mb-3{margin-bottom:calc(var(--spacing) * 3)}.mb-4{margin-bottom:calc(var(--spacing) * 4)}.mb-6",
+        "ght:calc(var(--spacing) * 8)}.min-h-11{min-height:calc(var(--spacing) * 11)}.min-h-32{min-height:calc(var(--spacing) * 32)}.min-h-\\[88px\\]{min-height:88px}.min-h-screen{m"
+      ]
+    },
+    {
+      "url": "/_next/static/chunks/app/search/page-711e29c70b4d2fb7.js",
+      "bytes": 11862,
+      "sha256": "e08fcb83d69b49323c6dd4733a41525064a41a21976f1497d3dfe2eea749c924",
+      "relevantExcerpt": [
+        "older:\"输入关键词或连续原文\",className:\"min-h-11 min-w-0 flex-1 rounded-md border border-border bg-transparent px-3 text-sm focus-visible:outline-primary\"}),(0,n.jsx)(a.$,{disabled",
+        "e:ring-primary\",\"aria-label\":\"返回上一页\",children:[(0,n.jsx)(s,{className:\"size-4\",\"aria-hidden\":\"true\"}),\"返回\"]})}},9260:(e,t,r)=>{\"use strict\";r.d(t,{NavigationMemory:()=>o,"
+      ]
+    }
+  ],
+  "mechanism": "搜索返回来自page.tsx导入的BackButton；原有客户端search状态恢复不属于该按钮。源码和已公开加载资源均核对。"
+}

@@ -1,0 +1,22 @@
+{
+  "avatarSize": {
+    "height": 64,
+    "width": 64
+  },
+  "bodyBackground": "rgb(253, 254, 255)",
+  "formTopBorder": "1px",
+  "headingFont": "24px",
+  "inputSize": {
+    "height": 44,
+    "width": 532
+  },
+  "inputValue": "🙂资料验收",
+  "mainBackground": "rgba(0, 0, 0, 0)",
+  "mainTopPadding": "20px",
+  "overflow": false,
+  "placeholderCodepoints": [
+    "🙂"
+  ],
+  "placeholderText": "🙂",
+  "readonlyUsername": "登录用户名：profile_check_f13165ec"
+}

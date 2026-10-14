@@ -1,0 +1,12 @@
+{
+  "finalAudioFirst": {
+    "button": "暂停音频",
+    "currentTime": 0.157544,
+    "paused": false
+  },
+  "finalAudioRace": {
+    "button": "播放音频",
+    "currentTime": 0,
+    "paused": true
+  }
+}

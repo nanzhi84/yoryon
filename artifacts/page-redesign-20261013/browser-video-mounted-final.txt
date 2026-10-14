@@ -1,0 +1,7 @@
+Browser tab: 2, Title: "Yoryon", URL: "http://localhost:3015/".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 23-25
++		51 button 停止并关闭视频
++			52 text 停止并关闭
++			53 text 视频
+The focused UI element is 0 AXWebArea Yoryon, URL: localhost:3015/

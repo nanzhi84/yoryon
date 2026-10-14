@@ -1,0 +1,38 @@
+{
+  "contents": [
+    {
+      "slug": "demo-paid",
+      "chars": 2120
+    },
+    {
+      "slug": "demo-audio",
+      "chars": 119
+    },
+    {
+      "slug": "hello-world",
+      "chars": 81
+    },
+    {
+      "slug": "demo-video",
+      "chars": 62
+    },
+    {
+      "slug": "demo-gallery",
+      "chars": 56
+    },
+    {
+      "slug": "demo-ep1",
+      "chars": 13
+    },
+    {
+      "slug": "demo-ep2",
+      "chars": 13
+    }
+  ],
+  "likes": [
+    {
+      "content_id": "8c154081-fafc-4e76-9f24-f5251bc8645f",
+      "user_id": "129fb790-6c09-4f82-a10b-27be7481043c"
+    }
+  ]
+}

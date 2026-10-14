@@ -1,0 +1,45 @@
+{
+  "recordedAt": "2026-10-13T13:19:18.028Z",
+  "environment": "isolated local clone from verified Colima Docker deploy-postgres-1",
+  "api": "http://127.0.0.1:4115",
+  "web": "http://localhost:3015",
+  "db": {
+    "host": "localhost",
+    "port": "54320",
+    "name": "yoryon_page_redesign_20261013"
+  },
+  "storage": "/tmp/yoryon-page-redesign-m0NxxV/storage",
+  "envFile": "/tmp/yoryon-page-redesign-m0NxxV/preview.env",
+  "dataCopied": [
+    "drizzle.__drizzle_migrations",
+    "public.media_assets",
+    "public.contents",
+    "public.content_references",
+    "public.content_media",
+    "public.collections",
+    "public.collection_items",
+    "public.tags",
+    "public.content_tags"
+  ],
+  "excluded": [
+    "users",
+    "sessions",
+    "email_verifications",
+    "entitlements",
+    "activation_codes",
+    "redemptions",
+    "member_questions",
+    "comments",
+    "comment_likes",
+    "notifications",
+    "analytics_events",
+    "cache_events"
+  ],
+  "smtp": {
+    "host": "127.0.0.1",
+    "port": "11025",
+    "kind": "existing local Mailpit"
+  },
+  "previewHold": "public local demo content retained until user preview completes",
+  "preparationRecovery": "Homebrew pg_dump transaction_timeout statement unsupported by PG16; initial restore stopped before schema creation; statement omitted for PG16 restore. No source database mutation."
+}

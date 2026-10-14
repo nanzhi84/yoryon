@@ -1,0 +1,54 @@
+Browser tab: 2, Title: "Yoryon", URL: "http://localhost:3015/".
+0 AXWebArea Yoryon, URL: localhost:3015/
+	1 container
+		2 link Description: Yoryon, Value: localhost:3015/
+		3 pop up button (collapsed) Description: 全站搜索, Secondary Actions: Expand
+		4 link Description: 通知, Value: localhost:3015/notifications
+		5 pop up button (collapsed) Description: 账户菜单, ID: radix-_R_slbtb_, Secondary Actions: Expand
+		6 container 主导航
+			7 link Description: 首页, Value: localhost:3015/
+			8 link Description: 订阅, Value: localhost:3015/subscription
+			9 pop up button (collapsed) 探索, ID: radix-_R_55btb_, Secondary Actions: Expand
+	10 container
+		11 link Description: 演示音频, Value: localhost:3015/p/demo-audio
+		12 text 2026.10.11
+		13 container post-8c154081-fafc-4e76-9f24-f5251bc8645f
+			14 button 播放音频
+				15 text 播放
+				16 text 音频
+			17 text 这里是音频的文字说明（shownotes）：正文区域照常支持 Markdown，可以放时间轴、链接与参考资料。
+		18 link Description: 详情与评论, Value: localhost:3015/p/demo-audio#comments
+		19 text 帖子
+		20 link Description: #demo, Value: localhost:3015/tags/demo
+		21 link Description: 演示视频, Value: localhost:3015/p/demo-video
+		22 text 2026.10.11
+		51 button 播放视频
+			52 text 播放
+			53 text 视频
+		26 link Description: 详情与评论, Value: localhost:3015/p/demo-video#comments
+		27 text 帖子
+		28 link Description: #demo, Value: localhost:3015/tags/demo
+		29 link Description: 演示图集, Value: localhost:3015/p/demo-gallery
+		30 text 2026.10.11
+		31 button 查看图片：作品图片
+			32 image 作品图片
+		33 link Description: 详情与评论, Value: localhost:3015/p/demo-gallery#comments
+		34 text 帖子
+		35 link Description: #demo, Value: localhost:3015/tags/demo
+		36 link Description: 示例系列 · 第二话, Value: localhost:3015/p/demo-ep2
+		37 text 2026.10.11
+		38 text 长文
+		39 link Description: #demo, Value: localhost:3015/tags/demo
+		40 link Description: 示例系列 · 第一话, Value: localhost:3015/p/demo-ep1
+		41 text 2026.10.11
+		42 text 长文
+		43 link Description: #demo, Value: localhost:3015/tags/demo
+		44 link Description: 测试文章, Value: localhost:3015/p/hello-world
+		45 text 2026.10.11
+		46 text 长文
+		47 link Description: #test, Value: localhost:3015/tags/test
+		48 container 订阅支持
+			49 text 更深入的作品，更直接的交流。
+			50 link Description: 了解订阅, Value: localhost:3015/subscription
+
+The focused UI element is 0 AXWebArea Yoryon, URL: localhost:3015/

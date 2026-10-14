@@ -1,0 +1,18 @@
+{
+  "paidSearch": {
+    "articleText": "会员阅读边界记录付费 · 2026-10-10开通订阅，查看正文命中位置",
+    "locatingLinks": 0,
+    "results": 1
+  },
+  "memory": {
+    "query": "私有边界检验词玄鹤",
+    "request": {
+      "query": "私有边界检验词玄鹤",
+      "requestId": "7fdc195d-37c7-44fb-ae29-e36be53d00a9"
+    },
+    "session": "e6e96d29-014a-405c-b8c0-f4359dcd8bb0",
+    "offsets": [
+      0
+    ]
+  }
+}

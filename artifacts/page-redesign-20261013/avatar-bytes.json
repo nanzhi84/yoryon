@@ -1,0 +1,27 @@
+{
+  "original": {
+    "bytes": 2303380,
+    "sha256": "ea6a595c414948ea999b977baec292715fa39dbeee761c618d8a21d5990f4578"
+  },
+  "publicAsset": {
+    "bytes": 2303380,
+    "sha256": "ea6a595c414948ea999b977baec292715fa39dbeee761c618d8a21d5990f4578"
+  },
+  "sourcePublicAssetSame": true,
+  "servedOriginal": {
+    "bytes": 2303380,
+    "sha256": "ea6a595c414948ea999b977baec292715fa39dbeee761c618d8a21d5990f4578",
+    "sameSource": true
+  },
+  "optimized": {
+    "url": "/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=96&q=75",
+    "status": 200,
+    "mime": "image/jpeg",
+    "bytes": 2056,
+    "sha256": "2a35d357094b6d5ab3f72678688efa6355c79a2db42d14e14eb8e6fb1c0c6020"
+  },
+  "htmlImages": [
+    "<img alt=\"\" width=\"44\" height=\"44\" decoding=\"async\" data-nimg=\"1\" class=\"size-9 rounded-full border border-surface-border object-cover object-[50%_30%] sm:size-11\" style=\"color:transparent\" srcSet=\"/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&amp;w=48&amp;q=75 1x, /_next/image?url=%2Fimages%2Fauthor-avatar.jpg&amp;w=96&amp;q=75 2x\" src=\"/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&amp;w=96&amp;q=75\"/>"
+  ],
+  "cssCrop": "size-9 sm:size-11 rounded-full object-cover object-[50%_30%]"
+}

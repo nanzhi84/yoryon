@@ -1,0 +1,16 @@
+{
+  "generated_by": "imagegen built-in edit",
+  "input_images": [
+    "yoryon-local-design-v2.png",
+    "avatar-reference.jpg"
+  ],
+  "output_image": "yoryon-local-design-v3.png",
+  "dimensions": [
+    1495,
+    1052
+  ],
+  "sha256": "69180e8a70214eea01ec923cf76a6508e64d173e55129d734911221eb992d5d3",
+  "avatar_source": "/Users/yoryon/Downloads/图片/头像.jpg",
+  "avatar_reference_sha256": "ea6a595c414948ea999b977baec292715fa39dbeee761c618d8a21d5990f4578",
+  "scope": "avatar added to author identity and subtle pale blue palette; static local-code concept"
+}

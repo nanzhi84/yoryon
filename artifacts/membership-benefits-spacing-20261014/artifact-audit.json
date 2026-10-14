@@ -1,0 +1,65 @@
+{
+  "sourceItemsVerified": 68,
+  "textFilesScanned": 33,
+  "sensitivePatternsFound": 0,
+  "pngDimensions": {
+    "acceptance-scroll-before.png": [
+      595,
+      896
+    ],
+    "acceptance-scroll-after.png": [
+      595,
+      896
+    ],
+    "acceptance-subscription-questions-595.png": [
+      595,
+      896
+    ],
+    "acceptance-article-595.png": [
+      595,
+      896
+    ],
+    "acceptance-redeem-595.png": [
+      595,
+      896
+    ],
+    "acceptance-image-viewer-595.png": [
+      595,
+      896
+    ],
+    "acceptance-scroll-final-after.png": [
+      595,
+      896
+    ],
+    "preview-subscription-595.png": [
+      595,
+      896
+    ],
+    "acceptance-subscription-dark-595.png": [
+      595,
+      896
+    ],
+    "acceptance-subscription-595.png": [
+      595,
+      896
+    ],
+    "acceptance-scroll-final-before.png": [
+      595,
+      896
+    ],
+    "acceptance-not-found-595.png": [
+      595,
+      896
+    ],
+    "preview-redeem-595.png": [
+      595,
+      896
+    ],
+    "acceptance-home-595.png": [
+      595,
+      896
+    ]
+  },
+  "productionChanged": false,
+  "analyticsCleanup": "UNVERIFIED; exact SID lost on acceptance tab close; no guessed deletion"
+}

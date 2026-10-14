@@ -1,0 +1,46 @@
+{
+  "clientWidth": 510,
+  "img": {
+    "bottom": 103.25,
+    "height": 259.875,
+    "marginBottom": "0px",
+    "marginTop": "0px",
+    "right": 486,
+    "width": 462,
+    "x": 24,
+    "y": -156.625
+  },
+  "innerWidth": 525,
+  "overflow": false,
+  "paragraph": {
+    "bottom": 103.25,
+    "height": 259.875,
+    "marginBottom": "0px",
+    "marginTop": "0px",
+    "right": 486,
+    "width": 462,
+    "x": 24,
+    "y": -156.625
+  },
+  "range": {
+    "bottom": -738.5,
+    "height": 4,
+    "marginBottom": "0px",
+    "marginTop": "0px",
+    "right": 370,
+    "width": 252,
+    "x": 118,
+    "y": -742.5
+  },
+  "title": {
+    "bottom": -164.625,
+    "height": 26,
+    "marginBottom": "0px",
+    "marginTop": "0px",
+    "right": 96,
+    "width": 72,
+    "x": 24,
+    "y": -190.625
+  },
+  "titleToImage": 8
+}

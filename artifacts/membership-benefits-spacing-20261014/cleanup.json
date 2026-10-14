@@ -1,0 +1,26 @@
+{
+  "database": "yoryon_page_redesign_20261013",
+  "searchCleanup": "PASS",
+  "deletedOwnSearchSessions": 1,
+  "ownSearchSessionsRemaining": 0,
+  "unrelatedCountsBefore": {
+    "contents": 7,
+    "users": 0,
+    "analytics": 167,
+    "other_search_sessions": 0
+  },
+  "unrelatedCountsAfter": {
+    "contents": 7,
+    "users": 0,
+    "analytics": 167,
+    "other_search_sessions": 0
+  },
+  "analyticsCleanup": "UNVERIFIED",
+  "analyticsDeleted": 0,
+  "reason": "SID read on subscription/redeem was null; content paths initialized SID later; tab closed before rereading. Closed tab CDP cached events unavailable. No guessed SID deletion.",
+  "browserTabClosed": true,
+  "temporaryViewportCleared": true,
+  "themeRestored": true,
+  "productionChanged": false,
+  "privateFileRemoved": true
+}

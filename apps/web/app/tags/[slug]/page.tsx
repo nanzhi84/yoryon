@@ -5,6 +5,7 @@ import type { TagDetailResponse } from "@/lib/types";
 import { SiteHeader } from "@/components/site-header";
 import { FeedTimeline } from "@/components/feed-timeline";
 import { LoadMore } from "@/components/load-more";
+import { BackButton } from "@/components/back-button";
 
 const revalidateSec = Number(process.env.FEED_REVALIDATE_SEC ?? 86400);
 
@@ -34,7 +35,8 @@ export default async function TagPage({ params }: Props) {
   return (
     <>
       <SiteHeader />
-      <main data-catalog-version={data.version} className="py-8">
+      <main data-catalog-version={data.version} className="py-5">
+        <BackButton fallback="/tags" />
         <h1 className="text-2xl font-semibold">#{data.tag.name}</h1>
         <div className="mt-4">
           <FeedTimeline items={data.items} />

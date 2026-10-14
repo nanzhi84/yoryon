@@ -1,0 +1,68 @@
+Window: "付费演示文章（含图片与视频） · Yoryon", App: Google Chrome.
+0 standard window 付费演示文章（含图片与视频） · Yoryon - Google Chrome (Incognito), URL: localhost:3015/p/demo-paid, Secondary Actions: Raise
+	1 container 付费演示文章（含图片与视频） · Yoryon - Google Chrome (Incognito), URL: localhost:3015/p/demo-paid
+		2 container
+			3 toolbar
+				4 button Back
+				5 button (disabled) Forward
+				6 button Reload
+				7 container
+					8 pop up button View site information
+					9 text field (settable) Address and search bar, Value: localhost:3015/p/demo-paid, Placeholder: Ask Google or type a URL
+					10 button Bookmark this tab
+				11 button Incognito
+				12 pop up button Chrome
+			13 container
+				14 scroll area
+					15 HTML content 付费演示文章（含图片与视频） · Yoryon, URL: localhost:3015/p/demo-paid
+						16 container
+							17 link Yoryon, Value: localhost:3015/
+							18 pop up button 全站搜索
+							19 link 通知, Value: localhost:3015/notifications
+							20 pop up button 账户菜单
+							21 container 主导航
+								22 link 首页, Value: localhost:3015/
+								23 link 订阅, Value: localhost:3015/subscription
+								24 pop up button 探索
+						25 container
+							26 text 长文 ·
+							27 text 2026.10.11
+							28 text 付费
+							29 heading 付费演示文章（含图片与视频）, Value: 1
+								30 text 付费演示文章（含图片与视频）
+							31 text 付费墙 + 内联多媒体演示
+							32 link #demo, Value: localhost:3015/tags/demo
+							33 button 查看图片：演示配图
+							34 text 第 1 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 1 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 1 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。 第 2 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 2 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 2 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。 第 3 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 3 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 3 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。 第 4 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 4 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 4 段：这是一段用于演示付费预览截 本内容为订阅专享，以上为免费预览。 标准订阅 ¥29.9/月：解锁站内全部付费内容，到期自动恢复锁定。
+							35 link 兑换订阅激活码, Value: localhost:3015/redeem
+							36 container 评论区
+								37 heading 评论, Value: 2
+									38 text 评论
+								39 text 此为付费内容，解锁完整权益后可参与评论与点赞。
+								40 text 还没有评论。
+						41 text 付费演示文章（含图片与视频） · Yoryon
+			42 tab group
+				43 container
+					44 button Expand Tabs
+					45 pop up button Tab search
+				46 container
+					47 scroll area
+					48 scroll area
+						49 tab (selected, settable, boolean) 付费演示文章（含图片与视频） · Yoryon - Memory usage - 116 MB, Value: on
+				50 button New tab
+	51 close button
+	52 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	53 minimize button
+54 menu bar
+	55 Chrome
+	56 File
+	57 Edit
+	58 View
+	59 History
+	60 Bookmarks
+	61 Profiles
+	62 Tab
+	63 Window
+	64 Help
+
+The focused UI element is 15 HTML content 付费演示文章（含图片与视频） · Yoryon, URL: localhost:3015/p/demo-paid

@@ -1,0 +1,10 @@
+{
+  "url": "https://x.com/X",
+  "status": 200,
+  "scripts": [
+    "https://abs.twimg.com/x-web/x-web/entry-client-logged-out-DmnmR8WH.js"
+  ],
+  "styles": [
+    "https://abs.twimg.com/x-web/x-web/assets/styles-xqUjldZF.css"
+  ]
+}

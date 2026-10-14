@@ -1,0 +1,23 @@
+[
+  "apps/web/app/c/[slug]/page.tsx",
+  "apps/web/app/c/page.tsx",
+  "apps/web/app/error.tsx",
+  "apps/web/app/login/page.tsx",
+  "apps/web/app/not-found.tsx",
+  "apps/web/app/notifications/page.tsx",
+  "apps/web/app/questions/[id]/page.tsx",
+  "apps/web/app/redeem/page.tsx",
+  "apps/web/app/register/page.tsx",
+  "apps/web/app/reset-password/page.tsx",
+  "apps/web/app/search/page.tsx",
+  "apps/web/app/settings/profile/page.tsx",
+  "apps/web/app/subscription/page.tsx",
+  "apps/web/app/tags/[slug]/page.tsx",
+  "apps/web/app/tags/page.tsx",
+  "apps/web/components/back-button.tsx",
+  "apps/web/components/content-view.tsx",
+  "apps/web/components/markdown-image.tsx",
+  "apps/web/components/markdown-surface.tsx",
+  "apps/web/components/membership-panel.tsx",
+  "apps/web/components/search-page-client.tsx"
+]

@@ -1,0 +1,29 @@
+{
+  "executor": "independent subagent /root/profile_page_implementation_acceptance",
+  "version": "b8e7098e941f80d899cd6483a9ce236732e5ddf6 plus local uncommitted profile view changes",
+  "web": "http://127.0.0.1:3015",
+  "database": "yoryon_page_redesign_20261013",
+  "viewport": {
+    "width": 595,
+    "height": 896,
+    "deviceScaleFactor": 1,
+    "mobile": false
+  },
+  "account": "temporary ordinary active user; no membership; no outbound email",
+  "sourceFile": "apps/web/public/images/author-avatar.jpg",
+  "selectedPaths": [
+    "login -> profile",
+    "profile displayName PATCH -> refresh",
+    "unsaved name -> avatar upload -> byte decode -> remove -> save",
+    "invalid file selection -> visible error -> corrected upload",
+    "41 Chinese codepoints -> API error -> valid name",
+    "account logout -> anonymous profile"
+  ],
+  "notTouched": [
+    "localhost user tabs and cookies",
+    "preview_test delivered account",
+    "production"
+  ],
+  "sourceFileSuccessfulUpload": "/tmp/yoryon-page-redesign-m0NxxV/storage/media/10d123e87a510b7d8e25773aba9e616bec6d3d457a79efdfb36e591e1fc41697.png",
+  "sourceFileOriginalJpegObserved": "author-avatar.jpg is 2303380 bytes, exceeds actual 2MB API limit; used for visible oversize feedback"
+}

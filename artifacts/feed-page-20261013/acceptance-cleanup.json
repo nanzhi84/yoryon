@@ -1,0 +1,59 @@
+{
+  "database": "yoryon_page_redesign_20261013",
+  "removed": {
+    "notifications": 1,
+    "commentLikes": 0,
+    "replies": 1,
+    "roots": 1,
+    "entitlements": 1,
+    "redemptions": 1,
+    "activationCodes": 1,
+    "sessions": 3,
+    "likesBeforeUserCascade": 1,
+    "users": 2,
+    "analyticsEvents": 33
+  },
+  "after": {
+    "ownUsers": 0,
+    "ownSessions": 0,
+    "ownLikes": 0,
+    "ownComments": 0,
+    "ownAnalytics": 0,
+    "contents": [
+      {
+        "slug": "demo-audio",
+        "status": "published"
+      },
+      {
+        "slug": "demo-ep1",
+        "status": "published"
+      },
+      {
+        "slug": "demo-ep2",
+        "status": "published"
+      },
+      {
+        "slug": "demo-gallery",
+        "status": "published"
+      },
+      {
+        "slug": "demo-paid",
+        "status": "published"
+      },
+      {
+        "slug": "demo-video",
+        "status": "published"
+      },
+      {
+        "slug": "hello-world",
+        "status": "published"
+      }
+    ]
+  },
+  "sensitiveScan": {
+    "filesScanned": 69,
+    "matchingFiles": []
+  },
+  "browser": "own task IAB tab closed; BFF logout 200; all temporary network and clipboard faults restored",
+  "privateCredentialsRemoved": true
+}

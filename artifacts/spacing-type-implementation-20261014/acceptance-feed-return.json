@@ -1,0 +1,15 @@
+{
+  "before": {
+    "clientHeight": 896,
+    "clientWidth": 510,
+    "pageX": 0,
+    "pageY": 942
+  },
+  "after": {
+    "clientHeight": 896,
+    "clientWidth": 510,
+    "pageX": 0,
+    "pageY": 882
+  },
+  "url": "http://localhost:3015/"
+}

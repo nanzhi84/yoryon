@@ -1,0 +1,359 @@
+{
+  "baseCommit": "b8e7098e941f80d899cd6483a9ce236732e5ddf6",
+  "files": [
+    {
+      "path": "apps/api/src/app.ts",
+      "source": "65ce7d8a67f6ea150dd16b3287fda4a77e93418318468a03b669963db103bf97",
+      "preview": "65ce7d8a67f6ea150dd16b3287fda4a77e93418318468a03b669963db103bf97",
+      "same": true
+    },
+    {
+      "path": "apps/api/src/routes/article-feed.ts",
+      "source": "ce96362a0f6d6100f4527ce3d4783373a8d7e87015d8e1ba8b32a9194401645e",
+      "preview": "ce96362a0f6d6100f4527ce3d4783373a8d7e87015d8e1ba8b32a9194401645e",
+      "same": true
+    },
+    {
+      "path": "apps/api/src/routes/content-interactions.ts",
+      "source": "2c103e40ab2509f928abc45c6a0d439578c3640f321d2bacbd66a3b7ec8817ae",
+      "preview": "2c103e40ab2509f928abc45c6a0d439578c3640f321d2bacbd66a3b7ec8817ae",
+      "same": true
+    },
+    {
+      "path": "apps/api/src/routes/contents.ts",
+      "source": "4d4e33991222d7378c5ed97dbb18229ac9d59f24de77c166185e48fbf96b37f7",
+      "preview": "4d4e33991222d7378c5ed97dbb18229ac9d59f24de77c166185e48fbf96b37f7",
+      "same": true
+    },
+    {
+      "path": "apps/api/src/routes/post-feed.ts",
+      "source": "b7f3175ece6910ef72dc5911336858d7302a83f7b67e80fa42f544e65b819e38",
+      "preview": "b7f3175ece6910ef72dc5911336858d7302a83f7b67e80fa42f544e65b819e38",
+      "same": true
+    },
+    {
+      "path": "apps/web/app/about/page.tsx",
+      "source": null,
+      "preview": null,
+      "same": true
+    },
+    {
+      "path": "apps/web/app/api/[...path]/route.ts",
+      "source": "32256d31e83d3fa59f7c8dd674f7e8a42baaa65457dd0f846ed74b0106f5ed0c",
+      "preview": "32256d31e83d3fa59f7c8dd674f7e8a42baaa65457dd0f846ed74b0106f5ed0c",
+      "same": true
+    },
+    {
+      "path": "apps/web/app/c/[slug]/page.tsx",
+      "source": "4f5e658962d0007cb9b1d029f7642e59d7a6ab3dba9d948ad37a80093eeff8bd",
+      "preview": "4f5e658962d0007cb9b1d029f7642e59d7a6ab3dba9d948ad37a80093eeff8bd",
+      "same": true
+    },
+    {
+      "path": "apps/web/app/explore/page.tsx",
+      "source": "0f5490370a4b3f9e00a15363207053fe90e982895997e2d8ebd4c1bf01d9628e",
+      "preview": "0f5490370a4b3f9e00a15363207053fe90e982895997e2d8ebd4c1bf01d9628e",
+      "same": true
+    },
+    {
+      "path": "apps/web/app/globals.css",
+      "source": "8738cf8c0d5ce14fc58572d1015ea57c423a67286c311b2cc5c76b8b8128a5b9",
+      "preview": "8738cf8c0d5ce14fc58572d1015ea57c423a67286c311b2cc5c76b8b8128a5b9",
+      "same": true
+    },
+    {
+      "path": "apps/web/app/layout.tsx",
+      "source": "11b97d9abff56423cf74c55500f096871905e965448cfa5002b8526fec530b52",
+      "preview": "11b97d9abff56423cf74c55500f096871905e965448cfa5002b8526fec530b52",
+      "same": true
+    },
+    {
+      "path": "apps/web/app/page.tsx",
+      "source": "e0297f7136c262107ff38027cdba13a8d375b6c757ad5bf604e7a08b53411861",
+      "preview": "e0297f7136c262107ff38027cdba13a8d375b6c757ad5bf604e7a08b53411861",
+      "same": true
+    },
+    {
+      "path": "apps/web/app/redeem/page.tsx",
+      "source": "5bb8c868da0caba8f615c905f10aa810cf9522b45845114b42a020bd2205dc78",
+      "preview": "5bb8c868da0caba8f615c905f10aa810cf9522b45845114b42a020bd2205dc78",
+      "same": true
+    },
+    {
+      "path": "apps/web/app/search/page.tsx",
+      "source": "d5ea795af57cbd812adfd405d0a288bac4b660e674381cad65f0ac838cbd65f0",
+      "preview": "d5ea795af57cbd812adfd405d0a288bac4b660e674381cad65f0ac838cbd65f0",
+      "same": true
+    },
+    {
+      "path": "apps/web/app/sitemap.ts",
+      "source": "d95af78c3f9af101c70a4a34f2cf39e50d67d5f7674531386b8f9b30e1e69096",
+      "preview": "d95af78c3f9af101c70a4a34f2cf39e50d67d5f7674531386b8f9b30e1e69096",
+      "same": true
+    },
+    {
+      "path": "apps/web/app/subscription/page.tsx",
+      "source": "ee7a08082ec8c654ddc1817dfb9f4d991fb731687a35425f045ead1ef1ae5757",
+      "preview": "ee7a08082ec8c654ddc1817dfb9f4d991fb731687a35425f045ead1ef1ae5757",
+      "same": true
+    },
+    {
+      "path": "apps/web/app/tags/[slug]/page.tsx",
+      "source": "e5ddcc2c6356795fb6d821d9763ecc63af7f4797793a78d8b8d94d45dd563ef4",
+      "preview": "e5ddcc2c6356795fb6d821d9763ecc63af7f4797793a78d8b8d94d45dd563ef4",
+      "same": true
+    },
+    {
+      "path": "apps/web/app/tags/page.tsx",
+      "source": "5beae411959e9efe886598c97e477a6ee20a1dec0bba8673ba73f9b89ee11f99",
+      "preview": "5beae411959e9efe886598c97e477a6ee20a1dec0bba8673ba73f9b89ee11f99",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/account-menu-items.tsx",
+      "source": "635f3b427b52e565ead256acf8a6ffd1d98ef6630161bc652947a89f07cf46f5",
+      "preview": "635f3b427b52e565ead256acf8a6ffd1d98ef6630161bc652947a89f07cf46f5",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/analytics.tsx",
+      "source": "6151da02bc3c33d615d82560fbc9ed5b4077d673191a6a72fe036ad684c0cab8",
+      "preview": "6151da02bc3c33d615d82560fbc9ed5b4077d673191a6a72fe036ad684c0cab8",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/back-button.tsx",
+      "source": "df026fb4e3dc24a62b7f4ee91e6aa74bb411cf46aa5e3d911ca434d7d7451a7e",
+      "preview": "df026fb4e3dc24a62b7f4ee91e6aa74bb411cf46aa5e3d911ca434d7d7451a7e",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/collection-navigation.tsx",
+      "source": "698bb0b8fa8afe143b8cff53bcedcb452759faea87bbd78a9c76ee5a7fff547c",
+      "preview": "698bb0b8fa8afe143b8cff53bcedcb452759faea87bbd78a9c76ee5a7fff547c",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/comment-section.tsx",
+      "source": "323376bc6dca1b804aaca827ace77cde1fe1f02dab9c7d6af3bf8ba698de9dc1",
+      "preview": "323376bc6dca1b804aaca827ace77cde1fe1f02dab9c7d6af3bf8ba698de9dc1",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/content-actions.tsx",
+      "source": "5792f44c3ca65a328bbc074aab7caa3e57f87a57759074fa033a4f98ff98534a",
+      "preview": "5792f44c3ca65a328bbc074aab7caa3e57f87a57759074fa033a4f98ff98534a",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/content-body.tsx",
+      "source": "e6a583b83a89f950d145c03d0da9b58a1a4d2cdc44038fe9e6782b6cc913f66f",
+      "preview": "e6a583b83a89f950d145c03d0da9b58a1a4d2cdc44038fe9e6782b6cc913f66f",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/content-view.tsx",
+      "source": "f6b0fb83ef81e1df07a25c12ae38bc3d064e18c4470d302564a616f45cd02944",
+      "preview": "f6b0fb83ef81e1df07a25c12ae38bc3d064e18c4470d302564a616f45cd02944",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/feed-timeline.tsx",
+      "source": "d8e71271453dc9c25c7b419073ad7d1ec84fa0f618d53debeb58e4366bf588e4",
+      "preview": "d8e71271453dc9c25c7b419073ad7d1ec84fa0f618d53debeb58e4366bf588e4",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/inline-audio.tsx",
+      "source": "77a6c7445dfccf6b7d83ec0b219d7aeed717056d1ab5b35c641ec6c836aa9982",
+      "preview": "77a6c7445dfccf6b7d83ec0b219d7aeed717056d1ab5b35c641ec6c836aa9982",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/inline-media.tsx",
+      "source": "aa0f6b90f1b3770b0138c0e1208ad7d17b20ff488c8c3578de43ebedefaae561",
+      "preview": "aa0f6b90f1b3770b0138c0e1208ad7d17b20ff488c8c3578de43ebedefaae561",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/load-more.tsx",
+      "source": "0fdb5dbf0072c4dec4d2e037ab8eec90d9a6efe9d77ed18ea3cba81a122ab0b6",
+      "preview": "0fdb5dbf0072c4dec4d2e037ab8eec90d9a6efe9d77ed18ea3cba81a122ab0b6",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/login-form.tsx",
+      "source": "d2385ef3d08ef46b6bf4019e1a2ddfece6cb8a6ff62ad7c631b7bc781441661f",
+      "preview": "d2385ef3d08ef46b6bf4019e1a2ddfece6cb8a6ff62ad7c631b7bc781441661f",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/markdown-image.tsx",
+      "source": "a6001bb75107026bf2a0eb6b260a0465e269649d98834347d7d5b704bfa1c78f",
+      "preview": "a6001bb75107026bf2a0eb6b260a0465e269649d98834347d7d5b704bfa1c78f",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/markdown-surface.tsx",
+      "source": "7f2e804d715a76ed9cd628416f344770f18dbcbfbf213bb8043e31bfca730792",
+      "preview": "7f2e804d715a76ed9cd628416f344770f18dbcbfbf213bb8043e31bfca730792",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/media-player.tsx",
+      "source": "82e400b3be46b5af8409ada21e72f6a6a94aead090ebdf2dd86a949358f0256c",
+      "preview": "82e400b3be46b5af8409ada21e72f6a6a94aead090ebdf2dd86a949358f0256c",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/member-questions.tsx",
+      "source": "9cdf6cf202743c1d19bf23d9aa44d0f3d45b42e5f4b2512a2591c794fdec272a",
+      "preview": "9cdf6cf202743c1d19bf23d9aa44d0f3d45b42e5f4b2512a2591c794fdec272a",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/membership-panel.tsx",
+      "source": "63ebfd178a3f270f8214eb784291a50fa9e7a64151ab488c7d767f1fbd80058b",
+      "preview": "63ebfd178a3f270f8214eb784291a50fa9e7a64151ab488c7d767f1fbd80058b",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/navigation-memory.tsx",
+      "source": "abba6d4cc402e37cc907e827131b0f41709e4aba4d41712b51cd8ccea7cb0222",
+      "preview": "abba6d4cc402e37cc907e827131b0f41709e4aba4d41712b51cd8ccea7cb0222",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/notification-bell.tsx",
+      "source": "69e4d8512678535bf0228a14351d26d80baef3ce12cc51e86210f81927331f86",
+      "preview": "69e4d8512678535bf0228a14351d26d80baef3ce12cc51e86210f81927331f86",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/player.tsx",
+      "source": "7c3f33d8c843b55b66bdf7c2f4d412e4c1c7e04405a5086e8702d7cb1eadc36a",
+      "preview": "7c3f33d8c843b55b66bdf7c2f4d412e4c1c7e04405a5086e8702d7cb1eadc36a",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/post-entry.tsx",
+      "source": "6f00007297343cb6833e2a8573038038913e200676ed0387edef2a369d4f2b20",
+      "preview": "6f00007297343cb6833e2a8573038038913e200676ed0387edef2a369d4f2b20",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/private-body.tsx",
+      "source": "51e415ebebacb92620208c5259736eec1ca3200c4ad6bdf0ae3f8429868aa09e",
+      "preview": "51e415ebebacb92620208c5259736eec1ca3200c4ad6bdf0ae3f8429868aa09e",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/search-dialog.tsx",
+      "source": null,
+      "preview": null,
+      "same": true
+    },
+    {
+      "path": "apps/web/components/search-page-client.tsx",
+      "source": "501588ef2766a0d163e80804198b0c99ce4bb870fd00bb300253d8a15ec9297e",
+      "preview": "501588ef2766a0d163e80804198b0c99ce4bb870fd00bb300253d8a15ec9297e",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/site-header.tsx",
+      "source": "6de3cf5eb9558529899c6eaa24ce848b28ea2f0475cc95b87359845bf2dc130c",
+      "preview": "6de3cf5eb9558529899c6eaa24ce848b28ea2f0475cc95b87359845bf2dc130c",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/theme-menu-items.tsx",
+      "source": "13901872c264cf0e41c6e9e2d7b27f2a31ab30e345e5162db9bbc6ca008c349c",
+      "preview": "13901872c264cf0e41c6e9e2d7b27f2a31ab30e345e5162db9bbc6ca008c349c",
+      "same": true
+    },
+    {
+      "path": "apps/web/components/ui/button.tsx",
+      "source": "5f527b032fd9fd7a1f4ef8838c023bda7b4197c568929334e8e252df4f11d49f",
+      "preview": "5f527b032fd9fd7a1f4ef8838c023bda7b4197c568929334e8e252df4f11d49f",
+      "same": true
+    },
+    {
+      "path": "apps/web/lib/browse-memory.ts",
+      "source": "51a66b5ea7289d8b79951ad9ad396e40714c6d4ac018e6228afa84aa1705279a",
+      "preview": "51a66b5ea7289d8b79951ad9ad396e40714c6d4ac018e6228afa84aa1705279a",
+      "same": true
+    },
+    {
+      "path": "apps/web/lib/types.ts",
+      "source": "7de8231339b1ba44f787011234f23f4b13378077959158a765aa7f7aa8ee1b5b",
+      "preview": "7de8231339b1ba44f787011234f23f4b13378077959158a765aa7f7aa8ee1b5b",
+      "same": true
+    },
+    {
+      "path": "apps/web/public/images/author-avatar.jpg",
+      "source": "ea6a595c414948ea999b977baec292715fa39dbeee761c618d8a21d5990f4578",
+      "preview": "ea6a595c414948ea999b977baec292715fa39dbeee761c618d8a21d5990f4578",
+      "same": true
+    },
+    {
+      "path": "apps/web/site.config.ts",
+      "source": null,
+      "preview": null,
+      "same": true
+    },
+    {
+      "path": "docs/adr/0005-frontend-stack.md",
+      "source": "bb9e0cd3f6ecd2249827bd1e435b42d7d0c6bae2539bc73a5f9aa983e5fde519",
+      "preview": "bb9e0cd3f6ecd2249827bd1e435b42d7d0c6bae2539bc73a5f9aa983e5fde519",
+      "same": true
+    },
+    {
+      "path": "docs/architecture.md",
+      "source": "cb7f2fa3ffe32e667c50b9e66b6f5a680bab16b5cd7579e5a9b7a4bf979b12a6",
+      "preview": "cb7f2fa3ffe32e667c50b9e66b6f5a680bab16b5cd7579e5a9b7a4bf979b12a6",
+      "same": true
+    },
+    {
+      "path": "docs/content-interactions.md",
+      "source": "97d808c09bff85b81bc4ad1705c0ee4aaee1fbc0276044333f4aba5043492139",
+      "preview": "97d808c09bff85b81bc4ad1705c0ee4aaee1fbc0276044333f4aba5043492139",
+      "same": true
+    },
+    {
+      "path": "packages/core/src/content-interactions.ts",
+      "source": "7019d523af21909a39ec96404528bde60bce04a2de3b01a09326a60ccfa84343",
+      "preview": "7019d523af21909a39ec96404528bde60bce04a2de3b01a09326a60ccfa84343",
+      "same": true
+    },
+    {
+      "path": "packages/core/src/index.ts",
+      "source": "af020ed9e7aaa4c33cbd87505a5b3066df8745ba6f2224b210968b68235c26f2",
+      "preview": "af020ed9e7aaa4c33cbd87505a5b3066df8745ba6f2224b210968b68235c26f2",
+      "same": true
+    },
+    {
+      "path": "packages/db/drizzle/0012_yielding_paper_doll.sql",
+      "source": "9ca931992f33d935a84ecaa1aca9cec16f87b503061a574be87f87c88f6f8546",
+      "preview": "9ca931992f33d935a84ecaa1aca9cec16f87b503061a574be87f87c88f6f8546",
+      "same": true
+    },
+    {
+      "path": "packages/db/drizzle/meta/0012_snapshot.json",
+      "source": "a3c15dc356865a56b7357fdd2ce5cefbee89b323be111a1c0b7ef81b27a92662",
+      "preview": "a3c15dc356865a56b7357fdd2ce5cefbee89b323be111a1c0b7ef81b27a92662",
+      "same": true
+    },
+    {
+      "path": "packages/db/drizzle/meta/_journal.json",
+      "source": "e6ddf3fd219e7f1e7dff08426f94367011fbeb8448d9b3bb7a07ceec852b113c",
+      "preview": "e6ddf3fd219e7f1e7dff08426f94367011fbeb8448d9b3bb7a07ceec852b113c",
+      "same": true
+    },
+    {
+      "path": "packages/db/src/schema.ts",
+      "source": "5a841b3a1a4855d1c6934b4e4dd6300552216dd06b972b619d1a44cafda67b6f",
+      "preview": "5a841b3a1a4855d1c6934b4e4dd6300552216dd06b972b619d1a44cafda67b6f",
+      "same": true
+    }
+  ]
+}

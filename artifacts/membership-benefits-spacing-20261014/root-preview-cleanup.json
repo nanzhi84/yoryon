@@ -1,0 +1,13 @@
+{
+  "visited": [
+    "/subscription",
+    "/redeem?returnTo=%2Fsubscription%23membership"
+  ],
+  "ownAnalyticsSidPresent": false,
+  "deletedOwnAnalytics": 0,
+  "databaseMutationPerformed": false,
+  "privateSidFileRemoved": true,
+  "temporaryViewportCleared": true,
+  "deliverableTab": "2",
+  "note": "Root仅访问无AnalyticsListProvider/DetailTracker的订阅、兑换视图，未生成SID；因此没有扩大范围删除数据库记录。独立agent清理自己生成的数据另见其回执。"
+}

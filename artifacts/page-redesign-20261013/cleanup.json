@@ -1,0 +1,44 @@
+{
+  "recordedAt": "2026-10-13T13:39:19.549Z",
+  "before": {
+    "users": 1,
+    "sessions": 2,
+    "email_verifications": 1,
+    "activation_codes": 1,
+    "entitlements": 1,
+    "redemptions": 1,
+    "member_questions": 0,
+    "comments": 0,
+    "comment_likes": 0,
+    "notifications": 0,
+    "comment_feed_versions": 0,
+    "analytics_events": 12
+  },
+  "after": {
+    "users": 0,
+    "sessions": 0,
+    "email_verifications": 0,
+    "activation_codes": 0,
+    "entitlements": 0,
+    "redemptions": 0,
+    "member_questions": 0,
+    "comments": 0,
+    "comment_likes": 0,
+    "notifications": 0,
+    "comment_feed_versions": 0,
+    "analytics_events": 0
+  },
+  "mailDeleteStatus": 200,
+  "mailVerifyAbsentStatus": 404,
+  "publicDemoContentsRetained": 7,
+  "scope": "only isolated clone acceptance data; source DB/FS and preexisting services preserved",
+  "faultRestored": true,
+  "previewRetained": true,
+  "finalBrowserSweep": {
+    "recordedAt": "2026-10-13T13:50:35.297Z",
+    "analyticsBefore": 2,
+    "analyticsAfter": 0,
+    "publicDemoContentsRetained": 7,
+    "scope": "only isolated anonymous analytics added by final preview checks; no further browser actions"
+  }
+}

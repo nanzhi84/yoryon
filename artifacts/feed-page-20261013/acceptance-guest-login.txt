@@ -1,0 +1,32 @@
+URL: http://localhost:3015/login?returnTo=%2F
+- banner:
+  - link "Yoryon":
+    - /url: /
+    - generic: Yoryon
+  - button "全站搜索":
+  - link "通知":
+    - /url: /notifications
+  - button "账户菜单":
+  - navigation "主导航":
+    - link "首页":
+      - /url: /
+    - link "订阅":
+      - /url: /subscription
+      - text: 订阅
+    - button "探索":
+      - text: 探索
+- main:
+  - heading "登录" [level=1]
+  - text: 邮箱或用户名
+  - textbox "邮箱或用户名"
+  - text: 密码
+  - textbox "密码"
+  - button "登录"
+  - paragraph:
+    - text: 没有账号？
+    - link "注册":
+      - /url: /register
+    - text: ·
+    - link "忘记密码":
+      - /url: /reset-password
+- alert

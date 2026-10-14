@@ -9,7 +9,7 @@ export default function NotificationsPage() {
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-2xl py-8">
+      <main className="mx-auto max-w-2xl py-5">
         <h1 className="mb-4 text-2xl font-semibold">通知</h1>
         <NotificationList />
       </main>

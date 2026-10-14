@@ -1,0 +1,7 @@
+Browser tab: 1, Title: "Yoryon", URL: "http://localhost:3015/".
+1 AXWebArea Yoryon, URL: localhost:3015/
+	2 menu 探索, ID: radix-_R_klflbH1_
+		3 合集
+		4 标签
+
+The focused UI element is 2 menu 探索, ID: radix-_R_klflbH1_

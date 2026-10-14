@@ -1,0 +1,520 @@
+{
+  "login": {
+    "h1": {
+      "marginBottom": "16px",
+      "top": 145
+    },
+    "main": {
+      "paddingTop": "20px",
+      "top": 125
+    },
+    "overflow": -15,
+    "url": "http://localhost:3015/login?returnTo=%2Fredeem%3FreturnTo%3D%252Fsubscription%2523membership",
+    "viewport": [
+      595,
+      896
+    ]
+  },
+  "redeem": {
+    "back": {
+      "height": 44,
+      "marginBottom": "8px",
+      "top": 145
+    },
+    "body": "返回\n兑换激活码\n\n标准订阅 ¥29.9/月，兑换后立即解锁全部付费内容；到期自动失效。\n\n请先 登录 后再兑换激活码。",
+    "h1": 197,
+    "main": {
+      "paddingTop": "20px",
+      "top": 125
+    },
+    "overflow": -15,
+    "url": "http://localhost:3015/redeem?returnTo=%2Fsubscription%23membership"
+  },
+  "subscription": {
+    "benefits": {
+      "background": "rgba(0, 0, 0, 0)",
+      "benefitsBottom": 233,
+      "border": "0px",
+      "columns": "166.664px 166.664px 166.672px",
+      "cta": {
+        "height": 44,
+        "top": 253
+      },
+      "display": "grid",
+      "items": [
+        {
+          "description": {
+            "lineHeight": "20px",
+            "size": "12px"
+          },
+          "heading": {
+            "lineHeight": "20px",
+            "size": "14px"
+          },
+          "svg": "18px",
+          "text": "专属作品\n\n解锁全部付费内容",
+          "width": 166.6640625,
+          "x": 24
+        },
+        {
+          "description": {
+            "lineHeight": "20px",
+            "size": "12px"
+          },
+          "heading": {
+            "lineHeight": "20px",
+            "size": "14px"
+          },
+          "svg": "18px",
+          "text": "每月提问\n\n每个自然月 1 次",
+          "width": 166.6640625,
+          "x": 206.6640625
+        },
+        {
+          "description": {
+            "lineHeight": "20px",
+            "size": "12px"
+          },
+          "heading": {
+            "lineHeight": "20px",
+            "size": "14px"
+          },
+          "svg": "18px",
+          "text": "会员讨论\n\n阅读回答，参与讨论",
+          "width": 166.671875,
+          "x": 389.328125
+        }
+      ],
+      "marginTop": "16px"
+    },
+    "main": {
+      "paddingTop": "20px",
+      "top": 125
+    },
+    "membership": {
+      "background": "rgba(0, 0, 0, 0)",
+      "border": "0px",
+      "boxShadow": "none",
+      "marginBottom": "28px",
+      "text": "支持我的持续创作\n\n¥29.9 / 月\n\n专属作品\n\n解锁全部付费内容\n\n每月提问\n\n每个自然月 1 次\n\n会员讨论\n\n阅读回答，参与讨论\n\n兑换激活码，开通会员"
+    },
+    "overflow": -15,
+    "url": "http://localhost:3015/subscription#membership"
+  },
+  "questionsTab": {
+    "empty": [
+      {
+        "background": "rgba(0, 0, 0, 0)",
+        "borderBottom": "0px"
+      }
+    ],
+    "focused": "subscription-questions-tab",
+    "overflow": -15,
+    "panel": "会员问答\n\n公开问题所有人可读，回答和讨论向会员开放。每个自然月可提问一次。\n\n登录 后查看自己的历史问答。\n\n公开问答\n\n还没有公开问答。",
+    "panelVisible": false,
+    "tabs": [
+      {
+        "selected": "false",
+        "tabIndex": -1,
+        "text": "会员作品"
+      },
+      {
+        "selected": "true",
+        "tabIndex": 0,
+        "text": "会员问答"
+      }
+    ]
+  },
+  "ctaFlow": {
+    "loginUrl": "http://localhost:3015/login?returnTo=%2Fredeem%3FreturnTo%3D%252Fsubscription%2523membership",
+    "noFormSubmitted": true,
+    "returnUrl": "http://localhost:3015/subscription#membership",
+    "questionTabRestored": "true"
+  },
+  "register": {
+    "fields": [
+      "email",
+      "text",
+      "password"
+    ],
+    "h1MarginBottom": "16px",
+    "overflow": -15,
+    "paddingTop": "20px",
+    "url": "http://localhost:3015/register"
+  },
+  "resetPassword": {
+    "fields": [
+      "email"
+    ],
+    "h1MarginBottom": "16px",
+    "overflow": -15,
+    "paddingTop": "20px",
+    "url": "http://localhost:3015/reset-password"
+  },
+  "searchEmpty": {
+    "back": {
+      "height": 44,
+      "mb": "8px"
+    },
+    "overflow": -15,
+    "paddingTop": "20px",
+    "text": "返回\n搜索\n\n输入想找的原文。区分大小写、空格与标点；至少三个连续文字或数字时，也会搜索正文。\n\n搜索\n\n搜索文章、帖子和正文中的内容。",
+    "url": "http://localhost:3015/search"
+  },
+  "searchBefore": {
+    "query": "示例系列",
+    "remaining": "本小时剩余 9 次搜索",
+    "results": [
+      {
+        "href": "/p/demo-ep2",
+        "text": "示例系列 · 第二话"
+      },
+      {
+        "href": "/p/demo-ep2#search=61198028-668a-46da-93f0-263ac71b3f36&revision=5db30a09-8636-430a-9c59-846991b3c554&start=2",
+        "text": "这是示例系列的第二篇正文。\n定位原文 →"
+      },
+      {
+        "href": "/p/demo-ep1",
+        "text": "示例系列 · 第一话"
+      },
+      {
+        "href": "/p/demo-ep1#search=61198028-668a-46da-93f0-263ac71b3f36&revision=823c4850-baf4-4186-b068-8ed2226a51b0&start=2",
+        "text": "这是示例系列的第一篇正文。\n定位原文 →"
+      }
+    ],
+    "scrollY": 0
+  },
+  "article": {
+    "back": {
+      "height": 44,
+      "mb": "8px"
+    },
+    "body": "返回\n2026.10.11\n示例系列 · 第一话\n#demo\n合集：示例系列\n\n这是示例系列的第一篇正文。\n\n继续阅读\n示例系列\n上一篇\n\n已是合集第一篇\n\n下一篇\n示例系列 · 第二话\n评论\n\n登录 后参与评论\n\n还没有评论。",
+    "heading": "示例系列 · 第一话",
+    "overflow": -15,
+    "paddingTop": "20px",
+    "url": "http://localhost:3015/p/demo-ep1"
+  },
+  "searchAfter": {
+    "query": "示例系列",
+    "remaining": "本小时剩余 9 次搜索",
+    "results": [
+      {
+        "href": "/p/demo-ep2",
+        "text": "示例系列 · 第二话"
+      },
+      {
+        "href": "/p/demo-ep2#search=61198028-668a-46da-93f0-263ac71b3f36&revision=5db30a09-8636-430a-9c59-846991b3c554&start=2",
+        "text": "这是示例系列的第二篇正文。\n定位原文 →"
+      },
+      {
+        "href": "/p/demo-ep1",
+        "text": "示例系列 · 第一话"
+      },
+      {
+        "href": "/p/demo-ep1#search=61198028-668a-46da-93f0-263ac71b3f36&revision=823c4850-baf4-4186-b068-8ed2226a51b0&start=2",
+        "text": "这是示例系列的第一篇正文。\n定位原文 →"
+      }
+    ],
+    "scrollY": 0
+  },
+  "tags": {
+    "back": {
+      "height": 44,
+      "mb": "8px"
+    },
+    "listMarginTop": "16px",
+    "overflow": -15,
+    "paddingTop": "20px",
+    "url": "http://localhost:3015/tags"
+  },
+  "tagDemo": {
+    "articles": 6,
+    "back": {
+      "height": 44,
+      "mb": "8px"
+    },
+    "heading": "#demo",
+    "overflow": -15,
+    "paddingTop": "20px",
+    "url": "http://localhost:3015/tags/demo"
+  },
+  "paidAnonymous": {
+    "overflow": -15,
+    "paddingTop": "20px",
+    "text": "返回\n2026.10.11\n付费\n付费演示文章（含图片与视频）\n\n付费墙 + 内联多媒体演示\n\n#demo\n\n第 1 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 1 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 1 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。\n\n第 2 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 2 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 2 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。\n\n第 3 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 3 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 3 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。\n\n第 4 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 4 段：这是一段用于演示付费预览截断的正文内容，足够长才能看出百分比截断效果。第 4 段：这是一段用于演示付费预览截\n\n本内容为订阅专享，以上为免费预览。\n\n标准订阅 ¥29.9/月：解锁站内全部付费内容，到期自动恢复锁定。\n\n兑换订阅激活码\n评论\n\n登录 后参与评论\n\n还没有评论。",
+    "url": "http://localhost:3015/p/demo-paid"
+  },
+  "collectionsList": {
+    "firstArticlePadding": "24px",
+    "mainPaddingTop": "0px",
+    "overflow": -15,
+    "url": "http://localhost:3015/c"
+  },
+  "collectionDetail": {
+    "description": "用于预览合集 tab 的演示系列",
+    "listMarginTop": "20px",
+    "overflow": -15,
+    "paddingTop": "20px",
+    "text": "合集\n示例系列\n\n用于预览合集 tab 的演示系列\n\n01\n示例系列 · 第一话\n2026.10.11\n02\n示例系列 · 第二话\n2026.10.11",
+    "url": "http://localhost:3015/c/demo-series"
+  },
+  "home": {
+    "articles": 6,
+    "first": [
+      {
+        "bottom": 347,
+        "h2": {
+          "line": "26px",
+          "size": "18px"
+        },
+        "paddingBottom": "20px",
+        "paddingTop": "20px",
+        "title": "演示音频",
+        "top": 125
+      },
+      {
+        "bottom": 769.25,
+        "h2": {
+          "line": "26px",
+          "size": "18px"
+        },
+        "paddingBottom": "20px",
+        "paddingTop": "20px",
+        "title": "演示视频",
+        "top": 348
+      },
+      {
+        "bottom": 1191.5,
+        "h2": {
+          "line": "26px",
+          "size": "18px"
+        },
+        "paddingBottom": "20px",
+        "paddingTop": "20px",
+        "title": "演示图集",
+        "top": 770.25
+      }
+    ],
+    "gap": 1,
+    "overflow": -15,
+    "scrollY": 0,
+    "url": "http://localhost:3015/",
+    "contentGap": {
+      "gap": 41,
+      "lastActionBottom": 327,
+      "nextTitleTop": 368
+    },
+    "beforeArticle": {
+      "scrollY": 896,
+      "titleTop": 316.5
+    },
+    "afterArticle": {
+      "scrollY": 777.5,
+      "titleTop": 435
+    },
+    "settledFlow": {
+      "before": {
+        "scrollY": 734,
+        "top": 478.5
+      },
+      "savedAfterClick": {
+        "time": 1791950590346,
+        "y": 777.5
+      },
+      "afterImmediate": {
+        "maxScroll": 900,
+        "media": [
+          {
+            "complete": true,
+            "height": 167.34375,
+            "tag": "IMG",
+            "width": 297.5
+          }
+        ],
+        "scrollHeight": 1796,
+        "scrollY": 777.5,
+        "titleTop": 303.09375
+      },
+      "afterStable": {
+        "maxScroll": 900,
+        "media": [
+          {
+            "complete": true,
+            "height": 167.34375,
+            "tag": "IMG",
+            "width": 297.5
+          }
+        ],
+        "scrollHeight": 1796,
+        "scrollY": 733.5,
+        "titleTop": 347.09375
+      }
+    },
+    "finalMediaFix": {
+      "initialBefore": {
+        "maxScroll": 1032,
+        "media": [
+          {
+            "complete": true,
+            "currentSrc": "http://localhost:3015/api/images/v1/4c480afa-eee1-411a-9d9a-102bbb4a799b/1280",
+            "height": 299.25,
+            "naturalHeight": 360,
+            "naturalWidth": 640,
+            "width": 532
+          }
+        ],
+        "scrollHeight": 1928,
+        "scrollY": 896,
+        "titleTop": 316.5,
+        "viewport": [
+          595,
+          896
+        ]
+      },
+      "initialSaved": {
+        "time": 1791950795710,
+        "y": 777.5
+      },
+      "initialAfter": {
+        "maxScroll": 1032,
+        "media": [
+          {
+            "complete": true,
+            "currentSrc": "http://localhost:3015/api/images/v1/4c480afa-eee1-411a-9d9a-102bbb4a799b/1280",
+            "height": 299.25,
+            "naturalHeight": 360,
+            "naturalWidth": 640,
+            "width": 532
+          }
+        ],
+        "scrollHeight": 1928,
+        "scrollY": 777.5,
+        "titleTop": 435,
+        "viewport": [
+          595,
+          896
+        ]
+      },
+      "repeatBefore": {
+        "media": [
+          {
+            "complete": true,
+            "height": 299.25,
+            "width": 532
+          }
+        ],
+        "scrollHeight": 1928,
+        "scrollY": 777.5,
+        "titleTop": 435
+      },
+      "repeatSaved": {
+        "time": 1791950817288,
+        "y": 777.5
+      },
+      "repeatAfter": {
+        "media": [
+          {
+            "complete": true,
+            "height": 299.25,
+            "width": 532
+          }
+        ],
+        "scrollHeight": 1928,
+        "scrollY": 777.5,
+        "titleTop": 435
+      },
+      "repeatSettled": {
+        "media": [
+          {
+            "complete": true,
+            "height": 299.25,
+            "width": 532
+          }
+        ],
+        "scrollHeight": 1928,
+        "scrollY": 777.5,
+        "titleTop": 435
+      }
+    }
+  },
+  "notificationsAnonymous": {
+    "url": "http://localhost:3015/login?returnTo=%2Fnotifications",
+    "main": {
+      "paddingTop": "20px",
+      "text": "登录\n邮箱或用户名\n密码\n登录\n\n没有账号？注册 · 忘记密码"
+    }
+  },
+  "profileAnonymous": {
+    "url": "http://localhost:3015/settings/profile",
+    "text": "个人资料\n\n登录 后编辑个人资料。"
+  },
+  "missingArticle": {
+    "url": "http://localhost:3015/p/missing-membership-spacing-20261014",
+    "body": "404 内容不存在",
+    "routeBoundary": "article proxy plain text 404, no Next main"
+  },
+  "notFound": {
+    "mainCount": 1,
+    "overflow": -15,
+    "paddingBottom": "32px",
+    "paddingTop": "32px",
+    "text": "Yoryon\n首页\n订阅\n探索\n404\n\n页面不存在。\n\n回到首页",
+    "url": "http://localhost:3015/missing-membership-spacing-20261014"
+  },
+  "theme": {
+    "before": {
+      "background": "rgb(253, 254, 255)",
+      "className": ""
+    },
+    "dark": {
+      "background": "rgb(20, 33, 42)",
+      "captionColor": "rgb(161, 182, 195)",
+      "className": "dark",
+      "headingColor": "rgb(231, 241, 246)",
+      "iconColor": "rgb(156, 199, 221)",
+      "membershipBackground": "rgba(0, 0, 0, 0)",
+      "membershipBorder": "0px",
+      "overflow": -15,
+      "textColor": "rgb(231, 241, 246)"
+    },
+    "after": {
+      "background": "rgb(253, 254, 255)",
+      "className": ""
+    },
+    "restored": true
+  },
+  "imageViewer": {
+    "background": "rgba(0, 0, 0, 0)",
+    "border": "0px",
+    "image": {
+      "bottom": 601.3359375,
+      "height": 306.671875,
+      "left": 17.3984375,
+      "right": 562.59375,
+      "top": 294.6640625,
+      "width": 545.1953125,
+      "x": 17.3984375,
+      "y": 294.6640625
+    },
+    "label": "图片预览，按Esc或点击空白关闭",
+    "open": true,
+    "text": "",
+    "viewport": [
+      595,
+      896
+    ],
+    "visibleButtonCount": 0,
+    "visibleImageCount": 1,
+    "afterEsc": {
+      "focused": "查看图片：作品图片",
+      "image": [
+        {
+          "height": 299.25,
+          "width": 532
+        }
+      ],
+      "open": false
+    }
+  }
+}

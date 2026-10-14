@@ -1,0 +1,21 @@
+{
+  "database": "yoryon_page_redesign_20261013",
+  "sid": "7ba99b98-308e-48f6-a88e-e2a7cb50c785",
+  "tabClosedBeforeCleanup": true,
+  "transactionIsolation": "repeatable read",
+  "before": {
+    "contents": 7,
+    "users": 0,
+    "other_analytics": 126,
+    "own_analytics": 34
+  },
+  "removed": 34,
+  "after": {
+    "contents": 7,
+    "users": 0,
+    "other_analytics": 126,
+    "own_analytics": 0
+  },
+  "unchangedBusinessData": true,
+  "unchangedOtherAnalytics": true
+}

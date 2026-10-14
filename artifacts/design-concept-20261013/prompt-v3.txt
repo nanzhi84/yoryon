@@ -1,0 +1,26 @@
+Use case: compositing and restrained color revision of a website ui-mockup.
+Input image 1 is the EDIT TARGET: Yoryon local-code-based two-page website concept, second version, with a quiet pale membership panel. Input image 2 is the user's exact AVATAR IMAGE and COLOR REFERENCE: an airy illustrated white-haired character in upward-facing profile, pale sky-blue painted backdrop, white and blue-gray brushwork.
+Primary request: add this user's avatar prominently but quietly to the site identity, and shift the overall visual palette slightly toward the avatar's light blue. Preserve the restrained version 2 subscription panel, all local-code navigation and existing functionality, all copy and page layout. The user specifically rejected the previous exaggerated dark VIP card; do not restore dramatic premium styling.
+
+AVATAR:
+In BOTH webpage panels, place a circular avatar approximately 44 CSS px diameter directly to the LEFT of the "Yoryon" wordmark in the first header row, with a modest 12px gap. Adjust only that brand group to fit. The avatar must visibly use the supplied image 2, tightly cropping the original character's white hair and upward-facing side-profile head against the blue sky. Preserve the original character design, pose, facial profile, white hair, painterly texture and light-blue palette. Do not invent a different character, photo or generic silhouette. Keep the avatar crisp and recognizable at small size. A very thin pale-blue ring is fine; no decorative badge, glow or shadow. Keep the search/bell/user icons on the right and the two-row header structure. The circular avatar is author identity, not the generic account-menu icon.
+
+COLOR:
+Replace the warm ivory/gold theme with a restrained airy blue-gray theme drawn from image 2:
+- Whole board background: very pale cool blue #edf5f9.
+- Both webpage panels: near-white #fdfeff. Keep abundant white space, the site should still read as a clean white editorial blog rather than a blue poster.
+- Main titles and wordmark: dark slate #253947, fully readable.
+- Body text: calm slate-gray #647986; small metadata medium blue-gray #7b909c, maintain readability.
+- Active navigation underline and small subscription star accent: muted blue #6a9ab3.
+- The compact subscription panel: VERY LIGHT powder-blue fill #f1f8fc, 1px pale-blue-gray border #d9e9f2, modest 8px corners, zero shadow. Preserve its reduced height and compact copy/price/button arrangement from image 1.
+- Main subscription CTA: muted slate blue #47758f with white text, normal content width and 38px height. Not bright royal blue, not huge.
+- The homepage's small bottom subscription teaser: pale-blue fill and delicate pale-blue outline instead of cream. Its "了解订阅 →" text becomes muted blue.
+- Member-only lock and label, and preview link: muted blue rather than gold.
+- Hairlines, audio control outline and waveform: subtly blue-gray. The coastal photograph may retain its quiet grayscale photography.
+- No gold, warm brown, black VIP slab, strong gradients, large new blue shapes or extra decorative artwork.
+
+COPY INVARIANTS:
+All Chinese copy in image 1 stays intact, especially "支持我的持续创作", price "¥29.9 / 月", "读得更深入，交流更直接。", "专属作品 · 每月一次提问 · 会员讨论", CTA "兑换激活码，开通会员", and note "使用已有激活码兑换会员权益。". Keep member Q&A and member works plus the left homepage content.
+COMPOSITION INVARIANTS:
+Same two-page landscape board, aspect ratio and comfortable spacing. Two-row local header: wordmark/tools then 首页/订阅 on left, 探索 on right. All content hierarchy, margins, feed photo, audio bar, and calm compact subscription design remain. Align avatar and wordmark optically. No new page sections, no extra membership benefits, no pricing tiers, no oversized hero and no large avatar illustration behind content.
+Output: crisp refined high-fidelity UI design revision. This is a quiet light-blue iteration of the existing LOCAL CODE design, not a redesign around the production site.

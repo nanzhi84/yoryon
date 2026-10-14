@@ -1,0 +1,29 @@
+{
+  "audioFailure": {
+    "alert": [
+      "音频未能播放，点击播放按钮重试。"
+    ],
+    "button": "重试播放音频",
+    "error": null,
+    "paused": true
+  },
+  "failed": [
+    {
+      "method": "Network.loadingFailed",
+      "error": "",
+      "blocked": "inspector"
+    },
+    {
+      "method": "Network.loadingFailed",
+      "error": "",
+      "blocked": "inspector"
+    }
+  ],
+  "retry": [
+    {
+      "method": "Network.loadingFailed",
+      "error": "",
+      "blocked": "inspector"
+    }
+  ]
+}

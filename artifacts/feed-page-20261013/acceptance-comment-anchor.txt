@@ -1,0 +1,44 @@
+- banner:
+  - link "Yoryon":
+    - /url: /
+    - generic: Yoryon
+  - button "全站搜索":
+  - link "通知（1 条未读）":
+    - /url: /notifications
+    - generic: "1"
+  - button "账户菜单":
+  - navigation "主导航":
+    - link "首页":
+      - /url: /
+    - link "订阅":
+      - /url: /subscription
+      - text: 订阅
+    - button "探索":
+      - text: 探索
+- main:
+  - generic: 帖子
+  - generic: ·
+  - time: 2026.10.11
+  - heading "演示音频" [level=1]
+  - paragraph: 音频内容演示：封面 + 标题简介 + 播放器的播客式卡片
+  - link "#demo":
+    - /url: /tags/demo
+  - button "播放音频":
+    - generic: 播放音频
+  - paragraph: 这里是音频的文字说明（shownotes）：正文区域照常支持 Markdown，可以放时间轴、链接与参考资料。
+  - region "评论区":
+    - heading "评论（1）" [level=2]
+    - textbox "评论输入框":
+      - /placeholder: 写下你的评论…
+    - generic: 0/2000
+    - button "发送" [disabled]
+    - generic: 信
+    - generic: 信息流验收 0
+    - time: 2026/10/13 23:54:00
+    - paragraph: 本地信息流独立验收评论（本次完成后清理）
+    - button "点赞":
+      - text: "0"
+    - button "回复"
+    - button "删除"
+    - button "查看 1 条回复"
+- alert: 演示音频 · Yoryon

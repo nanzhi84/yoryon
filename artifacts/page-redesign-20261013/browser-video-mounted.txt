@@ -1,0 +1,102 @@
+Window: "Yoryon", App: Google Chrome.
+0 standard window Yoryon - Google Chrome (Incognito), URL: localhost:3015/, Secondary Actions: Raise
+	1 container Yoryon - Google Chrome (Incognito), URL: localhost:3015/
+		2 container
+			3 toolbar
+				4 button Back
+				5 button (disabled) Forward
+				6 button Reload
+				7 container
+					8 pop up button View site information
+					9 text field (settable) Address and search bar, Value: localhost:3015, Placeholder: Ask Google or type a URL
+					10 button Bookmark this tab
+				11 button Incognito
+				12 pop up button Chrome
+			13 container
+				14 scroll area
+					15 HTML content Yoryon, URL: localhost:3015/
+						16 container
+							17 link Yoryon, Value: localhost:3015/
+							18 pop up button 全站搜索
+							19 link 通知, Value: localhost:3015/notifications
+							20 pop up button 账户菜单
+							21 container 主导航
+								22 link 首页, Value: localhost:3015/
+								23 link 订阅, Value: localhost:3015/subscription
+								24 pop up button 探索
+						25 container
+							26 link 演示音频, Value: localhost:3015/p/demo-audio
+							27 text 2026.10.11
+							28 container
+								29 button 播放音频
+								30 text 这里是音频的文字说明（shownotes）：正文区域照常支持 Markdown，可以放时间轴、链接与参考资料。
+							31 link 详情与评论, Value: localhost:3015/p/demo-audio#comments
+							32 text 帖子
+							33 link #demo, Value: localhost:3015/tags/demo
+							34 link 演示视频, Value: localhost:3015/p/demo-video
+							35 text 2026.10.11
+							36 container
+								37 container Media player
+									38 container
+										39 button Play
+										40 pop up button Mute
+										41 container Current time
+											42 text 0:00
+										43 slider Seek, Value: 0, Details: 0 seconds of 4 seconds, Secondary Actions: Increment, Decrement
+										44 text 0:00
+										45 button Show duration, 4 seconds remaining.
+										46 pop up button Settings
+										47 button (disabled) Start casting
+										48 button Enter picture-in-picture
+										49 button Enter fullscreen
+								50 button 停止并关闭视频
+							51 link 详情与评论, Value: localhost:3015/p/demo-video#comments
+							52 text 帖子
+							53 link #demo, Value: localhost:3015/tags/demo
+							54 link 演示图集, Value: localhost:3015/p/demo-gallery
+							55 text 2026.10.11
+							56 button 查看图片：作品图片
+							57 link 详情与评论, Value: localhost:3015/p/demo-gallery#comments
+							58 text 帖子
+							59 link #demo, Value: localhost:3015/tags/demo
+							60 link 示例系列 · 第二话, Value: localhost:3015/p/demo-ep2
+							61 text 2026.10.11
+							62 text 长文
+							63 link #demo, Value: localhost:3015/tags/demo
+							64 link 示例系列 · 第一话, Value: localhost:3015/p/demo-ep1
+							65 text 2026.10.11
+							66 text 长文
+							67 link #demo, Value: localhost:3015/tags/demo
+							68 link 测试文章, Value: localhost:3015/p/hello-world
+							69 text 2026.10.11
+							70 text 长文
+							71 link #test, Value: localhost:3015/tags/test
+							72 container 订阅支持
+								73 text 更深入的作品，更直接的交流。
+								74 link 了解订阅, Value: localhost:3015/subscription
+						75 text Yoryon
+			76 tab group
+				77 container
+					78 button Expand Tabs
+					79 pop up button Tab search
+				80 container
+					81 scroll area
+					82 scroll area
+						83 tab (selected, settable, boolean) Yoryon - Memory usage - 115 MB, Value: on
+				84 button New tab
+	85 close button
+	86 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	87 minimize button
+88 menu bar
+	89 Chrome
+	90 File
+	91 Edit
+	92 View
+	93 History
+	94 Bookmarks
+	95 Profiles
+	96 Tab
+	97 Window
+	98 Help
+
+The focused UI element is 15 HTML content Yoryon, URL: localhost:3015/

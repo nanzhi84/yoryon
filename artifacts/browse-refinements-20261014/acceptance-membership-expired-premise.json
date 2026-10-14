@@ -1,0 +1,27 @@
+{
+  "before": [
+    {
+      "id": "a4a13fa5-1d3b-425c-aa79-e75dae4c270a",
+      "user_id": "487aafc6-6170-4e84-bfdf-80065885862b",
+      "scope_type": "subscription",
+      "valid_from": "2026-10-13T17:17:26.221Z",
+      "valid_until": "2026-11-12T17:17:26.221Z"
+    }
+  ],
+  "after": [
+    {
+      "id": "a4a13fa5-1d3b-425c-aa79-e75dae4c270a",
+      "user_id": "487aafc6-6170-4e84-bfdf-80065885862b",
+      "scope_type": "subscription",
+      "valid_from": "2026-10-11T17:19:13.216Z",
+      "valid_until": "2026-10-12T17:19:13.216Z"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "42ced392-f9c3-487f-afa8-9810c3cccd21",
+      "user_id": "487aafc6-6170-4e84-bfdf-80065885862b",
+      "expires_at": "2026-11-12T17:15:34.750Z"
+    }
+  ]
+}

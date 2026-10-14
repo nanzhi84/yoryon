@@ -2,7 +2,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { ContentDetail, FeedContentItem } from "@/lib/types";
 import { MarkdownSurface } from "./markdown-surface";
-import { TrackClickLink } from "./analytics";
 
 export function PostEntry({ item }: { item: FeedContentItem }) {
   const [expanded, setExpanded] = useState<ContentDetail | null>(null);
@@ -38,16 +37,13 @@ export function PostEntry({ item }: { item: FeedContentItem }) {
   }
   const markdown = expanded?.bodyMarkdown ?? item.post?.bodyMarkdown ?? "";
   const media = expanded?.media ?? item.post?.media ?? [];
-  const mediaSizes = Object.fromEntries(media.filter(m => m.width && m.height).map(m => [m.mediaId, { width: m.width!, height: m.height!, mimeType: m.mimeType }]));
-  return <div className="mt-3">
+  const mediaSizes = Object.fromEntries(media.map(m => [m.mediaId, { width: m.width, height: m.height, mimeType: m.mimeType, durationSec: m.durationSec }]));
+  return <div className="mt-2">
     <div ref={host} id={`post-${item.id}`} className={expanded ? "" : "max-h-[32rem] overflow-hidden"}>
-      <MarkdownSurface key={expanded ? "expanded" : "folded"} markdown={markdown} mediaSizes={mediaSizes} publicImages={!expanded} />
+      <MarkdownSurface key={expanded ? "expanded" : "folded"} className="prose-feed" markdown={markdown} mediaSizes={mediaSizes} publicImages={!expanded} />
     </div>
     {expanded?.access === "preview" && expanded.hasPaidContent && <p className="mt-3 text-sm text-muted-foreground">以上为当前允许的付费预览，兑换订阅后可阅读全文。</p>}
     {error && <p role="alert" className="mt-2">帖子加载失败。<button className="underline" onClick={() => void expand()}>重试</button></p>}
-    <div className="mt-3 flex items-center gap-4 text-sm">
-      {(item.post?.collapsed || clipped || expanded) && <button type="button" disabled={loading} aria-expanded={!!expanded} aria-controls={`post-${item.id}`} className="underline" onClick={() => expanded ? collapse() : void expand()}>{loading ? "加载中…" : expanded ? "收起" : "展开"}</button>}
-      <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}#comments`} className="text-muted-foreground underline">详情与评论</TrackClickLink>
-    </div>
+    {(item.post?.collapsed || clipped || expanded) && <button type="button" disabled={loading} aria-expanded={!!expanded} aria-controls={`post-${item.id}`} className="mt-1 min-h-8 text-[13px] leading-5 text-primary hover:underline" onClick={() => expanded ? collapse() : void expand()}>{loading ? "加载中…" : expanded ? "收起" : "展开"}</button>}
   </div>;
 }

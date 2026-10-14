@@ -1,0 +1,42 @@
+{
+  "before": {
+    "count": 1,
+    "paused": true,
+    "rect": {
+      "bottom": 304.5,
+      "height": 64,
+      "left": 272.5,
+      "right": 992.5,
+      "top": 240.5,
+      "width": 720,
+      "x": 272.5,
+      "y": 240.5
+    },
+    "srcSet": false
+  },
+  "after": {
+    "button": "暂停音频",
+    "count": 1,
+    "currentTime": 0.158838,
+    "duration": 3,
+    "error": null,
+    "paused": false,
+    "readyState": 4,
+    "rect": {
+      "bottom": 304.5,
+      "height": 64,
+      "left": 272.5,
+      "right": 992.5,
+      "top": 240.5,
+      "width": 720,
+      "x": 272.5,
+      "y": 240.5
+    }
+  },
+  "nodeBefore": {
+    "nodeId": 104
+  },
+  "nodeAfter": {
+    "nodeId": 104
+  }
+}

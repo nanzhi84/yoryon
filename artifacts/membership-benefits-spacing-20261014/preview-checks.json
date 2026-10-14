@@ -1,0 +1,33 @@
+{
+  "viewport": {
+    "width": 595,
+    "height": 896
+  },
+  "subscription": {
+    "membershipBenefits": [
+      "专属作品",
+      "每月提问",
+      "会员讨论"
+    ],
+    "removedSentencesAbsent": true,
+    "mainPaddingTop": 20,
+    "screenshot": "preview-subscription-595.png"
+  },
+  "redeem": {
+    "mainPaddingTop": 20,
+    "backMarginBottom": 8,
+    "anonymousGateVisible": true,
+    "screenshot": "preview-redeem-595.png"
+  },
+  "note": "Root现场目视与DOM核对；正式独立判断见acceptance.md",
+  "finalWebPid": 11163,
+  "independentImageReturn": {
+    "stableImageDimensions": [
+      532,
+      299.25
+    ],
+    "storedAndRestoredY": 777.5,
+    "targetTitleTopBeforeAndAfter": 435,
+    "artifact": "acceptance.md"
+  }
+}

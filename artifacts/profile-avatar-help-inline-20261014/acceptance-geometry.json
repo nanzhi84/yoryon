@@ -1,0 +1,23 @@
+{
+  "documentWidth": 518,
+  "help": {
+    "fontSize": "12px",
+    "height": 20,
+    "lineHeight": "20px",
+    "lines": [
+      {
+        "height": 14,
+        "width": 276.921875,
+        "x": 104,
+        "y": 308
+      }
+    ],
+    "text": "PNG、JPEG 或 WebP · 最大 2MB · 上传后自动保存",
+    "width": 276.921875
+  },
+  "paragraphs": 1,
+  "viewport": {
+    "height": 896,
+    "width": 533
+  }
+}

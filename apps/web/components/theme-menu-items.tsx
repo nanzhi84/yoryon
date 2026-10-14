@@ -1,20 +1,17 @@
 "use client";
-
-import { Moon, Sun, Monitor } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Moon, Sun } from "lucide-react";
 import { DropdownMenuItem } from "./ui/dropdown-menu";
-
-function applyTheme(theme: "light" | "dark" | "system") {
-  const dark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
-  document.documentElement.classList.toggle("dark", dark);
-  if (theme === "system") localStorage.removeItem("theme");
-  else localStorage.setItem("theme", theme);
-}
-
-/** 与账户菜单共享同一焦点和键盘导航，不再嵌套第二个下拉菜单。 */
 export function ThemeMenuItems() {
-  return <>
-    <DropdownMenuItem onSelect={() => applyTheme("light")}><Sun className="mr-2 size-4" aria-hidden="true" />浅色</DropdownMenuItem>
-    <DropdownMenuItem onSelect={() => applyTheme("dark")}><Moon className="mr-2 size-4" aria-hidden="true" />深色</DropdownMenuItem>
-    <DropdownMenuItem onSelect={() => applyTheme("system")}><Monitor className="mr-2 size-4" aria-hidden="true" />跟随系统</DropdownMenuItem>
-  </>;
+  const [dark, setDark] = useState(false);
+  useEffect(() => setDark(document.documentElement.classList.contains("dark")), []);
+  function toggle() {
+    const next = !document.documentElement.classList.contains("dark");
+    document.documentElement.classList.toggle("dark", next); setDark(next);
+    try { localStorage.setItem("theme", next ? "dark" : "light"); } catch { /* 禁用存储时只应用本次主题。 */ }
+  }
+  return <DropdownMenuItem role="menuitemcheckbox" aria-checked={dark} aria-label="深色外观" onSelect={event => { event.preventDefault(); toggle(); }} className="justify-between gap-5">
+    <span className="flex items-center gap-2">{dark ? <Moon className="size-4" aria-hidden="true" /> : <Sun className="size-4" aria-hidden="true" />}深色外观</span>
+    <span aria-hidden="true" className={`relative h-5 w-9 rounded-full transition-colors ${dark ? "bg-primary" : "bg-muted-foreground/30"}`}><span className={`absolute top-0.5 size-4 rounded-full bg-background transition-transform ${dark ? "translate-x-[18px]" : "translate-x-0.5"}`} /></span>
+  </DropdownMenuItem>;
 }

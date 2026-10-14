@@ -1,0 +1,35 @@
+{
+  "database": "yoryon_page_redesign_20261013",
+  "user": {
+    "id": "60b71192-8f39-473f-a7b5-29a64b57f16c",
+    "username": "profile_check_f13165ec",
+    "displayName": "🙂资料验收"
+  },
+  "asset": {
+    "id": "31690ac8-0795-4b62-9e11-c31283b9efbc",
+    "oss_key": "avatars/77760171946206075135d5123cd3fa874e22f57f45c9f2b3a2a6a525c46628e4.webp",
+    "mime_type": "image/webp",
+    "size_bytes": "1744",
+    "width": 320,
+    "height": 320
+  },
+  "httpStatus": 200,
+  "contentType": "image/webp",
+  "decoded": {
+    "format": "webp",
+    "width": 320,
+    "height": 320,
+    "pages": 1
+  },
+  "responseSize": 1744,
+  "sha256": "77760171946206075135d5123cd3fa874e22f57f45c9f2b3a2a6a525c46628e4",
+  "storedSha256": "77760171946206075135d5123cd3fa874e22f57f45c9f2b3a2a6a525c46628e4",
+  "bytesEqual": true,
+  "source": {
+    "path": "/tmp/yoryon-page-redesign-m0NxxV/storage/media/10d123e87a510b7d8e25773aba9e616bec6d3d457a79efdfb36e591e1fc41697.png",
+    "size": 2607,
+    "width": 640,
+    "height": 360
+  },
+  "newAsset": true
+}

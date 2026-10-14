@@ -1,0 +1,63 @@
+{
+  "status": "PARTIAL",
+  "userAndAvatarCleanup": "PASS",
+  "analyticsCleanup": "UNVERIFIED",
+  "analyticsLimitation": "Profile page SID was null; logout navigated home before own tab closed. CDP request history unavailable after close. No anonymous analytics deleted without exact ownership proof.",
+  "database": "yoryon_page_redesign_20261013",
+  "cleanupScope": "own temporary user/session/new unreferenced avatar only; all anonymous analytics preserved",
+  "temporaryUserId": "60b71192-8f39-473f-a7b5-29a64b57f16c",
+  "temporaryUsername": "profile_check_f13165ec",
+  "lastPersistedProfile": {
+    "displayName": "资料验收用户",
+    "avatarMediaId": null
+  },
+  "sessionsBeforeCleanup": 0,
+  "logoutRevokedOwnSession": true,
+  "removed": {
+    "users": 1,
+    "sessions": 0,
+    "analytics": 0
+  },
+  "remainingOwn": {
+    "users": 0,
+    "sessions": 0,
+    "analytics": "UNVERIFIED - SID was null on profile; own tab closed after logout home navigation"
+  },
+  "unrelatedBefore": {
+    "users": 1,
+    "sessions": 1,
+    "analytics": 181,
+    "contents": 7,
+    "collections": 1,
+    "comments": 1,
+    "entitlements": 1,
+    "redemptions": 1,
+    "questions": 0
+  },
+  "unrelatedAfter": {
+    "users": 1,
+    "sessions": 1,
+    "analytics": 181,
+    "contents": 7,
+    "collections": 1,
+    "comments": 1,
+    "entitlements": 1,
+    "redemptions": 1,
+    "questions": 0
+  },
+  "existingAssetsPreserved": 4,
+  "avatars": [
+    {
+      "id": "31690ac8-0795-4b62-9e11-c31283b9efbc",
+      "oss_key": "avatars/77760171946206075135d5123cd3fa874e22f57f45c9f2b3a2a6a525c46628e4.webp",
+      "deleted": true,
+      "refsBeforeDelete": 0,
+      "storageDeleted": true
+    }
+  ],
+  "credentialFileDeleted": true,
+  "ownTabClosed": true,
+  "viewportOverrideCleared": true,
+  "networkBlockCleared": true,
+  "productionChanged": false
+}

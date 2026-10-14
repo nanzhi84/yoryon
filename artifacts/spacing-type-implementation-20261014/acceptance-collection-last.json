@@ -1,0 +1,25 @@
+{
+  "cards": [
+    {
+      "disabled": null,
+      "gridCols": "225px 225px",
+      "height": 88,
+      "href": "/p/demo-ep1",
+      "text": "上一篇示例系列 · 第一话"
+    },
+    {
+      "disabled": "true",
+      "gridCols": "225px 225px",
+      "height": 88,
+      "href": null,
+      "text": "下一篇已是合集最后一篇"
+    }
+  ],
+  "tags": [
+    {
+      "href": "/tags/demo",
+      "text": "#demo"
+    }
+  ],
+  "url": "http://localhost:3015/p/demo-ep2"
+}

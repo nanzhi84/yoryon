@@ -1,0 +1,6 @@
+{
+  "file": "apps/web/app/page.tsx",
+  "sha256": "fef620944e640e7bece86dee182ef2a96ae998e3528e10a6f7f573abbdf2ba88",
+  "build": "PASS",
+  "typecheck": "PASS"
+}

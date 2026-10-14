@@ -1,0 +1,13 @@
+{
+  "url": "http://localhost:3015/settings/profile",
+  "readOnlyProfilePreview": true,
+  "profileMutationsByRoot": 0,
+  "authOperationsByRoot": 0,
+  "themeChanged": false,
+  "viewportCleared": true,
+  "ownAnalyticsSidPresent": false,
+  "privateFileRemoved": true,
+  "deliverableTab": "8",
+  "screenshot": "preview-user-profile-568.png",
+  "note": "根agent仅按用户明确要求打开新页签预览；localhost已有会话未退出或覆盖，原用户页签未动。功能写入仅由子agent在127隔离临时用户上执行。"
+}

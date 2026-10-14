@@ -1,0 +1,44 @@
+{
+  "database": "yoryon_page_redesign_20261013",
+  "prior": {
+    "contents": 7,
+    "users": 0,
+    "search_sessions": 1
+  },
+  "user": {
+    "id": "487aafc6-6170-4e84-bfdf-80065885862b",
+    "username": "browse_refinements_20261014",
+    "email": "browse-refinements-20261014@example.invalid"
+  },
+  "source": "/tmp/yoryon-page-redesign-m0NxxV/browse-acceptance-content",
+  "contentSlugs": [
+    "browse-20261014-01",
+    "browse-20261014-02",
+    "browse-20261014-03",
+    "browse-20261014-04",
+    "browse-20261014-05",
+    "browse-20261014-06",
+    "browse-20261014-07",
+    "browse-20261014-08",
+    "browse-20261014-09",
+    "browse-20261014-10",
+    "browse-20261014-11",
+    "browse-20261014-12",
+    "browse-20261014-13",
+    "browse-20261014-14",
+    "browse-20261014-15",
+    "browse-20261014-16",
+    "browse-20261014-17",
+    "browse-20261014-18",
+    "browse-20261014-19",
+    "browse-20261014-20",
+    "browse-20261014-21",
+    "browse-20261014-22",
+    "browse-20261014-23",
+    "browse-20261014-24",
+    "browse-20261014-25",
+    "browse-20261014-paid"
+  ],
+  "secretPath": "/tmp/yoryon-page-redesign-m0NxxV/browse-acceptance-private.json",
+  "mailSent": false
+}

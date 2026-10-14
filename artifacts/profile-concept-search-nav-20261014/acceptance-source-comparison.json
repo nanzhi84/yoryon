@@ -1,0 +1,50 @@
+[
+  {
+    "path": "apps/web/app/search/page.tsx",
+    "previousSha256": "399aad8d6a1480de9df10476b85eff30f77a54cdc5e3a12ff9189f2bb918d4d5",
+    "currentSha256": "f0c6591d6f5cc40c5d360ec2832b3beca8db9b1fbaa5a7d6ba5d60bb5d92f985",
+    "unchanged": false
+  },
+  {
+    "path": "apps/web/components/search-page-client.tsx",
+    "previousSha256": "525a3fa6a4f21cfdebdb7cf57a7a5a24c1934f46282da00e0d3c056473f81c2b",
+    "currentSha256": "525a3fa6a4f21cfdebdb7cf57a7a5a24c1934f46282da00e0d3c056473f81c2b",
+    "unchanged": true
+  },
+  {
+    "path": "apps/web/components/navigation-memory.tsx",
+    "previousSha256": "abba6d4cc402e37cc907e827131b0f41709e4aba4d41712b51cd8ccea7cb0222",
+    "currentSha256": "abba6d4cc402e37cc907e827131b0f41709e4aba4d41712b51cd8ccea7cb0222",
+    "unchanged": true
+  },
+  {
+    "path": "apps/web/components/back-button.tsx",
+    "previousSha256": "751971aa323f0a85c3a62692f40fb128f5f1975cef8d22c2632ecc12bed0f679",
+    "currentSha256": "751971aa323f0a85c3a62692f40fb128f5f1975cef8d22c2632ecc12bed0f679",
+    "unchanged": true
+  },
+  {
+    "path": "apps/web/app/settings/profile/page.tsx",
+    "previousSha256": "02542ef174602484de421072a7f9e10157b07b86054457c8350b88d8aeb20eeb",
+    "currentSha256": "02542ef174602484de421072a7f9e10157b07b86054457c8350b88d8aeb20eeb",
+    "unchanged": true
+  },
+  {
+    "path": "apps/web/components/profile-settings.tsx",
+    "previousSha256": "1e44bb871b5387c1b78a6d9eb92e13271cdfdb91c82b5d7c64f0e45e3da790af",
+    "currentSha256": "1e44bb871b5387c1b78a6d9eb92e13271cdfdb91c82b5d7c64f0e45e3da790af",
+    "unchanged": true
+  },
+  {
+    "path": "apps/web/components/avatar.tsx",
+    "previousSha256": "49b0fd654d00be4f7edaf49d8b7dc024f807750ad2ac29d1514fdd4bb1b12d6c",
+    "currentSha256": "49b0fd654d00be4f7edaf49d8b7dc024f807750ad2ac29d1514fdd4bb1b12d6c",
+    "unchanged": true
+  },
+  {
+    "path": "apps/web/lib/browse-memory.ts",
+    "previousSha256": "51a66b5ea7289d8b79951ad9ad396e40714c6d4ac018e6228afa84aa1705279a",
+    "currentSha256": "51a66b5ea7289d8b79951ad9ad396e40714c6d4ac018e6228afa84aa1705279a",
+    "unchanged": true
+  }
+]

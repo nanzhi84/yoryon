@@ -1,0 +1,12 @@
+{
+  "failure": {
+    "draft": "网络错误后待保存",
+    "error": "保存失败，请重试。",
+    "saveEnabled": true
+  },
+  "recovery": {
+    "draft": "网络错误后待保存",
+    "error": null,
+    "status": "展示名称已保存"
+  }
+}

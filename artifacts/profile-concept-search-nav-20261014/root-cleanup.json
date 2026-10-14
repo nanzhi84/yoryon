@@ -1,0 +1,29 @@
+{
+  "database": "yoryon_page_redesign_20261013",
+  "deletedOwnAnalytics": 2,
+  "before": {
+    "users": 1,
+    "contents": 7,
+    "sessions": 1,
+    "entitlements": 1,
+    "redemptions": 1,
+    "search_sessions": 1,
+    "other_analytics": 175,
+    "own_analytics": 2
+  },
+  "after": {
+    "users": 1,
+    "contents": 7,
+    "sessions": 1,
+    "entitlements": 1,
+    "redemptions": 1,
+    "search_sessions": 1,
+    "other_analytics": 175,
+    "own_analytics": 0
+  },
+  "otherDataPreserved": true,
+  "privateFileRemoved": true,
+  "viewportCleared": true,
+  "themeOrAuthChanged": false,
+  "deliverableTab": "5"
+}

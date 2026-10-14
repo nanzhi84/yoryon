@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { NavigationMemory } from "@/components/navigation-memory";
 
 export const metadata: Metadata = {
   title: {
@@ -13,7 +14,7 @@ const themeScript = `
 (function () {
   try {
     var stored = localStorage.getItem('theme');
-    var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var dark = stored === 'dark';
     document.documentElement.classList.toggle('dark', dark);
   } catch (e) {}
 })();
@@ -26,7 +27,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="min-h-screen antialiased">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6">
+        <NavigationMemory />
+        <div className="mx-auto min-h-screen max-w-3xl px-6">
           {children}
         </div>
       </body>

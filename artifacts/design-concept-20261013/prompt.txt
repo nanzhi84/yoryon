@@ -1,0 +1,25 @@
+Use case: ui-mockup
+Asset type: polished high-fidelity website design concept, one landscape design board with TWO side-by-side complete desktop page designs, no real browser chrome, no device perspective.
+Primary request: Redesign the CURRENT LOCAL Yoryon codebase's homepage and subscription page while preserving its quiet white/Zinc minimal editorial style. The supplied recent screenshot is ONLY a LOCAL SOURCE REFERENCE for the existing subscription page. This is a new proposed design, not a screenshot recreation. Make subscriptions visibly more attractive and differentiated from the normal feed without turning the blog into a loud marketing site.
+
+Reference invariants from local code:
+- System sans typography, PingFang SC-like Chinese, clean black/gray on white, single reading column about 720 CSS px wide, very generous outer margins, thin pale gray separators.
+- TWO-ROW HEADER. Top row: large black wordmark "Yoryon" on left, three light gray outline icons (search, bell, user) on right. Second row: "首页" and "订阅" on left, "探索" with downward chevron on right. Active tab has a short underline, and subscription tab has a tiny warm-gold star accent. Do not use a five-link production navigation header.
+- Homepage supports posts, long articles, image gallery and audio. Subscription page already has membership introduction, member Q&A, member works. Only one subscription tier. Preserve the exact price and redemption-based opening of membership.
+Composition: approximately 2560 by 1800 px landscape image with a very pale cool-gray board background. Two equally sized white webpage panels, beautifully aligned with a narrow gutter. Each panel has ample inner whitespace and a flat layout, almost no shadow, no heavy device frames. Small board labels above the panels: "首页" and "订阅页". Main emphasis is the elegant subscription card in the RIGHT panel. Every page should be legible and fully contained with comfortable bottom margins.
+LEFT HOMEPAGE:
+The two-row local header with 首页 active, followed immediately by a light chronological feed, no giant landing-page hero.
+First entry: "示例系列 · 第二话", small right-aligned date "2026.10.11", muted two-line editorial description, metadata "长文  #demo", generous space and fine separator.
+Second entry: "演示图集", date, an elegant wide grayscale landscape photographic thumbnail of coastal stone and quiet sea treated as DEMO design imagery, with softly rounded corners, small text below "详情与评论" and "帖子  #demo". Restrained picture, not the primary focal point.
+Third entry: "演示音频", small beautifully designed audio bar, circular outline play button, tidy gray waveform and time, metadata "帖子  #demo".
+At lower area, a small understated cream outlined member teaser, one line "更深入的作品，更直接的交流。" and a link "了解订阅 →". This should feel editorial, not an advertisement.
+RIGHT SUBSCRIPTION PAGE:
+Same exact two-row local header, 订阅 active.
+Below header a distinctive, premium, MATTE CHARCOAL membership card with 16px round corners. Dark #202221 against surrounding white. Tiny warm pale-gold star and label "YORYON MEMBER" at top left. Text in crisp warm white. Large Chinese headline "支持我的持续创作". Supporting line "读得更深入，交流更直接。".
+Prominent price "¥29.9" with small "/ 月", aligned on the right side of the hero's main copy but with room. Very restrained fine gold orbit-line decoration behind rightmost edge, barely visible, no glowing sci-fi effect.
+A horizontal hairline divider, then three evenly spaced understated benefit items with tiny outline icons and concise exact labels: "专属作品", "每月一次提问", "会员讨论". No new guarantees or imaginary services.
+A large warm ivory CTA button with charcoal text EXACTLY "兑换激活码，开通会员" and small right arrow. Below it a muted light-gray line EXACTLY "使用已有激活码兑换会员权益。". Preserve legibility and spacing. The CTA should be the clear interaction focus.
+Outside the hero below: "会员问答", supporting copy "公开问题可读，回答与讨论向会员开放。", then "公开问答" tab and a calm small empty-state area "还没有公开问答。" with minimal speech-bubble outline icon. No invented testimonials or fake member counts.
+Then "会员作品", a small gray note "可先查看作品介绍与公开预览。", an editorial list item with tiny warm-gold lock label "会员专属", title EXACTLY "付费演示文章", description "付费墙 + 内联多媒体演示", date and "长文  #demo". Fine separator and a restrained text link "查看公开预览 →".
+Visual judgment: content keeps a calm, restrained monochrome hierarchy; only subscriptions use charcoal and tiny gold/ivory accents, so value is felt immediately. Typography and alignment must be impeccable. No gradient blobs, no giant gold crown, no glassmorphism, no subscription tier comparison, no countdowns, no fake stats, no checkout/payment controls, no giant hero illustration, no clutter.
+Render all Chinese copy cleanly and exactly, avoid tiny unreadable text. At the very bottom of the board outside both webpages add very small gray note "基于本地代码的视觉提案 · 内容与配图为设计示意". This label is outside the website UI.

@@ -30,7 +30,7 @@ function mediaIdFromSrc(src: unknown): string | null {
 
 export function MarkdownSurface({ markdown, className, mediaSizes, publicImages = false, components = {} }: {
   markdown: string; className?: string | undefined; publicImages?: boolean;
-  mediaSizes?: Record<string, { width: number; height: number; mimeType?: string }> | undefined;
+  mediaSizes?: Record<string, { width: number | null; height: number | null; mimeType?: string; durationSec?: number | null }> | undefined;
   components?: Components;
 }) {
   return <div data-search-body className={cn("prose prose-zinc dark:prose-invert prose-yoryon max-w-none", className)}>
@@ -43,13 +43,13 @@ export function MarkdownSurface({ markdown, className, mediaSizes, publicImages 
                 // eslint-disable-next-line @next/next/no-img-element
                 <MarkdownImage
                   src={id && publicImages ? publicImageUrl(id, svg ? "original" : 1280) : typeof src === "string" ? src : ""}
-                  srcSet={size && id && !svg ? imageSrcSet(id, size.width, publicImages) : undefined}
+                  srcSet={size?.width && id && !svg ? imageSrcSet(id, size.width, publicImages) : undefined}
                   sizes="(max-width: 768px) 100vw, 768px"
                   alt={alt ?? ""}
                   loading="lazy"
                   decoding="async"
-                  {...(size ? { width: size.width, height: size.height } : {})}
-                  className="h-auto max-w-full rounded-lg"
+                  {...(size?.width && size.height ? { width: size.width, height: size.height } : {})}
+                  className="h-auto w-full max-w-full rounded-lg"
                   {...props}
                 />
               );
@@ -57,12 +57,12 @@ export function MarkdownSurface({ markdown, className, mediaSizes, publicImages 
             "video-player": ({ src }: { src?: string }) => {
               const id = mediaIdFromSrc(src);
               if (!id) return null;
-              return <InlineMedia mediaId={id} kind="video" />;
+              return <InlineMedia mediaId={id} kind="video" durationSec={mediaSizes?.[id]?.durationSec} />;
             },
             "audio-player": ({ src }: { src?: string }) => {
               const id = mediaIdFromSrc(src);
               if (!id) return null;
-              return <InlineMedia mediaId={id} kind="audio" />;
+              return <InlineMedia mediaId={id} kind="audio" durationSec={mediaSizes?.[id]?.durationSec} />;
             },
             "work-reference": ({ id }: { id?: string }) => id && /^[0-9a-f-]{36}$/i.test(id) ? <WorkReference id={id} /> : null,
             a: ({ href, children, ...props }) => (

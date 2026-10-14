@@ -111,6 +111,16 @@ export const contents = pgTable(
   ],
 );
 
+/** 内容点赞独立于评论点赞；唯一键保证同一用户一赞，统计直接从事实行读取。 */
+export const contentLikes = pgTable("content_likes", {
+  contentId: uuid("content_id").notNull().references(() => contents.id, { onDelete: "cascade" }),
+  userId: uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at", { withTimezone: true, mode: "date" }).notNull().defaultNow(),
+}, t => [
+  primaryKey({ columns: [t.contentId, t.userId] }),
+  index("content_likes_user_idx").on(t.userId),
+]);
+
 /** referencedId 保留目标身份；删除目标仅清空 FK，不级联删除引用作品。 */
 export const contentReferences = pgTable("content_references", {
   contentId: uuid("content_id").notNull().references(() => contents.id, { onDelete: "cascade" }),

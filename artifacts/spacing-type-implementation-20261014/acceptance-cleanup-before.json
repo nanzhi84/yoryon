@@ -1,0 +1,28 @@
+{
+  "database": "yoryon_page_redesign_20261013",
+  "sid": "7ba99b98-308e-48f6-a88e-e2a7cb50c785",
+  "ownAnalytics": [
+    {
+      "event_type": "click",
+      "count": 6
+    },
+    {
+      "event_type": "impression",
+      "count": 17
+    },
+    {
+      "event_type": "read",
+      "count": 3
+    },
+    {
+      "event_type": "view",
+      "count": 8
+    }
+  ],
+  "preCleanup": {
+    "contents": 7,
+    "users": 0,
+    "other_analytics": 126
+  },
+  "businessDataCreated": false
+}

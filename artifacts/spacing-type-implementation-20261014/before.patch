@@ -1,0 +1,1452 @@
+diff --git a/apps/api/src/app.ts b/apps/api/src/app.ts
+index b6d9296..2507f95 100644
+--- a/apps/api/src/app.ts
++++ b/apps/api/src/app.ts
+@@ -16,6 +16,7 @@ import { redemptionRoutes } from "./routes/redemptions";
+ import { analyticsRoutes } from "./routes/analytics";
+ import { cacheRoutes } from "./routes/cache";
+ import { commentRoutes } from "./routes/comments";
++import { contentInteractionRoutes } from "./routes/content-interactions";
+ import { notificationRoutes } from "./routes/notifications";
+ import { questionDiscussionRoutes } from "./routes/question-discussions";
+ import { questionRoutes } from "./routes/questions";
+@@ -76,6 +77,7 @@ export function createApp(deps: AppDeps) {
+   app.route("/api", publicImageRoutes(deps, policy));
+   app.route("/api", redemptionRoutes(deps));
+   app.route("/api", commentRoutes(deps));
++  app.route("/api", contentInteractionRoutes(deps));
+   app.route("/api", notificationRoutes(deps));
+   app.route("/api", questionRoutes(deps));
+   app.route("/api", questionDiscussionRoutes(deps));
+diff --git a/apps/api/src/routes/contents.ts b/apps/api/src/routes/contents.ts
+index be3d812..66169fe 100644
+--- a/apps/api/src/routes/contents.ts
++++ b/apps/api/src/routes/contents.ts
+@@ -5,6 +5,7 @@ import { collectionItems, collections, contents, contentMedia, contentTags, medi
+ import { canAccess, canAccessMany, truncateForPreview } from "@yoryon/core";
+ import { loadContentDetail } from "./content-detail";
+ import { postFeedBodies } from "./post-feed";
++import { articleFeedSummaries } from "./article-feed";
+ import type { PublicPolicy } from "../public-policy";
+ import type { AppDeps } from "../deps";
+ import { errorResponse } from "../errors";
+@@ -118,6 +119,7 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
+       : [];
+ 
+     const postBodies = await postFeedBodies(tx, page.filter(r => r.type === "post").map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
++    const excerpts = await articleFeedSummaries(tx, page.filter(r => r.type === "article" && !r.description.trim()).map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
+     const last = page[page.length - 1];
+     c.header("Cache-Control", "public, max-age=0, must-revalidate");
+     return c.json({
+@@ -129,6 +131,7 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
+         slug: r.slug,
+         title: r.title,
+         description: r.description,
++        excerpt: excerpts.get(r.id) ?? "",
+         visibility: r.visibility,
+         coverMediaId: r.coverMediaId,
+         publishedAt: r.publishedAt?.toISOString() ?? null,
+@@ -178,6 +181,7 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
+           .where(inArray(contentTags.contentId, pageIds))
+       : [];
+     const postBodies = await postFeedBodies(tx, page.filter(r => r.type === "post").map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
++    const excerpts = await articleFeedSummaries(tx, page.filter(r => r.type === "article" && !r.description.trim()).map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
+     const last = page[page.length - 1];
+     c.header("Cache-Control", "public, max-age=0, must-revalidate");
+     return c.json({
+@@ -189,6 +193,7 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
+         slug: r.slug,
+         title: r.title,
+         description: r.description,
++        excerpt: excerpts.get(r.id) ?? "",
+         visibility: r.visibility,
+         coverMediaId: r.coverMediaId,
+         publishedAt: r.publishedAt?.toISOString() ?? null,
+@@ -325,6 +330,7 @@ function tagKeyset(cursor: { t: Date; id: string } | null, timeCol: SQL | any, i
+           .where(inArray(contentTags.contentId, pageIds))
+       : [];
+     const postBodies = await postFeedBodies(tx, page.filter(r => r.type === "post").map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
++    const excerpts = await articleFeedSummaries(tx, page.filter(r => r.type === "article" && !r.description.trim()).map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
+     const last = page[page.length - 1];
+     c.header("Cache-Control", "public, max-age=0, must-revalidate");
+     return c.json({
+@@ -337,6 +343,7 @@ function tagKeyset(cursor: { t: Date; id: string } | null, timeCol: SQL | any, i
+         slug: r.slug,
+         title: r.title,
+         description: r.description,
++        excerpt: excerpts.get(r.id) ?? "",
+         visibility: r.visibility,
+         coverMediaId: r.coverMediaId,
+         publishedAt: r.publishedAt?.toISOString() ?? null,
+diff --git a/apps/api/src/routes/post-feed.ts b/apps/api/src/routes/post-feed.ts
+index 9640adf..5079f1b 100644
+--- a/apps/api/src/routes/post-feed.ts
++++ b/apps/api/src/routes/post-feed.ts
+@@ -12,7 +12,7 @@ export async function postFeedBodies(db: Reader, ids: string[], mediaBlockWeight
+     previewMode: contents.previewMode, previewPercent: contents.previewPercent }).from(contents)
+     .where(and(inArray(contents.id, ids), eq(contents.type, "post"), eq(contents.status, "published")));
+   const media = await db.select({ contentId: contentMedia.contentId, mediaId: contentMedia.mediaId,
+-    exposure: contentMedia.exposure, mimeType: mediaAssets.mimeType, width: mediaAssets.width, height: mediaAssets.height }).from(contentMedia)
++    exposure: contentMedia.exposure, mimeType: mediaAssets.mimeType, width: mediaAssets.width, height: mediaAssets.height, durationSec: mediaAssets.durationSec }).from(contentMedia)
+     .innerJoin(mediaAssets, eq(contentMedia.mediaId, mediaAssets.id)).where(inArray(contentMedia.contentId, ids));
+   return new Map(rows.map(row => {
+     const preview = publicPreview(row, mediaBlockWeight);
+diff --git a/apps/web/app/about/page.tsx b/apps/web/app/about/page.tsx
+deleted file mode 100644
+index ee161a6..0000000
+--- a/apps/web/app/about/page.tsx
++++ /dev/null
+@@ -1,63 +0,0 @@
+-import type { Metadata } from "next";
+-import Link from "next/link";
+-import { SiteHeader } from "@/components/site-header";
+-import { site } from "@/site.config";
+-
+-export const metadata: Metadata = { title: "关于" };
+-
+-function Avatar({ className }: { className?: string }) {
+-  const cls = `shrink-0 overflow-hidden rounded-full bg-muted ${className ?? ""}`;
+-  if (site.avatar) {
+-    // eslint-disable-next-line @next/next/no-img-element
+-    return <img src={site.avatar} alt={site.name} className={`${cls} object-cover`} />;
+-  }
+-  return (
+-    <div className={`${cls} flex items-center justify-center font-medium text-muted-foreground`} aria-hidden>
+-      {site.name.slice(0, 1)}
+-    </div>
+-  );
+-}
+-
+-/** 关于页：头像 + 名字 + 简介（可多段）+ 社交账号罗列。资料配置见 site.config.ts。容器宽度由 layout 统一控制。 */
+-export default function AboutPage() {
+-  return (
+-    <>
+-      <SiteHeader />
+-      <main className="pb-20">
+-      <div className="py-12">
+-        {/* 头像 + 名字 */}
+-        <div className="flex items-center gap-6">
+-          <Avatar className="h-24 w-24 text-3xl" />
+-          <h1 className="text-3xl font-semibold tracking-tight">{site.name}</h1>
+-        </div>
+-
+-        {/* 简介 */}
+-        <div className="mt-8 max-w-prose space-y-4 leading-relaxed text-foreground/90">
+-          {site.bioLines.map((line, i) => (
+-            <p key={i}>{line}</p>
+-          ))}
+-        </div>
+-
+-        {/* 社交账号 */}
+-        <div className="mt-10 border-t border-border pt-6">
+-          <h2 className="text-sm font-medium text-muted-foreground">找到我</h2>
+-          <ul className="mt-4 flex flex-wrap gap-2">
+-            {site.links.map((l) => (
+-              <li key={l.label}>
+-                <Link prefetch={false}
+-                  href={l.href}
+-                  target="_blank"
+-                  rel="noopener noreferrer"
+-                  className="inline-block rounded-full border px-3.5 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:border-foreground/40 transition-colors"
+-                >
+-                  {l.label}
+-                </Link>
+-              </li>
+-            ))}
+-          </ul>
+-        </div>
+-      </div>
+-      </main>
+-    </>
+-  );
+-}
+diff --git a/apps/web/app/api/[...path]/route.ts b/apps/web/app/api/[...path]/route.ts
+index c4dceb0..03401ec 100644
+--- a/apps/web/app/api/[...path]/route.ts
++++ b/apps/web/app/api/[...path]/route.ts
+@@ -9,7 +9,7 @@
+ import { type NextRequest, NextResponse } from "next/server";
+ import { buildApiHeaders, csrfCheck, getBffConfig, readBodyCapped, readBodyBytesCapped, readSessionCookie, resolvePlatformClientIp, clearSessionCookie, setSessionCookie } from "@/lib/bff";
+ 
+-const ALLOWED_PATH = /^\/api\/(search(?:\/locate)?|auth\/[a-z-]+|feed|paid-feed|public\/(?:contents\/[^/]+|references\/[0-9a-fA-F-]{36})|contents\/[^/]+(?:\/comments(?:\/context)?)?|comments\/liked|comments\/[0-9a-fA-F-]{36}(?:\/(?:like|replies|locate))?|collections(?:\/[^/]+)?|tags(?:\/[^/]+)?|media\/[0-9a-fA-F-]{36}|redemptions|me\/(?:entitlements|membership|profile|avatar)|users\/[0-9a-fA-F-]{36}\/profile|avatars\/[0-9a-fA-F-]{36}|questions(?:\/(?:public|mine|[0-9a-fA-F-]{36}(?:\/comments(?:\/(?:context|[0-9a-fA-F-]{36}\/replies))?)?))?|notifications(?:\/(?:unread-count|read-all|[0-9a-fA-F-]{36}\/read))?|analytics\/events)$/;
++const ALLOWED_PATH = /^\/api\/(search(?:\/locate)?|auth\/[a-z-]+|feed|paid-feed|public\/(?:contents\/[^/]+|references\/[0-9a-fA-F-]{36})|contents\/[^/]+(?:\/comments(?:\/context)?)?|content-interactions(?:\/[0-9a-fA-F-]{36}\/like)?|comments\/liked|comments\/[0-9a-fA-F-]{36}(?:\/(?:like|replies|locate))?|collections(?:\/[^/]+)?|tags(?:\/[^/]+)?|media\/[0-9a-fA-F-]{36}|redemptions|me\/(?:entitlements|membership|profile|avatar)|users\/[0-9a-fA-F-]{36}\/profile|avatars\/[0-9a-fA-F-]{36}|questions(?:\/(?:public|mine|[0-9a-fA-F-]{36}(?:\/comments(?:\/(?:context|[0-9a-fA-F-]{36}\/replies))?)?))?|notifications(?:\/(?:unread-count|read-all|[0-9a-fA-F-]{36}\/read))?|analytics\/events)$/;
+ 
+ /** analytics ingest 请求体字节上限（与 API 侧 MAX_BODY_BYTES 一致） */
+ const ANALYTICS_MAX_BODY_BYTES = 32 * 1024;
+diff --git a/apps/web/app/explore/page.tsx b/apps/web/app/explore/page.tsx
+index fcf8141..931e50f 100644
+--- a/apps/web/app/explore/page.tsx
++++ b/apps/web/app/explore/page.tsx
+@@ -1,13 +1,3 @@
+-import Link from "next/link";
+-import { SiteHeader } from "@/components/site-header";
+-import { publicFetch } from "@/lib/api";
+-export const metadata = { title: "探索" };
+-export default async function ExplorePage() {
+-  const res = await publicFetch("/api/tags", { revalidate: 86400, tags: ["feed"] });
+-  if (!res.ok) throw new Error(`tags API ${res.status}`);
+-  const data = await res.json() as { tags: { slug: string; name: string; count: number }[] };
+-  return <><SiteHeader /><main className="space-y-8 py-8"><h1 className="text-2xl font-semibold">探索</h1>
+-    <section><h2 className="mb-3 text-lg font-medium">合集</h2><Link href="/c" prefetch={false} className="underline underline-offset-4">浏览全部合集 →</Link></section>
+-    <section id="tags" className="scroll-mt-6"><h2 className="mb-3 text-lg font-medium">标签</h2>{data.tags.length ? <ul className="flex flex-wrap gap-4">{data.tags.map(t => <li key={t.slug}><Link href={`/tags/${t.slug}`} prefetch={false} className="text-sm hover:underline">#{t.name} <span className="text-muted-foreground">{t.count}</span></Link></li>)}</ul> : <p className="text-sm text-muted-foreground">还没有标签。</p>}</section>
+-  </main></>;
+-}
++import { redirect } from "next/navigation";
++/** 已收敛为标签入口，保留已分发URL的跳转兼容。 */
++export default function ExplorePage() { redirect("/tags"); }
+diff --git a/apps/web/app/globals.css b/apps/web/app/globals.css
+index 63f5045..4c73cc5 100644
+--- a/apps/web/app/globals.css
++++ b/apps/web/app/globals.css
+@@ -1,37 +1,52 @@
+ @import "tailwindcss";
+ @plugin "@tailwindcss/typography";
+ 
+-/* ADR-0005：Zinc 中性色；dark 经 class 策略 */
++/* ADR-0005：头像取色的浅蓝灰品牌色；dark 经 class 策略。 */
+ @custom-variant dark (&:where(.dark, .dark *));
+ 
+ :root {
+-  --background: oklch(1 0 0);
+-  --foreground: oklch(0.141 0.005 285.823);
+-  --muted: oklch(0.967 0.001 286.375);
+-  --muted-foreground: oklch(0.552 0.016 285.938);
+-  --border: oklch(0.92 0.004 286.32);
+-  --accent: oklch(0.21 0.006 285.885);
+-  --accent-foreground: oklch(0.985 0 0);
++  --background: #fdfeff;
++  --canvas: #fdfeff;
++  --foreground: #253947;
++  --muted: #edf5fa;
++  --muted-foreground: #607383;
++  --border: #dfeaf0;
++  --primary: #47758f;
++  --primary-foreground: #ffffff;
++  --accent: #eaf4fa;
++  --accent-foreground: #253947;
++  --surface: #f1f8fc;
++  --surface-border: #d5e7f1;
+ }
+ 
+ :root[class~="dark"] {
+-  --background: oklch(0.141 0.005 285.823);
+-  --foreground: oklch(0.985 0 0);
+-  --muted: oklch(0.274 0.006 286.033);
+-  --muted-foreground: oklch(0.705 0.015 286.067);
+-  --border: oklch(1 0 0 / 10%);
+-  --accent: oklch(0.92 0.004 286.32);
+-  --accent-foreground: oklch(0.21 0.006 285.885);
++  --background: #14212a;
++  --canvas: #14212a;
++  --foreground: #e7f1f6;
++  --muted: #22343f;
++  --muted-foreground: #a1b6c3;
++  --border: #2c404d;
++  --primary: #9cc7dd;
++  --primary-foreground: #142b38;
++  --accent: #263e4d;
++  --accent-foreground: #e7f1f6;
++  --surface: #192c38;
++  --surface-border: #365465;
+ }
+ 
+ @theme inline {
+   --color-background: var(--background);
++  --color-canvas: var(--canvas);
+   --color-foreground: var(--foreground);
+   --color-muted: var(--muted);
+   --color-muted-foreground: var(--muted-foreground);
+   --color-border: var(--border);
++  --color-primary: var(--primary);
++  --color-primary-foreground: var(--primary-foreground);
+   --color-accent: var(--accent);
+   --color-accent-foreground: var(--accent-foreground);
++  --color-surface: var(--surface);
++  --color-surface-border: var(--surface-border);
+   --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Segoe UI", sans-serif;
+ }
+ 
+@@ -41,13 +56,26 @@ html {
+ }
+ 
+ body {
+-  background: var(--background);
++  background: var(--canvas);
+   color: var(--foreground);
+   font-family: var(--font-sans);
+ }
+ 
+ /* 中文排印调优（ADR-0005 §8.3） */
+ .prose-yoryon {
++  --tw-prose-body: var(--foreground);
++  --tw-prose-headings: var(--foreground);
++  --tw-prose-lead: var(--muted-foreground);
++  --tw-prose-links: var(--primary);
++  --tw-prose-bold: var(--foreground);
++  --tw-prose-counters: var(--muted-foreground);
++  --tw-prose-bullets: var(--muted-foreground);
++  --tw-prose-hr: var(--border);
++  --tw-prose-quotes: var(--foreground);
++  --tw-prose-quote-borders: var(--border);
++  --tw-prose-captions: var(--muted-foreground);
++  --tw-prose-th-borders: var(--border);
++  --tw-prose-td-borders: var(--border);
+   line-height: 1.8;
+   /* Long source URLs wrap; preformatted code retains its own scrolling area. */
+   overflow-wrap: anywhere;
+diff --git a/apps/web/app/layout.tsx b/apps/web/app/layout.tsx
+index f6a86fa..c9efa1c 100644
+--- a/apps/web/app/layout.tsx
++++ b/apps/web/app/layout.tsx
+@@ -1,5 +1,6 @@
+ import type { Metadata } from "next";
+ import "./globals.css";
++import { NavigationMemory } from "@/components/navigation-memory";
+ 
+ export const metadata: Metadata = {
+   title: {
+@@ -13,7 +14,7 @@ const themeScript = `
+ (function () {
+   try {
+     var stored = localStorage.getItem('theme');
+-    var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
++    var dark = stored === 'dark';
+     document.documentElement.classList.toggle('dark', dark);
+   } catch (e) {}
+ })();
+@@ -26,7 +27,8 @@ export default function RootLayout({ children }: { children: React.ReactNode })
+         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+       </head>
+       <body className="min-h-screen antialiased">
+-        <div className="mx-auto max-w-3xl px-4 sm:px-6">
++        <NavigationMemory />
++        <div className="mx-auto min-h-screen max-w-3xl px-4 sm:px-6">
+           {children}
+         </div>
+       </body>
+diff --git a/apps/web/app/page.tsx b/apps/web/app/page.tsx
+index 0c74ac1..e85d0cc 100644
+--- a/apps/web/app/page.tsx
++++ b/apps/web/app/page.tsx
+@@ -4,10 +4,12 @@ import { FeedTimeline } from "@/components/feed-timeline";
+ import { SiteHeader } from "@/components/site-header";
+ import { LoadMore } from "@/components/load-more";
+ import { AnalyticsListProvider } from "@/components/analytics";
++import Link from "next/link";
++import { ArrowRight } from "lucide-react";
+ 
+ const revalidateSec = Number(process.env.FEED_REVALIDATE_SEC ?? 86400);
+ 
+-/** 首页：纯内容信息流（合集为顶层结构，仅在 /c 列表展示，不混入 feed）。容器宽度由 layout 统一控制。 */
++/** 首页以真实内容时间线为主；合集仍仅在 /c 展示，底部提示进入订阅页。 */
+ export default async function HomePage() {
+   const res = await fetchCatalog("/api/feed", { revalidate: revalidateSec, tags: ["feed"] });
+   if (!res.ok) throw new Error(`feed API ${res.status}`);
+@@ -29,6 +31,12 @@ export default async function HomePage() {
+             {feed?.nextCursor && <LoadMore version={feed.version} initialCursor={feed.nextCursor} showPinnedBadge />}
+           </AnalyticsListProvider>
+         )}
++        <section aria-label="订阅支持" className="mt-6 flex flex-wrap items-center justify-between gap-4 py-5">
++          <p className="text-sm font-medium">更深入的作品，更直接的交流。</p>
++          <Link href="/subscription" prefetch={false} className="inline-flex min-h-11 items-center gap-2 text-sm text-primary hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
++            了解订阅 <ArrowRight className="size-4" aria-hidden="true" />
++          </Link>
++        </section>
+       </main>
+     </>
+   );
+diff --git a/apps/web/app/redeem/page.tsx b/apps/web/app/redeem/page.tsx
+index 6d9519e..1259120 100644
+--- a/apps/web/app/redeem/page.tsx
++++ b/apps/web/app/redeem/page.tsx
+@@ -1,6 +1,7 @@
+ import type { Metadata } from "next";
+ import { SiteHeader } from "@/components/site-header";
+ import { RedeemClient } from "@/components/redeem-client";
++import { BackButton } from "@/components/back-button";
+ 
+ export const metadata: Metadata = { title: "兑换激活码" };
+ 
+@@ -10,6 +11,7 @@ export default async function RedeemPage({ searchParams }: { searchParams: Promi
+     <>
+       <SiteHeader />
+       <main className="py-12">
++        <BackButton fallback={returnTo ?? "/subscription"} />
+         <h1 className="text-2xl font-semibold">兑换激活码</h1>
+         <p className="mb-6 mt-2 text-sm text-muted-foreground">
+           标准订阅 ¥29.9/月，兑换后立即解锁全部付费内容；到期自动失效。
+diff --git a/apps/web/app/sitemap.ts b/apps/web/app/sitemap.ts
+index 2c2104b..37b812f 100644
+--- a/apps/web/app/sitemap.ts
++++ b/apps/web/app/sitemap.ts
+@@ -10,7 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+   return [
+     { url: site, changeFrequency: "daily", priority: 1 },
+     { url: `${site}/c`, changeFrequency: "weekly", priority: 0.8 },
+-    { url: `${site}/about`, changeFrequency: "monthly", priority: 0.5 },
++    { url: `${site}/tags`, changeFrequency: "weekly", priority: 0.5 },
+     ...data.entries.map(e => ({ url: `${site}${e.path}`, lastModified: e.updatedAt })),
+   ];
+ }
+diff --git a/apps/web/app/subscription/page.tsx b/apps/web/app/subscription/page.tsx
+index bc5b3c1..e0c6d5d 100644
+--- a/apps/web/app/subscription/page.tsx
++++ b/apps/web/app/subscription/page.tsx
+@@ -15,10 +15,9 @@ export default async function SubscriptionPage() {
+   const feed = await feedRes.json() as FeedResponse;
+   const membership = state?.ok ? await state.json() as Membership : null;
+   return <><SiteHeader /><main data-catalog-version={feed.version} className="py-8 pb-20">
+-    <MembershipPanel initial={membership} authenticated={!!state?.ok} unavailable={!state || (!state.ok && state.status !== 401)} />
+-    <section className="mt-12" aria-label="会员作品"><h2 className="text-xl font-medium">会员作品</h2><p className="mt-2 text-sm text-muted-foreground">未订阅时可查看作品介绍和公开预览。</p>
++    <MembershipPanel initial={membership} authenticated={!!state?.ok} unavailable={!state || (!state.ok && state.status !== 401)} works={<section aria-label="会员作品"><h2 className="sr-only">会员作品</h2><p className="text-sm text-muted-foreground">未订阅时可查看作品介绍和公开预览。</p>
+       {feed.items.length ? <div className="divide-y divide-border"><FeedTimeline items={feed.items} /></div> : <p className="py-8 text-sm text-muted-foreground">还没有会员作品。</p>}
+       {feed.nextCursor && <LoadMore basePath="/api/paid-feed" version={feed.version} initialCursor={feed.nextCursor} />}
+-    </section>
++    </section>} />
+   </main></>;
+ }
+diff --git a/apps/web/app/tags/[slug]/page.tsx b/apps/web/app/tags/[slug]/page.tsx
+index 5f336ba..2f7b759 100644
+--- a/apps/web/app/tags/[slug]/page.tsx
++++ b/apps/web/app/tags/[slug]/page.tsx
+@@ -5,6 +5,7 @@ import type { TagDetailResponse } from "@/lib/types";
+ import { SiteHeader } from "@/components/site-header";
+ import { FeedTimeline } from "@/components/feed-timeline";
+ import { LoadMore } from "@/components/load-more";
++import { BackButton } from "@/components/back-button";
+ 
+ const revalidateSec = Number(process.env.FEED_REVALIDATE_SEC ?? 86400);
+ 
+@@ -35,6 +36,7 @@ export default async function TagPage({ params }: Props) {
+     <>
+       <SiteHeader />
+       <main data-catalog-version={data.version} className="py-8">
++        <BackButton fallback="/tags" />
+         <h1 className="text-2xl font-semibold">#{data.tag.name}</h1>
+         <div className="mt-4">
+           <FeedTimeline items={data.items} />
+diff --git a/apps/web/components/analytics.tsx b/apps/web/components/analytics.tsx
+index 0c8e60d..bf12873 100644
+--- a/apps/web/components/analytics.tsx
++++ b/apps/web/components/analytics.tsx
+@@ -10,7 +10,7 @@
+  */
+ "use client";
+ 
+-import { createContext, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
++import { createContext, useContext, useEffect, useMemo, useRef, useState, type ReactNode, type MouseEvent } from "react";
+ import Link from "next/link";
+ import {
+   analyticsDisabled,
+@@ -112,25 +112,19 @@ export function TrackClickLink({
+   href,
+   className,
+   children,
+-}: TrackableProps & { href: string; className?: string }) {
++  "aria-label": ariaLabel,
++  native = false,
++}: TrackableProps & { href: string; className?: string; "aria-label"?: string; native?: boolean }) {
+   const ctx = useContext(AnalyticsListContext);
+   const send = () => {
+     if (!ctx) return;
+     trackEvent({ eventType: "click", targetKind, targetId, placement: ctx.placement, pageViewId: ctx.listViewId });
+   };
+-  return (
+-    <Link prefetch={false}
+-      href={href}
+-      className={className}
+-      onClick={send}
+-      // 鼠标中键新标签打开走 auxclick（button=1），同样是主动点击入口；右键（button=2）不计
+-      onAuxClick={(e) => {
+-        if (e.button === 1) send();
+-      }}
+-    >
+-      {children}
+-    </Link>
+-  );
++  const props = { href, className, "aria-label": ariaLabel, onClick: send,
++    // 鼠标中键是主动入口，右键不计；原生锚点导航沿用相同指标口径。
++    onAuxClick: (event: MouseEvent<HTMLAnchorElement>) => { if (event.button === 1) send(); } };
++  // Next 客户端首次跨 revision rewrite 导航会丢失 fragment；评论用完整文档导航保留锚点。
++  return native ? <a {...props}>{children}</a> : <Link prefetch={false} {...props}>{children}</Link>;
+ }
+ 
+ export function DetailTracker({ targetKind, targetId }: { targetKind: AnalyticsTargetKind; targetId: string }) {
+diff --git a/apps/web/components/collection-navigation.tsx b/apps/web/components/collection-navigation.tsx
+index 58ac927..757abc3 100644
+--- a/apps/web/components/collection-navigation.tsx
++++ b/apps/web/components/collection-navigation.tsx
+@@ -4,18 +4,18 @@ import type { ContentDetail } from "@/lib/types";
+ /** 只导航到公开可发现的作品地址，目标正文继续由详情接口判断阅读权限。 */
+ export function CollectionNavigation({ collections }: { collections: ContentDetail["collections"] }) {
+   if (!collections.length) return null;
+-  return <nav aria-label="合集上下篇导航" className="mt-10 space-y-6 border-t pt-6">
++  return <nav aria-label="合集上下篇导航" className="mt-10 space-y-6 pt-2">
+     {collections.map(collection => <section key={collection.slug} aria-label={`合集：${collection.title}`}>
+       <Link prefetch={false} href={`/c/${collection.slug}`} className="text-sm font-medium underline underline-offset-4">合集：{collection.title}</Link>
+       <div className="mt-3 grid gap-3 text-sm sm:grid-cols-2">
+-        {collection.previous ? <Link prefetch={false} href={`/p/${collection.previous.slug}`} rel="prev" className="rounded-md border p-3 hover:bg-muted">
++        {collection.previous ? <Link prefetch={false} href={`/p/${collection.previous.slug}`} rel="prev" className="py-3 hover:text-primary">
+           <span className="block text-xs text-muted-foreground">上一篇</span>
+           <span className="mt-1 block break-words">{collection.previous.title || collection.previous.slug}</span>
+-        </Link> : <p className="p-3 text-muted-foreground">已是合集第一篇</p>}
+-        {collection.next ? <Link prefetch={false} href={`/p/${collection.next.slug}`} rel="next" className="rounded-md border p-3 hover:bg-muted">
++        </Link> : <p className="py-3 text-muted-foreground">已是合集第一篇</p>}
++        {collection.next ? <Link prefetch={false} href={`/p/${collection.next.slug}`} rel="next" className="py-3 hover:text-primary">
+           <span className="block text-xs text-muted-foreground">下一篇</span>
+           <span className="mt-1 block break-words">{collection.next.title || collection.next.slug}</span>
+-        </Link> : <p className="p-3 text-muted-foreground">已是合集最后一篇</p>}
++        </Link> : <p className="py-3 text-muted-foreground">已是合集最后一篇</p>}
+       </div>
+     </section>)}
+   </nav>;
+diff --git a/apps/web/components/comment-section.tsx b/apps/web/components/comment-section.tsx
+index fa634eb..fdc6250 100644
+--- a/apps/web/components/comment-section.tsx
++++ b/apps/web/components/comment-section.tsx
+@@ -256,7 +256,7 @@ export function CommentSection({ slug, questionId }: { slug: string; questionId?
+   }
+ 
+   return (
+-    <section className="mt-12 border-t pt-8" aria-label="评论区">
++    <section id={questionId ? undefined : "comments"} className="mt-12 scroll-mt-6 pt-4" aria-label="评论区">
+       <h2 className="text-lg font-medium">评论{total > 0 ? `（${total}）` : ""}</h2>
+ 
+       {/* 输入区：按互动上下文呈现 */}
+diff --git a/apps/web/components/content-view.tsx b/apps/web/components/content-view.tsx
+index e74f6bd..3e5c1b6 100644
+--- a/apps/web/components/content-view.tsx
++++ b/apps/web/components/content-view.tsx
+@@ -9,6 +9,7 @@ import { ContentBody } from "./content-body";
+ import { PrivateReader } from "./private-reader";
+ import { CommentSection } from "./comment-section";
+ import { CollectionNavigation } from "./collection-navigation";
++import { BackButton } from "./back-button";
+ 
+ export function ContentView({ initial: content }: { initial: ContentDetail }) {
+   return (
+@@ -16,6 +17,7 @@ export function ContentView({ initial: content }: { initial: ContentDetail }) {
+       <SiteHeader />
+       {/* 正文与页头同栏（布局容器 max-w-3xl），不再收窄 */}
+       <main className="py-8" data-revision={content.updatedAt}>
++        <BackButton />
+         <DetailTracker targetKind="work" targetId={content.id} />
+         <SearchLocation slug={content.slug} />
+         <header>
+diff --git a/apps/web/components/feed-timeline.tsx b/apps/web/components/feed-timeline.tsx
+index 85bb792..630239a 100644
+--- a/apps/web/components/feed-timeline.tsx
++++ b/apps/web/components/feed-timeline.tsx
+@@ -4,6 +4,8 @@ import { Badge } from "@/components/ui/badge";
+ import { TrackClickLink, TrackImpression } from "@/components/analytics";
+ import type { CollectionListItem, FeedContentItem, FeedItem } from "@/lib/types";
+ import { PostEntry } from "./post-entry";
++import { ContentActions, ContentInteractions } from "./content-actions";
++import { ArrowRight } from "lucide-react";
+ 
+ export const TYPE_LABEL: Record<FeedContentItem["type"], string> = {
+   article: "长文",
+@@ -12,18 +14,18 @@ export const TYPE_LABEL: Record<FeedContentItem["type"], string> = {
+ 
+ export function formatDate(iso: string | null): string {
+   if (!iso) return "";
+-  return new Date(iso).toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric", timeZone: "Asia/Singapore" });
++  return new Date(iso).toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit", timeZone: "Asia/Singapore" }).replaceAll("/", ".");
+ }
+ 
+ /** 信息流内容条目：标题 + 日期 / 封面 + 简介 / 类型 + 标签，点进详情。 */
+ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem; showPinnedBadge?: boolean }) {
+   return (
+     <TrackImpression targetKind="work" targetId={item.id}>
+-      <article className="group py-6">
++      <article className="group py-7">
+         <div className="flex items-baseline justify-between gap-4">
+           <div className="flex min-w-0 items-baseline gap-2">
+             <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="min-w-0">
+-              <h2 className="truncate text-lg font-medium leading-snug group-hover:underline underline-offset-4">
++              <h2 className="truncate text-lg font-semibold leading-snug group-hover:underline underline-offset-4 sm:text-xl">
+                 {item.title || `${TYPE_LABEL[item.type]} · ${formatDate(item.publishedAt)}`}
+               </h2>
+             </TrackClickLink>
+@@ -33,27 +35,33 @@ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem
+               </Badge>
+             )}
+           </div>
+-          <time className="shrink-0 text-sm text-muted-foreground">{formatDate(item.publishedAt)}</time>
++          <time dateTime={item.publishedAt ?? undefined} className="shrink-0 text-xs text-muted-foreground">{formatDate(item.publishedAt)}</time>
+         </div>
+-        {item.type === "article" && item.coverMediaId && (
+-          <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="mt-3 block">
++        {item.type === "article" ? <div className="mt-3 flex items-start justify-between gap-5">
++          <div className="min-w-0 flex-1">
++            {(item.description || item.excerpt) && <p className="line-clamp-3 text-sm leading-relaxed text-muted-foreground">{item.description || item.excerpt}</p>}
++            <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="mt-3 inline-flex min-h-8 items-center gap-1.5 text-sm text-primary hover:underline underline-offset-4">
++              阅读全文 <ArrowRight className="size-4" aria-hidden="true" />
++            </TrackClickLink>
++          </div>
++          {item.coverMediaId && <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="block w-28 shrink-0 sm:w-36">
+             {/* 受控比例容器（明确的 UI 裁切选择）+ 加载前占位，消除封面 CLS（F08） */}
+-            <div className="aspect-video w-full overflow-hidden rounded-lg bg-muted">
++            <div className="aspect-[4/3] w-full overflow-hidden rounded-lg">
+               {/* eslint-disable-next-line @next/next/no-img-element */}
+-              <img src={publicImageUrl(item.coverMediaId)} srcSet={imageSrcSet(item.coverMediaId, undefined, true)} sizes="(max-width: 768px) 100vw, 768px" alt={item.title} loading="lazy" className="h-full w-full object-cover" />
++              <img src={publicImageUrl(item.coverMediaId)} srcSet={imageSrcSet(item.coverMediaId, undefined, true)} sizes="144px" alt={item.title} loading="lazy" className="h-full w-full object-cover" />
+             </div>
+-          </TrackClickLink>
+-        )}
+-      {item.type === "post" ? <PostEntry item={item} /> : item.description && <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{item.description}</p>}
+-      <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
++          </TrackClickLink>}
++        </div> : <PostEntry item={item} />}
++      <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+         <span>{TYPE_LABEL[item.type]}</span>
+-        {item.visibility === "paid" && <Badge variant="secondary">付费</Badge>}
++        {item.visibility === "paid" && <Badge variant="secondary" className="text-primary">付费</Badge>}
+         {item.tags.map((t) => (
+           <Link prefetch={false} key={t.slug} href={`/tags/${t.slug}`} className="hover:text-foreground">
+             #{t.name}
+           </Link>
+         ))}
+       </div>
++      <ContentActions id={item.id} slug={item.slug} />
+       </article>
+     </TrackImpression>
+   );
+@@ -86,10 +94,10 @@ export function CollectionEntry({ item }: { item: CollectionListItem }) {
+  *  showPinnedBadge 仅首页开启：置顶是 feed 排序语义，标签页不显示标记。 */
+ export function FeedTimeline({ items, showPinnedBadge = false }: { items: FeedItem[]; showPinnedBadge?: boolean }) {
+   return (
+-    <>
++    <ContentInteractions ids={items.map(item => item.id)}>
+       {items.map((item) => (
+         <ContentEntry key={item.id} item={item} showPinnedBadge={showPinnedBadge} />
+       ))}
+-    </>
++    </ContentInteractions>
+   );
+ }
+diff --git a/apps/web/components/inline-media.tsx b/apps/web/components/inline-media.tsx
+index 5c3d656..92b4e34 100644
+--- a/apps/web/components/inline-media.tsx
++++ b/apps/web/components/inline-media.tsx
+@@ -1,25 +1,59 @@
+ "use client";
+ import { useEffect, useId, useRef, useState } from "react";
+-import { AudioPlayerLazy, VideoPlayerLazy } from "./media-player";
++import { VideoPlayerLazy } from "./media-player";
++import { Play } from "lucide-react";
++import { InlineAudio } from "./inline-audio";
+ 
+-/** 用户点击才挂载播放器；另一个媒体开始或离开视口时卸载，防止长 Feed 同时占用资源。 */
+-export function InlineMedia({ mediaId, kind }: { mediaId: string; kind: "audio" | "video" }) {
++function duration(seconds: number | null | undefined) {
++  if (seconds == null || seconds < 0) return null;
++  return `${Math.floor(seconds / 60).toString().padStart(2, "0")}:${Math.floor(seconds % 60).toString().padStart(2, "0")}`;
++}
++
++/** 控件无卡片底色；仅视口内视频读取真实首帧，播放器仍在点击后才挂载。 */
++export function InlineMedia({ mediaId, kind, durationSec }: { mediaId: string; kind: "audio" | "video"; durationSec?: number | null | undefined }) {
++  return kind === "audio" ? <InlineAudio mediaId={mediaId} durationSec={durationSec} /> : <InlineVideo mediaId={mediaId} durationSec={durationSec} />;
++}
++
++function InlineVideo({ mediaId, durationSec }: { mediaId: string; durationSec?: number | null | undefined }) {
+   const [active, setActive] = useState(false);
++  const [visible, setVisible] = useState(false);
++  const [previewFailed, setPreviewFailed] = useState(false);
+   const id = useId();
+   const host = useRef<HTMLDivElement>(null);
++  const preview = useRef<HTMLVideoElement>(null);
+   useEffect(() => {
+     const change = (event: Event) => { if ((event as CustomEvent<string>).detail !== id) setActive(false); };
+     window.addEventListener("yoryon:media-active", change);
+-    const observer = new IntersectionObserver(entries => { if (!entries.some(e => e.isIntersecting)) setActive(false); });
++    const observer = new IntersectionObserver(entries => {
++      const shown = entries.some(entry => entry.isIntersecting);
++      setVisible(shown); if (!shown) setActive(false);
++    });
+     if (host.current) observer.observe(host.current);
+     return () => { window.removeEventListener("yoryon:media-active", change); observer.disconnect(); };
+   }, [id]);
++  useEffect(() => {
++    const element = preview.current;
++    return () => { if (element) { element.pause(); element.removeAttribute("src"); element.load(); } };
++  }, [visible, active]);
++  const label = "播放视频";
++  const time = duration(durationSec);
++  function play() {
++    window.dispatchEvent(new CustomEvent("yoryon:media-active", { detail: id })); setActive(true);
++  }
+   return <div ref={host} className="not-prose my-4">
+     {active ? <>
+-      {kind === "audio" ? <AudioPlayerLazy mediaId={mediaId} /> : <VideoPlayerLazy mediaId={mediaId} />}
+-      <button type="button" onClick={() => setActive(false)} className="mt-2 text-sm underline">停止并关闭{kind === "audio" ? "音频" : "视频"}</button>
+-    </> : <button type="button" className="w-full rounded-lg border bg-muted p-5 text-left" onClick={() => {
+-      window.dispatchEvent(new CustomEvent("yoryon:media-active", { detail: id })); setActive(true);
+-    }}>播放{kind === "audio" ? "音频" : "视频"}</button>}
++      <VideoPlayerLazy mediaId={mediaId} />
++      <button type="button" onClick={() => setActive(false)} className="mt-2 min-h-8 text-xs text-muted-foreground hover:text-primary">停止并关闭视频</button>
++    </> : <button type="button" aria-label={label} onClick={play}
++      className="relative block aspect-video w-full overflow-hidden rounded-lg text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
++      {visible && !previewFailed && <video ref={preview} src={`/api/media/${mediaId}`} muted playsInline preload="metadata" aria-hidden="true"
++        className="pointer-events-none h-full w-full object-cover" onError={() => setPreviewFailed(true)}
++        onLoadedMetadata={event => { event.currentTarget.currentTime = Math.min(0.01, event.currentTarget.duration / 2); }} />}
++      <span className="absolute inset-0 flex items-center justify-center">
++        <span className="flex size-12 items-center justify-center rounded-full bg-background/90"><Play className="size-5 fill-current" aria-hidden="true" /></span>
++      </span>
++      {previewFailed && <span className="absolute inset-x-0 bottom-3 text-xs text-muted-foreground">预览未加载，点击播放重试</span>}
++      {time && !previewFailed && <span className="absolute right-3 bottom-3 rounded bg-black/50 px-2 py-1 text-xs tabular-nums text-white">{time}</span>}
++    </button>}
+   </div>;
+ }
+diff --git a/apps/web/components/load-more.tsx b/apps/web/components/load-more.tsx
+index 97e9b20..4668a6b 100644
+--- a/apps/web/components/load-more.tsx
++++ b/apps/web/components/load-more.tsx
+@@ -1,9 +1,10 @@
+ "use client";
+ 
+-import { useState } from "react";
++import { useEffect, useState } from "react";
+ import type { FeedItem, FeedResponse } from "@/lib/types";
+ import { FeedTimeline } from "./feed-timeline";
+ import { Button } from "./ui/button";
++import { currentBrowsePath, readBrowse, writeBrowse } from "@/lib/browse-memory";
+ 
+ /** 信息流/标签页"加载更多"（游标分页，经同源 BFF）。 */
+ export function LoadMore({ initialCursor, version, basePath = "/api/feed", showPinnedBadge = false }: { initialCursor: string; version: string; basePath?: string; showPinnedBadge?: boolean }) {
+@@ -12,6 +13,14 @@ export function LoadMore({ initialCursor, version, basePath = "/api/feed", showP
+   const [loading, setLoading] = useState(false);
+   const [error, setError] = useState(false);
+   const [expired, setExpired] = useState(false);
++  useEffect(() => {
++    const key = `feed:${currentBrowsePath()}:${basePath}`;
++    const saved = readBrowse<{ version: string; initialCursor: string; cursor: string | null; items: FeedItem[] }>(key);
++    if (saved?.version === version && saved.initialCursor === initialCursor && Array.isArray(saved.items)
++      && saved.items.every(item => typeof item?.id === "string" && typeof item.slug === "string" && ["post", "article"].includes(item.type))) {
++      setItems(saved.items); setCursor(saved.cursor);
++    } else { writeBrowse(key, null); }
++  }, [version, initialCursor, basePath]);
+ 
+   async function load() {
+     if (!cursor) return;
+@@ -19,7 +28,7 @@ export function LoadMore({ initialCursor, version, basePath = "/api/feed", showP
+     setError(false);
+     try {
+       const res = await fetch(`/api/pages/${version}/${basePath === "/api/feed" ? "feed" : basePath === "/api/paid-feed" ? "paid-feed" : `tag-${basePath.slice("/api/tags/".length)}`}/${encodeURIComponent(cursor)}`);
+-      if (res.status === 409) { setExpired(true); return; }
++      if (res.status === 409) { setExpired(true); writeBrowse(`feed:${currentBrowsePath()}:${basePath}`, null); return; }
+       // 游标失效（如部署后旧格式残留）：与快照过期同一恢复路径——提示刷新，而不是带着旧游标重试
+       if (res.status === 400) {
+         const body = (await res.json().catch(() => null)) as { error?: { code?: string } } | null;
+@@ -27,8 +36,10 @@ export function LoadMore({ initialCursor, version, basePath = "/api/feed", showP
+       }
+       if (!res.ok) throw new Error(String(res.status));
+       const data = (await res.json()) as FeedResponse;
+-      setItems((prev) => [...prev, ...data.items]);
++      const appended = [...items, ...data.items];
++      setItems(appended);
+       setCursor(data.nextCursor);
++      writeBrowse(`feed:${currentBrowsePath()}:${basePath}`, { version, initialCursor, cursor: data.nextCursor, items: appended });
+     } catch {
+       setError(true);
+     } finally {
+diff --git a/apps/web/components/login-form.tsx b/apps/web/components/login-form.tsx
+index 5c7899f..cf918fe 100644
+--- a/apps/web/components/login-form.tsx
++++ b/apps/web/components/login-form.tsx
+@@ -11,6 +11,7 @@ interface ApiError {
+ 
+ import { notifyNotificationsChanged } from "@/lib/notification-events";
+ import { safeReturnTo } from "@/lib/navigation";
++import { clearSearchMemory } from "@/lib/browse-memory";
+ 
+ export function LoginForm({ returnTo }: { returnTo?: string | null }) {
+   const [emailOrUsername, setEmailOrUsername] = useState("");
+@@ -36,6 +37,7 @@ export function LoginForm({ returnTo }: { returnTo?: string | null }) {
+       }
+       // 硬导航：登录后需要完整重建服务端渲染状态（Cookie 已种）；returnTo 经站内校验
+       notifyNotificationsChanged();
++      clearSearchMemory();
+       window.location.assign(target);
+     } catch {
+       setError("网络错误，请重试");
+diff --git a/apps/web/components/markdown-image.tsx b/apps/web/components/markdown-image.tsx
+index 471ac71..a388abf 100644
+--- a/apps/web/components/markdown-image.tsx
++++ b/apps/web/components/markdown-image.tsx
+@@ -7,15 +7,21 @@ export function MarkdownImage(props: ImgHTMLAttributes<HTMLImageElement>) {
+   const [failed, setFailed] = useState(false);
+   const [retry, setRetry] = useState(0);
+   const dialog = useRef<HTMLDialogElement>(null);
+-  useEffect(() => { if (open) dialog.current?.showModal(); }, [open]);
++  useEffect(() => {
++    if (!open) return;
++    const overflow = document.body.style.overflow;
++    document.body.style.overflow = "hidden"; dialog.current?.showModal();
++    return () => { document.body.style.overflow = overflow; };
++  }, [open]);
+   return <span>
+     {failed ? <span role="alert">图片加载失败。<button type="button" onClick={() => { setFailed(false); setRetry(n => n + 1); }}>重试</button></span>
+       : <button type="button" onClick={() => setOpen(true)} className="block max-w-full cursor-zoom-in" aria-label={`查看图片：${props.alt || "作品图片"}`}>
+         <img {...props} key={retry} onError={() => setFailed(true)} />
+       </button>}
+-    {open && createPortal(<dialog ref={dialog} onClose={() => setOpen(false)} className="max-h-[95vh] max-w-[95vw] rounded-lg bg-background p-4 text-foreground backdrop:bg-black/70">
+-      <button type="button" autoFocus onClick={() => dialog.current?.close()} className="mb-3 rounded border px-3 py-1">关闭图片</button>
+-      <img src={typeof props.src === "string" ? props.src : undefined} alt={props.alt || "作品图片"} className="max-h-[80vh] max-w-full object-contain" />
++    {open && createPortal(<dialog ref={dialog} aria-label="图片预览，按Esc或点击空白关闭" onClose={() => setOpen(false)}
++      onClick={event => { if (event.target === dialog.current) dialog.current?.close(); }}
++      className="fixed inset-0 m-0 h-dvh max-h-none w-screen max-w-none border-0 bg-transparent p-0 outline-none backdrop:bg-black/70 open:flex open:items-center open:justify-center">
++      <img src={typeof props.src === "string" ? props.src : undefined} alt={props.alt || "作品图片"} className="max-h-[94dvh] max-w-[94vw] object-contain" />
+     </dialog>, document.body)}
+   </span>;
+ }
+diff --git a/apps/web/components/markdown-surface.tsx b/apps/web/components/markdown-surface.tsx
+index e35a5b8..e3fada0 100644
+--- a/apps/web/components/markdown-surface.tsx
++++ b/apps/web/components/markdown-surface.tsx
+@@ -30,7 +30,7 @@ function mediaIdFromSrc(src: unknown): string | null {
+ 
+ export function MarkdownSurface({ markdown, className, mediaSizes, publicImages = false, components = {} }: {
+   markdown: string; className?: string | undefined; publicImages?: boolean;
+-  mediaSizes?: Record<string, { width: number; height: number; mimeType?: string }> | undefined;
++  mediaSizes?: Record<string, { width: number | null; height: number | null; mimeType?: string; durationSec?: number | null }> | undefined;
+   components?: Components;
+ }) {
+   return <div data-search-body className={cn("prose prose-zinc dark:prose-invert prose-yoryon max-w-none", className)}>
+@@ -43,12 +43,12 @@ export function MarkdownSurface({ markdown, className, mediaSizes, publicImages
+                 // eslint-disable-next-line @next/next/no-img-element
+                 <MarkdownImage
+                   src={id && publicImages ? publicImageUrl(id, svg ? "original" : 1280) : typeof src === "string" ? src : ""}
+-                  srcSet={size && id && !svg ? imageSrcSet(id, size.width, publicImages) : undefined}
++                  srcSet={size && id && !svg ? imageSrcSet(id, size.width ?? undefined, publicImages) : undefined}
+                   sizes="(max-width: 768px) 100vw, 768px"
+                   alt={alt ?? ""}
+                   loading="lazy"
+                   decoding="async"
+-                  {...(size ? { width: size.width, height: size.height } : {})}
++                  {...(size?.width && size.height ? { width: size.width, height: size.height } : {})}
+                   className="h-auto max-w-full rounded-lg"
+                   {...props}
+                 />
+@@ -57,12 +57,12 @@ export function MarkdownSurface({ markdown, className, mediaSizes, publicImages
+             "video-player": ({ src }: { src?: string }) => {
+               const id = mediaIdFromSrc(src);
+               if (!id) return null;
+-              return <InlineMedia mediaId={id} kind="video" />;
++              return <InlineMedia mediaId={id} kind="video" durationSec={mediaSizes?.[id]?.durationSec} />;
+             },
+             "audio-player": ({ src }: { src?: string }) => {
+               const id = mediaIdFromSrc(src);
+               if (!id) return null;
+-              return <InlineMedia mediaId={id} kind="audio" />;
++              return <InlineMedia mediaId={id} kind="audio" durationSec={mediaSizes?.[id]?.durationSec} />;
+             },
+             "work-reference": ({ id }: { id?: string }) => id && /^[0-9a-f-]{36}$/i.test(id) ? <WorkReference id={id} /> : null,
+             a: ({ href, children, ...props }) => (
+diff --git a/apps/web/components/media-player.tsx b/apps/web/components/media-player.tsx
+index 3bbb898..9a47e90 100644
+--- a/apps/web/components/media-player.tsx
++++ b/apps/web/components/media-player.tsx
+@@ -8,8 +8,3 @@ export const VideoPlayerLazy = dynamic(() => import("@/components/player").then(
+   ssr: false,
+   loading: () => <Skeleton className="aspect-video w-full rounded-lg" />,
+ });
+-
+-export const AudioPlayerLazy = dynamic(() => import("@/components/player").then((m) => m.AudioPlayerView), {
+-  ssr: false,
+-  loading: () => <Skeleton className="h-14 w-full rounded-lg" />,
+-});
+diff --git a/apps/web/components/member-questions.tsx b/apps/web/components/member-questions.tsx
+index eefe616..300bb0f 100644
+--- a/apps/web/components/member-questions.tsx
++++ b/apps/web/components/member-questions.tsx
+@@ -4,6 +4,8 @@ import Link from "next/link";
+ import type { QuestionItem, QuestionPage } from "@/lib/types";
+ import { Button } from "./ui/button";
+ import { QuestionCard } from "./question-card";
++import { MessageCircle } from "lucide-react";
++import { NOTIFICATIONS_CHANGED } from "@/lib/notification-events";
+ export function MemberQuestions({ active, remaining, authenticated, onAsked }: { active: boolean; remaining: number; authenticated: boolean; onAsked: () => Promise<void> }) {
+   const [scope, setScope] = useState<"public" | "mine">("public");
+   const [items, setItems] = useState<QuestionItem[]>([]);
+@@ -36,6 +38,13 @@ export function MemberQuestions({ active, remaining, authenticated, onAsked }: {
+     const abort = new AbortController(); requests.current = abort; setItems([]); setCursor(null); setError(null); setLoading(true); setPaging(false);
+     load(null, abort.signal).catch(e => { if (!abort.signal.aborted) setError(e.message); }).finally(() => { if (!abort.signal.aborted) setLoading(false); });
+     return () => abort.abort();
++  }, [load, authenticated, active]);
++  useEffect(() => { if (!authenticated && scope === "mine") setScope("public"); }, [authenticated, scope]);
++  useEffect(() => {
++    const focus = () => { if (document.visibilityState === "visible") void refresh(); };
++    const show = (event: PageTransitionEvent) => { if (event.persisted) void refresh(); };
++    window.addEventListener("focus", focus); window.addEventListener("pageshow", show); window.addEventListener(NOTIFICATIONS_CHANGED, focus);
++    return () => { window.removeEventListener("focus", focus); window.removeEventListener("pageshow", show); window.removeEventListener(NOTIFICATIONS_CHANGED, focus); };
+   }, [load]);
+   async function submit(e: React.FormEvent) {
+     e.preventDefault(); if (submitting) return;
+@@ -50,21 +59,21 @@ export function MemberQuestions({ active, remaining, authenticated, onAsked }: {
+   async function refresh() {
+     if (scopeRef.current !== scope) return;
+     requests.current?.abort(); const abort = new AbortController(); requests.current = abort;
+-    setLoading(true); setPaging(false);
++    setLoading(true); setPaging(false); setItems([]);
+     try { await load(null, abort.signal); } catch (e) { if (!abort.signal.aborted) setError(e instanceof Error ? e.message : "网络错误"); }
+     finally { if (!abort.signal.aborted) setLoading(false); }
+   }
+-  return <section aria-label="会员问答"><h2 className="text-xl font-medium">会员问答</h2><p className="mt-2 text-sm text-muted-foreground">公开问题所有人可读，回答和讨论向会员开放。每个自然月可提问一次。</p>
++  return <section aria-label="会员问答"><h2 className="sr-only">会员问答</h2><p className="text-sm text-muted-foreground">公开问题所有人可读，回答和讨论向会员开放。每个自然月可提问一次。</p>
+     {active && remaining > 0 ? <form onSubmit={submit} className="mt-5 space-y-3">
+       <label htmlFor="member-question" className="text-sm font-medium">向创作者提问</label>
+       <textarea id="member-question" rows={3} maxLength={1000} value={draft} onChange={e => setDraft(e.target.value)} className="w-full rounded-md border bg-transparent p-3 text-sm" required />
+-      <div className="flex items-center justify-between gap-4 text-xs"><label className="flex gap-2"><input type="checkbox" checked={privateQuestion} onChange={e => setPrivate(e.target.checked)} />私密问题（仅本人和创作者可读）</label><span>{[...draft].length}/500</span></div>
++      <div className="flex flex-wrap items-center justify-between gap-3 text-xs"><label className="flex items-start gap-2"><input type="checkbox" className="mt-0.5 accent-primary" checked={privateQuestion} onChange={e => setPrivate(e.target.checked)} />私密问题（仅本人和创作者可读）</label><span className="shrink-0">{[...draft].length}/500</span></div>
+       <Button disabled={submitting || [...draft.trim()].length > 500}>{submitting ? "提交中…" : "提交问题"}</Button>
+     </form> : active ? <p className="mt-4 text-sm text-muted-foreground">本月提问次数已用完，下个自然月恢复。</p> : !authenticated ? <p className="mt-4 text-sm"><Link href="/login?returnTo=%2Fsubscription" className="underline">登录</Link> 后查看自己的历史问答。</p> : null}
+     {receipt && <p role="status" className="mt-3 text-sm">{receipt}</p>}{submitError && <p role="alert" className="mt-3 text-sm text-red-500">{submitError}</p>}
+-    <div className="mt-6 flex gap-4 text-sm"><button aria-pressed={scope === "public"} className={scope === "public" ? "font-medium" : "text-muted-foreground"} onClick={() => setScope("public")}>公开问答</button>{authenticated && <button aria-pressed={scope === "mine"} className={scope === "mine" ? "font-medium" : "text-muted-foreground"} onClick={() => setScope("mine")}>我的问答</button>}</div>
++    <div className="mt-5 flex gap-5 border-b border-border text-sm"><button aria-pressed={scope === "public"} className={`min-h-11 border-b-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${scope === "public" ? "border-primary font-medium" : "border-transparent text-muted-foreground"}`} onClick={() => setScope("public")}>公开问答</button>{authenticated && <button aria-pressed={scope === "mine"} className={`min-h-11 border-b-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${scope === "mine" ? "border-primary font-medium" : "border-transparent text-muted-foreground"}`} onClick={() => setScope("mine")}>我的问答</button>}</div>
+     {loading ? <p role="status" className="py-6 text-sm text-muted-foreground">加载中…</p> : <>{error && <p role="alert" className="py-4 text-sm text-red-500">{error} <button className="underline" onClick={() => void refresh()}>刷新列表</button></p>}
+-      {!items.length && !error ? <p className="py-6 text-sm text-muted-foreground">{scope === "mine" ? "还没有提问记录。" : "还没有公开问答。"}</p> : <div className="divide-y divide-border">{items.map(q => <QuestionCard key={q.id} item={q} onPrivacyChanged={() => void refresh()} />)}</div>}
++      {!items.length && !error ? <div className="flex flex-col items-center gap-3 border-b border-border py-8 text-sm text-muted-foreground"><MessageCircle className="size-7 stroke-1" aria-hidden="true" /><p>{scope === "mine" ? "还没有提问记录。" : "还没有公开问答。"}</p></div> : <div className="divide-y divide-border">{items.map(q => <QuestionCard key={q.id} item={q} onPrivacyChanged={() => void refresh()} />)}</div>}
+       {cursor && <Button variant="outline" disabled={paging} onClick={() => { setPaging(true); void load(cursor).catch(e => setError(e.message)).finally(() => setPaging(false)); }}>{paging ? "加载中…" : "加载更多问答"}</Button>}
+     </>}
+   </section>;
+diff --git a/apps/web/components/membership-panel.tsx b/apps/web/components/membership-panel.tsx
+index c2bb7a8..c5119ef 100644
+--- a/apps/web/components/membership-panel.tsx
++++ b/apps/web/components/membership-panel.tsx
+@@ -1,31 +1,72 @@
+ "use client";
+-import { useState } from "react";
++import { useCallback, useEffect, useRef, useState } from "react";
+ import Link from "next/link";
+ import type { Membership } from "@/lib/types";
+ import { MemberQuestions } from "./member-questions";
++import { Button } from "./ui/button";
++import { readBrowse, writeBrowse } from "@/lib/browse-memory";
++import { NOTIFICATIONS_CHANGED } from "@/lib/notification-events";
+ 
+-export function MembershipPanel({ initial, authenticated, unavailable = false }: { initial: Membership | null; authenticated: boolean; unavailable?: boolean }) {
++export function MembershipPanel({ initial, authenticated, unavailable = false, works }: { initial: Membership | null; authenticated: boolean; unavailable?: boolean; works: React.ReactNode }) {
+   const [logged, setLogged] = useState(authenticated);
+   const [membership, setMembership] = useState(initial);
+   const [error, setError] = useState(unavailable);
+-  async function refresh() {
++  const [tab, setTab] = useState<"works" | "questions">("works");
++  const [questionOpened, setQuestionOpened] = useState(false);
++  useEffect(() => { if (readBrowse<string>("subscription-tab") === "questions") { setTab("questions"); setQuestionOpened(true); } }, []);
++  function choose(next: "works" | "questions") { setTab(next); if (next === "questions") setQuestionOpened(true); writeBrowse("subscription-tab", next); }
++  const membershipRequest = useRef<AbortController | null>(null);
++  const refresh = useCallback(async () => {
++    membershipRequest.current?.abort(); const controller = new AbortController(); membershipRequest.current = controller;
+     try {
+-      const res = await fetch("/api/me/membership", { cache: "no-store" });
++      const res = await fetch("/api/me/membership", { cache: "no-store", signal: AbortSignal.any([controller.signal, AbortSignal.timeout(15_000)]) });
++      if (controller.signal.aborted) return;
+       if (res.status === 401) { setLogged(false); setMembership(null); setError(false); return; }
+       if (!res.ok) throw new Error(String(res.status));
+       setLogged(true); setMembership(await res.json() as Membership); setError(false);
+-    } catch { setError(true); }
+-  }
++    } catch { if (!controller.signal.aborted) setError(true); }
++  }, []);
++  useEffect(() => {
++    const focus = () => { if (document.visibilityState === "visible") void refresh(); };
++    const show = (event: PageTransitionEvent) => { if (event.persisted) void refresh(); };
++    window.addEventListener("focus", focus); window.addEventListener("pageshow", show); window.addEventListener(NOTIFICATIONS_CHANGED, focus);
++    return () => { membershipRequest.current?.abort(); window.removeEventListener("focus", focus); window.removeEventListener("pageshow", show); window.removeEventListener(NOTIFICATIONS_CHANGED, focus); };
++  }, [refresh]);
+   return <>
+-    <section id="membership" className="mb-12 rounded-lg bg-muted/50 px-6 py-7" aria-label="会员状态">
+-      {error ? <p role="alert">会员状态加载失败。<button className="underline" onClick={() => void refresh()}>重试</button></p>
+-        : membership?.active ? <><h1 className="text-2xl font-semibold">我的会员</h1>
+-          <p className="mt-3 text-sm">{membership.permanent ? "长期有效" : `到期时间：${new Date(membership.validUntil!).toLocaleString("zh-CN", { timeZone: "Asia/Shanghai", hour12: false })}`}</p>
+-          <p className="mt-2 text-sm">本月剩余提问次数：{membership.questionsRemaining ?? 0} 次</p></>
+-        : <><h1 className="text-2xl font-semibold">支持我的持续创作</h1><p className="mt-3 text-sm text-muted-foreground">¥29.9/月。每月一次会员问答，阅读专属作品，参与会员讨论。</p>
+-          <Link href="/redeem?returnTo=%2Fsubscription%23membership" prefetch={false} className="mt-5 inline-flex rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground">兑换激活码，开通会员</Link>
+-          <p className="mt-2 text-xs text-muted-foreground">使用已有激活码兑换会员权益。</p></>}
++    <section id="membership" className="mb-8 py-2" aria-label="会员状态">
++      {error ? <>
++        <h1 className="text-xl font-semibold">会员状态</h1>
++        <p role="alert" className="mt-3 text-sm">会员状态加载失败。<button className="ml-2 min-h-11 text-primary underline underline-offset-4" onClick={() => void refresh()}>重试</button></p>
++      </> : membership?.active ? <>
++        <div className="flex flex-wrap items-center justify-between gap-3">
++          <h1 className="text-xl font-semibold">我的会员</h1>
++          <span className="text-sm text-primary">已开通</span>
++        </div>
++        <p className="mt-4 text-sm text-muted-foreground">{membership.permanent ? "长期有效" : `到期时间：${new Date(membership.validUntil!).toLocaleString("zh-CN", { timeZone: "Asia/Shanghai", hour12: false })}`}</p>
++        <p className="mt-2 text-sm">本月剩余提问次数：{membership.questionsRemaining ?? 0} 次</p>
++      </> : <>
++        <div className="flex flex-wrap items-baseline justify-between gap-x-5 gap-y-2">
++          <h1 className="text-xl font-semibold">支持我的持续创作</h1>
++          <p className="shrink-0 whitespace-nowrap text-sm"><span className="text-xl font-semibold">¥29.9</span> / 月</p>
++        </div>
++        <p className="mt-2 text-sm text-muted-foreground">读得更深入，交流更直接。</p>
++        <p className="mt-5 text-sm leading-relaxed text-muted-foreground">专属作品 <span aria-hidden="true">·</span> 每月一次提问 <span aria-hidden="true">·</span> 会员讨论</p>
++        <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
++          <Button asChild className="min-h-11 px-5">
++            <Link href="/redeem?returnTo=%2Fsubscription%23membership" prefetch={false}>兑换激活码，开通会员</Link>
++          </Button>
++          <p className="text-xs leading-relaxed text-muted-foreground">使用已有激活码兑换会员权益。</p>
++        </div>
++      </>}
+     </section>
+-    <MemberQuestions active={!!membership?.active} remaining={membership?.questionsRemaining ?? 0} authenticated={logged} onAsked={refresh} />
++    <div role="tablist" aria-label="订阅内容" className="mb-6 flex gap-7 border-b border-border">
++      {(["works", "questions"] as const).map(value => <button key={value} type="button" id={`subscription-${value}-tab`} role="tab" aria-selected={tab === value} aria-controls={`subscription-${value}-panel`} tabIndex={tab === value ? 0 : -1}
++        onClick={() => choose(value)} onKeyDown={event => { if (["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) { event.preventDefault(); const next = event.key === "Home" ? "works" : event.key === "End" ? "questions" : value === "works" ? "questions" : "works"; choose(next); document.getElementById(`subscription-${next}-tab`)?.focus(); } }}
++        className={`min-h-12 border-b-2 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${tab === value ? "border-primary font-medium" : "border-transparent text-muted-foreground"}`}>{value === "works" ? "会员作品" : "会员问答"}</button>)}
++    </div>
++    <div id="subscription-works-panel" role="tabpanel" aria-labelledby="subscription-works-tab" hidden={tab !== "works"}>{works}</div>
++    <div id="subscription-questions-panel" role="tabpanel" aria-labelledby="subscription-questions-tab" hidden={tab !== "questions"}>
++      {questionOpened && <MemberQuestions active={!!membership?.active} remaining={membership?.questionsRemaining ?? 0} authenticated={logged} onAsked={refresh} />}
++    </div>
+   </>;
+ }
+diff --git a/apps/web/components/player.tsx b/apps/web/components/player.tsx
+index d1d5656..520db82 100644
+--- a/apps/web/components/player.tsx
++++ b/apps/web/components/player.tsx
+@@ -13,9 +13,7 @@
+  */
+ import { useCallback, useEffect, useRef, useState } from "react";
+ import { VideoPlayer, VideoSkin, Video } from "@videojs/react/video";
+-import { AudioPlayer, AudioSkin, Audio } from "@videojs/react/audio";
+ import "@videojs/react/video/skin.css";
+-import "@videojs/react/audio/skin.css";
+ 
+ /** 自动重试上限：签名过期一次刷新即可恢复；仍失败视为持续故障，转人工 */
+ const AUTO_RETRY_MAX = 1;
+@@ -156,15 +154,3 @@ export function VideoPlayerView({ mediaId }: { mediaId: string }) {
+     </VideoPlayer>
+   );
+ }
+-
+-export function AudioPlayerView({ mediaId }: { mediaId: string }) {
+-  const { src, attachMedia, manualRetry, retry, failed } = useRefreshableSource(mediaId);
+-  if (failed) return <FailedPanel onRetry={manualRetry} compact />;
+-  return (
+-    <AudioPlayer>
+-      <AudioSkin className="rounded-lg">
+-        <Audio key={retry} src={src} ref={attachMedia as React.Ref<HTMLAudioElement>} preload="metadata" />
+-      </AudioSkin>
+-    </AudioPlayer>
+-  );
+-}
+diff --git a/apps/web/components/post-entry.tsx b/apps/web/components/post-entry.tsx
+index a0f3cba..83230fe 100644
+--- a/apps/web/components/post-entry.tsx
++++ b/apps/web/components/post-entry.tsx
+@@ -2,7 +2,6 @@
+ import { useCallback, useEffect, useRef, useState } from "react";
+ import type { ContentDetail, FeedContentItem } from "@/lib/types";
+ import { MarkdownSurface } from "./markdown-surface";
+-import { TrackClickLink } from "./analytics";
+ 
+ export function PostEntry({ item }: { item: FeedContentItem }) {
+   const [expanded, setExpanded] = useState<ContentDetail | null>(null);
+@@ -38,16 +37,13 @@ export function PostEntry({ item }: { item: FeedContentItem }) {
+   }
+   const markdown = expanded?.bodyMarkdown ?? item.post?.bodyMarkdown ?? "";
+   const media = expanded?.media ?? item.post?.media ?? [];
+-  const mediaSizes = Object.fromEntries(media.filter(m => m.width && m.height).map(m => [m.mediaId, { width: m.width!, height: m.height!, mimeType: m.mimeType }]));
++  const mediaSizes = Object.fromEntries(media.map(m => [m.mediaId, { width: m.width, height: m.height, mimeType: m.mimeType, durationSec: m.durationSec }]));
+   return <div className="mt-3">
+     <div ref={host} id={`post-${item.id}`} className={expanded ? "" : "max-h-[32rem] overflow-hidden"}>
+       <MarkdownSurface key={expanded ? "expanded" : "folded"} markdown={markdown} mediaSizes={mediaSizes} publicImages={!expanded} />
+     </div>
+     {expanded?.access === "preview" && expanded.hasPaidContent && <p className="mt-3 text-sm text-muted-foreground">以上为当前允许的付费预览，兑换订阅后可阅读全文。</p>}
+     {error && <p role="alert" className="mt-2">帖子加载失败。<button className="underline" onClick={() => void expand()}>重试</button></p>}
+-    <div className="mt-3 flex items-center gap-4 text-sm">
+-      {(item.post?.collapsed || clipped || expanded) && <button type="button" disabled={loading} aria-expanded={!!expanded} aria-controls={`post-${item.id}`} className="underline" onClick={() => expanded ? collapse() : void expand()}>{loading ? "加载中…" : expanded ? "收起" : "展开"}</button>}
+-      <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}#comments`} className="text-muted-foreground underline">详情与评论</TrackClickLink>
+-    </div>
++    {(item.post?.collapsed || clipped || expanded) && <button type="button" disabled={loading} aria-expanded={!!expanded} aria-controls={`post-${item.id}`} className="mt-3 text-sm text-primary hover:underline" onClick={() => expanded ? collapse() : void expand()}>{loading ? "加载中…" : expanded ? "收起" : "展开"}</button>}
+   </div>;
+ }
+diff --git a/apps/web/components/search-dialog.tsx b/apps/web/components/search-dialog.tsx
+deleted file mode 100644
+index 4fc0859..0000000
+--- a/apps/web/components/search-dialog.tsx
++++ /dev/null
+@@ -1,72 +0,0 @@
+-"use client";
+-import Link from 'next/link';
+-import { useRef, useState } from 'react';
+-import * as Dialog from '@radix-ui/react-dialog';
+-import { Search, X } from 'lucide-react';
+-import { Button } from './ui/button';
+-import type { SearchHit } from '@yoryon/config/search-text';
+-type Item = { id: string; slug: string; title: string; description: string; publishedAt: string | null; visibility: 'public' | 'paid'; canAccess: boolean; revision?: string; hits?: SearchHit[] };
+-type Result = { session: string; query: string; results: Item[]; nextCursor: number | null; bodySearch: boolean; quota: { remaining: number | null; releasesAt: string | null } };
+-function Highlight({ text, query }: { text: string; query: string }) {
+-  if (!query) return text;
+-  const parts = text.split(query);
+-  return <>{parts.map((p,i) => <span key={i}>{i > 0 && <mark className="rounded bg-yellow-200 text-black">{query}</mark>}{p}</span>)}</>;
+-}
+-export function SearchDialog() {
+-  const [open, setOpen] = useState(false);
+-  const [query, setQuery] = useState('');
+-  const [result, setResult] = useState<Result | null>(null);
+-  const [busy, setBusy] = useState(false);
+-  const [error, setError] = useState('');
+-  const [exhausted, setExhausted] = useState(false);
+-  const [releases, setReleases] = useState<string | null>(null);
+-  const request = useRef<{ query: string; requestId: string } | null>(null);
+-  const active = useRef<AbortController | null>(null);
+-  const pending = useRef(false);
+-  async function submit(more = false) {
+-    if (pending.current || !query.trim()) return;
+-    pending.current = true; setBusy(true); setError(''); setExhausted(false);
+-    const controller = new AbortController(); active.current = controller;
+-    if (!more && request.current?.query !== query) request.current = { query, requestId: crypto.randomUUID() };
+-    try {
+-      const response = await fetch('/api/search', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(more && result ? { session: result.session, cursor: result.nextCursor } : request.current), cache: 'no-store', signal: controller.signal });
+-      const data = await response.json();
+-      if (!response.ok) {
+-        if (data.error?.code === 'search_quota_exhausted') { setExhausted(true); setReleases(data.quota?.releasesAt); }
+-        if (data.error?.code === 'search_expired') request.current = null;
+-        throw new Error(data.error?.message ?? '搜索失败，请重试');
+-      }
+-      setResult(more && result ? { ...data, results: [...result.results, ...data.results] } : data);
+-    } catch(e) { if (!controller.signal.aborted) setError(e instanceof Error ? e.message : '搜索失败，请重试'); }
+-    finally { pending.current = false; setBusy(false); }
+-  }
+-  function changeOpen(value: boolean) {
+-    setOpen(value);
+-    if (!value) active.current?.abort();
+-  }
+-  return <Dialog.Root open={open} onOpenChange={changeOpen}>
+-    <Dialog.Trigger asChild><Button variant="ghost" size="icon" className="size-11 text-muted-foreground" aria-label="全站搜索"><Search className="size-5" aria-hidden="true" /></Button></Dialog.Trigger>
+-    <Dialog.Portal><Dialog.Overlay className="fixed inset-0 z-50 bg-black/40" />
+-      <Dialog.Content className="fixed inset-x-3 top-[5dvh] z-50 mx-auto flex max-h-[90dvh] max-w-2xl flex-col rounded-xl border border-border bg-background p-5 shadow-xl sm:p-6">
+-        <div className="flex items-center justify-between"><Dialog.Title className="text-xl font-semibold">全站搜索</Dialog.Title><Dialog.Close asChild><Button variant="ghost" size="icon" aria-label="关闭搜索"><X /></Button></Dialog.Close></div>
+-        <Dialog.Description className="mt-2 text-sm text-muted-foreground">精确匹配连续原文，区分大小写、空格与标点。正文查询需含至少三个连续文字或数字；较短查询只搜索标题和描述。</Dialog.Description>
+-        <form className="mt-4 flex gap-2" onSubmit={e => { e.preventDefault(); void submit(); }}><input aria-label="搜索原文" maxLength={120} value={query} onChange={e => setQuery(e.target.value)} className="min-w-0 flex-1 rounded-md border border-border bg-background px-3" placeholder="输入连续原文" /><Button disabled={busy || !query.trim()} type="submit">{busy ? '搜索中…' : '搜索'}</Button></form>
+-        <div className="mt-4 overflow-y-auto" aria-busy={busy} aria-live="polite">
+-          {error && <p role="alert" className="py-3">{error}{!exhausted && <button className="ml-2 underline" disabled={busy} onClick={() => void submit()}>重试</button>}</p>}
+-          {exhausted && <div className="pb-4"><p className="text-sm text-muted-foreground">{releases && `恢复时间：${new Date(releases).toLocaleTimeString()}`}</p><Link prefetch={false} href="/redeem" className="mt-2 inline-block underline" onClick={() => changeOpen(false)}>开通订阅，解锁无限搜索</Link></div>}
+-          {result && <><p className="text-sm text-muted-foreground">{result.quota.remaining === null ? '订阅用户：无限搜索' : `本小时剩余 ${result.quota.remaining} 次搜索`}{!result.bodySearch && ' · 本次只搜索标题与描述'}</p>
+-            {!result.results.length && <p className="py-8 text-center">没有找到匹配内容</p>}
+-            {result.results.map(item => <article key={item.id} className="border-b border-border py-4">
+-              <Link prefetch={false} href={`/p/${item.slug}`} onClick={() => changeOpen(false)} className="font-semibold hover:underline"><Highlight text={item.title || '帖子'} query={result.query} /></Link>
+-              <p className="mt-1 text-xs text-muted-foreground">{item.visibility === 'paid' ? '付费' : '免费'} · {item.publishedAt?.slice(0,10)}</p>
+-              {item.description && <p className="mt-2 text-sm"><Highlight text={item.description} query={result.query} /></p>}
+-              {item.hits?.map(hit => <Link prefetch={false} key={hit.start} onClick={() => changeOpen(false)} href={`/p/${item.slug}#search=${result.session}&revision=${item.revision}&start=${hit.start}`} className="mt-2 block rounded border border-border whitespace-pre-wrap p-2 text-sm hover:bg-muted"><Highlight text={hit.context} query={result.query} /><span className="ml-2 text-xs text-muted-foreground">定位原文 →</span></Link>)}
+-              {item.visibility === 'paid' && !item.canAccess && <Link prefetch={false} href="/redeem" onClick={() => changeOpen(false)} className="mt-2 inline-block text-sm underline">开通订阅，查看正文命中位置</Link>}
+-            </article>)}
+-            {result.nextCursor !== null && <Button variant="outline" className="my-4 w-full" disabled={busy} onClick={() => void submit(true)}>加载更多</Button>}
+-          </>}
+-        </div>
+-      </Dialog.Content>
+-    </Dialog.Portal>
+-  </Dialog.Root>;
+-}
+diff --git a/apps/web/components/site-header.tsx b/apps/web/components/site-header.tsx
+index 950a558..14ba2d9 100644
+--- a/apps/web/components/site-header.tsx
++++ b/apps/web/components/site-header.tsx
+@@ -1,28 +1,30 @@
+ "use client";
+ 
+ import Link from "next/link";
++import Image from "next/image";
+ import { usePathname } from "next/navigation";
+-import { ChevronDown, UserRound } from "lucide-react";
++import { ChevronDown, Search, Star, UserRound } from "lucide-react";
+ import { Button } from "./ui/button";
+ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
+ import { ThemeMenuItems } from "./theme-menu-items";
+-import { SearchDialog } from "./search-dialog";
++import { AccountMenuItems } from "./account-menu-items";
+ import { NotificationBell } from "./notification-bell";
+ 
+ export function SiteHeader() {
+   const pathname = usePathname();
+   const subscriptionActive = pathname === "/subscription" || pathname.startsWith("/questions/");
+-  const exploreActive = pathname === "/explore" || pathname === "/c" || pathname.startsWith("/c/") || pathname.startsWith("/tags/") || pathname === "/about";
+-  const tabClass = "relative flex min-h-14 min-w-11 items-center text-lg transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 sm:text-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/20";
++  const exploreActive = pathname === "/explore" || pathname === "/c" || pathname.startsWith("/c/") || pathname === "/tags" || pathname.startsWith("/tags/");
++  const tabClass = "relative flex min-h-14 min-w-11 items-center text-lg transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 sm:text-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary";
+ 
+   return (
+     <header className="border-b border-border pt-6 sm:pt-8">
+-      <div className="flex items-center justify-between gap-4 pb-5 sm:pb-6">
+-        <Link prefetch={false} href="/" className="flex min-h-11 items-center rounded-sm text-2xl font-semibold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/20 sm:text-3xl">
+-          Yoryon
++      <div className="flex items-center justify-between gap-3 pb-5 sm:gap-4 sm:pb-6">
++        <Link prefetch={false} href="/" className="flex min-h-11 shrink-0 items-center gap-2.5 rounded-sm text-xl font-semibold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:gap-3 sm:text-3xl">
++          <Image src="/images/author-avatar.jpg" alt="" width={44} height={44} priority className="size-9 rounded-full border border-surface-border object-cover object-[50%_30%] sm:size-11" />
++          <span>Yoryon</span>
+         </Link>
+         <div className="flex items-center gap-1 sm:gap-2">
+-          <SearchDialog />
++          <Link href="/search" prefetch={false} aria-label="全站搜索" className="flex size-11 items-center justify-center rounded-sm text-muted-foreground hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"><Search className="size-5" aria-hidden="true" /></Link>
+           <NotificationBell />
+           <DropdownMenu>
+             <DropdownMenuTrigger asChild>
+@@ -31,10 +33,7 @@ export function SiteHeader() {
+               </Button>
+             </DropdownMenuTrigger>
+             <DropdownMenuContent align="end" className="max-h-[calc(100dvh-6rem)] min-w-44 overflow-y-auto [&_[role=menuitem]]:min-h-11">
+-              <DropdownMenuItem asChild><Link prefetch={false} href="/settings/profile">个人资料</Link></DropdownMenuItem>
+-              <DropdownMenuItem asChild><Link prefetch={false} href="/login">登录</Link></DropdownMenuItem>
+-              <DropdownMenuItem asChild><Link prefetch={false} href="/register">注册</Link></DropdownMenuItem>
+-              <DropdownMenuItem asChild><Link prefetch={false} href="/redeem">兑换激活码</Link></DropdownMenuItem>
++              <AccountMenuItems />
+               <div className="my-1 border-t border-border" role="separator" />
+               <p className="px-2 py-1.5 text-xs text-muted-foreground">外观</p>
+               <ThemeMenuItems />
+@@ -44,11 +43,11 @@ export function SiteHeader() {
+       </div>
+       <nav aria-label="主导航" className="flex items-center justify-between gap-4">
+         <div className="flex gap-6 sm:gap-8">
+-          <Link prefetch={false} href="/" aria-current={pathname === "/" ? "page" : undefined} className={`${tabClass} ${pathname === "/" ? "font-semibold text-foreground after:bg-foreground" : "text-muted-foreground hover:text-foreground"}`}>
++          <Link prefetch={false} href="/" aria-current={pathname === "/" ? "page" : undefined} className={`${tabClass} ${pathname === "/" ? "font-semibold text-foreground after:bg-primary" : "text-muted-foreground hover:text-foreground"}`}>
+             首页
+           </Link>
+-          <Link prefetch={false} href="/subscription" aria-current={subscriptionActive ? pathname === "/subscription" ? "page" : "location" : undefined} className={`${tabClass} ${subscriptionActive ? "font-semibold text-foreground after:bg-foreground" : "text-muted-foreground hover:text-foreground"}`}>
+-            订阅
++          <Link prefetch={false} href="/subscription" aria-current={subscriptionActive ? pathname === "/subscription" ? "page" : "location" : undefined} className={`${tabClass} gap-2 ${subscriptionActive ? "font-semibold text-foreground after:bg-primary" : "text-muted-foreground hover:text-foreground"}`}>
++            订阅 <Star className="size-3 text-primary" aria-hidden="true" />
+           </Link>
+         </div>
+         <DropdownMenu>
+@@ -58,10 +57,8 @@ export function SiteHeader() {
+             </Button>
+           </DropdownMenuTrigger>
+           <DropdownMenuContent align="end" className="min-w-40 [&_[role=menuitem]]:min-h-11">
+-            <DropdownMenuItem asChild><Link prefetch={false} href="/explore">全部探索</Link></DropdownMenuItem>
+             <DropdownMenuItem asChild><Link prefetch={false} href="/c">合集</Link></DropdownMenuItem>
+-            <DropdownMenuItem asChild><Link prefetch={false} href="/explore#tags">标签</Link></DropdownMenuItem>
+-            <DropdownMenuItem asChild><Link prefetch={false} href="/about">关于我</Link></DropdownMenuItem>
++            <DropdownMenuItem asChild><Link prefetch={false} href="/tags">标签</Link></DropdownMenuItem>
+           </DropdownMenuContent>
+         </DropdownMenu>
+       </nav>
+diff --git a/apps/web/components/theme-menu-items.tsx b/apps/web/components/theme-menu-items.tsx
+index e3d4601..49e3bd1 100644
+--- a/apps/web/components/theme-menu-items.tsx
++++ b/apps/web/components/theme-menu-items.tsx
+@@ -1,20 +1,17 @@
+ "use client";
+-
+-import { Moon, Sun, Monitor } from "lucide-react";
++import { useEffect, useState } from "react";
++import { Moon, Sun } from "lucide-react";
+ import { DropdownMenuItem } from "./ui/dropdown-menu";
+-
+-function applyTheme(theme: "light" | "dark" | "system") {
+-  const dark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+-  document.documentElement.classList.toggle("dark", dark);
+-  if (theme === "system") localStorage.removeItem("theme");
+-  else localStorage.setItem("theme", theme);
+-}
+-
+-/** 与账户菜单共享同一焦点和键盘导航，不再嵌套第二个下拉菜单。 */
+ export function ThemeMenuItems() {
+-  return <>
+-    <DropdownMenuItem onSelect={() => applyTheme("light")}><Sun className="mr-2 size-4" aria-hidden="true" />浅色</DropdownMenuItem>
+-    <DropdownMenuItem onSelect={() => applyTheme("dark")}><Moon className="mr-2 size-4" aria-hidden="true" />深色</DropdownMenuItem>
+-    <DropdownMenuItem onSelect={() => applyTheme("system")}><Monitor className="mr-2 size-4" aria-hidden="true" />跟随系统</DropdownMenuItem>
+-  </>;
++  const [dark, setDark] = useState(false);
++  useEffect(() => setDark(document.documentElement.classList.contains("dark")), []);
++  function toggle() {
++    const next = !document.documentElement.classList.contains("dark");
++    document.documentElement.classList.toggle("dark", next); setDark(next);
++    try { localStorage.setItem("theme", next ? "dark" : "light"); } catch { /* 禁用存储时只应用本次主题。 */ }
++  }
++  return <DropdownMenuItem role="menuitemcheckbox" aria-checked={dark} aria-label="深色外观" onSelect={event => { event.preventDefault(); toggle(); }} className="justify-between gap-5">
++    <span className="flex items-center gap-2">{dark ? <Moon className="size-4" aria-hidden="true" /> : <Sun className="size-4" aria-hidden="true" />}深色外观</span>
++    <span aria-hidden="true" className={`relative h-5 w-9 rounded-full transition-colors ${dark ? "bg-primary" : "bg-muted-foreground/30"}`}><span className={`absolute top-0.5 size-4 rounded-full bg-background transition-transform ${dark ? "translate-x-[18px]" : "translate-x-0.5"}`} /></span>
++  </DropdownMenuItem>;
+ }
+diff --git a/apps/web/components/ui/button.tsx b/apps/web/components/ui/button.tsx
+index 80fc019..014aa81 100644
+--- a/apps/web/components/ui/button.tsx
++++ b/apps/web/components/ui/button.tsx
+@@ -5,11 +5,11 @@ import { cva, type VariantProps } from "class-variance-authority";
+ import { cn } from "@/lib/utils";
+ 
+ const buttonVariants = cva(
+-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/20 disabled:pointer-events-none disabled:opacity-50 cursor-pointer",
++  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 cursor-pointer",
+   {
+     variants: {
+       variant: {
+-        default: "bg-foreground text-background hover:bg-foreground/90",
++        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+         outline: "border border-border bg-transparent hover:bg-muted",
+         ghost: "hover:bg-muted",
+         link: "underline-offset-4 hover:underline",
+diff --git a/apps/web/lib/types.ts b/apps/web/lib/types.ts
+index f349e92..39a7397 100644
+--- a/apps/web/lib/types.ts
++++ b/apps/web/lib/types.ts
+@@ -12,13 +12,15 @@ export interface FeedContentItem {
+   slug: string;
+   title: string;
+   description: string;
++  /** 描述为空时，仅从匿名可见正文派生的摘要。 */
++  excerpt?: string;
+   visibility: "public" | "paid";
+   coverMediaId: string | null;
+   publishedAt: string | null;
+   /** 首页置顶标记（仅 feed 排序使用；标签页同一合同但排序不置顶） */
+   isPinned: boolean;
+   tags: FeedTag[];
+-  post?: { bodyMarkdown: string; collapsed: boolean; media: Pick<ContentMediaItem, "mediaId" | "mimeType" | "width" | "height">[] } | null;
++  post?: { bodyMarkdown: string; collapsed: boolean; media: Pick<ContentMediaItem, "mediaId" | "mimeType" | "width" | "height" | "durationSec">[] } | null;
+ }
+ 
+ /** feed 仅含内容条目；合集是顶层结构，只经 /api/collections 列表曝光，不参与混排。 */
+diff --git a/apps/web/site.config.ts b/apps/web/site.config.ts
+deleted file mode 100644
+index ab5a62b..0000000
+--- a/apps/web/site.config.ts
++++ /dev/null
+@@ -1,21 +0,0 @@
+-/**
+- * 站点资料配置：/about 关于页（头像、名字、简介、社交账号）。
+- * 头像图片放在 apps/web/public/profile/ 下并在此引用（如 /profile/avatar.png）；
+- * 未配置时退化为首字母占位。
+- */
+-export const site = {
+-  name: "Yoryon",
+-  /** 简介（支持多段，占位文案，随时替换） */
+-  bioLines: [
+-    "记录文章、图片、视频与音频。",
+-    "这里是一段更长的个人简介占位：可以介绍你是谁、在写什么、为什么写，以及这个博客的更新节奏和付费内容的取向。",
+-    "也可以补充你的经历、兴趣与联系方式，让读者更了解你。所有文案都在 site.config.ts 里修改。",
+-  ] as string[],
+-  avatar: null as string | null,
+-  links: [
+-    { label: "GitHub", href: "https://github.com/yoryon" },
+-    { label: "X", href: "https://x.com/yoryon" },
+-    { label: "Bilibili", href: "https://space.bilibili.com" },
+-    { label: "Email", href: "mailto:hi@yoryon.me" },
+-  ] as { label: string; href: string }[],
+-};
+diff --git a/docs/adr/0005-frontend-stack.md b/docs/adr/0005-frontend-stack.md
+index ece738b..035b1a2 100644
+--- a/docs/adr/0005-frontend-stack.md
++++ b/docs/adr/0005-frontend-stack.md
+@@ -16,18 +16,19 @@ v1 需要定稿 UI 组件、正文排版与多媒体播放器方案。约束：
+ | 交互原语 | Radix UI（随 shadcn 组件依赖带入） |
+ | 正文排版 | @tailwindcss/typography（`@plugin "@tailwindcss/typography"` 注册） |
+ | 图标 | lucide-react |
+-| 视频/音频 | Video.js 10（`@videojs/react`） |
++| 视频/音频 | 视频使用 Video.js 10；音频使用稳定控件与原生 audio |
+ | 图集 | Embla Carousel（经 shadcn Carousel） |
+ | Markdown | unified / remark AST（沿用既有设计） |
+ 
+ 细则：
+ 
+-1. **设计系统**：Zinc 中性色，Light/Dark Mode（class 策略，dark 变量经 `:root[class~="dark"]`）。
++1. **设计系统**：2026-10-13 按作者确认的头像设计稿改为浅蓝灰品牌色，页面与阅读区使用相同背景，不用外侧画布形成围合边界；信息流媒体入口与长文预览直接融入页面。原始头像由本地静态资产提供，Next Image 优化加载、CSS 圆形裁切。Light/Dark Mode 继续使用 class 策略，双主题语义色经 `:root[class~="dark"]` 切换。正文代码高亮的既有独立配色继续保留。
+ 2. **中文排版**：正文统一 `prose`（dark 下 `prose-invert`），经 `--tw-prose-*` 变量调优：CJK 系统字体栈（PingFang SC / Hiragino Sans GB / Microsoft YaHei / Noto Sans SC）、`line-height ≈ 1.8`、段落间距；阅读栏与站点页头同宽（布局容器 `max-w-3xl`；初版曾为 ≈42rem 居中收窄，后应作者要求取消）。
+-3. **信息流**：轻量时间线形态，以分隔线与留白组织条目；文章不强制封面；不套用企业后台风格的 Card。
+-4. **播放器**：使用 Video.js 10 模块化 API（`createPlayer({ features })` 按需组合），不使用 v8 的全局 `videojs()` / id 注册表 API；经 `next/dynamic` 按需加载，首页信息流不含播放器代码；音频复用同一播放器。
++3. **信息流**：保持一栏阅读宽度，日期置于条目上方，正文下方依次为评论、内容点赞、转发。转发只复制永久链接，不采集渠道或新增统计。互动状态在客户端批量读取私有 no-store 接口，不进入公开内容快照。以细分隔线与留白组织条目；文章不强制封面，不使用围合卡片。
++4. **播放器**：视频使用 Video.js 10 模块化 API，经 `next/dynamic` 按需加载，不使用 v8 的全局 `videojs()` / id 注册表 API。音频按作者要求保持相同DOM/控件，首次用户手势同步设置私有媒体端点并调用原生audio.play；可暂停与拖动，网络失败一次重签名后转手动重试，不替换控件或要求第二次播放点击。
+ 5. **私有媒体兼容**：播放器 `src` 恒指向 `/api/media/:id`（302 → 15 分钟签名 URL）；签名过期或网络错误时重新请求端点、重置 `src` 并恢复 `currentTime`；OSS 签名 GET 原生支持 HTTP Range（206）；v1 仅直接文件播放，无需桶级 CORS 配置（未来启用 HLS/字幕时再开白名单）。
+ 6. **明确排除**：Magic UI、Aceternity 及一切动画框架；HLS 转码、DRM、视频处理平台。
++7. **浏览连续性**：2026-10-14 搜索改为独立页面。浏览记忆只保存公开Feed DTO、查询/会话/分页元数据与滚动位置；搜索离开时清除正文命中，返回使用原服务器会话重新核验权限，不重复扣正常搜索次数。列表记忆绑定catalog version，返回来源绑定当前history entry，避免旧路径来源误用。主题只保留light/dark双态开关；会员作品与问答使用两个tab，关于页入口由作者的置顶内容替代。
+ 
+ ## 后果
+ 
+diff --git a/docs/architecture.md b/docs/architecture.md
+index 14f0db2..ab09eac 100644
+--- a/docs/architecture.md
++++ b/docs/architecture.md
+@@ -380,9 +380,9 @@ POST /api/analytics/events         Analytics 批量 ingest（≤20 条/批且请
+ 
+ ### 8.1 设计原则
+ 
+-- Zinc 中性色设计系统，支持 Light / Dark（class 策略，dark 变量经 `:root[class~="dark"]`）。
++- 浅蓝灰品牌色，页面与阅读区背景一致；支持 Light / Dark（class 策略，dark 变量经 `:root[class~="dark"]`），账户菜单用一个双态开关切换，默认浅色。
+ - 首页为**轻量时间线信息流**：以分隔线与留白组织条目，不把内容套进企业后台风格的 Card；文章不强制封面。
+-- 响应式一体（移动端/桌面）；加载/空态/错误/重试态齐备（Skeleton 等）；不引入任何动画框架。
++- 保持单栏阅读宽度，不另设应用式界面；加载/空态/错误/重试态齐备；不引入任何动画框架。
+ 
+ ### 8.2 组件方案
+ 
+@@ -396,7 +396,7 @@ POST /api/analytics/events         Analytics 批量 ingest（≤20 条/批且请
+ ### 8.4 多媒体播放
+ 
+ - Video.js 10：使用 `@videojs/react` 的模块化 API（`createPlayer({ features })` 按需组合），**不使用 v8 的全局 `videojs()` / id 注册表 API**；实现时以安装版本官方文档为准并锁定版本。
+-- **按需加载**：播放器组件经 `next/dynamic` 懒加载，首页信息流不含播放器代码——信息流中的视频/音频一律降级为占位卡（点击进详情播放，`MarkdownBody variant="feed"`）；音频复用同一播放器。音频类型内容页的主媒体以播客式卡片呈现（封面 + Now Playing + 标题/简介 + 播放器，`AudioFeature`），shownotes 走正文 Markdown；正文内联 `::audio` 仍用裸播放器。
++- **按需加载**：视频播放器经 `next/dynamic` 懒加载，视口内读取真实首帧；音频使用固定控件和原生 `audio`，首次点击在同一用户手势内加载并播放，保持相同控件，不要求再次点击。媒体入口无卡片背景，shownotes 走正文 Markdown；切换媒体、离开视口或卸载时释放播放资源。
+ - 私有媒体播放：播放器 `src` 恒指向 `/api/media/:id`（302 → 15 分钟签名 URL）。签名 URL 过期或网络错误时，播放器捕获 error，重新请求端点获取新 URL、重置 `src` 并恢复 `currentTime`。
+ - OSS 签名 GET 原生支持 HTTP Range（206 断点/拖拽）；v1 仅直接文件播放，无需桶级 CORS 配置（不启用 HLS/字幕/画布能力；未来需要时再开白名单）。
+ 
+@@ -405,11 +405,13 @@ POST /api/analytics/events         Analytics 批量 ingest（≤20 条/批且请
+ | 路由 | 说明 |
+ |---|---|
+ | `/` | 首页：纯内容信息流（条目 = 标题/封面/简介 + 类型/标签，点进详情）；对所有人一致，可公开缓存 |
+-| `/about` | 关于页：头像 + 名字 + 多段简介 + 社交账号罗列（site.config.ts 配置） |
+-| `/p/[slug]` | 内容详情（文章/图集/视频/音频）；按权益渲染全文或预览 + 解锁引导 |
++| `/p/[slug]` | 内容详情（文章/图集/视频/音频）；按权益渲染全文或预览 + 解锁引导；左上角返回恢复来源列表位置 |
+ | `/c` | 合集列表页：全部合集（公开缓存） |
+ | `/c/[slug]` | 合集页：合集信息 + 成员内容流（按 sort_order） |
+-| `/tags/[slug]` | 标签筛选结果 |
++| `/tags` | 仅标签索引；旧 `/explore` 重定向至此；探索菜单只含合集和标签 |
++| `/tags/[slug]` | 标签筛选结果，支持返回与追加分页位置恢复 |
++| `/search` | 独立搜索页；返回保留查询、服务器会话与已加载分页，重新核验当前权限 |
++| `/subscription` | 会员状态及会员作品 / 会员问答两个tab |
+ | `/login` `/register` | 认证页（注册含邮箱验证码步骤） |
+ | `/redeem` | 激活码兑换框 + 已获得权益列表（极简，非个人中心） |
+ 
+diff --git a/packages/core/src/index.ts b/packages/core/src/index.ts
+index 15ce478..e11f8a3 100644
+--- a/packages/core/src/index.ts
++++ b/packages/core/src/index.ts
+@@ -15,6 +15,7 @@ export * from "./references";
+ export * from "./public-preview";
+ export * from "./content-migration";
+ export * from "./comments";
++export * from "./content-interactions";
+ export * from "./questions";
+ export * from "./membership";
+ export * from "./profile";
+diff --git a/packages/db/drizzle/meta/_journal.json b/packages/db/drizzle/meta/_journal.json
+index 11d67c4..84e6869 100644
+--- a/packages/db/drizzle/meta/_journal.json
++++ b/packages/db/drizzle/meta/_journal.json
+@@ -85,6 +85,13 @@
+       "when": 1791856800000,
+       "tag": "0011_literal_search",
+       "breakpoints": true
++    },
++    {
++      "idx": 12,
++      "version": "7",
++      "when": 1791906277406,
++      "tag": "0012_yielding_paper_doll",
++      "breakpoints": true
+     }
+   ]
+-}
++}
+\ No newline at end of file
+diff --git a/packages/db/src/schema.ts b/packages/db/src/schema.ts
+index 453e684..a901f52 100644
+--- a/packages/db/src/schema.ts
++++ b/packages/db/src/schema.ts
+@@ -111,6 +111,16 @@ export const contents = pgTable(
+   ],
+ );
+ 
++/** 内容点赞独立于评论点赞；唯一键保证同一用户一赞，统计直接从事实行读取。 */
++export const contentLikes = pgTable("content_likes", {
++  contentId: uuid("content_id").notNull().references(() => contents.id, { onDelete: "cascade" }),
++  userId: uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
++  createdAt: timestamp("created_at", { withTimezone: true, mode: "date" }).notNull().defaultNow(),
++}, t => [
++  primaryKey({ columns: [t.contentId, t.userId] }),
++  index("content_likes_user_idx").on(t.userId),
++]);
++
+ /** referencedId 保留目标身份；删除目标仅清空 FK，不级联删除引用作品。 */
+ export const contentReferences = pgTable("content_references", {
+   contentId: uuid("content_id").notNull().references(() => contents.id, { onDelete: "cascade" }),

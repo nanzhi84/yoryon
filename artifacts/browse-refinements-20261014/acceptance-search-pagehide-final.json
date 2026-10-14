@@ -1,0 +1,12 @@
+{
+  "before": {
+    "bodyHits": 25,
+    "path": "/search",
+    "results": 25
+  },
+  "pagehide": {
+    "persisted": false,
+    "searchInputs": 1,
+    "bodyHits": 0
+  }
+}

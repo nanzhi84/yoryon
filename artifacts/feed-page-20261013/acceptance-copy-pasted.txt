@@ -1,0 +1,150 @@
+- banner:
+  - link:
+    - /url: /
+    - generic: Yoryon
+  - button [expanded]:
+  - link:
+    - /url: /notifications
+    - generic: "1"
+  - button:
+  - navigation:
+    - link:
+      - /url: /
+      - text: 首页
+    - link:
+      - /url: /subscription
+      - text: 订阅
+    - button:
+      - text: 探索
+- main:
+  - article:
+    - link:
+      - /url: /p/demo-audio
+      - heading [level=2]: 演示音频
+    - time: 2026.10.11
+    - button:
+      - generic: 播放音频
+    - paragraph: 这里是音频的文字说明（shownotes）：正文区域照常支持 Markdown，可以放时间轴、链接与参考资料。
+    - generic: 帖子
+    - link:
+      - /url: /tags/demo
+      - text: "#demo"
+    - link:
+      - /url: /p/demo-audio#comments
+      - generic: "1"
+    - button:
+      - generic: 点赞
+    - button:
+      - generic: 转发
+    - status
+  - article:
+    - link:
+      - /url: /p/demo-video
+      - heading [level=2]: 演示视频
+    - time: 2026.10.11
+    - button:
+    - generic: 帖子
+    - link:
+      - /url: /tags/demo
+      - text: "#demo"
+    - link:
+      - /url: /p/demo-video#comments
+      - generic: 评论
+    - button:
+      - generic: 点赞
+    - button:
+      - generic: 转发
+    - status
+  - article:
+    - link:
+      - /url: /p/demo-gallery
+      - heading [level=2]: 演示图集
+    - time: 2026.10.11
+    - paragraph:
+      - button:
+    - generic: 帖子
+    - link:
+      - /url: /tags/demo
+      - text: "#demo"
+    - link:
+      - /url: /p/demo-gallery#comments
+      - generic: 评论
+    - button:
+      - generic: 点赞
+    - button:
+      - generic: 转发
+    - status
+  - article:
+    - link:
+      - /url: /p/demo-ep2
+      - heading [level=2]: 示例系列 · 第二话
+    - time: 2026.10.11
+    - link:
+      - /url: /p/demo-ep2
+      - text: 阅读全文
+    - generic: 长文
+    - link:
+      - /url: /tags/demo
+      - text: "#demo"
+    - link:
+      - /url: /p/demo-ep2#comments
+      - generic: 评论
+    - button:
+      - generic: 点赞
+    - button:
+      - generic: 转发
+    - status
+  - article:
+    - link:
+      - /url: /p/demo-ep1
+      - heading [level=2]: 示例系列 · 第一话
+    - time: 2026.10.11
+    - link:
+      - /url: /p/demo-ep1
+      - text: 阅读全文
+    - generic: 长文
+    - link:
+      - /url: /tags/demo
+      - text: "#demo"
+    - link:
+      - /url: /p/demo-ep1#comments
+      - generic: 评论
+    - button:
+      - generic: 点赞
+    - button:
+      - generic: 转发
+    - status
+  - article:
+    - link:
+      - /url: /p/hello-world
+      - heading [level=2]: 测试文章
+    - time: 2026.10.11
+    - link:
+      - /url: /p/hello-world
+      - text: 阅读全文
+    - generic: 长文
+    - link:
+      - /url: /tags/test
+      - text: "#test"
+    - link:
+      - /url: /p/hello-world#comments
+      - generic: 评论
+    - button:
+      - generic: 点赞
+    - button:
+      - generic: 转发
+    - status
+  - region:
+    - paragraph: 更深入的作品，更直接的交流。
+    - link:
+      - /url: /subscription
+      - text: 了解订阅
+- alert
+- dialog "全站搜索":
+  - heading "全站搜索" [level=2]
+  - button "关闭搜索":
+  - paragraph: 精确匹配连续原文，区分大小写、空格与标点。正文查询需含至少三个连续文字或数字；较短查询只搜索标题和描述。
+  - textbox "搜索原文" [active]:
+    - /placeholder: 输入连续原文
+    - text: http://localhost:3015/p/demo-audio
+  - button "搜索"

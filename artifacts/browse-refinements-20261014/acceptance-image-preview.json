@@ -1,0 +1,30 @@
+{
+  "audioPaused": true,
+  "dialog": {
+    "background": "rgba(0, 0, 0, 0)",
+    "border": "0px",
+    "buttons": 0,
+    "padding": "0px",
+    "text": ""
+  },
+  "image": {
+    "centerDelta": {
+      "x": -7.5,
+      "y": 0
+    },
+    "rect": {
+      "bottom": 540,
+      "height": 360,
+      "left": 312.5,
+      "right": 952.5,
+      "top": 180,
+      "width": 640,
+      "x": 312.5,
+      "y": 180
+    }
+  },
+  "viewport": {
+    "height": 720,
+    "width": 1280
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "head": "b8e7098e941f80d899cd6483a9ce236732e5ddf6",
+  "sourceFile": "apps/web/app/search/page.tsx",
+  "sha256": "f0c6591d6f5cc40c5d360ec2832b3beca8db9b1fbaa5a7d6ba5d60bb5d92f985",
+  "typecheck": "PASS",
+  "build": "PASS",
+  "profileRuntimeChanged": false,
+  "apiChangedByThisTurn": false,
+  "newBackupCreated": false,
+  "previewSource": "/Users/yoryon/Projects/yoryon",
+  "productionChanged": false
+}

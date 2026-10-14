@@ -1,0 +1,9 @@
+{
+  "typecheck": "PASS",
+  "typecheckLog": "typecheck-final.log",
+  "initialTypecheck": "FAIL TS6053 due to concurrent Next type generation; preserved typecheck.log",
+  "build": "PASS",
+  "buildLog": "build.log",
+  "newBackupCreated": false,
+  "productionChanged": false
+}

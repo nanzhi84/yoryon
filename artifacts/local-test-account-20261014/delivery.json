@@ -1,0 +1,9 @@
+{
+  "username": "preview_test",
+  "localLoginUrl": "http://localhost:3015/login",
+  "role": "user",
+  "testMembershipDays": 30,
+  "privateCredentialFileDeleted": true,
+  "accountAndMembershipPreserved": true,
+  "productionChanged": false
+}

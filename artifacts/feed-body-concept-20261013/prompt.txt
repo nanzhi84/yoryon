@@ -1,0 +1,40 @@
+Use case: precise-object-edit, ui-mockup.
+The input image is the CURRENT SINGLE-COLUMN Yoryon homepage and is the layout reference/edit target. Redesign ONLY its MAIN CONTENT FEED. The user corrected the previous overly broad X-inspired proposal: one existing reading width, one website view, no desktop/mobile variants, no app layout, and no avatar/name/@ identity inside the feed.
+
+OUTPUT: one flat, clean, high-fidelity vertical WEBSITE DESIGN IMAGE, approximately 1024x1792. Just ONE page. Preserve the current centered white reading column at about 720 CSS px, pale blue surrounding canvas, and the current TWO-ROW SITE HEADER with the small existing brand avatar + Yoryon wordmark, search/bell/account tools, 首页 / 订阅 and 探索. That masthead is only quiet context. The author's request to remove avatar and @ concerns content rows; do not add any author avatar, author name, handle, signature or left avatar gutter to any feed entry.
+Absolutely no three columns, side navigation, right rail, mobile mockup, device frame, bottom app navigation, composer, filter tabs, follower metrics or social-network shell. No X logo. Do not reproduce the blue comment marker/selection outline from the user's annotation.
+
+DESIGN GOAL:
+A refined content-first continuous single-width feed. Borrow X's compact spacing, naturally embedded media and low-key metadata rhythm, but retain the existing blog website. Content starts at the SAME left edge in every entry. Thin light blue-gray horizontal separators, zero floating post cards, no heavy shadows. Replace big empty “播放音频 / 播放视频” placeholder buttons and scattered metadata with thoughtfully composed media and one compact footer line. Main body changes should be clearly visible.
+The column should have a calm reading flow and efficient vertical density, not large isolated editorial headings with huge gaps.
+
+PALETTE AND TYPE:
+Almost-white page #fdfeff, powder-blue canvas #edf5f9, dark slate text #253947, muted metadata #697e8a, restrained medium blue #47758f. System/PingFang SC font. Main content 15–16 CSS px, line-height around 1.6. Optional entry titles only 17px medium/semibold, not giant headings. Footers 12px. Consistent 22–26px inter-entry padding and 10–14px between related elements.
+Each entry ends in ONE quiet inline metadata/action footer: date + content type + hashtag grouped at left, and a small speech-bubble icon + text "详情与评论" at right. Do not repeat the date at the title row and again below. No reaction/like/repost/share/bookmark controls, no fabricated engagement counts, no app-style toolbar.
+
+SHOW FOUR EXAMPLE ENTRY TYPES in this same column:
+1) AUDIO, the user specifically selected this current item:
+Title EXACTLY "演示音频".
+Below it, a compact 52–60px audio unit with a 32px round play button, understated slim blue-gray waveform/progress line, and small time "00:00 / 00:03" on the right. Very pale blue fill, fine border, restrained 8px corners; absolutely no huge blank rectangle saying “播放音频”.
+Then retain this exact visible shownotes text, set as a quietly readable smaller body paragraph:
+"这里是音频的文字说明（shownotes）：正文区域照常支持 Markdown，可以放时间轴、链接与参考资料。"
+It wraps naturally into about two lines. Preserve this content, do not replace it with promotional writing.
+Footer left "2026.10.11 · 帖子 · #demo"; right speech bubble "详情与评论".
+
+2) VIDEO:
+Title EXACTLY "演示视频".
+A naturally embedded modest 16:9 video preview at full reading-column width, depicting calm pale-blue sky and distant coastline as DESIGN PLACEHOLDER imagery. A subtle small white circular play control centered, tiny "00:04" duration at lower-right. Soft 8px rounded corners, no big label over the image, no blue empty play-button bar.
+Footer same "2026.10.11 · 帖子 · #demo" and right "详情与评论".
+
+3) IMAGE:
+Title EXACTLY "演示图集".
+An embedded quiet photographic image area, moderately shallow landscape crop (roughly 2.5:1), sea/rocks/light sky in understated blue-gray tones. No invented image-count badge. It aligns with audio/video/text width. No avatar. Imagery is a tasteful visual stand-in for demo assets.
+Footer same "2026.10.11 · 帖子 · #demo" and right "详情与评论".
+
+4) LONG ARTICLE:
+A compact plain editorial article preview, not a large floating card: small "长文" eyebrow, exact heading "示例系列 · 第二话", one muted short line "记录思考与实践中的选择。", and restrained link "阅读全文 →". A thin outline around this embedded preview is acceptable but keep it flat and modest.
+Footer left "2026.10.11 · #demo"; right "详情与评论".
+
+Keep all four entries fully visible if possible without shrinking text to illegibility. Preserve comfortable bottom whitespace. Omit the existing bottom subscription promo from this crop because the user's focus is solely the content body; do not redesign the subscription page.
+Outside the page at the bottom, tiny pale gray caption EXACTLY "内容主体设计提案 · 媒体缩略图与波形为示意".
+All Chinese text must be clean and exact. The result must look like a single quiet blog website with improved CONTENT PRESENTATION, not an app or social network product.

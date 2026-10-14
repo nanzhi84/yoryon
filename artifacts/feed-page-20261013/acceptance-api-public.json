@@ -1,0 +1,483 @@
+[
+  {
+    "label": "anonymous valid/published-only batch",
+    "method": "GET",
+    "path": "/content-interactions?ids=8c154081-fafc-4e76-9f24-f5251bc8645f,8ba6d2dc-5b4a-4a9c-9630-175c24994165,bf2e1a39-af29-41f1-960a-629334c7eaf2,dd0d9755-432e-413e-bb2a-7efe84ac25df",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "authenticated": false,
+      "items": [
+        {
+          "id": "8ba6d2dc-5b4a-4a9c-9630-175c24994165",
+          "commentCount": 0,
+          "likeCount": 0,
+          "liked": false,
+          "canLike": false
+        },
+        {
+          "id": "8c154081-fafc-4e76-9f24-f5251bc8645f",
+          "commentCount": 0,
+          "likeCount": 0,
+          "liked": false,
+          "canLike": false
+        }
+      ]
+    }
+  },
+  {
+    "label": "anonymous like rejected",
+    "method": "PUT",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 401,
+    "cache": "private, no-store",
+    "body": {
+      "error": {
+        "code": "unauthorized",
+        "message": "需要登录"
+      }
+    }
+  },
+  {
+    "label": "invalid IDs",
+    "method": "GET",
+    "path": "/content-interactions?ids=not-a-uuid",
+    "status": 400,
+    "cache": "private, no-store",
+    "body": {
+      "error": {
+        "code": "invalid_ids",
+        "message": "作品列表无效"
+      }
+    }
+  },
+  {
+    "label": "101 ID cap",
+    "method": "GET",
+    "path": "/content-interactions?ids=8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f",
+    "status": 400,
+    "cache": "private, no-store",
+    "body": {
+      "error": {
+        "code": "invalid_ids",
+        "message": "作品列表无效"
+      }
+    }
+  },
+  {
+    "label": "deduplicate repeated IDs",
+    "method": "GET",
+    "path": "/content-interactions?ids=8c154081-fafc-4e76-9f24-f5251bc8645f,8c154081-fafc-4e76-9f24-f5251bc8645f",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "authenticated": false,
+      "items": [
+        {
+          "id": "8c154081-fafc-4e76-9f24-f5251bc8645f",
+          "commentCount": 0,
+          "likeCount": 0,
+          "liked": false,
+          "canLike": false
+        }
+      ]
+    }
+  },
+  {
+    "label": "user A first like",
+    "method": "PUT",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 1,
+      "liked": true
+    }
+  },
+  {
+    "label": "user A duplicate like",
+    "method": "PUT",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 1,
+      "liked": true
+    }
+  },
+  {
+    "label": "concurrent A PUT 0",
+    "method": "PUT",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 1,
+      "liked": true
+    }
+  },
+  {
+    "label": "concurrent A PUT 1",
+    "method": "PUT",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 1,
+      "liked": true
+    }
+  },
+  {
+    "label": "concurrent A PUT 4",
+    "method": "PUT",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 1,
+      "liked": true
+    }
+  },
+  {
+    "label": "concurrent A PUT 2",
+    "method": "PUT",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 1,
+      "liked": true
+    }
+  },
+  {
+    "label": "concurrent A PUT 6",
+    "method": "PUT",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 1,
+      "liked": true
+    }
+  },
+  {
+    "label": "concurrent A PUT 3",
+    "method": "PUT",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 1,
+      "liked": true
+    }
+  },
+  {
+    "label": "concurrent A PUT 5",
+    "method": "PUT",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 1,
+      "liked": true
+    }
+  },
+  {
+    "label": "concurrent A PUT 7",
+    "method": "PUT",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 1,
+      "liked": true
+    }
+  },
+  {
+    "label": "SQL after concurrent duplicate PUT",
+    "rows": [
+      {
+        "content_id": "8c154081-fafc-4e76-9f24-f5251bc8645f",
+        "user_id": "129fb790-6c09-4f82-a10b-27be7481043c"
+      }
+    ]
+  },
+  {
+    "label": "user B independent unliked state",
+    "method": "GET",
+    "path": "/content-interactions?ids=8c154081-fafc-4e76-9f24-f5251bc8645f",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "authenticated": true,
+      "items": [
+        {
+          "id": "8c154081-fafc-4e76-9f24-f5251bc8645f",
+          "commentCount": 0,
+          "likeCount": 1,
+          "liked": false,
+          "canLike": true
+        }
+      ]
+    }
+  },
+  {
+    "label": "user B like",
+    "method": "PUT",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 2,
+      "liked": true
+    }
+  },
+  {
+    "label": "user A own state after B",
+    "method": "GET",
+    "path": "/content-interactions?ids=8c154081-fafc-4e76-9f24-f5251bc8645f",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "authenticated": true,
+      "items": [
+        {
+          "id": "8c154081-fafc-4e76-9f24-f5251bc8645f",
+          "commentCount": 0,
+          "likeCount": 2,
+          "liked": true,
+          "canLike": true
+        }
+      ]
+    }
+  },
+  {
+    "label": "anonymous after two likes",
+    "method": "GET",
+    "path": "/content-interactions?ids=8c154081-fafc-4e76-9f24-f5251bc8645f",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "authenticated": false,
+      "items": [
+        {
+          "id": "8c154081-fafc-4e76-9f24-f5251bc8645f",
+          "commentCount": 0,
+          "likeCount": 2,
+          "liked": false,
+          "canLike": false
+        }
+      ]
+    }
+  },
+  {
+    "label": "user A unlike",
+    "method": "DELETE",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 1,
+      "liked": false
+    }
+  },
+  {
+    "label": "user A duplicate unlike",
+    "method": "DELETE",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 1,
+      "liked": false
+    }
+  },
+  {
+    "label": "concurrent B DELETE 1",
+    "method": "DELETE",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 0,
+      "liked": false
+    }
+  },
+  {
+    "label": "concurrent B DELETE 2",
+    "method": "DELETE",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 0,
+      "liked": false
+    }
+  },
+  {
+    "label": "concurrent B DELETE 0",
+    "method": "DELETE",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 0,
+      "liked": false
+    }
+  },
+  {
+    "label": "concurrent B DELETE 3",
+    "method": "DELETE",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 0,
+      "liked": false
+    }
+  },
+  {
+    "label": "concurrent B DELETE 4",
+    "method": "DELETE",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 0,
+      "liked": false
+    }
+  },
+  {
+    "label": "concurrent B DELETE 5",
+    "method": "DELETE",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 0,
+      "liked": false
+    }
+  },
+  {
+    "label": "SQL after concurrent DELETE",
+    "rows": []
+  },
+  {
+    "label": "BFF CSRF evil origin",
+    "method": "PUT",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 403,
+    "cache": null,
+    "body": {
+      "error": {
+        "code": "csrf_rejected",
+        "message": "请求来源非法"
+      }
+    }
+  },
+  {
+    "label": "BFF CSRF missing origin/site",
+    "method": "PUT",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 403,
+    "cache": null,
+    "body": {
+      "error": {
+        "code": "csrf_rejected",
+        "message": "请求来源非法"
+      }
+    }
+  },
+  {
+    "label": "BFF CSRF cross-site fetch",
+    "method": "PUT",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 403,
+    "cache": null,
+    "body": {
+      "error": {
+        "code": "csrf_rejected",
+        "message": "请求来源非法"
+      }
+    }
+  },
+  {
+    "label": "BFF CSRF same-origin fetch",
+    "method": "PUT",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 1,
+      "liked": true
+    }
+  },
+  {
+    "label": "BFF user A no-store state",
+    "method": "GET",
+    "path": "/content-interactions?ids=8c154081-fafc-4e76-9f24-f5251bc8645f",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "authenticated": true,
+      "items": [
+        {
+          "id": "8c154081-fafc-4e76-9f24-f5251bc8645f",
+          "commentCount": 0,
+          "likeCount": 1,
+          "liked": true,
+          "canLike": true
+        }
+      ]
+    }
+  },
+  {
+    "label": "BFF user B separate state",
+    "method": "GET",
+    "path": "/content-interactions?ids=8c154081-fafc-4e76-9f24-f5251bc8645f",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "authenticated": true,
+      "items": [
+        {
+          "id": "8c154081-fafc-4e76-9f24-f5251bc8645f",
+          "commentCount": 0,
+          "likeCount": 1,
+          "liked": false,
+          "canLike": true
+        }
+      ]
+    }
+  },
+  {
+    "label": "BFF anonymous separate state",
+    "method": "GET",
+    "path": "/content-interactions?ids=8c154081-fafc-4e76-9f24-f5251bc8645f",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "authenticated": false,
+      "items": [
+        {
+          "id": "8c154081-fafc-4e76-9f24-f5251bc8645f",
+          "commentCount": 0,
+          "likeCount": 1,
+          "liked": false,
+          "canLike": false
+        }
+      ]
+    }
+  },
+  {
+    "label": "restore public unlike A before UI",
+    "method": "DELETE",
+    "path": "/content-interactions/8c154081-fafc-4e76-9f24-f5251bc8645f/like",
+    "status": 200,
+    "cache": "private, no-store",
+    "body": {
+      "likeCount": 0,
+      "liked": false
+    }
+  }
+]
