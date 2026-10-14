@@ -1,5 +1,12 @@
 {
   "crossTabContinuePath": "/p/diary-one",
   "crossTabCaption": "上次读到：第一章：初次阅读",
-  "directWorkContinuePath": "/p/diary-one"
+  "directWorkContinuePath": "/p/diary-one",
+  "corruptRecordLabel": "开始阅读",
+  "disabledStorage": {
+    "mode": "SIMULATED WebAPI access denied",
+    "bodyRendered": true,
+    "returnLabel": "开始阅读",
+    "navigationUsable": true
+  }
 }

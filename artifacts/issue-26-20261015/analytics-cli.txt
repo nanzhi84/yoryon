@@ -1,0 +1,24 @@
+统计窗口: 2026-10-13T18:38:03.162Z ~ 2026-10-14T18:38:03.162Z（UTC，按服务端 received_at）
+
+[work] targets=3 impressions=0 clicks=0 ctr=N/A views=16 reads=10 read_rate=62.5%
+
+[collection] targets=3 impressions=3 clicks=1 ctr=33.3% views=16 reads=11 read_rate=68.8%
+统计窗口: 2026-10-13T18:38:03.729Z ~ 2026-10-14T18:38:03.729Z（UTC，按服务端 received_at）
+
+[collection] reading-diary — 阅读日记
+kind        slug           impressions  clicks  ctr     views  reads  read_rate
+collection  reading-diary  1            1       100.0%  15     10     66.7%    
+统计窗口: 2026-10-13T18:38:04.255Z ~ 2026-10-14T18:38:04.255Z（UTC，按服务端 received_at）
+
+kind          slug            impressions  clicks  ctr     views  reads  read_rate
+collection    reading-diary   1            1       100.0%  15     10     66.7%    
+work/article  diary-one       0            0       N/A     7      4      57.1%    
+work/article  diary-two       0            0       N/A     5      3      60.0%    
+work/article  diary-three     0            0       N/A     4      3      75.0%    
+collection    parallel-notes  1            0       0.0%    1      1      100.0%   
+collection    empty-notes     1            0       0.0%    0      0      N/A      
+统计窗口: 2026-10-13T18:38:04.819Z ~ 2026-10-14T18:38:04.819Z（UTC，按服务端 received_at）
+
+[collection] empty-notes — 尚未开篇
+kind        slug         impressions  clicks  ctr   views  reads  read_rate
+collection  empty-notes  1            0       0.0%  0      0      N/A      

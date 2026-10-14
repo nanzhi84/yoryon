@@ -1,0 +1,7 @@
+{
+  "signal": "GPC=true",
+  "mode": "SIMULATED navigator WebAPI",
+  "baseline": "fresh document at subscription page before any list or detail analytics",
+  "analyticsRequests": 0,
+  "pageRendered": true
+}

@@ -1,0 +1,5 @@
+{
+  "scenario": "expired subscription, published member chapter preview, waited 13s",
+  "sameFlowCollectionReads": 0,
+  "pass": true
+}

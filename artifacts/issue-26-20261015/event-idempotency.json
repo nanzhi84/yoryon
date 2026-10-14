@@ -1,0 +1,11 @@
+{
+  "source": "actual browser batch, private temporary file only",
+  "eventCount": 2,
+  "before": 2,
+  "after": 2,
+  "statuses": [
+    200,
+    200
+  ],
+  "duplicateRowsAdded": 0
+}

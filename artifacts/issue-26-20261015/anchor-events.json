@@ -1,0 +1,9 @@
+{
+  "eventsForSameFlowAfterAnchorClickBackForward": [
+    {
+      "event_type": "read",
+      "n": 1
+    }
+  ],
+  "readExactlyOnce": true
+}
