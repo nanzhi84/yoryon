@@ -1,0 +1,32 @@
+[
+  {
+    "slug": "editorial-summary",
+    "cards": 1,
+    "content": [
+      " 本文要点  放慢脚步，让街道、旧书店与那些没有结论的片刻，成为一天值得读完的部分。 "
+    ],
+    "type": [
+      "paragraph"
+    ]
+  },
+  {
+    "slug": "editorial-paragraph",
+    "cards": 1,
+    "content": [
+      "  本文要点  \n  从一条街道开始，给叙事留出停顿，记住没有结论的片刻。  "
+    ],
+    "type": [
+      "paragraph"
+    ]
+  },
+  {
+    "slug": "editorial-bullets",
+    "cards": 1,
+    "content": [
+      "  本文要点  \n \n  从街道开始观察。  \n  在旧书店中停留。  \n  保留没有结论的片刻。  \n "
+    ],
+    "type": [
+      "ul"
+    ]
+  }
+]

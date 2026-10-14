@@ -1,0 +1,118 @@
+{
+  "postDateLinks": [
+    {
+      "class": "ml-auto shrink-0 text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+      "aria-label": "查看 2026.09.27 的帖子",
+      "href": "/p/note-2026-09-27-1"
+    },
+    {
+      "class": "ml-auto shrink-0 text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+      "aria-label": "查看 2026.09.20 的帖子",
+      "href": "/p/note-2026-09-20-1"
+    },
+    {
+      "class": "ml-auto shrink-0 text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+      "aria-label": "查看 2026.09.09 的帖子",
+      "href": "/p/note-2026-09-09-1"
+    },
+    {
+      "class": "ml-auto shrink-0 text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+      "aria-label": "查看 2026.09.08 的帖子",
+      "href": "/p/note-2026-09-08-1"
+    },
+    {
+      "class": "ml-auto shrink-0 text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+      "aria-label": "查看 2026.09.05 的帖子",
+      "href": "/p/note-2026-09-05-1"
+    },
+    {
+      "class": "ml-auto shrink-0 text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+      "aria-label": "查看 2026.08.24 的帖子",
+      "href": "/p/note-2026-08-24-1"
+    },
+    {
+      "class": "ml-auto shrink-0 text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+      "aria-label": "查看 2026.08.04 的帖子",
+      "href": "/p/note-2026-08-04-1"
+    },
+    {
+      "class": "ml-auto shrink-0 text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+      "aria-label": "查看 2026.07.24 的帖子",
+      "href": "/p/note-2026-07-24-1"
+    },
+    {
+      "class": "ml-auto shrink-0 text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+      "aria-label": "查看 2026.07.23 的帖子",
+      "href": "/p/note-2026-07-23-1"
+    },
+    {
+      "class": "ml-auto shrink-0 text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+      "aria-label": "查看 2026.05.24 的帖子",
+      "href": "/p/note-2026-05-24-1"
+    },
+    {
+      "class": "ml-auto shrink-0 text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+      "aria-label": "查看 2026.05.02 的帖子",
+      "href": "/p/note-2026-05-02-1"
+    },
+    {
+      "class": "ml-auto shrink-0 text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+      "aria-label": "查看 2026.04.27 的帖子",
+      "href": "/p/note-2026-04-27-1"
+    }
+  ],
+  "allDateLinksRightLayout": true,
+  "dateLinkCount": 12,
+  "noFallback": true,
+  "articleHeadingsUnchanged": true,
+  "badgeBeforeDate": [
+    {
+      "href": "/p/note-2026-09-27-1",
+      "precedingBadgeGroup": true
+    },
+    {
+      "href": "/p/note-2026-09-20-1",
+      "precedingBadgeGroup": true
+    },
+    {
+      "href": "/p/note-2026-09-09-1",
+      "precedingBadgeGroup": true
+    },
+    {
+      "href": "/p/note-2026-09-08-1",
+      "precedingBadgeGroup": true
+    },
+    {
+      "href": "/p/note-2026-09-05-1",
+      "precedingBadgeGroup": true
+    },
+    {
+      "href": "/p/note-2026-08-24-1",
+      "precedingBadgeGroup": true
+    },
+    {
+      "href": "/p/note-2026-08-04-1",
+      "precedingBadgeGroup": true
+    },
+    {
+      "href": "/p/note-2026-07-24-1",
+      "precedingBadgeGroup": true
+    },
+    {
+      "href": "/p/note-2026-07-23-1",
+      "precedingBadgeGroup": true
+    },
+    {
+      "href": "/p/note-2026-05-24-1",
+      "precedingBadgeGroup": true
+    },
+    {
+      "href": "/p/note-2026-05-02-1",
+      "precedingBadgeGroup": true
+    },
+    {
+      "href": "/p/note-2026-04-27-1",
+      "precedingBadgeGroup": true
+    }
+  ]
+}

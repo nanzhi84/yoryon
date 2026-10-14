@@ -1,0 +1,207 @@
+{
+  "posts": [
+    {
+      "slug": "note-2026-09-27-1",
+      "noH1": true,
+      "noFallback": true,
+      "dateVisible": true,
+      "fullBody": true,
+      "homeDateLink": {
+        "class": "text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+        "aria-label": "查看 2026.09.27 的帖子",
+        "href": "/p/note-2026-09-27-1",
+        "text": "2026.09.27"
+      }
+    },
+    {
+      "slug": "note-2026-09-20-1",
+      "noH1": true,
+      "noFallback": true,
+      "dateVisible": true,
+      "fullBody": true,
+      "homeDateLink": {
+        "class": "text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+        "aria-label": "查看 2026.09.20 的帖子",
+        "href": "/p/note-2026-09-20-1",
+        "text": "2026.09.20"
+      }
+    },
+    {
+      "slug": "note-2026-09-09-1",
+      "noH1": true,
+      "noFallback": true,
+      "dateVisible": true,
+      "fullBody": true,
+      "homeDateLink": {
+        "class": "text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+        "aria-label": "查看 2026.09.09 的帖子",
+        "href": "/p/note-2026-09-09-1",
+        "text": "2026.09.09"
+      }
+    },
+    {
+      "slug": "note-2026-09-08-1",
+      "noH1": true,
+      "noFallback": true,
+      "dateVisible": true,
+      "fullBody": true,
+      "homeDateLink": {
+        "class": "text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+        "aria-label": "查看 2026.09.08 的帖子",
+        "href": "/p/note-2026-09-08-1",
+        "text": "2026.09.08"
+      }
+    },
+    {
+      "slug": "note-2026-09-05-1",
+      "noH1": true,
+      "noFallback": true,
+      "dateVisible": true,
+      "fullBody": true,
+      "homeDateLink": {
+        "class": "text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+        "aria-label": "查看 2026.09.05 的帖子",
+        "href": "/p/note-2026-09-05-1",
+        "text": "2026.09.05"
+      }
+    },
+    {
+      "slug": "note-2026-07-23-1",
+      "noH1": true,
+      "noFallback": true,
+      "dateVisible": true,
+      "fullBody": true,
+      "homeDateLink": {
+        "class": "text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+        "aria-label": "查看 2026.07.23 的帖子",
+        "href": "/p/note-2026-07-23-1",
+        "text": "2026.07.23"
+      }
+    },
+    {
+      "slug": "note-2026-08-24-1",
+      "noH1": true,
+      "noFallback": true,
+      "dateVisible": true,
+      "fullBody": true,
+      "homeDateLink": {
+        "class": "text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+        "aria-label": "查看 2026.08.24 的帖子",
+        "href": "/p/note-2026-08-24-1",
+        "text": "2026.08.24"
+      }
+    },
+    {
+      "slug": "note-2026-08-04-1",
+      "noH1": true,
+      "noFallback": true,
+      "dateVisible": true,
+      "fullBody": true,
+      "homeDateLink": {
+        "class": "text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+        "aria-label": "查看 2026.08.04 的帖子",
+        "href": "/p/note-2026-08-04-1",
+        "text": "2026.08.04"
+      }
+    },
+    {
+      "slug": "note-2026-07-24-1",
+      "noH1": true,
+      "noFallback": true,
+      "dateVisible": true,
+      "fullBody": true,
+      "homeDateLink": {
+        "class": "text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+        "aria-label": "查看 2026.07.24 的帖子",
+        "href": "/p/note-2026-07-24-1",
+        "text": "2026.07.24"
+      }
+    },
+    {
+      "slug": "note-2026-05-24-1",
+      "noH1": true,
+      "noFallback": true,
+      "dateVisible": true,
+      "fullBody": true,
+      "homeDateLink": {
+        "class": "text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+        "aria-label": "查看 2026.05.24 的帖子",
+        "href": "/p/note-2026-05-24-1",
+        "text": "2026.05.24"
+      }
+    },
+    {
+      "slug": "note-2026-05-02-1",
+      "noH1": true,
+      "noFallback": true,
+      "dateVisible": true,
+      "fullBody": true,
+      "homeDateLink": {
+        "class": "text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+        "aria-label": "查看 2026.05.02 的帖子",
+        "href": "/p/note-2026-05-02-1",
+        "text": "2026.05.02"
+      }
+    },
+    {
+      "slug": "note-2026-04-27-1",
+      "noH1": true,
+      "noFallback": true,
+      "dateVisible": true,
+      "fullBody": true,
+      "homeDateLink": {
+        "class": "text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+        "aria-label": "查看 2026.04.27 的帖子",
+        "href": "/p/note-2026-04-27-1",
+        "text": "2026.04.27"
+      }
+    },
+    {
+      "slug": "note-2026-04-24-1",
+      "noH1": true,
+      "noFallback": true,
+      "dateVisible": true,
+      "fullBody": true,
+      "homeDateLink": null
+    },
+    {
+      "slug": "note-2026-04-24-2",
+      "noH1": true,
+      "noFallback": true,
+      "dateVisible": true,
+      "fullBody": true,
+      "homeDateLink": null
+    },
+    {
+      "slug": "note-2026-04-21-1",
+      "noH1": true,
+      "noFallback": true,
+      "dateVisible": true,
+      "fullBody": true,
+      "homeDateLink": null
+    },
+    {
+      "slug": "note-2026-04-20-1",
+      "noH1": true,
+      "noFallback": true,
+      "dateVisible": true,
+      "fullBody": true,
+      "homeDateLink": null
+    }
+  ],
+  "articleH1": [
+    "先自由后财富"
+  ],
+  "homeNoFallback": true,
+  "homeH2": [
+    "先自由后财富",
+    "Jev 技术图解：从文本生成到类型化决策",
+    "深入 DeepSeek Harness：当 Agent Loop 也成为插件",
+    "从 Workflow 到 Agent：范式选择与构建模式",
+    "经济学十大原理（3）：整体经济如何运行",
+    "经济学十大原理（2）：人们如何相互影响",
+    "经济学十大原理（1）：人们如何做出决策",
+    "巴菲特：当前美国股市像是赌场"
+  ],
+  "homeExpandEntries": 5
+}

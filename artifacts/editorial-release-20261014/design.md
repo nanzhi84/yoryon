@@ -1,0 +1,1 @@
+发布范围：本会话阅读排版、Caption、可选要点卡片、背景、Markdown文档，以及删除首页订阅支持section。导航订阅链接保持可达。仅Web应用与docs，不包含本地样例、artifacts、API、数据库迁移、生产内容写入。检查本地首页→文章→继续阅读、深浅主题与文档准确，记录实际命令/提交SHA/Vercel项目环境与回滚部署；push main后按实际Git集成结果检查生产，必要时发布受控production deployment。

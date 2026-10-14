@@ -119,7 +119,7 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
       : [];
 
     const postBodies = await postFeedBodies(tx, page.filter(r => r.type === "post").map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
-    const excerpts = await articleFeedSummaries(tx, page.filter(r => r.type === "article" && !r.description.trim()).map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
+    const excerpts = await articleFeedSummaries(tx, page.filter(r => r.type === "article").map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
     const last = page[page.length - 1];
     c.header("Cache-Control", "public, max-age=0, must-revalidate");
     return c.json({
@@ -131,7 +131,8 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
         slug: r.slug,
         title: r.title,
         description: r.description,
-        excerpt: excerpts.get(r.id) ?? "",
+        excerpt: excerpts.get(r.id)?.excerpt ?? "",
+        readerLayout: excerpts.get(r.id)?.layout ?? null,
         visibility: r.visibility,
         coverMediaId: r.coverMediaId,
         publishedAt: r.publishedAt?.toISOString() ?? null,
@@ -181,7 +182,7 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
           .where(inArray(contentTags.contentId, pageIds))
       : [];
     const postBodies = await postFeedBodies(tx, page.filter(r => r.type === "post").map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
-    const excerpts = await articleFeedSummaries(tx, page.filter(r => r.type === "article" && !r.description.trim()).map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
+    const excerpts = await articleFeedSummaries(tx, page.filter(r => r.type === "article").map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
     const last = page[page.length - 1];
     c.header("Cache-Control", "public, max-age=0, must-revalidate");
     return c.json({
@@ -193,7 +194,8 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
         slug: r.slug,
         title: r.title,
         description: r.description,
-        excerpt: excerpts.get(r.id) ?? "",
+        excerpt: excerpts.get(r.id)?.excerpt ?? "",
+        readerLayout: excerpts.get(r.id)?.layout ?? null,
         visibility: r.visibility,
         coverMediaId: r.coverMediaId,
         publishedAt: r.publishedAt?.toISOString() ?? null,
@@ -330,7 +332,7 @@ function tagKeyset(cursor: { t: Date; id: string } | null, timeCol: SQL | any, i
           .where(inArray(contentTags.contentId, pageIds))
       : [];
     const postBodies = await postFeedBodies(tx, page.filter(r => r.type === "post").map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
-    const excerpts = await articleFeedSummaries(tx, page.filter(r => r.type === "article" && !r.description.trim()).map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
+    const excerpts = await articleFeedSummaries(tx, page.filter(r => r.type === "article").map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
     const last = page[page.length - 1];
     c.header("Cache-Control", "public, max-age=0, must-revalidate");
     return c.json({
@@ -343,7 +345,8 @@ function tagKeyset(cursor: { t: Date; id: string } | null, timeCol: SQL | any, i
         slug: r.slug,
         title: r.title,
         description: r.description,
-        excerpt: excerpts.get(r.id) ?? "",
+        excerpt: excerpts.get(r.id)?.excerpt ?? "",
+        readerLayout: excerpts.get(r.id)?.layout ?? null,
         visibility: r.visibility,
         coverMediaId: r.coverMediaId,
         publishedAt: r.publishedAt?.toISOString() ?? null,

@@ -1,0 +1,190 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* 品牌控件沿用 ADR-0005；阅读背景使用参考页中性色，dark 经 class 策略。 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #ffffff;
+  --canvas: #ffffff;
+  --foreground: #253947;
+  --muted: #edf5fa;
+  --muted-foreground: #607383;
+  --border: #dfeaf0;
+  --primary: #47758f;
+  --primary-foreground: #ffffff;
+  --accent: #eaf4fa;
+  --accent-foreground: #253947;
+  --surface: #f1f8fc;
+  --surface-border: #d5e7f1;
+}
+
+:root[class~="dark"] {
+  --background: #151514;
+  --canvas: #151514;
+  --foreground: #e7f1f6;
+  --muted: #22343f;
+  --muted-foreground: #a1b6c3;
+  --border: #2c404d;
+  --primary: #9cc7dd;
+  --primary-foreground: #142b38;
+  --accent: #263e4d;
+  --accent-foreground: #e7f1f6;
+  --surface: #192c38;
+  --surface-border: #365465;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-canvas: var(--canvas);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-surface: var(--surface);
+  --color-surface-border: var(--surface-border);
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Segoe UI", sans-serif;
+  --font-serif: "Iowan Old Style", "Iowan Old Style BT", "Palatino Linotype", Palatino, Georgia, "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "SimSun", serif;
+}
+
+:root {
+  --font-editorial-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif;
+  --font-editorial-mono: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
+
+/* 页面宽度稳定：始终预留滚动条槽位，避免长短页面切换时居中容器横向跳动 */
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  background: var(--canvas);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* 中文排印调优（ADR-0005 §8.3） */
+.prose-yoryon {
+  --tw-prose-body: var(--reading-fg, var(--foreground));
+  --tw-prose-headings: var(--reading-fg, var(--foreground));
+  --tw-prose-lead: var(--muted-foreground);
+  --tw-prose-links: var(--primary);
+  --tw-prose-bold: var(--reading-fg, var(--foreground));
+  --tw-prose-counters: var(--muted-foreground);
+  --tw-prose-bullets: var(--muted-foreground);
+  --tw-prose-hr: var(--border);
+  --tw-prose-quotes: var(--foreground);
+  --tw-prose-quote-borders: var(--border);
+  --tw-prose-captions: var(--muted-foreground);
+  --tw-prose-th-borders: var(--border);
+  --tw-prose-td-borders: var(--border);
+  font-family: var(--font-serif);
+  font-size: 17px;
+  line-height: 1.85;
+  font-weight: 400;
+  /* Long source URLs wrap; preformatted code retains its own scrolling area. */
+  overflow-wrap: anywhere;
+}
+.prose-yoryon :where(p):not(:where([class~="not-prose"] *)) {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+/* 书刊式阅读节奏只作用于内容，导航、付费提示与互动仍使用界面字体。 */
+.editorial-reader { max-width: 660px; margin-inline: auto; --reading-fg: #282828; --reading-muted: #6b6866; --reading-surface: #f3f3f2; --reading-code: #3d3936; color: var(--reading-fg); -webkit-font-smoothing: auto; }
+.dark .editorial-reader { --reading-fg: #e4e1da; --reading-muted: #9c978e; --reading-surface: #1f1e1c; --reading-code: #d6d2ca; }
+.editorial-title { margin-top: 28px; margin-bottom: 52px; text-align: center; }
+.editorial-title h1 { font-family: var(--font-serif); font-size: clamp(25px, 5.2vw, 31px); line-height: 1.38; font-weight: 600; text-wrap: balance; }
+.editorial-title > div { font-family: var(--font-editorial-sans); color: var(--reading-muted); }
+.editorial-entry h2, .editorial-excerpt { font-family: var(--font-serif); }
+.prose-yoryon :where(h2):not(:where([class~="not-prose"] *)) { font-size: 23px; line-height: 1.4; margin: 52px 0 18px; font-weight: 600; text-wrap: balance; }
+.prose-yoryon :where(h1):not(:where([class~="not-prose"] *)) { font-size: clamp(25px, 5.2vw, 31px); line-height: 1.38; font-weight: 600; }
+.prose-yoryon :where(h3):not(:where([class~="not-prose"] *)) { font-size: 19px; line-height: 1.4; margin: 36px 0 14px; font-weight: 600; text-wrap: balance; }
+.prose-yoryon :where(strong):not(:where([class~="not-prose"] *)) { font-weight: 650; }
+.prose-yoryon :where(a):not(:where([class~="not-prose"] *)) { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.prose-yoryon :where(blockquote):not(:where([class~="not-prose"] *)) { border-left-width: 2px; border-left-color: var(--primary); font-style: normal; font-weight: 400; }
+.prose-yoryon .editorial-caption { font-family: var(--font-editorial-sans); font-size: 13px; line-height: 1.55; font-weight: 400; font-style: normal; color: var(--reading-muted, var(--muted-foreground)); margin-top: 12px; }
+.prose-yoryon .editorial-caption :is(strong,b) { color: var(--reading-fg, var(--foreground)); font-weight: 600; }
+.prose-yoryon .editorial-caption em { font-style: normal; }
+.prose-yoryon .not-prose { font-family: var(--font-sans); }
+.prose-yoryon pre { border-radius: 4px; font-size: 13px; line-height: 1.6; }
+/* Reference keypoints: semantic ordered list retains accessible numbering. */
+.editorial-keypoints { margin: 0 0 40px; padding: 18px 20px 6px; background: #f3f3f2; border-radius: 6px; }
+.dark .editorial-keypoints { background: #1f1e1c; }
+.prose-yoryon .editorial-keypoints > :is(h2,h3,h4,h5,h6) { margin: 0 0 14px; font-family: var(--font-editorial-sans); font-size: 12px; font-weight: 400; line-height: 1.6; letter-spacing: .12em; color: var(--reading-muted, var(--muted-foreground)); }
+.prose-yoryon .editorial-keypoints > ol { list-style: none; margin: 0; padding: 0; counter-reset: keypoint; }
+.prose-yoryon .editorial-keypoints > ol > li { counter-increment: keypoint; position: relative; padding-left: 34px; margin: 0 0 16px; line-height: 1.6; }
+.editorial-keypoints > ol > li::before { content: counter(keypoint); position: absolute; left: 0; top: 2px; width: 22px; height: 22px; border-radius: 50%; background: #282828; color: #fff; font-family: var(--font-editorial-sans); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+.dark .editorial-keypoints > ol > li::before { background: #e4e1da; color: #151514; }
+.prose-yoryon .editorial-keypoints > ol > li > p { margin: 0; }
+.editorial-keypoints > ol > li > strong:first-child,
+.editorial-keypoints > ol > li > p:first-child > strong:first-child { display: block; margin-bottom: 2px; }
+.prose-yoryon .editorial-keypoints a { color: #9c2b17; font-family: var(--font-editorial-sans); font-size: 12.5px; font-weight: 400; text-decoration: none; }
+.prose-yoryon .editorial-keypoints a:hover { text-decoration: underline; }
+.dark .prose-yoryon .editorial-keypoints a { color: #e9957d; }
+@media (max-width: 640px) {
+  .editorial-reader .prose-yoryon { font-size: 16px; }
+  .editorial-title { margin-bottom: 40px; }
+  .editorial-reader .prose-yoryon :where(h2):not(:where([class~="not-prose"] *)) { font-size: 21px; margin-top: 44px; }
+}
+
+/* 信息流条内密度独立于详情排版，保持同一字号，不按设备切换布局。 */
+.prose-feed { font-size: 15px; line-height: 24px; }
+.prose-feed :where(p):not(:where([class~="not-prose"] *)) { margin-block: 8px; }
+.prose-feed :where(img):not(:where([class~="not-prose"] *)) { margin-block: 0; }
+.prose-yoryon > :first-child { margin-top: 0; }
+.prose-yoryon > :last-child { margin-bottom: 0; }
+/* Semantic inline code already conveys its boundary; no Markdown decoration. */
+.prose-yoryon :where(code)::before,
+.prose-yoryon :where(code)::after {
+  content: none;
+}
+
+/* Notion 风格行内代码；pre 内代码继续由 Typography 管理。 */
+.prose-yoryon :where(code):not(:where(pre *, [class~="not-prose"], [class~="not-prose"] *)) {
+  color: #eb5757;
+  background-color: #f3f2f1;
+  font-weight: 400;
+  border-radius: 4px;
+  padding: 0.15em 0.35em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.dark .prose-yoryon :where(code):not(:where(pre *, [class~="not-prose"], [class~="not-prose"] *)) {
+  color: #ff7b72;
+  background-color: #303030;
+}
+
+/* Both highlighted and plain code blocks follow the site's class-based theme. */
+.prose-yoryon pre {
+  color: #24292e;
+  background-color: #f6f8fa;
+}
+.dark .prose-yoryon pre {
+  color: #e1e4e8;
+  background-color: #24292e;
+}
+.prose-yoryon .syntax-highlight span {
+  color: var(--syntax-light, inherit);
+}
+.dark .prose-yoryon .syntax-highlight span {
+  color: var(--syntax-dark, inherit);
+}
+
+/* Reading code uses the reference font/metrics; UI/feed density stays separate. */
+.editorial-reader .prose-yoryon code { font-family: var(--font-editorial-mono); font-size: .86em; font-weight: 400; }
+.editorial-reader .prose-yoryon :not(pre) > code { color: var(--reading-code); background: var(--reading-surface); padding: 2px 5px; border-radius: 3px; }
+.editorial-reader .prose-yoryon pre { padding: 16px 18px; color: var(--reading-code); background: var(--reading-surface); tab-size: 4; }
+.editorial-reader .prose-yoryon pre code { font-size: 13px; line-height: 1.6; white-space: pre; }
+@media (max-width: 640px) {
+  .editorial-reader .prose-yoryon pre { padding: 14px; margin-inline: -8px; }
+  .editorial-reader .prose-yoryon pre code { font-size: 12px; }
+}
+
+::highlight(search-hit) { background-color: #fde047; color: #18181b; }
+/* Literal search preserves source whitespace as visible text, including soft breaks. */
+[data-search-body] [data-search-node] { white-space: pre-wrap; }
+[data-search-body] pre [data-search-node] { white-space: inherit; }

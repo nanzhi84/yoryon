@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { ContentDetail } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { SiteHeader } from "@/components/site-header";
-import { formatDate } from "@/components/feed-timeline";
+import { formatDate } from "@/lib/date";
 import { DetailTracker } from "@/components/analytics";
 import { ContentBody } from "./content-body";
 import { PrivateReader } from "./private-reader";

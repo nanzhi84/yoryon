@@ -7,7 +7,7 @@ import { imageMiddleware } from "./lib/image-middleware";
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
   if (path.startsWith("/api/images/")) return imageMiddleware(request);
-  const match = /^\/p\/([a-z0-9][a-z0-9-]*)$/.exec(path) ?? /^\/render\/([a-f0-9-]{36})\/([a-z0-9][a-z0-9-]*)$/.exec(path);
+  const match = /^\/render\/([a-f0-9-]{36})\/([a-z0-9][a-z0-9-]*)$/.exec(path);
   const privateHeaders = { "Cache-Control": "private, no-store" };
   if (path.startsWith("/api/pages/")) {
     const version = path.split("/")[3];
@@ -20,7 +20,7 @@ export async function middleware(request: NextRequest) {
     } catch { return NextResponse.json({ error: "policy_unavailable" }, { status: 503, headers: privateHeaders }); }
   }
   if (!match) return new NextResponse("Not found", { status: 404, headers: privateHeaders });
-  const slug = match[2] ?? match[1]!;
+  const slug = match[2]!;
   try {
     const response = await fetch(`${process.env.API_INTERNAL_URL}/api/public/policy/${slug}`, { cache: "no-store", redirect: "error", signal: AbortSignal.timeout(3000) });
     if (response.status === 404) return new NextResponse("404 内容不存在", { status: 404, headers: privateHeaders });
@@ -28,13 +28,10 @@ export async function middleware(request: NextRequest) {
     const data = await response.json() as { revision: string };
     if (!/^[a-f0-9-]{36}$/.test(data.revision)) throw new Error("invalid policy");
     // 直达旧内部缓存 key 同样不能绕过门禁。
-    if (match[2] && match[1] !== data.revision) return new NextResponse("404 内容版本已撤销", { status: 404, headers: privateHeaders });
-    if (match[2]) return NextResponse.next();
-    const target = request.nextUrl.clone();
-    target.pathname = `/render/${data.revision}/${slug}`;
-    return NextResponse.rewrite(target);
+    if (match[1] !== data.revision) return new NextResponse("404 内容版本已撤销", { status: 404, headers: privateHeaders });
+    return NextResponse.next();
   } catch {
     return new NextResponse("内容暂时无法验证，请稍后重试。", { status: 503, headers: privateHeaders });
   }
 }
-export const config = { matcher: ["/p/:path*", "/render/:path*", "/api/pages/:path*", "/api/images/:path*"] };
+export const config = { matcher: ["/render/:path*", "/api/pages/:path*", "/api/images/:path*"] };

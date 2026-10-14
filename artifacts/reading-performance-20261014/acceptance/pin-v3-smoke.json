@@ -1,0 +1,71 @@
+{
+  "initialCount": 20,
+  "initialVersion": "23f73e92-1a8e-4901-bd6e-8f2e5329cb07",
+  "expandedPostFinalParagraphPresent": true,
+  "expandedPostContentRequests": [],
+  "secondPageCount": 40,
+  "uniqueSlugs": 40,
+  "slugs": [
+    "/p/acceptance-media-public-post",
+    "/p/acceptance-large-public-post",
+    "/p/freedom-before-wealth",
+    "/p/note-2026-09-27-1",
+    "/p/note-2026-09-20-1",
+    "/p/jev-typed-decisions",
+    "/p/note-2026-09-09-1",
+    "/p/note-2026-09-08-1",
+    "/p/note-2026-09-05-1",
+    "/p/note-2026-08-24-1",
+    "/p/deepseek-harness",
+    "/p/workflow-to-agent-patterns",
+    "/p/note-2026-08-04-1",
+    "/p/note-2026-07-24-1",
+    "/p/note-2026-07-23-1",
+    "/p/note-2026-05-24-1",
+    "/p/economics-principles-overall",
+    "/p/economics-principles-interaction",
+    "/p/economics-principles-decision",
+    "/p/note-2026-05-02-1",
+    "/p/buffett-casino-church",
+    "/p/note-2026-04-27-1",
+    "/p/note-2026-04-24-2",
+    "/p/note-2026-04-24-1",
+    "/p/note-2026-04-21-1",
+    "/p/note-2026-04-20-1",
+    "/p/meritocracy-and-pain",
+    "/p/acceptance-archive-2026-09-27-1",
+    "/p/acceptance-archive-2026-04-27-1",
+    "/p/acceptance-archive-2026-07-24-1",
+    "/p/acceptance-archive-2026-04-21-1",
+    "/p/acceptance-archive-2026-08-24-1",
+    "/p/acceptance-archive-2026-09-20-1",
+    "/p/acceptance-archive-2026-04-24-1",
+    "/p/acceptance-archive-2026-04-24-2",
+    "/p/acceptance-archive-2026-08-04-1",
+    "/p/acceptance-archive-2026-05-24-1",
+    "/p/acceptance-archive-2026-09-05-1",
+    "/p/acceptance-archive-2026-07-23-1",
+    "/p/acceptance-archive-2026-05-02-1"
+  ],
+  "network": [
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/api/pages/23f73e92-1a8e-4901-bd6e-8f2e5329cb07/feed/eyJwIjpmYWxzZSwidCI6IjIwMjYtMDUtMDJUMDA6MDA6MDAuMDAwWiIsImlkIjoiMmM5ODVjMWQtN2E0Yy00NjNjLTgyZmItNDUyZWQ5Zjg0ZWYwIn0"
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/api/pages/23f73e92-1a8e-4901-bd6e-8f2e5329cb07/feed/eyJwIjpmYWxzZSwidCI6IjIwMjYtMDUtMDJUMDA6MDA6MDAuMDAwWiIsImlkIjoiMmM5ODVjMWQtN2E0Yy00NjNjLTgyZmItNDUyZWQ5Zjg0ZWYwIn0",
+      "status": 200
+    },
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/api/content-interactions?ids=abb00fa2-f144-4015-8920-308629434b6d,77379655-c5b1-4fed-a3e8-83fae51be716,ab77f7a8-cbd7-4d37-9b4b-9c806eb22ef1,6004b3d3-b810-42ee-bb12-f05f9d4ff9b2,4b0e5dfd-2527-4cbf-aab1-75291807cd82,8f707e09-5b1d-4133-b238-3f281ef242a4,6c820099-8361-48ed-83c1-0a3a10480023,f22f808e-4e76-446f-9068-db6dca29c885,b500de17-89ee-4013-a440-303f8230c80f,b21289a7-aee2-4712-b838-213de58fc90c,a2ad9b7d-a531-4eb6-87c9-cad3f2b7c14e,9e4617c7-161d-48ac-a731-88f9661f287f,8f331cd5-e421-4921-8390-1e1ec21bc73a,8332e515-e23f-4fc8-8c7f-06f65fc54db0,72a803d5-2943-4532-956c-e4e8c200ac78,68b9a1a1-0218-4f88-a7ca-def9d50ed6e2,4f6e0da0-e90e-4976-b294-ed7dd5dacd3a,4f526d21-25b8-4e80-bd43-edd4ff0fce03,4033f46b-025f-47ac-aaed-c710a09447fd,3ffb877f-9a94-4ff3-9881-547f4f0620bc"
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/api/content-interactions?ids=abb00fa2-f144-4015-8920-308629434b6d,77379655-c5b1-4fed-a3e8-83fae51be716,ab77f7a8-cbd7-4d37-9b4b-9c806eb22ef1,6004b3d3-b810-42ee-bb12-f05f9d4ff9b2,4b0e5dfd-2527-4cbf-aab1-75291807cd82,8f707e09-5b1d-4133-b238-3f281ef242a4,6c820099-8361-48ed-83c1-0a3a10480023,f22f808e-4e76-446f-9068-db6dca29c885,b500de17-89ee-4013-a440-303f8230c80f,b21289a7-aee2-4712-b838-213de58fc90c,a2ad9b7d-a531-4eb6-87c9-cad3f2b7c14e,9e4617c7-161d-48ac-a731-88f9661f287f,8f331cd5-e421-4921-8390-1e1ec21bc73a,8332e515-e23f-4fc8-8c7f-06f65fc54db0,72a803d5-2943-4532-956c-e4e8c200ac78,68b9a1a1-0218-4f88-a7ca-def9d50ed6e2,4f6e0da0-e90e-4976-b294-ed7dd5dacd3a,4f526d21-25b8-4e80-bd43-edd4ff0fce03,4033f46b-025f-47ac-aaed-c710a09447fd,3ffb877f-9a94-4ff3-9881-547f4f0620bc",
+      "status": 200
+    }
+  ],
+  "domTail": " - /url: /p/acceptance-archive-2026-09-05-1\n      - time: 2026.03.01\n    - paragraph:\n      - text: 感觉自己是个很嫉妒的人，看不得别人好，尤其是拥有了我曾感觉可以拥有却未能拥有的东西。\n      - text: 我总是在得到优势的时候渴望与别人比较，得到优越感；在失去优势的时候，难受、逃避、退出比赛，并且把这个东西说成一个不稀罕的东西。\n      - text: 可是每次看到别人变成了我以前想成为的闪闪发光的样子，我依然不甘、依然痛苦，即使和朋友聊起的时候假装大度，但是心里却依旧是如此的嫉妒很不爽。\n      - text: 我还把这种痛苦的缘由推给一切影响我的东西。\n      - text: 我不懂。\n      - text: 一直这样。\n    - generic \"内容互动\":\n      - link \"评论，0条\":\n        - /url: /p/acceptance-archive-2026-09-05-1#comments\n        - generic: 评论\n      - button \"点赞，0个赞\":\n        - generic: 点赞\n      - button \"转发，复制链接\":\n        - generic: 转发\n    - status\n  - article:\n    - link \"查看 2026.03.01 的帖子\":\n      - /url: /p/acceptance-archive-2026-07-23-1\n      - time: 2026.03.01\n    - paragraph: 今天和爸妈聊天时，我更清楚地感受到一种很典型的“东亚父母式”观念差异。\n    - paragraph: 我爸的想法大致是：\n    - list:\n      - listitem: 以后好好工作；\n      - listitem: 找个伴侣；\n      - listitem: 生个孩子；\n      - listitem: 把家庭养活。\n    - paragraph: 而我的顾虑是：\n    - list:\n      - listitem: 如果自己还没有能力提供相对好的条件，就不想轻易生孩子；\n      - listitem: 我担心孩子在条件不足的情况下会跟着受苦，所以我更倾向于“先具备能力，再考虑生育”。\n    - paragraph: 但爸妈并不认同这种顺序。他们更相信：\n    - button \"展开\"\n    - generic \"内容互动\":\n      - link \"评论，0条\":\n        - /url: /p/acceptance-archive-2026-07-23-1#comments\n        - generic: 评论\n      - button \"点赞，0个赞\":\n        - generic: 点赞\n      - button \"转发，复制链接\":\n        - generic: 转发\n    - status\n  - article:\n    - link \"查看 2026.03.01 的帖子\":\n      - /url: /p/acceptance-archive-2026-05-02-1\n      - time: 2026.03.01\n    - paragraph: 做决定的时候永远后悔，不做决定的时候更后悔\n    - paragraph: 这他妈就是人生吧。\n    - generic \"内容互动\":\n      - link \"评论，0条\":\n        - /url: /p/acceptance-archive-2026-05-02-1#comments\n        - generic: 评论\n      - button \"点赞，0个赞\":\n        - generic: 点赞\n      - button \"转发，复制链接\":\n        - generic: 转发\n    - status\n  - status: 继续向下浏览\n- alert"
+}

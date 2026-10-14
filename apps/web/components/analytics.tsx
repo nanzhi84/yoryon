@@ -114,7 +114,9 @@ export function TrackClickLink({
   children,
   "aria-label": ariaLabel,
   native = false,
-}: TrackableProps & { href: string; className?: string; "aria-label"?: string; native?: boolean }) {
+  prefetchShell = false,
+  onNavigate,
+}: TrackableProps & { href: string; className?: string; "aria-label"?: string; native?: boolean; prefetchShell?: boolean; onNavigate?: () => void }) {
   const ctx = useContext(AnalyticsListContext);
   const send = () => {
     if (!ctx) return;
@@ -123,8 +125,10 @@ export function TrackClickLink({
   const props = { href, className, "aria-label": ariaLabel, onClick: send,
     // 鼠标中键是主动入口，右键不计；原生锚点导航沿用相同指标口径。
     onAuxClick: (event: MouseEvent<HTMLAnchorElement>) => { if (event.button === 1) send(); } };
-  // Next 客户端首次跨 revision rewrite 导航会丢失 fragment；评论用完整文档导航保留锚点。
-  return native ? <a {...props}>{children}</a> : <Link prefetch={false} {...props}>{children}</Link>;
+  // Automatic prefetch stops at loading.tsx: cache the empty reader shell,
+  // never fully prefetch a permission-sensitive article body.
+  return native ? <a {...props}>{children}</a> :
+    <Link prefetch={prefetchShell ? null : false} {...(onNavigate ? { onNavigate } : {})} {...props}>{children}</Link>;
 }
 
 export function DetailTracker({ targetKind, targetId }: { targetKind: AnalyticsTargetKind; targetId: string }) {

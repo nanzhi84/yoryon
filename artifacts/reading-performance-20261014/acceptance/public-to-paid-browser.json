@@ -1,0 +1,78 @@
+{
+  "warm": [
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.182"
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.182",
+      "status": 200,
+      "fromDiskCache": true,
+      "cacheControl": "s-maxage=86400, stale-while-revalidate=31449600"
+    },
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.183"
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.183",
+      "status": 200,
+      "fromDiskCache": false,
+      "cacheControl": "s-maxage=86400, stale-while-revalidate=31449600"
+    }
+  ],
+  "states": "[{\"time\":202974.59999990463,\"hasTail\":false,\"text\":\"会、技术进步都存在可以学习的规律。一个人如果沿用过去的认知，就容易被时代变化淘汰。尤其在 AI 时代，应持续吸收新知识，调整已有的世界观。参考《财富自由革本内容为订阅专享，以上为免费预览。标准订阅 ¥29.9/月：解锁站内全部付费内容，到期自动恢复锁定。兑换订阅激活码评论登录 后参与评论评论加载中…\"},{\"time\":202988.59999990463,\"hasTail\":false,\"text\":\"会、技术进步都存在可以学习的规律。一个人如果沿用过去的认知，就容易被时代变化淘汰。尤其在 AI 时代，应持续吸收新知识，调整已有的世界观。参考《财富自由革本内容为订阅专享，以上为免费预览。标准订阅 ¥29.9/月：解锁站内全部付费内容，到期自动恢复锁定。兑换订阅激活码评论登录 后参与评论还没有评论。\"}]",
+  "network": [
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.184"
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.184",
+      "status": 200,
+      "fromDiskCache": true,
+      "cacheControl": "s-maxage=86400, stale-while-revalidate=31449600"
+    },
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.185"
+    },
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.187"
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.185",
+      "status": 200,
+      "fromDiskCache": false,
+      "cacheControl": "s-maxage=86400, stale-while-revalidate=31449600"
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.187",
+      "status": 200,
+      "fromDiskCache": false,
+      "cacheControl": "s-maxage=86400, stale-while-revalidate=31449600"
+    },
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.195"
+    }
+  ],
+  "dom": "- banner:\n  - link \"Yoryon\":\n    - /url: /\n    - generic: Yoryon\n  - link \"全站搜索\":\n    - /url: /search\n  - link \"通知\":\n    - /url: /notifications\n  - button \"账户菜单\":\n  - navigation \"主导航\":\n    - link \"首页\":\n      - /url: /\n    - link \"订阅\":\n      - /url: /subscription\n      - text: 订阅\n    - button \"探索\":\n      - text: 探索\n- main:\n  - button \"返回上一页\":\n    - text: 返回\n  - heading \"先自由后财富\" [level=1]\n  - time: 2026.10.09\n  - generic: 付费\n  - paragraph: 正在核验阅读权限…\n  - paragraph: 今天看了孙宇晨、邵艾伦的博客访谈。\n  - paragraph: 难绷的是孙割讲话还是很有喜感，一直在那傻乐呵，一直输出观点。每次都是Alan被迫说：“我还想要继续往下推”去推进度。\n  - paragraph: 全程孙割对于薄肌反复提及反复强调，乐此不疲。\n  - paragraph:\n    - text: 信息密度比较低，但有些观点还是让我耳目一新\n    - strong: 。\n  - paragraph: 我总结了几个我觉得有启发的观点：\n  - heading \"AI 化：让 AI 参与个人生活和工作中的整个决策过程\" [level=2]:\n    - strong: AI 化：让 AI 参与个人生活和工作中的整个决策过程\n  - paragraph: 对于普通年轻人，从选择一个负担得起的 AI 工具开始，逐步将个人的学习经历、工作进展、生活习惯、健康状况和重要决策数字化，持续积累两至四个月的数据。在此基础上，让 AI 分析自己的现实处境、能力优势、职业方向及潜在机会。\n  - paragraph: 面对复杂问题，可以同时咨询多个模型，比较不同方案的依据和差异，再结合自身判断作出决策。\n  - paragraph:\n    - strong: AI 应当逐渐成为个人的持续协作系统，参与信息整理、决策分析、行动执行和结果复盘，形成不断积累、持续改进的工作流。\n  - heading \"孙学、薄肌、黄毛理论：升级认知、身体和心态\" [level=2]:\n    - strong: 孙学、薄肌、黄毛理论：升级认知、身体和心态\n  - paragraph:\n    - strong: 孙学\n    - text: 的核心是重新理解金钱、财富自由、个人发展和社会运行规则。财富分配、职业机会、技术进步都存在可以学习的规律。一个人如果沿用过去的认知，就容易被时代变化淘汰。尤其在 AI 时代，应持续吸收新知识，调整已有的世界观。参考《财富自由革\n  - paragraph: 本内容为订阅专享，以上为免费预览。\n  - paragraph: 标准订阅 ¥29.9/月：解锁站内全部付费内容，到期自动恢复锁定。\n  - link \"兑换订阅激活码\":\n    - /url: /redeem\n  - region \"评论区\":\n    - heading \"评论\" [level=2]\n    - paragraph:\n      - link \"登录\":\n        - /url: /login?returnTo=%2Fp%2Ffreedom-before-wealth\n      - text: 后参与评论\n    - paragraph: 评论加载中…\n- alert: 先自由后财富 · Yoryon"
+}

@@ -1,0 +1,90 @@
+[
+  {
+    "method": "Network.requestWillBeSent",
+    "requestId": "68529.64",
+    "headers": {
+      "next-router-state-tree": "%5B%22%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2Cnull%2Cnull%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
+      "next-url": "/",
+      "rsc": "1"
+    }
+  },
+  {
+    "method": "Network.responseReceived",
+    "requestId": "68529.64",
+    "responseFromDisk": true,
+    "responseFromServiceWorker": false,
+    "responseStatus": 200,
+    "headers": {
+      "cache-control": "s-maxage=86400, stale-while-revalidate=31449600",
+      "content-type": "text/x-component",
+      "x-middleware-rewrite": "http://localhost:3117/render/8feec0e6-dd5b-4713-940f-92f9adcb1624/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "x-nextjs-cache": "MISS"
+    }
+  },
+  {
+    "method": "Network.requestWillBeSent",
+    "requestId": "68529.65",
+    "headers": {
+      "next-router-state-tree": "%5B%22%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2Cnull%2Cnull%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
+      "next-url": "/",
+      "rsc": "1"
+    }
+  },
+  {
+    "method": "Network.requestWillBeSent",
+    "requestId": "68529.67",
+    "headers": {
+      "next-router-state-tree": "%5B%22%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2Cnull%2Cnull%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
+      "next-url": "/",
+      "rsc": "1"
+    }
+  },
+  {
+    "method": "Network.responseReceived",
+    "requestId": "68529.65",
+    "responseFromDisk": false,
+    "responseFromServiceWorker": false,
+    "responseStatus": 200,
+    "headers": {
+      "cache-control": "s-maxage=86400, stale-while-revalidate=31449600",
+      "content-type": "text/x-component",
+      "x-middleware-rewrite": "http://localhost:3117/render/8feec0e6-dd5b-4713-940f-92f9adcb1624/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "x-nextjs-cache": "HIT"
+    }
+  },
+  {
+    "method": "Network.responseReceived",
+    "requestId": "68529.67",
+    "responseFromDisk": false,
+    "responseFromServiceWorker": false,
+    "responseStatus": 200,
+    "headers": {
+      "cache-control": "s-maxage=86400, stale-while-revalidate=31449600",
+      "content-type": "text/x-component",
+      "x-middleware-rewrite": "http://localhost:3117/render/8feec0e6-dd5b-4713-940f-92f9adcb1624/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "x-nextjs-cache": "HIT"
+    }
+  },
+  {
+    "method": "Network.requestWillBeSent",
+    "requestId": "68529.68",
+    "headers": {
+      "next-router-state-tree": "%5B%22%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%2Cnull%2Cnull%5D%7D%2Cnull%2Cnull%2Ctrue%5D",
+      "next-url": "/",
+      "rsc": "1"
+    }
+  },
+  {
+    "method": "Network.responseReceived",
+    "requestId": "68529.68",
+    "responseFromDisk": false,
+    "responseFromServiceWorker": false,
+    "responseStatus": 200,
+    "headers": {
+      "cache-control": "s-maxage=86400, stale-while-revalidate=31449600",
+      "content-type": "text/x-component",
+      "x-middleware-rewrite": "http://localhost:3117/render/8feec0e6-dd5b-4713-940f-92f9adcb1624/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "x-nextjs-cache": "HIT"
+    }
+  }
+]

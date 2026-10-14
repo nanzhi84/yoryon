@@ -1,0 +1,172 @@
+[
+  {
+    "path": "/_next/static/css/3a558031dc675160.css",
+    "ms": 570,
+    "bytes": 49643,
+    "headers": {
+      "Cache-Control": "public,max-age=31536000,immutable",
+      "Content-Type": "text/css; charset=utf-8",
+      "X-Vercel-Cache": "MISS"
+    }
+  },
+  {
+    "path": "/_next/static/chunks/9a3bc300-950ee7dcbe7bc484.js",
+    "ms": 765,
+    "bytes": 173019,
+    "headers": {
+      "Cache-Control": "public,max-age=31536000,immutable",
+      "Content-Type": "application/javascript; charset=utf-8",
+      "X-Vercel-Cache": "MISS"
+    }
+  },
+  {
+    "path": "/_next/static/chunks/692-600b1c81e7ca23c5.js",
+    "ms": 626,
+    "bytes": 173930,
+    "headers": {
+      "Cache-Control": "public,max-age=31536000,immutable",
+      "Content-Type": "application/javascript; charset=utf-8",
+      "X-Vercel-Cache": "MISS"
+    }
+  },
+  {
+    "path": "/_next/static/chunks/main-app-889ff42ac68ab9c2.js",
+    "ms": 470,
+    "bytes": 555,
+    "headers": {
+      "Cache-Control": "public,max-age=31536000,immutable",
+      "Content-Type": "application/javascript; charset=utf-8",
+      "X-Vercel-Cache": "MISS"
+    }
+  },
+  {
+    "path": "/_next/static/chunks/app/layout-6f9aa549cfcc807a.js",
+    "ms": 494,
+    "bytes": 3044,
+    "headers": {
+      "Cache-Control": "public,max-age=31536000,immutable",
+      "Content-Type": "application/javascript; charset=utf-8",
+      "X-Vercel-Cache": "MISS"
+    }
+  },
+  {
+    "path": "/_next/static/chunks/214-1d56f241bb2ac2f1.js",
+    "ms": 507,
+    "bytes": 31690,
+    "headers": {
+      "Cache-Control": "public,max-age=31536000,immutable",
+      "Content-Type": "application/javascript; charset=utf-8",
+      "X-Vercel-Cache": "MISS"
+    }
+  },
+  {
+    "path": "/_next/static/chunks/app/error-418b9f3f39f50a7c.js",
+    "ms": 457,
+    "bytes": 1761,
+    "headers": {
+      "Cache-Control": "public,max-age=31536000,immutable",
+      "Content-Type": "application/javascript; charset=utf-8",
+      "X-Vercel-Cache": "MISS"
+    }
+  },
+  {
+    "path": "/_next/static/chunks/128-bbe0a52d4ccddf65.js",
+    "ms": 641,
+    "bytes": 107492,
+    "headers": {
+      "Cache-Control": "public,max-age=31536000,immutable",
+      "Content-Type": "application/javascript; charset=utf-8",
+      "X-Vercel-Cache": "MISS"
+    }
+  },
+  {
+    "path": "/_next/static/chunks/480-b93139bfd20ff791.js",
+    "ms": 732,
+    "bytes": 149384,
+    "headers": {
+      "Cache-Control": "public,max-age=31536000,immutable",
+      "Content-Type": "application/javascript; charset=utf-8",
+      "X-Vercel-Cache": "MISS"
+    }
+  },
+  {
+    "path": "/_next/static/chunks/955-7471b5a4c5574b53.js",
+    "ms": 488,
+    "bytes": 10212,
+    "headers": {
+      "Cache-Control": "public,max-age=31536000,immutable",
+      "Content-Type": "application/javascript; charset=utf-8",
+      "X-Vercel-Cache": "MISS"
+    }
+  },
+  {
+    "path": "/_next/static/chunks/877-c60628c94b972ba4.js",
+    "ms": 245,
+    "bytes": 29935,
+    "headers": {
+      "Cache-Control": "public,max-age=31536000,immutable",
+      "Content-Type": "application/javascript; charset=utf-8",
+      "X-Vercel-Cache": "HIT"
+    }
+  },
+  {
+    "path": "/_next/static/chunks/app/page-2b066f7c408bbb40.js",
+    "ms": 471,
+    "bytes": 6011,
+    "headers": {
+      "Cache-Control": "public,max-age=31536000,immutable",
+      "Content-Type": "application/javascript; charset=utf-8",
+      "X-Vercel-Cache": "MISS"
+    }
+  },
+  {
+    "path": "/_next/static/chunks/app/not-found-ef266f4552dcafa0.js",
+    "ms": 449,
+    "bytes": 230,
+    "headers": {
+      "Cache-Control": "public,max-age=31536000,immutable",
+      "Content-Type": "application/javascript; charset=utf-8",
+      "X-Vercel-Cache": "MISS"
+    }
+  },
+  {
+    "path": "/_next/static/chunks/polyfills-42372ed130431b0a.js",
+    "ms": 606,
+    "bytes": 112594,
+    "headers": {
+      "Cache-Control": "public,max-age=31536000,immutable",
+      "Content-Type": "application/javascript; charset=utf-8",
+      "X-Vercel-Cache": "MISS"
+    }
+  },
+  {
+    "path": "/_next/static/chunks/webpack-e15230c218e0a788.js",
+    "ms": 197,
+    "bytes": 5261,
+    "headers": {
+      "Cache-Control": "public,max-age=31536000,immutable",
+      "Content-Type": "application/javascript; charset=utf-8",
+      "X-Vercel-Cache": "HIT"
+    }
+  },
+  {
+    "path": "/api/contents/note-2026-09-27-1",
+    "ms": 333,
+    "bytes": 982,
+    "headers": {
+      "Cache-Control": "private, no-store",
+      "Content-Type": "application/json",
+      "X-Vercel-Cache": "MISS"
+    }
+  },
+  {
+    "path": "/p/freedom-before-wealth",
+    "ms": 331,
+    "bytes": 47343,
+    "headers": {
+      "Cache-Control": "public, max-age=0, must-revalidate",
+      "Content-Type": "text/html; charset=utf-8",
+      "X-Vercel-Cache": "HIT"
+    }
+  }
+]

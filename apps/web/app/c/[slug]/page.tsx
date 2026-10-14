@@ -6,7 +6,7 @@ import { apiFetch } from "@/lib/api";
 import type { CollectionDetail } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { SiteHeader } from "@/components/site-header";
-import { formatDate } from "@/components/feed-timeline";
+import { formatDate } from "@/lib/date";
 import { DetailTracker } from "@/components/analytics";
 
 export const dynamic = "force-dynamic";

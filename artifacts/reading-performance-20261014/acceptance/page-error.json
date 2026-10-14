@@ -1,0 +1,26 @@
+{
+  "dom": "年积累的“优秀”，在市场里根本不能直接兑换\n      - text: 学校奖励的是完成任务，市场奖励的是解决问题。\n    - generic \"内容互动\":\n      - link \"评论，0条\":\n        - /url: /p/note-2026-05-24-1#comments\n        - generic: 评论\n      - button \"点赞，0个赞\":\n        - generic: 点赞\n      - button \"转发，复制链接\":\n        - generic: 转发\n    - status\n  - article:\n    - link \"经济学十大原理（3）：整体经济如何运行\":\n      - /url: /p/economics-principles-overall\n      - heading \"经济学十大原理（3）：整体经济如何运行\" [level=2]\n    - time: 2026.05.10\n    - paragraph: 整体经济三原理：生产率定生活水平，过多货币推高物价，短期通胀与失业权衡。\n    - link \"经济学十大原理（3）：整体经济如何运行\":\n      - /url: /p/economics-principles-overall\n      - img \"经济学十大原理（3）：整体经济如何运行\"\n    - generic \"内容互动\":\n      - link \"评论，0条\":\n        - /url: /p/economics-principles-overall#comments\n        - generic: 评论\n      - button \"点赞，0个赞\":\n        - generic: 点赞\n      - button \"转发，复制链接\":\n        - generic: 转发\n    - status\n  - article:\n    - link \"经济学十大原理（2）：人们如何相互影响\":\n      - /url: /p/economics-principles-interaction\n      - heading \"经济学十大原理（2）：人们如何相互影响\" [level=2]\n    - time: 2026.05.09\n    - paragraph: 贸易、市场与政府：比较优势扩大蛋糕，价格协调，失灵时谨慎介入。\n    - link \"经济学十大原理（2）：人们如何相互影响\":\n      - /url: /p/economics-principles-interaction\n      - img \"经济学十大原理（2）：人们如何相互影响\"\n    - generic \"内容互动\":\n      - link \"评论，0条\":\n        - /url: /p/economics-principles-interaction#comments\n        - generic: 评论\n      - button \"点赞，0个赞\":\n        - generic: 点赞\n      - button \"转发，复制链接\":\n        - generic: 转发\n    - status\n  - article:\n    - link \"经济学十大原理（1）：人们如何做出决策\":\n      - /url: /p/economics-principles-decision\n      - heading \"经济学十大原理（1）：人们如何做出决策\" [level=2]\n    - time: 2026.05.08\n    - paragraph: 决策四原理：权衡、机会成本、边际量与激励反应。\n    - link \"经济学十大原理（1）：人们如何做出决策\":\n      - /url: /p/economics-principles-decision\n      - img \"经济学十大原理（1）：人们如何做出决策\"\n    - generic \"内容互动\":\n      - link \"评论，0条\":\n        - /url: /p/economics-principles-decision#comments\n        - generic: 评论\n      - button \"点赞，0个赞\":\n        - generic: 点赞\n      - button \"转发，复制链接\":\n        - generic: 转发\n    - status\n  - article:\n    - link \"查看 2026.05.02 的帖子\":\n      - /url: /p/note-2026-05-02-1\n      - time: 2026.05.02\n    - paragraph: 做决定的时候永远后悔，不做决定的时候更后悔\n    - paragraph: 这他妈就是人生吧。\n    - generic \"内容互动\":\n      - link \"评论，0条\":\n        - /url: /p/note-2026-05-02-1#comments\n        - generic: 评论\n      - button \"点赞，0个赞\":\n        - generic: 点赞\n      - button \"转发，复制链接\":\n        - generic: 转发\n    - status\n  - alert: 加载失败，请重试。\n  - button \"重试\"\n- alert",
+  "events": [
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/api/analytics/events"
+    },
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/api/images/v1/4e02d680-8a6f-4c91-bd68-fd5cb2e21f08/320"
+    },
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/api/pages/53b3152b-7c17-4dc8-b691-92670c593d4a/feed/eyJwIjpmYWxzZSwidCI6IjIwMjYtMDUtMDJUMDA6MDA6MDAuMDAwWiIsImlkIjoiMmM5ODVjMWQtN2E0Yy00NjNjLTgyZmItNDUyZWQ5Zjg0ZWYwIn0"
+    },
+    {
+      "method": "Network.loadingFailed",
+      "error": "",
+      "blockedReason": "inspector"
+    },
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/api/analytics/events"
+    }
+  ]
+}

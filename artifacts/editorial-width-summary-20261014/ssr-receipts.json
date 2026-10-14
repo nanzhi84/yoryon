@@ -1,0 +1,98 @@
+[
+  {
+    "path": "/",
+    "shell708": true,
+    "cardCount": 0,
+    "cardBlocks": [],
+    "headerDescription": false,
+    "remainingNarrow": []
+  },
+  {
+    "path": "/p/editorial-reference",
+    "shell708": true,
+    "cardCount": 1,
+    "cardBlocks": [
+      [
+        "ol"
+      ]
+    ],
+    "headerDescription": false,
+    "remainingNarrow": []
+  },
+  {
+    "path": "/p/editorial-essay",
+    "shell708": true,
+    "cardCount": 1,
+    "cardBlocks": [
+      [
+        "ol"
+      ]
+    ],
+    "headerDescription": false,
+    "remainingNarrow": []
+  },
+  {
+    "path": "/p/hello-world",
+    "shell708": true,
+    "cardCount": 0,
+    "cardBlocks": [],
+    "headerDescription": false,
+    "remainingNarrow": []
+  },
+  {
+    "path": "/p/demo-ep1",
+    "shell708": true,
+    "cardCount": 0,
+    "cardBlocks": [],
+    "headerDescription": false,
+    "remainingNarrow": []
+  },
+  {
+    "path": "/search",
+    "shell708": true,
+    "cardCount": 0,
+    "cardBlocks": [],
+    "headerDescription": false,
+    "remainingNarrow": []
+  },
+  {
+    "path": "/subscription",
+    "shell708": true,
+    "cardCount": 0,
+    "cardBlocks": [],
+    "headerDescription": false,
+    "remainingNarrow": []
+  },
+  {
+    "path": "/login",
+    "shell708": true,
+    "cardCount": 0,
+    "cardBlocks": [],
+    "headerDescription": false,
+    "remainingNarrow": []
+  },
+  {
+    "path": "/register",
+    "shell708": true,
+    "cardCount": 0,
+    "cardBlocks": [],
+    "headerDescription": false,
+    "remainingNarrow": []
+  },
+  {
+    "path": "/reset-password",
+    "shell708": true,
+    "cardCount": 0,
+    "cardBlocks": [],
+    "headerDescription": false,
+    "remainingNarrow": []
+  },
+  {
+    "path": "/notifications",
+    "shell708": true,
+    "cardCount": 0,
+    "cardBlocks": [],
+    "headerDescription": false,
+    "remainingNarrow": []
+  }
+]

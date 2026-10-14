@@ -1,0 +1,112 @@
+{
+  "workingDirectory": "/Users/yoryon/Projects/yoryon",
+  "temporaryRoot": "/var/folders/d_/8w6ff22d7gn6r0vr84g21d5r0000gn/T/yoryon-reading-performance-3yn107nu",
+  "envFile": "/var/folders/d_/8w6ff22d7gn6r0vr84g21d5r0000gn/T/yoryon-reading-performance-3yn107nu/acceptance.env",
+  "database": "yoryon_reading_performance_20261014",
+  "api": "http://127.0.0.1:4117",
+  "web": "http://localhost:3117",
+  "storage": "/var/folders/d_/8w6ff22d7gn6r0vr84g21d5r0000gn/T/yoryon-reading-performance-3yn107nu/storage",
+  "smtp": "localhost:11025 (Mailpit only)",
+  "inputs": {
+    "note-2026-08-04-1": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/dated-posts-20261014/posts/note-2026-08-04-1",
+      "sourceSha256": "ad8e45d5f761a3ffd7cbf9af70ff8f89e980fc86e83b116cb4875d482f4ee26c"
+    },
+    "note-2026-04-21-1": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/post-linebreak-correction-20261014/posts/note-2026-04-21-1",
+      "sourceSha256": "470ed0da8d25ccc5241da58e1109373f2443c808e3f12af9b4a0f26cfc526d86"
+    },
+    "note-2026-07-24-1": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/post-linebreak-correction-20261014/posts/note-2026-07-24-1",
+      "sourceSha256": "0bbcb80fb10c0c009d476853ec32e1590df2f39f6ef0aaef53830910e2acfe64"
+    },
+    "note-2026-04-24-2": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/post-linebreak-correction-20261014/posts/note-2026-04-24-2",
+      "sourceSha256": "92341c5c07f241cffc2c5d4b6628e8b6a10fc966bf1254f833703e96a7551bb8"
+    },
+    "note-2026-09-09-1": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/dated-posts-20261014/posts/note-2026-09-09-1",
+      "sourceSha256": "dca169a3fb28d0adf3fcfc0e4ab10eac40c68f53002167e61409752716b12e3d"
+    },
+    "note-2026-07-23-1": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/dated-posts-20261014/posts/note-2026-07-23-1",
+      "sourceSha256": "7700a7e95a00de9dd0bebb1524a0cafa7cc58458cf113db617b53b4d68dfe05d"
+    },
+    "note-2026-04-27-1": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/post-linebreak-correction-20261014/posts/note-2026-04-27-1",
+      "sourceSha256": "9a08bc0b3a35a7a764975f1751df97faf591d4713a1a7f39a48d75aa3cc6abec"
+    },
+    "note-2026-09-08-1": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/dated-posts-20261014/posts/note-2026-09-08-1",
+      "sourceSha256": "24b74960b2c675bedc69340732c4a121809f2d1503c8cde80caec2cfe5f4a71a"
+    },
+    "note-2026-09-27-1": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/dated-posts-20261014/posts/note-2026-09-27-1",
+      "sourceSha256": "1bdc946e05f8e9e9136c03fc6dae911e39a2d52efdfaac9365e624345e514c86"
+    },
+    "note-2026-05-02-1": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/dated-posts-20261014/posts/note-2026-05-02-1",
+      "sourceSha256": "f90be1200fd7706fcb82f3a6aa4c34241cf8013587ef4a0129598f88d2ec299d"
+    },
+    "note-2026-04-24-1": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/post-linebreak-correction-20261014/posts/note-2026-04-24-1",
+      "sourceSha256": "1d47a594ce925b91e2b6577ae9f75bc14e4041b012d29fb2f5badce1ee5e3252"
+    },
+    "note-2026-04-20-1": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/dated-posts-20261014/posts/note-2026-04-20-1",
+      "sourceSha256": "bd420871c2a3937124d07fad302db80d4950a9e8c9920fc075052de6105279c2"
+    },
+    "note-2026-08-24-1": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/dated-posts-20261014/posts/note-2026-08-24-1",
+      "sourceSha256": "2c3b63257f9937cae1d223f35523a7eabf7c1876224f3dffec1368162180e173"
+    },
+    "note-2026-05-24-1": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/post-linebreak-correction-20261014/posts/note-2026-05-24-1",
+      "sourceSha256": "64b8bd483204767b56ce5283245a430076e02f36f2f5ca82357b067f1c4bae39"
+    },
+    "note-2026-09-05-1": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/post-linebreak-correction-20261014/posts/note-2026-09-05-1",
+      "sourceSha256": "8d3eb3ce4015a8c3d857701414b3bf900fcea4c566a521d8986b2173d67bbebb"
+    },
+    "note-2026-09-20-1": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/post-linebreak-correction-20261014/posts/note-2026-09-20-1",
+      "sourceSha256": "832bb6c3814559ee97997baa26e4bd4b79cfc60e8ea17f285552d4c15db8f52f"
+    },
+    "jev-typed-decisions": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/notion-publication-20261012/posts/jev-typed-decisions",
+      "sourceSha256": "1c1facc7ae508074cebffb654d0b1bb1c7eaf028b3d442cb643b3ee475a64f4c"
+    },
+    "workflow-to-agent-patterns": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/notion-publication-20261012/posts/workflow-to-agent-patterns",
+      "sourceSha256": "819574cb3917512cad69b32bb471200a0b9647ab2ee007da04e28e123efd2ae3"
+    },
+    "deepseek-harness": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/notion-publication-20261012/posts/deepseek-harness",
+      "sourceSha256": "007518962351f02e2981e39aca46d353b240b6e378839c701b368d6f77dfc0c8"
+    },
+    "economics-principles-overall": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/notion-spacing-refresh-20261014/posts/economics-principles-overall",
+      "sourceSha256": "aecc6ff8798ea3d0afe2265067a93d3927cbf90224bcdfc16942cc553e9f543a"
+    },
+    "economics-principles-interaction": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/notion-spacing-refresh-20261014/posts/economics-principles-interaction",
+      "sourceSha256": "277fb4d517050d683e6915dc4f9a509193300c8fa0c7566153c645c505d68c8f"
+    },
+    "economics-principles-decision": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/notion-spacing-refresh-20261014/posts/economics-principles-decision",
+      "sourceSha256": "38bf6cc661af6e448a4a34085379de37c20e4d3d522f41cebf0c2c08131b137b"
+    },
+    "buffett-casino-church": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/economics-publication-20261014/posts/buffett-casino-church",
+      "sourceSha256": "ba06f3d87c3a92654ef34db86575767edca4626a7b5d271bebd5e91e355bb71a"
+    },
+    "meritocracy-and-pain": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/notion-spacing-refresh-20261014/posts/meritocracy-and-pain",
+      "sourceSha256": "408bedbd203e29599c8bb77d6fcce3ce3b2d1b8066c3dee1771e2518b8580397"
+    },
+    "freedom-before-wealth": {
+      "directory": "/Users/yoryon/Projects/yoryon/artifacts/freedom-headings-20261014/posts/freedom-before-wealth",
+      "sourceSha256": "403257e930488437ff6ab097ebbfb487173b5e700933199da1d3144cb50d14d7"
+    }
+  }
+}

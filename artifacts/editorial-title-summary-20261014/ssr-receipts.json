@@ -1,0 +1,114 @@
+[
+  {
+    "slug": "editorial-reference",
+    "title": "2024 年字节跳动前实习生田柯宇 (Tian Keyu) 模型训练攻击事件：受害者陈述与证据整理",
+    "centerHeader": true,
+    "cards": 1,
+    "items": [
+      {
+        "strong": 1,
+        "text": "持续数月、伪装成随机故障的训练破坏2024 年 3 月至 7 月，Tian 先后篡改 T5 权重和训练集群上的 PyTorch 源码，涉及优化器、梯度裁剪、分布式通信和数据采样，并随机终止训练进程、在共享盘埋设命令后门。同时他一直参加团队的排查会议，根据排查进展调整攻击。 → 第 3 节、第 5 节"
+      },
+      {
+        "strong": 1,
+        "text": "自己负责的千卡 VAR 项目展示造假部署给团队每天测试的“VAR text-to-image 模型”实为开源模型 PixArt，还自动给 Prompt 加上 “City” 前缀，防止被同 Prompt 对比识破。真实训练远未达到汇报效果，团队只能推倒重来。 → 第 7 节"
+      },
+      {
+        "strong": 1,
+        "text": "事后否认，至今仍在洗白2026 年 10 月，Tian 在播客中再次为自己辩解。笔者提醒合作者与投资人审慎核实。 → 时间线"
+      }
+    ],
+    "ordinaryOl": 2,
+    "searchNodes": 311,
+    "searchSequence": true
+  },
+  {
+    "slug": "editorial-essay",
+    "title": "把一天慢慢读完：城市、散步与那些没有被记录的片刻",
+    "centerHeader": true,
+    "cards": 1,
+    "items": [
+      {
+        "strong": 1,
+        "text": "从一条街道开始一段散步中的观察，展示中文长段落与短段落交替的阅读节奏。"
+      },
+      {
+        "strong": 1,
+        "text": "让叙事拥有停顿引用、章节与三级标题共同组织长文，不打断句子之间的连接。"
+      },
+      {
+        "strong": 1,
+        "text": "保留没有结论的片刻从街道与旧书店回到文字，观察一篇纯文字长文如何自然结束。"
+      }
+    ],
+    "ordinaryOl": 0,
+    "searchNodes": 34,
+    "searchSequence": true
+  },
+  {
+    "slug": "editorial-notes",
+    "title": "一篇文章如何到达读者：从草稿、媒体到浏览器的技术手记",
+    "centerHeader": true,
+    "cards": 1,
+    "items": [
+      {
+        "strong": 1,
+        "text": "从读者路径倒推把输入、处理与输出放在同一条阅读主线里。"
+      },
+      {
+        "strong": 1,
+        "text": "代码拥有自己的区域长代码独立横向滚动，正文和长链接在阅读列内换行。"
+      },
+      {
+        "strong": 1,
+        "text": "把失败情况说清楚用嵌套列表区分输入、保存与阅读阶段的示意边界。"
+      }
+    ],
+    "ordinaryOl": 1,
+    "searchNodes": 54,
+    "searchSequence": true
+  },
+  {
+    "slug": "editorial-visual",
+    "title": "在纸面与屏幕之间：一份图文混排的阅读观察",
+    "centerHeader": true,
+    "cards": 1,
+    "items": [
+      {
+        "strong": 1,
+        "text": "图片作为阅读停顿横幅与图注组成一个完整的观看单元。"
+      },
+      {
+        "strong": 1,
+        "text": "比较进入同一视野原创矢量对照图与正文交替出现，展示多种阅读组织方式。"
+      },
+      {
+        "strong": 1,
+        "text": "在不同屏幕上成立长标题、图片、列表与密集段落共同检验视觉层级。"
+      }
+    ],
+    "ordinaryOl": 1,
+    "searchNodes": 42,
+    "searchSequence": true
+  },
+  {
+    "slug": "hello-world",
+    "title": "测试文章你好",
+    "centerHeader": true,
+    "cards": 0,
+    "items": [],
+    "ordinaryOl": 0,
+    "searchNodes": 3,
+    "searchSequence": true
+  },
+  {
+    "slug": "demo-ep1",
+    "title": "示例系列 · 第一话",
+    "centerHeader": true,
+    "cards": 0,
+    "items": [],
+    "ordinaryOl": 0,
+    "searchNodes": 1,
+    "searchSequence": true
+  }
+]

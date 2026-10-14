@@ -1,0 +1,90 @@
+[
+  {
+    "slug": "note-2026-04-21-1",
+    "searchNodeIdsAndTextsExact": true,
+    "pCount": 1,
+    "brCount": 2,
+    "hiddenNewlines": 2,
+    "hiddenOnlyNewline": true,
+    "visibleLinesExact": true,
+    "dateVisible": true,
+    "noTitleFallback": true
+  },
+  {
+    "slug": "note-2026-04-24-1",
+    "searchNodeIdsAndTextsExact": true,
+    "pCount": 1,
+    "brCount": 3,
+    "hiddenNewlines": 3,
+    "hiddenOnlyNewline": true,
+    "visibleLinesExact": true,
+    "dateVisible": true,
+    "noTitleFallback": true
+  },
+  {
+    "slug": "note-2026-04-24-2",
+    "searchNodeIdsAndTextsExact": true,
+    "pCount": 1,
+    "brCount": 4,
+    "hiddenNewlines": 4,
+    "hiddenOnlyNewline": true,
+    "visibleLinesExact": true,
+    "dateVisible": true,
+    "noTitleFallback": true
+  },
+  {
+    "slug": "note-2026-04-27-1",
+    "searchNodeIdsAndTextsExact": true,
+    "pCount": 1,
+    "brCount": 3,
+    "hiddenNewlines": 3,
+    "hiddenOnlyNewline": true,
+    "visibleLinesExact": true,
+    "dateVisible": true,
+    "noTitleFallback": true
+  },
+  {
+    "slug": "note-2026-05-24-1",
+    "searchNodeIdsAndTextsExact": true,
+    "pCount": 1,
+    "brCount": 1,
+    "hiddenNewlines": 1,
+    "hiddenOnlyNewline": true,
+    "visibleLinesExact": true,
+    "dateVisible": true,
+    "noTitleFallback": true
+  },
+  {
+    "slug": "note-2026-07-24-1",
+    "searchNodeIdsAndTextsExact": true,
+    "pCount": 1,
+    "brCount": 2,
+    "hiddenNewlines": 2,
+    "hiddenOnlyNewline": true,
+    "visibleLinesExact": true,
+    "dateVisible": true,
+    "noTitleFallback": true
+  },
+  {
+    "slug": "note-2026-09-05-1",
+    "searchNodeIdsAndTextsExact": true,
+    "pCount": 1,
+    "brCount": 5,
+    "hiddenNewlines": 5,
+    "hiddenOnlyNewline": true,
+    "visibleLinesExact": true,
+    "dateVisible": true,
+    "noTitleFallback": true
+  },
+  {
+    "slug": "note-2026-09-20-1",
+    "searchNodeIdsAndTextsExact": true,
+    "pCount": 1,
+    "brCount": 1,
+    "hiddenNewlines": 1,
+    "hiddenOnlyNewline": true,
+    "visibleLinesExact": true,
+    "dateVisible": true,
+    "noTitleFallback": true
+  }
+]

@@ -1,0 +1,122 @@
+{
+  "viewport": {
+    "width": 375,
+    "height": 812
+  },
+  "original": {
+    "body": {
+      "fontFamily": "\"Iowan Old Style\", \"Iowan Old Style BT\", \"Palatino Linotype\", Palatino, Georgia, \"Songti SC\", \"Noto Serif CJK SC\", \"Source Han Serif SC\", SimSun, serif",
+      "fontSize": "16px",
+      "fontStyle": "normal",
+      "fontWeight": "400",
+      "lineHeight": "29.6px"
+    },
+    "caption": {
+      "fontFamily": "-apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", \"PingFang SC\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", Arial, sans-serif",
+      "fontSize": "13px",
+      "fontStyle": "normal",
+      "fontWeight": "400",
+      "lineHeight": "20.15px"
+    },
+    "captionLabel": {
+      "fontFamily": "-apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", \"PingFang SC\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", Arial, sans-serif",
+      "fontSize": "13px",
+      "fontStyle": "normal",
+      "fontWeight": "600",
+      "lineHeight": "20.15px"
+    },
+    "code": {
+      "fontFamily": "\"SF Mono\", SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, \"Liberation Mono\", monospace",
+      "fontSize": "12px",
+      "fontStyle": "normal",
+      "fontWeight": "400",
+      "lineHeight": "19.2px"
+    },
+    "h1": {
+      "fontFamily": "\"Iowan Old Style\", \"Iowan Old Style BT\", \"Palatino Linotype\", Palatino, Georgia, \"Songti SC\", \"Noto Serif CJK SC\", \"Source Han Serif SC\", SimSun, serif",
+      "fontSize": "25px",
+      "fontStyle": "normal",
+      "fontWeight": "600",
+      "lineHeight": "34.5px"
+    },
+    "h2": {
+      "fontFamily": "\"Iowan Old Style\", \"Iowan Old Style BT\", \"Palatino Linotype\", Palatino, Georgia, \"Songti SC\", \"Noto Serif CJK SC\", \"Source Han Serif SC\", SimSun, serif",
+      "fontSize": "21px",
+      "fontStyle": "normal",
+      "fontWeight": "600",
+      "lineHeight": "29.4px"
+    },
+    "meta": {
+      "fontFamily": "-apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", \"PingFang SC\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", Arial, sans-serif",
+      "fontSize": "13px",
+      "fontStyle": "normal",
+      "fontWeight": "400",
+      "lineHeight": "20.8px"
+    },
+    "strong": {
+      "fontFamily": "\"Iowan Old Style\", \"Iowan Old Style BT\", \"Palatino Linotype\", Palatino, Georgia, \"Songti SC\", \"Noto Serif CJK SC\", \"Source Han Serif SC\", SimSun, serif",
+      "fontSize": "16px",
+      "fontStyle": "normal",
+      "fontWeight": "650",
+      "lineHeight": "25.6px"
+    }
+  },
+  "local": {
+    "body": {
+      "fontFamily": "\"Iowan Old Style\", \"Iowan Old Style BT\", \"Palatino Linotype\", Palatino, Georgia, \"Songti SC\", \"Noto Serif CJK SC\", \"Source Han Serif SC\", SimSun, serif",
+      "fontSize": "16px",
+      "fontStyle": "normal",
+      "fontWeight": "400",
+      "lineHeight": "29.6px"
+    },
+    "caption": {
+      "fontFamily": "-apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", \"PingFang SC\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", Arial, sans-serif",
+      "fontSize": "13px",
+      "fontStyle": "normal",
+      "fontWeight": "400",
+      "lineHeight": "20.15px"
+    },
+    "captionLabel": {
+      "fontFamily": "-apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", \"PingFang SC\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", Arial, sans-serif",
+      "fontSize": "13px",
+      "fontStyle": "normal",
+      "fontWeight": "600",
+      "lineHeight": "20.15px"
+    },
+    "code": {
+      "fontFamily": "\"SF Mono\", SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, \"Liberation Mono\", monospace",
+      "fontSize": "12px",
+      "fontStyle": "normal",
+      "fontWeight": "400",
+      "lineHeight": "19.2px"
+    },
+    "h1": {
+      "fontFamily": "\"Iowan Old Style\", \"Iowan Old Style BT\", \"Palatino Linotype\", Palatino, Georgia, \"Songti SC\", \"Noto Serif CJK SC\", \"Source Han Serif SC\", SimSun, serif",
+      "fontSize": "25px",
+      "fontStyle": "normal",
+      "fontWeight": "600",
+      "lineHeight": "34.5px"
+    },
+    "h2": {
+      "fontFamily": "\"Iowan Old Style\", \"Iowan Old Style BT\", \"Palatino Linotype\", Palatino, Georgia, \"Songti SC\", \"Noto Serif CJK SC\", \"Source Han Serif SC\", SimSun, serif",
+      "fontSize": "21px",
+      "fontStyle": "normal",
+      "fontWeight": "600",
+      "lineHeight": "29.4px"
+    },
+    "meta": {
+      "fontFamily": "-apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", \"PingFang SC\", \"Microsoft YaHei\", \"Noto Sans CJK SC\", Arial, sans-serif",
+      "fontSize": "13px",
+      "fontStyle": "normal",
+      "fontWeight": "400",
+      "lineHeight": "20.8px"
+    },
+    "strong": {
+      "fontFamily": "\"Iowan Old Style\", \"Iowan Old Style BT\", \"Palatino Linotype\", Palatino, Georgia, \"Songti SC\", \"Noto Serif CJK SC\", \"Source Han Serif SC\", SimSun, serif",
+      "fontSize": "16px",
+      "fontStyle": "normal",
+      "fontWeight": "650",
+      "lineHeight": "25.6px"
+    }
+  }
+}

@@ -1,11 +1,13 @@
 "use client";
 import { ArrowLeft } from "lucide-react";
-import { writeBrowse } from "@/lib/browse-memory";
+import { useBrowseOrigins } from "./browse-navigation";
+import { currentBrowsePath, writeBrowse } from "@/lib/browse-memory";
 import { safeReturnTo } from "@/lib/navigation";
 
 export function BackButton({ fallback = "/" }: { fallback?: string }) {
+  const origins = useBrowseOrigins();
   function back() {
-    const origin = history.state?.yoryonReturn as { path: string; time: number } | undefined;
+    const origin = origins?.get(currentBrowsePath());
     const path = safeReturnTo(origin?.path);
     if (path && origin && Date.now() - origin.time < 7_200_000 && history.length > 1) {
       writeBrowse("restore", { path }); history.back();

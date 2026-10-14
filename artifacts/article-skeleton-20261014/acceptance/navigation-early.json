@@ -1,0 +1,4 @@
+{
+  "url": "http://localhost:3117/p/freedom-before-wealth",
+  "dom": "- banner:\n  - link \"Yoryon\":\n    - /url: /\n    - generic: Yoryon\n  - link \"全站搜索\":\n    - /url: /search\n  - link \"通知\":\n    - /url: /notifications\n  - button \"账户菜单\":\n  - navigation \"主导航\":\n    - link \"首页\":\n      - /url: /\n    - link \"订阅\":\n      - /url: /subscription\n      - text: 订阅\n    - button \"探索\":\n      - text: 探索\n- main \"文章加载中\":\n  - button \"返回上一页\":\n    - text: 返回\n  - status: 正在加载文章\n- alert: 先自由后财富 · Yoryon"
+}

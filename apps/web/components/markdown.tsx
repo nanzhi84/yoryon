@@ -8,6 +8,7 @@ export async function MarkdownBody({
   className,
   mediaSizes,
   publicImages = false,
+  preserveBlankLines = false,
 }: {
   markdown: string;
   className?: string;
@@ -15,6 +16,7 @@ export async function MarkdownBody({
   mediaSizes?: Record<string, { width: number; height: number; mimeType?: string }>;
   /** Only the anonymous public DTO may use the gated shared byte cache. */
   publicImages?: boolean;
+  preserveBlankLines?: boolean;
 }) {
   // Load only supported fenced languages; the shared server highlighter reuses grammars.
   const languages = [...markdown.matchAll(/^\s*(`{3,}|~{3,})([\w+-]+)/gm)]
@@ -23,7 +25,7 @@ export async function MarkdownBody({
     themes: ["github-light", "github-dark"],
     langs: languages as (keyof typeof bundledLanguages)[],
   }) : undefined;
-  return <MarkdownSurface markdown={markdown} className={className} mediaSizes={mediaSizes} publicImages={publicImages} components={{
+  return <MarkdownSurface preserveBlankLines={preserveBlankLines} markdown={markdown} className={className} mediaSizes={mediaSizes} publicImages={publicImages} components={{
 code: ({ className, children, node, ...props }) => {
               const language = /(?:^|\s)language-([\w+-]+)/.exec(className ?? "")?.[1];
               const leaves = (node?.children ?? []) as any[];

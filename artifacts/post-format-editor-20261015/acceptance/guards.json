@@ -1,0 +1,30 @@
+[
+  {
+    "port": 3120,
+    "method": "GET",
+    "path": "/tools/post-format",
+    "origin": null,
+    "status": 404
+  },
+  {
+    "port": 3120,
+    "method": "GET",
+    "path": "/api/local-post-editor",
+    "origin": null,
+    "status": 404
+  },
+  {
+    "port": 3120,
+    "method": "PUT",
+    "path": "/api/local-post-editor",
+    "origin": "http://localhost:3120",
+    "status": 404
+  },
+  {
+    "port": 3119,
+    "method": "PUT",
+    "path": "/api/local-post-editor",
+    "origin": "https://example.invalid",
+    "status": 403
+  }
+]

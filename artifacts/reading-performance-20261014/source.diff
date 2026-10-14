@@ -1,0 +1,505 @@
+diff --git a/apps/api/src/routes/post-feed.ts b/apps/api/src/routes/post-feed.ts
+index 5079f1b..4b2c0c3 100644
+--- a/apps/api/src/routes/post-feed.ts
++++ b/apps/api/src/routes/post-feed.ts
+@@ -19,8 +19,12 @@ export async function postFeedBodies(db: Reader, ids: string[], mediaBlockWeight
+     const permitted = new Set(media.filter(m => m.contentId === row.id && m.exposure === "free").map(m => m.mediaId));
+     const allowed = row.visibility === "public" ? preview : stringifyMarkdown(filterStoredMediaRefs(parseMarkdown(preview), permitted));
+     const folded = truncateForPreview(allowed, "percent", 100, { maxWeight: 900, maxBlocks: 6, mediaBlockWeight: 300 });
++    // Small public text posts can unfold locally. Bound the extra list payload;
++    // media posts and paid previews retain the existing server truncation.
++    const localUnfold = row.visibility === "public" && !media.some(m => m.contentId === row.id)
++      && Buffer.byteLength(allowed, "utf8") <= 4096;
+     const visible = new Set(folded.freeMediaIds);
+-    return [row.id, { bodyMarkdown: folded.freeMarkdown, collapsed: folded.hasPaidContent,
++    return [row.id, { bodyMarkdown: localUnfold ? allowed : folded.freeMarkdown, collapsed: !localUnfold && folded.hasPaidContent,
+       media: media.filter(m => m.contentId === row.id && visible.has(m.mediaId)).map(({ contentId: _id, exposure: _exposure, ...m }) => m) }];
+   }));
+ }
+diff --git a/apps/web/app/api/pages/[version]/[source]/[cursor]/route.ts b/apps/web/app/api/pages/[version]/[source]/[cursor]/route.ts
+index 6b0edb1..592914e 100644
+--- a/apps/web/app/api/pages/[version]/[source]/[cursor]/route.ts
++++ b/apps/web/app/api/pages/[version]/[source]/[cursor]/route.ts
+@@ -8,7 +8,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ ver
+   if (source !== "feed" && source !== "paid-feed" && !source.startsWith("tag-")) return Response.json({ error: "invalid source" }, { status: 400 });
+   const tag = source.slice(4);
+   const path = source === "feed" ? "/api/feed" : source === "paid-feed" ? "/api/paid-feed" : `/api/tags/${tag}`;
+-  const query = `?version=${version}${cursor === "start" ? "" : `&cursor=${encodeURIComponent(cursor)}`}`;
++  const query = `?protocol=pin-v3&version=${version}${cursor === "start" ? "" : `&cursor=${encodeURIComponent(cursor)}`}`;
+   const res = await publicFetch(path + query, { revalidate: 86400, tags: [(source === "feed" || source === "paid-feed") ? "feed" : `tag:${tag}`] });
+   // 预期错误（invalid_cursor / snapshot_expired）透传状态与错误码，私有不缓存；客户端据此引导刷新而非 500
+   if (res.status === 400 || res.status === 409) {
+diff --git a/apps/web/app/c/[slug]/page.tsx b/apps/web/app/c/[slug]/page.tsx
+index b99099c..321cb40 100644
+--- a/apps/web/app/c/[slug]/page.tsx
++++ b/apps/web/app/c/[slug]/page.tsx
+@@ -6,7 +6,7 @@ import { apiFetch } from "@/lib/api";
+ import type { CollectionDetail } from "@/lib/types";
+ import { Badge } from "@/components/ui/badge";
+ import { SiteHeader } from "@/components/site-header";
+-import { formatDate } from "@/components/feed-timeline";
++import { formatDate } from "@/lib/date";
+ import { DetailTracker } from "@/components/analytics";
+ 
+ export const dynamic = "force-dynamic";
+diff --git a/apps/web/app/globals.css b/apps/web/app/globals.css
+index 95708d6..3658c1f 100644
+--- a/apps/web/app/globals.css
++++ b/apps/web/app/globals.css
+@@ -100,6 +100,8 @@ body {
+ .editorial-title h1 { font-family: var(--font-serif); font-size: clamp(25px, 5.2vw, 31px); line-height: 1.38; font-weight: 600; text-wrap: balance; }
+ .editorial-title > div { font-family: var(--font-editorial-sans); color: var(--reading-muted); }
+ .editorial-entry h2, .editorial-excerpt { font-family: var(--font-serif); }
++/* Match the six-block feed preview without parsing/replacing a small post on click. */
++.post-preview > [data-search-body] > :nth-child(n+7) { display: none; }
+ .prose-yoryon :where(h2):not(:where([class~="not-prose"] *)) { font-size: 23px; line-height: 1.4; margin: 52px 0 18px; font-weight: 600; text-wrap: balance; }
+ .prose-yoryon :where(h1):not(:where([class~="not-prose"] *)) { font-size: clamp(25px, 5.2vw, 31px); line-height: 1.38; font-weight: 600; }
+ .prose-yoryon :where(h3):not(:where([class~="not-prose"] *)) { font-size: 19px; line-height: 1.4; margin: 36px 0 14px; font-weight: 600; text-wrap: balance; }
+diff --git a/apps/web/app/p/[slug]/page.tsx b/apps/web/app/p/[slug]/page.tsx
+index d186faa..faa601c 100644
+--- a/apps/web/app/p/[slug]/page.tsx
++++ b/apps/web/app/p/[slug]/page.tsx
+@@ -1,3 +1,24 @@
+ import { notFound } from "next/navigation";
+-// canonical 请求由 middleware 重写到 revision 隔离的静态路由。
+-export default function Page() { notFound(); }
++import { headers } from "next/headers";
++import { cache } from "react";
++import { getPublicContent } from "@/lib/public-content";
++import { ContentDocument, contentMetadata } from "@/components/content-document";
++
++interface Props { params: Promise<{ slug: string }> }
++// headers() keeps canonical HTML/RSC out of browser/Full Route caches, while
++// the explicit revision-keyed publicFetch continues to use the Data Cache.
++const currentContent = cache(async (slug: string) => {
++  const revision = (await headers()).get("x-yoryon-content-revision");
++  if (!revision || !/^[a-f0-9-]{36}$/.test(revision)) return null;
++  return getPublicContent(slug, revision);
++});
++
++export async function generateMetadata({ params }: Props) {
++  return contentMetadata(await currentContent((await params).slug));
++}
++
++export default async function Page({ params }: Props) {
++  const content = await currentContent((await params).slug);
++  if (!content) notFound();
++  return <ContentDocument content={content} />;
++}
+diff --git a/apps/web/app/render/[revision]/[slug]/page.tsx b/apps/web/app/render/[revision]/[slug]/page.tsx
+index 906c7e5..da0e588 100644
+--- a/apps/web/app/render/[revision]/[slug]/page.tsx
++++ b/apps/web/app/render/[revision]/[slug]/page.tsx
+@@ -1,22 +1,18 @@
+-import type { Metadata } from "next";
+ import { notFound } from "next/navigation";
+ import { getPublicContent } from "@/lib/public-content";
+-import { ContentView } from "@/components/content-view";
++import { ContentDocument, contentMetadata } from "@/components/content-document";
+ 
+ export const revalidate = 86400;
+ export function generateStaticParams() { return []; }
+ interface Props { params: Promise<{ slug: string; revision: string }> }
+-export async function generateMetadata({ params }: Props): Promise<Metadata> {
++export async function generateMetadata({ params }: Props) {
+   const { slug, revision } = await params;
+   const content = await getPublicContent(slug, revision);
+-  if (!content) return { title: "内容不存在", robots: { index: false } };
+-  const canonical = `${process.env.SITE_URL}/p/${slug}`;
+-  return { title: content.title || `帖子 · ${content.publishedAt?.slice(0, 10) ?? content.slug}`, description: content.description, alternates: { canonical }, openGraph: { title: content.title || `帖子 · ${content.publishedAt?.slice(0, 10) ?? content.slug}`, description: content.description, url: canonical, type: "article", publishedTime: content.publishedAt ?? undefined } };
++  return contentMetadata(content);
+ }
+ export default async function Page({ params }: Props) {
+   const { slug, revision } = await params;
+   const content = await getPublicContent(slug, revision);
+   if (!content) notFound();
+-  const structured = { "@context": "https://schema.org", "@type": "Article", headline: content.title || `帖子 · ${content.publishedAt?.slice(0, 10) ?? content.slug}`, description: content.description, datePublished: content.publishedAt, dateModified: content.updatedAt, url: `${process.env.SITE_URL}/p/${slug}`, isAccessibleForFree: content.visibility === "public" };
+-  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structured).replace(/</g, "\\u003c") }} /><ContentView key={revision} initial={content} /></>;
++  return <ContentDocument content={content} />;
+ }
+diff --git a/apps/web/components/analytics.tsx b/apps/web/components/analytics.tsx
+index bf12873..84b2b2b 100644
+--- a/apps/web/components/analytics.tsx
++++ b/apps/web/components/analytics.tsx
+@@ -11,7 +11,8 @@
+ "use client";
+ 
+ import { createContext, useContext, useEffect, useMemo, useRef, useState, type ReactNode, type MouseEvent } from "react";
+-import Link from "next/link";
++import Link, { useLinkStatus } from "next/link";
++import { useRouter } from "next/navigation";
+ import {
+   analyticsDisabled,
+   trackEvent,
+@@ -114,8 +115,11 @@ export function TrackClickLink({
+   children,
+   "aria-label": ariaLabel,
+   native = false,
+-}: TrackableProps & { href: string; className?: string; "aria-label"?: string; native?: boolean }) {
++  warmOnIntent = false,
++}: TrackableProps & { href: string; className?: string; "aria-label"?: string; native?: boolean; warmOnIntent?: boolean }) {
+   const ctx = useContext(AnalyticsListContext);
++  const router = useRouter();
++  const warming = useRef(false);
+   const send = () => {
+     if (!ctx) return;
+     trackEvent({ eventType: "click", targetKind, targetId, placement: ctx.placement, pageViewId: ctx.listViewId });
+@@ -124,7 +128,23 @@ export function TrackClickLink({
+     // 鼠标中键是主动入口，右键不计；原生锚点导航沿用相同指标口径。
+     onAuxClick: (event: MouseEvent<HTMLAnchorElement>) => { if (event.button === 1) send(); } };
+   // Next 客户端首次跨 revision rewrite 导航会丢失 fragment；评论用完整文档导航保留锚点。
+-  return native ? <a {...props}>{children}</a> : <Link prefetch={false} {...props}>{children}</Link>;
++  // Intent warms the route/code, while staleTimes=0 still requires the current
++  // revision gate on navigation. Do not retain public or private body snapshots.
++  const prepare = () => {
++    if (!warmOnIntent || warming.current) return;
++    warming.current = true;
++    router.prefetch(href);
++  };
++  const resetIntent = () => { warming.current = false; };
++  return native ? <a {...props}>{children}</a> : <Link prefetch={false} onMouseEnter={prepare} onFocus={prepare} onTouchStart={prepare}
++    onMouseLeave={resetIntent} onBlur={resetIntent} onTouchEnd={resetIntent} onTouchCancel={resetIntent} {...props}>
++    {children}{warmOnIntent && <LinkFeedback />}
++  </Link>;
++}
++
++function LinkFeedback() {
++  const { pending } = useLinkStatus();
++  return pending ? <span role="status" className="ml-2 inline-block text-xs font-normal text-muted-foreground">正在打开…</span> : null;
+ }
+ 
+ export function DetailTracker({ targetKind, targetId }: { targetKind: AnalyticsTargetKind; targetId: string }) {
+diff --git a/apps/web/components/content-view.tsx b/apps/web/components/content-view.tsx
+index a91c419..08fd7ea 100644
+--- a/apps/web/components/content-view.tsx
++++ b/apps/web/components/content-view.tsx
+@@ -3,7 +3,7 @@ import Link from "next/link";
+ import type { ContentDetail } from "@/lib/types";
+ import { Badge } from "@/components/ui/badge";
+ import { SiteHeader } from "@/components/site-header";
+-import { formatDate } from "@/components/feed-timeline";
++import { formatDate } from "@/lib/date";
+ import { DetailTracker } from "@/components/analytics";
+ import { ContentBody } from "./content-body";
+ import { PrivateReader } from "./private-reader";
+diff --git a/apps/web/components/feed-timeline.tsx b/apps/web/components/feed-timeline.tsx
+index 841ce97..8a9a49b 100644
+--- a/apps/web/components/feed-timeline.tsx
++++ b/apps/web/components/feed-timeline.tsx
+@@ -1,16 +1,10 @@
+ import { imageSrcSet, publicImageUrl } from "@yoryon/config/image-variants";
+-import Link from "next/link";
+ import { Badge } from "@/components/ui/badge";
+ import { TrackClickLink, TrackImpression } from "@/components/analytics";
+ import type { CollectionListItem, FeedContentItem, FeedItem } from "@/lib/types";
+ import { PostEntry } from "./post-entry";
+ import { ContentActions, ContentInteractions } from "./content-actions";
+-import { ArrowRight } from "lucide-react";
+-
+-export function formatDate(iso: string | null): string {
+-  if (!iso) return "";
+-  return new Date(iso).toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit", timeZone: "Asia/Singapore" }).replaceAll("/", ".");
+-}
++import { formatDate } from "@/lib/date";
+ 
+ /** 信息流内容条目：标题 + 日期 / 封面 + 简介 / 类型 + 标签，点进详情。 */
+ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem; showPinnedBadge?: boolean }) {
+@@ -19,7 +13,7 @@ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem
+       <article className="editorial-entry group py-5">
+         <div className="flex items-baseline justify-between gap-4">
+           {item.type === "article" && <div className="flex min-w-0 items-baseline gap-2">
+-            <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="min-w-0">
++            <TrackClickLink warmOnIntent targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="min-w-0">
+               <h2 className="line-clamp-2 text-lg font-semibold leading-[26px] group-hover:underline underline-offset-4">
+                 {item.title || "未命名内容"}
+               </h2>
+@@ -42,11 +36,8 @@ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem
+         {item.type === "article" ? <div className="mt-2 flex items-start justify-between gap-4">
+           <div className="min-w-0 flex-1">
+             {(item.description || item.excerpt) && <p className="editorial-excerpt line-clamp-3 text-[15px] leading-6 text-foreground">{item.description || item.excerpt}</p>}
+-            <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="mt-1 inline-flex min-h-8 items-center gap-1.5 text-[13px] leading-5 text-primary hover:underline underline-offset-4">
+-              阅读全文 <ArrowRight className="size-4" aria-hidden="true" />
+-            </TrackClickLink>
+           </div>
+-          {item.coverMediaId && <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="block w-28 shrink-0 sm:w-36">
++          {item.coverMediaId && <TrackClickLink warmOnIntent targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="block w-28 shrink-0 sm:w-36">
+             {/* 受控比例容器（明确的 UI 裁切选择）+ 加载前占位，消除封面 CLS（F08） */}
+             <div className="aspect-[4/3] w-full overflow-hidden rounded-lg">
+               {/* eslint-disable-next-line @next/next/no-img-element */}
+diff --git a/apps/web/components/load-more.tsx b/apps/web/components/load-more.tsx
+index 4668a6b..ba9ef03 100644
+--- a/apps/web/components/load-more.tsx
++++ b/apps/web/components/load-more.tsx
+@@ -1,62 +1,98 @@
+ "use client";
+ 
+-import { useEffect, useState } from "react";
++import { memo, useCallback, useEffect, useRef, useState } from "react";
+ import type { FeedItem, FeedResponse } from "@/lib/types";
+ import { FeedTimeline } from "./feed-timeline";
+ import { Button } from "./ui/button";
+ import { currentBrowsePath, readBrowse, writeBrowse } from "@/lib/browse-memory";
+ 
+-/** 信息流/标签页"加载更多"（游标分页，经同源 BFF）。 */
++// Appending a page must not parse previous Markdown or refetch every prior
++// page's interaction counts. Keep each fetched batch and its provider stable.
++const FeedBatch = memo(function FeedBatch({ items, showPinnedBadge }: { items: FeedItem[]; showPinnedBadge: boolean }) {
++  return <FeedTimeline items={items} showPinnedBadge={showPinnedBadge} />;
++});
++
++/** 接近列表底部自动追加一页；失败暂停，用户可显式重试。 */
+ export function LoadMore({ initialCursor, version, basePath = "/api/feed", showPinnedBadge = false }: { initialCursor: string; version: string; basePath?: string; showPinnedBadge?: boolean }) {
+   const [cursor, setCursor] = useState<string | null>(initialCursor);
+-  const [items, setItems] = useState<FeedItem[]>([]);
++  const [pages, setPages] = useState<FeedItem[][]>([]);
+   const [loading, setLoading] = useState(false);
+   const [error, setError] = useState(false);
+   const [expired, setExpired] = useState(false);
++  const [ready, setReady] = useState(false);
++  const sentinel = useRef<HTMLDivElement>(null);
++  const active = useRef<AbortController | null>(null);
+   useEffect(() => {
++    setReady(false); setError(false); setExpired(false); setLoading(false);
+     const key = `feed:${currentBrowsePath()}:${basePath}`;
+     const saved = readBrowse<{ version: string; initialCursor: string; cursor: string | null; items: FeedItem[] }>(key);
+     if (saved?.version === version && saved.initialCursor === initialCursor && Array.isArray(saved.items)
+       && saved.items.every(item => typeof item?.id === "string" && typeof item.slug === "string" && ["post", "article"].includes(item.type))) {
+-      setItems(saved.items); setCursor(saved.cursor);
+-    } else { writeBrowse(key, null); }
++      const restored: FeedItem[][] = [];
++      for (let offset = 0; offset < saved.items.length; offset += 20) restored.push(saved.items.slice(offset, offset + 20));
++      setPages(restored); setCursor(saved.cursor);
++    } else { writeBrowse(key, null); setPages([]); setCursor(initialCursor); }
++    setReady(true);
++    return () => { active.current?.abort(); active.current = null; };
+   }, [version, initialCursor, basePath]);
+ 
+-  async function load() {
+-    if (!cursor) return;
++  const load = useCallback(async () => {
++    if (!cursor || !ready || expired || active.current) return;
++    const controller = new AbortController(); active.current = controller;
+     setLoading(true);
+     setError(false);
+     try {
+-      const res = await fetch(`/api/pages/${version}/${basePath === "/api/feed" ? "feed" : basePath === "/api/paid-feed" ? "paid-feed" : `tag-${basePath.slice("/api/tags/".length)}`}/${encodeURIComponent(cursor)}`);
++      const res = await fetch(`/api/pages/${version}/${basePath === "/api/feed" ? "feed" : basePath === "/api/paid-feed" ? "paid-feed" : `tag-${basePath.slice("/api/tags/".length)}`}/${encodeURIComponent(cursor)}`, {
++        signal: AbortSignal.any([controller.signal, AbortSignal.timeout(15_000)]),
++      });
++      if (controller.signal.aborted) return;
+       if (res.status === 409) { setExpired(true); writeBrowse(`feed:${currentBrowsePath()}:${basePath}`, null); return; }
+       // 游标失效（如部署后旧格式残留）：与快照过期同一恢复路径——提示刷新，而不是带着旧游标重试
+       if (res.status === 400) {
+         const body = (await res.json().catch(() => null)) as { error?: { code?: string } } | null;
+-        if (body?.error?.code === "invalid_cursor") { setExpired(true); return; }
++        if (controller.signal.aborted) return;
++        if (body?.error?.code === "invalid_cursor") { setExpired(true); writeBrowse(`feed:${currentBrowsePath()}:${basePath}`, null); return; }
+       }
+       if (!res.ok) throw new Error(String(res.status));
+       const data = (await res.json()) as FeedResponse;
+-      const appended = [...items, ...data.items];
+-      setItems(appended);
++      if (controller.signal.aborted) return;
++      if (data.version !== version) { setExpired(true); writeBrowse(`feed:${currentBrowsePath()}:${basePath}`, null); return; }
++      if (!Array.isArray(data.items) || !data.items.every(item => typeof item?.id === "string" && typeof item.slug === "string" && ["post", "article"].includes(item.type))
++        || (data.nextCursor !== null && typeof data.nextCursor !== "string") || data.nextCursor === cursor) throw new Error("invalid page");
++      const items = pages.flat();
++      const seen = new Set(items.map(item => item.id));
++      const nextPage = data.items.filter(item => { if (seen.has(item.id)) return false; seen.add(item.id); return true; });
++      if (!nextPage.length && data.nextCursor !== null) throw new Error("page made no progress");
++      const appended = [...items, ...nextPage];
++      if (nextPage.length) setPages([...pages, nextPage]);
+       setCursor(data.nextCursor);
+       writeBrowse(`feed:${currentBrowsePath()}:${basePath}`, { version, initialCursor, cursor: data.nextCursor, items: appended });
+     } catch {
+-      setError(true);
++      if (!controller.signal.aborted) setError(true);
+     } finally {
+-      setLoading(false);
++      if (active.current === controller) { active.current = null; setLoading(false); }
+     }
+-  }
++  }, [basePath, cursor, expired, initialCursor, pages, ready, version]);
++
++  useEffect(() => {
++    const element = sentinel.current;
++    if (!element || !ready || !cursor || expired || error) return;
++    const observer = new IntersectionObserver(entries => {
++      if (entries.some(entry => entry.isIntersecting)) void load();
++    }, { rootMargin: "0px 0px 600px 0px" });
++    observer.observe(element);
++    return () => observer.disconnect();
++  }, [ready, cursor, expired, error, load]);
+ 
+   return (
+     <div className="py-6">
+-      <FeedTimeline items={items} showPinnedBadge={showPinnedBadge} />
+-      {error && <p className="py-2 text-center text-sm text-red-500">加载失败，请重试。</p>}
++      <div className="divide-y divide-border">{pages.map(page => <FeedBatch key={page[0]!.id} items={page} showPinnedBadge={showPinnedBadge} />)}</div>
++      {error && <p role="alert" className="py-2 text-center text-sm text-red-500">加载失败，请重试。</p>}
+       {expired && <p role="status">列表已更新。<button className="underline" onClick={() => window.location.reload()}>刷新列表</button></p>}
+       {cursor && !expired && (
+-        <div className="flex justify-center">
+-          <Button variant="outline" onClick={load} disabled={loading}>
+-            {loading ? "加载中…" : "加载更多"}
+-          </Button>
++        <div ref={sentinel} className="flex min-h-11 justify-center" aria-busy={loading}>
++          {error ? <Button variant="outline" onClick={() => void load()} disabled={loading}>重试</Button>
++            : <p role="status" className="py-3 text-sm text-muted-foreground">{loading ? "加载中…" : "继续向下浏览"}</p>}
+         </div>
+       )}
+     </div>
+diff --git a/apps/web/components/post-entry.tsx b/apps/web/components/post-entry.tsx
+index 3e4d265..2fa51a9 100644
+--- a/apps/web/components/post-entry.tsx
++++ b/apps/web/components/post-entry.tsx
+@@ -1,49 +1,58 @@
+ "use client";
+-import { useCallback, useEffect, useRef, useState } from "react";
++import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+ import type { ContentDetail, FeedContentItem } from "@/lib/types";
+ import { MarkdownSurface } from "./markdown-surface";
+ 
+ export function PostEntry({ item }: { item: FeedContentItem }) {
+   const [expanded, setExpanded] = useState<ContentDetail | null>(null);
++  const [open, setOpen] = useState(false);
+   const [loading, setLoading] = useState(false);
+   const [error, setError] = useState(false);
+   const [clipped, setClipped] = useState(false);
+   const host = useRef<HTMLDivElement>(null);
+   const active = useRef<AbortController | null>(null);
+-  const collapse = useCallback(() => { active.current?.abort(); setExpanded(null); setLoading(false); setError(false); }, []);
++  const collapse = useCallback(() => { active.current?.abort(); active.current = null; setOpen(false); setExpanded(null); setLoading(false); setError(false); }, []);
+   useEffect(() => {
+     const refresh = () => { if (document.visibilityState === "visible") collapse(); };
+     window.addEventListener("focus", refresh); document.addEventListener("visibilitychange", refresh);
+     return () => { active.current?.abort(); window.removeEventListener("focus", refresh); document.removeEventListener("visibilitychange", refresh); };
+   }, [collapse, item.id]);
+   useEffect(() => {
+-    const measure = () => { if (host.current && !expanded) setClipped(host.current.scrollHeight > host.current.clientHeight + 1); };
++    const measure = () => {
++      if (host.current && !open) setClipped(host.current.scrollHeight > host.current.clientHeight + 1
++        || (host.current.firstElementChild?.children.length ?? 0) > 6);
++    };
+     const observer = new ResizeObserver(measure);
+     if (host.current) { observer.observe(host.current); for (const el of host.current.children) observer.observe(el); }
+     measure(); return () => observer.disconnect();
+-  }, [expanded, item.post]);
++  }, [open, item.post]);
+   async function expand() {
+-    active.current?.abort();
++    if (active.current) return;
++    if (!item.post?.collapsed && item.visibility === "public") { setOpen(true); return; }
+     const controller = new AbortController(); active.current = controller;
+     setLoading(true); setError(false);
+     try {
+       const response = await fetch(`/api/contents/${item.slug}`, { credentials: "same-origin", cache: "no-store", signal: AbortSignal.any([controller.signal, AbortSignal.timeout(15_000)]) });
+       if (!response.ok) throw new Error("post unavailable");
+       const data = await response.json() as ContentDetail;
+-      if (data.type !== "post") throw new Error("content type changed");
+-      if (!controller.signal.aborted) setExpanded(data);
++      if (data.type !== "post" || data.id !== item.id || typeof data.bodyMarkdown !== "string" || !Array.isArray(data.media)) throw new Error("content changed");
++      if (!controller.signal.aborted) { setExpanded(data); setOpen(true); }
+     } catch { if (!controller.signal.aborted) setError(true); }
+-    finally { if (!controller.signal.aborted) setLoading(false); }
++    finally { if (active.current === controller) { active.current = null; if (!controller.signal.aborted) setLoading(false); } }
+   }
+   const markdown = expanded?.bodyMarkdown ?? item.post?.bodyMarkdown ?? "";
+   const media = expanded?.media ?? item.post?.media ?? [];
+-  const mediaSizes = Object.fromEntries(media.map(m => [m.mediaId, { width: m.width, height: m.height, mimeType: m.mimeType, durationSec: m.durationSec }]));
++  // Keep the parsed Markdown and media mounted while only the clipping changes.
++  const body = useMemo(() => {
++    const mediaSizes = Object.fromEntries(media.map(m => [m.mediaId, { width: m.width, height: m.height, mimeType: m.mimeType, durationSec: m.durationSec }]));
++    return <MarkdownSurface className="prose-feed" markdown={markdown} mediaSizes={mediaSizes} publicImages={!expanded} />;
++  }, [markdown, media, expanded]);
+   return <div className="mt-2">
+-    <div ref={host} id={`post-${item.id}`} className={expanded ? "" : "max-h-[32rem] overflow-hidden"}>
+-      <MarkdownSurface key={expanded ? "expanded" : "folded"} className="prose-feed" markdown={markdown} mediaSizes={mediaSizes} publicImages={!expanded} />
++    <div ref={host} id={`post-${item.id}`} className={open ? "" : "post-preview max-h-[32rem] overflow-hidden"}>
++      {body}
+     </div>
+     {expanded?.access === "preview" && expanded.hasPaidContent && <p className="mt-3 text-sm text-muted-foreground">以上为当前允许的付费预览，兑换订阅后可阅读全文。</p>}
+     {error && <p role="alert" className="mt-2">帖子加载失败。<button className="underline" onClick={() => void expand()}>重试</button></p>}
+-    {(item.post?.collapsed || clipped || expanded) && <button type="button" disabled={loading} aria-expanded={!!expanded} aria-controls={`post-${item.id}`} className="mt-1 min-h-8 text-[13px] leading-5 text-primary hover:underline" onClick={() => expanded ? collapse() : void expand()}>{loading ? "加载中…" : expanded ? "收起" : "展开"}</button>}
++    {(item.post?.collapsed || clipped || open) && <button type="button" disabled={loading} aria-expanded={open} aria-controls={`post-${item.id}`} className="mt-1 min-h-8 text-[13px] leading-5 text-primary hover:underline" onClick={() => open ? collapse() : void expand()}>{loading ? "加载中…" : open ? "收起" : "展开"}</button>}
+   </div>;
+ }
+diff --git a/apps/web/lib/public-catalog.ts b/apps/web/lib/public-catalog.ts
+index 6a53cff..98f2b85 100644
+--- a/apps/web/lib/public-catalog.ts
++++ b/apps/web/lib/public-catalog.ts
+@@ -7,8 +7,9 @@ export async function fetchCatalog(path: string, options: { revalidate: number;
+     const policy = await publicFetchNoStore(`/api/public/catalog-policy?attempt=${attempt}`);
+     if (!policy.ok) throw new Error(`catalog policy API ${policy.status}`);
+     const { version } = await policy.json() as { version: string };
+-    // 独立协议键确保跨部署不命中旧两字段 Feed 游标缓存。
+-    const res = await publicFetch(`${path}?protocol=pin-v2&version=${encodeURIComponent(version)}`, options);
++    // Rendering v3 includes bounded public post bodies for local unfolding;
++    // do not reuse a previous deployment's truncated Data Cache payload.
++    const res = await publicFetch(`${path}?protocol=pin-v3&version=${encodeURIComponent(version)}`, options);
+     // 版本读取与内容查询之间发生提交时重新读取；避免返回混合快照。
+     if (res.status !== 409) return res;
+   }
+diff --git a/apps/web/middleware.ts b/apps/web/middleware.ts
+index ac16977..3598d39 100644
+--- a/apps/web/middleware.ts
++++ b/apps/web/middleware.ts
+@@ -30,9 +30,12 @@ export async function middleware(request: NextRequest) {
+     // 直达旧内部缓存 key 同样不能绕过门禁。
+     if (match[2] && match[1] !== data.revision) return new NextResponse("404 内容版本已撤销", { status: 404, headers: privateHeaders });
+     if (match[2]) return NextResponse.next();
+-    const target = request.nextUrl.clone();
+-    target.pathname = `/render/${data.revision}/${slug}`;
+-    return NextResponse.rewrite(target);
++    // Canonical pages render dynamically: a rewrite to static ISR overrides
++    // no-store and lets browser RSC caches bypass a later revision check.
++    // Overwrite the inbound value; the page only consumes this verified key.
++    const headers = new Headers(request.headers);
++    headers.set("x-yoryon-content-revision", data.revision);
++    return NextResponse.next({ request: { headers } });
+   } catch {
+     return new NextResponse("内容暂时无法验证，请稍后重试。", { status: 503, headers: privateHeaders });
+   }
+diff --git a/docs/adr/0003-cache-separation.md b/docs/adr/0003-cache-separation.md
+index a6b0c62..76201b1 100644
+--- a/docs/adr/0003-cache-separation.md
++++ b/docs/adr/0003-cache-separation.md
+@@ -46,3 +46,11 @@ Next.js 的 SSR/ISR 与 Vercel CDN 存在多层缓存。若随用户身份变化
+ 详情和版本化分页 Middleware 每次调用一次轻量 API 内存门禁，不读取 session/正文，也不逐请求查 DB。单 API 进程重启后从 DB 重建，加载失败或 API 不可用返回 503。多实例扩展前必须使用共享强一致门禁。失效失败时 DB 已提交、缓存待处理，不宣称撤销生效；仅真实 GET 内容/版本验证完成才报告 verified。详见 ADR-0010。
+ 
+ 客户端禁用预取与跨导航静态 staleTime；新的网络读取受门禁保护。读者已经保存、下载、显示或浏览器历史恢复的公开副本无法远程召回。已签发 OSS URL 最长剩余有效期 900s，页面失效不会撤销既有 URL。
++
++## 修订记录（2026-10-14）：文章入口与浏览器缓存
++
++隔离浏览器发现 canonical rewrite 到静态 ISR 时，Next 会覆盖 Middleware 的 Cache-Control，RSC 被磁盘复用并在点击时产生重复请求；同标签预热后将公开文章改为付费的用例没有观测到旧全文显示，但响应缓存协议不满足每次入口核验要求。
++
++`/p/:slug` 改为动态 canonical 页面。Middleware 仍先实时查询当前已发布 revision，覆盖请求头 `x-yoryon-content-revision`；页面仅接受该验证后的 UUID，用 `headers()` 保持 HTML/RSC 为 private/no-store，再读取以 revision 为键的公开 Data Cache。Metadata 与正文在同一渲染内用 React.cache 去重。不要用 force-dynamic 覆盖所有 fetch，否则会同时禁用本应复用的公开 Data Cache。`/render/:revision/:slug` 保持原有门禁与 ISR，旧 revision 请求仍拒绝。
++
++文章标题/封面仅在悬停、聚焦或触摸意图时一次性预热路由和资源；dynamic/static staleTimes 均为 0。预热不运行详情客户端 effect，不读取私有全文，也不记为 Click/View/Read。点击仍经过当前门禁。少量公开无媒体帖子可随公开列表传输全文并在浏览器裁切，最多 4096 UTF-8 字节/条；已接收的公开数据与既有历史副本遵循相同边界。付费帖子和大帖展开继续经 private/no-store 详情接口。
+diff --git a/docs/adr/0010-publishing-cache-lifecycle.md b/docs/adr/0010-publishing-cache-lifecycle.md
+index 6f4ea9e..ef7a01d 100644
+--- a/docs/adr/0010-publishing-cache-lifecycle.md
++++ b/docs/adr/0010-publishing-cache-lifecycle.md
+@@ -30,3 +30,5 @@ CLI/core 管理业务写入，DB 保存内容与同事务 outbox；web 仅消费
+ 每次变更最多 100 个白名单目标；超限/非法目标在事务提交前拒绝，不能写成成功。预热串行、每请求 10s、每事件最多 3 次尝试，每轮最多 100 事件。正常少量目标的可见性目标 60s，最坏失败处理可能更久；不能以退出码代替事件状态。公开详情比较当前 updatedAt，首页/标签/合集列表比较 catalog version，sitemap 比较全部成员；仅 HTTP 200 不足以 verified。
+ 
+ 回滚 API 前必须先回滚 web 到全动态详情部署，停止发布并处理 pending 事件；不能让静态 web 连接缺少门禁的旧 API。新增迁移是增量字段/表，旧 API 可读取旧字段；恢复新版本后运行 cache retry。生产沿用单实例，禁止在无共享门禁时扩容。
++
++2026-10-14 阅读入口修订：canonical `/p` 每请求由同一 Middleware 核验当前 revision，再通过覆写的内部请求头进入动态页面；共享的是 revision-keyed 公开 Data Cache。内部 `/render` 的门禁及 ISR 仍保留。这样避免静态 rewrite 覆盖 no-store 响应头，也避免浏览器 RSC 缓存与路由树修补引发重复 canonical 请求。发布/失效目标、事件状态、UUID轮换、私有正文与媒体合同不变；缓存拓扑与浏览器撤销验收见 ADR-0003 的 2026-10-14 修订。
+diff --git a/docs/adr/0014-post-article-references.md b/docs/adr/0014-post-article-references.md
+index 48f6dfe..1ab1ae0 100644
+--- a/docs/adr/0014-post-article-references.md
++++ b/docs/adr/0014-post-article-references.md
+@@ -12,7 +12,11 @@
+ 
+ ## 首页与权限
+ 
+-首页和订阅分区遵循 ADR/Issue #15。帖子初始显示最多 900 权重、6 个顶层块，图片/视频/音频/引用每块计 300；文本按源码字符权重，边界文本在 AST 内截断。浏览器展示高度最多 32rem，展开后高度不限。展开读取现有私有 no-store 详情接口，由 API 决定当前权益；收起卸载展开正文。长文只显示标题、摘要、封面，不提供原地展开。
++首页和订阅分区遵循 ADR/Issue #15。帖子默认传输最多 900 权重、6 个顶层块，图片/视频/音频/引用每块计 300；文本按源码字符权重，边界文本在 AST 内截断。公开、无关联媒体且 UTF-8 正文不超过 4096 字节的帖子随列表传入匿名许可全文，每页 20 项至多约 80 KiB；浏览器仍裁切到六个顶层块及最多 32rem，展开只改变裁切样式，保留 Markdown 子树。服务器截断的帖子和付费帖子展开仍读取私有 no-store 详情接口，由 API 决定当前权益；收起清除该详情。长文只显示标题、摘要、封面，标题与封面进入详情，不提供原地展开或重复的“阅读全文”入口。
++
++分页在接近底部 600px 时自动请求一页，同步互斥避免重复请求；每页保留自己的正文和互动状态，追加不会重读先前所有页。15 秒超时或错误暂停自动读取并提供显式重试，目录版本/游标失效提示刷新，末页停止。浏览记忆仅保存公开列表，不保存已授权详情。
++
++文章链接在鼠标悬停、键盘聚焦或触摸意图时仅预热一次路由和资源。Router 的 dynamic/static staleTimes 保持 0，canonical `/p/:slug` 响应为 private/no-store，避免磁盘缓存的 RSC 在权限变更后跳过版本门禁；revision 隔离的服务端正文缓存仍复用。导航状态即时反馈，真正页面完成和权限撤销必须通过浏览器路径验证。
+ 
+ 发布事务统一保存 public_preview_markdown 与 preview_revision 派生投影，并使用同一预览计算结果保存媒体 exposure；匿名付费详情、Feed 和引用共享该投影。只有投影版本与内容 revision 一致时复用，SQL 修复轮换 revision 后按当前正文与预览规则重新计算；迁移尚未回填的 null 投影失败关闭为空。引用失效仅轮换父作品版本时，同时携带其有效投影版本。公开 Feed 仅包括经过权益裁剪后再折叠的帖子正文及其中可见媒体元信息。不能先折叠全文再裁剪付费预览。图片延迟加载，可单独查看；播放器仅在点击播放后挂载，停止、离开视口、收起与卸载释放资源，同一页面只激活一个播放器。展开、收起、查看图片、播放不记为详情 Click/View/Read；明确的详情链接沿用原统计合同。
+ 

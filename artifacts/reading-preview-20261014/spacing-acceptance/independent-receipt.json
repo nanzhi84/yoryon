@@ -1,0 +1,69 @@
+{
+  "sourceFrontmatterUnchanged": true,
+  "sourceTextUnchangedIgnoringOnlyWhitespace": true,
+  "augApiMatchesSourceText": true,
+  "augCurrentMetadata": {
+    "id": "0231cec3-7238-4592-8e5e-ec094b86d729",
+    "type": "post",
+    "slug": "note-2026-08-04-1",
+    "title": "",
+    "visibility": "public",
+    "publishedAt": "2026-08-04T00:00:00.000Z",
+    "access": "full",
+    "hasPaidContent": false,
+    "revision": "4fb67a6e-749b-493c-b1e0-79d817939405"
+  },
+  "augBodyMarkdown": "越是急于证明自己，越容易被短期结果牵着走；越想快速得到回报，越容易失去判断。\\\n看淡一时的盈亏，把注意力放回自己的节奏和长期积累。",
+  "julBodyMarkdown": "迷茫是你不知道自己要什么。\\\n恐惧是你很清楚自己要什么，但不知道该走哪条路到那里。\\\n大多数人说“我很迷茫”的时候，其实是恐惧。",
+  "feedArticleContract": {
+    "type": "article",
+    "slug": "freedom-before-wealth",
+    "title": "先自由后财富",
+    "visibility": "public",
+    "post": null,
+    "excerpt": "今天看了孙宇晨、邵艾伦的博客访谈。 难绷的是孙割讲话还是很有喜感，一直在那傻乐呵，一直输出观点。每次都是Alan被迫说：“我还想要继续往下推”去推进度。 全程孙割对于薄肌反复提及反复强调，乐此不疲。 信息密度比较低，但有些观点还是让我耳目一新。 我总结了几个我觉得有启发的观点： AI 化：让 AI 参与个人生活和工作中…"
+  },
+  "ssrStructures": [
+    {
+      "path": "/p/freedom-before-wealth",
+      "paragraphCount": 0,
+      "brCount": 0,
+      "paragraphs": [],
+      "hasPostExpandControl": false
+    },
+    {
+      "path": "/p/note-2026-09-27-1",
+      "paragraphCount": 8,
+      "brCount": 0,
+      "paragraphs": [
+        "以前我会认为只要一个人出了钱，就会把公司的命运与其绑定。",
+        "他不会想要浪费自己的投资，因此会努力工作扩大公司收益为公司谋取利益。",
+        "但是我现在发现不是这样。",
+        "让别人合伙并不天然让其会努力帮你干活。",
+        "别人合伙拿了钱实际上如果这笔钱对他来讲没啥关系的话，依然会啥也不想做。",
+        "反而是我自己陷入了被动。",
+        "我单方面以为大家利益一致，实际上真正承担所有推进成本和时间压力的只有我自己。",
+        "管理真的是个很困难的事情。"
+      ],
+      "hasPostExpandControl": false
+    },
+    {
+      "path": "/p/note-2026-08-04-1",
+      "paragraphCount": 1,
+      "brCount": 1,
+      "paragraphs": [
+        "越是急于证明自己，越容易被短期结果牵着走；越想快速得到回报，越容易失去判断。\n看淡一时的盈亏，把注意力放回自己的节奏和长期积累。"
+      ],
+      "hasPostExpandControl": false
+    },
+    {
+      "path": "/p/note-2026-07-24-1",
+      "paragraphCount": 1,
+      "brCount": 2,
+      "paragraphs": [
+        "迷茫是你不知道自己要什么。\n恐惧是你很清楚自己要什么，但不知道该走哪条路到那里。\n大多数人说“我很迷茫”的时候，其实是恐惧。"
+      ],
+      "hasPostExpandControl": false
+    }
+  ]
+}

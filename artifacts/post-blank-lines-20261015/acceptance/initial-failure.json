@@ -1,0 +1,126 @@
+[
+  {
+    "label": "soft",
+    "blocks": [
+      {
+        "bottom": 185,
+        "marginBottom": "0px",
+        "marginTop": "0px",
+        "text": "甲\n乙",
+        "top": 137
+      }
+    ],
+    "height": 48,
+    "html": "<p data-post-blank-lines=\"0\"><span data-search-node=\"t0\">甲\n乙</span></p>",
+    "lineHeight": "24px"
+  },
+  {
+    "label": "hard",
+    "blocks": [
+      {
+        "bottom": 345,
+        "marginBottom": "0px",
+        "marginTop": "0px",
+        "text": "甲\n乙",
+        "top": 297
+      }
+    ],
+    "height": 48,
+    "html": "<p data-post-blank-lines=\"0\"><span data-search-node=\"t0\">甲</span><br><span data-search-node=\"t1\"><span hidden=\"\" aria-hidden=\"true\">\n</span></span><span data-search-node=\"t2\">乙</span></p>",
+    "lineHeight": "24px"
+  },
+  {
+    "label": "one",
+    "blocks": [
+      {
+        "bottom": 321,
+        "marginBottom": "0px",
+        "marginTop": "0px",
+        "text": "甲",
+        "top": 297
+      },
+      {
+        "bottom": 345,
+        "marginBottom": "0px",
+        "marginTop": "0px",
+        "text": "乙",
+        "top": 321
+      }
+    ],
+    "height": 48,
+    "html": "<p data-post-blank-lines=\"0\"><span data-search-node=\"t0\">甲</span></p>\n<p data-post-blank-lines=\"1\"><span data-search-node=\"t1\">乙</span></p>",
+    "lineHeight": "24px"
+  },
+  {
+    "label": "two",
+    "blocks": [
+      {
+        "bottom": 321,
+        "marginBottom": "0px",
+        "marginTop": "0px",
+        "text": "甲",
+        "top": 297
+      },
+      {
+        "bottom": 345,
+        "marginBottom": "0px",
+        "marginTop": "0px",
+        "text": "乙",
+        "top": 321
+      }
+    ],
+    "height": 48,
+    "html": "<p data-post-blank-lines=\"0\"><span data-search-node=\"t0\">甲</span></p>\n<p data-post-blank-lines=\"2\"><span data-search-node=\"t1\">乙</span></p>",
+    "lineHeight": "24px"
+  },
+  {
+    "label": "nested",
+    "blocks": [
+      {
+        "bottom": 441,
+        "marginBottom": "0px",
+        "marginTop": "0px",
+        "text": "\n甲\n\n乙\n丙\n\n",
+        "top": 297
+      },
+      {
+        "bottom": 345,
+        "marginBottom": "0px",
+        "marginTop": "0px",
+        "text": "甲",
+        "top": 321
+      },
+      {
+        "bottom": 393,
+        "marginBottom": "0px",
+        "marginTop": "0px",
+        "text": "乙",
+        "top": 369
+      },
+      {
+        "bottom": 417,
+        "marginBottom": "0px",
+        "marginTop": "0px",
+        "text": "丙",
+        "top": 393
+      },
+      {
+        "bottom": 513,
+        "marginBottom": "0px",
+        "marginTop": "0px",
+        "text": "\n丁\n",
+        "top": 441
+      },
+      {
+        "bottom": 489,
+        "marginBottom": "0px",
+        "marginTop": "0px",
+        "text": "丁",
+        "top": 465
+      }
+    ],
+    "height": 216,
+    "html": "<ul data-post-blank-lines=\"0\">\n<li data-post-blank-lines=\"0\"><span data-search-node=\"t0\">\n</span><p data-post-blank-lines=\"0\"><span data-search-node=\"t1\">甲</span></p><span data-search-node=\"t2\">\n</span><ul data-post-blank-lines=\"0\">\n<li data-post-blank-lines=\"0\"><span data-search-node=\"t3\">乙</span></li>\n<li data-post-blank-lines=\"0\"><span data-search-node=\"t4\">丙</span></li>\n</ul><span data-search-node=\"t5\">\n</span></li>\n<li data-post-blank-lines=\"1\"><span data-search-node=\"t6\">\n</span><p data-post-blank-lines=\"0\"><span data-search-node=\"t7\">丁</span></p><span data-search-node=\"t8\">\n</span></li>\n</ul>",
+    "lineHeight": "24px"
+  }
+]

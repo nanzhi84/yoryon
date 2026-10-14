@@ -8,7 +8,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ ver
   if (source !== "feed" && source !== "paid-feed" && !source.startsWith("tag-")) return Response.json({ error: "invalid source" }, { status: 400 });
   const tag = source.slice(4);
   const path = source === "feed" ? "/api/feed" : source === "paid-feed" ? "/api/paid-feed" : `/api/tags/${tag}`;
-  const query = `?version=${version}${cursor === "start" ? "" : `&cursor=${encodeURIComponent(cursor)}`}`;
+  const query = `?protocol=pin-v4&version=${version}${cursor === "start" ? "" : `&cursor=${encodeURIComponent(cursor)}`}`;
   const res = await publicFetch(path + query, { revalidate: 86400, tags: [(source === "feed" || source === "paid-feed") ? "feed" : `tag:${tag}`] });
   // 预期错误（invalid_cursor / snapshot_expired）透传状态与错误码，私有不缓存；客户端据此引导刷新而非 500
   if (res.status === 400 || res.status === 409) {

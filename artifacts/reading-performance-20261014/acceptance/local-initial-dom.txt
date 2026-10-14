@@ -1,0 +1,382 @@
+- banner:
+  - link "Yoryon":
+    - /url: /
+    - generic: Yoryon
+  - link "全站搜索":
+    - /url: /search
+  - link "通知":
+    - /url: /notifications
+  - button "账户菜单":
+  - navigation "主导航":
+    - link "首页":
+      - /url: /
+    - link "订阅":
+      - /url: /subscription
+      - text: 订阅
+    - button "探索":
+      - text: 探索
+- main:
+  - article:
+    - link "查看 2026.10.13 的帖子":
+      - /url: /p/acceptance-media-public-post
+      - time: 2026.10.13
+    - paragraph: 2026 年 5 月 2 日，伯克希尔股东大会期间，巴菲特接受了 CNBC 主播 Becky Quick 的专访。
+    - paragraph: 这是 Greg Abel 接任 CEO 后首次主持伯克希尔年会，也是巴菲特卸任 CEO 后，第一次以董事长身份出现在这一场合。过去六十年里，他一直是伯克希尔年会最核心的声音；这一次，他把更多位置让给了继任者。
+    - paragraph: 专访涵盖市场判断、现金部署、通胀风险、AI 威胁与人生寄语。表面上看，这些话题分散在不同领域；但听到最后会发现，巴菲特讲的仍然是同一件事：在无法控制的世界里，保持清醒，保留选择权，然后按照一条不会让自己后悔的规则行事。
+    - heading "市场诊断：附带赌场的教堂" [level=3]
+    - paragraph: 巴菲特对当前市场结构给出了一个精准比喻：“附带赌场的教堂”。
+    - paragraph: 人们在教堂（投资）和赌场（投机）之间自由穿梭。他的判断是：两边的人数都在增加，但赌场的吸引力增长更快。
+    - button "展开"
+    - generic "内容互动":
+      - link "评论":
+        - /url: /p/acceptance-media-public-post#comments
+        - generic: 评论
+      - button "点赞" [disabled]:
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "查看 2026.10.13 的帖子":
+      - /url: /p/acceptance-large-public-post
+      - time: 2026.10.13
+    - paragraph: 今天看了孙宇晨、邵艾伦的博客访谈。
+    - paragraph: 难绷的是孙割讲话还是很有喜感，一直在那傻乐呵，一直输出观点。每次都是Alan被迫说：“我还想要继续往下推”去推进度。
+    - paragraph: 全程孙割对于薄肌反复提及反复强调，乐此不疲。
+    - paragraph:
+      - text: 信息密度比较低，但有些观点还是让我耳目一新
+      - strong: 。
+    - paragraph: 我总结了几个我觉得有启发的观点：
+    - heading "AI 化：让 AI 参与个人生活和工作中的整个决策过程" [level=2]:
+      - strong: AI 化：让 AI 参与个人生活和工作中的整个决策过程
+    - button "展开"
+    - generic "内容互动":
+      - link "评论":
+        - /url: /p/acceptance-large-public-post#comments
+        - generic: 评论
+      - button "点赞" [disabled]:
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "先自由后财富":
+      - /url: /p/freedom-before-wealth
+      - heading "先自由后财富" [level=2]
+    - time: 2026.10.09
+    - paragraph: 今天看了孙宇晨、邵艾伦的博客访谈。 难绷的是孙割讲话还是很有喜感，一直在那傻乐呵，一直输出观点。每次都是Alan被迫说：“我还想要继续往下推”去推进度。 全程孙割对于薄肌反复提及反复强调，乐此不疲。 信息密度比较低，但有些观点还是让我耳目一新。 我总结了几个我觉得有启发的观点： AI 化：让 AI 参与个人生活和工作中…
+    - generic "内容互动":
+      - link "评论":
+        - /url: /p/freedom-before-wealth#comments
+        - generic: 评论
+      - button "点赞" [disabled]:
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "查看 2026.09.27 的帖子":
+      - /url: /p/note-2026-09-27-1
+      - time: 2026.09.27
+    - paragraph: 以前我会认为只要一个人出了钱，就会把公司的命运与其绑定。
+    - paragraph: 他不会想要浪费自己的投资，因此会努力工作扩大公司收益为公司谋取利益。
+    - paragraph: 但是我现在发现不是这样。
+    - paragraph: 让别人合伙并不天然让其会努力帮你干活。
+    - paragraph: 别人合伙拿了钱实际上如果这笔钱对他来讲没啥关系的话，依然会啥也不想做。
+    - paragraph: 反而是我自己陷入了被动。
+    - button "展开"
+    - generic "内容互动":
+      - link "评论":
+        - /url: /p/note-2026-09-27-1#comments
+        - generic: 评论
+      - button "点赞" [disabled]:
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "查看 2026.09.20 的帖子":
+      - /url: /p/note-2026-09-20-1
+      - time: 2026.09.20
+    - paragraph:
+      - text: 正常人是：努力学习->获得更好学历->找到更好工作->搞钱。
+      - text: 为什么不是：直接思考怎么搞钱。
+    - generic "内容互动":
+      - link "评论":
+        - /url: /p/note-2026-09-20-1#comments
+        - generic: 评论
+      - button "点赞" [disabled]:
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "Jev 技术图解：从文本生成到类型化决策":
+      - /url: /p/jev-typed-decisions
+      - heading "Jev 技术图解：从文本生成到类型化决策" [level=2]
+    - time: 2026.09.19
+    - paragraph: 以客服分流为主线，解释 Jev 的类型化决策接口、并行判断、概率校准和 Agent 接入边界。
+    - generic "内容互动":
+      - link "评论":
+        - /url: /p/jev-typed-decisions#comments
+        - generic: 评论
+      - button "点赞" [disabled]:
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "查看 2026.09.09 的帖子":
+      - /url: /p/note-2026-09-09-1
+      - time: 2026.09.09
+    - paragraph: 我最近在重新搭一个学生项目的组织结构时，发现自己之前有一个很明显的习惯：只要看到别人把事情做得不够好，我就很容易产生一种冲动，觉得还是我自己来更快。
+    - paragraph: 这个判断往往没有错。
+    - paragraph: 我更熟悉项目，知道自己想要什么，很多工作自己做确实能做到八九十分，交给别人可能只有六七十分。问题在于，如果每一次结果不理想，我都选择亲自接管，那么短期得到的是更好的结果，长期形成的却是一个越来越依赖我的组织。大家负责尝试，我负责收尾；大家做到六十分，我再补到九十分。时间久了，所有关键工作都会重新回到我手里。
+    - paragraph: 这种做法还会让我失去判断人的能力。
+    - paragraph: 我很容易把结果解释成这个人能力不行，所以只能我自己做。但如果一个人每次做到一半就被接管，他实际上从来没有完整承担过目标、决策、执行和结果，也没有真正面对过失败的成本。最后我看到的只是一个被我反复打断的执行者，很难判断他究竟无法胜任，还是一直没机会成为真正的负责人。
+    - paragraph: 所以管理者需要克制一种很强的本能：看到问题以后，马上自己把事情做好。真正需要判断的是，这个问题是否已经严重到必须介入。
+    - button "展开"
+    - generic "内容互动":
+      - link "评论":
+        - /url: /p/note-2026-09-09-1#comments
+        - generic: 评论
+      - button "点赞" [disabled]:
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "查看 2026.09.08 的帖子":
+      - /url: /p/note-2026-09-08-1
+      - time: 2026.09.08
+    - paragraph: 连接本身越来越不值钱。
+    - paragraph: 微信时代以前，认识某个人可能就是壁垒。现在大量人脉关系已经高度数字化，LinkedIn、微信、行业社群、猎头、FA、专家网络公司都在降低连接成本。
+    - paragraph: 所以认识很多人，甚至能把两个人介绍认识，本身没有多少护城河。
+    - paragraph: 真正稀缺的是有效组织能力。
+    - paragraph: 你必须同时有判断、信用、利益设计、执行和协调能力。
+    - paragraph: 否则所谓连接资源只会退化成一个通讯录很厚的人。
+    - button "展开"
+    - generic "内容互动":
+      - link "评论":
+        - /url: /p/note-2026-09-08-1#comments
+        - generic: 评论
+      - button "点赞" [disabled]:
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "查看 2026.09.05 的帖子":
+      - /url: /p/note-2026-09-05-1
+      - time: 2026.09.05
+    - paragraph:
+      - text: 感觉自己是个很嫉妒的人，看不得别人好，尤其是拥有了我曾感觉可以拥有却未能拥有的东西。
+      - text: 我总是在得到优势的时候渴望与别人比较，得到优越感；在失去优势的时候，难受、逃避、退出比赛，并且把这个东西说成一个不稀罕的东西。
+      - text: 可是每次看到别人变成了我以前想成为的闪闪发光的样子，我依然不甘、依然痛苦，即使和朋友聊起的时候假装大度，但是心里却依旧是如此的嫉妒很不爽。
+      - text: 我还把这种痛苦的缘由推给一切影响我的东西。
+      - text: 我不懂。
+      - text: 一直这样。
+    - generic "内容互动":
+      - link "评论":
+        - /url: /p/note-2026-09-05-1#comments
+        - generic: 评论
+      - button "点赞" [disabled]:
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "查看 2026.08.24 的帖子":
+      - /url: /p/note-2026-08-24-1
+      - time: 2026.08.24
+    - paragraph: 我喜欢看虚拟主播，有时候会给别人刷礼物。
+    - paragraph: 但是正常情怀刷了就刷了，有些主播就会经常嘘寒问暖。
+    - paragraph: 刚开始还好，但是持续刷就持续有嘘寒问暖，甚至消息比会变成10:1，还会有小作文过来。
+    - paragraph: 渐渐地就感觉这好像不是一种关心，而是一种束缚和压力。
+    - paragraph: 好像自己不看她的直播就要报备，不然就很尴尬。
+    - paragraph: 有时候找借口说不看了，我以为正常都应该明白，但是却好像不明白，结果还是来关心。
+    - button "展开"
+    - generic "内容互动":
+      - link "评论":
+        - /url: /p/note-2026-08-24-1#comments
+        - generic: 评论
+      - button "点赞" [disabled]:
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "深入 DeepSeek Harness：当 Agent Loop 也成为插件":
+      - /url: /p/deepseek-harness
+      - heading "深入 DeepSeek Harness：当 Agent Loop 也成为插件" [level=2]
+    - time: 2026.08.19
+    - paragraph: 拆解 DSH 的一切皆插件架构：从启动组装、Cordis 三件套到 turn/step 循环与 Session Log，核心是 agent loop 可整体热替换，为 agent 自进化铺好基础设施。
+    - generic "内容互动":
+      - link "评论":
+        - /url: /p/deepseek-harness#comments
+        - generic: 评论
+      - button "点赞" [disabled]:
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "从 Workflow 到 Agent：范式选择与构建模式":
+      - /url: /p/workflow-to-agent-patterns
+      - heading "从 Workflow 到 Agent：范式选择与构建模式" [level=2]
+    - time: 2026.08.05
+    - paragraph: 循序渐进讲清 Workflow 与 Agent：是什么、何时选哪种范式、各自有哪些构建形式与落地要点。
+    - generic "内容互动":
+      - link "评论":
+        - /url: /p/workflow-to-agent-patterns#comments
+        - generic: 评论
+      - button "点赞" [disabled]:
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "查看 2026.08.04 的帖子":
+      - /url: /p/note-2026-08-04-1
+      - time: 2026.08.04
+    - paragraph: 越是急于证明自己，越容易被短期结果牵着走；越想快速得到回报，越容易失去判断。
+    - paragraph: 看淡一时的盈亏，把注意力放回自己的节奏和长期积累。
+    - generic "内容互动":
+      - link "评论":
+        - /url: /p/note-2026-08-04-1#comments
+        - generic: 评论
+      - button "点赞" [disabled]:
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "查看 2026.07.24 的帖子":
+      - /url: /p/note-2026-07-24-1
+      - time: 2026.07.24
+    - paragraph:
+      - text: 迷茫是你不知道自己要什么。
+      - text: 恐惧是你很清楚自己要什么，但不知道该走哪条路到那里。
+      - text: 大多数人说“我很迷茫”的时候，其实是恐惧。
+    - generic "内容互动":
+      - link "评论":
+        - /url: /p/note-2026-07-24-1#comments
+        - generic: 评论
+      - button "点赞" [disabled]:
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "查看 2026.07.23 的帖子":
+      - /url: /p/note-2026-07-23-1
+      - time: 2026.07.23
+    - paragraph: 今天和爸妈聊天时，我更清楚地感受到一种很典型的“东亚父母式”观念差异。
+    - paragraph: 我爸的想法大致是：
+    - list:
+      - listitem: 以后好好工作；
+      - listitem: 找个伴侣；
+      - listitem: 生个孩子；
+      - listitem: 把家庭养活。
+    - paragraph: 而我的顾虑是：
+    - list:
+      - listitem: 如果自己还没有能力提供相对好的条件，就不想轻易生孩子；
+      - listitem: 我担心孩子在条件不足的情况下会跟着受苦，所以我更倾向于“先具备能力，再考虑生育”。
+    - paragraph: 但爸妈并不认同这种顺序。他们更相信：
+    - button "展开"
+    - generic "内容互动":
+      - link "评论":
+        - /url: /p/note-2026-07-23-1#comments
+        - generic: 评论
+      - button "点赞" [disabled]:
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "查看 2026.05.24 的帖子":
+      - /url: /p/note-2026-05-24-1
+      - time: 2026.05.24
+    - paragraph:
+      - text: 很多大学生会发现过去十几年积累的“优秀”，在市场里根本不能直接兑换
+      - text: 学校奖励的是完成任务，市场奖励的是解决问题。
+    - generic "内容互动":
+      - link "评论":
+        - /url: /p/note-2026-05-24-1#comments
+        - generic: 评论
+      - button "点赞" [disabled]:
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "经济学十大原理（3）：整体经济如何运行":
+      - /url: /p/economics-principles-overall
+      - heading "经济学十大原理（3）：整体经济如何运行" [level=2]
+    - time: 2026.05.10
+    - paragraph: 整体经济三原理：生产率定生活水平，过多货币推高物价，短期通胀与失业权衡。
+    - link "经济学十大原理（3）：整体经济如何运行":
+      - /url: /p/economics-principles-overall
+      - img "经济学十大原理（3）：整体经济如何运行"
+    - generic "内容互动":
+      - link "评论":
+        - /url: /p/economics-principles-overall#comments
+        - generic: 评论
+      - button "点赞" [disabled]:
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "经济学十大原理（2）：人们如何相互影响":
+      - /url: /p/economics-principles-interaction
+      - heading "经济学十大原理（2）：人们如何相互影响" [level=2]
+    - time: 2026.05.09
+    - paragraph: 贸易、市场与政府：比较优势扩大蛋糕，价格协调，失灵时谨慎介入。
+    - link "经济学十大原理（2）：人们如何相互影响":
+      - /url: /p/economics-principles-interaction
+      - img "经济学十大原理（2）：人们如何相互影响"
+    - generic "内容互动":
+      - link "评论":
+        - /url: /p/economics-principles-interaction#comments
+        - generic: 评论
+      - button "点赞" [disabled]:
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "经济学十大原理（1）：人们如何做出决策":
+      - /url: /p/economics-principles-decision
+      - heading "经济学十大原理（1）：人们如何做出决策" [level=2]
+    - time: 2026.05.08
+    - paragraph: 决策四原理：权衡、机会成本、边际量与激励反应。
+    - link "经济学十大原理（1）：人们如何做出决策":
+      - /url: /p/economics-principles-decision
+      - img "经济学十大原理（1）：人们如何做出决策"
+    - generic "内容互动":
+      - link "评论":
+        - /url: /p/economics-principles-decision#comments
+        - generic: 评论
+      - button "点赞" [disabled]:
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - article:
+    - link "查看 2026.05.02 的帖子":
+      - /url: /p/note-2026-05-02-1
+      - time: 2026.05.02
+    - paragraph: 做决定的时候永远后悔，不做决定的时候更后悔
+    - paragraph: 这他妈就是人生吧。
+    - generic "内容互动":
+      - link "评论":
+        - /url: /p/note-2026-05-02-1#comments
+        - generic: 评论
+      - button "点赞" [disabled]:
+        - generic: 点赞
+      - button "转发，复制链接":
+        - generic: 转发
+    - status
+  - status: 继续向下浏览
+- alert

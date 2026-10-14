@@ -1,0 +1,24 @@
+{
+  "observedAt": "2026-10-14",
+  "environment": "https://yoryon.com/ anonymous fresh IAB",
+  "scope": "one real click per action, online baseline only, no claim of distribution or same-environment comparative performance",
+  "postExpand": {
+    "slug": "note-2026-09-27-1",
+    "clickToVisibleFinalParagraphMs": 279.9,
+    "requestPath": "/api/contents/note-2026-09-27-1",
+    "requestToResponseMs": 277.373,
+    "longTasks": [],
+    "finalVisibleText": "管理真的是个很困难的事情。",
+    "button": "收起"
+  },
+  "articleNavigation": {
+    "slug": "freedom-before-wealth",
+    "clickToH1AndBodyMs": 901.8,
+    "rscRequestToResponseMs": 807.358,
+    "rscRequestToFinishMs": 886.323,
+    "longTasks": [],
+    "finalH1": "先自由后财富",
+    "commentAreaVisible": true
+  },
+  "finding": "The observed waits align with network delivery. No main-thread long tasks were observed in these samples."
+}

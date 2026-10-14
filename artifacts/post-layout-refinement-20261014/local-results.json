@@ -1,0 +1,112 @@
+{
+  "home": {
+    "dateLinks": [
+      {
+        "class": "ml-auto shrink-0 text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+        "aria-label": "查看 2026.10.11 的帖子",
+        "href": "/p/demo-audio"
+      },
+      {
+        "class": "ml-auto shrink-0 text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+        "aria-label": "查看 2026.10.11 的帖子",
+        "href": "/p/demo-video"
+      },
+      {
+        "class": "ml-auto shrink-0 text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline",
+        "aria-label": "查看 2026.10.11 的帖子",
+        "href": "/p/demo-gallery"
+      }
+    ],
+    "headings": [
+      [
+        "h2",
+        "在纸面与屏幕之间：一份图文混排的阅读观察"
+      ],
+      [
+        "h2",
+        "一篇文章如何到达读者：从草稿、媒体到浏览器的技术手记"
+      ],
+      [
+        "h2",
+        "把一天慢慢读完：城市、散步与那些没有被记录的片刻"
+      ],
+      [
+        "h2",
+        "段落要点：把一天慢慢读完"
+      ],
+      [
+        "h2",
+        "无序要点：把一天慢慢读完"
+      ],
+      [
+        "h2",
+        "一句话要点：把一天慢慢读完"
+      ],
+      [
+        "h2",
+        "2024 年字节跳动前实习生田柯宇 (Tian Keyu) 模型训练攻击事件：受害者陈述与证据整理"
+      ],
+      [
+        "h2",
+        "示例系列 · 第二话"
+      ],
+      [
+        "h2",
+        "示例系列 · 第一话"
+      ],
+      [
+        "h2",
+        "测试文章"
+      ]
+    ]
+  },
+  "post": {
+    "dateLinks": [],
+    "headings": [
+      [
+        "h2",
+        "本文要点"
+      ],
+      [
+        "h2",
+        "评论"
+      ]
+    ]
+  },
+  "article": {
+    "dateLinks": [],
+    "headings": [
+      [
+        "h1",
+        "把一天慢慢读完：城市、散步与那些没有被记录的片刻"
+      ],
+      [
+        "h2",
+        "一、从一条不熟悉的街开始"
+      ],
+      [
+        "h2",
+        "二、街道并不是一张地图"
+      ],
+      [
+        "h2",
+        "三、让段落有自己的呼吸"
+      ],
+      [
+        "h2",
+        "四、没有结论的结尾"
+      ],
+      [
+        "h2",
+        "继续阅读"
+      ],
+      [
+        "h2",
+        "评论"
+      ]
+    ]
+  },
+  "dateRightClass": true,
+  "articleSameH1": true,
+  "postNoH1": true
+}

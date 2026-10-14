@@ -1,0 +1,9 @@
+{
+  "sourceCommit": "288471a440096df2f463211060a5eae3c5ea93af",
+  "sourceDiffSha256": "780ef68dff529303cfcc6adbcc97cc67b35f042d4bed4adc002fa7838795eccc",
+  "workspace": "/var/folders/d_/8w6ff22d7gn6r0vr84g21d5r0000gn/T/yoryon-reading-build-du19i_v6",
+  "envFile": "/var/folders/d_/8w6ff22d7gn6r0vr84g21d5r0000gn/T/yoryon-reading-performance-3yn107nu/acceptance.env",
+  "command": "pnpm build via Node --env-file; pnpm_config_verify_deps_before_run=warn for shared dependency symlinks",
+  "api": "http://127.0.0.1:4117",
+  "web": "http://localhost:3117"
+}

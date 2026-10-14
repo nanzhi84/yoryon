@@ -1,0 +1,542 @@
+[
+  {
+    "case": "single",
+    "searchNodeIdsAndTextContentUnchanged": true,
+    "hiddenOnlySingleNewline": true,
+    "hiddenCount": 1,
+    "brUnchanged": true,
+    "originalUntouchedCases": null,
+    "nodeLengthsOffsets": [
+      {
+        "id": "t0",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 0
+      },
+      {
+        "id": "t1",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 1
+      },
+      {
+        "id": "t2",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 2
+      }
+    ]
+  },
+  {
+    "case": "strong",
+    "searchNodeIdsAndTextContentUnchanged": true,
+    "hiddenOnlySingleNewline": true,
+    "hiddenCount": 1,
+    "brUnchanged": true,
+    "originalUntouchedCases": null,
+    "nodeLengthsOffsets": [
+      {
+        "id": "t0",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 0
+      },
+      {
+        "id": "t1",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 1
+      },
+      {
+        "id": "t2",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 2
+      }
+    ]
+  },
+  {
+    "case": "consecutive",
+    "searchNodeIdsAndTextContentUnchanged": true,
+    "hiddenOnlySingleNewline": true,
+    "hiddenCount": 2,
+    "brUnchanged": true,
+    "originalUntouchedCases": null,
+    "nodeLengthsOffsets": [
+      {
+        "id": "t0",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 0
+      },
+      {
+        "id": "t1",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 1
+      },
+      {
+        "id": "t2",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 2
+      },
+      {
+        "id": "t3",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 3
+      }
+    ]
+  },
+  {
+    "case": "soft",
+    "searchNodeIdsAndTextContentUnchanged": true,
+    "hiddenOnlySingleNewline": true,
+    "hiddenCount": 0,
+    "brUnchanged": true,
+    "originalUntouchedCases": true,
+    "nodeLengthsOffsets": [
+      {
+        "id": "t0",
+        "lengthUTF16": 3,
+        "startWithinConcatenatedNodes": 0
+      }
+    ]
+  },
+  {
+    "case": "code",
+    "searchNodeIdsAndTextContentUnchanged": true,
+    "hiddenOnlySingleNewline": true,
+    "hiddenCount": 0,
+    "brUnchanged": true,
+    "originalUntouchedCases": true,
+    "nodeLengthsOffsets": [
+      {
+        "id": "t0",
+        "lengthUTF16": 4,
+        "startWithinConcatenatedNodes": 0
+      }
+    ]
+  },
+  {
+    "case": "nbsp",
+    "searchNodeIdsAndTextContentUnchanged": true,
+    "hiddenOnlySingleNewline": true,
+    "hiddenCount": 0,
+    "brUnchanged": true,
+    "originalUntouchedCases": true,
+    "nodeLengthsOffsets": [
+      {
+        "id": "t0",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 0
+      },
+      {
+        "id": "t1",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 1
+      },
+      {
+        "id": "t2",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 2
+      }
+    ]
+  },
+  {
+    "case": "emoji",
+    "searchNodeIdsAndTextContentUnchanged": true,
+    "hiddenOnlySingleNewline": true,
+    "hiddenCount": 1,
+    "brUnchanged": true,
+    "originalUntouchedCases": null,
+    "nodeLengthsOffsets": [
+      {
+        "id": "t0",
+        "lengthUTF16": 2,
+        "startWithinConcatenatedNodes": 0
+      },
+      {
+        "id": "t1",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 2
+      },
+      {
+        "id": "t2",
+        "lengthUTF16": 3,
+        "startWithinConcatenatedNodes": 3
+      }
+    ]
+  },
+  {
+    "case": "inlinecode",
+    "searchNodeIdsAndTextContentUnchanged": true,
+    "hiddenOnlySingleNewline": true,
+    "hiddenCount": 1,
+    "brUnchanged": true,
+    "originalUntouchedCases": null,
+    "nodeLengthsOffsets": [
+      {
+        "id": "t0",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 0
+      },
+      {
+        "id": "t1",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 1
+      },
+      {
+        "id": "t2",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 2
+      }
+    ]
+  },
+  {
+    "case": "link",
+    "searchNodeIdsAndTextContentUnchanged": true,
+    "hiddenOnlySingleNewline": true,
+    "hiddenCount": 1,
+    "brUnchanged": true,
+    "originalUntouchedCases": null,
+    "nodeLengthsOffsets": [
+      {
+        "id": "t0",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 0
+      },
+      {
+        "id": "t1",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 1
+      },
+      {
+        "id": "t2",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 2
+      }
+    ]
+  },
+  {
+    "case": "note-2026-04-21-1",
+    "searchNodeIdsAndTextContentUnchanged": true,
+    "hiddenOnlySingleNewline": true,
+    "hiddenCount": 2,
+    "brUnchanged": true,
+    "originalUntouchedCases": null,
+    "nodeLengthsOffsets": [
+      {
+        "id": "t0",
+        "lengthUTF16": 6,
+        "startWithinConcatenatedNodes": 0
+      },
+      {
+        "id": "t1",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 6
+      },
+      {
+        "id": "t2",
+        "lengthUTF16": 8,
+        "startWithinConcatenatedNodes": 7
+      },
+      {
+        "id": "t3",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 15
+      },
+      {
+        "id": "t4",
+        "lengthUTF16": 8,
+        "startWithinConcatenatedNodes": 16
+      }
+    ]
+  },
+  {
+    "case": "note-2026-04-24-1",
+    "searchNodeIdsAndTextContentUnchanged": true,
+    "hiddenOnlySingleNewline": true,
+    "hiddenCount": 3,
+    "brUnchanged": true,
+    "originalUntouchedCases": null,
+    "nodeLengthsOffsets": [
+      {
+        "id": "t0",
+        "lengthUTF16": 19,
+        "startWithinConcatenatedNodes": 0
+      },
+      {
+        "id": "t1",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 19
+      },
+      {
+        "id": "t2",
+        "lengthUTF16": 9,
+        "startWithinConcatenatedNodes": 20
+      },
+      {
+        "id": "t3",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 29
+      },
+      {
+        "id": "t4",
+        "lengthUTF16": 10,
+        "startWithinConcatenatedNodes": 30
+      },
+      {
+        "id": "t5",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 40
+      },
+      {
+        "id": "t6",
+        "lengthUTF16": 5,
+        "startWithinConcatenatedNodes": 41
+      }
+    ]
+  },
+  {
+    "case": "note-2026-04-24-2",
+    "searchNodeIdsAndTextContentUnchanged": true,
+    "hiddenOnlySingleNewline": true,
+    "hiddenCount": 4,
+    "brUnchanged": true,
+    "originalUntouchedCases": null,
+    "nodeLengthsOffsets": [
+      {
+        "id": "t0",
+        "lengthUTF16": 8,
+        "startWithinConcatenatedNodes": 0
+      },
+      {
+        "id": "t1",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 8
+      },
+      {
+        "id": "t2",
+        "lengthUTF16": 10,
+        "startWithinConcatenatedNodes": 9
+      },
+      {
+        "id": "t3",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 19
+      },
+      {
+        "id": "t4",
+        "lengthUTF16": 10,
+        "startWithinConcatenatedNodes": 20
+      },
+      {
+        "id": "t5",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 30
+      },
+      {
+        "id": "t6",
+        "lengthUTF16": 13,
+        "startWithinConcatenatedNodes": 31
+      },
+      {
+        "id": "t7",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 44
+      },
+      {
+        "id": "t8",
+        "lengthUTF16": 11,
+        "startWithinConcatenatedNodes": 45
+      }
+    ]
+  },
+  {
+    "case": "note-2026-04-27-1",
+    "searchNodeIdsAndTextContentUnchanged": true,
+    "hiddenOnlySingleNewline": true,
+    "hiddenCount": 3,
+    "brUnchanged": true,
+    "originalUntouchedCases": null,
+    "nodeLengthsOffsets": [
+      {
+        "id": "t0",
+        "lengthUTF16": 18,
+        "startWithinConcatenatedNodes": 0
+      },
+      {
+        "id": "t1",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 18
+      },
+      {
+        "id": "t2",
+        "lengthUTF16": 21,
+        "startWithinConcatenatedNodes": 19
+      },
+      {
+        "id": "t3",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 40
+      },
+      {
+        "id": "t4",
+        "lengthUTF16": 17,
+        "startWithinConcatenatedNodes": 41
+      },
+      {
+        "id": "t5",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 58
+      },
+      {
+        "id": "t6",
+        "lengthUTF16": 28,
+        "startWithinConcatenatedNodes": 59
+      }
+    ]
+  },
+  {
+    "case": "note-2026-05-24-1",
+    "searchNodeIdsAndTextContentUnchanged": true,
+    "hiddenOnlySingleNewline": true,
+    "hiddenCount": 1,
+    "brUnchanged": true,
+    "originalUntouchedCases": null,
+    "nodeLengthsOffsets": [
+      {
+        "id": "t0",
+        "lengthUTF16": 33,
+        "startWithinConcatenatedNodes": 0
+      },
+      {
+        "id": "t1",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 33
+      },
+      {
+        "id": "t2",
+        "lengthUTF16": 22,
+        "startWithinConcatenatedNodes": 34
+      }
+    ]
+  },
+  {
+    "case": "note-2026-07-24-1",
+    "searchNodeIdsAndTextContentUnchanged": true,
+    "hiddenOnlySingleNewline": true,
+    "hiddenCount": 2,
+    "brUnchanged": true,
+    "originalUntouchedCases": null,
+    "nodeLengthsOffsets": [
+      {
+        "id": "t0",
+        "lengthUTF16": 13,
+        "startWithinConcatenatedNodes": 0
+      },
+      {
+        "id": "t1",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 13
+      },
+      {
+        "id": "t2",
+        "lengthUTF16": 26,
+        "startWithinConcatenatedNodes": 14
+      },
+      {
+        "id": "t3",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 40
+      },
+      {
+        "id": "t4",
+        "lengthUTF16": 21,
+        "startWithinConcatenatedNodes": 41
+      }
+    ]
+  },
+  {
+    "case": "note-2026-09-05-1",
+    "searchNodeIdsAndTextContentUnchanged": true,
+    "hiddenOnlySingleNewline": true,
+    "hiddenCount": 5,
+    "brUnchanged": true,
+    "originalUntouchedCases": null,
+    "nodeLengthsOffsets": [
+      {
+        "id": "t0",
+        "lengthUTF16": 42,
+        "startWithinConcatenatedNodes": 0
+      },
+      {
+        "id": "t1",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 42
+      },
+      {
+        "id": "t2",
+        "lengthUTF16": 63,
+        "startWithinConcatenatedNodes": 43
+      },
+      {
+        "id": "t3",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 106
+      },
+      {
+        "id": "t4",
+        "lengthUTF16": 69,
+        "startWithinConcatenatedNodes": 107
+      },
+      {
+        "id": "t5",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 176
+      },
+      {
+        "id": "t6",
+        "lengthUTF16": 21,
+        "startWithinConcatenatedNodes": 177
+      },
+      {
+        "id": "t7",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 198
+      },
+      {
+        "id": "t8",
+        "lengthUTF16": 4,
+        "startWithinConcatenatedNodes": 199
+      },
+      {
+        "id": "t9",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 203
+      },
+      {
+        "id": "t10",
+        "lengthUTF16": 5,
+        "startWithinConcatenatedNodes": 204
+      }
+    ]
+  },
+  {
+    "case": "note-2026-09-20-1",
+    "searchNodeIdsAndTextContentUnchanged": true,
+    "hiddenOnlySingleNewline": true,
+    "hiddenCount": 1,
+    "brUnchanged": true,
+    "originalUntouchedCases": null,
+    "nodeLengthsOffsets": [
+      {
+        "id": "t0",
+        "lengthUTF16": 30,
+        "startWithinConcatenatedNodes": 0
+      },
+      {
+        "id": "t1",
+        "lengthUTF16": 1,
+        "startWithinConcatenatedNodes": 30
+      },
+      {
+        "id": "t2",
+        "lengthUTF16": 15,
+        "startWithinConcatenatedNodes": 31
+      }
+    ]
+  }
+]

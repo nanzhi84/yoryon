@@ -1,0 +1,65 @@
+{
+  "metrics": "{\"start\":71037.70000004768,\"scrollAtClick\":6441,\"feedbackMs\":1.2000000476837158,\"durationMs\":46}",
+  "network": [
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/p/meritocracy-and-pain?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.152",
+      "headers": {
+        "rsc": "1"
+      }
+    },
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/p/meritocracy-and-pain?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.154",
+      "headers": {
+        "rsc": "1"
+      }
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/p/meritocracy-and-pain?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.152",
+      "headers": {
+        "cache-control": "s-maxage=86400, stale-while-revalidate=31449600",
+        "x-middleware-rewrite": "http://localhost:3117/render/92457fe0-130f-4ab6-9a29-a77eb44a4b03/meritocracy-and-pain?_rsc=ZmCQ44b92m4mXe_R",
+        "x-nextjs-cache": "MISS"
+      },
+      "status": 200,
+      "fromDiskCache": false
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/p/meritocracy-and-pain?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.154",
+      "headers": {
+        "cache-control": "s-maxage=86400, stale-while-revalidate=31449600",
+        "x-middleware-rewrite": "http://localhost:3117/render/92457fe0-130f-4ab6-9a29-a77eb44a4b03/meritocracy-and-pain?_rsc=ZmCQ44b92m4mXe_R",
+        "x-nextjs-cache": "MISS"
+      },
+      "status": 200,
+      "fromDiskCache": false
+    },
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/p/meritocracy-and-pain?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.157",
+      "headers": {
+        "rsc": "1"
+      }
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/p/meritocracy-and-pain?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.157",
+      "headers": {
+        "cache-control": "s-maxage=86400, stale-while-revalidate=31449600",
+        "x-middleware-rewrite": "http://localhost:3117/render/92457fe0-130f-4ab6-9a29-a77eb44a4b03/meritocracy-and-pain?_rsc=ZmCQ44b92m4mXe_R",
+        "x-nextjs-cache": "HIT"
+      },
+      "status": 200,
+      "fromDiskCache": false
+    }
+  ]
+}

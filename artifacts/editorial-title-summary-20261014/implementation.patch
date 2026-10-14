@@ -1,0 +1,155 @@
+diff --git a/apps/web/app/globals.css b/apps/web/app/globals.css
+index b215d2a..fb52d4d 100644
+--- a/apps/web/app/globals.css
++++ b/apps/web/app/globals.css
+@@ -48,6 +48,7 @@
+   --color-surface: var(--surface);
+   --color-surface-border: var(--surface-border);
+   --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Segoe UI", sans-serif;
++  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", SimSun, serif;
+ }
+ 
+ /* 页面宽度稳定：始终预留滚动条槽位，避免长短页面切换时居中容器横向跳动 */
+@@ -76,14 +77,45 @@ body {
+   --tw-prose-captions: var(--muted-foreground);
+   --tw-prose-th-borders: var(--border);
+   --tw-prose-td-borders: var(--border);
+-  font-size: 16px;
+-  line-height: 28px;
++  font-family: var(--font-serif);
++  font-size: 17px;
++  line-height: 1.85;
+   /* Long source URLs wrap; preformatted code retains its own scrolling area. */
+   overflow-wrap: anywhere;
+ }
+ .prose-yoryon :where(p):not(:where([class~="not-prose"] *)) {
+-  margin-top: 1em;
+-  margin-bottom: 1em;
++  margin-top: 0;
++  margin-bottom: 20px;
++}
++/* 书刊式阅读节奏只作用于内容，导航、付费提示与互动仍使用界面字体。 */
++.editorial-reader { max-width: 660px; margin-inline: auto; }
++.editorial-title { margin-top: 28px; margin-bottom: 52px; text-align: center; }
++.editorial-title h1 { font-family: var(--font-serif); font-size: clamp(25px, 5.2vw, 31px); line-height: 1.38; text-wrap: balance; }
++.editorial-entry h2, .editorial-excerpt { font-family: var(--font-serif); }
++.prose-yoryon :where(h2):not(:where([class~="not-prose"] *)) { font-size: 23px; line-height: 1.4; margin: 52px 0 18px; font-weight: 600; text-wrap: balance; }
++.prose-yoryon :where(h3):not(:where([class~="not-prose"] *)) { font-size: 20px; line-height: 1.5; margin: 36px 0 16px; text-wrap: balance; }
++.prose-yoryon :where(a):not(:where([class~="not-prose"] *)) { text-decoration-thickness: 1px; text-underline-offset: 3px; }
++.prose-yoryon :where(blockquote):not(:where([class~="not-prose"] *)) { border-left-width: 2px; border-left-color: var(--primary); font-style: normal; font-weight: 400; }
++.prose-yoryon :where(figcaption):not(:where([class~="not-prose"] *)) { font-family: var(--font-sans); font-size: 13px; line-height: 1.55; }
++.prose-yoryon .not-prose { font-family: var(--font-sans); }
++.prose-yoryon pre { border-radius: 4px; font-size: 13px; line-height: 1.6; }
++/* Reference keypoints: semantic ordered list retains accessible numbering. */
++.editorial-keypoints { margin: 0 0 40px; padding: 18px 20px 6px; background: #f3f3f2; border-radius: 6px; }
++.dark .editorial-keypoints { background: #1f292f; }
++.prose-yoryon .editorial-keypoints > :is(h2,h3,h4,h5,h6) { margin: 0 0 14px; font-family: var(--font-sans); font-size: 12px; font-weight: 400; line-height: 1.6; letter-spacing: .08em; color: var(--muted-foreground); }
++.prose-yoryon .editorial-keypoints > ol { list-style: none; margin: 0; padding: 0; counter-reset: keypoint; }
++.prose-yoryon .editorial-keypoints > ol > li { counter-increment: keypoint; position: relative; padding-left: 34px; margin: 0 0 16px; line-height: 1.6; }
++.editorial-keypoints > ol > li::before { content: counter(keypoint); position: absolute; left: 0; top: 2px; width: 22px; height: 22px; border-radius: 50%; background: #282828; color: #fff; font-family: var(--font-sans); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
++.dark .editorial-keypoints > ol > li::before { background: #e4e1da; color: #151514; }
++.prose-yoryon .editorial-keypoints > ol > li > p { margin: 0; }
++.editorial-keypoints > ol > li > strong:first-child,
++.editorial-keypoints > ol > li > p:first-child > strong:first-child { display: block; margin-bottom: 2px; }
++.prose-yoryon .editorial-keypoints a { color: #9c2b17; font-family: var(--font-sans); font-size: 12.5px; font-weight: 400; text-decoration: none; }
++.prose-yoryon .editorial-keypoints a:hover { text-decoration: underline; }
++.dark .prose-yoryon .editorial-keypoints a { color: #e9957d; }
++@media (max-width: 620px) {
++  .editorial-reader .prose-yoryon { font-size: 16px; }
++  .editorial-reader .prose-yoryon :where(h2):not(:where([class~="not-prose"] *)) { font-size: 21px; margin-top: 44px; }
+ }
+ /* 信息流条内密度独立于详情排版，保持同一字号，不按设备切换布局。 */
+ .prose-feed { font-size: 15px; line-height: 24px; }
+diff --git a/apps/web/app/page.tsx b/apps/web/app/page.tsx
+index 770fb67..bd355f0 100644
+--- a/apps/web/app/page.tsx
++++ b/apps/web/app/page.tsx
+@@ -31,7 +31,7 @@ export default async function HomePage() {
+             {feed?.nextCursor && <LoadMore version={feed.version} initialCursor={feed.nextCursor} showPinnedBadge />}
+           </AnalyticsListProvider>
+         )}
+-        <section aria-label="订阅支持" className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-border px-5 py-5">
++        <section aria-label="订阅支持" className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-border py-6">
+           <p className="text-sm font-medium">更深入的作品，更直接的交流。</p>
+           <Link href="/subscription" prefetch={false} className="inline-flex min-h-11 items-center gap-2 text-sm text-primary hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+             了解订阅 <ArrowRight className="size-4" aria-hidden="true" />
+diff --git a/apps/web/components/content-view.tsx b/apps/web/components/content-view.tsx
+index 26459e0..0afebe1 100644
+--- a/apps/web/components/content-view.tsx
++++ b/apps/web/components/content-view.tsx
+@@ -15,19 +15,19 @@ export function ContentView({ initial: content }: { initial: ContentDetail }) {
+   return (
+     <>
+       <SiteHeader />
+-      {/* 正文与页头同栏（布局容器 max-w-3xl），不再收窄 */}
+-      <main className="py-5" data-revision={content.updatedAt}>
++      {/* 阅读列独立于站点导航宽度；私有全文与公开预览共享排版。 */}
++      <main className="editorial-reader py-5" data-revision={content.updatedAt}>
+         <BackButton />
+         <DetailTracker targetKind="work" targetId={content.id} />
+         <SearchLocation slug={content.slug} />
+-        <header>
+-          <div className="flex items-center gap-2 text-xs leading-[18px] text-muted-foreground">
+-            <time>{formatDate(content.publishedAt)}</time>
++        <header className="editorial-title">
++          <h1 className="font-semibold">{content.title || "未命名内容"}</h1>
++          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[13px] leading-[1.6] text-muted-foreground">
++            <time dateTime={content.publishedAt ?? undefined}>{formatDate(content.publishedAt)}</time>
++            {content.description && <><span aria-hidden="true">·</span><span>{content.description}</span></>}
+             {content.visibility === "paid" && <Badge variant="secondary">付费</Badge>}
+           </div>
+-          <h1 className="mt-2 text-[28px] font-semibold leading-[38px]">{content.title || "未命名内容"}</h1>
+-          {content.description && <p className="mt-2 text-[15px] leading-6 text-muted-foreground">{content.description}</p>}
+-          <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs leading-[18px] text-muted-foreground">
++          <div className="mt-3 flex flex-wrap justify-center gap-x-3 gap-y-1 text-xs leading-[18px] text-muted-foreground">
+             {content.tags.map((t) => (
+               <Link prefetch={false} key={t.slug} href={`/tags/${t.slug}`} className="hover:text-foreground">
+                 #{t.name}
+diff --git a/apps/web/components/feed-timeline.tsx b/apps/web/components/feed-timeline.tsx
+index b09d0bd..d617b41 100644
+--- a/apps/web/components/feed-timeline.tsx
++++ b/apps/web/components/feed-timeline.tsx
+@@ -16,11 +16,11 @@ export function formatDate(iso: string | null): string {
+ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem; showPinnedBadge?: boolean }) {
+   return (
+     <TrackImpression targetKind="work" targetId={item.id}>
+-      <article className="group py-5">
++      <article className="editorial-entry group py-5">
+         <div className="flex items-baseline justify-between gap-4">
+           <div className="flex min-w-0 items-baseline gap-2">
+             <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="min-w-0">
+-              <h2 className="truncate text-lg font-semibold leading-[26px] group-hover:underline underline-offset-4">
++              <h2 className="line-clamp-2 text-lg font-semibold leading-[26px] group-hover:underline underline-offset-4">
+                 {item.title || "未命名内容"}
+               </h2>
+             </TrackClickLink>
+@@ -35,7 +35,7 @@ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem
+         </div>
+         {item.type === "article" ? <div className="mt-2 flex items-start justify-between gap-4">
+           <div className="min-w-0 flex-1">
+-            {(item.description || item.excerpt) && <p className="line-clamp-3 text-[15px] leading-6 text-foreground">{item.description || item.excerpt}</p>}
++            {(item.description || item.excerpt) && <p className="editorial-excerpt line-clamp-3 text-[15px] leading-6 text-foreground">{item.description || item.excerpt}</p>}
+             <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="mt-1 inline-flex min-h-8 items-center gap-1.5 text-[13px] leading-5 text-primary hover:underline underline-offset-4">
+               阅读全文 <ArrowRight className="size-4" aria-hidden="true" />
+             </TrackClickLink>
+diff --git a/apps/web/components/markdown-surface.tsx b/apps/web/components/markdown-surface.tsx
+index dd9234c..e87e8be 100644
+--- a/apps/web/components/markdown-surface.tsx
++++ b/apps/web/components/markdown-surface.tsx
+@@ -9,6 +9,7 @@ import { InlineMedia } from "./inline-media";
+ import { WorkReference } from "./work-reference";
+ import { MarkdownImage } from "./markdown-image";
+ import { cn } from "@/lib/utils";
++import { rehypeEditorialSummary } from "@/lib/rehype-editorial-summary";
+ /** 把 leaf directive 转成自定义 HTML 元素，供 components 映射。 */
+ function remarkMediaDirectives() {
+   return (tree: Root) => {
+@@ -34,7 +35,7 @@ export function MarkdownSurface({ markdown, className, mediaSizes, publicImages
+   components?: Components;
+ }) {
+   return <div data-search-body className={cn("prose prose-zinc dark:prose-invert prose-yoryon max-w-none", className)}>
+-    <ReactMarkdown rehypePlugins={[rehypeSearchText]} remarkPlugins={[remarkCjkFriendly, remarkDirective, remarkMediaDirectives]} components={{
++    <ReactMarkdown rehypePlugins={[rehypeSearchText, rehypeEditorialSummary]} remarkPlugins={[remarkCjkFriendly, remarkDirective, remarkMediaDirectives]} components={{
+             img: ({ src, alt, node: _node, ...props }) => {
+               const size = mediaSizes ? mediaSizes[mediaIdFromSrc(src) ?? ""] : undefined;
+               const id = mediaIdFromSrc(src);

@@ -1,3 +1,4 @@
+import { rehypePostSpacing } from "@/lib/rehype-post-spacing";
 import { rehypeSearchText } from "@yoryon/config/search-text";
 import { imageSrcSet, publicImageUrl } from "@yoryon/config/image-variants";
 import ReactMarkdown, { type Components } from "react-markdown";
@@ -32,13 +33,13 @@ function mediaIdFromSrc(src: unknown): string | null {
   return m ? m[1]! : null;
 }
 
-export function MarkdownSurface({ markdown, className, mediaSizes, publicImages = false, components = {} }: {
-  markdown: string; className?: string | undefined; publicImages?: boolean;
+export function MarkdownSurface({ markdown, className, mediaSizes, publicImages = false, preserveBlankLines = false, components = {} }: {
+  markdown: string; className?: string | undefined; publicImages?: boolean; preserveBlankLines?: boolean;
   mediaSizes?: Record<string, { width: number | null; height: number | null; mimeType?: string; durationSec?: number | null }> | undefined;
   components?: Components;
 }) {
-  return <div data-search-body className={cn("prose prose-zinc dark:prose-invert prose-yoryon max-w-none", className)}>
-    <ReactMarkdown rehypePlugins={[rehypeSearchText, rehypeHardBreaks, rehypeEditorialSummary, rehypeCaption]} remarkPlugins={[remarkCjkFriendly, remarkDirective, remarkMediaDirectives]} components={{
+  return <div data-search-body className={cn("prose prose-zinc dark:prose-invert prose-yoryon max-w-none", className, preserveBlankLines && "prose-post")}>
+    <ReactMarkdown rehypePlugins={[rehypeSearchText, rehypeHardBreaks, rehypeEditorialSummary, rehypeCaption, ...(preserveBlankLines ? [rehypePostSpacing] : [])]} remarkPlugins={[remarkCjkFriendly, remarkDirective, remarkMediaDirectives]} components={{
             p: ({ node: _node, className, ...props }) => className?.split(" ").includes("editorial-caption")
               ? <Caption className={className} {...props} />
               : <p className={className} {...props} />,

@@ -1,0 +1,190 @@
+{
+  "warmEvents": [
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.61",
+      "timestamp": 1181239.33622
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.61",
+      "timestamp": 1181239.388972,
+      "status": 200
+    },
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/_next/static/chunks/964-730cd9f185f7434d.js",
+      "requestId": "68529.62",
+      "timestamp": 1181239.389588
+    },
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/_next/static/chunks/app/render/%5Brevision%5D/%5Bslug%5D/page-16e29c0e44eb37f9.js",
+      "requestId": "68529.63",
+      "timestamp": 1181239.389745
+    },
+    {
+      "method": "Network.loadingFinished",
+      "requestId": "68529.61",
+      "timestamp": 1181239.389048
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/_next/static/chunks/app/render/%5Brevision%5D/%5Bslug%5D/page-16e29c0e44eb37f9.js",
+      "requestId": "68529.63",
+      "timestamp": 1181239.393824,
+      "status": 200
+    },
+    {
+      "method": "Network.loadingFinished",
+      "requestId": "68529.63",
+      "timestamp": 1181239.393537
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/_next/static/chunks/964-730cd9f185f7434d.js",
+      "requestId": "68529.62",
+      "timestamp": 1181239.394169,
+      "status": 200
+    },
+    {
+      "method": "Network.loadingFinished",
+      "requestId": "68529.62",
+      "timestamp": 1181239.393658
+    }
+  ],
+  "metrics": "{\"start\":193435.59999990463,\"feedback\":193436.79999995232,\"feedbackMs\":1.2000000476837158,\"complete\":193465.5,\"durationMs\":29.90000009536743}",
+  "navigationEvents": [
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.64",
+      "timestamp": 1181253.203495
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.64",
+      "timestamp": 1181253.20504,
+      "status": 200
+    },
+    {
+      "method": "Network.loadingFinished",
+      "requestId": "68529.64",
+      "timestamp": 1181253.20487
+    },
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.65",
+      "timestamp": 1181253.205509
+    },
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/api/analytics/events",
+      "requestId": "68529.66",
+      "timestamp": 1181253.208801
+    },
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.67",
+      "timestamp": 1181253.20982
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/api/analytics/events",
+      "requestId": "68529.66",
+      "timestamp": 1181253.223758,
+      "status": 200
+    },
+    {
+      "method": "Network.loadingFinished",
+      "requestId": "68529.66",
+      "timestamp": 1181253.223265
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.65",
+      "timestamp": 1181253.225821,
+      "status": 200
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.67",
+      "timestamp": 1181253.22629,
+      "status": 200
+    },
+    {
+      "method": "Network.loadingFinished",
+      "requestId": "68529.67",
+      "timestamp": 1181253.226064
+    },
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.68",
+      "timestamp": 1181253.227316
+    },
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/api/notifications/unread-count",
+      "requestId": "68529.72",
+      "timestamp": 1181253.237039
+    },
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/api/contents/freedom-before-wealth/comments",
+      "requestId": "68529.73",
+      "timestamp": 1181253.237507
+    },
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/api/contents/freedom-before-wealth/comments/context",
+      "requestId": "68529.74",
+      "timestamp": 1181253.237682
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+      "requestId": "68529.68",
+      "timestamp": 1181253.258241,
+      "status": 200
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/api/notifications/unread-count",
+      "requestId": "68529.72",
+      "timestamp": 1181253.258283,
+      "status": 401
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/api/contents/freedom-before-wealth/comments",
+      "requestId": "68529.73",
+      "timestamp": 1181253.258329,
+      "status": 200
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/api/contents/freedom-before-wealth/comments/context",
+      "requestId": "68529.74",
+      "timestamp": 1181253.258372,
+      "status": 200
+    },
+    {
+      "method": "Network.loadingFinished",
+      "requestId": "68529.73",
+      "timestamp": 1181253.249049
+    },
+    {
+      "method": "Network.loadingFinished",
+      "requestId": "68529.74",
+      "timestamp": 1181253.252611
+    }
+  ]
+}

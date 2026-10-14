@@ -1,0 +1,5 @@
+{
+  "chunkUrl": "https://yoryon.com/_next/static/chunks/877-c60628c94b972ba4.js",
+  "sha256": "dbcba3a3aac2004af062da862fa33fda7d9260a6a991c7088135b04b668562ed",
+  "expandHandlerExcerpt": "async function k(){var e;null==(e=w.current)||e.abort();let t=new AbortController;w.current=t,p(!0),g(!1);try{let e=await fetch(\"/api/contents/\".concat(d.slug),{credentials:\"same-origin\",cache:\"no-store\",signal:AbortSignal.any([t.signal,AbortSignal.timeout(15e3)])});if(!e.ok)throw Error(\"post unavailable\");let n=await e.json();if(\"post\"!==n.type)throw Error(\"content type changed\");t.signal.aborted||v(n)}catch(e){t.signal.aborted||g(!0)}finally{t.signal.aborted||p(!1)}}(0,i.useEffect)(()=>{let e=()=>{\"visible\"===document.visibilityState&&j()};return window.addEventListener(\"focus\",e),document.addEventListener(\"visibilitychange\",e),()=>{var t;n"
+}

@@ -1,0 +1,8 @@
+{
+  "workspace": "/var/folders/d_/8w6ff22d7gn6r0vr84g21d5r0000gn/T/yoryon-editorial-zpfkpwy8/workspace",
+  "web": "http://localhost:3016",
+  "api": "http://127.0.0.1:4115",
+  "envFile": "/tmp/yoryon-page-redesign-m0NxxV/preview.env",
+  "database": "yoryon_page_redesign_20261013",
+  "productionChanged": false
+}

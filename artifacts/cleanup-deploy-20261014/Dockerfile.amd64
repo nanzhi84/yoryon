@@ -1,0 +1,5 @@
+FROM --platform=$BUILDPLATFORM node:24-bookworm-slim AS native
+RUN npm install --force --prefix /native --ignore-scripts --os=linux --cpu=x64 --no-audit --no-fund @img/sharp-linux-x64@0.34.5 @img/sharp-libvips-linux-x64@1.2.4
+FROM yoryon-api:ce35856b3cb1f794439dea7e986c6f55e8462b33
+COPY --from=native /native/node_modules/@img /app/node_modules/@img
+COPY --from=native /native/node_modules/@img /cli/node_modules/@img

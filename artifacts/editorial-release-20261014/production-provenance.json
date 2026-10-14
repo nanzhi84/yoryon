@@ -1,0 +1,26 @@
+{
+  "id": "dpl_AJqao81Gp2pNCnueNsF7rmtcKmWb",
+  "readyState": "READY",
+  "target": "production",
+  "url": "yoryon-mn62pdzsn-zyy2740738166-7111s-projects.vercel.app",
+  "gitSource": {
+    "ref": "main",
+    "repoId": 1413178868,
+    "sha": "b2470bc0320b9a88f809467cd43b84e36fad65a2",
+    "type": "github",
+    "prId": null
+  },
+  "alias": [
+    "yoryon.com",
+    "www.yoryon.com",
+    "yoryon-web.vercel.app",
+    "yoryon-web-zyy2740738166-7111s-projects.vercel.app",
+    "yoryon-web-git-main-zyy2740738166-7111s-projects.vercel.app"
+  ],
+  "aliasAssigned": true,
+  "meta": {
+    "githubCommitSha": "b2470bc0320b9a88f809467cd43b84e36fad65a2",
+    "githubCommitRef": "main",
+    "githubRepo": "yoryon"
+  }
+}

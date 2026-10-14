@@ -1,0 +1,156 @@
+[
+  {
+    "label": "soft",
+    "blocks": [
+      {
+        "bottom": 345,
+        "marginBottom": "0px",
+        "marginTop": "0px",
+        "text": "甲\n乙",
+        "top": 297
+      }
+    ],
+    "height": 48,
+    "html": "<p data-post-blank-lines=\"0\" style=\"margin-top: calc(0 * var(--post-line-height));\"><span data-search-node=\"t0\">甲\n乙</span></p>",
+    "lineHeight": "24px"
+  },
+  {
+    "label": "hard",
+    "blocks": [
+      {
+        "bottom": 345,
+        "marginBottom": "0px",
+        "marginTop": "0px",
+        "text": "甲\n乙",
+        "top": 297
+      }
+    ],
+    "height": 48,
+    "html": "<p data-post-blank-lines=\"0\" style=\"margin-top: calc(0 * var(--post-line-height));\"><span data-search-node=\"t0\">甲</span><br><span data-search-node=\"t1\"><span hidden=\"\" aria-hidden=\"true\">\n</span></span><span data-search-node=\"t2\">乙</span></p>",
+    "lineHeight": "24px"
+  },
+  {
+    "label": "one",
+    "blocks": [
+      {
+        "bottom": 321,
+        "marginBottom": "0px",
+        "marginTop": "0px",
+        "text": "甲",
+        "top": 297
+      },
+      {
+        "bottom": 369,
+        "marginBottom": "0px",
+        "marginTop": "24px",
+        "text": "乙",
+        "top": 345
+      }
+    ],
+    "height": 72,
+    "html": "<p data-post-blank-lines=\"0\" style=\"margin-top: calc(0 * var(--post-line-height));\"><span data-search-node=\"t0\">甲</span></p>\n<p data-post-blank-lines=\"1\" style=\"margin-top: calc(1 * var(--post-line-height));\"><span data-search-node=\"t1\">乙</span></p>",
+    "lineHeight": "24px"
+  },
+  {
+    "label": "two",
+    "blocks": [
+      {
+        "bottom": 321,
+        "marginBottom": "0px",
+        "marginTop": "0px",
+        "text": "甲",
+        "top": 297
+      },
+      {
+        "bottom": 393,
+        "marginBottom": "0px",
+        "marginTop": "48px",
+        "text": "乙",
+        "top": 369
+      }
+    ],
+    "height": 96,
+    "html": "<p data-post-blank-lines=\"0\" style=\"margin-top: calc(0 * var(--post-line-height));\"><span data-search-node=\"t0\">甲</span></p>\n<p data-post-blank-lines=\"2\" style=\"margin-top: calc(2 * var(--post-line-height));\"><span data-search-node=\"t1\">乙</span></p>",
+    "lineHeight": "24px"
+  },
+  {
+    "label": "leading",
+    "blocks": [
+      {
+        "bottom": 369,
+        "marginBottom": "0px",
+        "marginTop": "48px",
+        "text": "甲",
+        "top": 345
+      }
+    ],
+    "height": 72,
+    "html": "<p data-post-blank-lines=\"2\" style=\"margin-top: calc(2 * var(--post-line-height));\"><span data-search-node=\"t0\">甲</span></p>",
+    "lineHeight": "24px"
+  },
+  {
+    "label": "trailing",
+    "blocks": [
+      {
+        "bottom": 321,
+        "marginBottom": "0px",
+        "marginTop": "0px",
+        "text": "甲",
+        "top": 297
+      }
+    ],
+    "height": 72,
+    "html": "<p data-post-blank-lines=\"0\" style=\"margin-top: calc(0 * var(--post-line-height));\"><span data-search-node=\"t0\">甲</span></p><div aria-hidden=\"true\" data-post-trailing-lines=\"2\" style=\"height: calc(2 * var(--post-line-height)); margin: 0px;\"></div>",
+    "lineHeight": "24px"
+  },
+  {
+    "label": "nested",
+    "blocks": [
+      {
+        "bottom": 369,
+        "marginBottom": "0px",
+        "marginTop": "0px",
+        "text": "\n甲\n\n乙\n丙\n\n",
+        "top": 297
+      },
+      {
+        "bottom": 321,
+        "marginBottom": "0px",
+        "marginTop": "0px",
+        "text": "甲",
+        "top": 297
+      },
+      {
+        "bottom": 345,
+        "marginBottom": "0px",
+        "marginTop": "0px",
+        "text": "乙",
+        "top": 321
+      },
+      {
+        "bottom": 369,
+        "marginBottom": "0px",
+        "marginTop": "0px",
+        "text": "丙",
+        "top": 345
+      },
+      {
+        "bottom": 417,
+        "marginBottom": "0px",
+        "marginTop": "24px",
+        "text": "\n丁\n",
+        "top": 393
+      },
+      {
+        "bottom": 417,
+        "marginBottom": "0px",
+        "marginTop": "0px",
+        "text": "丁",
+        "top": 393
+      }
+    ],
+    "height": 120,
+    "html": "<ul data-post-blank-lines=\"0\" style=\"margin-top: calc(0 * var(--post-line-height));\">\n<li data-post-blank-lines=\"0\" style=\"margin-top: calc(0 * var(--post-line-height));\"><span data-search-node=\"t0\" hidden=\"\" aria-hidden=\"true\">\n</span><p data-post-blank-lines=\"0\" style=\"margin-top: calc(0 * var(--post-line-height));\"><span data-search-node=\"t1\">甲</span></p><span data-search-node=\"t2\" hidden=\"\" aria-hidden=\"true\">\n</span><ul data-post-blank-lines=\"0\" style=\"margin-top: calc(0 * var(--post-line-height));\">\n<li data-post-blank-lines=\"0\" style=\"margin-top: calc(0 * var(--post-line-height));\"><span data-search-node=\"t3\">乙</span></li>\n<li data-post-blank-lines=\"0\" style=\"margin-top: calc(0 * var(--post-line-height));\"><span data-search-node=\"t4\">丙</span></li>\n</ul><span data-search-node=\"t5\" hidden=\"\" aria-hidden=\"true\">\n</span></li>\n<li data-post-blank-lines=\"1\" style=\"margin-top: calc(1 * var(--post-line-height));\"><span data-search-node=\"t6\" hidden=\"\" aria-hidden=\"true\">\n</span><p data-post-blank-lines=\"0\" style=\"margin-top: calc(0 * var(--post-line-height));\"><span data-search-node=\"t7\">丁</span></p><span data-search-node=\"t8\" hidden=\"\" aria-hidden=\"true\">\n</span></li>\n</ul>",
+    "lineHeight": "24px"
+  }
+]

@@ -9,7 +9,8 @@
     "./cache": "./src/cache.ts",
     "./cache-signing": "./src/cache-signing.ts",
     "./image-variants": "./src/image-variants.ts",
-    "./search-text": "./src/search-text.ts"
+    "./search-text": "./src/search-text.ts",
+    "./reader-layout": "./src/reader-layout.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

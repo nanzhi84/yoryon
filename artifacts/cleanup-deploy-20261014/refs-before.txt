@@ -1,0 +1,9 @@
+refs/heads/codex/favicon-avatar 4b686bd9c748c78b3c6eaa5e687081644aa613b9
+refs/heads/codex/literal-search a85e220f4373a04e6fb252f2599fe1102a33ae3f
+refs/heads/codex/tags-api-hotfix cee49001165ffadf5e5f755e702932fc2f3b3adb
+refs/heads/main ce35856b3cb1f794439dea7e986c6f55e8462b33
+refs/remotes/origin/HEAD ce35856b3cb1f794439dea7e986c6f55e8462b33
+refs/remotes/origin/codex/favicon-avatar 4b686bd9c748c78b3c6eaa5e687081644aa613b9
+refs/remotes/origin/codex/literal-search a85e220f4373a04e6fb252f2599fe1102a33ae3f
+refs/remotes/origin/codex/tags-api-hotfix cee49001165ffadf5e5f755e702932fc2f3b3adb
+refs/remotes/origin/main ce35856b3cb1f794439dea7e986c6f55e8462b33

@@ -1,0 +1,9 @@
+{
+  "articles": 8,
+  "maxBlocks": 12,
+  "maxShapeBytes": 652,
+  "onlyGeometryKeys": true,
+  "prefetchBytes": 4075,
+  "prefetchContainsBody": false,
+  "prefetchContainsSkeleton": true
+}

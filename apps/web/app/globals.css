@@ -100,6 +100,8 @@ body {
 .editorial-title h1 { font-family: var(--font-serif); font-size: clamp(25px, 5.2vw, 31px); line-height: 1.38; font-weight: 600; text-wrap: balance; }
 .editorial-title > div { font-family: var(--font-editorial-sans); color: var(--reading-muted); }
 .editorial-entry h2, .editorial-excerpt { font-family: var(--font-serif); }
+/* Match the six-block feed preview without parsing/replacing a small post on click. */
+.post-preview > [data-search-body] > :nth-child(n+7) { display: none; }
 .prose-yoryon :where(h2):not(:where([class~="not-prose"] *)) { font-size: 23px; line-height: 1.4; margin: 52px 0 18px; font-weight: 600; text-wrap: balance; }
 .prose-yoryon :where(h1):not(:where([class~="not-prose"] *)) { font-size: clamp(25px, 5.2vw, 31px); line-height: 1.38; font-weight: 600; }
 .prose-yoryon :where(h3):not(:where([class~="not-prose"] *)) { font-size: 19px; line-height: 1.4; margin: 36px 0 14px; font-weight: 600; text-wrap: balance; }
@@ -190,3 +192,35 @@ body {
 /* Literal search preserves source whitespace as visible text, including soft breaks. */
 [data-search-body] [data-search-node] { white-space: pre-wrap; }
 [data-search-body] pre [data-search-node] { white-space: inherit; }
+
+/* Reader placeholders animate only the highlight transform, not layout. */
+.reader-skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: color-mix(in srgb, var(--muted) 90%, var(--foreground) 10%);
+}
+.reader-skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 50%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 90%), transparent);
+  transform: translateX(-100%);
+  /* Start inside the bar so short loads still show the highlight immediately. */
+  animation: reader-shimmer 1.2s linear -0.4s infinite;
+}
+.dark .reader-skeleton::after {
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 20%), transparent);
+}
+@keyframes reader-shimmer { to { transform: translateX(200%); } }
+@media (prefers-reduced-motion: reduce) {
+  .reader-skeleton::after { animation: none; display: none; }
+}
+
+/* Short posts preserve authored blank lines instead of collapsing Markdown block gaps. */
+.prose-post { display: flow-root; --post-line-height: 31.45px; }
+.prose-post.prose-feed { --post-line-height: 24px; }
+.prose-post :where(p, ul, ol, li, blockquote, pre, h1, h2, h3, h4, h5, h6, hr) { margin-block: 0; }
+@media (max-width: 640px) {
+  .editorial-reader .prose-post { --post-line-height: 29.6px; }
+}

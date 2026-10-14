@@ -1,0 +1,34 @@
+[
+  {
+    "blank": "2",
+    "height": 31.4453125,
+    "lineHeight": "31.45px",
+    "marginTop": "62.9px",
+    "tag": "P",
+    "trailing": null
+  },
+  {
+    "blank": "1",
+    "height": 62.890625,
+    "lineHeight": "31.45px",
+    "marginTop": "31.45px",
+    "tag": "P",
+    "trailing": null
+  },
+  {
+    "blank": "2",
+    "height": 31.4453125,
+    "lineHeight": "31.45px",
+    "marginTop": "62.9px",
+    "tag": "P",
+    "trailing": null
+  },
+  {
+    "blank": null,
+    "height": 62.8984375,
+    "lineHeight": "31.45px",
+    "marginTop": "0px",
+    "tag": "DIV",
+    "trailing": "2"
+  }
+]

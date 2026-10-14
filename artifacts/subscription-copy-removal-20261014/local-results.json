@@ -1,0 +1,38 @@
+{
+  "sentenceRemoved": true,
+  "retainedTexts": {
+    "支持我的持续创作": true,
+    "¥29.9": true,
+    "专属作品": true,
+    "解锁全部付费内容": true,
+    "每月提问": true,
+    "每个自然月 1 次": true,
+    "会员讨论": true,
+    "阅读回答，参与讨论": true,
+    "兑换激活码，开通会员": true,
+    "会员作品": true,
+    "会员问答": true,
+    "还没有会员作品。": false
+  },
+  "redeemLink": true,
+  "tabs": [
+    {
+      "type": "button",
+      "id": "subscription-works-tab",
+      "role": "tab",
+      "aria-selected": "true",
+      "aria-controls": "subscription-works-panel",
+      "tabindex": "0",
+      "class": "min-h-11 border-b-2 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary border-primary font-medium"
+    },
+    {
+      "type": "button",
+      "id": "subscription-questions-tab",
+      "role": "tab",
+      "aria-selected": "false",
+      "aria-controls": "subscription-questions-panel",
+      "tabindex": "-1",
+      "class": "min-h-11 border-b-2 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary border-transparent text-muted-foreground"
+    }
+  ]
+}

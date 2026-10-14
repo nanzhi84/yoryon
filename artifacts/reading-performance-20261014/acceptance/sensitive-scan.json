@@ -1,0 +1,11 @@
+{
+  "artifactFilesChecked": 61,
+  "artifactSecretMatchFiles": [],
+  "retainedBuildFilesChecked": 536,
+  "retainedBuildSecretMatchFiles": [],
+  "excludedBuildDirectories": [
+    "node_modules",
+    ".git"
+  ],
+  "scope": "Exact matching of this run random password, API token, configuration secrets and database URL"
+}

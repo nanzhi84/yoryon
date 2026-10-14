@@ -1,0 +1,50 @@
+[
+  {
+    "page": "feed",
+    "gaps": [
+      24,
+      24,
+      24,
+      24,
+      24
+    ],
+    "lineHeight": "24px",
+    "visibleParagraphs": 6
+  },
+  {
+    "page": "post-detail",
+    "className": "prose prose-zinc dark:prose-invert prose-yoryon max-w-none prose-post",
+    "gaps": [
+      31.4453125,
+      31.4453125,
+      31.4453125,
+      31.4453125,
+      31.4453125,
+      31.4453125,
+      31.4453125
+    ],
+    "lineHeight": "31.45px"
+  },
+  {
+    "page": "article",
+    "className": "prose prose-zinc dark:prose-invert prose-yoryon max-w-none",
+    "paragraphs": [
+      {
+        "lineHeight": "31.45px",
+        "marginBottom": "20px",
+        "marginTop": "0px"
+      },
+      {
+        "lineHeight": "31.45px",
+        "marginBottom": "20px",
+        "marginTop": "0px"
+      },
+      {
+        "lineHeight": "31.45px",
+        "marginBottom": "20px",
+        "marginTop": "0px"
+      }
+    ],
+    "postAttributes": 0
+  }
+]

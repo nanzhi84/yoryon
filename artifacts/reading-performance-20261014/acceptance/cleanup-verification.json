@@ -1,0 +1,12 @@
+{
+  "api4117HasListener": false,
+  "apiLsofExitCode": 1,
+  "databaseAbsent": true,
+  "remainingDatabases": [
+    "postgres",
+    "yoryon",
+    "yoryon_page_redesign_20261013"
+  ],
+  "originalYoryonContentCount": 7,
+  "temporaryRootAbsent": true
+}

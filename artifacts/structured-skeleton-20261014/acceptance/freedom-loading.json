@@ -1,0 +1,176 @@
+{
+  "blocks": [
+    {
+      "bars": [
+        {
+          "animation": "reader-shimmer",
+          "height": 17,
+          "width": 289
+        }
+      ],
+      "kind": "paragraph"
+    },
+    {
+      "bars": [
+        {
+          "animation": "reader-shimmer",
+          "height": 17,
+          "width": 660
+        },
+        {
+          "animation": "reader-shimmer",
+          "height": 17,
+          "width": 295.3984375
+        }
+      ],
+      "kind": "paragraph"
+    },
+    {
+      "bars": [
+        {
+          "animation": "reader-shimmer",
+          "height": 17,
+          "width": 374
+        }
+      ],
+      "kind": "paragraph"
+    },
+    {
+      "bars": [
+        {
+          "animation": "reader-shimmer",
+          "height": 17,
+          "width": 374
+        }
+      ],
+      "kind": "paragraph"
+    },
+    {
+      "bars": [
+        {
+          "animation": "reader-shimmer",
+          "height": 17,
+          "width": 272
+        }
+      ],
+      "kind": "paragraph"
+    },
+    {
+      "bars": [
+        {
+          "animation": "reader-shimmer",
+          "height": 23,
+          "width": 548.546875
+        }
+      ],
+      "kind": "heading"
+    },
+    {
+      "bars": [
+        {
+          "animation": "reader-shimmer",
+          "height": 17,
+          "width": 660
+        },
+        {
+          "animation": "reader-shimmer",
+          "height": 17,
+          "width": 660
+        },
+        {
+          "animation": "reader-shimmer",
+          "height": 17,
+          "width": 488.796875
+        }
+      ],
+      "kind": "paragraph"
+    },
+    {
+      "bars": [
+        {
+          "animation": "reader-shimmer",
+          "height": 17,
+          "width": 660
+        },
+        {
+          "animation": "reader-shimmer",
+          "height": 17,
+          "width": 71
+        }
+      ],
+      "kind": "paragraph"
+    },
+    {
+      "bars": [
+        {
+          "animation": "reader-shimmer",
+          "height": 17,
+          "width": 660
+        },
+        {
+          "animation": "reader-shimmer",
+          "height": 17,
+          "width": 286.046875
+        }
+      ],
+      "kind": "paragraph"
+    },
+    {
+      "bars": [
+        {
+          "animation": "reader-shimmer",
+          "height": 23,
+          "width": 483
+        }
+      ],
+      "kind": "heading"
+    },
+    {
+      "bars": [
+        {
+          "animation": "reader-shimmer",
+          "height": 17,
+          "width": 660
+        },
+        {
+          "animation": "reader-shimmer",
+          "height": 17,
+          "width": 660
+        },
+        {
+          "animation": "reader-shimmer",
+          "height": 17,
+          "width": 660
+        },
+        {
+          "animation": "reader-shimmer",
+          "height": 17,
+          "width": 52.796875
+        }
+      ],
+      "kind": "paragraph"
+    },
+    {
+      "bars": [
+        {
+          "animation": "reader-shimmer",
+          "height": 17,
+          "width": 660
+        },
+        {
+          "animation": "reader-shimmer",
+          "height": 17,
+          "width": 660
+        },
+        {
+          "animation": "reader-shimmer",
+          "height": 17,
+          "width": 431
+        }
+      ],
+      "kind": "paragraph"
+    }
+  ],
+  "title": "先自由后财富",
+  "url": "http://localhost:3117/p/freedom-before-wealth"
+}

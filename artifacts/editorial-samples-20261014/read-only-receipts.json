@@ -1,0 +1,96 @@
+[
+  {
+    "path": "/",
+    "bytes": 136882,
+    "title": [],
+    "editorialLinks": [
+      "/p/editorial-essay",
+      "/p/editorial-notes",
+      "/p/editorial-reference",
+      "/p/editorial-visual"
+    ],
+    "codeBlocks": 0
+  },
+  {
+    "path": "/c/editorial-preview",
+    "bytes": 65989,
+    "title": [
+      "长文排版预览"
+    ],
+    "editorialLinks": [
+      "/p/editorial-essay",
+      "/p/editorial-notes",
+      "/p/editorial-reference",
+      "/p/editorial-visual"
+    ],
+    "codeBlocks": 0
+  },
+  {
+    "path": "/p/editorial-reference",
+    "bytes": 425875,
+    "title": [
+      "2024 年字节跳动前实习生田柯宇 (Tian Keyu) 模型训练攻击事件：受害者陈述与证据整理"
+    ],
+    "editorialLinks": [
+      "/p/editorial-notes",
+      "/p/editorial-visual"
+    ],
+    "codeBlocks": 11
+  },
+  {
+    "path": "/p/editorial-essay",
+    "bytes": 123965,
+    "title": [
+      "把一天慢慢读完：城市、散步与那些没有被记录的片刻"
+    ],
+    "editorialLinks": [
+      "/p/editorial-notes"
+    ],
+    "codeBlocks": 0
+  },
+  {
+    "path": "/p/editorial-notes",
+    "bytes": 182315,
+    "title": [
+      "一篇文章如何到达读者：从草稿、媒体到浏览器的技术手记"
+    ],
+    "editorialLinks": [
+      "/p/editorial-essay",
+      "/p/editorial-reference"
+    ],
+    "codeBlocks": 1
+  },
+  {
+    "path": "/p/editorial-visual",
+    "bytes": 128715,
+    "title": [
+      "在纸面与屏幕之间：一份图文混排的阅读观察"
+    ],
+    "editorialLinks": [
+      "/p/editorial-reference"
+    ],
+    "codeBlocks": 0
+  },
+  {
+    "imageUrl": "/api/images/v1/059c5833-d8e6-4d96-ae37-7f1a860eebb1/original",
+    "contentType": "image/svg+xml",
+    "bytes": 856,
+    "sha256": "645a91bf2992972b1ca0ce314e06dcfc49c70e19a5ffc0392069e189f17f5c31"
+  },
+  {
+    "imageUrl": "/api/images/v1/7ad8c7d1-81f6-4a0b-8476-b1fb4c88340c/original",
+    "contentType": "image/svg+xml",
+    "bytes": 403,
+    "sha256": "f3b10a580f9da2e2fa25eae936f49f4a8bac04cb21a1b16cff103ab5fc7009b5"
+  },
+  {
+    "path": "/reference-article.html",
+    "bytes": 111847,
+    "title": [
+      "2024 年字节跳动前实习生田柯宇 (Tian Keyu) 模型训练攻击事件：受害者陈述与证据整理",
+      "The 2024 Model-Training Sabotage Incident Involving Former ByteDance Intern Tian Keyu: Victim Accounts and Evidence"
+    ],
+    "editorialLinks": [],
+    "codeBlocks": 22
+  }
+]

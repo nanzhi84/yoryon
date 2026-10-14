@@ -1,0 +1,6 @@
+b4f7083e1eb6553803ba4e2272825974772d8a2d5626d01e4b5f03dc14691e6c  apps/web/app/icon.png
+d1fb000cba725b320f73bc35ed0fc8b97eff510fd56a5fdd603ce09d2c768478  apps/web/app/apple-icon.png
+61d7a2bd31f9321bb8000a165946944f6cfeb23f5062c769bfe62ac2fab6a8d3  apps/web/app/favicon.ico
+b4f7083e1eb6553803ba4e2272825974772d8a2d5626d01e4b5f03dc14691e6c  artifacts/reading-performance-20261014/acceptance/served-icon.png
+d1fb000cba725b320f73bc35ed0fc8b97eff510fd56a5fdd603ce09d2c768478  artifacts/reading-performance-20261014/acceptance/served-apple-icon.png
+61d7a2bd31f9321bb8000a165946944f6cfeb23f5062c769bfe62ac2fab6a8d3  artifacts/reading-performance-20261014/acceptance/served-favicon.ico

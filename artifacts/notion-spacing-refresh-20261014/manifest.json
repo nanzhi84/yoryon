@@ -1,0 +1,51 @@
+[
+  {
+    "slug": "meritocracy-and-pain",
+    "title": "被优绩主义腌入味后，连痛苦都被剥夺了正当性",
+    "emptyBlockCount": 5,
+    "headings": [],
+    "sourceLastEdited": "2026-09-27T11:25:27.793Z",
+    "contentSha256": "408bedbd203e29599c8bb77d6fcce3ce3b2d1b8066c3dee1771e2518b8580397",
+    "emptyRepresentation": "NBSP paragraph, one per Notion empty-block"
+  },
+  {
+    "slug": "economics-principles-decision",
+    "title": "经济学十大原理（1）：人们如何做出决策",
+    "emptyBlockCount": 1,
+    "headings": [
+      "## 原理一：人们面临权衡取舍",
+      "## 原理二：某种东西的成本，是为了得到它而放弃的东西",
+      "## 原理三：理性人考虑边际量",
+      "## 原理四：人们会对激励做出反应"
+    ],
+    "sourceLastEdited": "2026-10-14T12:19:07.562Z",
+    "contentSha256": "38bf6cc661af6e448a4a34085379de37c20e4d3d522f41cebf0c2c08131b137b",
+    "emptyRepresentation": "NBSP paragraph, one per Notion empty-block"
+  },
+  {
+    "slug": "economics-principles-interaction",
+    "title": "经济学十大原理（2）：人们如何相互影响",
+    "emptyBlockCount": 1,
+    "headings": [
+      "## 原理五：贸易能使每个人状况更好",
+      "## 原理六：市场通常是组织经济活动的一种好方法",
+      "## 原理七：政府有时可以改善市场结果"
+    ],
+    "sourceLastEdited": "2026-10-14T12:20:42.205Z",
+    "contentSha256": "277fb4d517050d683e6915dc4f9a509193300c8fa0c7566153c645c505d68c8f",
+    "emptyRepresentation": "NBSP paragraph, one per Notion empty-block"
+  },
+  {
+    "slug": "economics-principles-overall",
+    "title": "经济学十大原理（3）：整体经济如何运行",
+    "emptyBlockCount": 1,
+    "headings": [
+      "## 原理八：一国的生活水平，取决于它生产物品与服务的能力",
+      "## 原理九：当政府发行了过多货币时，物价上涨",
+      "## 原理十：社会面临通货膨胀与失业之间的短期权衡取舍"
+    ],
+    "sourceLastEdited": "2026-10-14T12:20:03.505Z",
+    "contentSha256": "aecc6ff8798ea3d0afe2265067a93d3927cbf90224bcdfc16942cc553e9f543a",
+    "emptyRepresentation": "NBSP paragraph, one per Notion empty-block"
+  }
+]

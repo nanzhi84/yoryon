@@ -1,0 +1,38 @@
+[
+  {
+    "requestId": "68529.64",
+    "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+    "initiatorType": "script",
+    "headers": {
+      "next-url": "/",
+      "rsc": "1"
+    }
+  },
+  {
+    "requestId": "68529.65",
+    "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+    "initiatorType": "other",
+    "headers": {
+      "next-url": "/",
+      "rsc": "1"
+    }
+  },
+  {
+    "requestId": "68529.67",
+    "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+    "initiatorType": "script",
+    "headers": {
+      "next-url": "/",
+      "rsc": "1"
+    }
+  },
+  {
+    "requestId": "68529.68",
+    "url": "http://localhost:3117/p/freedom-before-wealth?_rsc=ZmCQ44b92m4mXe_R",
+    "initiatorType": "other",
+    "headers": {
+      "next-url": "/",
+      "rsc": "1"
+    }
+  }
+]

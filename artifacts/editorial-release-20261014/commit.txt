@@ -1,0 +1,13 @@
+b2470bc feat(web): adopt editorial typography and document markdown rendering
+ README.md                                |   2 +
+ apps/web/app/globals.css                 |  80 ++++++++++++++---
+ apps/web/app/page.tsx                    |  10 +--
+ apps/web/components/caption.tsx          |  10 +++
+ apps/web/components/content-view.tsx     |  16 ++--
+ apps/web/components/feed-timeline.tsx    |   6 +-
+ apps/web/components/markdown-surface.tsx |   8 +-
+ apps/web/lib/rehype-caption.ts           |  34 ++++++++
+ apps/web/lib/rehype-editorial-summary.ts |  34 ++++++++
+ docs/architecture.md                     |   3 +-
+ docs/markdown-rendering.md               | 145 +++++++++++++++++++++++++++++++
+ 11 files changed, 314 insertions(+), 34 deletions(-)

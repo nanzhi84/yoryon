@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 export default async function SubscriptionPage() {
   const [state, feedRes] = await Promise.all([
     apiFetch("/api/me/membership").catch(() => null),
-    publicFetch("/api/paid-feed", { revalidate: 86400, tags: ["feed"] }),
+    publicFetch("/api/paid-feed?protocol=pin-v4", { revalidate: 86400, tags: ["feed"] }),
   ]);
   if (!feedRes.ok) throw new Error(`paid feed API ${feedRes.status}`);
   const feed = await feedRes.json() as FeedResponse;

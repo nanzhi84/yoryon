@@ -1,0 +1,12 @@
+{
+  "database": "yoryon_reading_performance_20261014",
+  "counts": {
+    "contents": 44,
+    "users": 1,
+    "sessions": 1,
+    "entitlements": 1,
+    "email_verifications": 0,
+    "media_assets": 20
+  },
+  "scope": "All data in this newly-created acceptance-only database belongs to this run"
+}

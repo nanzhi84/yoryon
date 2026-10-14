@@ -1,0 +1,69 @@
+{
+  "anim": "reader-shimmer",
+  "blocks": [
+    {
+      "count": 1,
+      "kind": "paragraph",
+      "width": 342
+    },
+    {
+      "count": 3,
+      "kind": "paragraph",
+      "width": 342
+    },
+    {
+      "count": 2,
+      "kind": "paragraph",
+      "width": 342
+    },
+    {
+      "count": 2,
+      "kind": "paragraph",
+      "width": 342
+    },
+    {
+      "count": 1,
+      "kind": "paragraph",
+      "width": 342
+    },
+    {
+      "count": 2,
+      "kind": "heading",
+      "width": 342
+    },
+    {
+      "count": 6,
+      "kind": "paragraph",
+      "width": 342
+    },
+    {
+      "count": 3,
+      "kind": "paragraph",
+      "width": 342
+    },
+    {
+      "count": 3,
+      "kind": "paragraph",
+      "width": 342
+    },
+    {
+      "count": 2,
+      "kind": "heading",
+      "width": 342
+    },
+    {
+      "count": 6,
+      "kind": "paragraph",
+      "width": 342
+    },
+    {
+      "count": 6,
+      "kind": "paragraph",
+      "width": 342
+    }
+  ],
+  "scrollWidth": 390,
+  "title": "先自由后财富",
+  "url": "http://localhost:3117/p/freedom-before-wealth",
+  "viewport": 390
+}

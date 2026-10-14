@@ -1,0 +1,32 @@
+[
+  {
+    "path": "/",
+    "subscriptionNav": true,
+    "supportBlock": false,
+    "supportText": false,
+    "learnSubscription": false,
+    "nextRead": false,
+    "summaryCards": 0,
+    "captions": 0
+  },
+  {
+    "path": "/p/editorial-reference",
+    "subscriptionNav": true,
+    "supportBlock": false,
+    "supportText": false,
+    "learnSubscription": false,
+    "nextRead": true,
+    "summaryCards": 1,
+    "captions": 5
+  },
+  {
+    "path": "/p/demo-ep1",
+    "subscriptionNav": true,
+    "supportBlock": false,
+    "supportText": false,
+    "learnSubscription": false,
+    "nextRead": true,
+    "summaryCards": 0,
+    "captions": 0
+  }
+]

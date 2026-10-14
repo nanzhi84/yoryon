@@ -1,0 +1,58 @@
+[
+  {
+    "id": "3a5ada53-bd2a-8139-834b-f764529c82a5",
+    "slug": "economics-principles-decision",
+    "title": "经济学十大原理（1）：人们如何做出决策",
+    "date": "2026-05-08",
+    "mediaSource": "/Users/yoryon/Projects/PaperNotes/library/published/finance/assets/2026-05-05-economics-principles-decision-cover.png",
+    "mediaSha256": "b90c4e73e4b3232f6ce905f3011c7b74dabcab68217ffd1e35ecda008a17b66d",
+    "contentSha256": "41f1bbb54e14c1f5319f278e5ac44c28d29f78b72eccbba868d34e5dc02b309f",
+    "mediaLimitation": "Local original cover matched by article; fresh Notion attachment bytes not obtained"
+  },
+  {
+    "id": "3a5ada53-bd2a-8192-a9c0-fee852ee7d01",
+    "slug": "economics-principles-interaction",
+    "title": "经济学十大原理（2）：人们如何相互影响",
+    "date": "2026-05-09",
+    "mediaSource": "/Users/yoryon/Projects/PaperNotes/library/published/finance/assets/2026-05-06-economics-principles-interaction-cover.png",
+    "mediaSha256": "ea4f8e364fb06fff00cc1bb56e0dab09023e7ff1c73b9ab80cc88402a1216250",
+    "contentSha256": "e8415d803633e8595b830cb6fcf01ad40a2d2159b9902901b4e1399ecab1395a",
+    "mediaLimitation": "Local original cover matched by article; fresh Notion attachment bytes not obtained"
+  },
+  {
+    "id": "3a5ada53-bd2a-81ee-8618-ec78044dbf3a",
+    "slug": "economics-principles-overall",
+    "title": "经济学十大原理（3）：整体经济如何运行",
+    "date": "2026-05-10",
+    "mediaSource": "/Users/yoryon/Projects/PaperNotes/library/published/finance/assets/2026-05-08-economics-principles-overall-cover.png",
+    "mediaSha256": "f5e44cf891e80748ad3a47bfd3503aba1667a2eca630d7ca6361c582540f8a15",
+    "contentSha256": "482fdb662024f02c26d4d757811de9a34189ccdb2fe10f5813a0c1aa1906c2b0",
+    "mediaLimitation": "Local original cover matched by article; fresh Notion attachment bytes not obtained"
+  },
+  {
+    "id": "3a5ada53-bd2a-81b6-b4cf-c0045a5ac1c7",
+    "slug": "buffett-casino-church",
+    "title": "巴菲特：当前美国股市像是赌场",
+    "date": "2026-05-02",
+    "mediaSource": "/Users/yoryon/Projects/PaperNotes/library/published/finance/assets/2026-05-04-buffett-casino-church-cover.png",
+    "mediaSha256": "bb243ba28a9f733de26fc9741be7dee9940a751cf27ddd87eb7eb860cbb5c0a4",
+    "contentSha256": "ba06f3d87c3a92654ef34db86575767edca4626a7b5d271bebd5e91e355bb71a",
+    "mediaLimitation": "Local original cover matched by article; fresh Notion attachment bytes not obtained"
+  },
+  {
+    "id": "3f4ada53-bd2a-803e-9a5f-dac6282b4c14",
+    "slug": "freedom-before-wealth",
+    "title": "先自由后财富",
+    "date": "2026-10-09",
+    "contentSha256": "b049dd0a251f41add2352dcc99697793a152a2f392bf352a1118e3b9a248dff3",
+    "media": []
+  },
+  {
+    "id": "3c7ada53-bd2a-80fe-b0b9-c38196396703",
+    "slug": "meritocracy-and-pain",
+    "title": "被优绩主义腌入味后，连痛苦都被剥夺了正当性",
+    "date": "2026-04-02",
+    "contentSha256": "90950e89a0e6dce19d8457893bc5f8b3f88a6812a515b333236d8dc7b795b047",
+    "media": []
+  }
+]

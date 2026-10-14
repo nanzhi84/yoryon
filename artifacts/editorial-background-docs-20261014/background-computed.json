@@ -1,0 +1,13 @@
+{
+  "light": {
+    "background": "rgb(255, 255, 255)",
+    "canvas": "#ffffff",
+    "card": "rgb(243, 243, 242)"
+  },
+  "dark": {
+    "background": "rgb(21, 21, 20)",
+    "canvas": "#151514",
+    "card": "rgb(31, 30, 28)",
+    "dark": true
+  }
+}

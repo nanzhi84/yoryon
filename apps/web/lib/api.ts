@@ -22,8 +22,8 @@ function publicUrl(path: string): string {
  * 公开线旁路：不使用 Data Cache（no-store）。用于 sitemap 和实时目录版本门禁；
  * 列表正文仍通过 publicFetch 使用带版本的共享缓存。
  */
-export async function publicFetchNoStore(path: string): Promise<Response> {
-  return fetch(publicUrl(path), { headers: { accept: "application/json" }, cache: "no-store" });
+export async function publicFetchNoStore(path: string, options: { signal?: AbortSignal } = {}): Promise<Response> {
+  return fetch(publicUrl(path), { headers: { accept: "application/json" }, cache: "no-store", signal: options.signal ?? null });
 }
 
 /**

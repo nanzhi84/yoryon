@@ -28,3 +28,6 @@ e2e/.data/
 
 # acceptance artifacts: exclude heavyweight archives (screenshots/logs stay)
 artifacts/**/*.tar.gz
+
+# Local authoring drafts (never publish or commit automatically)
+.local/

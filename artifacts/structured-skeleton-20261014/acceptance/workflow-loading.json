@@ -1,0 +1,98 @@
+{
+  "animation": "reader-shimmer",
+  "blocks": [
+    {
+      "heights": [
+        12,
+        17,
+        17
+      ],
+      "kind": "summary"
+    },
+    {
+      "heights": [
+        17,
+        17,
+        17,
+        17
+      ],
+      "kind": "paragraph"
+    },
+    {
+      "heights": [
+        23
+      ],
+      "kind": "heading"
+    },
+    {
+      "heights": [
+        17
+      ],
+      "kind": "paragraph"
+    },
+    {
+      "heights": [
+        17,
+        17,
+        17,
+        17
+      ],
+      "kind": "list"
+    },
+    {
+      "heights": [
+        360
+      ],
+      "kind": "media"
+    },
+    {
+      "heights": [
+        17,
+        17,
+        17,
+        17
+      ],
+      "kind": "paragraph"
+    },
+    {
+      "heights": [
+        23
+      ],
+      "kind": "heading"
+    },
+    {
+      "heights": [
+        17,
+        17,
+        17
+      ],
+      "kind": "paragraph"
+    },
+    {
+      "heights": [
+        360
+      ],
+      "kind": "media"
+    },
+    {
+      "heights": [
+        17
+      ],
+      "kind": "paragraph"
+    },
+    {
+      "heights": [
+        17,
+        17,
+        17,
+        17,
+        17,
+        17,
+        17
+      ],
+      "kind": "list"
+    }
+  ],
+  "title": "从 Workflow 到 Agent：范式选择与构建模式",
+  "url": "http://localhost:3117/p/workflow-to-agent-patterns"
+}

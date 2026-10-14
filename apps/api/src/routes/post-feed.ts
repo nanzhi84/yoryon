@@ -19,8 +19,12 @@ export async function postFeedBodies(db: Reader, ids: string[], mediaBlockWeight
     const permitted = new Set(media.filter(m => m.contentId === row.id && m.exposure === "free").map(m => m.mediaId));
     const allowed = row.visibility === "public" ? preview : stringifyMarkdown(filterStoredMediaRefs(parseMarkdown(preview), permitted));
     const folded = truncateForPreview(allowed, "percent", 100, { maxWeight: 900, maxBlocks: 6, mediaBlockWeight: 300 });
+    // Small public text posts can unfold locally. Bound the extra list payload;
+    // media posts and paid previews retain the existing server truncation.
+    const localUnfold = row.visibility === "public" && !media.some(m => m.contentId === row.id)
+      && Buffer.byteLength(allowed, "utf8") <= 4096;
     const visible = new Set(folded.freeMediaIds);
-    return [row.id, { bodyMarkdown: folded.freeMarkdown, collapsed: folded.hasPaidContent,
+    return [row.id, { bodyMarkdown: localUnfold ? allowed : folded.freeMarkdown, collapsed: !localUnfold && folded.hasPaidContent,
       media: media.filter(m => m.contentId === row.id && visible.has(m.mediaId)).map(({ contentId: _id, exposure: _exposure, ...m }) => m) }];
   }));
 }

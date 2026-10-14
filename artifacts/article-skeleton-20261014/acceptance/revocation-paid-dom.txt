@@ -1,0 +1,53 @@
+- banner:
+  - link "Yoryon":
+    - /url: /
+    - generic: Yoryon
+  - link "全站搜索":
+    - /url: /search
+  - link "通知":
+    - /url: /notifications
+  - button "账户菜单":
+  - navigation "主导航":
+    - link "首页":
+      - /url: /
+    - link "订阅":
+      - /url: /subscription
+      - text: 订阅
+    - button "探索":
+      - text: 探索
+- main:
+  - button "返回上一页":
+    - text: 返回
+  - heading "骨架验收临时文章" [level=1]
+  - time: 2026.10.09
+  - generic: 付费
+  - paragraph: 今天看了孙宇晨、邵艾伦的博客访谈。
+  - paragraph: 难绷的是孙割讲话还是很有喜感，一直在那傻乐呵，一直输出观点。每次都是Alan被迫说：“我还想要继续往下推”去推进度。
+  - paragraph: 全程孙割对于薄肌反复提及反复强调，乐此不疲。
+  - paragraph:
+    - text: 信息密度比较低，但有些观点还是让我耳目一新
+    - strong: 。
+  - paragraph: 我总结了几个我觉得有启发的观点：
+  - heading "AI 化：让 AI 参与个人生活和工作中的整个决策过程" [level=2]:
+    - strong: AI 化：让 AI 参与个人生活和工作中的整个决策过程
+  - paragraph: 对于普通年轻人，从选择一个负担得起的 AI 工具开始，逐步将个人的学习经历、工作进展、生活习惯、健康状况和重要决策数字化，持续积累两至四个月的数据。在此基础上，让 AI 分析自己的现实处境、能力优势、职业方向及潜在机会。
+  - paragraph: 面对复杂问题，可以同时咨询多个模型，比较不同方案的依据和差异，再结合自身判断作出决策。
+  - paragraph:
+    - strong: AI 应当逐渐成为个人的持续协作系统，参与信息整理、决策分析、行动执行和结果复盘，形成不断积累、持续改进的工作流。
+  - heading "孙学、薄肌、黄毛理论：升级认知、身体和心态" [level=2]:
+    - strong: 孙学、薄肌、黄毛理论：升级认知、身体和心态
+  - paragraph:
+    - strong: 孙学
+    - text: 的核心是重新理解金钱、财富自由、个人发展和社会运行规则。财富分配、职业机会、技术进步都存在可以学习的规律。一个人如果沿用过去的认知，就容易被时代变化淘汰。尤其在 AI 时代，应持续吸收新知识，调整已有的世界观。参考《财富自由革
+  - paragraph: 本内容为订阅专享，以上为免费预览。
+  - paragraph: 标准订阅 ¥29.9/月：解锁站内全部付费内容，到期自动恢复锁定。
+  - link "兑换订阅激活码":
+    - /url: /redeem
+  - region "评论区":
+    - heading "评论" [level=2]
+    - paragraph:
+      - link "登录":
+        - /url: /login?returnTo=%2Fp%2Fskeleton-acceptance-revocation
+      - text: 后参与评论
+    - paragraph: 还没有评论。
+- alert

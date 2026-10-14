@@ -218,7 +218,11 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
       // 改写正文媒体引用 → /api/media/<id>
       const mapping = new Map<string, string>();
       for (const [ref, id] of mediaIdByRef) mapping.set(ref, id);
-      const rewritten = stringifyMarkdown(rewriteMediaRefs(parseMarkdown(post.bodyMarkdown), mapping));
+      // Plain-text posts carry author-controlled blank lines. AST serialization
+      // normalizes those away; only remove the conventional frontmatter separator.
+      const rewritten = fm.type === "post" && mapping.size === 0
+        ? post.bodyMarkdown.replace(/^\r?\n/, "")
+        : stringifyMarkdown(rewriteMediaRefs(parseMarkdown(post.bodyMarkdown), mapping));
       const preview = truncateForPreview(rewritten, fm.preview.mode, fm.preview.mode === "percent" ? fm.preview.percent! : null, {
         ...(deps.mediaBlockWeight !== undefined ? { mediaBlockWeight: deps.mediaBlockWeight } : {}),
       });

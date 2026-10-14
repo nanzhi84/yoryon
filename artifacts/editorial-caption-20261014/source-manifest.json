@@ -1,0 +1,6 @@
+{
+  "apps/web/app/globals.css": "703685b75b95feb1b6ac1eb158f776968a981bd6641399da3023f018c9d49d24",
+  "apps/web/components/markdown-surface.tsx": "2b817a9590101c887ebfbd3fece9e83a20cf0cb279db27a3eea185d1e776dccb",
+  "apps/web/components/caption.tsx": "ed3105c3f8dd208bf6774ceeb1ee170a047a4eedba614cdebe1f7ea2087227cd",
+  "apps/web/lib/rehype-caption.ts": "2316ccb105d56ed5c8dc30f1d966eb89caca25d97323488ab9d14004f8ef1956"
+}

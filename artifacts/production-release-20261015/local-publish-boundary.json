@@ -1,0 +1,6 @@
+{
+  "exactMatch": true,
+  "leadingEmptyLines": 2,
+  "maxConsecutiveNewlines": 3,
+  "trailingNewlines": 3
+}

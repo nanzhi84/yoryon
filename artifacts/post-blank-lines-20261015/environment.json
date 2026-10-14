@@ -1,0 +1,13 @@
+{
+  "buildWorkspace": "/var/folders/d_/8w6ff22d7gn6r0vr84g21d5r0000gn/T/yoryon-post-spacing-final-brp29q1g",
+  "envFile": "/Users/yoryon/Projects/yoryon/.local/post-format-editor/editor.env",
+  "draftDirectory": "/Users/yoryon/Projects/yoryon/.local/post-format-editor",
+  "sourceDirectory": "/var/folders/d_/8w6ff22d7gn6r0vr84g21d5r0000gn/T/yoryon-reading-preview-zz0w48to/content",
+  "api": "http://127.0.0.1:4117",
+  "editor": "http://localhost:3118/tools/post-format",
+  "postCount": 16,
+  "productionModified": false,
+  "webSession": 50098,
+  "editorSession": 98939,
+  "web": "http://localhost:3117"
+}

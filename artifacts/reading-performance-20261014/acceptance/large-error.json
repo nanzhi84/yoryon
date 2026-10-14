@@ -1,0 +1,11 @@
+[
+  {
+    "method": "Network.requestWillBeSent",
+    "url": "http://localhost:3117/api/contents/acceptance-large-public-post"
+  },
+  {
+    "method": "Network.loadingFailed",
+    "error": "",
+    "blockedReason": "inspector"
+  }
+]

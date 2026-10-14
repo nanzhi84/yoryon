@@ -1,0 +1,8 @@
+worktree /Users/yoryon/Projects/yoryon
+HEAD ce35856b3cb1f794439dea7e986c6f55e8462b33
+branch refs/heads/main
+
+worktree /Users/yoryon/.codex/worktrees/favicon-avatar/yoryon
+HEAD 4b686bd9c748c78b3c6eaa5e687081644aa613b9
+branch refs/heads/codex/favicon-avatar
+

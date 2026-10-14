@@ -1,0 +1,1 @@
+目标：页面canvas与background颜色按已确认原CSS设置浅色#ffffff、深色#151514；保留现有控件tokens，不增加主题状态或权限行为。当前Markdown规则写入docs，README/architecture维护入口与当前布局事实一致。无生产与业务数据变更。验收：真实页面深浅主题实际背景/卡片对比、切换恢复；文档与当前源码/语法逐项核对。复用既有隔离API、DB、FS，不新增测试程序。

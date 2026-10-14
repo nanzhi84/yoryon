@@ -1,0 +1,34 @@
+{
+  "original": {
+    "fonts": [
+      {
+        "familyName": ".SF NS",
+        "glyphCount": 2,
+        "isCustomFont": false,
+        "postScriptName": ".SFNS-Regular_wdth_opsz110000_GRAD_wght2580000"
+      },
+      {
+        "familyName": "PingFang SC",
+        "glyphCount": 2,
+        "isCustomFont": false,
+        "postScriptName": "PingFangSC-Semibold"
+      }
+    ]
+  },
+  "local": {
+    "fonts": [
+      {
+        "familyName": ".SF NS",
+        "glyphCount": 2,
+        "isCustomFont": false,
+        "postScriptName": ".SFNS-Regular_wdth_opsz110000_GRAD_wght2580000"
+      },
+      {
+        "familyName": "PingFang SC",
+        "glyphCount": 2,
+        "isCustomFont": false,
+        "postScriptName": "PingFangSC-Semibold"
+      }
+    ]
+  }
+}

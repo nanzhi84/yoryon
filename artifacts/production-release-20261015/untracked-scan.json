@@ -1,0 +1,10 @@
+{
+  "files": 693,
+  "large": [],
+  "potential_sensitive": [
+    {
+      "path": "artifacts/editorial-background-docs-20261014/sources/README.md",
+      "type": "database_uri"
+    }
+  ]
+}

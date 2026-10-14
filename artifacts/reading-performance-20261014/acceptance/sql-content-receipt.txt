@@ -1,0 +1,4 @@
+yoryon_reading_performance_20261014|acceptance-large-public-post|post|public|2748|7758|3afdf13f-ee02-40b2-8d12-f823d40ef70e
+yoryon_reading_performance_20261014|acceptance-media-public-post|post|public|3082|8721|a070e888-0525-4487-a07b-8f21110e21f6
+yoryon_reading_performance_20261014|acceptance-paid-preview-post|post|paid|2748|7758|fe48d8a1-559e-48e1-9a30-5c7428fc121c
+yoryon_reading_performance_20261014|note-2026-09-27-1|post|public|205|587|66a8bcbc-4fb0-4448-983b-95c3a4daba0c

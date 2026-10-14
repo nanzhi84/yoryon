@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "meritocracy-and-pain",
+    "orderedBlockLinesExact": true,
+    "sourceEmptyPositions": [
+      5,
+      14,
+      22,
+      31,
+      37
+    ],
+    "publicationEmptyPositions": [
+      5,
+      14,
+      22,
+      31,
+      37
+    ],
+    "h2": [],
+    "listLines": [],
+    "frontmatterUnchanged": true
+  },
+  {
+    "slug": "economics-principles-decision",
+    "orderedBlockLinesExact": true,
+    "sourceEmptyPositions": [
+      24
+    ],
+    "publicationEmptyPositions": [
+      24
+    ],
+    "h2": [
+      "## 原理一：人们面临权衡取舍",
+      "## 原理二：某种东西的成本，是为了得到它而放弃的东西",
+      "## 原理三：理性人考虑边际量",
+      "## 原理四：人们会对激励做出反应"
+    ],
+    "listLines": [],
+    "coverMovedToExistingMetadata": true,
+    "frontmatterUnchanged": true,
+    "coverBytesUnchanged": true
+  },
+  {
+    "slug": "economics-principles-interaction",
+    "orderedBlockLinesExact": true,
+    "sourceEmptyPositions": [
+      26
+    ],
+    "publicationEmptyPositions": [
+      26
+    ],
+    "h2": [
+      "## 原理五：贸易能使每个人状况更好",
+      "## 原理六：市场通常是组织经济活动的一种好方法",
+      "## 原理七：政府有时可以改善市场结果"
+    ],
+    "listLines": [],
+    "coverMovedToExistingMetadata": true,
+    "frontmatterUnchanged": true,
+    "coverBytesUnchanged": true
+  },
+  {
+    "slug": "economics-principles-overall",
+    "orderedBlockLinesExact": true,
+    "sourceEmptyPositions": [
+      33
+    ],
+    "publicationEmptyPositions": [
+      33
+    ],
+    "h2": [
+      "## 原理八：一国的生活水平，取决于它生产物品与服务的能力",
+      "## 原理九：当政府发行了过多货币时，物价上涨",
+      "## 原理十：社会面临通货膨胀与失业之间的短期权衡取舍"
+    ],
+    "listLines": [
+      "- 物质资本：机器、厂房、道路、港口。",
+      "- 人力资本：教育、技能、健康。",
+      "- 自然资源：土地、矿产、气候。",
+      "- 技术知识：知道如何把投入更高效地转化为产出。",
+      "- 政治与法律环境：稳定的产权、独立的司法、可执行的合同。"
+    ],
+    "coverMovedToExistingMetadata": true,
+    "frontmatterUnchanged": true,
+    "coverBytesUnchanged": true
+  }
+]

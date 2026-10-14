@@ -1,0 +1,31 @@
+{
+  "type": 1,
+  "count": 3,
+  "entries": [
+    {
+      "width": 16,
+      "height": 16,
+      "bitDepth": 32,
+      "byteLength": 813,
+      "offset": 54,
+      "pngSignature": true
+    },
+    {
+      "width": 32,
+      "height": 32,
+      "bitDepth": 32,
+      "byteLength": 2786,
+      "offset": 867,
+      "pngSignature": true
+    },
+    {
+      "width": 48,
+      "height": 48,
+      "bitDepth": 32,
+      "byteLength": 6044,
+      "offset": 3653,
+      "pngSignature": true
+    }
+  ],
+  "exactFileLength": 9697
+}

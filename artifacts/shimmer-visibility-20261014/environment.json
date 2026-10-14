@@ -1,0 +1,12 @@
+{
+  "buildWorkspace": "/var/folders/d_/8w6ff22d7gn6r0vr84g21d5r0000gn/T/yoryon-shimmer-build-8hqu22v6",
+  "envFile": "/var/folders/d_/8w6ff22d7gn6r0vr84g21d5r0000gn/T/yoryon-reading-preview-zz0w48to/preview.env",
+  "api": "http://127.0.0.1:4117",
+  "web": "http://localhost:3117",
+  "database": "yoryon_reading_preview_20261014",
+  "sourceCommit": "288471a440096df2f463211060a5eae3c5ea93af",
+  "webSession": 25316,
+  "apiSession": 68143,
+  "artificialDelayOnUserPreview": false,
+  "cssSha256": "d5e285ad9749f9835d13a06db645620a97386c0a6122cd2bdd1a68d837c094c1"
+}

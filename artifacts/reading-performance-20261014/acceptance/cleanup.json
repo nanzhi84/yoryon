@@ -1,0 +1,28 @@
+{
+  "database": "yoryon_reading_performance_20261014",
+  "databaseDropped": true,
+  "ownApiStopped": true,
+  "deletedTemporaryRoot": "/var/folders/d_/8w6ff22d7gn6r0vr84g21d5r0000gn/T/yoryon-reading-performance-3yn107nu",
+  "temporaryRootExists": false,
+  "temporaryFilesRemoved": 90,
+  "ownBrowserTabsClosed": [
+    1,
+    2,
+    3
+  ],
+  "retainedBuildRoot": "/var/folders/d_/8w6ff22d7gn6r0vr84g21d5r0000gn/T/yoryon-reading-build-du19i_v6",
+  "retainedBuildExists": true,
+  "retainedArtifacts": "/Users/yoryon/Projects/yoryon/artifacts/reading-performance-20261014/acceptance",
+  "secretsScanned": {
+    "artifactFilesChecked": 61,
+    "artifactSecretMatchFiles": [],
+    "retainedBuildFilesChecked": 536,
+    "retainedBuildSecretMatchFiles": [],
+    "excludedBuildDirectories": [
+      "node_modules",
+      ".git"
+    ],
+    "scope": "Exact matching of this run random password, API token, configuration secrets and database URL"
+  },
+  "notRemoved": "Other databases, preview environments, artifacts and root agent browser tabs"
+}

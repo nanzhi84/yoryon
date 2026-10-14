@@ -1,0 +1,20 @@
+[
+  {
+    "slug": "economics-principles-decision",
+    "url": "/api/images/v1/f6dc8ad2-836e-47b6-8d6d-31814eef1973/1280",
+    "sha256": "0f6ffa9e8799a9873079690fd9da85d2acbf75c4c06e525f20419f14821a71e4",
+    "matchesPreviousProductionBytes": true
+  },
+  {
+    "slug": "economics-principles-interaction",
+    "url": "/api/images/v1/f37d8acf-1e85-4bd1-b79d-e93c73fa7d7c/1280",
+    "sha256": "1061f23e5d977580415e3e1569c4a24367321d8877663336a700189377151626",
+    "matchesPreviousProductionBytes": true
+  },
+  {
+    "slug": "economics-principles-overall",
+    "url": "/api/images/v1/dc52ff09-4a00-410e-ae72-5285f66e4568/1280",
+    "sha256": "e6988cb16052732d2f3e2b0bb5de221913a0f3505c09fd18e20dd017d90c4541",
+    "matchesPreviousProductionBytes": true
+  }
+]

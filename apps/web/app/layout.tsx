@@ -1,3 +1,6 @@
+import { BrowseNavigationProvider } from "@/components/browse-navigation";
+import { Suspense } from "react";
+import { ReaderNavigationProvider } from "@/components/reader-navigation";
 import type { Metadata } from "next";
 import "./globals.css";
 import { NavigationMemory } from "@/components/navigation-memory";
@@ -27,10 +30,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="min-h-screen antialiased">
-        <NavigationMemory />
+        <BrowseNavigationProvider>
+        <Suspense fallback={null}><NavigationMemory /></Suspense>
         <div className="mx-auto min-h-screen max-w-[708px] px-6">
-          {children}
+          <ReaderNavigationProvider>{children}</ReaderNavigationProvider>
         </div>
+        </BrowseNavigationProvider>
       </body>
     </html>
   );

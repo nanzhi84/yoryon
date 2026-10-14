@@ -1,0 +1,114 @@
+diff --git a/apps/web/app/globals.css b/apps/web/app/globals.css
+index b215d2a..ff23615 100644
+--- a/apps/web/app/globals.css
++++ b/apps/web/app/globals.css
+@@ -48,6 +48,7 @@
+   --color-surface: var(--surface);
+   --color-surface-border: var(--surface-border);
+   --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Segoe UI", sans-serif;
++  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", SimSun, serif;
+ }
+ 
+ /* 页面宽度稳定：始终预留滚动条槽位，避免长短页面切换时居中容器横向跳动 */
+@@ -76,14 +77,31 @@ body {
+   --tw-prose-captions: var(--muted-foreground);
+   --tw-prose-th-borders: var(--border);
+   --tw-prose-td-borders: var(--border);
+-  font-size: 16px;
+-  line-height: 28px;
++  font-family: var(--font-serif);
++  font-size: 17px;
++  line-height: 1.85;
+   /* Long source URLs wrap; preformatted code retains its own scrolling area. */
+   overflow-wrap: anywhere;
+ }
+ .prose-yoryon :where(p):not(:where([class~="not-prose"] *)) {
+-  margin-top: 1em;
+-  margin-bottom: 1em;
++  margin-top: 0;
++  margin-bottom: 20px;
++}
++/* 书刊式阅读节奏只作用于内容，导航、付费提示与互动仍使用界面字体。 */
++.editorial-reader { max-width: 660px; margin-inline: auto; }
++.editorial-title { margin-top: 24px; margin-bottom: 40px; }
++.editorial-title h1 { font-family: var(--font-serif); font-size: clamp(25px, 5.2vw, 31px); line-height: 1.38; text-wrap: balance; }
++.editorial-entry h2, .editorial-excerpt { font-family: var(--font-serif); }
++.prose-yoryon :where(h2):not(:where([class~="not-prose"] *)) { font-size: 23px; line-height: 1.4; margin: 52px 0 18px; font-weight: 600; text-wrap: balance; }
++.prose-yoryon :where(h3):not(:where([class~="not-prose"] *)) { font-size: 20px; line-height: 1.5; margin: 36px 0 16px; text-wrap: balance; }
++.prose-yoryon :where(a):not(:where([class~="not-prose"] *)) { text-decoration-thickness: 1px; text-underline-offset: 3px; }
++.prose-yoryon :where(blockquote):not(:where([class~="not-prose"] *)) { border-left-width: 2px; border-left-color: var(--primary); font-style: normal; font-weight: 400; }
++.prose-yoryon :where(figcaption):not(:where([class~="not-prose"] *)) { font-family: var(--font-sans); font-size: 13px; line-height: 1.55; }
++.prose-yoryon .not-prose { font-family: var(--font-sans); }
++.prose-yoryon pre { border-radius: 4px; font-size: 13px; line-height: 1.6; }
++@media (max-width: 620px) {
++  .editorial-reader .prose-yoryon { font-size: 16px; }
++  .editorial-reader .prose-yoryon :where(h2):not(:where([class~="not-prose"] *)) { font-size: 21px; margin-top: 44px; }
+ }
+ /* 信息流条内密度独立于详情排版，保持同一字号，不按设备切换布局。 */
+ .prose-feed { font-size: 15px; line-height: 24px; }
+diff --git a/apps/web/app/page.tsx b/apps/web/app/page.tsx
+index 770fb67..bd355f0 100644
+--- a/apps/web/app/page.tsx
++++ b/apps/web/app/page.tsx
+@@ -31,7 +31,7 @@ export default async function HomePage() {
+             {feed?.nextCursor && <LoadMore version={feed.version} initialCursor={feed.nextCursor} showPinnedBadge />}
+           </AnalyticsListProvider>
+         )}
+-        <section aria-label="订阅支持" className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-border px-5 py-5">
++        <section aria-label="订阅支持" className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-border py-6">
+           <p className="text-sm font-medium">更深入的作品，更直接的交流。</p>
+           <Link href="/subscription" prefetch={false} className="inline-flex min-h-11 items-center gap-2 text-sm text-primary hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+             了解订阅 <ArrowRight className="size-4" aria-hidden="true" />
+diff --git a/apps/web/components/content-view.tsx b/apps/web/components/content-view.tsx
+index 26459e0..b918e9e 100644
+--- a/apps/web/components/content-view.tsx
++++ b/apps/web/components/content-view.tsx
+@@ -15,17 +15,17 @@ export function ContentView({ initial: content }: { initial: ContentDetail }) {
+   return (
+     <>
+       <SiteHeader />
+-      {/* 正文与页头同栏（布局容器 max-w-3xl），不再收窄 */}
+-      <main className="py-5" data-revision={content.updatedAt}>
++      {/* 阅读列独立于站点导航宽度；私有全文与公开预览共享排版。 */}
++      <main className="editorial-reader py-5" data-revision={content.updatedAt}>
+         <BackButton />
+         <DetailTracker targetKind="work" targetId={content.id} />
+         <SearchLocation slug={content.slug} />
+-        <header>
++        <header className="editorial-title">
+           <div className="flex items-center gap-2 text-xs leading-[18px] text-muted-foreground">
+             <time>{formatDate(content.publishedAt)}</time>
+             {content.visibility === "paid" && <Badge variant="secondary">付费</Badge>}
+           </div>
+-          <h1 className="mt-2 text-[28px] font-semibold leading-[38px]">{content.title || "未命名内容"}</h1>
++          <h1 className="mt-3 font-semibold">{content.title || "未命名内容"}</h1>
+           {content.description && <p className="mt-2 text-[15px] leading-6 text-muted-foreground">{content.description}</p>}
+           <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs leading-[18px] text-muted-foreground">
+             {content.tags.map((t) => (
+diff --git a/apps/web/components/feed-timeline.tsx b/apps/web/components/feed-timeline.tsx
+index b09d0bd..d617b41 100644
+--- a/apps/web/components/feed-timeline.tsx
++++ b/apps/web/components/feed-timeline.tsx
+@@ -16,11 +16,11 @@ export function formatDate(iso: string | null): string {
+ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem; showPinnedBadge?: boolean }) {
+   return (
+     <TrackImpression targetKind="work" targetId={item.id}>
+-      <article className="group py-5">
++      <article className="editorial-entry group py-5">
+         <div className="flex items-baseline justify-between gap-4">
+           <div className="flex min-w-0 items-baseline gap-2">
+             <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="min-w-0">
+-              <h2 className="truncate text-lg font-semibold leading-[26px] group-hover:underline underline-offset-4">
++              <h2 className="line-clamp-2 text-lg font-semibold leading-[26px] group-hover:underline underline-offset-4">
+                 {item.title || "未命名内容"}
+               </h2>
+             </TrackClickLink>
+@@ -35,7 +35,7 @@ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem
+         </div>
+         {item.type === "article" ? <div className="mt-2 flex items-start justify-between gap-4">
+           <div className="min-w-0 flex-1">
+-            {(item.description || item.excerpt) && <p className="line-clamp-3 text-[15px] leading-6 text-foreground">{item.description || item.excerpt}</p>}
++            {(item.description || item.excerpt) && <p className="editorial-excerpt line-clamp-3 text-[15px] leading-6 text-foreground">{item.description || item.excerpt}</p>}
+             <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="mt-1 inline-flex min-h-8 items-center gap-1.5 text-[13px] leading-5 text-primary hover:underline underline-offset-4">
+               阅读全文 <ArrowRight className="size-4" aria-hidden="true" />
+             </TrackClickLink>

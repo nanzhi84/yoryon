@@ -1,0 +1,18 @@
+{
+  "id": "dpl_HZSKUJSBifHGFtq5tjPSHfxTmKDF",
+  "readyState": "READY",
+  "target": "production",
+  "url": "yoryon-23wbsijw9-zyy2740738166-7111s-projects.vercel.app",
+  "gitSource": {
+    "ref": "main",
+    "repoId": 1413178868,
+    "sha": "ce35856b3cb1f794439dea7e986c6f55e8462b33",
+    "type": "github",
+    "prId": null
+  },
+  "meta": {
+    "githubCommitSha": "ce35856b3cb1f794439dea7e986c6f55e8462b33",
+    "githubCommitRef": "main",
+    "githubRepo": "yoryon"
+  }
+}

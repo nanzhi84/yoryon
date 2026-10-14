@@ -1,3 +1,4 @@
+import type { ReaderLayout } from "@yoryon/config/reader-layout";
 /** API 响应类型（协议边界显式声明；授权判断只在 API 层）。 */
 
 export interface FeedTag {
@@ -14,6 +15,7 @@ export interface FeedContentItem {
   description: string;
   /** 描述为空时，仅从匿名可见正文派生的摘要。 */
   excerpt?: string;
+  readerLayout?: ReaderLayout | null;
   visibility: "public" | "paid";
   coverMediaId: string | null;
   publishedAt: string | null;

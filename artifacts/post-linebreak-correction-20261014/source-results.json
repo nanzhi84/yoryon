@@ -1,0 +1,74 @@
+[
+  {
+    "slug": "note-2026-04-21-1",
+    "oldLinesEqualManifest": true,
+    "newLinesExactOrder": true,
+    "noBlankLines": true,
+    "frontmatterUnchanged": true,
+    "markdownHardBreaks": 2,
+    "expectedBreaks": 2
+  },
+  {
+    "slug": "note-2026-04-24-1",
+    "oldLinesEqualManifest": true,
+    "newLinesExactOrder": true,
+    "noBlankLines": true,
+    "frontmatterUnchanged": true,
+    "markdownHardBreaks": 3,
+    "expectedBreaks": 3
+  },
+  {
+    "slug": "note-2026-04-24-2",
+    "oldLinesEqualManifest": true,
+    "newLinesExactOrder": true,
+    "noBlankLines": true,
+    "frontmatterUnchanged": true,
+    "markdownHardBreaks": 4,
+    "expectedBreaks": 4
+  },
+  {
+    "slug": "note-2026-04-27-1",
+    "oldLinesEqualManifest": true,
+    "newLinesExactOrder": true,
+    "noBlankLines": true,
+    "frontmatterUnchanged": true,
+    "markdownHardBreaks": 3,
+    "expectedBreaks": 3
+  },
+  {
+    "slug": "note-2026-05-24-1",
+    "oldLinesEqualManifest": true,
+    "newLinesExactOrder": true,
+    "noBlankLines": true,
+    "frontmatterUnchanged": true,
+    "markdownHardBreaks": 1,
+    "expectedBreaks": 1
+  },
+  {
+    "slug": "note-2026-07-24-1",
+    "oldLinesEqualManifest": true,
+    "newLinesExactOrder": true,
+    "noBlankLines": true,
+    "frontmatterUnchanged": true,
+    "markdownHardBreaks": 2,
+    "expectedBreaks": 2
+  },
+  {
+    "slug": "note-2026-09-05-1",
+    "oldLinesEqualManifest": true,
+    "newLinesExactOrder": true,
+    "noBlankLines": true,
+    "frontmatterUnchanged": true,
+    "markdownHardBreaks": 5,
+    "expectedBreaks": 5
+  },
+  {
+    "slug": "note-2026-09-20-1",
+    "oldLinesEqualManifest": true,
+    "newLinesExactOrder": true,
+    "noBlankLines": true,
+    "frontmatterUnchanged": true,
+    "markdownHardBreaks": 1,
+    "expectedBreaks": 1
+  }
+]

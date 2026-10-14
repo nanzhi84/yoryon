@@ -1,0 +1,233 @@
+diff --git a/apps/web/app/globals.css b/apps/web/app/globals.css
+index 95708d6..6bb3a19 100644
+--- a/apps/web/app/globals.css
++++ b/apps/web/app/globals.css
+@@ -100,6 +100,8 @@ body {
+ .editorial-title h1 { font-family: var(--font-serif); font-size: clamp(25px, 5.2vw, 31px); line-height: 1.38; font-weight: 600; text-wrap: balance; }
+ .editorial-title > div { font-family: var(--font-editorial-sans); color: var(--reading-muted); }
+ .editorial-entry h2, .editorial-excerpt { font-family: var(--font-serif); }
++/* Match the six-block feed preview without parsing/replacing a small post on click. */
++.post-preview > [data-search-body] > :nth-child(n+7) { display: none; }
+ .prose-yoryon :where(h2):not(:where([class~="not-prose"] *)) { font-size: 23px; line-height: 1.4; margin: 52px 0 18px; font-weight: 600; text-wrap: balance; }
+ .prose-yoryon :where(h1):not(:where([class~="not-prose"] *)) { font-size: clamp(25px, 5.2vw, 31px); line-height: 1.38; font-weight: 600; }
+ .prose-yoryon :where(h3):not(:where([class~="not-prose"] *)) { font-size: 19px; line-height: 1.4; margin: 36px 0 14px; font-weight: 600; text-wrap: balance; }
+@@ -190,3 +192,21 @@ body {
+ /* Literal search preserves source whitespace as visible text, including soft breaks. */
+ [data-search-body] [data-search-node] { white-space: pre-wrap; }
+ [data-search-body] pre [data-search-node] { white-space: inherit; }
++
++/* Reader placeholders animate only the highlight transform, not layout. */
++.reader-skeleton { position: relative; overflow: hidden; }
++.reader-skeleton::after {
++  content: "";
++  position: absolute;
++  inset: 0;
++  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 65%), transparent);
++  transform: translateX(-100%);
++  animation: reader-shimmer 1.6s ease-in-out infinite;
++}
++.dark .reader-skeleton::after {
++  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 10%), transparent);
++}
++@keyframes reader-shimmer { to { transform: translateX(100%); } }
++@media (prefers-reduced-motion: reduce) {
++  .reader-skeleton::after { animation: none; display: none; }
++}
+diff --git a/apps/web/app/p/[slug]/page.tsx b/apps/web/app/p/[slug]/page.tsx
+index d186faa..65b4b3a 100644
+--- a/apps/web/app/p/[slug]/page.tsx
++++ b/apps/web/app/p/[slug]/page.tsx
+@@ -1,3 +1,23 @@
+ import { notFound } from "next/navigation";
+-// canonical 请求由 middleware 重写到 revision 隔离的静态路由。
+-export default function Page() { notFound(); }
++import { connection } from "next/server";
++import { cache } from "react";
++import { getCurrentPublicContent } from "@/lib/public-content";
++import { ContentDocument, contentMetadata } from "@/components/content-document";
++
++interface Props { params: Promise<{ slug: string }> }
++// Keep canonical HTML/RSC dynamic while the revision-keyed public Data Cache
++// remains reusable. The current-revision gate runs inside the loading boundary.
++const currentContent = cache(async (slug: string) => {
++  await connection();
++  return getCurrentPublicContent(slug);
++});
++
++export async function generateMetadata({ params }: Props) {
++  return contentMetadata(await currentContent((await params).slug));
++}
++
++export default async function Page({ params }: Props) {
++  const content = await currentContent((await params).slug);
++  if (!content) notFound();
++  return <ContentDocument content={content} />;
++}
+diff --git a/apps/web/components/analytics.tsx b/apps/web/components/analytics.tsx
+index bf12873..caf0e17 100644
+--- a/apps/web/components/analytics.tsx
++++ b/apps/web/components/analytics.tsx
+@@ -114,7 +114,8 @@ export function TrackClickLink({
+   children,
+   "aria-label": ariaLabel,
+   native = false,
+-}: TrackableProps & { href: string; className?: string; "aria-label"?: string; native?: boolean }) {
++  prefetchShell = false,
++}: TrackableProps & { href: string; className?: string; "aria-label"?: string; native?: boolean; prefetchShell?: boolean }) {
+   const ctx = useContext(AnalyticsListContext);
+   const send = () => {
+     if (!ctx) return;
+@@ -123,8 +124,10 @@ export function TrackClickLink({
+   const props = { href, className, "aria-label": ariaLabel, onClick: send,
+     // 鼠标中键是主动入口，右键不计；原生锚点导航沿用相同指标口径。
+     onAuxClick: (event: MouseEvent<HTMLAnchorElement>) => { if (event.button === 1) send(); } };
+-  // Next 客户端首次跨 revision rewrite 导航会丢失 fragment；评论用完整文档导航保留锚点。
+-  return native ? <a {...props}>{children}</a> : <Link prefetch={false} {...props}>{children}</Link>;
++  // Automatic prefetch stops at loading.tsx: cache the empty reader shell,
++  // never fully prefetch a permission-sensitive article body.
++  return native ? <a {...props}>{children}</a> :
++    <Link prefetch={prefetchShell ? null : false} {...props}>{children}</Link>;
+ }
+ 
+ export function DetailTracker({ targetKind, targetId }: { targetKind: AnalyticsTargetKind; targetId: string }) {
+diff --git a/apps/web/components/feed-timeline.tsx b/apps/web/components/feed-timeline.tsx
+index 841ce97..3859f41 100644
+--- a/apps/web/components/feed-timeline.tsx
++++ b/apps/web/components/feed-timeline.tsx
+@@ -1,16 +1,10 @@
+ import { imageSrcSet, publicImageUrl } from "@yoryon/config/image-variants";
+-import Link from "next/link";
+ import { Badge } from "@/components/ui/badge";
+ import { TrackClickLink, TrackImpression } from "@/components/analytics";
+ import type { CollectionListItem, FeedContentItem, FeedItem } from "@/lib/types";
+ import { PostEntry } from "./post-entry";
+ import { ContentActions, ContentInteractions } from "./content-actions";
+-import { ArrowRight } from "lucide-react";
+-
+-export function formatDate(iso: string | null): string {
+-  if (!iso) return "";
+-  return new Date(iso).toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit", timeZone: "Asia/Singapore" }).replaceAll("/", ".");
+-}
++import { formatDate } from "@/lib/date";
+ 
+ /** 信息流内容条目：标题 + 日期 / 封面 + 简介 / 类型 + 标签，点进详情。 */
+ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem; showPinnedBadge?: boolean }) {
+@@ -19,7 +13,7 @@ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem
+       <article className="editorial-entry group py-5">
+         <div className="flex items-baseline justify-between gap-4">
+           {item.type === "article" && <div className="flex min-w-0 items-baseline gap-2">
+-            <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="min-w-0">
++            <TrackClickLink prefetchShell targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="min-w-0">
+               <h2 className="line-clamp-2 text-lg font-semibold leading-[26px] group-hover:underline underline-offset-4">
+                 {item.title || "未命名内容"}
+               </h2>
+@@ -42,11 +36,8 @@ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem
+         {item.type === "article" ? <div className="mt-2 flex items-start justify-between gap-4">
+           <div className="min-w-0 flex-1">
+             {(item.description || item.excerpt) && <p className="editorial-excerpt line-clamp-3 text-[15px] leading-6 text-foreground">{item.description || item.excerpt}</p>}
+-            <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="mt-1 inline-flex min-h-8 items-center gap-1.5 text-[13px] leading-5 text-primary hover:underline underline-offset-4">
+-              阅读全文 <ArrowRight className="size-4" aria-hidden="true" />
+-            </TrackClickLink>
+           </div>
+-          {item.coverMediaId && <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="block w-28 shrink-0 sm:w-36">
++          {item.coverMediaId && <TrackClickLink prefetchShell targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className="block w-28 shrink-0 sm:w-36">
+             {/* 受控比例容器（明确的 UI 裁切选择）+ 加载前占位，消除封面 CLS（F08） */}
+             <div className="aspect-[4/3] w-full overflow-hidden rounded-lg">
+               {/* eslint-disable-next-line @next/next/no-img-element */}
+diff --git a/apps/web/lib/api.ts b/apps/web/lib/api.ts
+index 245f1c6..7d27c4a 100644
+--- a/apps/web/lib/api.ts
++++ b/apps/web/lib/api.ts
+@@ -22,8 +22,8 @@ function publicUrl(path: string): string {
+  * 公开线旁路：不使用 Data Cache（no-store）。用于 sitemap 和实时目录版本门禁；
+  * 列表正文仍通过 publicFetch 使用带版本的共享缓存。
+  */
+-export async function publicFetchNoStore(path: string): Promise<Response> {
+-  return fetch(publicUrl(path), { headers: { accept: "application/json" }, cache: "no-store" });
++export async function publicFetchNoStore(path: string, options: { signal?: AbortSignal } = {}): Promise<Response> {
++  return fetch(publicUrl(path), { headers: { accept: "application/json" }, cache: "no-store", signal: options.signal ?? null });
+ }
+ 
+ /**
+diff --git a/apps/web/lib/public-content.ts b/apps/web/lib/public-content.ts
+index 15e127e..7116a18 100644
+--- a/apps/web/lib/public-content.ts
++++ b/apps/web/lib/public-content.ts
+@@ -1,4 +1,4 @@
+-import { publicFetch } from "./api";
++import { publicFetch, publicFetchNoStore } from "./api";
+ import type { ContentDetail } from "./types";
+ 
+ export async function getPublicContent(slug: string, revision: string): Promise<ContentDetail | null> {
+@@ -9,3 +9,17 @@ export async function getPublicContent(slug: string, revision: string): Promise<
+   if (content.revision !== revision) return null;
+   return content;
+ }
++
++/** Gate each canonical read before using a revision-keyed public snapshot. */
++export async function getCurrentPublicContent(slug: string): Promise<ContentDetail | null> {
++  if (!/^[a-z0-9][a-z0-9-]*$/.test(slug)) return null;
++  const response = await publicFetchNoStore(`/api/public/policy/${slug}`, { signal: AbortSignal.timeout(3000) });
++  if (response.status === 404) return null;
++  if (!response.ok) throw new Error(`content policy API ${response.status}`);
++  const policy: unknown = await response.json();
++  if (!policy || typeof policy !== "object" || !("revision" in policy) ||
++      typeof policy.revision !== "string" || !/^[a-f0-9-]{36}$/.test(policy.revision)) {
++    throw new Error("Invalid content revision");
++  }
++  return getPublicContent(slug, policy.revision);
++}
+diff --git a/apps/web/middleware.ts b/apps/web/middleware.ts
+index ac16977..ff825fc 100644
+--- a/apps/web/middleware.ts
++++ b/apps/web/middleware.ts
+@@ -7,7 +7,7 @@ import { imageMiddleware } from "./lib/image-middleware";
+ export async function middleware(request: NextRequest) {
+   const path = request.nextUrl.pathname;
+   if (path.startsWith("/api/images/")) return imageMiddleware(request);
+-  const match = /^\/p\/([a-z0-9][a-z0-9-]*)$/.exec(path) ?? /^\/render\/([a-f0-9-]{36})\/([a-z0-9][a-z0-9-]*)$/.exec(path);
++  const match = /^\/render\/([a-f0-9-]{36})\/([a-z0-9][a-z0-9-]*)$/.exec(path);
+   const privateHeaders = { "Cache-Control": "private, no-store" };
+   if (path.startsWith("/api/pages/")) {
+     const version = path.split("/")[3];
+@@ -20,7 +20,7 @@ export async function middleware(request: NextRequest) {
+     } catch { return NextResponse.json({ error: "policy_unavailable" }, { status: 503, headers: privateHeaders }); }
+   }
+   if (!match) return new NextResponse("Not found", { status: 404, headers: privateHeaders });
+-  const slug = match[2] ?? match[1]!;
++  const slug = match[2]!;
+   try {
+     const response = await fetch(`${process.env.API_INTERNAL_URL}/api/public/policy/${slug}`, { cache: "no-store", redirect: "error", signal: AbortSignal.timeout(3000) });
+     if (response.status === 404) return new NextResponse("404 内容不存在", { status: 404, headers: privateHeaders });
+@@ -28,13 +28,10 @@ export async function middleware(request: NextRequest) {
+     const data = await response.json() as { revision: string };
+     if (!/^[a-f0-9-]{36}$/.test(data.revision)) throw new Error("invalid policy");
+     // 直达旧内部缓存 key 同样不能绕过门禁。
+-    if (match[2] && match[1] !== data.revision) return new NextResponse("404 内容版本已撤销", { status: 404, headers: privateHeaders });
+-    if (match[2]) return NextResponse.next();
+-    const target = request.nextUrl.clone();
+-    target.pathname = `/render/${data.revision}/${slug}`;
+-    return NextResponse.rewrite(target);
++    if (match[1] !== data.revision) return new NextResponse("404 内容版本已撤销", { status: 404, headers: privateHeaders });
++    return NextResponse.next();
+   } catch {
+     return new NextResponse("内容暂时无法验证，请稍后重试。", { status: 503, headers: privateHeaders });
+   }
+ }
+-export const config = { matcher: ["/p/:path*", "/render/:path*", "/api/pages/:path*", "/api/images/:path*"] };
++export const config = { matcher: ["/render/:path*", "/api/pages/:path*", "/api/images/:path*"] };
+diff --git a/apps/web/next.config.ts b/apps/web/next.config.ts
+index 31db7e0..b3e6138 100644
+--- a/apps/web/next.config.ts
++++ b/apps/web/next.config.ts
+@@ -2,7 +2,9 @@
+ const nextConfig = {
+   // BFF 代理在 Route Handler 中实现（app/api/[...path]/route.ts）
+   reactStrictMode: true,
+-  experimental: { staleTimes: { dynamic: 0, static: 0 } },
++  // Article links automatically prefetch only the loading shell.
++  // Dynamic bodies require a fresh revision check on new navigation.
++  experimental: { staleTimes: { dynamic: 0, static: 300 } },
+ };
+ 
+ export default nextConfig;

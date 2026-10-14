@@ -1,0 +1,30 @@
+{
+  "metrics": "{\"start\":38020.800000190735,\"scrollAtClick\":2794,\"feedbackMs\":0.7999999523162842,\"durationMs\":74.79999995231628}",
+  "network": [
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/p/deepseek-harness?_rsc=ZmCQ44b92m4mXe_R",
+      "id": "68529.258"
+    },
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/p/deepseek-harness?_rsc=ZmCQ44b92m4mXe_R",
+      "id": "68529.260"
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/p/deepseek-harness?_rsc=ZmCQ44b92m4mXe_R",
+      "id": "68529.258",
+      "status": 200,
+      "fromDiskCache": false
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/p/deepseek-harness?_rsc=ZmCQ44b92m4mXe_R",
+      "id": "68529.260",
+      "status": 200,
+      "fromDiskCache": false
+    }
+  ],
+  "domHead": "- banner:\n  - link \"Yoryon\":\n    - /url: /\n    - generic: Yoryon\n  - link \"全站搜索\":\n    - /url: /search\n  - link \"通知\":\n    - /url: /notifications\n  - button \"账户菜单\":\n  - navigation \"主导航\":\n    - link \"首页\":\n      - /url: /\n    - link \"订阅\":\n      - /url: /subscription\n      - text: 订阅\n    - button \"探索\":\n      - text: 探索\n- main:\n  - button \"返回上一页\":\n    - text: 返回\n  - heading \"深入 DeepSeek Harness：当 Agent Loop 也成为插件\" [level=1]\n  - time: 2026.08.19\n  - link \"#agents\":\n    - /url: /tags/agents\n  - link \"#engineering\":\n    - /url: /tags/engineering\n  - region \"本文要点\":\n    - heading \"本文要点\" [level=2]\n    - paragraph: 拆解 DSH 的一切皆插件架构：从启动组装、Cordis 三件套到 turn/step 循环与 Session Log，核心是 agent loop 可整体热替换，为 agent 自进化铺好基础设施。\n  - paragraph: 2026 年 8 月 13 日，DeepSeek 发布了自己的第一个 agent harness，名字就叫 DSH（DeepSeek Harness）。DSH 与 Codex、Claude Code 这些主流 harness 的差异是结构性的：其他 harness 把 agent loop 写死在内核里，DSH 把它做成了一个可以在运行中整体替换的插件，这个选择的后果延伸到了架构的每个角落。\n  - paragraph: 这篇博客循序渐进地回答四个问题：DSH 是什么？一次运行如何组装出来？运行起来之后，循环与日志如何协作？以及这套架构究竟适合谁？\n  - heading \"一、DSH 是什么：没有内核的 harness\" [level=2]\n  - paragraph: 先看熟悉的结构。Codex、Claude Code 这类主流 harness 都有一个稳定的核心：一段硬编码的控制流负责组装上下文、请求模型、执行工具，扩展从边上挂进来。skill 是 Markdown 文件，MCP 是一段配置，hook 是事件触发的脚本。这种设计很稳，扩展也够用，但主干改不了，想换掉核心逻辑只有 fork 源码重新编译一条路。\n  - paragraph:\n    - text: DSH 可以压缩成一句话：\n    - strong: 一个基于 Cordis 运行时的插件化 harness，一切皆插件\n    - text: 。工具是插件，模型 provider 是插件，session 是插件，连 agent loop 本身也是一个插件。这个 harness 没有特权内核，别的框架里要动内核才能做的事，在这里改一行配置就行。\n  - paragraph: 两条路线的差异，本质上是两种插件模型：\n  - list:\n    - strong: 声明式插件\n    - text: ，Codex 的路线。插件是磁盘上的一个文件夹，装着声明性资源，插件本身不在 harness 进程里跑代码，harness 读取文件、按需拉起独立进程。好处是简单，进程的生死交给操作系统管，插件之间也不需要知道彼此存在；代价是插件只能给 harness 提供素材，注册不了有状态的服务，监听不了内部事件，也改不了 harness 自身的行为。\n    - strong: 命令式插件\n    - text: ，DSH 的路线。插件直接跑在 harness 进程里，带着自己的状态。装载时向框架注册自己提供什么能力，需要什么能力就声明依赖，框架把两边接上，插件之间通过框架相互调用。能力边界被彻底打开，但立刻出现一个声明式世界不存在的难题：一个插件被替换时，正握着它引用的其他插件怎么办？\n  - paragraph:\n    - button \"查看图片：图 1：声明式与命令式两种插件模型对比\":\n      - img \"图 1：声明式与命令式两种插件模型对比\"\n  - paragraph: 这个难题正是 Cordis 存在的意义。它替每个插件记住装载时做过的每一件事，卸载时逐件撤销；它盯着依赖关系，依赖到位通知启动，依赖离开通知停下；热更新失败时事务性回滚，永远不会卡在半新半旧的中间态。Cordis 在生产环境里支撑过 4000 多个插件的生态，这套机制是 DSH 后面一切设计的地基。\n  - heading \"二、一次运行如何组装出来\" [level=2]\n  - paragraph: DSH 启动时没有固定的功能清单，最终跑起来是什么样，完全由配置组合决定。\n  - paragraph: 组合涉及三个概念，粒度从小到大：\n  - list:\n    - strong: Plugin\n    - text: ：最小的功能单元，一个插件对应一个具体能力，比如一个工具、一个模型 provider、一个 session 实现；\n    - strong: Bundle\n    - text: ：一份插件清单，把某类场景需要的一组插件配置"
+}

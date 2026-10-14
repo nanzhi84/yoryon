@@ -1,0 +1,28 @@
+{
+  "id": "dpl_B72fytvTpU58agkeqBpkfnFBaSL5",
+  "name": "yoryon-web",
+  "url": "yoryon-hynuu541l-zyy2740738166-7111s-projects.vercel.app",
+  "target": "production",
+  "readyState": "BUILDING",
+  "createdAt": 1791980372231,
+  "aliases": [
+    "yoryon-web-zyy2740738166-7111s-projects.vercel.app",
+    "yoryon-web-git-main-zyy2740738166-7111s-projects.vercel.app"
+  ],
+  "builds": [
+    {
+      "id": "bld_kq4r9nrl4",
+      "deploymentId": "dpl_B72fytvTpU58agkeqBpkfnFBaSL5",
+      "entrypoint": ".",
+      "readyState": "READY",
+      "readyStateAt": 1791980372132,
+      "createdAt": 1791980372132,
+      "createdIn": "sfo1",
+      "use": "@vercel/vc-build",
+      "config": {},
+      "output": [],
+      "fingerprint": null
+    }
+  ],
+  "contextName": "zyy2740738166-7111s-projects"
+}

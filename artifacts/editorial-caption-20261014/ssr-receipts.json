@@ -1,0 +1,53 @@
+[
+  {
+    "slug": "editorial-reference",
+    "captions": [
+      "代码 1　事后查到的 Tian 于 2024 年 3 月在内部 GitLab 上的一条 commit 记录。高亮两行向权重混入随机噪声，再恢复原有范数，使篡改后的张量在整体数值规模上与原权重一致。",
+      "代码 2　最早发现并上报的一处篡改：Docker 环境中 PyTorch 源码里的 DistributedSampler（节选，中间有省略）。PyTorch 原版在高亮处为 g.manual_seed(self.seed + self.epoch)，各进程因此得到一致的数据划分；改为以纳秒时间戳作种子后，各进程的打乱顺序不再一致，也无法复现。",
+      "列表 1　2024 年 7 月 31 日找到的 Tian 攻击代码目录中的文件名。",
+      "卡片组　根据对攻击代码的静态分析整理，每张卡片对应一类攻击手段。此处仅展示核心片段，并非完整源码。",
+      "图 1　VAR Text-to-Image 欺诈流程。红色为测试者看不到的环节。"
+    ],
+    "figcaptions": 0,
+    "searchNodes": 311,
+    "sequentialIds": true
+  },
+  {
+    "slug": "editorial-visual",
+    "captions": [
+      "图 1：横向插图与正文同列，留白让阅读从文字过渡到图像。所有图形均为本地原创示意。",
+      "图 2：结构化比较图。在当前 Markdown 组件未支持原生表格时，以清晰的矢量图呈现比较，不扩展内容协议。"
+    ],
+    "figcaptions": 0,
+    "searchNodes": 42,
+    "sequentialIds": true
+  },
+  {
+    "slug": "editorial-essay",
+    "captions": [],
+    "figcaptions": 0,
+    "searchNodes": 34,
+    "sequentialIds": true
+  },
+  {
+    "slug": "editorial-notes",
+    "captions": [],
+    "figcaptions": 0,
+    "searchNodes": 54,
+    "sequentialIds": true
+  },
+  {
+    "slug": "hello-world",
+    "captions": [],
+    "figcaptions": 0,
+    "searchNodes": 3,
+    "sequentialIds": true
+  },
+  {
+    "slug": "demo-ep1",
+    "captions": [],
+    "figcaptions": 0,
+    "searchNodes": 1,
+    "sequentialIds": true
+  }
+]

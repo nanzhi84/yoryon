@@ -1,0 +1,47 @@
+Vercel CLI 54.14.5 (Node.js 24.20.0)
+Fetching deployments in zyy2740738166-7111s-projects
+> Deployments for zyy2740738166-7111s-projects/yoryon-web [380ms]
+
+  Age     Project                                     Deployment                                                           Status         Environment     Duration     Username               
+  6s      zyy2740738166-7111s-projects/yoryon-web     https://yoryon-9wh3107wa-zyy2740738166-7111s-projects.vercel.app     ● Building     Production      --           zyy2740738166-7111     
+  12m     zyy2740738166-7111s-projects/yoryon-web     https://yoryon-9q86buafh-zyy2740738166-7111s-projects.vercel.app     ● Ready        Production      1m           zyy2740738166-7111     
+  19m     zyy2740738166-7111s-projects/yoryon-web     https://yoryon-hynuu541l-zyy2740738166-7111s-projects.vercel.app     ● Ready        Production      1m           zyy2740738166-7111     
+  19m     zyy2740738166-7111s-projects/yoryon-web     https://yoryon-gf70otjst-zyy2740738166-7111s-projects.vercel.app     ● Ready        Production      1m           zyy2740738166-7111     
+  1h      zyy2740738166-7111s-projects/yoryon-web     https://yoryon-ismc860q8-zyy2740738166-7111s-projects.vercel.app     ● Ready        Production      57s          zyy2740738166-7111     
+  3h      zyy2740738166-7111s-projects/yoryon-web     https://yoryon-mn62pdzsn-zyy2740738166-7111s-projects.vercel.app     ● Ready        Production      1m           zyy2740738166-7111     
+  5h      zyy2740738166-7111s-projects/yoryon-web     https://yoryon-23wbsijw9-zyy2740738166-7111s-projects.vercel.app     ● Ready        Production      2m           zyy2740738166-7111     
+  1d      zyy2740738166-7111s-projects/yoryon-web     https://yoryon-677artnqy-zyy2740738166-7111s-projects.vercel.app     ● Ready        Preview         1m           zyy2740738166-7111     
+  1d      zyy2740738166-7111s-projects/yoryon-web     https://yoryon-alwor0pdo-zyy2740738166-7111s-projects.vercel.app     ● Ready        Preview         1m           zyy2740738166-7111     
+  1d      zyy2740738166-7111s-projects/yoryon-web     https://yoryon-jhi1nng2v-zyy2740738166-7111s-projects.vercel.app     ● Ready        Production      45s          zyy2740738166-7111     
+  1d      zyy2740738166-7111s-projects/yoryon-web     https://yoryon-axd7uxwpq-zyy2740738166-7111s-projects.vercel.app     ● Ready        Preview         33s          zyy2740738166-7111     
+  1d      zyy2740738166-7111s-projects/yoryon-web     https://yoryon-brq3edtyn-zyy2740738166-7111s-projects.vercel.app     ● Ready        Preview         1m           zyy2740738166-7111     
+  1d      zyy2740738166-7111s-projects/yoryon-web     https://yoryon-qy29crrvo-zyy2740738166-7111s-projects.vercel.app     ● Ready        Preview         49s          zyy2740738166-7111     
+  1d      zyy2740738166-7111s-projects/yoryon-web     https://yoryon-llzlhmgfn-zyy2740738166-7111s-projects.vercel.app     ● Error        Production      3m           zyy2740738166-7111     
+  1d      zyy2740738166-7111s-projects/yoryon-web     https://yoryon-332p4uzny-zyy2740738166-7111s-projects.vercel.app     ● Error        Preview         2m           zyy2740738166-7111     
+  1d      zyy2740738166-7111s-projects/yoryon-web     https://yoryon-56t38urn9-zyy2740738166-7111s-projects.vercel.app     ● Error        Preview         46s          zyy2740738166-7111     
+  1d      zyy2740738166-7111s-projects/yoryon-web     https://yoryon-akyi9f1pv-zyy2740738166-7111s-projects.vercel.app     ● Error        Production      33s          zyy2740738166-7111     
+  1d      zyy2740738166-7111s-projects/yoryon-web     https://yoryon-cyqvt00y9-zyy2740738166-7111s-projects.vercel.app     ● Error        Preview         36s          zyy2740738166-7111     
+  2d      zyy2740738166-7111s-projects/yoryon-web     https://yoryon-f0716wd70-zyy2740738166-7111s-projects.vercel.app     ● Error        Production      41s          zyy2740738166-7111     
+  2d      zyy2740738166-7111s-projects/yoryon-web     https://yoryon-c1gzvk9is-zyy2740738166-7111s-projects.vercel.app     ● Error        Preview         34s          zyy2740738166-7111     
+
+https://yoryon-9wh3107wa-zyy2740738166-7111s-projects.vercel.app
+https://yoryon-9q86buafh-zyy2740738166-7111s-projects.vercel.app
+https://yoryon-hynuu541l-zyy2740738166-7111s-projects.vercel.app
+https://yoryon-gf70otjst-zyy2740738166-7111s-projects.vercel.app
+https://yoryon-ismc860q8-zyy2740738166-7111s-projects.vercel.app
+https://yoryon-mn62pdzsn-zyy2740738166-7111s-projects.vercel.app
+https://yoryon-23wbsijw9-zyy2740738166-7111s-projects.vercel.app
+https://yoryon-677artnqy-zyy2740738166-7111s-projects.vercel.app
+https://yoryon-alwor0pdo-zyy2740738166-7111s-projects.vercel.app
+https://yoryon-jhi1nng2v-zyy2740738166-7111s-projects.vercel.app
+https://yoryon-axd7uxwpq-zyy2740738166-7111s-projects.vercel.app
+https://yoryon-brq3edtyn-zyy2740738166-7111s-projects.vercel.app
+https://yoryon-qy29crrvo-zyy2740738166-7111s-projects.vercel.app
+https://yoryon-llzlhmgfn-zyy2740738166-7111s-projects.vercel.app
+https://yoryon-332p4uzny-zyy2740738166-7111s-projects.vercel.app
+https://yoryon-56t38urn9-zyy2740738166-7111s-projects.vercel.app
+https://yoryon-akyi9f1pv-zyy2740738166-7111s-projects.vercel.app
+https://yoryon-cyqvt00y9-zyy2740738166-7111s-projects.vercel.app
+https://yoryon-f0716wd70-zyy2740738166-7111s-projects.vercel.app
+https://yoryon-c1gzvk9is-zyy2740738166-7111s-projects.vercel.app
+> To display the next page, run `vercel ls yoryon-web --scope team_QZe9hRamSsGyB0AEDzsHIb5v --next 1791830973189`

@@ -1,0 +1,14 @@
+{
+  "domTail": "2026-05-02-1\n      - time: 2026.05.02\n    - paragraph: 做决定的时候永远后悔，不做决定的时候更后悔\n    - paragraph: 这他妈就是人生吧。\n    - generic \"内容互动\":\n      - link \"评论，0条\":\n        - /url: /p/note-2026-05-02-1#comments\n        - generic: 评论\n      - button \"点赞，0个赞\":\n        - generic: 点赞\n      - button \"转发，复制链接\":\n        - generic: 转发\n    - status\n  - article:\n    - link \"巴菲特：当前美国股市像是赌场\":\n      - /url: /p/buffett-casino-church\n      - heading \"巴菲特：当前美国股市像是赌场\" [level=2]\n    - time: 2026.05.02\n    - paragraph: 市场像附带赌场的教堂：控制能控制的，保留选择权。\n    - link \"巴菲特：当前美国股市像是赌场\":\n      - /url: /p/buffett-casino-church\n      - img \"巴菲特：当前美国股市像是赌场\"\n    - generic \"内容互动\":\n      - link \"评论，0条\":\n        - /url: /p/buffett-casino-church#comments\n        - generic: 评论\n      - button \"点赞，0个赞\":\n        - generic: 点赞\n      - button \"转发，复制链接\":\n        - generic: 转发\n    - status\n  - status:\n    - text: 列表已更新。\n    - button \"刷新列表\"\n- alert: Yoryon",
+  "network": [
+    {
+      "method": "Network.requestWillBeSent",
+      "url": "http://localhost:3117/api/pages/11c59f5a-d30e-41e7-a56a-822fb655b3b3/feed/eyJwIjpmYWxzZSwidCI6IjIwMjYtMDUtMDFUMTY6MDA6MDAuMDAwWiIsImlkIjoiYWJiMDBmYTItZjE0NC00MDE1LTg5MjAtMzA4NjI5NDM0YjZkIn0"
+    },
+    {
+      "method": "Network.responseReceived",
+      "url": "http://localhost:3117/api/pages/11c59f5a-d30e-41e7-a56a-822fb655b3b3/feed/eyJwIjpmYWxzZSwidCI6IjIwMjYtMDUtMDFUMTY6MDA6MDAuMDAwWiIsImlkIjoiYWJiMDBmYTItZjE0NC00MDE1LTg5MjAtMzA4NjI5NDM0YjZkIn0",
+      "status": 409
+    }
+  ]
+}
