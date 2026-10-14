@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="min-h-screen antialiased">
         <NavigationMemory />
-        <div className="mx-auto min-h-screen max-w-3xl px-6">
+        <div className="mx-auto min-h-screen max-w-[708px] px-6">
           {children}
         </div>
       </body>

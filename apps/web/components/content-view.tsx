@@ -15,7 +15,7 @@ export function ContentView({ initial: content }: { initial: ContentDetail }) {
   return (
     <>
       <SiteHeader />
-      {/* 阅读列独立于站点导航宽度；私有全文与公开预览共享排版。 */}
+      {/* 阅读列与站点导航共享宽度；私有全文与公开预览共享排版。 */}
       <main className="editorial-reader py-5" data-revision={content.updatedAt}>
         <BackButton />
         <DetailTracker targetKind="work" targetId={content.id} />
@@ -24,7 +24,6 @@ export function ContentView({ initial: content }: { initial: ContentDetail }) {
           <h1 className="font-semibold">{content.title || "未命名内容"}</h1>
           <div className="mt-5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[13px] leading-[1.6] text-muted-foreground">
             <time dateTime={content.publishedAt ?? undefined}>{formatDate(content.publishedAt)}</time>
-            {content.description && <><span aria-hidden="true">·</span><span>{content.description}</span></>}
             {content.visibility === "paid" && <Badge variant="secondary">付费</Badge>}
           </div>
           <div className="mt-3 flex flex-wrap justify-center gap-x-3 gap-y-1 text-xs leading-[18px] text-muted-foreground">

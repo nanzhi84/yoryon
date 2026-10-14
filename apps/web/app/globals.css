@@ -111,9 +111,11 @@ body {
 .prose-yoryon .editorial-caption em { font-style: normal; }
 .prose-yoryon .not-prose { font-family: var(--font-sans); }
 .prose-yoryon pre { border-radius: 4px; font-size: 13px; line-height: 1.6; }
-/* Reference keypoints: semantic ordered list retains accessible numbering. */
+/* Keypoints accept a sentence or list; only ordered lists get numbered badges. */
 .editorial-keypoints { margin: 0 0 40px; padding: 18px 20px 6px; background: #f3f3f2; border-radius: 6px; }
 .dark .editorial-keypoints { background: #1f1e1c; }
+.prose-yoryon .editorial-keypoints > p { margin: 0 0 16px; line-height: 1.6; }
+.prose-yoryon .editorial-keypoints > ul { margin: 0 0 16px; padding-left: 1.25em; }
 .prose-yoryon .editorial-keypoints > :is(h2,h3,h4,h5,h6) { margin: 0 0 14px; font-family: var(--font-editorial-sans); font-size: 12px; font-weight: 400; line-height: 1.6; letter-spacing: .12em; color: var(--reading-muted, var(--muted-foreground)); }
 .prose-yoryon .editorial-keypoints > ol { list-style: none; margin: 0; padding: 0; counter-reset: keypoint; }
 .prose-yoryon .editorial-keypoints > ol > li { counter-increment: keypoint; position: relative; padding-left: 34px; margin: 0 0 16px; line-height: 1.6; }

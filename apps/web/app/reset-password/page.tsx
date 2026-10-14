@@ -8,7 +8,7 @@ export default function ResetPasswordPage() {
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-sm py-5">
+      <main className="py-5">
         <h1 className="mb-4 text-2xl font-semibold">重置密码</h1>
         <ResetPasswordForm />
       </main>

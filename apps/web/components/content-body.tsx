@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Lock } from "lucide-react";
+import { ArticleSummary } from "./article-summary";
 import type { ContentDetail } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { MarkdownBody } from "@/components/markdown";
@@ -12,6 +13,7 @@ export function ContentBody({ content, publicImages = false }: { content: Conten
   }
 
   return <>
+        <ArticleSummary description={content.description} markdown={content.bodyMarkdown} />
         {/* 正文（已按权益裁剪） */}
         {content.bodyMarkdown && (
           <div className="mt-5" data-search-content={content.slug} data-search-revision={content.access === "full" ? content.revision : "preview"}>

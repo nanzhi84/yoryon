@@ -37,7 +37,7 @@ export default async function CollectionPage({ params }: Props) {
   return (
     <>
       <SiteHeader />
-      {/* 与文章页同一阅读栏（布局容器 max-w-3xl） */}
+      {/* 与文章页同一阅读栏（全站内容列最大 660px） */}
       <main className="py-5">
         <DetailTracker targetKind="collection" targetId={collection.id} />
         <header>

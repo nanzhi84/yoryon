@@ -10,7 +10,7 @@ function textOf(node: Node): string {
   return node.value ?? node.children?.map(textOf).join("") ?? "";
 }
 
-/** An authored “本文要点” heading followed by an ordered list is a summary.
+/** An authored “本文要点” heading followed by a paragraph or list is a summary.
  * Run after search decoration so wrapping does not change search node offsets.
  */
 export function rehypeEditorialSummary() {
@@ -21,8 +21,10 @@ export function rehypeEditorialSummary() {
       if (!/^h[2-6]$/.test(heading.tagName ?? "") || textOf(heading).trim() !== "本文要点") continue;
       let next = index + 1;
       while (children[next]?.type === "text" && !textOf(children[next]!).trim()) next++;
-      const list = children[next];
-      if (list?.tagName !== "ol" || !list.children?.some(node => node.tagName === "li")) continue;
+      const block = children[next];
+      const valid = block?.tagName === "p" ? Boolean(textOf(block).trim())
+        : ["ol", "ul"].includes(block?.tagName ?? "") && block?.children?.some(node => node.tagName === "li");
+      if (!valid) continue;
       children.splice(index, next - index + 1, {
         type: "element",
         tagName: "section",
