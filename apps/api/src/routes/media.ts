@@ -1,6 +1,6 @@
 /**
  * 媒体分发与（fs 后端的）字节回源。
- * GET /api/media/:id —— 验权 → 302 签名 URL；缓存双线（ADR-0003 修订）。
+ * GET /api/media/:id —— 验权 → GIF WebP 字节或 302 签名 URL；缓存双线（ADR-0003 修订）。
  * GET /api/storage-object/* —— fs 存储的签名 URL 字节服务（HMAC 验签 + Range/206），模拟 OSS 行为。
  */
 import { Hono } from "hono";
@@ -10,13 +10,15 @@ import { findMediaById, FsStorage, isValidMediaKey, mimeForFile, resolveMediaAcc
 import type { AppDeps } from "../deps";
 import { errorResponse } from "../errors";
 import type { AppVariables } from "../middleware/auth";
+import type { GifVariantReader } from "../gif-variant";
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-export function mediaRoutes(deps: AppDeps) {
+export function mediaRoutes(deps: AppDeps, gifVariant: GifVariantReader) {
   const app = new Hono<{ Variables: AppVariables }>();
 
   app.get("/media/:id", async (c) => {
+    c.header("Cache-Control", "private, no-store");
     const id = c.req.param("id");
     if (!UUID_RE.test(id)) return errorResponse(c, 404, "not_found", "媒体不存在");
     const media = await findMediaById(deps.db, id.toLowerCase());
@@ -32,6 +34,12 @@ export function mediaRoutes(deps: AppDeps) {
       return errorResponse(c, 403, "forbidden", "无权访问该媒体");
     }
 
+    if (media.mimeType === "image/gif") {
+      const data = await gifVariant(media.ossKey, width, c.req.raw.signal);
+      c.header("Content-Type", "image/webp");
+      c.header("X-Content-Type-Options", "nosniff");
+      return c.body(new Uint8Array(data));
+    }
     const resize = width && /^(image\/jpeg|image\/png|image\/webp)$/.test(media.mimeType) && (media.width ?? 0) > width ? width : undefined;
     const url = await deps.storage.signGetUrl(media.ossKey, deps.env.MEDIA_SIGN_TTL, resize);
     if (access.via === "entitlement") {

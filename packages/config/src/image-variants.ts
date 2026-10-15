@@ -7,9 +7,11 @@ export function validImageVariant(variant: string) {
   return variant === "original" || IMAGE_WIDTHS.some(w => String(w) === variant);
 }
 export function publicImageUrl(id: string, variant: number | "original" = 1280) {
-  return `/api/images/v1/${id}/${variant}`;
+  return `/api/images/v2/${id}/${variant}`;
 }
 export function imageEtag(hash: string, variant: string) {
+  // URI v2 isolates changed bytes. Keep this origin validator prefix stable so
+  // the API can roll out before Web without breaking its previous parser.
   return `"image-v1-${hash}-${variant}"`;
 }
 export function imageSrcSet(id: string, width?: number, publicImage = false) {
