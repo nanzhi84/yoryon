@@ -1,0 +1,148 @@
+[
+  {
+    "path": "/health",
+    "status": 200,
+    "version": null,
+    "count": 0,
+    "access": null,
+    "bodyChars": 0,
+    "items": []
+  },
+  {
+    "path": "/api/member-feed",
+    "status": 200,
+    "version": "1b1a20b5-2162-48e6-b5cb-c59b71fcdf7c",
+    "count": 0,
+    "access": null,
+    "bodyChars": 0,
+    "items": []
+  },
+  {
+    "path": "/api/collections",
+    "status": 200,
+    "version": "1b1a20b5-2162-48e6-b5cb-c59b71fcdf7c",
+    "count": 0,
+    "access": null,
+    "bodyChars": 0,
+    "items": []
+  },
+  {
+    "path": "/api/feed",
+    "status": 200,
+    "version": "1b1a20b5-2162-48e6-b5cb-c59b71fcdf7c",
+    "count": 20,
+    "access": null,
+    "bodyChars": 0,
+    "items": [
+      {
+        "slug": "freedom-before-wealth",
+        "kind": "content",
+        "type": "article"
+      },
+      {
+        "slug": "note-2026-09-27-1",
+        "kind": "content",
+        "type": "post"
+      },
+      {
+        "slug": "note-2026-09-20-1",
+        "kind": "content",
+        "type": "post"
+      },
+      {
+        "slug": "jev-typed-decisions",
+        "kind": "content",
+        "type": "article"
+      },
+      {
+        "slug": "note-2026-09-09-1",
+        "kind": "content",
+        "type": "post"
+      },
+      {
+        "slug": "note-2026-09-08-1",
+        "kind": "content",
+        "type": "post"
+      },
+      {
+        "slug": "note-2026-09-05-1",
+        "kind": "content",
+        "type": "post"
+      },
+      {
+        "slug": "note-2026-08-24-1",
+        "kind": "content",
+        "type": "post"
+      },
+      {
+        "slug": "deepseek-harness",
+        "kind": "content",
+        "type": "article"
+      },
+      {
+        "slug": "workflow-to-agent-patterns",
+        "kind": "content",
+        "type": "article"
+      },
+      {
+        "slug": "note-2026-08-04-1",
+        "kind": "content",
+        "type": "post"
+      },
+      {
+        "slug": "note-2026-07-24-1",
+        "kind": "content",
+        "type": "post"
+      },
+      {
+        "slug": "note-2026-07-23-1",
+        "kind": "content",
+        "type": "post"
+      },
+      {
+        "slug": "note-2026-05-24-1",
+        "kind": "content",
+        "type": "post"
+      },
+      {
+        "slug": "economics-principles-overall",
+        "kind": "content",
+        "type": "article"
+      },
+      {
+        "slug": "economics-principles-interaction",
+        "kind": "content",
+        "type": "article"
+      },
+      {
+        "slug": "economics-principles-decision",
+        "kind": "content",
+        "type": "article"
+      },
+      {
+        "slug": "note-2026-05-02-1",
+        "kind": "content",
+        "type": "post"
+      },
+      {
+        "slug": "buffett-casino-church",
+        "kind": "content",
+        "type": "article"
+      },
+      {
+        "slug": "note-2026-04-27-1",
+        "kind": "content",
+        "type": "post"
+      }
+    ]
+  },
+  {
+    "path": "/api/public/contents/freedom-before-wealth",
+    "status": 200,
+    "version": null,
+    "count": 0,
+    "access": "full",
+    "bodyChars": 2748,
+    "items": []
+  }
+]

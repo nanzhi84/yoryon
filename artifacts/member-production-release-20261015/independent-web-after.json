@@ -1,0 +1,129 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "type": "text/html; charset=utf-8",
+    "bytes": 155717,
+    "sha256": "61338422def354cf8d4e840d594cdc5ed4272e8de57358cfaa34f31da3285249"
+  },
+  {
+    "path": "/subscription",
+    "status": 200,
+    "type": "text/html; charset=utf-8",
+    "bytes": 20639,
+    "sha256": "ba77ece21c6f6c0e0a3a88087b94aa3293fb258058d126515a0dd22f5fe49051"
+  },
+  {
+    "path": "/c",
+    "status": 200,
+    "type": "text/html; charset=utf-8",
+    "bytes": 22989,
+    "sha256": "172935f0a67eac686dcd6e815bb216f2a48bbcad87409a1355dd896f34c592a0"
+  },
+  {
+    "path": "/api/feed",
+    "status": 200,
+    "type": "application/json",
+    "bytes": 23127,
+    "sha256": "0348e4d33967c458b898805405cd42df721a3d5b75e9c92081586b52d2147e16"
+  },
+  {
+    "path": "/api/feed?cursor=eyJwIjpmYWxzZSwidCI6IjIwMjYtMDQtMjdUMDA6MDA6MDAuMDAwWiIsImlkIjoiYzJmMjRiOGQtNDBiZi00Yzc5LWExMTMtMjQ0MDA2YTI3YzZlIn0&version=1b1a20b5-2162-48e6-b5cb-c59b71fcdf7c",
+    "status": 200,
+    "type": "application/json",
+    "bytes": 3110,
+    "sha256": "4d006843af12a37677b7e8e1944c9d961ead15280e2eabc3d8ee6993ac5c463e"
+  },
+  {
+    "path": "/api/member-feed",
+    "status": 200,
+    "type": "application/json",
+    "bytes": 79,
+    "sha256": "468b0f3f03370b83973387c7fea69d530adb9292eea4ebe4b3bb59afd437ef52"
+  },
+  {
+    "path": "/p/freedom-before-wealth",
+    "status": 200,
+    "type": "text/html; charset=utf-8",
+    "bytes": 67625,
+    "sha256": "beaaf90cb83651ea0aedccc008ae3dfcd3ae8a002ff758e98e3a9f72837e4196"
+  },
+  {
+    "path": "/api/public/contents/freedom-before-wealth",
+    "status": 200,
+    "type": "application/json",
+    "bytes": 8260,
+    "sha256": "0869bdaea223207bff2cc80f20b73bb83917184683c77c446ca765680ff9bd63"
+  },
+  {
+    "detailSlug": "freedom-before-wealth",
+    "access": "full",
+    "bodyChars": 2748,
+    "type": "article",
+    "htmlTitlePresent": true
+  },
+  {
+    "path": "/p/note-2026-09-27-1",
+    "status": 200,
+    "type": "text/html; charset=utf-8",
+    "bytes": 39608,
+    "sha256": "d440c5aa26cfa0fa6eba6a4c37dfdf0a084709f8ac6f224b12349ae645d44006"
+  },
+  {
+    "path": "/api/public/contents/note-2026-09-27-1",
+    "status": 200,
+    "type": "application/json",
+    "bytes": 978,
+    "sha256": "08c3203ad744c79af3feec9706ef181542f1196a3f5ad565445872b5e177a3f8"
+  },
+  {
+    "detailSlug": "note-2026-09-27-1",
+    "access": "full",
+    "bodyChars": 203,
+    "type": "post",
+    "htmlTitlePresent": true
+  },
+  {
+    "path": "/_next/static/css/49bf7cd81d62ad30.css",
+    "status": 200,
+    "type": "text/css; charset=utf-8",
+    "bytes": 54510,
+    "sha256": "356af3cf2401e550c5c19ffb5383d3ebacdf26caff41fb97754f9bb40d4a8143"
+  },
+  {
+    "path": "/_next/static/chunks/webpack-5fa667c73ef07a2f.js",
+    "status": 200,
+    "type": "application/javascript; charset=utf-8",
+    "bytes": 5372,
+    "sha256": "c112159e0eaf4c09fd958253de70e9336dadca13fcb6c28464f78676e694793e"
+  },
+  {
+    "path": "/_next/static/chunks/9a3bc300-d5cfc770eef4e189.js",
+    "status": 200,
+    "type": "application/javascript; charset=utf-8",
+    "bytes": 173020,
+    "sha256": "6ed53c61c6c768744a74c60c5c7462c57f2aa6efaec350637035754ae927ca42"
+  },
+  {
+    "path": "/_next/static/chunks/1692-f5061cecc8aae95c.js",
+    "status": 200,
+    "type": "application/javascript; charset=utf-8",
+    "bytes": 173933,
+    "sha256": "92a158a55f75cbdb978fc65221e6278b3a6b5528b0585fc94fada7d306385c01"
+  },
+  {
+    "business": {
+      "feedCount": 25,
+      "unique": 25,
+      "types": [
+        "article",
+        "post"
+      ],
+      "memberCount": 0,
+      "subscriptionEmptyState": true,
+      "collectionsEmptyState": true,
+      "homeLatestTitle": true
+    },
+    "staticAssetsChecked": 4
+  }
+]

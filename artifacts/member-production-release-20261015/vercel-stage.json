@@ -1,0 +1,12 @@
+{
+  "status": "ok",
+  "deployment": {
+    "id": "dpl_CqBbP81RxdAQsFYFm2gagznfFwem",
+    "url": "https://yoryon-pst6jj2a4-zyy2740738166-7111s-projects.vercel.app",
+    "readyState": "INITIALIZING",
+    "target": "production",
+    "inspectorUrl": "https://vercel.com/zyy2740738166-7111s-projects/yoryon-web/CqBbP81RxdAQsFYFm2gagznfFwem",
+    "createdAt": null
+  },
+  "message": "Deployment yoryon-pst6jj2a4-zyy2740738166-7111s-projects.vercel.app ready."
+}

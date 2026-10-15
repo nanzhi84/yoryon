@@ -1,0 +1,20 @@
+{
+  "fingerprint": {
+    "contents": 25,
+    "content_fingerprint": "c5f24ff7720027c756462c0079f0816e"
+  },
+  "groups": [
+    {
+      "status": "published",
+      "type": "article",
+      "visibility": "public",
+      "count": 9
+    },
+    {
+      "status": "published",
+      "type": "post",
+      "visibility": "public",
+      "count": 16
+    }
+  ]
+}

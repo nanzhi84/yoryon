@@ -1,0 +1,35 @@
+{
+  "migrationCount": 15,
+  "contentUnchanged": true,
+  "legacyVisitorBackfill": [
+    {
+      "ledger_rows": 0,
+      "identified_events": 0
+    }
+  ],
+  "homeInitialization": [
+    {
+      "visibility": "public",
+      "show_in_home": true,
+      "count": 25
+    }
+  ],
+  "grants": [
+    {
+      "grantee": "yoryon_api",
+      "privilege_type": "INSERT"
+    },
+    {
+      "grantee": "yoryon_api",
+      "privilege_type": "SELECT"
+    },
+    {
+      "grantee": "yoryon_api",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "privilege_type": "SELECT"
+    }
+  ]
+}

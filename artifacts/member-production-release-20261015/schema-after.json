@@ -1,0 +1,123 @@
+{
+  "migrations": [
+    {
+      "id": 1,
+      "created_at": "1791655080601"
+    },
+    {
+      "id": 2,
+      "created_at": "1791684271076"
+    },
+    {
+      "id": 3,
+      "created_at": "1791723226245"
+    },
+    {
+      "id": 4,
+      "created_at": "1791789134292"
+    },
+    {
+      "id": 5,
+      "created_at": "1791789567749"
+    },
+    {
+      "id": 6,
+      "created_at": "1791811056565"
+    },
+    {
+      "id": 7,
+      "created_at": "1791814042027"
+    },
+    {
+      "id": 8,
+      "created_at": "1791818718892"
+    },
+    {
+      "id": 9,
+      "created_at": "1791825937599"
+    },
+    {
+      "id": 10,
+      "created_at": "1791826802062"
+    },
+    {
+      "id": 11,
+      "created_at": "1791827768854"
+    },
+    {
+      "id": 12,
+      "created_at": "1791856800000"
+    },
+    {
+      "id": 13,
+      "created_at": "1791906277406"
+    },
+    {
+      "id": 14,
+      "created_at": "1792001860032"
+    },
+    {
+      "id": 15,
+      "created_at": "1792003726666"
+    }
+  ],
+  "schema": [
+    {
+      "table_name": "collections",
+      "column_name": "is_pinned"
+    },
+    {
+      "table_name": "contents",
+      "column_name": "show_in_home"
+    },
+    {
+      "table_name": "analytics_events",
+      "column_name": "visitor_id"
+    },
+    {
+      "table_name": "analytics_visitors",
+      "column_name": "visitor_id"
+    },
+    {
+      "table_name": "analytics_visitors",
+      "column_name": "first_seen_at"
+    }
+  ],
+  "grants": [
+    {
+      "grantee": "yoryon_api",
+      "privilege_type": "INSERT"
+    },
+    {
+      "grantee": "yoryon_api",
+      "privilege_type": "SELECT"
+    },
+    {
+      "grantee": "yoryon_api",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "privilege_type": "SELECT"
+    }
+  ],
+  "fingerprint": [
+    {
+      "contents": 25,
+      "content_fingerprint": "c5f24ff7720027c756462c0079f0816e"
+    }
+  ],
+  "homeInitialization": [
+    {
+      "visibility": "public",
+      "show_in_home": true,
+      "count": 25
+    }
+  ],
+  "legacyVisitorBackfill": [
+    {
+      "ledger_rows": 0,
+      "identified_events": 0
+    }
+  ]
+}

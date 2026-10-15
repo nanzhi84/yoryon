@@ -1,0 +1,79 @@
+[
+  {
+    "key": "FEED_REVALIDATE_SEC",
+    "target": [
+      "preview"
+    ],
+    "type": "sensitive"
+  },
+  {
+    "key": "SITE_URL",
+    "target": [
+      "preview"
+    ],
+    "type": "sensitive"
+  },
+  {
+    "key": "ALLOWED_ORIGINS",
+    "target": [
+      "preview"
+    ],
+    "type": "sensitive"
+  },
+  {
+    "key": "BFF_SHARED_SECRET",
+    "target": [
+      "preview"
+    ],
+    "type": "sensitive"
+  },
+  {
+    "key": "API_INTERNAL_URL",
+    "target": [
+      "preview"
+    ],
+    "type": "sensitive"
+  },
+  {
+    "key": "CACHE_REVALIDATE_SECRET",
+    "target": [
+      "production"
+    ],
+    "type": "sensitive"
+  },
+  {
+    "key": "BFF_SHARED_SECRET",
+    "target": [
+      "production"
+    ],
+    "type": "sensitive"
+  },
+  {
+    "key": "API_INTERNAL_URL",
+    "target": [
+      "production"
+    ],
+    "type": "sensitive"
+  },
+  {
+    "key": "FEED_REVALIDATE_SEC",
+    "target": [
+      "production"
+    ],
+    "type": "sensitive"
+  },
+  {
+    "key": "ALLOWED_ORIGINS",
+    "target": [
+      "production"
+    ],
+    "type": "sensitive"
+  },
+  {
+    "key": "SITE_URL",
+    "target": [
+      "production"
+    ],
+    "type": "sensitive"
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "window": "API container startup through final browser scan",
+  "structuredLogRows": 75,
+  "errorCount": 0,
+  "http5xxCount": 0,
+  "analyticsResponses": {
+    "200": 5
+  }
+}

@@ -1,0 +1,199 @@
+{
+  "at": "2026-10-15T03:54:01.766348+00:00",
+  "receipts": [
+    {
+      "path": "/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 152431
+    },
+    {
+      "path": "/subscription",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 19205
+    },
+    {
+      "path": "/c",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 14526
+    },
+    {
+      "path": "/api/feed",
+      "status": 200,
+      "contentType": "application/json",
+      "bytes": 23127,
+      "version": "1b1a20b5-2162-48e6-b5cb-c59b71fcdf7c",
+      "items": [
+        {
+          "kind": "content",
+          "type": "article",
+          "slug": "freedom-before-wealth",
+          "visibility": "public",
+          "access": null
+        },
+        {
+          "kind": "content",
+          "type": "post",
+          "slug": "note-2026-09-27-1",
+          "visibility": "public",
+          "access": null
+        },
+        {
+          "kind": "content",
+          "type": "post",
+          "slug": "note-2026-09-20-1",
+          "visibility": "public",
+          "access": null
+        },
+        {
+          "kind": "content",
+          "type": "article",
+          "slug": "jev-typed-decisions",
+          "visibility": "public",
+          "access": null
+        },
+        {
+          "kind": "content",
+          "type": "post",
+          "slug": "note-2026-09-09-1",
+          "visibility": "public",
+          "access": null
+        },
+        {
+          "kind": "content",
+          "type": "post",
+          "slug": "note-2026-09-08-1",
+          "visibility": "public",
+          "access": null
+        },
+        {
+          "kind": "content",
+          "type": "post",
+          "slug": "note-2026-09-05-1",
+          "visibility": "public",
+          "access": null
+        },
+        {
+          "kind": "content",
+          "type": "post",
+          "slug": "note-2026-08-24-1",
+          "visibility": "public",
+          "access": null
+        },
+        {
+          "kind": "content",
+          "type": "article",
+          "slug": "deepseek-harness",
+          "visibility": "public",
+          "access": null
+        },
+        {
+          "kind": "content",
+          "type": "article",
+          "slug": "workflow-to-agent-patterns",
+          "visibility": "public",
+          "access": null
+        },
+        {
+          "kind": "content",
+          "type": "post",
+          "slug": "note-2026-08-04-1",
+          "visibility": "public",
+          "access": null
+        },
+        {
+          "kind": "content",
+          "type": "post",
+          "slug": "note-2026-07-24-1",
+          "visibility": "public",
+          "access": null
+        },
+        {
+          "kind": "content",
+          "type": "post",
+          "slug": "note-2026-07-23-1",
+          "visibility": "public",
+          "access": null
+        },
+        {
+          "kind": "content",
+          "type": "post",
+          "slug": "note-2026-05-24-1",
+          "visibility": "public",
+          "access": null
+        },
+        {
+          "kind": "content",
+          "type": "article",
+          "slug": "economics-principles-overall",
+          "visibility": "public",
+          "access": null
+        },
+        {
+          "kind": "content",
+          "type": "article",
+          "slug": "economics-principles-interaction",
+          "visibility": "public",
+          "access": null
+        },
+        {
+          "kind": "content",
+          "type": "article",
+          "slug": "economics-principles-decision",
+          "visibility": "public",
+          "access": null
+        },
+        {
+          "kind": "content",
+          "type": "post",
+          "slug": "note-2026-05-02-1",
+          "visibility": "public",
+          "access": null
+        },
+        {
+          "kind": "content",
+          "type": "article",
+          "slug": "buffett-casino-church",
+          "visibility": "public",
+          "access": null
+        },
+        {
+          "kind": "content",
+          "type": "post",
+          "slug": "note-2026-04-27-1",
+          "visibility": "public",
+          "access": null
+        }
+      ],
+      "nextCursor": true
+    },
+    {
+      "path": "/api/paid-feed",
+      "status": 200,
+      "contentType": "application/json",
+      "bytes": 79,
+      "version": "1b1a20b5-2162-48e6-b5cb-c59b71fcdf7c",
+      "items": [],
+      "nextCursor": false
+    },
+    {
+      "path": "/api/member-feed",
+      "status": 404
+    },
+    {
+      "path": "/api/collections",
+      "status": 200,
+      "contentType": "application/json",
+      "bytes": 61,
+      "version": "1b1a20b5-2162-48e6-b5cb-c59b71fcdf7c",
+      "items": [],
+      "nextCursor": false
+    },
+    {
+      "path": "/api/public/catalog-policy",
+      "status": 404
+    }
+  ]
+}

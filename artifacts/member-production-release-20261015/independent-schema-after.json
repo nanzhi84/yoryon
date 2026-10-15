@@ -1,0 +1,109 @@
+{
+  "migration": [
+    {
+      "count": 15
+    }
+  ],
+  "fields": [
+    {
+      "table_name": "analytics_events",
+      "column_name": "visitor_id",
+      "data_type": "uuid"
+    },
+    {
+      "table_name": "analytics_visitors",
+      "column_name": "first_seen_at",
+      "data_type": "timestamp with time zone"
+    },
+    {
+      "table_name": "analytics_visitors",
+      "column_name": "visitor_id",
+      "data_type": "uuid"
+    },
+    {
+      "table_name": "contents",
+      "column_name": "show_in_home",
+      "data_type": "boolean"
+    }
+  ],
+  "grants": [
+    {
+      "grantee": "yoryon_api",
+      "table_name": "analytics_visitors",
+      "privilege_type": "INSERT"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "analytics_visitors",
+      "privilege_type": "SELECT"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "analytics_visitors",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "analytics_visitors",
+      "privilege_type": "SELECT"
+    },
+    {
+      "grantee": "yoryon_owner",
+      "table_name": "analytics_visitors",
+      "privilege_type": "DELETE"
+    },
+    {
+      "grantee": "yoryon_owner",
+      "table_name": "analytics_visitors",
+      "privilege_type": "INSERT"
+    },
+    {
+      "grantee": "yoryon_owner",
+      "table_name": "analytics_visitors",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "grantee": "yoryon_owner",
+      "table_name": "analytics_visitors",
+      "privilege_type": "SELECT"
+    },
+    {
+      "grantee": "yoryon_owner",
+      "table_name": "analytics_visitors",
+      "privilege_type": "TRIGGER"
+    },
+    {
+      "grantee": "yoryon_owner",
+      "table_name": "analytics_visitors",
+      "privilege_type": "TRUNCATE"
+    },
+    {
+      "grantee": "yoryon_owner",
+      "table_name": "analytics_visitors",
+      "privilege_type": "UPDATE"
+    }
+  ],
+  "business": [
+    {
+      "type": "post",
+      "status": "published",
+      "visibility": "public",
+      "show_in_home": true,
+      "count": 16
+    },
+    {
+      "type": "article",
+      "status": "published",
+      "visibility": "public",
+      "show_in_home": true,
+      "count": 9
+    }
+  ],
+  "counts": [
+    {
+      "contents": 25,
+      "collections": 0,
+      "visitors": 0
+    }
+  ]
+}
