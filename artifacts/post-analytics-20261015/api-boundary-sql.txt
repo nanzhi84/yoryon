@@ -1,0 +1,5 @@
+legacy-read: 0
+legacy-view: 0
+legacy-click: 0
+wrong-read: 0
+valid-read: 1

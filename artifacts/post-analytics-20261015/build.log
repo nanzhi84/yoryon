@@ -1,0 +1,105 @@
+$ pnpm -r --filter='./packages/*' --filter='./apps/*' build
+Scope: 6 of 7 workspace projects
+packages/config build$ echo 'config is source-only; nothing to build'
+packages/config build: config is source-only; nothing to build
+packages/config build: Done
+packages/db build$ echo 'db is source-only; nothing to build'
+apps/web build$ next build
+packages/db build: db is source-only; nothing to build
+packages/db build: Done
+apps/web build:    ▲ Next.js 15.5.27
+apps/web build:    - Environments: .env
+apps/web build:    - Experiments (use with caution):
+apps/web build:      · staleTimes
+apps/web build:    Creating an optimized production build ...
+apps/web build: Found 1 warning while optimizing generated CSS:
+apps/web build: [2m│   }[22m
+apps/web build: [2m│ }[22m
+apps/web build: [2m│[22m ::highlight(search-hit) {
+apps/web build: [2m┆[22m             [33m[2m^--[22m 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?[39m
+apps/web build: [2m┆[22m
+apps/web build: [2m│   background-color: #fde047;[22m
+apps/web build: [2m│   color: #18181b;[22m
+apps/web build:  ✓ Compiled successfully in 3.1s
+apps/web build:    Linting and checking validity of types ...
+apps/web build:    Collecting page data ...
+apps/web build:    Generating static pages (0/17) ...
+apps/web build:    Generating static pages (4/17) 
+apps/web build:    Generating static pages (8/17) 
+apps/web build:    Generating static pages (12/17) 
+apps/web build:  ✓ Generating static pages (17/17)
+apps/web build:    Finalizing page optimization ...
+apps/web build:    Collecting build traces ...
+apps/web build: Route (app)                                    Size  First Load JS  Revalidate  Expire
+apps/web build: ┌ ƒ /                                         222 B         240 kB
+apps/web build: ├ ○ /_not-found                               152 B         103 kB
+apps/web build: ├ ƒ /api/[...path]                            152 B         103 kB
+apps/web build: ├ ƒ /api/images/v1/[id]/[variant]             152 B         103 kB
+apps/web build: ├ ƒ /api/local-post-editor                    152 B         103 kB
+apps/web build: ├ ○ /api/pages/[version]/[source]/[cursor]    152 B         103 kB
+apps/web build: ├ ƒ /api/revalidate                           152 B         103 kB
+apps/web build: ├ ○ /apple-icon.png                             0 B            0 B
+apps/web build: ├ ƒ /c                                        217 B         237 kB
+apps/web build: ├ ƒ /c/[slug]                               2.54 kB         160 kB
+apps/web build: ├ ○ /explore                                  152 B         103 kB
+apps/web build: ├ ○ /icon.png                                   0 B            0 B
+apps/web build: ├ ƒ /login                                  1.54 kB         156 kB
+apps/web build: ├ ƒ /notifications                          2.37 kB         156 kB
+apps/web build: ├ ƒ /p/[slug]                                 147 B         174 kB
+apps/web build: ├ ƒ /questions/[id]                         1.43 kB         161 kB
+apps/web build: ├ ƒ /redeem                                 3.69 kB         158 kB
+apps/web build: ├ ○ /register                               1.66 kB         156 kB
+apps/web build: ├ ● /render/[revision]/[slug]                 147 B         174 kB
+apps/web build: ├ ○ /reset-password                         1.51 kB         156 kB
+apps/web build: ├ ○ /robots.txt                               152 B         103 kB
+apps/web build: ├ ○ /search                                 4.78 kB         159 kB
+apps/web build: ├ ○ /settings/profile                       2.67 kB         157 kB
+apps/web build: ├ ○ /sitemap.xml                              152 B         103 kB          1d      1y
+apps/web build: ├ ƒ /subscription                           5.29 kB         245 kB
+apps/web build: ├ ○ /tags                                   1.81 kB         156 kB          1d      1y
+apps/web build: ├ ƒ /tags/[slug]                            1.86 kB         242 kB
+apps/web build: └ ƒ /tools/post-format                      3.31 kB         171 kB
+apps/web build: + First Load JS shared by all                103 kB
+apps/web build:   ├ chunks/1692-f5061cecc8aae95c.js         46.3 kB
+apps/web build:   ├ chunks/9a3bc300-d5cfc770eef4e189.js     54.2 kB
+apps/web build:   └ other shared chunks (total)             2.55 kB
+apps/web build: ƒ Middleware                                34.8 kB
+apps/web build: ○  (Static)   prerendered as static content
+apps/web build: ●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+apps/web build: ƒ  (Dynamic)  server-rendered on demand
+apps/web build: Done
+packages/core build$ echo 'core is source-only; nothing to build'
+packages/core build: core is source-only; nothing to build
+packages/core build: Done
+apps/api build$ tsup
+apps/cli build$ tsup
+apps/api build: CLI Building entry: {"index":"src/index.ts","migrate":"src/migrate.ts"}
+apps/api build: CLI Using tsconfig: tsconfig.json
+apps/api build: CLI tsup v8.5.1
+apps/api build: CLI Using tsup config: /Users/yoryon/Projects/yoryon/apps/api/tsup.config.ts
+apps/api build: CLI Target: es2022
+apps/cli build: CLI Building entry: src/index.ts
+apps/cli build: CLI Using tsconfig: tsconfig.json
+apps/cli build: CLI tsup v8.5.1
+apps/cli build: CLI Using tsup config: /Users/yoryon/Projects/yoryon/apps/cli/tsup.config.ts
+apps/api build: CLI Cleaning output folder
+apps/cli build: CLI Target: es2022
+apps/api build: ESM Build start
+apps/cli build: CLI Cleaning output folder
+apps/cli build: ESM Build start
+apps/api build: ESM dist/migrate.js              1.53 KB
+apps/api build: ESM dist/src-GRRRCX72.js         3.46 KB
+apps/api build: ESM dist/chunk-NOXK44O3.js       65.47 KB
+apps/api build: ESM dist/search-text-OHZSM2RK.js 332.00 B
+apps/api build: ESM dist/chunk-5ZH3LQ2H.js       2.63 KB
+apps/api build: ESM dist/chunk-JYURC6FJ.js       2.19 KB
+apps/api build: ESM dist/index.js                125.25 KB
+apps/api build: ESM dist/server.node-473PTIIS.js 1.35 MB
+apps/api build: ESM dist/chunk-7PRSG7TG.js       3.10 MB
+apps/api build: ESM ⚡️ Build success in 179ms
+apps/cli build: ESM dist/chunk-5GRMZHF2.js       67.90 KB
+apps/cli build: ESM dist/server.node-4LQSEZBF.js 1.35 MB
+apps/cli build: ESM dist/index.js                3.25 MB
+apps/cli build: ESM ⚡️ Build success in 178ms
+apps/api build: Done
+apps/cli build: Done

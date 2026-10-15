@@ -1,0 +1,12 @@
+$ tsup
+CLI Building entry: src/index.ts
+CLI Using tsconfig: tsconfig.json
+CLI tsup v8.5.1
+CLI Using tsup config: /Users/yoryon/Projects/yoryon/apps/cli/tsup.config.ts
+CLI Target: es2022
+CLI Cleaning output folder
+ESM Build start
+ESM dist/chunk-5GRMZHF2.js       67.90 KB
+ESM dist/server.node-4LQSEZBF.js 1.35 MB
+ESM dist/index.js                3.25 MB
+ESM ⚡️ Build success in 132ms

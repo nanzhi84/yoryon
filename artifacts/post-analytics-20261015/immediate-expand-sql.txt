@@ -1,0 +1,5 @@
+      slug      | event_type | placement | count 
+----------------+------------+-----------+-------
+ immediate-note | read       | home_feed |     1
+(1 row)
+

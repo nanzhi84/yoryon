@@ -1,0 +1,9 @@
+long-note|impression|home_feed|2
+long-note|read|home_feed|2
+ordinary-article|impression|home_feed|2
+ordinary-article|read|NULL|1
+ordinary-article|view|NULL|1
+paid-note|impression|home_feed|2
+paid-note|read|home_feed|1
+short-note|impression|home_feed|2
+short-note|read|home_feed|1

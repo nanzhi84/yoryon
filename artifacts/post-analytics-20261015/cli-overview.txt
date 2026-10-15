@@ -1,0 +1,13 @@
+统计窗口: 2026-10-14T02:35:28.806Z ~ 2026-10-15T02:35:28.806Z（UTC，按服务端 received_at）
+
+[post] targets=3 impressions=10 clicks=N/A ctr=N/A views=N/A reads=7 read_rate=70.0%
+
+[article] targets=1 impressions=5 clicks=0 ctr=0.0% views=1 reads=1 read_rate=100.0%
+
+[collection] targets=0 impressions=0 clicks=0 ctr=N/A views=0 reads=0 read_rate=N/A
+帖子read_rate=reads/impressions，文章及合集read_rate=reads/views；已删除作品无法还原内容类型，单列且保留历史原口径。
+
+[匿名访客] 仅代表产生有效采集事件的浏览器环境，不是真实人数或全站所有到访人数
+identified_events=23 missing_visitor_events=4 coverage=85.2%
+unique_visitors=1 new_visitors=1 returning_visitors=0
+缺省身份流量不计入上述访客数，历史事件不能据 session_id 还原 visitor_id。

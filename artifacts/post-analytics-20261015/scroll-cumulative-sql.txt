@@ -1,0 +1,7 @@
+long-note|impression|1
+long-note|read|1
+ordinary-article|impression|1
+paid-note|impression|1
+paid-note|read|1
+short-note|impression|1
+short-note|read|1
