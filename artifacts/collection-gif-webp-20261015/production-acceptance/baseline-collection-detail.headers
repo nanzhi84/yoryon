@@ -1,0 +1,15 @@
+HTTP/1.1 200 Connection established
+
+HTTP/2 200 
+age: 0
+cache-control: private, no-cache, no-store, max-age=0, must-revalidate
+content-type: text/html; charset=utf-8
+date: Thu, 15 Oct 2026 09:29:42 GMT
+server: Vercel
+strict-transport-security: max-age=63072000
+vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+x-matched-path: /c/[slug]
+x-powered-by: Next.js
+x-vercel-cache: MISS
+x-vercel-id: sin1::sin1::cc6qp-1792056581934-34138fe2b2f2
+

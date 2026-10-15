@@ -24,3 +24,7 @@
 回滚：恢复上一个 API image 和 Vercel deployment；正文可用保留的博客稿重新发布。原图不覆盖，不增加数据库迁移。
 
 压缩边界：Caddy 会为 gzip/zstd/br 表示修改 ETag；服务端 fetch 自动解压。Web 验证明确支持的编码后缀和请求 variant，再为解压字节输出原始 identity ETag，不能把编码表示的 tag 直接用于浏览器条件门禁。E2E 的 web 回源经过启用压缩的真实 Caddy，覆盖 SVG 原始字节、浏览器加载、304 和撤销。
+
+2026-10-15 补充：合集列表与详情接入相同响应式图片分发，保留既有 AVIF 合法上传的可读性。GIF 的 OSS 格式转换会丢动画，因此改由 API 在既有授权之后以 sharp 生成动画 WebP，公开结果仍进入同一门禁/CDN 链路，会员字节保持 private/no-store。原图不覆盖。公开 URL 推进 v2 隔离旧 GIF 缓存，源站 ETag 前缀维持 image-v1 以允许 API/Web 滚动发布；移除旧内部 URL，不增加兼容分支。
+
+GIF 的单进程有界转码与 8MiB/800万总帧像素预算来自 384MiB 目标容器的连续/组合边界验收，原定较大预算已实际触发 OOM 并收紧。进程原生缓存和分配器预算、格式循环极值及回滚顺序详见 [部署契约](../deploy-cache.md)，失败与修复证据见 `artifacts/collection-gif-webp-20261015/`。这不代表生产负载验收。

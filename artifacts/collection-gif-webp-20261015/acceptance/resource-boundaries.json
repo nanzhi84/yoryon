@@ -1,0 +1,123 @@
+{
+  "method": "Temporary isolated FS dependency faults only. Real Earth bytes padded beyond20MiB, genuinely resized to700px, real decoded frames scaled128px then repeated12 times to528frames, truncated source16bytes; original storage bytes restored in finally. No generated boundary input persisted.",
+  "results": [
+    {
+      "kind": "over20MiB",
+      "injected": {
+        "bytes": 20971521,
+        "width": 400,
+        "pageHeight": 400,
+        "pages": 44,
+        "totalPixels": 7040000
+      },
+      "status": 413,
+      "cacheControl": "private, no-store",
+      "response": "{\"error\":{\"code\":\"image_too_large\",\"message\":\"GIF 最大为 20MiB\"}}"
+    },
+    {
+      "kind": "over16MP",
+      "injected": {
+        "bytes": 2626497,
+        "width": 700,
+        "pageHeight": 700,
+        "pages": 44,
+        "totalPixels": 21560000
+      },
+      "status": 422,
+      "cacheControl": "private, no-store",
+      "response": "{\"error\":{\"code\":\"invalid_image\",\"message\":\"GIF 无法解码\"}}"
+    },
+    {
+      "kind": "over500frames",
+      "injected": {
+        "bytes": 3051821,
+        "width": 128,
+        "pageHeight": 128,
+        "pages": 528,
+        "totalPixels": 8650752
+      },
+      "status": 413,
+      "cacheControl": "private, no-store",
+      "response": "{\"error\":{\"code\":\"image_too_large\",\"message\":\"GIF 超过帧数或总像素限制\"}}"
+    },
+    {
+      "kind": "corruptGIF",
+      "injected": {
+        "bytes": 16,
+        "totalPixels": null
+      },
+      "status": 422,
+      "cacheControl": "private, no-store",
+      "response": "{\"error\":{\"code\":\"invalid_image\",\"message\":\"GIF 无法解码\"}}"
+    }
+  ],
+  "recovery": {
+    "status": 200,
+    "metadata": {
+      "format": "webp",
+      "size": 144598,
+      "width": 320,
+      "height": 14080,
+      "space": "srgb",
+      "channels": 4,
+      "depth": "uchar",
+      "isProgressive": false,
+      "isPalette": false,
+      "pages": 44,
+      "pageHeight": 320,
+      "loop": 65535,
+      "delay": [
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90
+      ],
+      "hasProfile": false,
+      "hasAlpha": true,
+      "autoOrient": {
+        "width": 320,
+        "height": 14080
+      }
+    }
+  }
+}

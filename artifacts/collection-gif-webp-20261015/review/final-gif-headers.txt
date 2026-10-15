@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+cache-control: private, no-store
+content-type: image/webp
+etag: "image-v1-b0acdc9a01f91f6123dbff38d4bee59d0d6e4b26071b5c83937b242b6b202378-320"
+x-content-type-options: nosniff
+Content-Length: 144598
+Date: Thu, 15 Oct 2026 09:22:05 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+

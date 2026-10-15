@@ -1,0 +1,32 @@
+{
+  "commands": [
+    "  skip (exists): ./media/earth.gif → media/b0acdc9a01f91f6123dbff38d4bee59d0d6e4b26071b5c83937b242b6b202378.gif\n  skip (exists): ./media/cover.png → media/b90c4e73e4b3232f6ce905f3011c7b74dabcab68217ffd1e35ecda008a17b66d.png\n  published: accept-webp-economics (content 4a8ca8db-c015-4b98-816f-4a0bd3550b6b)\n  cache 991169c5-1fdc-4d60-b248-c0dbb8c540d8: pending (configuration missing)\n  cache cebb18ff-6375-4bde-b8fe-b54295c62644: pending (configuration missing)\n  cache 21bddb3c-53ce-49a2-ace8-b70b22467977: pending (configuration missing)\n  cache e0d71890-5b1f-4a5e-adb5-1ecc0b8cae5b: pending (configuration missing)\n  cache 9275a881-5045-4dab-92c7-d4997b0b03fe: pending (configuration missing)\n  cache 9a4d3691-4469-48c3-89ce-7c79ff561778: pending (configuration missing)\n  cache c7d685a3-bf24-41c1-b39e-02bd1c031bf8: pending (configuration missing)\n  cache 8807329e-2c77-4463-8486-0bfa0f481f25: pending (configuration missing)\n  cache 73440d54-f9ac-4b82-a9a9-6d64934d1af2: pending (configuration missing)\n  cache 5c468e67-4d09-4da0-a3ce-b377bc131496: pending (configuration missing)\n  cache a5f81a75-ae18-43cc-a5c5-db4d771674ce: pending (configuration missing)\n  cache c58cece5-3a73-4624-9edd-d2c790f97770: pending (configuration missing)\n  cache 4680908f-12ef-4c2d-87da-399d74bf6ef2: pending (configuration missing)\n  cache 7acaee20-6ad4-4269-8f62-2efb7a09918a: pending (configuration missing)\n  cache ce5b0beb-c7ea-4969-9742-8a7912242f73: pending (configuration missing)\n  cache 4d7e8e36-f646-49d6-9462-61f13096cb53: pending (configuration missing)\n  cache b4b2d0a0-251a-410a-85b5-302f1939af37: pending (configuration missing)\n  cache e2e40e04-ad79-424d-bf5f-a2868a458d2f: pending (configuration missing)\n  cache 775742b7-1480-460e-8fd7-004d3b03572b: pending (configuration missing)\n✓ accept-webp-economics database committed (0 uploaded, 2 reused); page state is reported by cache event above\n",
+    "cache 991169c5-1fdc-4d60-b248-c0dbb8c540d8: pending (configuration missing)\ncache cebb18ff-6375-4bde-b8fe-b54295c62644: pending (configuration missing)\ncache 21bddb3c-53ce-49a2-ace8-b70b22467977: pending (configuration missing)\ncache e0d71890-5b1f-4a5e-adb5-1ecc0b8cae5b: pending (configuration missing)\ncache 9275a881-5045-4dab-92c7-d4997b0b03fe: pending (configuration missing)\ncache 9a4d3691-4469-48c3-89ce-7c79ff561778: pending (configuration missing)\ncache c7d685a3-bf24-41c1-b39e-02bd1c031bf8: pending (configuration missing)\ncache 8807329e-2c77-4463-8486-0bfa0f481f25: pending (configuration missing)\ncache 73440d54-f9ac-4b82-a9a9-6d64934d1af2: pending (configuration missing)\ncache 5c468e67-4d09-4da0-a3ce-b377bc131496: pending (configuration missing)\ncache a5f81a75-ae18-43cc-a5c5-db4d771674ce: pending (configuration missing)\ncache c58cece5-3a73-4624-9edd-d2c790f97770: pending (configuration missing)\ncache 4680908f-12ef-4c2d-87da-399d74bf6ef2: pending (configuration missing)\ncache 7acaee20-6ad4-4269-8f62-2efb7a09918a: pending (configuration missing)\ncache ce5b0beb-c7ea-4969-9742-8a7912242f73: pending (configuration missing)\ncache 4d7e8e36-f646-49d6-9462-61f13096cb53: pending (configuration missing)\ncache b4b2d0a0-251a-410a-85b5-302f1939af37: pending (configuration missing)\ncache e2e40e04-ad79-424d-bf5f-a2868a458d2f: pending (configuration missing)\ncache 775742b7-1480-460e-8fd7-004d3b03572b: pending (configuration missing)\ncache fec33921-448c-43d3-aea7-8922fe1aa377: pending (configuration missing)\n✓ accept-webp-economics → draft\n"
+  ],
+  "before": {
+    "url": "http://localhost:3037/api/images/v2/39c16cd3-cc8b-45aa-ac5c-8ed9665fd75a/320",
+    "status": 200,
+    "etag": "\"image-v1-b0acdc9a01f91f6123dbff38d4bee59d0d6e4b26071b5c83937b242b6b202378-320\"",
+    "bytes": 144598
+  },
+  "after": [
+    {
+      "url": "http://localhost:3037/api/images/v2/39c16cd3-cc8b-45aa-ac5c-8ed9665fd75a/320",
+      "status": 403,
+      "cacheControl": "private, no-store",
+      "body": "{\"error\":\"forbidden\"}"
+    },
+    {
+      "url": "http://localhost:4137/api/public/images/39c16cd3-cc8b-45aa-ac5c-8ed9665fd75a/320",
+      "status": 403,
+      "cacheControl": "private, no-store",
+      "body": "{\"error\":\"forbidden\"}"
+    },
+    {
+      "url": "http://localhost:4138/api/public/images/39c16cd3-cc8b-45aa-ac5c-8ed9665fd75a/320",
+      "status": 403,
+      "cacheControl": "private, no-store",
+      "body": "{\"error\":\"forbidden\"}"
+    }
+  ]
+}

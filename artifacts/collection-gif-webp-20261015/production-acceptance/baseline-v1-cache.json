@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-15T09:41:18.349Z",
+  "url": "https://yoryon.com/api/images/v1/e0cd472d-f822-4a9c-8f24-b61a9cfc8513/320",
+  "status": 200,
+  "cache": "HIT",
+  "etag": "\"image-v1-f057a807ab73d4739b2782a679f36b75963323e8108a0ff090f9ccca9efcf23f-320\"",
+  "bytes": 2324,
+  "sha256": "e758f68296a60c05c1bad04cd37625fb42ff431f19a0d32c9043060b84325de4",
+  "format": "webp",
+  "width": 320,
+  "height": 144
+}

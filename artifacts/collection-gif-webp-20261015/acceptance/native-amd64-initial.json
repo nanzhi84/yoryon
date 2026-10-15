@@ -1,0 +1,8 @@
+{
+  "image": "aff2488b",
+  "url": "http://localhost:4138/api/public/images/39c16cd3-cc8b-45aa-ac5c-8ed9665fd75a/320",
+  "status": 502,
+  "bytes": 75,
+  "cacheControl": "private, no-store",
+  "body": "{\"error\":{\"code\":\"image_unavailable\",\"message\":\"图片暂时无法读取\"}}"
+}
