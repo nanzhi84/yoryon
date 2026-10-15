@@ -212,7 +212,7 @@ analytics_events(
   event_type text not null,               -- impression | click | view | read
   target_kind text not null,              -- work | collection
   target_id uuid not null,                -- 多态引用，无 FK：目标删除后历史统计保留
-  placement text,                         -- home_feed | collection_list，仅 impression/click
+  placement text,                         -- home_feed | collection_list；列表曝光/点击及帖子首页read
   page_view_id uuid not null,
   session_id uuid,                        -- sessionStorage 级匿名标识；不存 IP/UA/URL
   visitor_id uuid,                        -- 180 天主机限定随机 Cookie 身份，历史不回填
@@ -574,3 +574,4 @@ published_at: 2026-01-01
 | [ADR-0005](adr/0005-frontend-stack.md) | 前端技术选型：shadcn/ui + Tailwind v4 + Video.js 10 | 已接受 |
 | [ADR-0006](adr/0006-media-lifecycle.md) | 媒体存储与发布生命周期：统一私有桶、内容寻址、分阶段发布、延迟 GC | 已接受（2026-10-11 补充修订：GC 并发互斥） |
 | [ADR-0007](adr/0007-analytics-v1.md) | Content Analytics V1：单事件表、多态 target 无 FK、event_id 幂等、隐私最小化 | 已接受 |
+| [ADR-0018](adr/0018-post-feed-analytics.md) | 帖子首页曝光与五秒／主动展开有效阅读；文章、合集口径独立 | 已接受 |

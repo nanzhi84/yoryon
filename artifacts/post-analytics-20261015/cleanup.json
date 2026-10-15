@@ -1,0 +1,10 @@
+{
+  "isolatedDatabase": "yoryon_post_analytics_20261015",
+  "firstAndImmediateFollowupDatabaseDrop": "PASS",
+  "api4030": "stopped",
+  "web3030": "stopped",
+  "firstTempRemoved": true,
+  "followupTempRemoved": true,
+  "browser": "closed only task tabs1/2; overrides discarded",
+  "production": "untouched"
+}

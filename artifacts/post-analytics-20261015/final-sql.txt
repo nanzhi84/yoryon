@@ -1,0 +1,12 @@
+long-note|impression|home_feed|3
+long-note|read|home_feed|3
+ordinary-article|impression|home_feed|5
+ordinary-article|read|NULL|1
+ordinary-article|view|NULL|2
+paid-note|impression|home_feed|4
+paid-note|read|home_feed|2
+short-note|click|home_feed|1
+short-note|impression|home_feed|3
+short-note|read|home_feed|2
+short-note|read|NULL|1
+short-note|view|NULL|1

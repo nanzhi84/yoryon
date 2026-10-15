@@ -4,7 +4,8 @@
       "main": false,
       "fix/cache-permission-feed-recovery": false,
       "codex/issue-27-visitors": false,
-      "codex/issue-26-collections": false
+      "codex/issue-26-collections": false,
+      "codex/post-feed-analytics": false
     }
   }
 }

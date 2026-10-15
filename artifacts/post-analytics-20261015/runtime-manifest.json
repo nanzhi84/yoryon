@@ -1,0 +1,32 @@
+{
+  "head": "bad8f130cf93e3ab1225aecb984b87db7c611743",
+  "webApiSource": "62c20cd",
+  "cliSource": "bad8f13",
+  "mode": "production next start + bundled API/CLI",
+  "files": [
+    {
+      "path": "apps/web/.next/BUILD_ID",
+      "sha256": "5040880e4dcd78b43cff095d53383e06e7d32dc824225e01b2b3079164902370"
+    },
+    {
+      "path": "apps/api/dist/index.js",
+      "sha256": "bdaf5b571c6a69af9eae09c7d944bac82c4c3f38bde57a488200dbe60b87c1b3"
+    },
+    {
+      "path": "apps/cli/dist/index.js",
+      "sha256": "e3d7a67db58cab26d27503259e77befef0f8690657150281213f08ea65452e75"
+    },
+    {
+      "path": "apps/web/components/post-analytics.tsx",
+      "sha256": "41531a307ee813894cdd8849bbe0bdd3fa832163b556690266c81c5eb7ed300e"
+    },
+    {
+      "path": "apps/api/src/routes/analytics.ts",
+      "sha256": "8bb19fa5a60d6a775a7145edd54646b84edb458977b912cbd81f3271da2d52bc"
+    },
+    {
+      "path": "apps/cli/src/commands/analytics.ts",
+      "sha256": "ce9a244344a8aa6928dd07ea82eb623eaa4994c989feae007706745eb2b9517a"
+    }
+  ]
+}

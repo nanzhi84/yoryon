@@ -31,6 +31,8 @@ interface ListContextValue {
 
 const AnalyticsListContext = createContext<ListContextValue | null>(null);
 
+export function useAnalyticsList() { return useContext(AnalyticsListContext); }
+
 export function AnalyticsListProvider({ placement, children }: { placement: AnalyticsPlacement; children: ReactNode }) {
   // useState 初始化器在 Strict Mode 双重挂载间保持稳定，一个浏览实例只生成一个 id
   const [listViewId] = useState(() => crypto.randomUUID());
@@ -116,10 +118,11 @@ export function TrackClickLink({
   native = false,
   prefetchShell = false,
   onNavigate,
-}: TrackableProps & { href: string; className?: string; "aria-label"?: string; native?: boolean; prefetchShell?: boolean; onNavigate?: () => void }) {
+  enabled = true,
+}: TrackableProps & { href: string; className?: string; "aria-label"?: string; native?: boolean; prefetchShell?: boolean; onNavigate?: () => void; enabled?: boolean }) {
   const ctx = useContext(AnalyticsListContext);
   const send = () => {
-    if (!ctx) return;
+    if (!ctx || !enabled) return;
     trackEvent({ eventType: "click", targetKind, targetId, placement: ctx.placement, pageViewId: ctx.listViewId });
   };
   const props = { href, className, "aria-label": ariaLabel, onClick: send,
@@ -134,11 +137,11 @@ export function TrackClickLink({
 type ReadProgress = { elapsed: number; done: boolean };
 const WorkDetailContext = createContext<{ targetId: string; pageViewId: string; progress: { current: ReadProgress } } | null>(null);
 
-export function WorkDetailProvider({ targetId, children }: { targetId: string; children: ReactNode }) {
+export function WorkDetailProvider({ targetId, children, enabled = true }: { targetId: string; children: ReactNode; enabled?: boolean }) {
   const [pageViewId] = useState(() => crypto.randomUUID());
   const progress = useRef<ReadProgress>({ elapsed: 0, done: false });
   const value = useMemo(() => ({ targetId, pageViewId, progress }), [targetId, pageViewId]);
-  return <WorkDetailContext.Provider value={value}><DetailTracker targetKind="work" targetId={targetId} instanceId={pageViewId} readEnabled={false} />{children}</WorkDetailContext.Provider>;
+  return <WorkDetailContext.Provider value={enabled ? value : null}>{enabled && <DetailTracker targetKind="work" targetId={targetId} instanceId={pageViewId} readEnabled={false} />}{children}</WorkDetailContext.Provider>;
 }
 
 export function WorkBodyTracker() {

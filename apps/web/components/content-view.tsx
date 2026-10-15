@@ -18,7 +18,7 @@ export function ContentView({ initial: content }: { initial: ContentDetail }) {
     <>
       <SiteHeader />
       {/* 阅读列与站点导航共享宽度；私有全文与公开预览共享排版。 */}
-      <Suspense fallback={<p className="py-5 text-sm text-muted-foreground">正在加载章节…</p>}><ChapterContextProvider contentId={content.id}><WorkDetailProvider targetId={content.id}><main className="editorial-reader py-5" data-revision={content.updatedAt}>
+      <Suspense fallback={<p className="py-5 text-sm text-muted-foreground">正在加载章节…</p>}><ChapterContextProvider contentId={content.id}><WorkDetailProvider targetId={content.id} enabled={content.type === "article"}><main className="editorial-reader py-5" data-revision={content.updatedAt}>
         <BackButton />
         <SearchLocation slug={content.slug} />
         <header className={content.type === "article" ? "editorial-title" : "mb-5"}>

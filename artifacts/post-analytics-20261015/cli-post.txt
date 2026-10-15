@@ -1,0 +1,6 @@
+统计窗口: 2026-10-14T02:35:28.484Z ~ 2026-10-15T02:35:28.484Z（UTC，按服务端 received_at）
+
+[work] short-note — short-note
+kind       slug        impressions  clicks  ctr  views  reads  read_rate
+work/post  short-note  3            N/A     N/A  N/A    2      66.7%    
+read_rate：帖子为 reads/impressions（首页5秒或展开）；文章为 reads/views（详情10秒）。合集沿用流程口径。

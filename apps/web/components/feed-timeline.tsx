@@ -6,11 +6,13 @@ import type { CollectionListItem, FeedContentItem, FeedItem } from "@/lib/types"
 import { PostEntry } from "./post-entry";
 import { ContentActions, ContentInteractions } from "./content-actions";
 import { formatDate } from "@/lib/date";
+import { PostAnalytics } from "./post-analytics";
 
 /** 信息流内容条目：标题 + 日期 / 封面 + 简介 / 类型 + 标签，点进详情。 */
 function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem; showPinnedBadge?: boolean }) {
+  const Tracking = item.type === "post" ? PostAnalytics : ArticleAnalytics;
   return (
-    <TrackImpression targetKind="work" targetId={item.id}>
+    <Tracking id={item.id}>
       <article className="editorial-entry group py-5">
         <div className="flex items-baseline justify-between gap-4">
           {item.type === "article" && <div className="flex min-w-0 items-baseline gap-2">
@@ -30,7 +32,7 @@ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem
             {showPinnedBadge && item.isPinned && <Badge variant="secondary">置顶</Badge>}
             {item.visibility === "paid" && <Badge variant="secondary" className="text-primary">付费</Badge>}
           </div>}
-          {item.type === "post" ? <TrackClickLink targetKind="work" targetId={item.id} href={`/p/${item.slug}`} aria-label={`查看 ${formatDate(item.publishedAt)} 的帖子`} className="ml-auto shrink-0 text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline">
+          {item.type === "post" ? <TrackClickLink enabled={false} targetKind="work" targetId={item.id} href={`/p/${item.slug}`} aria-label={`查看 ${formatDate(item.publishedAt)} 的帖子`} className="ml-auto shrink-0 text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline">
             <time dateTime={item.publishedAt ?? undefined}>{formatDate(item.publishedAt)}</time>
           </TrackClickLink> : <time dateTime={item.publishedAt ?? undefined} className="shrink-0 text-xs leading-[18px] text-muted-foreground">{formatDate(item.publishedAt)}</time>}
         </div>
@@ -46,10 +48,14 @@ function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem
             </div>
           </ReaderLink>}
         </div> : <PostEntry item={item} />}
-      <ContentActions id={item.id} slug={item.slug} />
+      <ContentActions id={item.id} slug={item.slug} trackClicks={item.type === "article"} />
       </article>
-    </TrackImpression>
+    </Tracking>
   );
+}
+
+function ArticleAnalytics({ id, children }: { id: string; children: React.ReactNode }) {
+  return <TrackImpression targetKind="work" targetId={id}>{children}</TrackImpression>;
 }
 
 /** 合集条目：仅用于 /c 合集列表页（首页 feed 不混入合集）。 */

@@ -1,0 +1,132 @@
+[
+  {
+    "path": "api-boundary-sql.txt",
+    "bytes": 74,
+    "sha256": "5f4374fb33ea7385e208e5d4dc3c94e1a215acdcf8e9c60e2d563589acbae726"
+  },
+  {
+    "path": "api-boundary.json",
+    "bytes": 497,
+    "sha256": "bb472f021dae7ea9c3316d705d8a28c772459406426096b41fae4f77a65d5080"
+  },
+  {
+    "path": "article-five-seconds.txt",
+    "bytes": 27,
+    "sha256": "f8936fabac780e9c6f55fc06036d3fa529e3ff97fd490b90db666a0af976abc5"
+  },
+  {
+    "path": "build.log",
+    "bytes": 6535,
+    "sha256": "59bc49633666f4d951acc2642f6a61ebf4b1acee48723b339004a5915fc05020"
+  },
+  {
+    "path": "cache-retry.txt",
+    "bytes": 212,
+    "sha256": "de0b2aa6e45866f79f72f92d153ef5b9d5c965504f989d7d5945e2e4c9956fa7"
+  },
+  {
+    "path": "cleanup.json",
+    "bytes": 308,
+    "sha256": "f5ecb3ffd1ba8972d80f03f36620e4fc630ecf00750f3eb46b6ea681910b7201"
+  },
+  {
+    "path": "cli-build.txt",
+    "bytes": 387,
+    "sha256": "c4cb7a11061a835d5baa51467abe67a4e8649c32243a8e21be61f14f4fee32aa"
+  },
+  {
+    "path": "cli-overview.txt",
+    "bytes": 840,
+    "sha256": "d80e413d02a0fd1bcb06fd057550bf8b13cc6dfae26d3eee827bcd1377b82314"
+  },
+  {
+    "path": "cli-post.txt",
+    "bytes": 418,
+    "sha256": "336d57acc75e30bd56762227923f2f545200584a0b319a082bc304d7df523630"
+  },
+  {
+    "path": "cli-top-views.txt",
+    "bytes": 405,
+    "sha256": "0fbf73dd01b6a0e7f8d0c38f60175c3032cb84217654ee11fa82915f7fa36b6e"
+  },
+  {
+    "path": "details-sql.txt",
+    "bytes": 280,
+    "sha256": "821e5e6d73ef12d4d385a526e4af4fda89f0bded15839d9bb7111f920546c61f"
+  },
+  {
+    "path": "expand-dedupe-sql.txt",
+    "bytes": 166,
+    "sha256": "b7fbd54d7b0bbc7e5984ede975ac89191fe3f20bbeee5157a3e96bb295adbd5c"
+  },
+  {
+    "path": "expanded-post.png",
+    "bytes": 435699,
+    "sha256": "c5939a9a1d571b21ab687e8c458fa647b2c58fca2da66d83346d9f68227e6bcf"
+  },
+  {
+    "path": "final-sql.txt",
+    "bytes": 355,
+    "sha256": "c4e6db25effd390601433cbdbcf2a59ce3ccc2a942c33fea48873458bae9ec34"
+  },
+  {
+    "path": "hidden-four-second-sql.txt",
+    "bytes": 200,
+    "sha256": "5d345d1f1d40ee0640e603a476c72eb24ba2de099bcad30d5ecc92fbcef83f30"
+  },
+  {
+    "path": "hidden-resumed-sql.txt",
+    "bytes": 200,
+    "sha256": "b8eceb4936760752bcc35821a3b2625c335388b427321157f4c24db64dcd2c0b"
+  },
+  {
+    "path": "immediate-expand-sql.txt",
+    "bytes": 158,
+    "sha256": "10132706005003a35537534a15e6195abbb6e7629c0f5bbfea1047804d5ba2eb"
+  },
+  {
+    "path": "immediate-expand-timing.json",
+    "bytes": 1604,
+    "sha256": "4d37f1c4b3e8b0c9f63fd307a72daa637be993e99e61634b09ff56ecd8d67b1c"
+  },
+  {
+    "path": "implementation.md",
+    "bytes": 2679,
+    "sha256": "ac2f5f5dfb25ab4c6fc5c62ab04b967feb54e089e75c6c95b9baf3fbb83171cc"
+  },
+  {
+    "path": "independent-acceptance.md",
+    "bytes": 7227,
+    "sha256": "ffa1c4ff605fedea3ad452fcd9e11bb92475bff8397d3dfd9065747e287ef39f"
+  },
+  {
+    "path": "legacy-row-insertion.txt",
+    "bytes": 11,
+    "sha256": "454525997acc1e769ec6a30df26ae3a89c6c91c7e9adf391718d61f9a7a8a1e6"
+  },
+  {
+    "path": "privacy-and-other-surfaces-count.txt",
+    "bytes": 3,
+    "sha256": "9a92adbc0cee38ef658c71ce1b1bf8c65668f166bfb213644c895ccb1ad07a25"
+  },
+  {
+    "path": "reproduction.md",
+    "bytes": 4820,
+    "sha256": "b1089244cc1cae10e76fc6e2226d0d64f63e46d39fe04567270767c8d8ca8c75"
+  },
+  {
+    "path": "runtime-manifest.json",
+    "bytes": 1037,
+    "sha256": "1289f12f4cec812441c11e81f7efdfcead2a8c680d84b6542c13c1506f9cca72"
+  },
+  {
+    "path": "scroll-cumulative-sql.txt",
+    "bytes": 152,
+    "sha256": "8e0cb5b0baa540617f97f1674cb44ba2c6da2414c0eb90cd275e7cfef4040d89"
+  },
+  {
+    "path": "typecheck.txt",
+    "bytes": 431,
+    "sha256": "a7bb8d90dcdebad77ec8907c49873a3a6e127e304dd84591ae8e41570186d198"
+  }
+]

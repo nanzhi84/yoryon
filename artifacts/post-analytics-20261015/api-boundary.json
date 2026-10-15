@@ -1,0 +1,37 @@
+[
+  {
+    "name": "legacy-read",
+    "status": 200,
+    "response": {
+      "accepted": 0
+    }
+  },
+  {
+    "name": "legacy-view",
+    "status": 200,
+    "response": {
+      "accepted": 0
+    }
+  },
+  {
+    "name": "legacy-click",
+    "status": 200,
+    "response": {
+      "accepted": 0
+    }
+  },
+  {
+    "name": "wrong-read",
+    "status": 200,
+    "response": {
+      "accepted": 0
+    }
+  },
+  {
+    "name": "valid-read",
+    "status": 200,
+    "response": {
+      "accepted": 1
+    }
+  }
+]

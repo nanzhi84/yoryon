@@ -20,7 +20,7 @@ export interface TrackInput {
   eventType: AnalyticsEventType;
   targetKind: AnalyticsTargetKind;
   targetId: string;
-  /** impression/click 必填；view/read 不传 */
+  /** impression/click 必填；帖子信息流 read 为 home_feed，详情 view/read 不传 */
   placement?: AnalyticsPlacement;
   /** 浏览实例 id：列表页由 AnalyticsListProvider 生成，详情页由 DetailTracker 生成 */
   pageViewId: string;

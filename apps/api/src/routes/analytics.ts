@@ -70,7 +70,7 @@ export function analyticsRoutes(deps: AppDeps) {
     if (!parsed.success) return errorResponse(c, 400, "invalid_events", "事件格式不合法");
 
     // 语义归一：impression/click 必须声明列表来源且与 target kind 的唯一表面对应；
-    // view/read 不属于任何列表，placement 恒为 null。uuid 归一小写（z.uuid 接受大写，与库返回的小写 id 比较需一致）
+    // 帖子列表read保留home_feed，其余详情view/read为null；随后按实际内容类型校验。
     const events = [];
     for (const e of parsed.data.events) {
       const normalized = { ...e, targetId: e.targetId.toLowerCase() };
@@ -79,7 +79,7 @@ export function analyticsRoutes(deps: AppDeps) {
         if (e.placement !== CANONICAL_PLACEMENT[e.targetKind]) continue; // 跨表面事件静默丢弃
         events.push({ ...normalized, placement: e.placement });
       } else {
-        events.push({ ...normalized, placement: null });
+        events.push({ ...normalized, placement: e.eventType === "read" ? e.placement ?? null : null });
       }
     }
 
@@ -87,12 +87,13 @@ export function analyticsRoutes(deps: AppDeps) {
     const workIds = [...new Set(events.filter((e) => e.targetKind === "work").map((e) => e.targetId))];
     const collectionIds = [...new Set(events.filter((e) => e.targetKind === "collection").map((e) => e.targetId))];
     const validTargets = new Set<string>();
+    const workTypes = new Map<string, string>();
     if (workIds.length) {
       const rows = await deps.db
-        .select({ id: contents.id })
+        .select({ id: contents.id, type: contents.type })
         .from(contents)
         .where(and(inArray(contents.id, workIds), eq(contents.status, "published")));
-      for (const r of rows) validTargets.add(`work:${r.id}`);
+      for (const r of rows) { validTargets.add(`work:${r.id}`); workTypes.set(r.id, r.type); }
     }
     if (collectionIds.length) {
       const rows = await deps.db.select({ id: collections.id }).from(collections).where(inArray(collections.id, collectionIds));
@@ -101,6 +102,12 @@ export function analyticsRoutes(deps: AppDeps) {
 
     const rows = events
       .filter((e) => validTargets.has(`${e.targetKind}:${e.targetId}`))
+      .filter(e => {
+        if (e.targetKind === "work" && workTypes.get(e.targetId) === "post") {
+          return (e.eventType === "impression" || e.eventType === "read") && e.placement === "home_feed";
+        }
+        return e.eventType !== "read" || e.placement === null;
+      })
       .map((e) => ({
         eventId: e.eventId,
         eventType: e.eventType,

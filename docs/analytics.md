@@ -1,6 +1,6 @@
 # Content Analytics V1 —— 指标口径与事件合同
 
-状态：V1（ADR-0007）。严格限定四项指标：**Impressions、Clicks、Views、Reads**。不做 Depth / 滚动深度。
+状态：V1（ADR-0007）。文章与合集使用 **Impressions、Clicks、Views、Reads**；帖子只使用 **Impressions、Reads**。不做 Depth / 滚动深度。
 
 ## 1. 领域语义
 
@@ -14,14 +14,16 @@
 | 指标 | 触发条件 | 适用对象 |
 | --- | --- | --- |
 | Impression | 列表卡片可视面积 ≥50%，连续可见 ≥1 秒，且页面处于前台；每个列表浏览实例对同一 Target 最多一次 | Work（首页 feed）、Collection（/c 列表） |
-| Click | 用户主动点击列表卡片的标题或封面入口；预取与自动导航不计入；卡片内其他链接（标签等）不计入 | 同上 |
-| View | Target 详情页在浏览器真实展示（客户端 effect 执行）；每个详情页浏览实例最多一次；外部直达、刷新、客户端导航均计入；SSR / Prefetch 不产生 | Work、Collection |
-| Read | 详情页在前台累计可见停留 ≥10 秒（Page Visibility API，切后台暂停、回前台继续）；每个浏览实例最多一次 | Work、Collection |
+| Click | 用户主动点击列表卡片的标题或封面入口；预取与自动导航不计入；卡片内其他链接（标签等）不计入 | 文章、Collection |
+| View | 文章或合集详情页在浏览器真实展示（客户端 effect 执行）；每个详情页浏览实例最多一次；外部直达、刷新、客户端导航均计入；SSR / Prefetch 不产生 | Article、Collection |
+| Read（文章） | 授权完整正文在前台累计展示 ≥10 秒，后台暂停；每个详情浏览实例最多一次 | Article |
+| Read（帖子） | 首页卡片可视面积 ≥50% 时累计前台停留 ≥5 秒，滚出／后台暂停；主动成功展开正文立即满足。同一列表实例对同一帖子最多一次 | Post |
+| Read（合集） | 目录与授权章节正文在同一流程累计前台展示 ≥10 秒，流程最多一次 | Collection |
 
 派生指标：
 
 - `CTR = Clicks / Impressions`（同一 placement 内计算；见 §3）。
-- `Read Rate = Reads / Views`。
+- 文章／合集 `Read Rate = Reads / Views`；帖子 `Read Rate = Reads / Impressions`。帖子点击、浏览及 CTR 显示 N/A，排名 clicks/views/ctr 排除帖子。总览将帖子、文章、合集分开，避免不同阅读口径混算。
 - 分母为零显示 **N/A**，不参与排行。
 - Reads 仅代表有效停留，不能证明认真阅读。Clicks 与 Views 不互相替代：外部直达可产生 View 而无 Click。
 
@@ -46,7 +48,7 @@ POST /api/analytics/events        （经同源 BFF；批量，单批 ≤ 20 条�
     "eventType": "impression" | "click" | "view" | "read",
     "targetKind": "work" | "collection",
     "targetId":  uuid,
-    "placement": "home_feed" | "collection_list" | null,   // impression/click 必填；view/read 恒为 null
+    "placement": "home_feed" | "collection_list" | null,   // impression/click 必填；帖子 read 为 home_feed；其他 view/read 为 null
     "pageViewId": uuid,            // 浏览实例 id（列表实例 / 详情页实例）
     "sessionId":  uuid | null,     // 可选，sessionStorage 标签页会话，不做 30 分钟超时
     "visitorId":  uuid | null      // 可选，主机限定第一方 Cookie 的随机匿名浏览器身份
@@ -62,6 +64,7 @@ POST /api/analytics/events        （经同源 BFF；批量，单批 ≤ 20 条�
 服务端规则：
 
 - Zod 白名单校验；`received_at` 由服务端生成（`defaultNow()`），不信任客户端时钟。
+- 帖子仅接受 `impression/read + home_feed`；帖子 click/view、旧客户端详情 read（placement=null）丢弃。文章／合集 read 必须 placement=null。展开不新增事件类型。
 - 目标合法性在应用层校验：work 必须 `status='published'`，collection 必须存在。统计路径不读权益、不触碰付费内容。
 - 失败隔离：采集请求失败只触发一次有界重试（复用 event_id），随后丢弃，不阻塞内容展示、导航与媒体访问。
 
@@ -124,14 +127,18 @@ blog analytics prune --days 365
 
 ## 帖子与引用的统计边界
 
-旧四类型迁移保留 contents.id 和历史事件，原 URL 不变。首页原地展开、收起、查看图片、挂载/播放/停止媒体不调用 Click/View/Read；帖子明确的详情与评论入口沿用作品 Click，进入详情后再由 DetailTracker 记录 View/Read。长文仍只通过详情入口阅读。
+旧四类型迁移保留 contents.id 和历史事件，原 URL 不变。2026-10-15 起帖子只采集首页信息流的曝光和有效阅读：可视面积≥50%时累计前台5秒，滚出或后台暂停；用户主动成功展开正文立即触发同一个read，收起／再次展开／继续停留均不重复。自动恢复已展开状态不当作主动展开，展开请求失败不提前计read。
 
-引用卡片不额外记为顶层 Feed 曝光，也不复制评论或事件归属。引用跳转使用普通站内链接，原作品详情的 View/Read 正常计入原作品；Click 的原统计范围仍限顶层作品标题、封面以及帖子明确的详情入口。以上新交互没有扩展旧 Click 指标的含义。
+帖子详情、日期和评论入口不再产生帖子click/view/read。标签、订阅表面沿用既有无Provider策略，本次不扩大采集表面。图片查看和媒体播放不新增事件；点赞评论依然从业务数据库统计。付费预览满足可见条件也计当前展示的有效阅读，不表示全文已解锁或读完。
+
+帖子read携带home_feed，既有详情read为NULL，因此无需改表即可区分。CLI保留历史原始事件，但排除当前帖子旧click/view/read(NULL)，不补造旧阅读数据；切换前后读数不能直接比较。已删除作品缺少内容类型，保留历史原口径并在总览单列deleted-work，不猜测类型。长文详情10秒及合集流程口径不变。
+
+引用卡片不额外记为顶层 Feed 曝光，也不复制评论或事件归属。引用跳转使用普通站内链接，原文章详情的 View/Read 正常计入文章，帖子详情不计阅读；Click 仅限文章和合集的既有入口。以上新交互没有扩展旧 Click 指标的含义。
 
 ## 合集阅读流程（Issue #26）
 
 合集以独立对象采集列表 Impression/Click、目录详情 View 和流程 Read，不把章节事件求和。每次独立进入合集建立浏览器内存中的流程实例；目录入口、开始/继续阅读、上一篇/下一篇和返回目录通过已验证合集上下文沿用该实例。目录每次真实展示可产生 View，章节仍只产生作品自己的 View。离开链路、刷新或外部直达不会复用之前的流程累计。
 
-合集 Read 在同一流程内累计目录与有权限章节正文的前台展示时间，达到 10 秒最多一次。加载、错误、未解锁预览与后台时间不累计；正文的 Work Read 同样从实际授权正文展示开始。合集 Read Rate 为流程 Reads / 目录 Views，不代表章节阅读率、完读率或读完人数。章节入口不计为合集卡片 Click。
+合集 Read 在同一流程内累计目录与有权限章节正文的前台展示时间，达到 10 秒最多一次。加载、错误、未解锁预览与后台时间不累计；文章的 Work Read 同样从实际授权正文展示开始；帖子不因章节详情产生 Work Read，但其授权正文仍可参与合集流程累计。合集 Read Rate 为流程 Reads / 目录 Views，不代表章节阅读率、完读率或读完人数。章节入口不计为合集卡片 Click。
 
 本地续读只保存版本、稳定章节 ID、更新时间，以合集 ID 分组；它既不是权限凭证也不是分析事件，不同步账号或其他设备。目录和成员 API 校验定位，撤回、删除、移出合集后清理；付费章权限由单篇接口实时判断。存储不可用时仍可正常阅读。
