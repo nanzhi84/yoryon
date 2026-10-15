@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-15T09:41:09.834Z",
+  "databaseDropped": true,
+  "remainingPaths": [],
+  "ports": {
+    "3037": "no listener",
+    "4137": "no listener",
+    "4138": "no listener"
+  },
+  "containerRemoved": true,
+  "browser": "Acceptance tab logged out via UI, viewport reset, tab closed. Initial connection-error tab cannot be explicitly selected by URL policy and follows normal temporary-tab lifecycle.",
+  "preserved": "Only sanitized artifacts; production and original main preview untouched."
+}

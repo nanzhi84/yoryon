@@ -1,0 +1,154 @@
+{
+  "at": "2026-10-15T09:29:53.581471+00:00",
+  "phase": "before-merge-and-deploy",
+  "pages": [
+    {
+      "url": "https://yoryon.com/c",
+      "bytes": 28671,
+      "sha256": "f968cd94dbd4f097f59a0fb55e4f216789d00232251f9972ac106c8370288956",
+      "headers": "HTTP/1.1 200 Connection established\n\nHTTP/2 200 \nage: 0\ncache-control: private, no-cache, no-store, max-age=0, must-revalidate\ncontent-type: text/html; charset=utf-8\ndate: Thu, 15 Oct 2026 09:29:42 GMT\nserver: Vercel\nstrict-transport-security: max-age=63072000\nvary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch\nx-matched-path: /c\nx-powered-by: Next.js\nx-vercel-cache: MISS\nx-vercel-id: sin1::sin1::x6nwv-1792056581819-42d5b1f26046\n\n",
+      "h1": [],
+      "images": [
+        {
+          "alt": "",
+          "width": "32",
+          "height": "32",
+          "decoding": "async",
+          "data-nimg": "1",
+          "class": "size-8 rounded-full border border-surface-border object-cover object-[50%_30%]",
+          "style": "color:transparent",
+          "srcset": "/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=32&q=75 1x, /_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=64&q=75 2x",
+          "src": "/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=64&q=75"
+        },
+        {
+          "alt": "",
+          "width": "32",
+          "height": "32",
+          "decoding": "async",
+          "data-nimg": "1",
+          "class": "size-8 rounded-full border border-surface-border object-cover object-[50%_30%]",
+          "style": "color:transparent",
+          "srcset": "/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=32&q=75 1x, /_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=64&q=75 2x",
+          "src": "/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=64&q=75"
+        },
+        {
+          "src": "/api/media/679b4413-fb20-4507-add0-07718284dc52",
+          "alt": "第一段AI PM实习日记",
+          "loading": "lazy",
+          "class": "h-full w-full object-cover"
+        }
+      ],
+      "links": [
+        "/",
+        "/search",
+        "/notifications",
+        "/",
+        "/c",
+        "/subscription",
+        "/",
+        "/search",
+        "/notifications",
+        "/",
+        "/c",
+        "/subscription",
+        "/c/first-internship-diary",
+        "/c/first-internship-diary"
+      ]
+    },
+    {
+      "url": "https://yoryon.com/c/first-internship-diary",
+      "bytes": 64599,
+      "sha256": "5427f5b25c29aef7034b403553be843e6b18480f06cc0ce49f759f4425386a04",
+      "headers": "HTTP/1.1 200 Connection established\n\nHTTP/2 200 \nage: 0\ncache-control: private, no-cache, no-store, max-age=0, must-revalidate\ncontent-type: text/html; charset=utf-8\ndate: Thu, 15 Oct 2026 09:29:42 GMT\nserver: Vercel\nstrict-transport-security: max-age=63072000\nvary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch\nx-matched-path: /c/[slug]\nx-powered-by: Next.js\nx-vercel-cache: MISS\nx-vercel-id: sin1::sin1::cc6qp-1792056581934-34138fe2b2f2\n\n",
+      "h1": [
+        "第一段AI PM实习日记"
+      ],
+      "images": [
+        {
+          "alt": "",
+          "width": "32",
+          "height": "32",
+          "decoding": "async",
+          "data-nimg": "1",
+          "class": "size-8 rounded-full border border-surface-border object-cover object-[50%_30%]",
+          "style": "color:transparent",
+          "srcset": "/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=32&q=75 1x, /_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=64&q=75 2x",
+          "src": "/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=64&q=75"
+        },
+        {
+          "alt": "",
+          "width": "32",
+          "height": "32",
+          "decoding": "async",
+          "data-nimg": "1",
+          "class": "size-8 rounded-full border border-surface-border object-cover object-[50%_30%]",
+          "style": "color:transparent",
+          "srcset": "/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=32&q=75 1x, /_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=64&q=75 2x",
+          "src": "/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=64&q=75"
+        },
+        {
+          "src": "/api/media/679b4413-fb20-4507-add0-07718284dc52",
+          "alt": "第一段AI PM实习日记",
+          "class": "h-full w-full object-cover"
+        }
+      ],
+      "links": [
+        "/",
+        "/search",
+        "/notifications",
+        "/",
+        "/c",
+        "/subscription",
+        "/",
+        "/search",
+        "/notifications",
+        "/",
+        "/c",
+        "/subscription",
+        "/c",
+        "/p/first-internship-day-01?collection=first-internship-diary",
+        "/p/first-internship-day-02?collection=first-internship-diary",
+        "/p/first-internship-day-03?collection=first-internship-diary",
+        "/p/first-internship-day-04?collection=first-internship-diary",
+        "/p/first-internship-day-05?collection=first-internship-diary",
+        "/p/first-internship-day-06-07?collection=first-internship-diary",
+        "/p/first-internship-day-08?collection=first-internship-diary",
+        "/p/first-internship-day-09?collection=first-internship-diary",
+        "/p/first-internship-day-10?collection=first-internship-diary",
+        "/p/first-internship-day-11?collection=first-internship-diary",
+        "/p/first-internship-day-12?collection=first-internship-diary",
+        "/p/first-internship-day-13-14?collection=first-internship-diary",
+        "/p/first-internship-day-15?collection=first-internship-diary",
+        "/p/first-internship-day-16?collection=first-internship-diary",
+        "/p/first-internship-day-17?collection=first-internship-diary",
+        "/p/first-internship-day-18?collection=first-internship-diary",
+        "/p/first-internship-day-19?collection=first-internship-diary",
+        "/p/first-internship-day-20-21?collection=first-internship-diary",
+        "/p/first-internship-day-22?collection=first-internship-diary",
+        "/p/first-internship-day-23?collection=first-internship-diary",
+        "/p/first-internship-day-24?collection=first-internship-diary",
+        "/p/first-internship-day-25?collection=first-internship-diary",
+        "/p/first-internship-day-26?collection=first-internship-diary",
+        "/p/first-internship-day-27-28?collection=first-internship-diary",
+        "/p/first-internship-day-29?collection=first-internship-diary",
+        "/p/first-internship-day-30?collection=first-internship-diary",
+        "/p/first-internship-day-31?collection=first-internship-diary",
+        "/p/first-internship-day-32?collection=first-internship-diary",
+        "/p/first-internship-day-33?collection=first-internship-diary",
+        "/p/first-internship-day-34-35?collection=first-internship-diary",
+        "/p/first-internship-day-36?collection=first-internship-diary",
+        "/p/first-internship-day-37?collection=first-internship-diary",
+        "/p/first-internship-day-38?collection=first-internship-diary",
+        "/p/first-internship-day-39?collection=first-internship-diary",
+        "/p/first-internship-day-40?collection=first-internship-diary",
+        "/p/first-internship-day-41?collection=first-internship-diary",
+        "/p/first-internship-day-42?collection=first-internship-diary"
+      ]
+    }
+  ],
+  "browser": {
+    "status": "UNVERIFIED",
+    "reason": "cua.createBrowserTab(\"iab\", ...) -> Browser is not available: iab; cua.listBrowsers() -> []"
+  },
+  "transportNote": "Python urllib SSL EOF; curl with normal certificate validation succeeded."
+}

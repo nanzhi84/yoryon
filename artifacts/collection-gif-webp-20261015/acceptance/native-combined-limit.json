@@ -1,0 +1,21 @@
+{
+  "image": "0244a1f",
+  "memoryLimitBytes": 402653184,
+  "input": {
+    "encodedBytes": 19922944,
+    "width": 600,
+    "pages": 44,
+    "totalPixels": 15840000,
+    "method": "Actual Earth resized600, valid GIF with ignored trailing padding to19MiB; temporary readonly-mounted-source fault injection only."
+  },
+  "request": {
+    "error": "fetch failed",
+    "cause": "UND_ERR_SOCKET",
+    "ms": 115
+  },
+  "sourceRestored": true,
+  "container": "status=exited OOMKilled=true exit=137 restart=0",
+  "health": {
+    "error": "fetch failed"
+  }
+}

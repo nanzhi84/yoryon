@@ -1,0 +1,8 @@
+HTTP/1.1 304 Not Modified
+cache-control: public, max-age=0, must-revalidate
+etag: "image-v1-7e5ea753b41b44f3c462e8436de1795e3aa9c9b49b256c8ac13c80153426f57c-320"
+vercel-cdn-cache-control: no-store
+Date: Thu, 15 Oct 2026 09:27:23 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+

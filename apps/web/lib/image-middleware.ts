@@ -4,7 +4,7 @@ import { IMAGE_BROWSER_CACHE_CONTROL, imageEtag, validImageVariant } from "@yory
 /** Runs before even a CDN HIT or a browser conditional response. */
 export async function imageMiddleware(request: NextRequest) {
   const headers = { "Cache-Control": "private, no-store" };
-  const match = /^\/api\/images\/v1\/([a-f0-9-]{36})\/(original|\d+)$/.exec(request.nextUrl.pathname);
+  const match = /^\/api\/images\/v2\/([a-f0-9-]{36})\/(original|\d+)$/.exec(request.nextUrl.pathname);
   if (!match) return NextResponse.json({ error: "not_found" }, { status: 404, headers });
   if (!validImageVariant(match[2]!) || request.nextUrl.search) return NextResponse.json({ error: "invalid_variant" }, { status: 400, headers });
   try {

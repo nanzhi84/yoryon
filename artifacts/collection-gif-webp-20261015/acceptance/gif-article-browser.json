@@ -1,0 +1,26 @@
+{
+  "images": [
+    {
+      "alt": "",
+      "complete": true,
+      "currentSrc": "http://localhost:3037/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=32&q=75",
+      "naturalHeight": 43,
+      "naturalWidth": 32
+    },
+    {
+      "alt": "地球自转，Marvel，CC BY-SA 3.0",
+      "complete": true,
+      "currentSrc": "http://localhost:3037/api/images/v2/39c16cd3-cc8b-45aa-ac5c-8ed9665fd75a/320",
+      "naturalHeight": 768,
+      "naturalWidth": 768
+    },
+    {
+      "alt": "地球自转，Marvel，CC BY-SA 3.0",
+      "complete": true,
+      "currentSrc": "http://localhost:3037/api/images/v2/39c16cd3-cc8b-45aa-ac5c-8ed9665fd75a/1280",
+      "naturalHeight": 400,
+      "naturalWidth": 400
+    }
+  ],
+  "url": "http://localhost:3037/p/accept-webp-economics"
+}

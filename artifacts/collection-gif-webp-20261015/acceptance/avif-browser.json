@@ -1,0 +1,20 @@
+{
+  "images": [
+    {
+      "alt": "",
+      "complete": true,
+      "currentSrc": "http://localhost:3037/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=32&q=75",
+      "naturalWidth": 32,
+      "sizes": ""
+    },
+    {
+      "alt": "经济学原理 AVIF 封面",
+      "complete": true,
+      "currentSrc": "http://localhost:3037/api/images/v2/d8578202-389f-49fe-adee-552321a21371/320",
+      "naturalWidth": 144,
+      "sizes": "(min-width: 640px) 144px, 96px"
+    }
+  ],
+  "url": "http://localhost:3037/c/accept-avif-cover",
+  "width": 1280
+}

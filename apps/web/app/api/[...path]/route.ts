@@ -4,7 +4,7 @@
  * - mutating 方法经 CSRF 检查；
  * - Cookie → Bearer 转换；login/verify-email 的 token 转 Set-Cookie；logout 清 Cookie；
  * - 会话续期（x-session-expires）时重设 Cookie；
- * - 透传 302 Location（媒体字节不经过 Vercel）。
+ * - 透传媒体 302 Location；GIF 的授权 WebP 响应体通过此代理流转。
  */
 import { type NextRequest, NextResponse } from "next/server";
 import { buildApiHeaders, csrfCheck, getBffConfig, readBodyCapped, readBodyBytesCapped, readSessionCookie, resolvePlatformClientIp, clearSessionCookie, setSessionCookie } from "@/lib/bff";

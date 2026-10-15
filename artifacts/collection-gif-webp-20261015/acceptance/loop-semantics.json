@@ -1,0 +1,14 @@
+{
+  "sourceNetscapeOffset": 784,
+  "sourceNetscapeSubBlock": [
+    3,
+    1,
+    255,
+    255,
+    0
+  ],
+  "sourceEncodedLoop": 65535,
+  "outputAnimOffset": 30,
+  "outputEncodedLoop": 65535,
+  "conclusion": "PASS after correction: source GIF Netscape repeat65535 means65536 total plays; output WebP finite65535 is the closest representable finite value. Infinite0, single1 and ordinaryfinite3 preserve their total-play semantics in separate temporary exploration. See loop-boundaries.json."
+}

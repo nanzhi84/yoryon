@@ -1,0 +1,27 @@
+{
+  "url": "https://yoryon.com/p/economics-principles-overall",
+  "images": [
+    {
+      "alt": "",
+      "width": "32",
+      "height": "32",
+      "decoding": "async",
+      "data-nimg": "1",
+      "class": "size-8 rounded-full border border-surface-border object-cover object-[50%_30%]",
+      "style": "color:transparent",
+      "srcset": "/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=32&q=75 1x, /_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=64&q=75 2x",
+      "src": "/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=64&q=75"
+    },
+    {
+      "alt": "",
+      "width": "32",
+      "height": "32",
+      "decoding": "async",
+      "data-nimg": "1",
+      "class": "size-8 rounded-full border border-surface-border object-cover object-[50%_30%]",
+      "style": "color:transparent",
+      "srcset": "/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=32&q=75 1x, /_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=64&q=75 2x",
+      "src": "/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=64&q=75"
+    }
+  ]
+}

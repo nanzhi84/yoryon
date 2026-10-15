@@ -1,0 +1,35 @@
+{
+  "images": [
+    {
+      "alt": "",
+      "complete": true,
+      "currentSrc": "http://localhost:3037/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=32&q=75",
+      "naturalWidth": 32,
+      "rect": {
+        "height": 32,
+        "width": 32,
+        "x": 24,
+        "y": 26
+      },
+      "sizes": "",
+      "srcset": "/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=32&q=75 1x, /_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=64&q=75 2x"
+    },
+    {
+      "alt": "地球自转 GIF 动画封面",
+      "complete": true,
+      "currentSrc": "http://localhost:3037/api/images/v2/39c16cd3-cc8b-45aa-ac5c-8ed9665fd75a/320",
+      "naturalWidth": 96,
+      "rect": {
+        "height": 96,
+        "width": 96,
+        "x": 240,
+        "y": 201
+      },
+      "sizes": "(min-width: 640px) 144px, 96px",
+      "srcset": "/api/images/v2/39c16cd3-cc8b-45aa-ac5c-8ed9665fd75a/320 320w, /api/images/v2/39c16cd3-cc8b-45aa-ac5c-8ed9665fd75a/640 640w, /api/images/v2/39c16cd3-cc8b-45aa-ac5c-8ed9665fd75a/960 960w, /api/images/v2/39c16cd3-cc8b-45aa-ac5c-8ed9665fd75a/1280 1280w"
+    }
+  ],
+  "scrollWidth": 360,
+  "url": "http://localhost:3037/c/accept-gif-cover",
+  "width": 375
+}

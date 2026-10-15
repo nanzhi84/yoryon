@@ -1,0 +1,41 @@
+{
+  "command": "✓ entitlement 60648d94-d29e-4186-8cff-f09c6511b225 revoked\n",
+  "requests": [
+    {
+      "url": "http://localhost:4137/api/media/39c16cd3-cc8b-45aa-ac5c-8ed9665fd75a",
+      "status": 403,
+      "cacheControl": "private, no-store",
+      "body": "{\"error\":{\"code\":\"forbidden\",\"message\":\"无权访问该媒体\"}}"
+    },
+    {
+      "url": "http://localhost:4137/api/media/39c16cd3-cc8b-45aa-ac5c-8ed9665fd75a?width=320",
+      "status": 403,
+      "cacheControl": "private, no-store",
+      "body": "{\"error\":{\"code\":\"forbidden\",\"message\":\"无权访问该媒体\"}}"
+    },
+    {
+      "url": "http://localhost:4138/api/media/39c16cd3-cc8b-45aa-ac5c-8ed9665fd75a",
+      "status": 403,
+      "cacheControl": "private, no-store",
+      "body": "{\"error\":{\"code\":\"forbidden\",\"message\":\"无权访问该媒体\"}}"
+    },
+    {
+      "url": "http://localhost:4138/api/media/39c16cd3-cc8b-45aa-ac5c-8ed9665fd75a?width=320",
+      "status": 403,
+      "cacheControl": "private, no-store",
+      "body": "{\"error\":{\"code\":\"forbidden\",\"message\":\"无权访问该媒体\"}}"
+    },
+    {
+      "url": "http://localhost:3037/api/media/39c16cd3-cc8b-45aa-ac5c-8ed9665fd75a",
+      "status": 403,
+      "cacheControl": "private, no-store",
+      "body": "{\"error\":{\"code\":\"forbidden\",\"message\":\"无权访问该媒体\"}}"
+    },
+    {
+      "url": "http://localhost:3037/api/media/39c16cd3-cc8b-45aa-ac5c-8ed9665fd75a?width=320",
+      "status": 403,
+      "cacheControl": "private, no-store",
+      "body": "{\"error\":{\"code\":\"forbidden\",\"message\":\"无权访问该媒体\"}}"
+    }
+  ]
+}

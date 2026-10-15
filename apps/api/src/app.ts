@@ -26,6 +26,7 @@ import { profileRoutes } from "./routes/profiles";
 import { sitemapRoutes } from "./routes/sitemap";
 import { createPublicPolicy } from "./public-policy";
 import { publicImageRoutes } from "./routes/public-images";
+import { createGifVariantReader } from "./gif-variant";
 import { referenceRoutes } from "./routes/references";
 
 import { searchLocateRoutes } from "./routes/search-locate";
@@ -77,8 +78,9 @@ export function createApp(deps: AppDeps) {
   app.route("/api", referenceRoutes(deps));
   app.route("/api", searchRoutes(deps));
   app.route("/api", searchLocateRoutes(deps));
-  app.route("/api", mediaRoutes(deps));
-  app.route("/api", publicImageRoutes(deps, policy));
+  const gifVariant = createGifVariantReader(deps.storage, deps.env.MEDIA_SIGN_TTL);
+  app.route("/api", mediaRoutes(deps, gifVariant));
+  app.route("/api", publicImageRoutes(deps, policy, gifVariant));
   app.route("/api", redemptionRoutes(deps));
   app.route("/api", commentRoutes(deps));
   app.route("/api", contentInteractionRoutes(deps));

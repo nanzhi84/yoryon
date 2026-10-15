@@ -1,0 +1,13 @@
+HTTP/1.1 200 OK
+vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+cache-control: public, max-age=0, must-revalidate
+content-security-policy: default-src 'none'; style-src 'unsafe-inline'; sandbox
+content-type: image/webp
+etag: "image-v1-7e5ea753b41b44f3c462e8436de1795e3aa9c9b49b256c8ac13c80153426f57c-320"
+vercel-cdn-cache-control: public, s-maxage=86400
+x-content-type-options: nosniff
+Date: Thu, 15 Oct 2026 09:26:27 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+

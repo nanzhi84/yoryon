@@ -1,0 +1,104 @@
+{
+  "url": "https://yoryon.com/p/workflow-to-agent-patterns",
+  "images": [
+    {
+      "alt": "",
+      "width": "32",
+      "height": "32",
+      "decoding": "async",
+      "data-nimg": "1",
+      "class": "size-8 rounded-full border border-surface-border object-cover object-[50%_30%]",
+      "style": "color:transparent",
+      "srcset": "/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=32&q=75 1x, /_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=64&q=75 2x",
+      "src": "/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=64&q=75"
+    },
+    {
+      "alt": "",
+      "width": "32",
+      "height": "32",
+      "decoding": "async",
+      "data-nimg": "1",
+      "class": "size-8 rounded-full border border-surface-border object-cover object-[50%_30%]",
+      "style": "color:transparent",
+      "srcset": "/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=32&q=75 1x, /_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=64&q=75 2x",
+      "src": "/_next/image?url=%2Fimages%2Fauthor-avatar.jpg&w=64&q=75"
+    },
+    {
+      "src": "/api/images/v1/e0cd472d-f822-4a9c-8f24-b61a9cfc8513/1280",
+      "srcset": "/api/images/v1/e0cd472d-f822-4a9c-8f24-b61a9cfc8513/320 320w, /api/images/v1/e0cd472d-f822-4a9c-8f24-b61a9cfc8513/640 640w, /api/images/v1/e0cd472d-f822-4a9c-8f24-b61a9cfc8513/960 960w",
+      "sizes": "(max-width: 768px) 100vw, 768px",
+      "alt": "图 1：Workflow 与 Agent 的核心差异",
+      "loading": "lazy",
+      "decoding": "async",
+      "width": "1200",
+      "height": "540",
+      "class": "h-auto w-full max-w-full rounded-lg"
+    },
+    {
+      "src": "/api/images/v1/c951e152-f21c-48f8-b120-bbdd0656c69c/1280",
+      "srcset": "/api/images/v1/c951e152-f21c-48f8-b120-bbdd0656c69c/320 320w, /api/images/v1/c951e152-f21c-48f8-b120-bbdd0656c69c/640 640w, /api/images/v1/c951e152-f21c-48f8-b120-bbdd0656c69c/960 960w",
+      "sizes": "(max-width: 768px) 100vw, 768px",
+      "alt": "图 2：范式选择决策路径",
+      "loading": "lazy",
+      "decoding": "async",
+      "width": "1100",
+      "height": "730",
+      "class": "h-auto w-full max-w-full rounded-lg"
+    },
+    {
+      "src": "/api/images/v1/56ec7733-84fb-4a16-ab8c-08fa44adc4fb/1280",
+      "srcset": "/api/images/v1/56ec7733-84fb-4a16-ab8c-08fa44adc4fb/320 320w, /api/images/v1/56ec7733-84fb-4a16-ab8c-08fa44adc4fb/640 640w, /api/images/v1/56ec7733-84fb-4a16-ab8c-08fa44adc4fb/960 960w",
+      "sizes": "(max-width: 768px) 100vw, 768px",
+      "alt": "图 3：Agent 的三个基本组件与运行方式",
+      "loading": "lazy",
+      "decoding": "async",
+      "width": "1200",
+      "height": "680",
+      "class": "h-auto w-full max-w-full rounded-lg"
+    },
+    {
+      "src": "/api/images/v1/e42f869c-f2e7-4c49-a7e4-a4574bae5e37/1280",
+      "srcset": "/api/images/v1/e42f869c-f2e7-4c49-a7e4-a4574bae5e37/320 320w, /api/images/v1/e42f869c-f2e7-4c49-a7e4-a4574bae5e37/640 640w, /api/images/v1/e42f869c-f2e7-4c49-a7e4-a4574bae5e37/960 960w",
+      "sizes": "(max-width: 768px) 100vw, 768px",
+      "alt": "图 4：五种基础的 Workflow 构建模式",
+      "loading": "lazy",
+      "decoding": "async",
+      "width": "1200",
+      "height": "840",
+      "class": "h-auto w-full max-w-full rounded-lg"
+    },
+    {
+      "src": "/api/images/v1/550c026c-6ff8-401b-881c-7be597d5ba3c/1280",
+      "srcset": "/api/images/v1/550c026c-6ff8-401b-881c-7be597d5ba3c/320 320w, /api/images/v1/550c026c-6ff8-401b-881c-7be597d5ba3c/640 640w, /api/images/v1/550c026c-6ff8-401b-881c-7be597d5ba3c/960 960w",
+      "sizes": "(max-width: 768px) 100vw, 768px",
+      "alt": "图 5：Agent 的组织形式",
+      "loading": "lazy",
+      "decoding": "async",
+      "width": "1200",
+      "height": "610",
+      "class": "h-auto w-full max-w-full rounded-lg"
+    }
+  ],
+  "allPublicImageRefs": [
+    "/api/images/v1/550c026c-6ff8-401b-881c-7be597d5ba3c/1280",
+    "/api/images/v1/550c026c-6ff8-401b-881c-7be597d5ba3c/320",
+    "/api/images/v1/550c026c-6ff8-401b-881c-7be597d5ba3c/640",
+    "/api/images/v1/550c026c-6ff8-401b-881c-7be597d5ba3c/960",
+    "/api/images/v1/56ec7733-84fb-4a16-ab8c-08fa44adc4fb/1280",
+    "/api/images/v1/56ec7733-84fb-4a16-ab8c-08fa44adc4fb/320",
+    "/api/images/v1/56ec7733-84fb-4a16-ab8c-08fa44adc4fb/640",
+    "/api/images/v1/56ec7733-84fb-4a16-ab8c-08fa44adc4fb/960",
+    "/api/images/v1/c951e152-f21c-48f8-b120-bbdd0656c69c/1280",
+    "/api/images/v1/c951e152-f21c-48f8-b120-bbdd0656c69c/320",
+    "/api/images/v1/c951e152-f21c-48f8-b120-bbdd0656c69c/640",
+    "/api/images/v1/c951e152-f21c-48f8-b120-bbdd0656c69c/960",
+    "/api/images/v1/e0cd472d-f822-4a9c-8f24-b61a9cfc8513/1280",
+    "/api/images/v1/e0cd472d-f822-4a9c-8f24-b61a9cfc8513/320",
+    "/api/images/v1/e0cd472d-f822-4a9c-8f24-b61a9cfc8513/640",
+    "/api/images/v1/e0cd472d-f822-4a9c-8f24-b61a9cfc8513/960",
+    "/api/images/v1/e42f869c-f2e7-4c49-a7e4-a4574bae5e37/1280",
+    "/api/images/v1/e42f869c-f2e7-4c49-a7e4-a4574bae5e37/320",
+    "/api/images/v1/e42f869c-f2e7-4c49-a7e4-a4574bae5e37/640",
+    "/api/images/v1/e42f869c-f2e7-4c49-a7e4-a4574bae5e37/960"
+  ]
+}
