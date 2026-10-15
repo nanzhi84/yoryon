@@ -132,7 +132,7 @@ export function registerAnalyticsCommands(program: Command) {
 
   analytics
     .command("overview")
-    .description("全站总览：Work / Collection 分开汇总的四项指标")
+    .description("全站总览：帖子、文章与合集按各自口径分开汇总")
     .option("--days <n>", "统计最近 N 天（滚动窗口）", "7")
     .action(async (opts: { days: string }) => {
       try {
@@ -154,7 +154,7 @@ export function registerAnalyticsCommands(program: Command) {
             { impressions: 0, clicks: 0, views: 0, reads: 0 },
           );
           console.log(
-            `\n[${kind}] targets=${group.length} impressions=${sum.impressions} clicks=${sum.clicks} ` +
+            `\n[${kind}] targets=${group.length} impressions=${sum.impressions} clicks=${kind === "post" ? "N/A" : sum.clicks} ` +
               `ctr=${kind === "post" ? "N/A" : fmtRate(sum.clicks, sum.impressions)} views=${kind === "post" ? "N/A" : sum.views} reads=${sum.reads} read_rate=${fmtRate(sum.reads, kind === "post" ? sum.impressions : sum.views)}`,
           );
         }
