@@ -1,0 +1,14 @@
+{
+  "version": "14982a7ad0af60096adb321a399d12a23244472f",
+  "web": "http://localhost:3000",
+  "api": "http://localhost:4116",
+  "environmentFile": "/tmp/yoryon-local-preview-20261015.env",
+  "account": {
+    "database": "yoryon_page_redesign_20261013",
+    "username": "preview1015",
+    "role": "user",
+    "status": "active"
+  },
+  "productionChanged": false,
+  "mailSent": false
+}

@@ -44,6 +44,8 @@ pnpm db:generate    # 改 schema 后生成迁移
 pnpm db:migrate     # 执行迁移
 ```
 
+订阅页的“会员作品”按合集聚合：含已发布会员章节的合集显示一条入口和总篇数／会员篇数，合集内章节不再逐篇重复列出；未归属合集的会员作品独立展示。合集详情简介完整显示，列表简介保留三行摘要。协议与分页边界见 [ADR-0019](docs/adr/0019-member-collection-catalog.md)。
+
 ## CLI（本地管理，经 SSH 隧道连生产库）
 
 ```bash

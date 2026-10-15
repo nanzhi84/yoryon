@@ -1,0 +1,277 @@
+[
+  {
+    "path": "/api/collections/editorial-preview",
+    "status": 200,
+    "type": "application/json",
+    "body": {
+      "id": "9af88d34-a97b-4af2-96c4-10f45d555c8d",
+      "slug": "editorial-preview",
+      "title": "长文排版预览",
+      "description": "参考文章与三种原创长文组合，仅用于本地预览。",
+      "visibility": "public",
+      "coverMediaId": "fb267650-8b78-47f2-9d36-c6403293af92",
+      "isPinned": false,
+      "updatedAt": "2026-10-15T03:14:26.111Z",
+      "cover": {
+        "id": "fb267650-8b78-47f2-9d36-c6403293af92",
+        "mimeType": "image/png",
+        "width": 1200,
+        "height": 900
+      },
+      "items": [
+        {
+          "id": "252f754f-7eaf-4e0e-9cdf-4e9a4dc47555",
+          "slug": "editorial-essay",
+          "title": "把一天慢慢读完：城市、散步与那些没有被记录的片刻",
+          "description": "连续叙事、长短段落、引文与三级标题的长文示例。",
+          "type": "article",
+          "visibility": "public",
+          "publishedAt": "2026-10-14T00:00:00.000Z",
+          "coverMediaId": null,
+          "sortOrder": 1,
+          "access": "full"
+        },
+        {
+          "id": "e9c12c3d-f5f5-48fe-9121-6b7d001a400b",
+          "slug": "editorial-notes",
+          "title": "一篇文章如何到达读者：从草稿、媒体到浏览器的技术手记",
+          "description": "代码块、嵌套列表、长链接、故障说明与连续正文的组合。",
+          "type": "article",
+          "visibility": "public",
+          "publishedAt": "2026-10-14T00:01:00.000Z",
+          "coverMediaId": null,
+          "sortOrder": 2,
+          "access": "full"
+        },
+        {
+          "id": "066b22b1-6cad-40a3-b172-8bebbd24a6b7",
+          "slug": "editorial-reference",
+          "title": "2024 年字节跳动前实习生田柯宇 (Tian Keyu) 模型训练攻击事件：受害者陈述与证据整理",
+          "description": "依据受害者陈述、内部记录与代码材料及公开报道整理",
+          "type": "article",
+          "visibility": "public",
+          "publishedAt": "2026-10-12T04:00:00.000Z",
+          "coverMediaId": null,
+          "sortOrder": 3,
+          "access": "full"
+        },
+        {
+          "id": "354f3d02-c25f-475a-91d5-d358367c9dfa",
+          "slug": "editorial-visual",
+          "title": "在纸面与屏幕之间：一份图文混排的阅读观察",
+          "description": "图片、图注、引文、结构化比较与长文的组合。",
+          "type": "article",
+          "visibility": "public",
+          "publishedAt": "2026-10-14T00:02:00.000Z",
+          "coverMediaId": null,
+          "sortOrder": 4,
+          "access": "full"
+        },
+        {
+          "id": "14089e33-60b5-4277-b16e-557e0618babd",
+          "slug": "editorial-summary",
+          "title": "一句话要点：把一天慢慢读完",
+          "description": "放慢脚步，让街道、旧书店与那些没有结论的片刻，成为一天值得读完的部分。",
+          "type": "article",
+          "visibility": "public",
+          "publishedAt": "2026-10-14T00:00:00.000Z",
+          "coverMediaId": null,
+          "sortOrder": 5,
+          "access": "full"
+        },
+        {
+          "id": "18a5121c-0f55-4451-90ba-9e6c64546b3b",
+          "slug": "editorial-bullets",
+          "title": "无序要点：把一天慢慢读完",
+          "description": "放慢脚步，让街道、旧书店与那些没有结论的片刻，成为一天值得读完的部分。",
+          "type": "article",
+          "visibility": "public",
+          "publishedAt": "2026-10-14T00:00:00.000Z",
+          "coverMediaId": null,
+          "sortOrder": 6,
+          "access": "full"
+        },
+        {
+          "id": "1994b60a-770e-4602-824c-621b34bd410f",
+          "slug": "editorial-paragraph",
+          "title": "段落要点：把一天慢慢读完",
+          "description": "放慢脚步，让街道、旧书店与那些没有结论的片刻，成为一天值得读完的部分。",
+          "type": "article",
+          "visibility": "public",
+          "publishedAt": "2026-10-14T00:00:00.000Z",
+          "coverMediaId": null,
+          "sortOrder": 7,
+          "access": "full"
+        },
+        {
+          "id": "1da91427-b89e-4777-8c2c-1f12d99fa177",
+          "slug": "editorial-paid-example",
+          "title": "会员示例：把阅读留给重要的内容",
+          "description": "本地付费作品示例，前半部分公开预览，后半部分需要会员权益。",
+          "type": "article",
+          "visibility": "paid",
+          "publishedAt": "2026-10-15T03:14:25.441Z",
+          "coverMediaId": null,
+          "sortOrder": 8,
+          "access": "preview"
+        }
+      ]
+    }
+  },
+  {
+    "path": "/api/collections/editorial-preview/chapters/252f754f-7eaf-4e0e-9cdf-4e9a4dc47555",
+    "status": 200,
+    "type": "application/json",
+    "body": {
+      "collection": {
+        "id": "9af88d34-a97b-4af2-96c4-10f45d555c8d",
+        "slug": "editorial-preview",
+        "title": "长文排版预览"
+      },
+      "chapter": {
+        "id": "252f754f-7eaf-4e0e-9cdf-4e9a4dc47555",
+        "slug": "editorial-essay",
+        "title": "把一天慢慢读完：城市、散步与那些没有被记录的片刻",
+        "visibility": "public",
+        "publishedAt": "2026-10-14T00:00:00.000Z",
+        "sortOrder": 1
+      },
+      "previous": null,
+      "next": {
+        "id": "e9c12c3d-f5f5-48fe-9121-6b7d001a400b",
+        "slug": "editorial-notes",
+        "title": "一篇文章如何到达读者：从草稿、媒体到浏览器的技术手记",
+        "visibility": "public",
+        "publishedAt": "2026-10-14T00:01:00.000Z",
+        "sortOrder": 2
+      }
+    }
+  },
+  {
+    "path": "/api/collections/editorial-preview/chapters/e9c12c3d-f5f5-48fe-9121-6b7d001a400b",
+    "status": 200,
+    "type": "application/json",
+    "body": {
+      "collection": {
+        "id": "9af88d34-a97b-4af2-96c4-10f45d555c8d",
+        "slug": "editorial-preview",
+        "title": "长文排版预览"
+      },
+      "chapter": {
+        "id": "e9c12c3d-f5f5-48fe-9121-6b7d001a400b",
+        "slug": "editorial-notes",
+        "title": "一篇文章如何到达读者：从草稿、媒体到浏览器的技术手记",
+        "visibility": "public",
+        "publishedAt": "2026-10-14T00:01:00.000Z",
+        "sortOrder": 2
+      },
+      "previous": {
+        "id": "252f754f-7eaf-4e0e-9cdf-4e9a4dc47555",
+        "slug": "editorial-essay",
+        "title": "把一天慢慢读完：城市、散步与那些没有被记录的片刻",
+        "visibility": "public",
+        "publishedAt": "2026-10-14T00:00:00.000Z",
+        "sortOrder": 1
+      },
+      "next": {
+        "id": "066b22b1-6cad-40a3-b172-8bebbd24a6b7",
+        "slug": "editorial-reference",
+        "title": "2024 年字节跳动前实习生田柯宇 (Tian Keyu) 模型训练攻击事件：受害者陈述与证据整理",
+        "visibility": "public",
+        "publishedAt": "2026-10-12T04:00:00.000Z",
+        "sortOrder": 3
+      }
+    }
+  },
+  {
+    "path": "/api/collections/fake-collection/chapters/252f754f-7eaf-4e0e-9cdf-4e9a4dc47555",
+    "status": 404
+  },
+  {
+    "path": "/api/public/contents/editorial-paid-example",
+    "status": 200,
+    "type": "application/json",
+    "body": {
+      "id": "1da91427-b89e-4777-8c2c-1f12d99fa177",
+      "type": "article",
+      "slug": "editorial-paid-example",
+      "title": "会员示例：把阅读留给重要的内容",
+      "description": "本地付费作品示例，前半部分公开预览，后半部分需要会员权益。",
+      "visibility": "paid",
+      "publishedAt": "2026-10-15T03:14:25.441Z",
+      "updatedAt": "2026-10-15T03:14:25.438Z",
+      "revision": "7e427749-fed5-4706-aee7-fa78ae64e0e8",
+      "access": "preview",
+      "hasPaidContent": true,
+      "bodyMarkdown": "这是一篇本地会员作品示例。你可以在同一个合集里先阅读免费文章，再打开这篇文章，查看公开预览和会员提示的排版。",
+      "coverMediaId": null,
+      "tags": [
+        {
+          "slug": "layout-preview",
+          "name": "layout-preview"
+        }
+      ],
+      "collections": [
+        {
+          "id": "9af88d34-a97b-4af2-96c4-10f45d555c8d",
+          "slug": "editorial-preview",
+          "title": "长文排版预览",
+          "previous": {
+            "id": "1994b60a-770e-4602-824c-621b34bd410f",
+            "slug": "editorial-paragraph",
+            "title": "段落要点：把一天慢慢读完"
+          },
+          "next": null
+        }
+      ],
+      "media": []
+    }
+  },
+  {
+    "path": "/api/contents/editorial-paid-example",
+    "status": 200,
+    "type": "application/json",
+    "body": {
+      "id": "1da91427-b89e-4777-8c2c-1f12d99fa177",
+      "type": "article",
+      "slug": "editorial-paid-example",
+      "title": "会员示例：把阅读留给重要的内容",
+      "description": "本地付费作品示例，前半部分公开预览，后半部分需要会员权益。",
+      "visibility": "paid",
+      "publishedAt": "2026-10-15T03:14:25.441Z",
+      "updatedAt": "2026-10-15T03:14:25.438Z",
+      "revision": "7e427749-fed5-4706-aee7-fa78ae64e0e8",
+      "access": "preview",
+      "hasPaidContent": true,
+      "bodyMarkdown": "这是一篇本地会员作品示例。你可以在同一个合集里先阅读免费文章，再打开这篇文章，查看公开预览和会员提示的排版。",
+      "coverMediaId": null,
+      "tags": [
+        {
+          "slug": "layout-preview",
+          "name": "layout-preview"
+        }
+      ],
+      "collections": [
+        {
+          "id": "9af88d34-a97b-4af2-96c4-10f45d555c8d",
+          "slug": "editorial-preview",
+          "title": "长文排版预览",
+          "previous": {
+            "id": "1994b60a-770e-4602-824c-621b34bd410f",
+            "slug": "editorial-paragraph",
+            "title": "段落要点：把一天慢慢读完"
+          },
+          "next": null
+        }
+      ],
+      "media": []
+    }
+  },
+  {
+    "path": "/api/media/fb267650-8b78-47f2-9d36-c6403293af92",
+    "status": 200,
+    "type": "image/png",
+    "bytes": 44783,
+    "signature": "89504e470d0a1a0a"
+  }
+]

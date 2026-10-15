@@ -1,0 +1,328 @@
+{
+  "database": [
+    {
+      "current_database": "yoryon",
+      "current_user": "yoryon_owner"
+    }
+  ],
+  "migrations": [
+    {
+      "id": 1,
+      "created_at": "1791655080601"
+    },
+    {
+      "id": 2,
+      "created_at": "1791684271076"
+    },
+    {
+      "id": 3,
+      "created_at": "1791723226245"
+    },
+    {
+      "id": 4,
+      "created_at": "1791789134292"
+    },
+    {
+      "id": 5,
+      "created_at": "1791789567749"
+    },
+    {
+      "id": 6,
+      "created_at": "1791811056565"
+    },
+    {
+      "id": 7,
+      "created_at": "1791814042027"
+    },
+    {
+      "id": 8,
+      "created_at": "1791818718892"
+    },
+    {
+      "id": 9,
+      "created_at": "1791825937599"
+    },
+    {
+      "id": 10,
+      "created_at": "1791826802062"
+    },
+    {
+      "id": 11,
+      "created_at": "1791827768854"
+    },
+    {
+      "id": 12,
+      "created_at": "1791856800000"
+    },
+    {
+      "id": 13,
+      "created_at": "1791906277406"
+    }
+  ],
+  "roles": [
+    {
+      "rolname": "yoryon_owner"
+    },
+    {
+      "rolname": "yoryon_api"
+    },
+    {
+      "rolname": "yoryon_cli"
+    }
+  ],
+  "schema": [],
+  "counts": [
+    {
+      "contents": "25",
+      "collections": "0",
+      "events": "784"
+    }
+  ],
+  "grants": [
+    {
+      "grantee": "yoryon_api",
+      "table_name": "activation_codes",
+      "privileges": "SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "analytics_events",
+      "privileges": "INSERT,SELECT"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "cache_events",
+      "privileges": "SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "collection_items",
+      "privileges": "SELECT"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "collections",
+      "privileges": "SELECT"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "comment_feed_versions",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "comment_likes",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "comments",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "content_likes",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "content_media",
+      "privileges": "SELECT"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "content_references",
+      "privileges": "SELECT"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "content_tags",
+      "privileges": "SELECT"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "contents",
+      "privileges": "SELECT"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "email_verifications",
+      "privileges": "INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "entitlements",
+      "privileges": "INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "media_assets",
+      "privileges": "SELECT"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "member_questions",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "notifications",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "redemptions",
+      "privileges": "INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "search_epoch",
+      "privileges": "SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "search_projections",
+      "privileges": "DELETE,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "search_sessions",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "sessions",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "tags",
+      "privileges": "SELECT"
+    },
+    {
+      "grantee": "yoryon_api",
+      "table_name": "users",
+      "privileges": "INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "activation_codes",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "analytics_events",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "cache_events",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "collection_items",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "collections",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "comment_feed_versions",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "comment_likes",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "comments",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "content_likes",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "content_media",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "content_references",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "content_tags",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "contents",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "email_verifications",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "entitlements",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "media_assets",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "member_questions",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "notifications",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "redemptions",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "search_epoch",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "search_projections",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "sessions",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "tags",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    },
+    {
+      "grantee": "yoryon_cli",
+      "table_name": "users",
+      "privileges": "DELETE,INSERT,SELECT,UPDATE"
+    }
+  ]
+}

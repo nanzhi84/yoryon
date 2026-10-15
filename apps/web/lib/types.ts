@@ -25,12 +25,20 @@ export interface FeedContentItem {
   post?: { bodyMarkdown: string; collapsed: boolean; media: Pick<ContentMediaItem, "mediaId" | "mimeType" | "width" | "height" | "durationSec">[] } | null;
 }
 
-/** feed 仅含内容条目；合集是顶层结构，只经 /api/collections 列表曝光，不参与混排。 */
+/** 首页/标签 feed 仅含内容条目；订阅发现目录使用独立 MemberFeedItem 协议。 */
 export type FeedItem = FeedContentItem;
 
 export interface FeedResponse {
   version: string;
   items: FeedItem[];
+  nextCursor: string | null;
+}
+
+/** 订阅发现目录独立于首页内容流；合集在分页之前聚合。 */
+export type MemberFeedItem = FeedContentItem | (CollectionListItem & { kind: "collection"; paidItemCount: number });
+export interface MemberFeedResponse {
+  version: string;
+  items: MemberFeedItem[];
   nextCursor: string | null;
 }
 

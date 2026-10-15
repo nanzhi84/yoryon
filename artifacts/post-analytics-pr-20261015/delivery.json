@@ -1,0 +1,58 @@
+{
+  "verifiedAt": "2026-10-15T02:48:47.849259+00:00",
+  "pullRequest": "https://github.com/nanzhi84/yoryon/pull/30",
+  "state": "MERGED",
+  "mergeCommit": "14982a7ad0af60096adb321a399d12a23244472f",
+  "review": "artifacts/post-analytics-pr-20261015/code-review.md",
+  "acceptance": "artifacts/post-analytics-20261015/independent-acceptance.md",
+  "productionDeploymentUnchanged": true,
+  "productionBefore": [
+    {
+      "uid": "dpl_7hrW2u4SNqZPidXxzi9CafUSzTET",
+      "created": 1791997379791,
+      "state": "READY",
+      "target": "production",
+      "url": "yoryon-b12c0r2fj-zyy2740738166-7111s-projects.vercel.app",
+      "commit": "7124e919511e27c97c9a6417a92097aae5a1ce3a"
+    }
+  ],
+  "productionAfter": [
+    {
+      "uid": "dpl_7hrW2u4SNqZPidXxzi9CafUSzTET",
+      "created": 1791997379791,
+      "state": "READY",
+      "target": "production",
+      "url": "yoryon-b12c0r2fj-zyy2740738166-7111s-projects.vercel.app",
+      "commit": "7124e919511e27c97c9a6417a92097aae5a1ce3a"
+    }
+  ],
+  "productionDeploymentOrMigrationExecuted": false,
+  "localMainMatchesOrigin": true,
+  "deletedLocalAndRemoteBranches": [
+    {
+      "branch": "codex/post-feed-analytics",
+      "mergedPr": 30,
+      "reviewedHead": "4ce389553072380cfaa0bac5043a37a73696f6b7"
+    },
+    {
+      "branch": "codex/issue-26-collections",
+      "mergedPr": 29,
+      "reviewedHead": "70117bdc64e61ed05f258dcc5c6b3f91f145974a"
+    },
+    {
+      "branch": "codex/issue-27-visitors",
+      "mergedPr": 28,
+      "reviewedHead": "c068f9139b39a4bbfea72fa2870b9648561f8cf5"
+    }
+  ],
+  "remoteDeletion": "atomic push with per-ref expected SHA leases",
+  "preservedRemoteBranch": "codex/issue-26-layout-reference",
+  "preservedExistingUntrackedDirectories": [
+    "artifacts/collection-design-20261015/",
+    "artifacts/delivery-20261015/"
+  ],
+  "oldManagedWorktree": "archive requested through app, queued without completion receipt; detached at c068f91 to release branch, data retained",
+  "localBranches": [
+    "main"
+  ]
+}

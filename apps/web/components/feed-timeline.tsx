@@ -9,7 +9,7 @@ import { formatDate } from "@/lib/date";
 import { PostAnalytics } from "./post-analytics";
 
 /** 信息流内容条目：标题 + 日期 / 封面 + 简介 / 类型 + 标签，点进详情。 */
-function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem; showPinnedBadge?: boolean }) {
+export function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem; showPinnedBadge?: boolean }) {
   const Tracking = item.type === "post" ? PostAnalytics : ArticleAnalytics;
   return (
     <Tracking id={item.id}>
@@ -58,8 +58,8 @@ function ArticleAnalytics({ id, children }: { id: string; children: React.ReactN
   return <TrackImpression targetKind="work" targetId={id}>{children}</TrackImpression>;
 }
 
-/** 合集条目：仅用于 /c 合集列表页（首页 feed 不混入合集）。 */
-export function CollectionEntry({ item }: { item: CollectionListItem }) {
+/** 合集条目：用于合集列表和会员发现目录（首页 feed 不混入合集）。 */
+export function CollectionEntry({ item }: { item: CollectionListItem & { paidItemCount?: number } }) {
   return (
     <TrackImpression targetKind="collection" targetId={item.id}>
       <article className="group py-6">
@@ -78,8 +78,8 @@ export function CollectionEntry({ item }: { item: CollectionListItem }) {
         </TrackClickLink>}
       </div>
       <div className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
-        <span>合集 · {item.itemCount} 篇内容</span>
-        {item.isPinned && <Badge variant="secondary">置顶</Badge>}
+        <span>{item.paidItemCount === undefined ? `合集 · ${item.itemCount} 篇内容` : `合集 · 共 ${item.itemCount} 篇 · ${item.paidItemCount} 篇会员`}</span>
+        {item.paidItemCount === undefined && item.isPinned && <Badge variant="secondary">置顶</Badge>}
       </div>
       </article>
     </TrackImpression>

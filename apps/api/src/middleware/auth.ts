@@ -31,7 +31,7 @@ export function authMiddleware(db: Database) {
     // 评论/回复列表与定位是公开只读接口（GET/HEAD，Hono 会把 HEAD 分派给 GET handler 且 method 仍为 HEAD；写路径不在此列）。
     const path = c.req.path;
     const publicLine =
-      /^\/api\/(?:public\/|feed$|paid-feed$|tags$|tags\/|collections$|sitemap$|cache\/|analytics\/events$)/.test(path) ||
+      /^\/api\/(?:public\/|feed$|paid-feed$|member-feed$|tags$|tags\/|collections$|sitemap$|cache\/|analytics\/events$)/.test(path) ||
       ((c.req.method === "GET" || c.req.method === "HEAD") &&
         /^\/api\/(?:contents\/[^/]+\/comments)$/.test(path));
     if (publicLine) { await next(); return; }

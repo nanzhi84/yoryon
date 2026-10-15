@@ -1,0 +1,45 @@
+{
+  "verified_at": "2026-10-14T19:26:16.136197+00:00",
+  "repository": "nanzhi84/yoryon",
+  "pull_requests": [
+    {
+      "number": 28,
+      "issue": 27,
+      "state": "MERGED",
+      "issue_state": "CLOSED",
+      "merge_commit": "8b447bb7c5c39f8c925c814e8bb85f7787297dba"
+    },
+    {
+      "number": 29,
+      "issue": 26,
+      "state": "MERGED",
+      "issue_state": "CLOSED",
+      "merge_commit": "6cba90a8450d1d0ce16814b6a8d7d17cdbc80e88"
+    }
+  ],
+  "local_branch": "main",
+  "local_and_origin_commit": "6cba90a8450d1d0ce16814b6a8d7d17cdbc80e88",
+  "production_deployment_unchanged": true,
+  "production_deployment": {
+    "uid": "dpl_7hrW2u4SNqZPidXxzi9CafUSzTET",
+    "created": 1791997379791,
+    "state": "READY",
+    "target": "production",
+    "url": "yoryon-b12c0r2fj-zyy2740738166-7111s-projects.vercel.app",
+    "commit": "7124e919511e27c97c9a6417a92097aae5a1ce3a"
+  },
+  "production_writes_or_migrations_performed": false,
+  "main_git_deployment_enabled": false,
+  "acceptance_reports": [
+    "artifacts/issue-27-20261015/independent-review.md",
+    "artifacts/issue-26-20261015/independent-acceptance.md"
+  ],
+  "verification_commands": [
+    "gh pr view 28 --repo nanzhi84/yoryon --json url,state,mergedAt,mergeCommit",
+    "gh pr view 29 --repo nanzhi84/yoryon --json url,state,mergedAt,mergeCommit",
+    "gh issue view 26 --repo nanzhi84/yoryon --json number,state,closedAt",
+    "gh issue view 27 --repo nanzhi84/yoryon --json number,state,closedAt",
+    "vercel api '/v6/deployments?projectId=prj_xqDwJzlRrfdQA63FIMeIsRpReaRP&teamId=team_QZe9hRamSsGyB0AEDzsHIb5v&target=production&limit=1' --method GET | jq '[.deployments[]|{uid,created,state,target,url,commit:.meta.githubCommitSha}]'",
+    "git rev-parse HEAD origin/main"
+  ]
+}
