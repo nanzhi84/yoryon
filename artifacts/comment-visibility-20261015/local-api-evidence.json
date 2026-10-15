@@ -1,0 +1,236 @@
+[
+  {
+    "label": "anonymous context",
+    "status": 200,
+    "cache": "private, no-store",
+    "data": {
+      "authenticated": false,
+      "canInteract": false,
+      "me": null
+    }
+  },
+  {
+    "label": "user A context",
+    "status": 200,
+    "cache": "private, no-store",
+    "data": {
+      "authenticated": true,
+      "canInteract": true,
+      "me": {
+        "id": "86dbd866-2deb-4fff-9841-7930cf2c7933",
+        "username": "u0",
+        "role": "user"
+      }
+    }
+  },
+  {
+    "label": "user B context",
+    "status": 200,
+    "cache": "private, no-store",
+    "data": {
+      "authenticated": true,
+      "canInteract": true,
+      "me": {
+        "id": "1d5a8fbe-acd1-4b86-bfc8-17a3e7a740da",
+        "username": "u1",
+        "role": "user"
+      }
+    }
+  },
+  {
+    "label": "A creates empty root",
+    "status": 200,
+    "cache": "private, no-store",
+    "data": {
+      "id": "967e1321-cf4d-442c-bf84-4da37a57e4a1",
+      "parentId": null,
+      "createdAt": "2026-10-15T12:03:36.067Z",
+      "author": {
+        "username": "u0",
+        "displayName": "u0",
+        "avatarUrl": null
+      }
+    }
+  },
+  {
+    "label": "B cannot delete A root",
+    "status": 403,
+    "cache": "private, no-store",
+    "data": {
+      "error": {
+        "code": "forbidden",
+        "message": "只能删除自己的评论"
+      }
+    }
+  },
+  {
+    "label": "anonymous cannot delete",
+    "status": 401,
+    "cache": "private, no-store",
+    "data": {
+      "error": {
+        "code": "unauthorized",
+        "message": "需要登录"
+      }
+    }
+  },
+  {
+    "label": "A deletes root",
+    "status": 200,
+    "cache": "private, no-store",
+    "data": {
+      "ok": true
+    }
+  },
+  {
+    "label": "empty deleted root hidden",
+    "status": 200,
+    "cache": "public, max-age=0, must-revalidate",
+    "data": {
+      "items": [],
+      "total": 0,
+      "nextCursor": null
+    }
+  },
+  {
+    "label": "A creates thread",
+    "status": 200,
+    "cache": "private, no-store",
+    "data": {
+      "id": "aca560a4-28bf-4611-bf2c-6035042115aa",
+      "parentId": null,
+      "createdAt": "2026-10-15T12:03:36.093Z",
+      "author": {
+        "username": "u0",
+        "displayName": "u0",
+        "avatarUrl": null
+      }
+    }
+  },
+  {
+    "label": "B replies",
+    "status": 200,
+    "cache": "private, no-store",
+    "data": {
+      "id": "dcddecf7-066e-4bfa-82dd-19caecac913d",
+      "parentId": "aca560a4-28bf-4611-bf2c-6035042115aa",
+      "createdAt": "2026-10-15T12:03:36.099Z",
+      "author": {
+        "username": "u1",
+        "displayName": "u1",
+        "avatarUrl": null
+      }
+    }
+  },
+  {
+    "label": "A deletes threaded root",
+    "status": 200,
+    "cache": "private, no-store",
+    "data": {
+      "ok": true
+    }
+  },
+  {
+    "label": "threaded deleted root retained",
+    "status": 200,
+    "cache": "public, max-age=0, must-revalidate",
+    "data": {
+      "items": [
+        {
+          "id": "aca560a4-28bf-4611-bf2c-6035042115aa",
+          "deleted": true,
+          "body": null,
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:03:36.093Z",
+          "author": null,
+          "replyCount": 1
+        }
+      ],
+      "total": 1,
+      "nextCursor": null
+    }
+  },
+  {
+    "label": "reply accessible",
+    "status": 200,
+    "cache": "private, no-store",
+    "data": {
+      "items": [
+        {
+          "id": "dcddecf7-066e-4bfa-82dd-19caecac913d",
+          "parentId": "aca560a4-28bf-4611-bf2c-6035042115aa",
+          "deleted": false,
+          "body": "reply remains",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:03:36.099Z",
+          "author": {
+            "username": "u1",
+            "displayName": "u1",
+            "avatarUrl": null
+          },
+          "replyTo": {
+            "id": "aca560a4-28bf-4611-bf2c-6035042115aa",
+            "username": null
+          }
+        }
+      ],
+      "nextCursor": null
+    }
+  },
+  {
+    "label": "B likes reply",
+    "status": 200,
+    "cache": "private, no-store",
+    "data": {
+      "ok": true,
+      "likeCount": 1
+    }
+  },
+  {
+    "label": "A liked empty",
+    "status": 200,
+    "cache": "private, no-store",
+    "data": {
+      "liked": []
+    }
+  },
+  {
+    "label": "B liked own",
+    "status": 200,
+    "cache": "private, no-store",
+    "data": {
+      "liked": [
+        "dcddecf7-066e-4bfa-82dd-19caecac913d"
+      ]
+    }
+  },
+  {
+    "label": "anonymous liked empty",
+    "status": 200,
+    "cache": "private, no-store",
+    "data": {
+      "liked": []
+    }
+  },
+  {
+    "label": "other article independent",
+    "status": 200,
+    "cache": "public, max-age=0, must-revalidate",
+    "data": {
+      "items": [],
+      "total": 0,
+      "nextCursor": null
+    }
+  },
+  {
+    "label": "cross article reply rejected",
+    "status": 400,
+    "cache": "private, no-store",
+    "data": {
+      "error": {
+        "code": "reply_target_invalid",
+        "message": "回复目标无效或已删除"
+      }
+    }
+  }
+]

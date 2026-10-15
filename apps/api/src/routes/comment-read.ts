@@ -22,6 +22,12 @@ export async function loadAuthorMap(tx: Tx, ids: string[]) {
 export async function readRootPage(tx: Tx, target: Target, cursor: RootCursor | null) {
   const targetId = "contentId" in target ? target.contentId : target.questionId;
   const condition = "contentId" in target ? eq(comments.contentId, target.contentId) : eq(comments.questionId, target.questionId);
+  // 无回复的删除记录不构成讨论；有回复时保留根占位，避免整个线程丢失。
+  // 此处按回复是否存在判断，不随回复软删除改变根集合，保持根游标版本契约。
+  const visibleRoot = and(condition, isNull(comments.parentId), or(
+    isNull(comments.deletedAt),
+    sql`exists (select 1 from ${comments} as reply where reply.parent_id = ${comments.id})`,
+  ));
   const versionRows = "contentId" in target
     ? await tx.select({ version: commentFeedVersions.version }).from(commentFeedVersions).where(eq(commentFeedVersions.contentId, targetId))
     : await tx.select({ version: memberQuestions.discussionVersion }).from(memberQuestions).where(eq(memberQuestions.id, targetId));
@@ -29,10 +35,10 @@ export async function readRootPage(tx: Tx, target: Target, cursor: RootCursor | 
   if (cursor && cursor.contentId !== targetId) return { kind: "invalid_cursor" } as const;
   if (cursor && cursor.version !== version) return { kind: "cursor_stale" } as const;
   const keyset = cursor ? or(lt(comments.likeCount, cursor.l), and(eq(comments.likeCount, cursor.l), lt(comments.createdAt, cursor.t)), and(eq(comments.likeCount, cursor.l), eq(comments.createdAt, cursor.t), lt(comments.id, cursor.id))) as SQL : undefined;
-  const rows = await tx.select().from(comments).where(and(condition, isNull(comments.parentId), keyset)).orderBy(desc(comments.likeCount), desc(comments.createdAt), desc(comments.id)).limit(COMMENT_PAGE_SIZE + 1);
+  const rows = await tx.select().from(comments).where(and(visibleRoot, keyset)).orderBy(desc(comments.likeCount), desc(comments.createdAt), desc(comments.id)).limit(COMMENT_PAGE_SIZE + 1);
   const page = rows.slice(0, COMMENT_PAGE_SIZE);
   const [totalRows, replyRows, authors] = await Promise.all([
-    tx.select({ count: sql<number>`count(*)::int` }).from(comments).where(and(condition, isNull(comments.parentId))),
+    tx.select({ count: sql<number>`count(*)::int` }).from(comments).where(visibleRoot),
     page.length ? tx.select({ parentId: comments.parentId, count: sql<number>`count(*)::int` }).from(comments).where(inArray(comments.parentId, page.map(r => r.id))).groupBy(comments.parentId) : [],
     loadAuthorMap(tx, page.map(r => r.userId)),
   ]);

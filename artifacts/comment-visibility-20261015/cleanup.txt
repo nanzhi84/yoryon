@@ -1,0 +1,2 @@
+0
+API :4186 stopped; isolated database count=0

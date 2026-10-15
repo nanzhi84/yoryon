@@ -1,0 +1,378 @@
+{
+  "first": {
+    "status": 200,
+    "data": {
+      "items": [
+        {
+          "id": "22a2818b-dab3-459e-a042-5a676702fab1",
+          "deleted": false,
+          "body": "pagination 25",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:04:10.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "ea5d21fd-dfa4-457d-9e75-3474007f3b4c",
+          "deleted": false,
+          "body": "pagination 24",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:04:09.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "b0cf3acf-0539-4605-99bd-51d0494f9e31",
+          "deleted": false,
+          "body": "pagination 23",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:04:08.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "02df491b-f12f-40c0-a4b7-5c454d6edb1c",
+          "deleted": false,
+          "body": "pagination 22",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:04:07.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "18087866-8144-434d-ac37-7af177e6e736",
+          "deleted": false,
+          "body": "pagination 21",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:04:06.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "ece8515d-94d1-44d9-a48d-e7f3201bc7ae",
+          "deleted": false,
+          "body": "pagination 20",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:04:05.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "15d3b5be-bea7-4f10-a883-08e7922a21c1",
+          "deleted": false,
+          "body": "pagination 19",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:04:04.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "27370ff2-112c-4c06-9858-d7836193e16d",
+          "deleted": false,
+          "body": "pagination 18",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:04:03.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "b7b877a8-be3d-4fad-9358-f818d4ae0909",
+          "deleted": false,
+          "body": "pagination 17",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:04:02.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "accd6db4-8842-44b7-bb84-08b5c3dd2203",
+          "deleted": false,
+          "body": "pagination 16",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:04:01.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "c9f4a4a2-1f53-4cad-90df-47c660493600",
+          "deleted": false,
+          "body": "pagination 15",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:04:00.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "3a01f388-2a81-49cd-a0cd-051311c67696",
+          "deleted": false,
+          "body": "pagination 14",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:03:59.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "2d77aa35-1942-4f06-bb09-00018cf47a32",
+          "deleted": false,
+          "body": "pagination 13",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:03:58.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "09cc5ce6-8464-4550-b2d6-a6f9ce598f8b",
+          "deleted": false,
+          "body": "pagination 12",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:03:57.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "669f6745-e5c3-451c-b1fd-e1ff13470757",
+          "deleted": false,
+          "body": "pagination 11",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:03:56.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "3cd21e91-313c-4de2-9c03-29f597a5a916",
+          "deleted": false,
+          "body": "pagination 10",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:03:55.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "75fc33c8-669e-4c00-91ba-ce689b63895f",
+          "deleted": false,
+          "body": "pagination 9",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:03:54.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "25d2d4f5-f164-4204-af9b-a096a32ccfda",
+          "deleted": false,
+          "body": "pagination 8",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:03:53.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "007c2548-42b6-42c2-8695-0100eabacdac",
+          "deleted": false,
+          "body": "pagination 7",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:03:52.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "7bd9f7ec-9b6d-4138-bd3d-68923d095cb3",
+          "deleted": false,
+          "body": "pagination 6",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:03:51.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        }
+      ],
+      "total": 26,
+      "nextCursor": "eyJsIjowLCJ0IjoiMjAyNi0xMC0xNVQxMjowMzo1MS4wMDRaIiwiaWQiOiI3YmQ5ZjdlYy05YjZkLTQxMzgtYmQzZC02ODkyM2QwOTVjYjMiLCJjb250ZW50SWQiOiJlNTJiMzcwOC0xMDgzLTQxMTQtOTEwZS0zNzBlNzQwNTVhMDQiLCJ2ZXJzaW9uIjoiMjkifQ"
+    }
+  },
+  "second": {
+    "status": 200,
+    "data": {
+      "items": [
+        {
+          "id": "919a6102-2d0d-458a-bdc5-c344820f4296",
+          "deleted": false,
+          "body": "pagination 5",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:03:50.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "6bed2336-4123-40c6-82a8-8b08618c4344",
+          "deleted": false,
+          "body": "pagination 4",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:03:49.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "608a1882-77c3-4000-90c1-c6bfd093b6bd",
+          "deleted": false,
+          "body": "pagination 3",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:03:48.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "81c50882-9362-4624-99cf-a663a93fd187",
+          "deleted": false,
+          "body": "pagination 2",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:03:47.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "8d232d19-3f87-4790-9ab2-d70f0bfcf796",
+          "deleted": false,
+          "body": "pagination 1",
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:03:46.004Z",
+          "author": {
+            "username": "u0",
+            "displayName": "u0",
+            "avatarUrl": null
+          },
+          "replyCount": 0
+        },
+        {
+          "id": "aca560a4-28bf-4611-bf2c-6035042115aa",
+          "deleted": true,
+          "body": null,
+          "likeCount": 0,
+          "createdAt": "2026-10-15T12:03:36.093Z",
+          "author": null,
+          "replyCount": 1
+        }
+      ],
+      "total": 26,
+      "nextCursor": null
+    }
+  },
+  "cross": {
+    "status": 400,
+    "data": {
+      "error": {
+        "code": "invalid_cursor",
+        "message": "分页游标无效"
+      }
+    }
+  },
+  "stale": {
+    "status": 409,
+    "data": {
+      "error": {
+        "code": "cursor_stale",
+        "message": "评论排序已更新，请重新加载"
+      }
+    }
+  },
+  "observation": {
+    "firstSize": 20,
+    "secondSize": 6,
+    "total": 26,
+    "unique": 26
+  }
+}
