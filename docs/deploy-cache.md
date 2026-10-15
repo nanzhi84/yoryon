@@ -25,7 +25,7 @@ sudo /opt/yoryon/blog cache retry
 
 ## 公开图片字节缓存（ADR-0011）
 
-`/api/images/v2/<mediaId>/<320|640|960|1280|original>` 的 Edge 门禁读取当前免费 exposure，匿名冷请求通过 API 获取私有 OSS 变体，不暴露签名 URL。PNG/JPEG/WebP 使用质量 72 的 WebP，SVG 保留矢量；GIF 由 API 的 sharp 转为保留全部帧、时序与循环的 WebP。合集列表和详情也使用该响应式分发。图片填充函数在 sin1。缓存规则变更须增加路径版本，宽度/查询参数不得任意扩展。
+`/api/images/v2/<mediaId>/<320|640|960|1280|original>` 的 Edge 门禁读取当前免费 exposure，匿名冷请求通过 API 获取私有 OSS 变体，不暴露签名 URL。PNG/JPEG/WebP/AVIF 使用质量 72 的 WebP，SVG 保留矢量；GIF 由 API 的 sharp 转为保留全部帧、时序与循环的 WebP。合集列表和详情也使用该响应式分发。图片填充函数在 sin1。缓存规则变更须增加路径版本，宽度/查询参数不得任意扩展。
 
 GIF 原文件保留在存储中，OSS 格式转换会丢失动画，因此只在 API 冷回源或授权媒体请求中处理。输入最多 20MiB、总像素 1600 万、500 帧；单进程同时处理一个 GIF，最多等待四个请求，等待和取流共享 12 秒截止时间，原生转码最长 5 秒。超限、损坏、取消与过载返回 no-store 错误，不降级静态图。会员 GIF 复用同一转码器并保持 private/no-store。
 

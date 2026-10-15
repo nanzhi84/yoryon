@@ -22,7 +22,7 @@ export function publicImageRoutes(deps: AppDeps, policy: PublicPolicy, gifVarian
     if (!validImageVariant(variant!) || new URL(c.req.url).search) return c.json({ error: "invalid_variant" }, 400);
     const image = await policy.image(id!);
     if (!image) return c.json({ error: "forbidden" }, 403);
-    const raster = ["image/png", "image/jpeg", "image/webp", "image/gif"].includes(image.mimeType);
+    const raster = ["image/png", "image/jpeg", "image/webp", "image/gif", "image/avif"].includes(image.mimeType);
     const width = raster && variant !== "original" ? Number(variant) : undefined;
     if (image.mimeType === "image/gif") {
       const data = await gifVariant(image.ossKey, width, c.req.raw.signal);
