@@ -25,7 +25,7 @@ FROM --platform=$BUILDPLATFORM node:24-bookworm-slim AS native
 RUN npm install --force --prefix /native --ignore-scripts --os=linux --cpu=x64 --no-audit --no-fund @img/sharp-linux-x64@0.34.5 @img/sharp-libvips-linux-x64@1.2.4
 
 FROM node:24-bookworm-slim
-ENV NODE_ENV=production MIGRATIONS_FOLDER=/app/drizzle
+ENV NODE_ENV=production MIGRATIONS_FOLDER=/app/drizzle MALLOC_ARENA_MAX=2
 WORKDIR /app
 COPY --from=build /out-api/node_modules ./node_modules
 COPY --from=build /app/apps/api/dist ./dist

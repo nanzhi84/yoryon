@@ -1,6 +1,11 @@
 import { serve } from "@hono/node-server";
 import { createApp } from "./app";
 import { createDeps } from "./deps";
+import sharp from "sharp";
+
+// The API has a 384 MiB production budget. Animated transforms must not retain
+// libvips' default cache after completion and crowd out later requests.
+sharp.cache({ memory: 8, files: 0, items: 32 });
 
 const deps = createDeps();
 const app = createApp(deps);

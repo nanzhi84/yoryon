@@ -3,8 +3,8 @@ import { IMAGE_WEBP_QUALITY } from "@yoryon/config/image-variants";
 import type { MediaStorage } from "@yoryon/core";
 import { ApiError } from "./errors";
 
-const MAX_BYTES = 20 * 1024 * 1024;
-const MAX_PIXELS = 16_000_000;
+const MAX_BYTES = 8 * 1024 * 1024;
+const MAX_PIXELS = 8_000_000;
 const MAX_FRAMES = 500;
 const DEADLINE_MS = 12_000;
 
@@ -44,7 +44,7 @@ export function createGifVariantReader(storage: MediaStorage, ttl: number) {
       }
       if (Number(source.headers.get("content-length")) > MAX_BYTES) {
         await source.body.cancel();
-        throw new ApiError(413, "image_too_large", "GIF 最大为 20MiB");
+        throw new ApiError(413, "image_too_large", "GIF 最大为 8MiB");
       }
       const chunks: Uint8Array[] = [];
       let size = 0;
@@ -54,7 +54,7 @@ export function createGifVariantReader(storage: MediaStorage, ttl: number) {
           const { value, done } = await reader.read();
           if (done) break;
           size += value.byteLength;
-          if (size > MAX_BYTES) throw new ApiError(413, "image_too_large", "GIF 最大为 20MiB");
+          if (size > MAX_BYTES) throw new ApiError(413, "image_too_large", "GIF 最大为 8MiB");
           chunks.push(value);
         }
       } finally {
@@ -62,7 +62,9 @@ export function createGifVariantReader(storage: MediaStorage, ttl: number) {
         reader.releaseLock();
       }
       signal.throwIfAborted();
-      const image = sharp(Buffer.concat(chunks, size), { animated: true, limitInputPixels: MAX_PIXELS, failOn: "error" });
+      const input = Buffer.concat(chunks, size);
+      chunks.length = 0;
+      const image = sharp(input, { animated: true, limitInputPixels: MAX_PIXELS, failOn: "error" });
       try {
         const metadata = await image.metadata();
         const pages = metadata.pages ?? 1;
@@ -80,6 +82,7 @@ export function createGifVariantReader(storage: MediaStorage, ttl: number) {
         return output;
       } catch (error) {
         if (error instanceof ApiError || signal.aborted) throw error;
+        if (error instanceof Error && /pixel limit/i.test(error.message)) throw new ApiError(413, "image_too_large", "GIF 超过总像素限制");
         if (error instanceof Error && /timeout|timed out/i.test(error.message)) throw new ApiError(503, "image_timeout", "图片处理超时，请稍后重试");
         throw new ApiError(422, "invalid_image", "GIF 无法解码");
       } finally { image.destroy(); }
