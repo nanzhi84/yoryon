@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ArrowUpRight } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { RedeemClient } from "@/components/redeem-client";
 import { BackButton } from "@/components/back-button";
@@ -30,6 +31,7 @@ export default async function RedeemPage({ searchParams }: { searchParams: Promi
             className="inline-flex min-h-9 items-center font-semibold text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             购买激活码（在新标签页打开）
+            <ArrowUpRight className="ml-1 size-3.5 shrink-0" aria-hidden="true" />
           </a>
         </div>} />
       </main>
