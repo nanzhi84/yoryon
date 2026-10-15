@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { FileText } from "lucide-react";
 import Link from "next/link";
 import { safeReturnTo } from "@/lib/navigation";
 import { useRouter } from "next/navigation";
@@ -23,7 +24,7 @@ function formatRange(e: EntitlementItem): string {
 }
 
 /** 激活码兑换 + 我的权益列表（极简，非个人中心）。 */
-export function RedeemClient({ returnTo }: { returnTo?: string | null }) {
+export function RedeemClient({ returnTo, purchaseHint }: { returnTo?: string | null; purchaseHint?: ReactNode }) {
   const target = safeReturnTo(returnTo);
   const router = useRouter();
   const [me, setMe] = useState<{ username: string; email: string } | null | undefined>(undefined);
@@ -83,25 +84,26 @@ export function RedeemClient({ returnTo }: { returnTo?: string | null }) {
     return (
       <div className="space-y-3">
         {message?.kind === "err" ? <p role="alert" className="text-sm text-red-500">{message.text} <button className="underline" onClick={() => { setMessage(null); void load().catch(() => setMessage({ kind: "err", text: "加载失败，请重试" })); }}>重试</button></p> : <><Skeleton className="h-9 w-full" /><Skeleton className="h-24 w-full" /></>}
+        {purchaseHint}
       </div>
     );
   }
 
   if (me === null) {
     return (
-      <p className="text-sm text-muted-foreground">
+      <div className="space-y-5"><p className="text-sm text-muted-foreground">
         请先 <Link prefetch={false} href={`/login?returnTo=${encodeURIComponent(`/redeem${target ? `?returnTo=${encodeURIComponent(target)}` : ""}`)}`} className="underline underline-offset-4">登录</Link> 后再兑换激活码。
-      </p>
+      </p>{purchaseHint}</div>
     );
   }
 
   return (
-    <div className="space-y-10">
+    <div>
       <form onSubmit={onRedeem} className="space-y-3">
         <label htmlFor="code" className="text-sm font-medium">激活码</label>
-        <div className="flex gap-2">
-          <Input id="code" placeholder="XXXX-XXXX-XXXX-XXXX" value={code} onChange={(e) => setCode(e.target.value.toUpperCase())} required />
-          <Button type="submit" disabled={loading}>{loading ? "兑换中…" : "兑换"}</Button>
+        <div className="flex gap-3">
+          <Input id="code" className="h-12 min-w-0 px-4 text-base shadow-none" placeholder="XXXX-XXXX-XXXX-XXXX" value={code} onChange={(e) => setCode(e.target.value.toUpperCase())} required />
+          <Button className="h-12 shrink-0 px-5 text-base sm:px-6" type="submit" disabled={loading}>{loading ? "兑换中…" : "兑换"}</Button>
         </div>
         {message && (
           <p role="alert" className={message.kind === "ok" ? "text-sm text-green-600 dark:text-green-400" : "text-sm text-red-500"}>
@@ -109,11 +111,16 @@ export function RedeemClient({ returnTo }: { returnTo?: string | null }) {
           </p>
         )}
       </form>
+      <div className="mt-5">{purchaseHint}</div>
 
-      <section>
-        <h2 className="text-base font-medium">我的权益</h2>
+      <section className="mt-8 border-t border-border pt-8">
+        <h2 className="text-xl font-semibold">我的权益</h2>
         {items.length === 0 ? (
-          <p className="mt-3 text-sm text-muted-foreground">暂无权益。</p>
+          <div className="px-2 pb-4 pt-8 text-center">
+            <FileText className="mx-auto mb-4 size-8 text-muted-foreground/60" strokeWidth={1.4} aria-hidden="true" />
+            <p className="text-sm font-medium">暂无权益</p>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">兑换成功后，你的订阅权益将显示在这里。</p>
+          </div>
         ) : (
           <ul className="mt-3 divide-y divide-border">
             {items.map((e) => (
