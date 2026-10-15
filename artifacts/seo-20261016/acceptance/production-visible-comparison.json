@@ -1,0 +1,92 @@
+[
+  {
+    "path": "/",
+    "sameVisibleMain": true,
+    "sameLinks": true,
+    "sameMedia": true
+  },
+  {
+    "path": "/posts",
+    "sameVisibleMain": true,
+    "sameLinks": true,
+    "sameMedia": true
+  },
+  {
+    "path": "/c",
+    "sameVisibleMain": true,
+    "sameLinks": true,
+    "sameMedia": true
+  },
+  {
+    "path": "/c/first-internship-diary",
+    "sameVisibleMain": true,
+    "sameLinks": true,
+    "sameMedia": true
+  },
+  {
+    "path": "/tags",
+    "sameVisibleMain": true,
+    "sameLinks": true,
+    "sameMedia": true
+  },
+  {
+    "path": "/tags/agents",
+    "sameVisibleMain": true,
+    "sameLinks": true,
+    "sameMedia": true
+  },
+  {
+    "path": "/p/deepseek-harness",
+    "sameVisibleMain": true,
+    "sameLinks": true,
+    "sameMedia": true
+  },
+  {
+    "path": "/search?q=agents",
+    "sameVisibleMain": true,
+    "sameLinks": true,
+    "sameMedia": true
+  },
+  {
+    "path": "/login",
+    "sameVisibleMain": true,
+    "sameLinks": true,
+    "sameMedia": true
+  },
+  {
+    "path": "/register",
+    "sameVisibleMain": true,
+    "sameLinks": true,
+    "sameMedia": true
+  },
+  {
+    "path": "/reset-password",
+    "sameVisibleMain": true,
+    "sameLinks": true,
+    "sameMedia": true
+  },
+  {
+    "path": "/redeem",
+    "sameVisibleMain": true,
+    "sameLinks": true,
+    "sameMedia": true
+  },
+  {
+    "path": "/notifications",
+    "sameVisibleMain": true,
+    "sameLinks": true,
+    "sameMedia": true
+  },
+  {
+    "path": "/settings/profile",
+    "sameVisibleMain": true,
+    "sameLinks": true,
+    "sameMedia": true
+  },
+  {
+    "path": "/p/first-internship-day-42",
+    "sameVisibleMain": true,
+    "sameLinks": true,
+    "sameMedia": true
+  }
+]

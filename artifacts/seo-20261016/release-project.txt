@@ -1,0 +1,20 @@
+Vercel CLI 54.14.5 (Node.js 24.20.0)
+Retrieving project…
+> Found Project zyy2740738166-7111s-projects/yoryon-web [932ms]
+
+  General
+
+    ID				prj_xqDwJzlRrfdQA63FIMeIsRpReaRP
+    Name			yoryon-web
+    Owner			zyy2740738166-7111's projects
+    Created At			12 October 2026 02:45:36 [4d ago]
+    Root Directory		apps/web
+    Node.js Version		24.x
+
+  Framework Settings
+
+    Framework Preset		Next.js
+    Build Command		pnpm run build
+    Output Directory		Next.js default
+    Install Command		corepack enable && pnpm install --frozen-lockfile
+

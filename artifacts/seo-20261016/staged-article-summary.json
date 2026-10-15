@@ -1,0 +1,45 @@
+{
+  "article": {
+    "@type": "Article",
+    "url": "https://yoryon.com/p/deepseek-harness",
+    "author": {
+      "@type": "Person",
+      "@id": "https://yoryon.com/#author",
+      "name": "Yoryon",
+      "url": "https://yoryon.com/"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://yoryon.com/p/deepseek-harness"
+    },
+    "isAccessibleForFree": true,
+    "datePublished": "2026-08-18T16:00:00.000Z",
+    "dateModified": null,
+    "isPartOf": []
+  },
+  "paid": {
+    "@type": "Article",
+    "url": "https://yoryon.com/p/first-internship-day-42",
+    "author": {
+      "@type": "Person",
+      "@id": "https://yoryon.com/#author",
+      "name": "Yoryon",
+      "url": "https://yoryon.com/"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://yoryon.com/p/first-internship-day-42"
+    },
+    "isAccessibleForFree": false,
+    "datePublished": "2026-09-20T00:00:00.000Z",
+    "dateModified": null,
+    "isPartOf": [
+      {
+        "@type": "CollectionPage",
+        "@id": "https://yoryon.com/c/first-internship-diary",
+        "url": "https://yoryon.com/c/first-internship-diary",
+        "name": "第一段AI PM实习日记"
+      }
+    ]
+  }
+}

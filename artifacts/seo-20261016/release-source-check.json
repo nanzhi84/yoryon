@@ -1,0 +1,86 @@
+[
+  {
+    "path": "apps/web/app/c/[slug]/page.tsx",
+    "match": true
+  },
+  {
+    "path": "apps/web/app/c/page.tsx",
+    "match": true
+  },
+  {
+    "path": "apps/web/app/layout.tsx",
+    "match": true
+  },
+  {
+    "path": "apps/web/app/login/page.tsx",
+    "match": true
+  },
+  {
+    "path": "apps/web/app/notifications/page.tsx",
+    "match": true
+  },
+  {
+    "path": "apps/web/app/page.tsx",
+    "match": true
+  },
+  {
+    "path": "apps/web/app/posts/page.tsx",
+    "match": true
+  },
+  {
+    "path": "apps/web/app/redeem/page.tsx",
+    "match": true
+  },
+  {
+    "path": "apps/web/app/register/page.tsx",
+    "match": true
+  },
+  {
+    "path": "apps/web/app/reset-password/page.tsx",
+    "match": true
+  },
+  {
+    "path": "apps/web/app/robots.ts",
+    "match": true
+  },
+  {
+    "path": "apps/web/app/search/page.tsx",
+    "match": true
+  },
+  {
+    "path": "apps/web/app/settings/profile/page.tsx",
+    "match": true
+  },
+  {
+    "path": "apps/web/app/sitemap.ts",
+    "match": true
+  },
+  {
+    "path": "apps/web/app/tags/[slug]/page.tsx",
+    "match": true
+  },
+  {
+    "path": "apps/web/app/tags/page.tsx",
+    "match": true
+  },
+  {
+    "path": "apps/web/components/content-document.tsx",
+    "match": true
+  },
+  {
+    "path": "apps/web/components/structured-data.tsx",
+    "match": true
+  },
+  {
+    "path": "apps/web/lib/seo-structured.ts",
+    "match": true
+  },
+  {
+    "path": "apps/web/lib/seo.ts",
+    "match": true
+  },
+  {
+    "path": "docs/seo.md",
+    "match": true
+  }
+]

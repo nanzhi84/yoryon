@@ -1,0 +1,37 @@
+{
+  "home": {
+    "canonical": [
+      "https://yoryon.com/"
+    ],
+    "meta": {
+      "description": "Yoryon 的个人博客：文章、图片、视频与音频。"
+    },
+    "schema_types": []
+  },
+  "collection": {
+    "canonical": [
+      "https://yoryon.com/c/first-internship-diary"
+    ],
+    "meta": {
+      "description": "记录我第一次的实习日常，包含从学校到工作中的感受和经验。 可以给未工作的小伙伴提供一个参考。 或者，也可以融合成为你经历的一部分。"
+    },
+    "schema_types": [
+      "CollectionPage"
+    ]
+  },
+  "login": {
+    "canonical": [],
+    "meta": {
+      "description": "Yoryon 的个人博客：文章、图片、视频与音频。",
+      "robots": "noindex, follow"
+    },
+    "schema_types": []
+  },
+  "sitemap": {
+    "count": 67,
+    "domains": [
+      "yoryon.com"
+    ],
+    "lastmod_count": 0
+  }
+}

@@ -40,6 +40,6 @@ pnpm --filter @yoryon/web exec next start -p 3216
 
 提交后从该提交的 git archive 创建干净发布目录，复制已确认项目的 `.vercel/project.json`，先以 Production 环境 `--skip-domain` 构建，再检验并 promote。不上传未提交工作区、隔离配置或受限素材；不发布 API/数据库变更。
 
-最终提交、暂存/正式部署、生产只读独立验收与回滚地址将在 release.md 记录。
+最终提交、暂存/正式部署、生产只读独立验收与回滚地址见 release.md；实现提交 052a9ee 已发布到 yoryon.com。正式 SEO HTML/API 独立验收 PASS，浏览器视觉/交互 UNVERIFIED。
 
 搜索引擎实际重新抓取、采用 canonical、去除旧收录及排名变化为 UNKNOWN，需要后续在搜索引擎管理平台观察；本次不声称已完成收录或提升排名。

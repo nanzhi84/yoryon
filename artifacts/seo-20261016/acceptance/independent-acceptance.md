@@ -105,4 +105,50 @@ curl -fsS 'http://localhost:3216/sitemap.xml'
 
 ## 生产部署后验收
 
-等待主 agent 完成 commit、push、部署后，独立匿名复查正式域名及与本次公开基线的可见内容/链接/媒体对比。
+主 agent 提交并推送 `052a9ee34cf3b801ed7da4b60c5021536ed79259`，暂存部署 `dpl_6VMUXN5jSQUa32yxvbRkPZTyno9J` READY 并 promote 后，本代理从正式域名重新独立执行匿名 GET。提交/远端/部署身份由主 agent 留回执，本代理独立核对的是正式站实际返回行为。
+
+共 22 个正式域名 HTML/robots/sitemap 路径，另读取 4 个公开 API 回执和 www 标签页。原始文件为 `production-*`，提取结果 `production-summary.json`，逐项核对 `production-contract-review.json`，内容比较 `production-visible-comparison.json`。没有生产业务写入、没有登录、没有发送邮件、没有读取会员全文。
+
+复现命令：
+
+```sh
+curl -fsS 'https://yoryon.com/?utm_source=seo'
+curl -fsS 'https://yoryon.com/posts?utm_source=seo'
+curl -fsS 'https://yoryon.com/c/first-internship-diary?utm_source=seo'
+curl -fsS 'https://yoryon.com/tags/agents?utm_source=seo'
+curl -fsS 'https://yoryon.com/p/deepseek-harness?utm_source=seo'
+curl -fsS 'https://yoryon.com/p/first-internship-day-42'
+curl -fsS 'https://yoryon.com/sitemap.xml'
+curl -fsS 'https://api.yoryon.com/api/sitemap'
+curl -fsS 'https://yoryon.com/api/collections/first-internship-diary'
+curl -fsS 'https://yoryon.com/api/contents/first-internship-day-42'
+curl -fsS 'https://yoryon.com/api/contents/deepseek-harness'
+curl -fsS 'https://www.yoryon.com/tags/agents?utm_source=seo'
+```
+
+搜索、登录、注册、重置密码、兑换、通知、资料页分别 GET `/search?q=agents`、`/login`、`/register`、`/reset-password`、`/redeem`、`/notifications`、`/settings/profile`。全部请求取得响应；通过结论来自下面的实际语义核对，不以状态码代替。
+
+- PASS：首页、帖子、合集、标签及其详情 canonical 均为 `https://yoryon.com` 对应干净地址；五类 UTM 样本均去参数；www 标签响应仍 200，但 canonical 正确指向无 www 正式地址。未改变 www 重定向行为。
+- PASS：指定 7 类功能页均输出 `noindex, follow`；正常公开页面未继承 noindex；robots 仍只禁止 `/api/`，sitemap 指向正式地址。
+- PASS：合集 SEO 摘要移除原有 `**` 和换行；原始公开 DTO 摘要逐字保持。公开文章 description 与 schema description 一致。
+- PASS：公开文章 Article 有作者 Yoryon、mainEntityOfPage 和真实发布时间；免费标识 true。会员 Day42 仍 paid/preview、匿名 bodyMarkdown 长度 0，schema 免费标识 false、关联实习合集，无正文字段；发布时间与 API 相同。最终 schema 不含粗粒度 dateModified。
+- PASS：正式合集 37 个章节，与上线前匿名 DTO 完全一致，仍 15 full / 22 preview。CollectionPage/ItemList 的 37 个标题、规范链接、顺序和免费标识逐项匹配现有目录，没有逐章读取受限正文。
+- PASS：正式 sitemap 共 67 个唯一 URL，全部正式 HTTPS 域名；地址集合恰等于真实 API 63 个动态地址加 4 个固定入口，无漏项/多项/重复；所有 lastmod 均省略，未出现功能页、跨域地址或内部渲染路由。
+- PASS：上线前后 15 个相同路径样本的 HTML main 可见文字、链接与媒体 src/srcset/alt/poster 提取值完全一致，包含首页、帖子、合集列表/详情、标签列表/详情、公开文章、会员文章及功能页。这是服务端 HTML 对比，不代替浏览器视觉。
+
+**生产验收结论：SEO HTML/API PASS；本地 SQL 与独立源码审查 PASS；真实浏览器视觉/交互 UNVERIFIED。** 未发现阻断问题。索引、排名和搜索引擎最终 canonical 选择仍需其后续实际抓取结果，未在本次声称通过。
+
+## 隔离资源清理
+
+保留回执后已完成清理。先用 lsof/ps 精确核对 4116 的本次 API PID 89396 及其专用 env/database 参数，再执行：
+
+```sh
+kill -TERM 89396
+docker exec deploy-postgres-1 dropdb -U postgres yoryon_seo_20261016
+```
+
+随后仅删除 `/tmp/yoryon-seo-20261016` 和本次数据库导入日志。独立复查 4116 无监听、专用库不存在、临时根目录不存在；原 `yoryon_page_redesign_20261013` 库与其 storage 仍在。主 agent 已停止本次 3216 Web。回执 `cleanup-receipt.json`。
+
+再次复现隔离验收时需先按本文克隆原隔离库、复制其 fs 存储，并重新生成权限 0600 的临时配置；API/Web 使用同一个新生成的 BFF 随机值，fs 签名随机值不少于 16 字节。数据库/端口/site/storage/禁用 SMTP 参数与本文一致，配置不得进入工件。公开生产只读检查可直接重复本文 curl 命令。
+
+本次未创建生产业务数据、未发送邮件，未清理源隔离环境或其他进程。

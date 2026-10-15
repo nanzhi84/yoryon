@@ -1,0 +1,22 @@
+{
+  "status": "ok",
+  "deployment": {
+    "id": "dpl_6VMUXN5jSQUa32yxvbRkPZTyno9J",
+    "url": "https://yoryon-kdt0nw3b5-zyy2740738166-7111s-projects.vercel.app",
+    "inspectorUrl": "https://vercel.com/zyy2740738166-7111s-projects/yoryon-web/6VMUXN5jSQUa32yxvbRkPZTyno9J",
+    "readyState": "INITIALIZING",
+    "target": "production",
+    "deploymentApiUrl": "https://api.vercel.com/v13/deployments/dpl_6VMUXN5jSQUa32yxvbRkPZTyno9J"
+  },
+  "message": "Deployment yoryon-kdt0nw3b5-zyy2740738166-7111s-projects.vercel.app ready.",
+  "next": [
+    {
+      "command": "vercel inspect yoryon-kdt0nw3b5-zyy2740738166-7111s-projects.vercel.app --cwd /tmp/yoryon-seo-release-E3UJVa",
+      "when": "Inspect deployment"
+    },
+    {
+      "command": "vercel deploy --prod --cwd /tmp/yoryon-seo-release-E3UJVa",
+      "when": "Promote to production"
+    }
+  ]
+}
