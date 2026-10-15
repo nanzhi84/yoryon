@@ -1,0 +1,203 @@
+{
+  "phase": "before-release-public-inventory",
+  "checkedAtUtc": "2026-10-15T13:22:29.426102+00:00",
+  "pages": [
+    {
+      "count": 20,
+      "version": "ecadd86b-0c12-4470-8eeb-e59c95aedd30"
+    },
+    {
+      "count": 5,
+      "version": "ecadd86b-0c12-4470-8eeb-e59c95aedd30"
+    }
+  ],
+  "total": 25,
+  "types": {
+    "article": 9,
+    "post": 16
+  },
+  "versionsStable": true,
+  "articleCover": {
+    "present": 4,
+    "missing": 5
+  },
+  "postMediaCount": 0,
+  "postMediaSlugs": [],
+  "postCollapsedSlugs": [],
+  "allItemSlugs": [
+    {
+      "slug": "freedom-before-wealth",
+      "type": "article",
+      "cover": false
+    },
+    {
+      "slug": "note-2026-09-27-1",
+      "type": "post",
+      "cover": false
+    },
+    {
+      "slug": "note-2026-09-20-1",
+      "type": "post",
+      "cover": false
+    },
+    {
+      "slug": "jev-typed-decisions",
+      "type": "article",
+      "cover": false
+    },
+    {
+      "slug": "note-2026-09-09-1",
+      "type": "post",
+      "cover": false
+    },
+    {
+      "slug": "note-2026-09-08-1",
+      "type": "post",
+      "cover": false
+    },
+    {
+      "slug": "note-2026-09-05-1",
+      "type": "post",
+      "cover": false
+    },
+    {
+      "slug": "note-2026-08-24-1",
+      "type": "post",
+      "cover": false
+    },
+    {
+      "slug": "deepseek-harness",
+      "type": "article",
+      "cover": false
+    },
+    {
+      "slug": "workflow-to-agent-patterns",
+      "type": "article",
+      "cover": false
+    },
+    {
+      "slug": "note-2026-08-04-1",
+      "type": "post",
+      "cover": false
+    },
+    {
+      "slug": "note-2026-07-24-1",
+      "type": "post",
+      "cover": false
+    },
+    {
+      "slug": "note-2026-07-23-1",
+      "type": "post",
+      "cover": false
+    },
+    {
+      "slug": "note-2026-05-24-1",
+      "type": "post",
+      "cover": false
+    },
+    {
+      "slug": "economics-principles-overall",
+      "type": "article",
+      "cover": true
+    },
+    {
+      "slug": "economics-principles-interaction",
+      "type": "article",
+      "cover": true
+    },
+    {
+      "slug": "economics-principles-decision",
+      "type": "article",
+      "cover": true
+    },
+    {
+      "slug": "note-2026-05-02-1",
+      "type": "post",
+      "cover": false
+    },
+    {
+      "slug": "buffett-casino-church",
+      "type": "article",
+      "cover": true
+    },
+    {
+      "slug": "note-2026-04-27-1",
+      "type": "post",
+      "cover": false
+    },
+    {
+      "slug": "note-2026-04-24-2",
+      "type": "post",
+      "cover": false
+    },
+    {
+      "slug": "note-2026-04-24-1",
+      "type": "post",
+      "cover": false
+    },
+    {
+      "slug": "note-2026-04-21-1",
+      "type": "post",
+      "cover": false
+    },
+    {
+      "slug": "note-2026-04-20-1",
+      "type": "post",
+      "cover": false
+    },
+    {
+      "slug": "meritocracy-and-pain",
+      "type": "article",
+      "cover": false
+    }
+  ],
+  "collections": [
+    {
+      "slug": "first-internship-diary",
+      "title": "第一段AI PM实习日记",
+      "itemCount": 37,
+      "types": {
+        "article": 37
+      },
+      "chapterSlugs": [
+        "first-internship-day-01",
+        "first-internship-day-02",
+        "first-internship-day-03",
+        "first-internship-day-04",
+        "first-internship-day-05",
+        "first-internship-day-06-07",
+        "first-internship-day-08",
+        "first-internship-day-09",
+        "first-internship-day-10",
+        "first-internship-day-11",
+        "first-internship-day-12",
+        "first-internship-day-13-14",
+        "first-internship-day-15",
+        "first-internship-day-16",
+        "first-internship-day-17",
+        "first-internship-day-18",
+        "first-internship-day-19",
+        "first-internship-day-20-21",
+        "first-internship-day-22",
+        "first-internship-day-23",
+        "first-internship-day-24",
+        "first-internship-day-25",
+        "first-internship-day-26",
+        "first-internship-day-27-28",
+        "first-internship-day-29",
+        "first-internship-day-30",
+        "first-internship-day-31",
+        "first-internship-day-32",
+        "first-internship-day-33",
+        "first-internship-day-34-35",
+        "first-internship-day-36",
+        "first-internship-day-37",
+        "first-internship-day-38",
+        "first-internship-day-39",
+        "first-internship-day-40",
+        "first-internship-day-41",
+        "first-internship-day-42"
+      ]
+    }
+  ]
+}

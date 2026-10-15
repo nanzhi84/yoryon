@@ -1,0 +1,30 @@
+{
+  "/health": {
+    "status": 200,
+    "body": {
+      "ok": true
+    }
+  },
+  "/api/feed": {
+    "status": 200,
+    "body": {
+      "version": "ecadd86b-0c12-4470-8eeb-e59c95aedd30",
+      "types": [
+        "article"
+      ],
+      "count": 9,
+      "nextCursor": null
+    }
+  },
+  "/api/post-feed": {
+    "status": 200,
+    "body": {
+      "version": "ecadd86b-0c12-4470-8eeb-e59c95aedd30",
+      "types": [
+        "post"
+      ],
+      "count": 16,
+      "nextCursor": null
+    }
+  }
+}

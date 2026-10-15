@@ -1,0 +1,95 @@
+{
+  "checkedAtUtc": "2026-10-15T13:36:19.627724+00:00",
+  "phase": "backend-after-deployment-frontend-unconfirmed",
+  "reportedImage": "yoryon-api:a9880ef",
+  "reportedImageDigest": "sha256:114d36aafd3c8166d369384346580bfddee73c59fd67febe9e9874515f7f1466",
+  "feeds": {
+    "feed": {
+      "status": 200,
+      "version": "ecadd86b-0c12-4470-8eeb-e59c95aedd30",
+      "types": {
+        "article": 9
+      },
+      "count": 9,
+      "sameOrderedSlugsAsBaselineTypePartition": true,
+      "noDuplicate": true,
+      "nextCursor": null,
+      "cache": "public, max-age=0, must-revalidate"
+    },
+    "post-feed": {
+      "status": 200,
+      "version": "ecadd86b-0c12-4470-8eeb-e59c95aedd30",
+      "types": {
+        "post": 16
+      },
+      "count": 16,
+      "sameOrderedSlugsAsBaselineTypePartition": true,
+      "noDuplicate": true,
+      "nextCursor": null,
+      "cache": "public, max-age=0, must-revalidate",
+      "originalMediaFieldsPresent": true
+    }
+  },
+  "cursorErrors": {
+    "wrongTypeStatus": 400,
+    "invalidCursorStatus": 400,
+    "staleVersionStatus": 409
+  },
+  "collections": [
+    {
+      "slug": "first-internship-diary",
+      "status": 200,
+      "listCount": 37,
+      "directoryCount": 37,
+      "allArticle": true,
+      "sameChapterSlugsAsBaseline": true,
+      "privateCache": "private, no-store"
+    }
+  ],
+  "chapterNavigation": [
+    {
+      "slug": "first-internship-day-01",
+      "status": 200,
+      "chapter": "first-internship-day-01",
+      "previous": null,
+      "next": "first-internship-day-02",
+      "neighborsBelongToArticleDirectory": true
+    },
+    {
+      "slug": "first-internship-day-42",
+      "status": 200,
+      "chapter": "first-internship-day-42",
+      "previous": "first-internship-day-41",
+      "next": null,
+      "neighborsBelongToArticleDirectory": true
+    }
+  ],
+  "publicCoverBytes": [
+    {
+      "kind": "article",
+      "mediaId": "dc52ff09-4a00-410e-ae72-5285f66e4568",
+      "policyStatus": 200,
+      "originalStatus": 200,
+      "originalBytes": 889068,
+      "originalSha256": "f5e44cf891e80748ad3a47bfd3503aba1667a2eca630d7ca6361c582540f8a15",
+      "sourceContentAddressedHashMatch": true,
+      "variantStatus": 200,
+      "variantBytes": 1914,
+      "variantContentType": "image/webp",
+      "variantSha256": "06fcba8ebf486322179da1b9a5a8581a207fae85dbd80a206b7aaa0710a790ca"
+    },
+    {
+      "kind": "collection",
+      "mediaId": "679b4413-fb20-4507-add0-07718284dc52",
+      "policyStatus": 200,
+      "originalStatus": 200,
+      "originalBytes": 2262509,
+      "originalSha256": "af683bf037e1421ad6ed02a4685a34df5bcafee56587834cbd4bf3976f4a787d",
+      "sourceContentAddressedHashMatch": true,
+      "variantStatus": 200,
+      "variantBytes": 21558,
+      "variantContentType": "image/webp",
+      "variantSha256": "70bcd82af40af4eb9c8b232cb626bbdc89671257cf957e34adc1475ba7d2beb9"
+    }
+  ]
+}

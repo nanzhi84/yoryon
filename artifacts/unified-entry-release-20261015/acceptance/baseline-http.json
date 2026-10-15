@@ -1,0 +1,138 @@
+{
+  "checkedAtUtc": "2026-10-15T13:21:33.459324+00:00",
+  "phase": "before-release",
+  "targets": {
+    "https://yoryon.com/": {
+      "status": 200,
+      "bytes": 156367,
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8",
+        "Date": "Thu, 15 Oct 2026 13:21:34 GMT",
+        "Server": "Vercel",
+        "X-Vercel-Cache": "MISS",
+        "X-Vercel-Id": "sin1::sin1::dh4sp-1792070493798-87a225a09eb5"
+      },
+      "hasPostsNavigation": false,
+      "hasDownChevron": true
+    },
+    "https://yoryon.com/posts": {
+      "status": 404,
+      "bytes": 16351,
+      "headers": {
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8",
+        "Date": "Thu, 15 Oct 2026 13:21:35 GMT",
+        "Server": "Vercel",
+        "X-Vercel-Cache": "MISS",
+        "X-Vercel-Id": "sin1::ds5l8-1792070495414-8775aed31cf1"
+      },
+      "hasPostsNavigation": false,
+      "hasDownChevron": true
+    },
+    "https://yoryon.com/c": {
+      "status": 200,
+      "bytes": 29337,
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8",
+        "Date": "Thu, 15 Oct 2026 13:21:36 GMT",
+        "Server": "Vercel",
+        "X-Vercel-Cache": "MISS",
+        "X-Vercel-Id": "sin1::sin1::plzwq-1792070496308-2557af5519f3"
+      },
+      "hasPostsNavigation": false,
+      "hasDownChevron": true
+    },
+    "https://api.yoryon.com/api/feed": {
+      "status": 200,
+      "bytes": 23127,
+      "headers": {
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Thu, 15 Oct 2026 13:21:37 GMT"
+      },
+      "version": "ecadd86b-0c12-4470-8eeb-e59c95aedd30",
+      "error": null,
+      "itemCount": 20,
+      "types": {
+        "article": 8,
+        "post": 12
+      },
+      "hasNextCursor": true,
+      "samples": [
+        {
+          "slug": "freedom-before-wealth",
+          "title": "先自由后财富",
+          "type": "article",
+          "coverMediaId": null,
+          "itemCount": null
+        },
+        {
+          "slug": "note-2026-09-27-1",
+          "title": "",
+          "type": "post",
+          "coverMediaId": null,
+          "itemCount": null
+        },
+        {
+          "slug": "note-2026-09-20-1",
+          "title": "",
+          "type": "post",
+          "coverMediaId": null,
+          "itemCount": null
+        },
+        {
+          "slug": "jev-typed-decisions",
+          "title": "Jev 技术图解：从文本生成到类型化决策",
+          "type": "article",
+          "coverMediaId": null,
+          "itemCount": null
+        }
+      ]
+    },
+    "https://api.yoryon.com/api/post-feed": {
+      "status": 404,
+      "bytes": 58,
+      "headers": {
+        "Cache-Control": "private, no-store",
+        "Content-Type": "application/json",
+        "Date": "Thu, 15 Oct 2026 13:21:37 GMT"
+      },
+      "version": null,
+      "error": {
+        "code": "not_found",
+        "message": "接口不存在"
+      },
+      "itemCount": 0,
+      "types": {},
+      "hasNextCursor": false,
+      "samples": []
+    },
+    "https://api.yoryon.com/api/collections": {
+      "status": 200,
+      "bytes": 640,
+      "headers": {
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        "Content-Type": "application/json",
+        "Date": "Thu, 15 Oct 2026 13:21:38 GMT"
+      },
+      "version": "ecadd86b-0c12-4470-8eeb-e59c95aedd30",
+      "error": null,
+      "itemCount": 1,
+      "types": {
+        "collection": 1
+      },
+      "hasNextCursor": false,
+      "samples": [
+        {
+          "slug": "first-internship-diary",
+          "title": "第一段AI PM实习日记",
+          "type": null,
+          "coverMediaId": "679b4413-fb20-4507-add0-07718284dc52",
+          "itemCount": 37
+        }
+      ]
+    }
+  }
+}

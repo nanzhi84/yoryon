@@ -1,0 +1,15 @@
+{
+  "api": {
+    "source": "docker logs --since 20m yoryon-api-1, JSON level/status scan",
+    "counts": {
+      "info": 157
+    },
+    "errorCount": 0
+  },
+  "vercel": {
+    "deploymentId": "dpl_HdAvHJMqg8nWETjXJP1BPoa3vbwE",
+    "query": "level=error since=15m limit=50 no-branch",
+    "returnedJsonRows": 0,
+    "diagnostic": "Vercel CLI 54.14.5 (Node.js 24.20.0)\nResolving deployment \"dpl_HdAvHJMqg8nWETjXJP1BPoa3vbwE\"\nFetching project \"prj_xqDwJzlRrfdQA63FIMeIsRpReaRP\"\nFetching logs..."
+  }
+}

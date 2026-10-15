@@ -1,0 +1,29 @@
+{
+  "contextName": "zyy2740738166-7111s-projects",
+  "deployments": [
+    {
+      "url": "yoryon-dvpybzfv4-zyy2740738166-7111s-projects.vercel.app",
+      "name": "yoryon-web",
+      "state": "READY",
+      "target": "production",
+      "createdAt": 1792071537404,
+      "buildingAt": 1792071538453,
+      "ready": 1792071594577,
+      "creator": {
+        "uid": "C8xNJVyWqAf44xMvhRGppSs8",
+        "username": "zyy2740738166-7111"
+      },
+      "meta": {
+        "githubCommitSha": "a9880ef7f3ce4cd407ce1f96467f285c0686d8b6",
+        "githubCommitRef": "main",
+        "actor": "codex",
+        "lambdaRuntimeStats": "{\"nodejs\":5}"
+      }
+    }
+  ],
+  "pagination": {
+    "count": 1,
+    "next": null,
+    "prev": 1792071537404
+  }
+}

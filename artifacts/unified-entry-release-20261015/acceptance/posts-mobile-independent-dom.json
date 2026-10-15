@@ -1,0 +1,25 @@
+{
+  "entries": 16,
+  "nav": [
+    {
+      "text": "首页",
+      "width": 44
+    },
+    {
+      "text": "帖子",
+      "width": 44
+    },
+    {
+      "text": "合集",
+      "width": 44
+    },
+    {
+      "text": "订阅 ",
+      "width": 48
+    }
+  ],
+  "overflow": false,
+  "scrollWidth": 390,
+  "url": "https://yoryon.com/posts",
+  "width": 390
+}

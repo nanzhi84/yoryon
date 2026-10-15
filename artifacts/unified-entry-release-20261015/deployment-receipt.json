@@ -1,0 +1,22 @@
+{
+  "codeCommit": "a9880ef7f3ce4cd407ce1f96467f285c0686d8b6",
+  "originRef": "refs/heads/main",
+  "deploymentId": "dpl_HdAvHJMqg8nWETjXJP1BPoa3vbwE",
+  "deploymentUrl": "https://yoryon-dvpybzfv4-zyy2740738166-7111s-projects.vercel.app",
+  "productionUrl": "https://yoryon.com",
+  "target": "production",
+  "status": "READY",
+  "framework": "Next.js 15.5.27",
+  "vercelBuildSeconds": 56.124,
+  "apiImage": "yoryon-api:a9880ef",
+  "apiImageDigest": "sha256:114d36aafd3c8166d369384346580bfddee73c59fd67febe9e9874515f7f1466",
+  "apiPlatform": "linux/amd64",
+  "apiHealth": "healthy",
+  "apiRestarts": 0,
+  "previousApiImage": "yoryon-api:b0bdd76",
+  "previousProductionDeployment": "https://yoryon-opknnvsy8-zyy2740738166-7111s-projects.vercel.app",
+  "databaseMigration": "none",
+  "acceptance": "PASS for available production samples; uncovered cases in acceptance/report.md",
+  "drains": "UNVERIFIED; unchanged",
+  "monitoring": "bounded post-deploy error scan only; no recurring monitor created"
+}
