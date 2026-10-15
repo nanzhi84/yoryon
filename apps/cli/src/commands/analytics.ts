@@ -4,7 +4,7 @@
  * 每次输出都打印明确的窗口范围。聚合直接 SQL GROUP BY 原始事件表。
  */
 import type { Command } from "commander";
-import { and, eq, gte, inArray, lt, sql } from "drizzle-orm";
+import { and, eq, gte, inArray, isNull, lt, ne, or, sql } from "drizzle-orm";
 import { analyticsEvents, collections, contents } from "@yoryon/db";
 import { closeContext, getContext } from "../context";
 import { printVisitorSessions, printVisitorSummary } from "./analytics-visitors";
@@ -47,7 +47,11 @@ async function aggregate(w: Window): Promise<TargetMetrics[]> {
       n: sql<number>`count(*)::int`,
     })
     .from(analyticsEvents)
-    .where(and(gte(analyticsEvents.receivedAt, w.from), lt(analyticsEvents.receivedAt, w.to)))
+    .leftJoin(contents, and(eq(analyticsEvents.targetKind, "work"), eq(analyticsEvents.targetId, contents.id)))
+    .where(and(gte(analyticsEvents.receivedAt, w.from), lt(analyticsEvents.receivedAt, w.to),
+      or(isNull(contents.type), ne(contents.type, "post"), and(
+        eq(analyticsEvents.placement, "home_feed"), inArray(analyticsEvents.eventType, ["impression", "read"]),
+      ))))
     .groupBy(analyticsEvents.targetKind, analyticsEvents.targetId, analyticsEvents.eventType);
 
   const byKey = new Map<string, TargetMetrics>();
@@ -109,17 +113,18 @@ function printRows(metrics: TargetMetrics[], meta: Map<string, TargetMeta>) {
       m.targetKind === "work" ? `work/${t.type ?? "?"}` : "collection",
       t.slug,
       String(m.impressions),
-      String(m.clicks),
-      fmtRate(m.clicks, m.impressions),
-      String(m.views),
+      t.type === "post" ? "N/A" : String(m.clicks),
+      t.type === "post" ? "N/A" : fmtRate(m.clicks, m.impressions),
+      t.type === "post" ? "N/A" : String(m.views),
       String(m.reads),
-      fmtRate(m.reads, m.views),
+      fmtRate(m.reads, t.type === "post" ? m.impressions : m.views),
     ];
   });
   const widths = header.map((h, i) => Math.max(h.length, ...rows.map((r) => r[i]!.length)));
   const line = (cols: string[]) => cols.map((c, i) => c.padEnd(widths[i]!)).join("  ");
   console.log(line(header));
   for (const r of rows) console.log(line(r));
+  console.log("read_rate：帖子为 reads/impressions（首页5秒或展开）；文章为 reads/views（详情10秒）。合集沿用流程口径。");
 }
 
 export function registerAnalyticsCommands(program: Command) {
@@ -134,8 +139,11 @@ export function registerAnalyticsCommands(program: Command) {
         const w = parseWindow(opts.days);
         const metrics = await aggregate(w);
         console.log(windowLine(w));
-        for (const kind of ["work", "collection"] as const) {
-          const group = metrics.filter((m) => m.targetKind === kind);
+        const meta = await resolveMeta(metrics);
+        for (const kind of ["post", "article", "collection", "deleted-work"] as const) {
+          const group = metrics.filter(m => kind === "collection" ? m.targetKind === "collection"
+            : m.targetKind === "work" && (kind === "deleted-work" ? !metaOf(meta, m).type : metaOf(meta, m).type === kind));
+          if (kind === "deleted-work" && !group.length) continue;
           const sum = group.reduce(
             (acc, m) => ({
               impressions: acc.impressions + m.impressions,
@@ -147,9 +155,10 @@ export function registerAnalyticsCommands(program: Command) {
           );
           console.log(
             `\n[${kind}] targets=${group.length} impressions=${sum.impressions} clicks=${sum.clicks} ` +
-              `ctr=${fmtRate(sum.clicks, sum.impressions)} views=${sum.views} reads=${sum.reads} read_rate=${fmtRate(sum.reads, sum.views)}`,
+              `ctr=${kind === "post" ? "N/A" : fmtRate(sum.clicks, sum.impressions)} views=${kind === "post" ? "N/A" : sum.views} reads=${sum.reads} read_rate=${fmtRate(sum.reads, kind === "post" ? sum.impressions : sum.views)}`,
           );
         }
+        console.log("帖子read_rate=reads/impressions，文章及合集read_rate=reads/views；已删除作品无法还原内容类型，单列且保留历史原口径。");
         await printVisitorSummary(w);
       } finally {
         await closeContext();
@@ -193,6 +202,10 @@ export function registerAnalyticsCommands(program: Command) {
 
         const w = parseWindow(opts.days);
         let metrics = await aggregate(w);
+        if (["clicks", "views", "ctr"].includes(opts.metric)) {
+          const meta = await resolveMeta(metrics);
+          metrics = metrics.filter(m => metaOf(meta, m).type !== "post");
+        }
         if (opts.metric === "ctr") {
           metrics = metrics.filter((m) => m.impressions >= minImpressions);
           metrics.sort((a, b) => b.clicks / b.impressions - a.clicks / a.impressions);

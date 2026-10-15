@@ -86,7 +86,7 @@ export function ContentInteractions({ ids, children }: { ids: string[]; children
   return <Context.Provider value={{ items, authenticated, error, refresh, startWrite, finishWrite }}>{children}</Context.Provider>;
 }
 
-export function ContentActions({ id, slug }: { id: string; slug: string }) {
+export function ContentActions({ id, slug, trackClicks = true }: { id: string; slug: string; trackClicks?: boolean }) {
   const context = useContext(Context);
   if (!context) throw new Error("ContentActions requires ContentInteractions");
   const row = context.items[id];
@@ -142,7 +142,7 @@ export function ContentActions({ id, slug }: { id: string; slug: string }) {
   const actionClass = "inline-flex min-h-11 items-center gap-1.5 rounded-sm text-[13px] leading-5 transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-40";
   return <div className="mt-1">
     <div className="flex items-center justify-between text-muted-foreground" aria-label="内容互动">
-      <TrackClickLink native targetKind="work" targetId={id} href={`${href}#comments`} className={actionClass} aria-label={`评论${row ? `，${row.commentCount}条` : ""}`}>
+      <TrackClickLink native enabled={trackClicks} targetKind="work" targetId={id} href={`${href}#comments`} className={actionClass} aria-label={`评论${row ? `，${row.commentCount}条` : ""}`}>
         <MessageCircle className="size-[17px]" strokeWidth={1.7} aria-hidden="true" /><span>{row?.commentCount || "评论"}</span>
       </TrackClickLink>
       <button type="button" className={`${actionClass} ${row?.liked ? "text-primary" : ""}`} onClick={() => void like()} disabled={!row || pending}

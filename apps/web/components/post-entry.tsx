@@ -3,8 +3,10 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 import type { ContentDetail, FeedContentItem } from "@/lib/types";
 import { currentBrowsePath, readBrowse, writeBrowse } from "@/lib/browse-memory";
 import { MarkdownSurface } from "./markdown-surface";
+import { usePostRead } from "./post-analytics";
 
 export function PostEntry({ item }: { item: FeedContentItem }) {
+  const read = usePostRead();
   const [expanded, setExpanded] = useState<ContentDetail | null>(null);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -38,7 +40,7 @@ export function PostEntry({ item }: { item: FeedContentItem }) {
   }, [open, item.post]);
   async function expand() {
     if (active.current) return;
-    if (localUnfold) { rememberOpen(true); setOpen(true); return; }
+    if (localUnfold) { rememberOpen(true); setOpen(true); read?.(); return; }
     const controller = new AbortController(); active.current = controller;
     setLoading(true); setError(false);
     try {
@@ -46,7 +48,7 @@ export function PostEntry({ item }: { item: FeedContentItem }) {
       if (!response.ok) throw new Error("post unavailable");
       const data = await response.json() as ContentDetail;
       if (data.type !== "post" || data.id !== item.id || typeof data.bodyMarkdown !== "string" || !Array.isArray(data.media)) throw new Error("content changed");
-      if (!controller.signal.aborted) { setExpanded(data); setOpen(true); }
+      if (!controller.signal.aborted) { setExpanded(data); setOpen(true); read?.(); }
     } catch { if (!controller.signal.aborted) setError(true); }
     finally { if (active.current === controller) { active.current = null; if (!controller.signal.aborted) setLoading(false); } }
   }
