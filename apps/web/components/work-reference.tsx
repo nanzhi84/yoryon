@@ -43,7 +43,6 @@ export function WorkReference({ id }: { id: string }) {
       <span className="text-xs text-muted-foreground">引用{card.type === "article" ? "长文" : "帖子"}{card.visibility === "paid" ? " · 付费预览" : ""}</span>
       {card.title && <p className="mt-1 font-medium">{card.title}</p>}
       <p className="mt-2 whitespace-pre-wrap break-words text-sm">{card.summary || card.description || "查看作品"}</p>
-      {card.coverMediaId && <img src={publicImageUrl(card.coverMediaId)} alt="引用作品封面" loading="lazy" className="mt-3 max-h-40 rounded-lg" />}
     </Link>}
     {card?.media && card.media.mediaId !== card.coverMediaId && (card.media.mimeType.startsWith("image/")
       ? <MarkdownImage src={publicImageUrl(card.media.mediaId, card.media.mimeType === "image/svg+xml" ? "original" : 1280)} alt="引用帖子的图片预览" loading="lazy" className="mt-3 max-h-48 rounded-lg" />
