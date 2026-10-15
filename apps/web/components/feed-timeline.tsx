@@ -75,7 +75,7 @@ export function CollectionEntry({ item }: { item: CollectionListItem & { paidIte
       <div className="mt-2 flex items-start gap-4">
         <div className="min-w-0 flex-1">{item.description && <CollectionDescription description={item.description} className="line-clamp-3" />}</div>
         {item.coverMediaId && <TrackClickLink targetKind="collection" targetId={item.id} href={`/c/${item.slug}`} aria-label={`查看合集：${item.title}`} className="block w-28 shrink-0 sm:w-36">
-          <div className="aspect-[4/3] overflow-hidden rounded-lg bg-muted"><img src={`/api/media/${item.coverMediaId}`} alt={item.title} loading="lazy" className="h-full w-full object-cover" /></div>
+          <div className="aspect-square overflow-hidden rounded-lg bg-muted"><img src={`/api/media/${item.coverMediaId}`} alt={item.title} loading="lazy" className="h-full w-full object-cover" /></div>
         </TrackClickLink>}
       </div>
       <div className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">

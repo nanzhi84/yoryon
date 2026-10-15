@@ -71,7 +71,7 @@ export function CollectionReader({ initial }: { initial: CollectionDetail }) {
           <h1 className="mt-2 text-3xl font-semibold leading-tight">{collection.title}</h1>
           {collection.description && <CollectionDescription description={collection.description} className="mt-3" />}
         </div>
-        {collection.coverMediaId && <div className="w-24 shrink-0 sm:w-36"><div className="aspect-[4/3] overflow-hidden rounded-lg bg-muted"><img src={`/api/media/${collection.coverMediaId}`} alt={collection.title} className="h-full w-full object-cover" /></div></div>}
+        {collection.coverMediaId && <div className="w-24 shrink-0 sm:w-36"><div className="aspect-square overflow-hidden rounded-lg bg-muted"><img src={`/api/media/${collection.coverMediaId}`} alt={collection.title} className="h-full w-full object-cover" /></div></div>}
       </div>
       <p className="mt-3 text-xs text-muted-foreground"><time dateTime={collection.updatedAt}>更新于 {formatDate(collection.updatedAt)}</time></p>
       {start && <div className="mt-5 flex min-h-11 flex-wrap items-center gap-3">
