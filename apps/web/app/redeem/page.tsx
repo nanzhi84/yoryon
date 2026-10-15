@@ -11,8 +11,8 @@ export default async function RedeemPage({ searchParams }: { searchParams: Promi
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-[600px] pb-12 pt-6 sm:pt-8">
-        <div className="mb-5"><BackButton fallback={returnTo ?? "/subscription"} /></div>
+      <main className="pb-12 pt-5">
+        <BackButton fallback={returnTo ?? "/subscription"} />
         <h1 className="text-[28px] font-semibold tracking-tight sm:text-3xl">兑换激活码</h1>
         <div className="mt-5 flex items-center gap-4 text-base">
           <span>标准订阅</span>

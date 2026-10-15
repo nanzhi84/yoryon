@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { BackLink } from "./back-link";
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, Lock } from "lucide-react";
+import { ArrowRight, Lock } from "lucide-react";
 import type { CollectionDetail } from "@/lib/types";
 import { formatDate } from "@/lib/date";
 import { collectionPositionKey, readCollectionPosition } from "@/lib/collection-memory";
@@ -64,7 +65,7 @@ export function CollectionReader({ initial }: { initial: CollectionDetail }) {
   const ordered = reverse ? [...collection.items].reverse() : collection.items;
   return <main className="py-5">
     <DetailTracker targetKind="collection" targetId={collection.id} readEnabled={false} />
-    <Link prefetch={false} href="/c" className="inline-flex min-h-11 items-center gap-2 text-sm text-primary hover:underline"><ArrowLeft className="size-4" />返回合集</Link>
+    <BackLink href="/c">返回合集</BackLink>
     <header className="mt-3">
       <div className="flex items-start gap-5">
         <div className="min-w-0 flex-1">
