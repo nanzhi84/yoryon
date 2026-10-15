@@ -10,7 +10,7 @@ import { collectionPositionKey, readCollectionPosition } from "@/lib/collection-
 import { DetailTracker } from "./analytics";
 import { chapterHref, useCollectionFlow, useCollectionTime } from "./collection-flow";
 import { CollectionDescription } from "./collection-description";
-import { imageSrcSet, publicImageUrl } from "@yoryon/config/image-variants";
+import { EntryCover } from "./entry-cover";
 
 export function CollectionReader({ initial }: { initial: CollectionDetail }) {
   const [collection, setCollection] = useState(initial);
@@ -73,7 +73,7 @@ export function CollectionReader({ initial }: { initial: CollectionDetail }) {
           <h1 className="mt-2 text-3xl font-semibold leading-tight">{collection.title}</h1>
           {collection.description && <CollectionDescription description={collection.description} className="mt-3" />}
         </div>
-        {collection.coverMediaId && <div className="w-24 shrink-0 sm:w-36"><div className="aspect-square overflow-hidden rounded-lg bg-muted"><img src={publicImageUrl(collection.coverMediaId)} srcSet={imageSrcSet(collection.coverMediaId, undefined, true)} sizes="(min-width: 640px) 144px, 96px" alt={collection.title} decoding="async" className="h-full w-full object-cover" /></div></div>}
+        <div className="w-22 shrink-0 sm:w-28"><EntryCover mediaId={collection.coverMediaId} title={collection.title} /></div>
       </div>
       <p className="mt-3 text-xs text-muted-foreground"><time dateTime={collection.updatedAt}>更新于 {formatDate(collection.updatedAt)}</time></p>
       {start && <div className="mt-5 flex min-h-11 flex-wrap items-center gap-3">

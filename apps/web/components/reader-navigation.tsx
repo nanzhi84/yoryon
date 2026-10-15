@@ -22,9 +22,9 @@ export function useReaderHint() {
   return hint && pathname === `/p/${hint.slug}` ? hint : null;
 }
 
-export function ReaderLink({ item, className, children }: { item: FeedContentItem; className?: string; children: ReactNode }) {
+export function ReaderLink({ item, className, children, "aria-label": ariaLabel }: { item: FeedContentItem; className?: string; children: ReactNode; "aria-label"?: string }) {
   const { setHint } = useContext(ReaderContext);
-  return <TrackClickLink prefetchShell targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className={className ?? ""}
+  return <TrackClickLink prefetchShell targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className={className ?? ""} {...(ariaLabel ? { "aria-label": ariaLabel } : {})}
     onNavigate={() => {
       const result = readerLayoutSchema.safeParse(item.readerLayout);
       setHint({ slug: item.slug, title: item.title, publishedAt: item.publishedAt, layout: result.success ? result.data : [] });

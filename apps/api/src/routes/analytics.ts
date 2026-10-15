@@ -21,7 +21,7 @@ const eventSchema = z.object({
   eventType: z.enum(["impression", "click", "view", "read"]),
   targetKind: z.enum(["work", "collection"]),
   targetId: z.uuid(),
-  placement: z.enum(["home_feed", "collection_list"]).nullish(),
+  placement: z.enum(["home_feed", "post_feed", "collection_list"]).nullish(),
   pageViewId: z.uuid(),
   sessionId: z.uuid().nullish(),
   visitorId: z.uuid().nullish(),
@@ -35,10 +35,10 @@ const batchSchema = z.object({
 const MAX_BODY_BYTES = 32 * 1024;
 
 /**
- * 列表表面与 Target 的唯一对应（ADR-0007 §4）：首页 feed 只有 Work，合集只在 /c 列表曝光。
+ * 列表表面与 Target 的对应：首页只列文章，帖子有独立列表，合集只在 /c 列表曝光。
  * impression/click 的 placement 不一致 = 伪造/异常事件，静默丢弃（采集不是关键路径）。
  */
-const CANONICAL_PLACEMENT = { work: "home_feed", collection: "collection_list" } as const;
+const LIST_PLACEMENTS = { work: ["home_feed", "post_feed"], collection: ["collection_list"] } as const;
 
 export function analyticsRoutes(deps: AppDeps) {
   const app = new Hono<{ Variables: AppVariables }>();
@@ -70,13 +70,13 @@ export function analyticsRoutes(deps: AppDeps) {
     if (!parsed.success) return errorResponse(c, 400, "invalid_events", "事件格式不合法");
 
     // 语义归一：impression/click 必须声明列表来源且与 target kind 的唯一表面对应；
-    // 帖子列表read保留home_feed，其余详情view/read为null；随后按实际内容类型校验。
+    // 帖子列表read保留post_feed，其余详情view/read为null；随后按实际内容类型校验。
     const events = [];
     for (const e of parsed.data.events) {
       const normalized = { ...e, targetId: e.targetId.toLowerCase() };
       if (e.eventType === "impression" || e.eventType === "click") {
         if (!e.placement) return errorResponse(c, 400, "invalid_events", "impression/click 必须携带 placement");
-        if (e.placement !== CANONICAL_PLACEMENT[e.targetKind]) continue; // 跨表面事件静默丢弃
+        if (!(LIST_PLACEMENTS[e.targetKind] as readonly string[]).includes(e.placement)) continue; // 跨表面事件静默丢弃
         events.push({ ...normalized, placement: e.placement });
       } else {
         events.push({ ...normalized, placement: e.eventType === "read" ? e.placement ?? null : null });
@@ -104,8 +104,9 @@ export function analyticsRoutes(deps: AppDeps) {
       .filter((e) => validTargets.has(`${e.targetKind}:${e.targetId}`))
       .filter(e => {
         if (e.targetKind === "work" && workTypes.get(e.targetId) === "post") {
-          return (e.eventType === "impression" || e.eventType === "read") && e.placement === "home_feed";
+          return (e.eventType === "impression" || e.eventType === "read") && e.placement === "post_feed";
         }
+        if (e.eventType === "impression" || e.eventType === "click") return e.placement === (e.targetKind === "work" ? "home_feed" : "collection_list");
         return e.eventType !== "read" || e.placement === null;
       })
       .map((e) => ({

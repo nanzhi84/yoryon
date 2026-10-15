@@ -50,7 +50,7 @@ async function aggregate(w: Window): Promise<TargetMetrics[]> {
     .leftJoin(contents, and(eq(analyticsEvents.targetKind, "work"), eq(analyticsEvents.targetId, contents.id)))
     .where(and(gte(analyticsEvents.receivedAt, w.from), lt(analyticsEvents.receivedAt, w.to),
       or(isNull(contents.type), ne(contents.type, "post"), and(
-        eq(analyticsEvents.placement, "home_feed"), inArray(analyticsEvents.eventType, ["impression", "read"]),
+        inArray(analyticsEvents.placement, ["home_feed", "post_feed"]), inArray(analyticsEvents.eventType, ["impression", "read"]),
       ))))
     .groupBy(analyticsEvents.targetKind, analyticsEvents.targetId, analyticsEvents.eventType);
 

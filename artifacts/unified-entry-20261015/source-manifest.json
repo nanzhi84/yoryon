@@ -1,0 +1,147 @@
+{
+  "baseCommit": "750c494cf9bfb41ed282fbfac152aee3bf8b0759",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "c369ecbd331576dd33ab0e49fad626f29263dd757c0ff995b9afbeceabc70773"
+    },
+    {
+      "path": "apps/api/src/routes/analytics.ts",
+      "sha256": "ea777fb144852bd39623c58e7ab2743868c0132975a1e002efff4abaaee86d59"
+    },
+    {
+      "path": "apps/api/src/routes/collections.ts",
+      "sha256": "3e145ba90a496b56eae142784164a132e921e1d8c8595b3d075c8c5ca0815480"
+    },
+    {
+      "path": "apps/api/src/routes/content-navigation.ts",
+      "sha256": "c6752b184c456c6d4436aa67484d14e0eb2b8621b7528b6f2e03ae3361c711c7"
+    },
+    {
+      "path": "apps/api/src/routes/contents.ts",
+      "sha256": "fae86ea312901e3def7fcec6a5050f777e2e6ffe1eb7f3344761778a0cdc29fa"
+    },
+    {
+      "path": "apps/api/src/routes/member-feed.ts",
+      "sha256": "c80fc1b252d288cd139a72d6db415ef08ce6c48bdb4e02fb1272f00e92bdabd0"
+    },
+    {
+      "path": "apps/cli/src/commands/analytics.ts",
+      "sha256": "93f4a1c5168ec60aee42dfeb2996199059d5ce69eb3b42ceecc1c6f3e960ddc6"
+    },
+    {
+      "path": "apps/cli/src/commands/collection.ts",
+      "sha256": "5eae3200426167bb2be4b3819882a8c02f3d34cabe401e15bbb880e945b1e7f0"
+    },
+    {
+      "path": "apps/web/app/api/[...path]/route.ts",
+      "sha256": "8f254ab4d65a1c915c347082946e362a4fc10005a2e25b305c520f346db55f4f"
+    },
+    {
+      "path": "apps/web/app/api/pages/[version]/[source]/[cursor]/route.ts",
+      "sha256": "c1dee3e53bf721008363a02f789b070f079833bd5e34523ac33b7007e82924e9"
+    },
+    {
+      "path": "apps/web/app/page.tsx",
+      "sha256": "879f310d30a7c6842f8cb3d138472b02bd30385514f85066a61e17361d610ce6"
+    },
+    {
+      "path": "apps/web/app/posts/loading.tsx",
+      "sha256": "8b1407f16f0e5ccdf9d338d136c37d55f02ae503037c51dcd16b9071eee45b6c"
+    },
+    {
+      "path": "apps/web/app/posts/page.tsx",
+      "sha256": "97323866e2d0b5b1722c74bcabc3a08e3dc2ee230e123a67d07bb2522031de63"
+    },
+    {
+      "path": "apps/web/app/sitemap.ts",
+      "sha256": "d1347778b6307c5bcbb4038203ad589df93a2ca180ef755aa54eab147f2ee5ac"
+    },
+    {
+      "path": "apps/web/components/collection-reader.tsx",
+      "sha256": "fc8e902f2010c3d288dc5bb114915206fe0d9dd8b1d5b037baa08f2fba2a8424"
+    },
+    {
+      "path": "apps/web/components/entry-cover.tsx",
+      "sha256": "2a1468e56c74d6e220acbaa7cac4f7438eed8d082f5b4a512f582ce8e259e79b"
+    },
+    {
+      "path": "apps/web/components/feed-timeline.tsx",
+      "sha256": "1e71aaa9c58bd1def210f22d9e4e67e837dd0740d99fec1e2542ef33e46bce6c"
+    },
+    {
+      "path": "apps/web/components/load-more.tsx",
+      "sha256": "060e79a1190d436a3d65277dcb9261f604ea77d5c6668c85df6ec9f33238f95d"
+    },
+    {
+      "path": "apps/web/components/post-analytics.tsx",
+      "sha256": "d671e068d5743d2f4039bbeef30cfe822f7790caa81bcd2acb7fb97fa91009a3"
+    },
+    {
+      "path": "apps/web/components/reader-navigation.tsx",
+      "sha256": "bd8a42ed5e39b4368a4cb0e81351fb99264961531df676da98d1d5857268246e"
+    },
+    {
+      "path": "apps/web/components/site-header.tsx",
+      "sha256": "191884f182301ad4d69562f836fa071925b58ba0da3dbf85448346f17eb0b979"
+    },
+    {
+      "path": "apps/web/lib/analytics.ts",
+      "sha256": "19bd595f4b9c29bffb658fa03ae08a8d83f739d16841934e49137945e3a1df3d"
+    },
+    {
+      "path": "apps/web/lib/public-catalog.ts",
+      "sha256": "35fde4b47a7b09ec9b435b96d8dccb211d6c7b70d7a945552a32ba2f7d4c7fb7"
+    },
+    {
+      "path": "apps/web/lib/public-content.ts",
+      "sha256": "1bfdc3435d01dc299f644d95542182b16de736add6d265b4815fe89699181a1e"
+    },
+    {
+      "path": "apps/web/lib/types.ts",
+      "sha256": "873fbb7e9d4ef26478834f0bc8af60911e65c01542aa1bd46e8fe3cad22b7c82"
+    },
+    {
+      "path": "docs/adr/0014-post-article-references.md",
+      "sha256": "0a43df7be4266b7e55c48bddad6ff1c08b445fa5ec0188818404365e885da793"
+    },
+    {
+      "path": "docs/adr/0018-post-feed-analytics.md",
+      "sha256": "08776db0b1f7a18b1a451e6bdaa9cc6ecfe69e23e39e287d1e778960ba07230a"
+    },
+    {
+      "path": "docs/adr/0020-unified-entry-lists.md",
+      "sha256": "402e93dac98d54beb730d5f0302542a924b78114a92a7b70b0ea88a2cacf1bde"
+    },
+    {
+      "path": "docs/analytics.md",
+      "sha256": "0c3a67f531faaed3a7b8b2225ed9d39cbb6c73fc44c1b1065e911049f8ca9d84"
+    },
+    {
+      "path": "packages/core/src/publish.ts",
+      "sha256": "7ac1c183510bfba6a029965d75d77839505d8bf03502efd8b18e4e6ac11b52d7"
+    },
+    {
+      "path": "packages/db/src/schema-analytics.ts",
+      "sha256": "36960715aacdb09b10952d9ca5a3e4bf6848f2cfeb3210f4b7103a67fcc27a60"
+    }
+  ],
+  "preservedPostPaths": [
+    {
+      "path": "apps/web/components/post-entry.tsx",
+      "matchesHEAD": true
+    },
+    {
+      "path": "apps/web/components/markdown-surface.tsx",
+      "matchesHEAD": true
+    },
+    {
+      "path": "apps/api/src/routes/post-feed.ts",
+      "matchesHEAD": true
+    },
+    {
+      "path": "apps/web/app/globals.css",
+      "matchesHEAD": true
+    }
+  ]
+}

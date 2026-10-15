@@ -13,11 +13,11 @@
 
 | 指标 | 触发条件 | 适用对象 |
 | --- | --- | --- |
-| Impression | 列表卡片可视面积 ≥50%，连续可见 ≥1 秒，且页面处于前台；每个列表浏览实例对同一 Target 最多一次 | Work（首页 feed）、Collection（/c 列表） |
+| Impression | 列表卡片可视面积 ≥50%，连续可见 ≥1 秒，且页面处于前台；每个列表浏览实例对同一 Target 最多一次 | Work（文章首页／帖子列表）、Collection（/c 列表） |
 | Click | 用户主动点击列表卡片的标题或封面入口；预取与自动导航不计入；卡片内其他链接（标签等）不计入 | 文章、Collection |
 | View | 文章或合集详情页在浏览器真实展示（客户端 effect 执行）；每个详情页浏览实例最多一次；外部直达、刷新、客户端导航均计入；SSR / Prefetch 不产生 | Article、Collection |
 | Read（文章） | 授权完整正文在前台累计展示 ≥10 秒，后台暂停；每个详情浏览实例最多一次 | Article |
-| Read（帖子） | 首页卡片可视面积 ≥50% 时累计前台停留 ≥5 秒，滚出／后台暂停；主动成功展开正文立即满足。同一列表实例对同一帖子最多一次 | Post |
+| Read（帖子） | 帖子列表卡片可视面积 ≥50% 时累计前台停留 ≥5 秒，滚出／后台暂停；主动成功展开正文立即满足。同一列表实例对同一帖子最多一次 | Post |
 | Read（合集） | 目录与授权章节正文在同一流程累计前台展示 ≥10 秒，流程最多一次 | Collection |
 
 派生指标：
@@ -29,14 +29,15 @@
 
 ## 3. Placement（列表来源）
 
-首页 feed 是纯内容流（合集为顶层结构，只在 /c 列表曝光），因此列表事件按表面区分：
+首页只列文章，帖子单独在 /posts 展示，合集在 /c 展示。列表事件按表面区分：
 
 | placement | 表面 | Target |
 | --- | --- | --- |
-| `home_feed` | 首页 `/`（含"加载更多"追加的条目） | Work |
+| `home_feed` | 首页 `/`（含自动追加分页） | Article |
+| `post_feed` | 帖子 `/posts`（含自动追加分页） | Post |
 | `collection_list` | 合集列表 `/c` | Collection |
 
-CTR 只在同一 placement 内计算；ingest 在服务端强制 placement 与 Target kind 的唯一对应（work ↔ home_feed、collection ↔ collection_list），不一致的事件静默丢弃，因此单 Target 的 CTR 无歧义。标签页等其他表面不采集 impression/click（无 Provider），其入口点击不混入 CTR。
+CTR 只在同一 placement 内计算；ingest 在服务端强制 placement 与 Target kind 的唯一对应（article ↔ home_feed、post ↔ post_feed、collection ↔ collection_list），不一致的事件静默丢弃，因此单 Target 的 CTR 无歧义。标签页等其他表面不采集 impression/click（无 Provider），其入口点击不混入 CTR。
 
 ## 4. 事件合同
 
@@ -48,7 +49,7 @@ POST /api/analytics/events        （经同源 BFF；批量，单批 ≤ 20 条�
     "eventType": "impression" | "click" | "view" | "read",
     "targetKind": "work" | "collection",
     "targetId":  uuid,
-    "placement": "home_feed" | "collection_list" | null,   // impression/click 必填；帖子 read 为 home_feed；其他 view/read 为 null
+    "placement": "home_feed" | "post_feed" | "collection_list" | null,   // impression/click 必填；帖子 read 为 post_feed；其他 view/read 为 null
     "pageViewId": uuid,            // 浏览实例 id（列表实例 / 详情页实例）
     "sessionId":  uuid | null,     // 可选，sessionStorage 标签页会话，不做 30 分钟超时
     "visitorId":  uuid | null      // 可选，主机限定第一方 Cookie 的随机匿名浏览器身份
@@ -64,9 +65,11 @@ POST /api/analytics/events        （经同源 BFF；批量，单批 ≤ 20 条�
 服务端规则：
 
 - Zod 白名单校验；`received_at` 由服务端生成（`defaultNow()`），不信任客户端时钟。
-- 帖子仅接受 `impression/read + home_feed`；帖子 click/view、旧客户端详情 read（placement=null）丢弃。文章／合集 read 必须 placement=null。展开不新增事件类型。
+- 帖子仅接受 `impression/read + post_feed`；帖子 click/view、旧客户端详情 read（placement=null）丢弃。文章／合集 read 必须 placement=null。展开不新增事件类型。
 - 目标合法性在应用层校验：work 必须 `status='published'`，collection 必须存在。统计路径不读权益、不触碰付费内容。
 - 失败隔离：采集请求失败只触发一次有界重试（复用 event_id），随后丢弃，不阻塞内容展示、导航与媒体访问。
+
+2026-10-15 分流后，帖子沿用原来的五秒可见／主动展开 read 口径；read 仍表示有效停留，不能证明完读。CLI 仍统计历史 home_feed 与新 post_feed 的帖子 impression/read，不改写原始事件。新请求中帖子 home_feed 事件会被丢弃。
 
 ## 5. 存储与保留
 

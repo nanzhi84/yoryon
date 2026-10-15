@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "stoppedOwnPids": [
+    6536,
+    16281
+  ],
+  "ports3115And4215NoListeners": true,
+  "dedicatedContainerRemoved": true,
+  "dedicatedTmpRootRemoved": true,
+  "credentialsRemoved": true,
+  "privateEnvRemoved": true,
+  "fsAndTemporaryWorkspaceRemoved": true,
+  "original3000ListenerPreserved": true,
+  "ownBrowserTabClosed": true,
+  "browserNetworkAndViewportReset": true,
+  "productionDataModified": false,
+  "emailsSent": false
+}

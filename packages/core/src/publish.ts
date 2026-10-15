@@ -79,6 +79,7 @@ export async function parsePostDir(dir: string): Promise<ParsedPost> {
     throw new Error(`${indexPath}: 请将 frontmatter media 移到正文图片、::video 或 ::audio；不会静默忽略主媒体`);
   }
   const fm = frontmatterSchema.parse(data ?? {});
+  if (fm.type === "post" && fm.collections.length) throw new Error(`${indexPath}: 合集仅支持文章，请移除帖子的 collections 或将 type 改为 article`);
   if (fm.type === "article" && !fm.title) throw new Error(`${indexPath}: article 需要标题`);
   if (!m[2]!.trim()) throw new Error(`${indexPath}: 正文不能为空`);
   collectWorkReferences(parseMarkdown(m[2]!));

@@ -14,13 +14,13 @@ export { analyticsDisabled } from "./analytics-visitor";
 
 export type AnalyticsTargetKind = "work" | "collection";
 export type AnalyticsEventType = "impression" | "click" | "view" | "read";
-export type AnalyticsPlacement = "home_feed" | "collection_list";
+export type AnalyticsPlacement = "home_feed" | "post_feed" | "collection_list";
 
 export interface TrackInput {
   eventType: AnalyticsEventType;
   targetKind: AnalyticsTargetKind;
   targetId: string;
-  /** impression/click 必填；帖子信息流 read 为 home_feed，详情 view/read 不传 */
+  /** impression/click 必填；帖子列表 read 为 post_feed，详情 view/read 不传 */
   placement?: AnalyticsPlacement;
   /** 浏览实例 id：列表页由 AnalyticsListProvider 生成，详情页由 DetailTracker 生成 */
   pageViewId: string;

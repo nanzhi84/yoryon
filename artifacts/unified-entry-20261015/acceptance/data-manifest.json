@@ -1,0 +1,443 @@
+[
+  {
+    "slug": "accept-article-01",
+    "type": "article",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": true,
+    "sourceBytes": 618
+  },
+  {
+    "slug": "accept-article-02",
+    "type": "article",
+    "paid": true,
+    "cover": false,
+    "show_in_home": true,
+    "media": true,
+    "sourceBytes": 605
+  },
+  {
+    "slug": "accept-article-03",
+    "type": "article",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 543
+  },
+  {
+    "slug": "accept-article-04",
+    "type": "article",
+    "paid": false,
+    "cover": false,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 332
+  },
+  {
+    "slug": "accept-article-05",
+    "type": "article",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 438
+  },
+  {
+    "slug": "accept-article-06",
+    "type": "article",
+    "paid": false,
+    "cover": false,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 411
+  },
+  {
+    "slug": "accept-article-07",
+    "type": "article",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 438
+  },
+  {
+    "slug": "accept-article-08",
+    "type": "article",
+    "paid": false,
+    "cover": false,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 411
+  },
+  {
+    "slug": "accept-article-09",
+    "type": "article",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 438
+  },
+  {
+    "slug": "accept-article-10",
+    "type": "article",
+    "paid": false,
+    "cover": false,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 411
+  },
+  {
+    "slug": "accept-article-11",
+    "type": "article",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 438
+  },
+  {
+    "slug": "accept-article-12",
+    "type": "article",
+    "paid": false,
+    "cover": false,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 411
+  },
+  {
+    "slug": "accept-article-13",
+    "type": "article",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 438
+  },
+  {
+    "slug": "accept-article-14",
+    "type": "article",
+    "paid": false,
+    "cover": false,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 411
+  },
+  {
+    "slug": "accept-article-15",
+    "type": "article",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 438
+  },
+  {
+    "slug": "accept-article-16",
+    "type": "article",
+    "paid": false,
+    "cover": false,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 411
+  },
+  {
+    "slug": "accept-article-17",
+    "type": "article",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 438
+  },
+  {
+    "slug": "accept-article-18",
+    "type": "article",
+    "paid": false,
+    "cover": false,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 411
+  },
+  {
+    "slug": "accept-article-19",
+    "type": "article",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 438
+  },
+  {
+    "slug": "accept-article-20",
+    "type": "article",
+    "paid": false,
+    "cover": false,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 411
+  },
+  {
+    "slug": "accept-article-21",
+    "type": "article",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 438
+  },
+  {
+    "slug": "accept-article-22",
+    "type": "article",
+    "paid": false,
+    "cover": false,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 411
+  },
+  {
+    "slug": "accept-article-23",
+    "type": "article",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 438
+  },
+  {
+    "slug": "accept-article-24",
+    "type": "article",
+    "paid": false,
+    "cover": false,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 411
+  },
+  {
+    "slug": "accept-post-01",
+    "type": "post",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": true,
+    "sourceBytes": 527
+  },
+  {
+    "slug": "accept-post-02",
+    "type": "post",
+    "paid": true,
+    "cover": false,
+    "show_in_home": true,
+    "media": true,
+    "sourceBytes": 5316
+  },
+  {
+    "slug": "accept-post-03",
+    "type": "post",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 3106
+  },
+  {
+    "slug": "accept-post-04",
+    "type": "post",
+    "paid": false,
+    "cover": false,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 20092
+  },
+  {
+    "slug": "accept-post-05",
+    "type": "post",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 347
+  },
+  {
+    "slug": "accept-post-06",
+    "type": "post",
+    "paid": false,
+    "cover": false,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 320
+  },
+  {
+    "slug": "accept-post-07",
+    "type": "post",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 347
+  },
+  {
+    "slug": "accept-post-08",
+    "type": "post",
+    "paid": false,
+    "cover": false,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 320
+  },
+  {
+    "slug": "accept-post-09",
+    "type": "post",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 347
+  },
+  {
+    "slug": "accept-post-10",
+    "type": "post",
+    "paid": false,
+    "cover": false,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 320
+  },
+  {
+    "slug": "accept-post-11",
+    "type": "post",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 347
+  },
+  {
+    "slug": "accept-post-12",
+    "type": "post",
+    "paid": false,
+    "cover": false,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 320
+  },
+  {
+    "slug": "accept-post-13",
+    "type": "post",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 347
+  },
+  {
+    "slug": "accept-post-14",
+    "type": "post",
+    "paid": false,
+    "cover": false,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 320
+  },
+  {
+    "slug": "accept-post-15",
+    "type": "post",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 347
+  },
+  {
+    "slug": "accept-post-16",
+    "type": "post",
+    "paid": false,
+    "cover": false,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 320
+  },
+  {
+    "slug": "accept-post-17",
+    "type": "post",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 347
+  },
+  {
+    "slug": "accept-post-18",
+    "type": "post",
+    "paid": false,
+    "cover": false,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 320
+  },
+  {
+    "slug": "accept-post-19",
+    "type": "post",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 347
+  },
+  {
+    "slug": "accept-post-20",
+    "type": "post",
+    "paid": false,
+    "cover": false,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 320
+  },
+  {
+    "slug": "accept-post-21",
+    "type": "post",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 347
+  },
+  {
+    "slug": "accept-post-22",
+    "type": "post",
+    "paid": false,
+    "cover": false,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 320
+  },
+  {
+    "slug": "accept-post-23",
+    "type": "post",
+    "paid": false,
+    "cover": true,
+    "show_in_home": true,
+    "media": false,
+    "sourceBytes": 347
+  },
+  {
+    "slug": "accept-post-24",
+    "type": "post",
+    "paid": false,
+    "cover": false,
+    "show_in_home": true,
+    "media": true,
+    "sourceBytes": 207
+  },
+  {
+    "slug": "accept-post-25",
+    "type": "post",
+    "paid": false,
+    "cover": true,
+    "show_in_home": false,
+    "media": false,
+    "sourceBytes": 348
+  }
+]

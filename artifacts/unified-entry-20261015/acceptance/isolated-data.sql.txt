@@ -1,0 +1,15 @@
+  type   |  status   | visibility | show_in_home | count 
+---------+-----------+------------+--------------+-------
+ article | published | paid       | t            |     1
+ article | published | public     | t            |    23
+ post    | published | paid       | t            |     1
+ post    | published | public     | f            |     1
+ post    | published | public     | t            |    23
+(5 rows)
+
+       slug        | visibility | has_cover 
+-------------------+------------+-----------
+ accept-no-cover   | paid       | f
+ accept-with-cover | public     | t
+(2 rows)
+

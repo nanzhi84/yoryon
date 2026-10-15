@@ -1,0 +1,18 @@
+       slug        |  type   | count 
+-------------------+---------+-------
+ accept-no-cover   | article |     1
+ accept-no-cover   | post    |     1
+ accept-with-cover | article |     1
+ accept-with-cover | post    |     1
+(4 rows)
+
+  type   | event_type | placement | count 
+---------+------------+-----------+-------
+ article | click      | home_feed |     2
+ article | impression | home_feed |    17
+ article | read       |           |     2
+ article | view       |           |     3
+ post    | impression | post_feed |    17
+ post    | read       | post_feed |    13
+(6 rows)
+

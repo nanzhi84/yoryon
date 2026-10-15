@@ -19,7 +19,7 @@ export interface FeedContentItem {
   visibility: "public" | "paid";
   coverMediaId: string | null;
   publishedAt: string | null;
-  /** 首页置顶标记（仅 feed 排序使用；标签页同一合同但排序不置顶） */
+  /** 文章/帖子列表的置顶标记；标签页同一合同但排序不置顶。 */
   isPinned: boolean;
   tags: FeedTag[];
   post?: { bodyMarkdown: string; collapsed: boolean; media: Pick<ContentMediaItem, "mediaId" | "mimeType" | "width" | "height" | "durationSec">[] } | null;

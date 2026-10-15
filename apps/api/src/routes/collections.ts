@@ -25,7 +25,7 @@ export function collectionRoutes(deps: AppDeps, policy: PublicPolicy) {
       .orderBy(desc(collections.isPinned), desc(collections.updatedAt), asc(collections.id));
     const counts = rows.length ? await tx.select({ collectionId: collectionItems.collectionId, count: sql<number>`count(*)::int` })
       .from(collectionItems).innerJoin(contents, eq(contents.id, collectionItems.contentId))
-      .where(and(inArray(collectionItems.collectionId, rows.map(row => row.id)), eq(contents.status, "published"))).groupBy(collectionItems.collectionId) : [];
+      .where(and(inArray(collectionItems.collectionId, rows.map(row => row.id)), eq(contents.status, "published"), eq(contents.type, "article"))).groupBy(collectionItems.collectionId) : [];
     c.header("Cache-Control", "public, max-age=0, must-revalidate");
     return c.json({ version, items: rows.map(row => ({ ...row, updatedAt: row.updatedAt.toISOString(),
       itemCount: counts.find(count => count.collectionId === row.id)?.count ?? 0 })) });
@@ -38,7 +38,7 @@ export function collectionRoutes(deps: AppDeps, policy: PublicPolicy) {
       .leftJoin(mediaAssets, eq(collections.coverMediaId, mediaAssets.id)).where(eq(collections.slug, c.req.param("slug"))).limit(1);
     if (!collection) return errorResponse(c, 404, "not_found", "合集不存在");
     const items = await tx.select(chapterColumns).from(collectionItems).innerJoin(contents, eq(contents.id, collectionItems.contentId))
-      .where(and(eq(collectionItems.collectionId, collection.id), eq(contents.status, "published")))
+      .where(and(eq(collectionItems.collectionId, collection.id), eq(contents.status, "published"), eq(contents.type, "article")))
       .orderBy(asc(collectionItems.sortOrder), asc(contents.id));
     const rights = await canAccessMany(tx, c.get("auth")?.user ?? null, items, new Date());
     return c.json({ ...collection, updatedAt: collection.updatedAt.toISOString(), items: items.map(item => ({ ...item,
@@ -55,7 +55,7 @@ export function collectionRoutes(deps: AppDeps, policy: PublicPolicy) {
     const rows = await tx.select({ id: contents.id, slug: contents.slug, title: contents.title, visibility: contents.visibility,
       publishedAt: contents.publishedAt, sortOrder: collectionItems.sortOrder }).from(collectionItems)
       .innerJoin(contents, eq(contents.id, collectionItems.contentId))
-      .where(and(eq(collectionItems.collectionId, collection.id), eq(contents.status, "published")))
+      .where(and(eq(collectionItems.collectionId, collection.id), eq(contents.status, "published"), eq(contents.type, "article")))
       .orderBy(asc(collectionItems.sortOrder), asc(contents.id));
     const items = rows.map(row => ({ ...row, publishedAt: row.publishedAt?.toISOString() ?? null }));
     const index = items.findIndex(item => item.id === c.req.param("contentId").toLowerCase());

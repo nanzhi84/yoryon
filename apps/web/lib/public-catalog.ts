@@ -7,9 +7,8 @@ export async function fetchCatalog(path: string, options: { revalidate: number; 
     const policy = await publicFetchNoStore(`/api/public/catalog-policy?attempt=${attempt}`);
     if (!policy.ok) throw new Error(`catalog policy API ${policy.status}`);
     const { version } = await policy.json() as { version: string };
-    // Rendering v3 includes bounded public post bodies for local unfolding;
-    // do not reuse a previous deployment's truncated Data Cache payload.
-    const res = await publicFetch(`${path}?protocol=pin-v4&version=${encodeURIComponent(version)}`, options);
+    // 入口 v5：文章/帖子分流，不复用旧混合列表缓存。
+    const res = await publicFetch(`${path}?protocol=entry-v5&version=${encodeURIComponent(version)}`, options);
     // 版本读取与内容查询之间发生提交时重新读取；避免返回混合快照。
     if (res.status !== 409) return res;
   }

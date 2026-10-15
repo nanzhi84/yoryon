@@ -42,21 +42,24 @@ export function SiteHeader() {
           </DropdownMenu>
         </div>
       </div>
-      <nav aria-label="主导航" className="flex items-center justify-between gap-4">
-        <div className="flex gap-3 sm:gap-6">
+      <nav aria-label="主导航" className="flex items-center justify-between gap-1 sm:gap-4">
+        <div className="flex gap-1.5 sm:gap-6">
           <Link prefetch={false} href="/" aria-current={pathname === "/" ? "page" : undefined} className={`${tabClass} ${pathname === "/" ? "font-semibold text-foreground after:bg-primary" : "text-muted-foreground hover:text-foreground"}`}>
             首页
+          </Link>
+          <Link prefetch={false} href="/posts" aria-current={pathname === "/posts" ? "page" : undefined} className={`${tabClass} ${pathname === "/posts" ? "font-semibold text-foreground after:bg-primary" : "text-muted-foreground hover:text-foreground"}`}>
+            帖子
           </Link>
           <Link prefetch={false} href="/c" aria-current={collectionActive ? pathname === "/c" ? "page" : "location" : undefined} className={`${tabClass} ${collectionActive ? "font-semibold text-foreground after:bg-primary" : "text-muted-foreground hover:text-foreground"}`}>
             合集
           </Link>
-          <Link prefetch={false} href="/subscription" aria-current={subscriptionActive ? pathname === "/subscription" ? "page" : "location" : undefined} className={`${tabClass} gap-2 ${subscriptionActive ? "font-semibold text-foreground after:bg-primary" : "text-muted-foreground hover:text-foreground"}`}>
+          <Link prefetch={false} href="/subscription" aria-current={subscriptionActive ? pathname === "/subscription" ? "page" : "location" : undefined} className={`${tabClass} gap-1 sm:gap-2 ${subscriptionActive ? "font-semibold text-foreground after:bg-primary" : "text-muted-foreground hover:text-foreground"}`}>
             订阅 <Star className="size-3 text-primary" aria-hidden="true" />
           </Link>
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className={`min-h-11 gap-2 px-2 text-base ${exploreActive ? "text-foreground" : "text-muted-foreground"}`}>
+            <Button variant="ghost" className={`min-h-11 gap-1 px-1 text-base sm:gap-2 sm:px-2 ${exploreActive ? "text-foreground" : "text-muted-foreground"}`}>
               探索 <ChevronDown className="size-4" aria-hidden="true" />
             </Button>
           </DropdownMenuTrigger>

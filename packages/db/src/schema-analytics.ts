@@ -15,7 +15,7 @@ export const analyticsEvents = pgTable(
     targetKind: text("target_kind", { enum: ["work", "collection"] }).notNull(),
     targetId: uuid("target_id").notNull(),
     /** impression/click 与帖子信息流 read 携带；详情 view/read 为 null */
-    placement: text("placement", { enum: ["home_feed", "collection_list"] }),
+    placement: text("placement", { enum: ["home_feed", "post_feed", "collection_list"] }),
     pageViewId: uuid("page_view_id").notNull(),
     sessionId: uuid("session_id"),
     /** 主机限定 Cookie 中的随机身份；历史/拒绝存储客户端允许缺省，不关联账号。 */

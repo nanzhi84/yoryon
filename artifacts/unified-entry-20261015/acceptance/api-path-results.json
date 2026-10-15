@@ -1,0 +1,115 @@
+{
+  "feed": {
+    "status": 200,
+    "pageSizes": [
+      20,
+      4
+    ],
+    "count": 24,
+    "allTypeMatch": true,
+    "sameIdsAndOrderAsSql": true,
+    "noDuplicate": true,
+    "terminalCursor": null,
+    "hiddenPost25Present": false,
+    "anonymousHiddenTextAbsent": true
+  },
+  "post-feed": {
+    "status": 200,
+    "pageSizes": [
+      20,
+      4
+    ],
+    "count": 24,
+    "allTypeMatch": true,
+    "sameIdsAndOrderAsSql": true,
+    "noDuplicate": true,
+    "terminalCursor": null,
+    "hiddenPost25Present": false,
+    "anonymousHiddenTextAbsent": true
+  },
+  "wrongTypeCursor": {
+    "status": 400
+  },
+  "invalidCursor": {
+    "status": 400
+  },
+  "expiredVersion": {
+    "status": 409
+  },
+  "collections": [
+    {
+      "slug": "accept-no-cover",
+      "count": 1,
+      "detailCount": 1,
+      "allArticles": true,
+      "oldPostChapterStatus": 404
+    },
+    {
+      "slug": "accept-with-cover",
+      "count": 1,
+      "detailCount": 1,
+      "allArticles": true,
+      "oldPostChapterStatus": 404
+    }
+  ],
+  "postCollectionsExcluded": true,
+  "login": {
+    "status": 200,
+    "user": "acceptance_reader"
+  },
+  "accept-article-02": {
+    "anonymousAccess": "preview",
+    "anonymousHiddenTextAbsent": true,
+    "anonymousMedia": 0,
+    "memberAccess": "full",
+    "memberPaidTextPresent": true,
+    "memberMedia": 1,
+    "cache": "private, no-store",
+    "media": {
+      "anonymousStatus": 403,
+      "memberStatus": 200,
+      "sha256": "98256c59927b8dfc782bb7ec40098d1637c3a773f4dc722973043e20b180b3d1",
+      "sourceMatch": true
+    }
+  },
+  "accept-post-02": {
+    "anonymousAccess": "preview",
+    "anonymousHiddenTextAbsent": true,
+    "anonymousMedia": 0,
+    "memberAccess": "full",
+    "memberPaidTextPresent": true,
+    "memberMedia": 1,
+    "cache": "private, no-store",
+    "media": {
+      "anonymousStatus": 403,
+      "memberStatus": 200,
+      "sha256": "98256c59927b8dfc782bb7ec40098d1637c3a773f4dc722973043e20b180b3d1",
+      "sourceMatch": true
+    }
+  },
+  "publicMedia": [
+    {
+      "mime": "image/jpeg",
+      "status": 200,
+      "sha256": "ea6a595c414948ea999b977baec292715fa39dbeee761c618d8a21d5990f4578",
+      "sourceMatch": true
+    },
+    {
+      "mime": "video/mp4",
+      "status": 200,
+      "sha256": "452f99988cf8f173f01f698d6f3adb4b877fd56d68cac57f392f9f30d5665659",
+      "sourceMatch": true,
+      "range": {
+        "status": 206,
+        "bytes": 32,
+        "sourceMatch": true
+      }
+    },
+    {
+      "mime": "audio/mpeg",
+      "status": 200,
+      "sha256": "a8f9541f919e5c5e668cd6397ed4b6ec5a1aa5692e1a8ef86e341e374ae56b00",
+      "sourceMatch": true
+    }
+  ]
+}

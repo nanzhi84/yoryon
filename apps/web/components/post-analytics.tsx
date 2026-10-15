@@ -14,19 +14,19 @@ export function PostAnalytics({ id, children }: { id: string; children: ReactNod
   const progress = useRef({ elapsed: 0, done: false });
   const stop = useRef<(() => void) | null>(null);
   const read = useCallback(() => {
-    if (!list || list.placement !== "home_feed" || analyticsDisabled() || document.visibilityState !== "visible") return;
+    if (!list || list.placement !== "post_feed" || analyticsDisabled() || document.visibilityState !== "visible") return;
     if (progress.current.done) return;
     progress.current.done = true;
     stop.current?.();
     trackOnce(`post-read:${list.listViewId}:${id}`, {
       eventType: "read", targetKind: "work", targetId: id,
-      placement: "home_feed", pageViewId: list.listViewId,
+      placement: "post_feed", pageViewId: list.listViewId,
     });
   }, [id, list]);
 
   useEffect(() => {
     const element = host.current;
-    if (!element || !list || list.placement !== "home_feed" || analyticsDisabled()) return;
+    if (!element || !list || list.placement !== "post_feed" || analyticsDisabled()) return;
     let intersecting = false;
     let since: number | null = null;
     let timer: ReturnType<typeof setTimeout> | null = null;

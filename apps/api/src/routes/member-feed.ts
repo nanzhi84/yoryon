@@ -38,13 +38,13 @@ export function memberFeedRoutes(deps: AppDeps, policy: PublicPolicy) {
           count(*)::int as "itemCount", count(*) filter (where w.visibility = 'paid')::int as "paidItemCount",
           c.is_pinned as "isPinned", c.updated_at as "updatedAt"
         from collections c join collection_items ci on ci.collection_id = c.id
-          join contents w on w.id = ci.content_id and w.status = 'published'
+          join contents w on w.id = ci.content_id and w.status = 'published' and w.type = 'article'
         group by c.id having count(*) filter (where w.visibility = 'paid') > 0
         union all
         select w.id, 'content'::text, date_trunc('milliseconds', coalesce(w.published_at, w.created_at)),
           w.slug, w.title, w.description, w.visibility, w.cover_media_id, 0, 0, w.is_pinned, w.updated_at
         from contents w where w.status = 'published' and w.visibility = 'paid'
-          and not exists (select 1 from collection_items ci where ci.content_id = w.id)
+          and (w.type = 'post' or not exists (select 1 from collection_items ci where ci.content_id = w.id))
       ) select * from entries
       ${cursor ? sql`where ("sortAt", id, kind) < (${cursor.t}::timestamptz, ${cursor.id}::uuid, ${cursor.kind}::text)` : sql``}
       order by "sortAt" desc, id desc, kind desc limit ${PAGE_SIZE + 1}

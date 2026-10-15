@@ -1,0 +1,969 @@
+diff --git a/README.md b/README.md
+index 20e4e9c..da8ea04 100644
+--- a/README.md
++++ b/README.md
+@@ -46,6 +46,8 @@ pnpm db:migrate     # 执行迁移
+ 
+ 订阅页的“会员作品”按合集聚合：含已发布会员章节的合集显示一条入口和总篇数／会员篇数，合集内章节不再逐篇重复列出；未归属合集的会员作品独立展示。合集详情简介完整显示，列表简介保留三行摘要。协议与分页边界见 [ADR-0019](docs/adr/0019-member-collection-catalog.md)。
+ 
++首页 `/` 只展示文章，`/posts` 独立展示帖子。文章与合集入口统一使用 4:3 封面（缺图用占位），标题、简介与日期在左侧；文章正文媒体在详情展示。帖子保留信息流中的媒体和原地展开／收起。合集只包含文章，存量帖子关系不自动删除，但不再出现在目录或篇数中。设计边界见 [ADR-0020](docs/adr/0020-unified-entry-lists.md)。
++
+ ## CLI（本地管理，经 SSH 隧道连生产库）
+ 
+ ```bash
+@@ -55,7 +57,7 @@ node apps/cli/dist/index.js --help
+ 
+ 内容包约定：`index.md`（frontmatter + 正文）+ `media/`（相对引用 `./media/x.png`）。`type` 支持 `article`（标题必填的长文）和 `post`（标题可空的帖子），均可按正文顺序组合多媒体。正文媒体语法：图片 `![alt](./media/x.png)`；视频/音频 `::video{src="./media/x.mp4"}` / `::audio{src="./media/x.mp3"}`；站内作品引用 `::work{id="作品 UUID"}`（目标必须已发布，最多 20 个，不可引用自身）；付费预览标记 `<!-- more -->`（`preview.mode=marker` 时必需，缺失拒绝发布）。付费文章省略 preview 配置时默认 `none`（正文全付费）；需要全篇免费预览必须显式声明 `preview.mode: full`。
+ 
+-首页展示由作品的 `show_in_home` 独立管理，与 `visibility`、`collections` 无隐式联动。首次发布未归属合集的作品默认展示，首次在已有合集内发布的作品默认隐藏；迁移按原首页规则保留既有免费作品展示、会员作品隐藏，包括既有免费合集章节。重新发布省略 `show_in_home` 时保留数据库设置；明确提供 `show_in_home: true` 或 `false` 时应用该值。也可以用 `blog content home/hide` 改设置（之后的源文件不要保留相反的显式值）。合集目录只收已发布作品，编辑旧作品刷新全部所属合集的更新时间，并保留加入顺序。
++文章首页／帖子页展示继续由作品的 `show_in_home` 独立管理，与 `visibility`、`collections` 无隐式联动。首次发布未归属合集的作品默认展示，首次在已有合集内发布的文章默认隐藏；历史迁移按原首页规则保留既有免费作品展示、会员作品隐藏，包括既有免费合集章节。重新发布省略 `show_in_home` 时保留数据库设置；明确提供 `show_in_home: true` 或 `false` 时应用该值。也可以用 `blog content home/hide` 改设置（之后的源文件不要保留相反的显式值）。合集目录只收已发布文章；发布帖子时 `collections` 必须为空。编辑旧文章刷新全部所属合集的更新时间，并保留加入顺序。
+ 
+ ```bash
+ # 发布 / 更新 / 取消发布（幂等，可安全重跑）
+diff --git a/apps/api/src/routes/analytics.ts b/apps/api/src/routes/analytics.ts
+index bbe9540..c4de98d 100644
+--- a/apps/api/src/routes/analytics.ts
++++ b/apps/api/src/routes/analytics.ts
+@@ -21,7 +21,7 @@ const eventSchema = z.object({
+   eventType: z.enum(["impression", "click", "view", "read"]),
+   targetKind: z.enum(["work", "collection"]),
+   targetId: z.uuid(),
+-  placement: z.enum(["home_feed", "collection_list"]).nullish(),
++  placement: z.enum(["home_feed", "post_feed", "collection_list"]).nullish(),
+   pageViewId: z.uuid(),
+   sessionId: z.uuid().nullish(),
+   visitorId: z.uuid().nullish(),
+@@ -35,10 +35,10 @@ const batchSchema = z.object({
+ const MAX_BODY_BYTES = 32 * 1024;
+ 
+ /**
+- * 列表表面与 Target 的唯一对应（ADR-0007 §4）：首页 feed 只有 Work，合集只在 /c 列表曝光。
++ * 列表表面与 Target 的对应：首页只列文章，帖子有独立列表，合集只在 /c 列表曝光。
+  * impression/click 的 placement 不一致 = 伪造/异常事件，静默丢弃（采集不是关键路径）。
+  */
+-const CANONICAL_PLACEMENT = { work: "home_feed", collection: "collection_list" } as const;
++const LIST_PLACEMENTS = { work: ["home_feed", "post_feed"], collection: ["collection_list"] } as const;
+ 
+ export function analyticsRoutes(deps: AppDeps) {
+   const app = new Hono<{ Variables: AppVariables }>();
+@@ -70,13 +70,13 @@ export function analyticsRoutes(deps: AppDeps) {
+     if (!parsed.success) return errorResponse(c, 400, "invalid_events", "事件格式不合法");
+ 
+     // 语义归一：impression/click 必须声明列表来源且与 target kind 的唯一表面对应；
+-    // 帖子列表read保留home_feed，其余详情view/read为null；随后按实际内容类型校验。
++    // 帖子列表read保留post_feed，其余详情view/read为null；随后按实际内容类型校验。
+     const events = [];
+     for (const e of parsed.data.events) {
+       const normalized = { ...e, targetId: e.targetId.toLowerCase() };
+       if (e.eventType === "impression" || e.eventType === "click") {
+         if (!e.placement) return errorResponse(c, 400, "invalid_events", "impression/click 必须携带 placement");
+-        if (e.placement !== CANONICAL_PLACEMENT[e.targetKind]) continue; // 跨表面事件静默丢弃
++        if (!(LIST_PLACEMENTS[e.targetKind] as readonly string[]).includes(e.placement)) continue; // 跨表面事件静默丢弃
+         events.push({ ...normalized, placement: e.placement });
+       } else {
+         events.push({ ...normalized, placement: e.eventType === "read" ? e.placement ?? null : null });
+@@ -104,8 +104,9 @@ export function analyticsRoutes(deps: AppDeps) {
+       .filter((e) => validTargets.has(`${e.targetKind}:${e.targetId}`))
+       .filter(e => {
+         if (e.targetKind === "work" && workTypes.get(e.targetId) === "post") {
+-          return (e.eventType === "impression" || e.eventType === "read") && e.placement === "home_feed";
++          return (e.eventType === "impression" || e.eventType === "read") && e.placement === "post_feed";
+         }
++        if (e.eventType === "impression" || e.eventType === "click") return e.placement === (e.targetKind === "work" ? "home_feed" : "collection_list");
+         return e.eventType !== "read" || e.placement === null;
+       })
+       .map((e) => ({
+diff --git a/apps/api/src/routes/collections.ts b/apps/api/src/routes/collections.ts
+index a6bdc04..19967bd 100644
+--- a/apps/api/src/routes/collections.ts
++++ b/apps/api/src/routes/collections.ts
+@@ -25,7 +25,7 @@ export function collectionRoutes(deps: AppDeps, policy: PublicPolicy) {
+       .orderBy(desc(collections.isPinned), desc(collections.updatedAt), asc(collections.id));
+     const counts = rows.length ? await tx.select({ collectionId: collectionItems.collectionId, count: sql<number>`count(*)::int` })
+       .from(collectionItems).innerJoin(contents, eq(contents.id, collectionItems.contentId))
+-      .where(and(inArray(collectionItems.collectionId, rows.map(row => row.id)), eq(contents.status, "published"))).groupBy(collectionItems.collectionId) : [];
++      .where(and(inArray(collectionItems.collectionId, rows.map(row => row.id)), eq(contents.status, "published"), eq(contents.type, "article"))).groupBy(collectionItems.collectionId) : [];
+     c.header("Cache-Control", "public, max-age=0, must-revalidate");
+     return c.json({ version, items: rows.map(row => ({ ...row, updatedAt: row.updatedAt.toISOString(),
+       itemCount: counts.find(count => count.collectionId === row.id)?.count ?? 0 })) });
+@@ -38,7 +38,7 @@ export function collectionRoutes(deps: AppDeps, policy: PublicPolicy) {
+       .leftJoin(mediaAssets, eq(collections.coverMediaId, mediaAssets.id)).where(eq(collections.slug, c.req.param("slug"))).limit(1);
+     if (!collection) return errorResponse(c, 404, "not_found", "合集不存在");
+     const items = await tx.select(chapterColumns).from(collectionItems).innerJoin(contents, eq(contents.id, collectionItems.contentId))
+-      .where(and(eq(collectionItems.collectionId, collection.id), eq(contents.status, "published")))
++      .where(and(eq(collectionItems.collectionId, collection.id), eq(contents.status, "published"), eq(contents.type, "article")))
+       .orderBy(asc(collectionItems.sortOrder), asc(contents.id));
+     const rights = await canAccessMany(tx, c.get("auth")?.user ?? null, items, new Date());
+     return c.json({ ...collection, updatedAt: collection.updatedAt.toISOString(), items: items.map(item => ({ ...item,
+@@ -55,7 +55,7 @@ export function collectionRoutes(deps: AppDeps, policy: PublicPolicy) {
+     const rows = await tx.select({ id: contents.id, slug: contents.slug, title: contents.title, visibility: contents.visibility,
+       publishedAt: contents.publishedAt, sortOrder: collectionItems.sortOrder }).from(collectionItems)
+       .innerJoin(contents, eq(contents.id, collectionItems.contentId))
+-      .where(and(eq(collectionItems.collectionId, collection.id), eq(contents.status, "published")))
++      .where(and(eq(collectionItems.collectionId, collection.id), eq(contents.status, "published"), eq(contents.type, "article")))
+       .orderBy(asc(collectionItems.sortOrder), asc(contents.id));
+     const items = rows.map(row => ({ ...row, publishedAt: row.publishedAt?.toISOString() ?? null }));
+     const index = items.findIndex(item => item.id === c.req.param("contentId").toLowerCase());
+diff --git a/apps/api/src/routes/content-navigation.ts b/apps/api/src/routes/content-navigation.ts
+index 5f7d5f8..92ec431 100644
+--- a/apps/api/src/routes/content-navigation.ts
++++ b/apps/api/src/routes/content-navigation.ts
+@@ -4,13 +4,15 @@ import { collectionItems, collections, contents, type Database } from "@yoryon/d
+ /** 合集目录公开可发现，相邻作品只输出公开元数据，详情仍逐篇判断权益。 */
+ export async function collectionNavigation(db: Database, contentId: string) {
+   const memberships = await db.select({ id: collections.id, slug: collections.slug, title: collections.title, order: collectionItems.sortOrder })
+-    .from(collectionItems).innerJoin(collections, eq(collectionItems.collectionId, collections.id)).where(eq(collectionItems.contentId, contentId));
++    .from(collectionItems).innerJoin(collections, eq(collectionItems.collectionId, collections.id))
++    .innerJoin(contents, eq(collectionItems.contentId, contents.id))
++    .where(and(eq(collectionItems.contentId, contentId), eq(contents.type, "article")));
+   return Promise.all(memberships.map(async coll => {
+     async function neighbor(previous: boolean) {
+       const before = sql`(${collectionItems.sortOrder}, ${contents.id}) < (${coll.order}, ${contentId}::uuid)`;
+       const after = sql`(${collectionItems.sortOrder}, ${contents.id}) > (${coll.order}, ${contentId}::uuid)`;
+       const rows = await db.select({ id: contents.id, slug: contents.slug, title: contents.title }).from(collectionItems).innerJoin(contents, eq(contents.id, collectionItems.contentId))
+-        .where(and(eq(collectionItems.collectionId, coll.id), eq(contents.status, "published"), previous ? before : after))
++        .where(and(eq(collectionItems.collectionId, coll.id), eq(contents.status, "published"), eq(contents.type, "article"), previous ? before : after))
+         .orderBy(previous ? desc(collectionItems.sortOrder) : asc(collectionItems.sortOrder), previous ? desc(contents.id) : asc(contents.id)).limit(1);
+       return rows[0] ?? null;
+     }
+diff --git a/apps/api/src/routes/contents.ts b/apps/api/src/routes/contents.ts
+index 7016d9a..54344c4 100644
+--- a/apps/api/src/routes/contents.ts
++++ b/apps/api/src/routes/contents.ts
+@@ -32,23 +32,24 @@ const listContentColumns = {
+ } as const;
+ 
+ interface FeedCursor {
++  k: "article" | "post";
+   p: boolean;
+   t: Date;
+   id: string;
+ }
+ 
+-/** feed 游标：完整三元组 (isPinned, 毫秒 sortKey, id)。置顶变更会推进版本使旧游标 409；残留旧格式在此拒绝而非静默回首页。 */
+-function encodeCursor(p: boolean, t: Date, id: string): string {
+-  return Buffer.from(JSON.stringify({ p, t: t.toISOString(), id }), "utf8").toString("base64url");
++/** feed 游标：类型绑定＋完整三元组 (isPinned, 毫秒 sortKey, id)。置顶变更会推进版本使旧游标 409；残留旧格式在此拒绝而非静默回首页。 */
++function encodeCursor(k: "article" | "post", p: boolean, t: Date, id: string): string {
++  return Buffer.from(JSON.stringify({ k, p, t: t.toISOString(), id }), "utf8").toString("base64url");
+ }
+ 
+-function decodeCursor(raw: string | undefined): FeedCursor | null {
++function decodeCursor(raw: string | undefined, kind: "article" | "post"): FeedCursor | null {
+   if (!raw) return null;
+   try {
+-    const v = JSON.parse(Buffer.from(raw, "base64url").toString("utf8")) as { p?: unknown; t: string; id: string };
++    const v = JSON.parse(Buffer.from(raw, "base64url").toString("utf8")) as { k?: unknown; p?: unknown; t: string; id: string };
+     const t = new Date(v.t);
+-    if (typeof v.p !== "boolean" || Number.isNaN(t.getTime()) || typeof v.id !== "string") return null;
+-    return { p: v.p, t, id: v.id };
++    if (v.k !== kind || typeof v.p !== "boolean" || Number.isNaN(t.getTime()) || typeof v.id !== "string") return null;
++    return { k: kind, p: v.p, t, id: v.id };
+   } catch {
+     return null;
+   }
+@@ -85,7 +86,7 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
+   const app = new Hono<{ Variables: AppVariables }>();
+ 
+   /**
+-   * 首屏信息流：已发布且独立开启首页展示的作品；免费全文和会员匿名预览共用信息流，
++   * 分类型信息流：文章经 /feed，帖子经 /post-feed；已发布且开启列表展示的作品在分页前筛选类型。
+    * 合集是顶层结构，只经 /api/collections → /c 入口曝光，不混排；公开缓存；不读 session —— ADR-0003 公开线）
+    *
+    * 分页不变量：
+@@ -95,56 +96,58 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
+    * - 全序 (isPinned desc, sortKey desc, id desc)；游标编码同一三元组，跨置顶边界不重复/不漏项；
+    *   多取 1 条（N+1）探测终止，无更多时 nextCursor = null。
+    */
+-  app.get("/feed", async (c) => deps.db.transaction(async (tx) => {
+-    const version = await policy.version(tx);
+-    if (c.req.query("version") && c.req.query("version") !== version) return errorResponse(c, 409, "snapshot_expired", "列表已更新，请刷新页面");
+-    const rawCursor = c.req.query("cursor");
+-    const cursor = decodeCursor(rawCursor);
+-    if (rawCursor && !cursor) return errorResponse(c, 400, "invalid_cursor", "分页游标无效，请刷新列表");
+-    const contentSortKey = sql`date_trunc('milliseconds', coalesce(${contents.publishedAt}, ${contents.createdAt}))`;
+-    const rows = await tx
+-      .select(listContentColumns)
+-      .from(contents)
+-      .where(and(eq(contents.status, "published"), eq(contents.showInHome, true), keyset(cursor, contents.isPinned, contentSortKey, contents.id)))
+-      .orderBy(desc(contents.isPinned), desc(contentSortKey), desc(contents.id))
+-      .limit(FEED_PAGE_SIZE + 1);
+-    const page = rows.slice(0, FEED_PAGE_SIZE);
++  for (const kind of ["article", "post"] as const) {
++    app.get(kind === "article" ? "/feed" : "/post-feed", async (c) => deps.db.transaction(async (tx) => {
++      const version = await policy.version(tx);
++      if (c.req.query("version") && c.req.query("version") !== version) return errorResponse(c, 409, "snapshot_expired", "列表已更新，请刷新页面");
++      const rawCursor = c.req.query("cursor");
++      const cursor = decodeCursor(rawCursor, kind);
++      if (rawCursor && !cursor) return errorResponse(c, 400, "invalid_cursor", "分页游标无效，请刷新列表");
++      const contentSortKey = sql`date_trunc('milliseconds', coalesce(${contents.publishedAt}, ${contents.createdAt}))`;
++      const rows = await tx
++        .select(listContentColumns)
++        .from(contents)
++        .where(and(eq(contents.status, "published"), eq(contents.showInHome, true), eq(contents.type, kind), keyset(cursor, contents.isPinned, contentSortKey, contents.id)))
++        .orderBy(desc(contents.isPinned), desc(contentSortKey), desc(contents.id))
++        .limit(FEED_PAGE_SIZE + 1);
++      const page = rows.slice(0, FEED_PAGE_SIZE);
+ 
+-    const pageIds = page.map((r) => r.id);
+-    const tagRows = pageIds.length
+-      ? await tx
+-          .select({ contentId: contentTags.contentId, slug: tags.slug, name: tags.name })
+-          .from(contentTags)
+-          .innerJoin(tags, eq(contentTags.tagId, tags.id))
+-          .where(inArray(contentTags.contentId, pageIds))
+-      : [];
++      const pageIds = page.map((r) => r.id);
++      const tagRows = pageIds.length
++        ? await tx
++            .select({ contentId: contentTags.contentId, slug: tags.slug, name: tags.name })
++            .from(contentTags)
++            .innerJoin(tags, eq(contentTags.tagId, tags.id))
++            .where(inArray(contentTags.contentId, pageIds))
++        : [];
+ 
+-    const postBodies = await postFeedBodies(tx, page.filter(r => r.type === "post").map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
+-    const excerpts = await articleFeedSummaries(tx, page.filter(r => r.type === "article").map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
+-    const last = page[page.length - 1];
+-    c.header("Cache-Control", "public, max-age=0, must-revalidate");
+-    return c.json({
+-      version,
+-      items: page.map((r) => ({
+-        kind: "content" as const,
+-        id: r.id,
+-        type: r.type,
+-        slug: r.slug,
+-        title: r.title,
+-        description: r.description,
+-        excerpt: excerpts.get(r.id)?.excerpt ?? "",
+-        readerLayout: excerpts.get(r.id)?.layout ?? null,
+-        visibility: r.visibility,
+-        coverMediaId: r.coverMediaId,
+-        publishedAt: r.publishedAt?.toISOString() ?? null,
+-        isPinned: r.isPinned,
+-        post: postBodies.get(r.id) ?? null,
+-        tags: tagRows.filter((t) => t.contentId === r.id).map((t) => ({ slug: t.slug, name: t.name })),
+-      })),
+-      // 与 tags 同一终止条件：多拉 1 条才说明有下一页
+-      nextCursor: rows.length > FEED_PAGE_SIZE && last ? encodeCursor(last.isPinned, last.publishedAt ?? last.createdAt, last.id) : null,
+-    });
+-  }, { isolationLevel: "repeatable read", accessMode: "read only" }));
++      const postBodies = await postFeedBodies(tx, page.filter(r => r.type === "post").map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
++      const excerpts = await articleFeedSummaries(tx, page.filter(r => r.type === "article").map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
++      const last = page[page.length - 1];
++      c.header("Cache-Control", "public, max-age=0, must-revalidate");
++      return c.json({
++        version,
++        items: page.map((r) => ({
++          kind: "content" as const,
++          id: r.id,
++          type: r.type,
++          slug: r.slug,
++          title: r.title,
++          description: r.description,
++          excerpt: excerpts.get(r.id)?.excerpt ?? "",
++          readerLayout: excerpts.get(r.id)?.layout ?? null,
++          visibility: r.visibility,
++          coverMediaId: r.coverMediaId,
++          publishedAt: r.publishedAt?.toISOString() ?? null,
++          isPinned: r.isPinned,
++          post: postBodies.get(r.id) ?? null,
++          tags: tagRows.filter((t) => t.contentId === r.id).map((t) => ({ slug: t.slug, name: t.name })),
++        })),
++        // 与 tags 同一终止条件：多拉 1 条才说明有下一页
++        nextCursor: rows.length > FEED_PAGE_SIZE && last ? encodeCursor(kind, last.isPinned, last.publishedAt ?? last.createdAt, last.id) : null,
++      });
++    }, { isolationLevel: "repeatable read", accessMode: "read only" }));
++  }
+ 
+   /**
+    * 付费内容列表（Issue #15 订阅页“付费内容”区）：与 /api/feed 对称的公开线端点。
+diff --git a/apps/api/src/routes/member-feed.ts b/apps/api/src/routes/member-feed.ts
+index bed239f..f0c2df9 100644
+--- a/apps/api/src/routes/member-feed.ts
++++ b/apps/api/src/routes/member-feed.ts
+@@ -38,13 +38,13 @@ export function memberFeedRoutes(deps: AppDeps, policy: PublicPolicy) {
+           count(*)::int as "itemCount", count(*) filter (where w.visibility = 'paid')::int as "paidItemCount",
+           c.is_pinned as "isPinned", c.updated_at as "updatedAt"
+         from collections c join collection_items ci on ci.collection_id = c.id
+-          join contents w on w.id = ci.content_id and w.status = 'published'
++          join contents w on w.id = ci.content_id and w.status = 'published' and w.type = 'article'
+         group by c.id having count(*) filter (where w.visibility = 'paid') > 0
+         union all
+         select w.id, 'content'::text, date_trunc('milliseconds', coalesce(w.published_at, w.created_at)),
+           w.slug, w.title, w.description, w.visibility, w.cover_media_id, 0, 0, w.is_pinned, w.updated_at
+         from contents w where w.status = 'published' and w.visibility = 'paid'
+-          and not exists (select 1 from collection_items ci where ci.content_id = w.id)
++          and (w.type = 'post' or not exists (select 1 from collection_items ci where ci.content_id = w.id))
+       ) select * from entries
+       ${cursor ? sql`where ("sortAt", id, kind) < (${cursor.t}::timestamptz, ${cursor.id}::uuid, ${cursor.kind}::text)` : sql``}
+       order by "sortAt" desc, id desc, kind desc limit ${PAGE_SIZE + 1}
+diff --git a/apps/cli/src/commands/analytics.ts b/apps/cli/src/commands/analytics.ts
+index 399ced4..a4e2f72 100644
+--- a/apps/cli/src/commands/analytics.ts
++++ b/apps/cli/src/commands/analytics.ts
+@@ -50,7 +50,7 @@ async function aggregate(w: Window): Promise<TargetMetrics[]> {
+     .leftJoin(contents, and(eq(analyticsEvents.targetKind, "work"), eq(analyticsEvents.targetId, contents.id)))
+     .where(and(gte(analyticsEvents.receivedAt, w.from), lt(analyticsEvents.receivedAt, w.to),
+       or(isNull(contents.type), ne(contents.type, "post"), and(
+-        eq(analyticsEvents.placement, "home_feed"), inArray(analyticsEvents.eventType, ["impression", "read"]),
++        inArray(analyticsEvents.placement, ["home_feed", "post_feed"]), inArray(analyticsEvents.eventType, ["impression", "read"]),
+       ))))
+     .groupBy(analyticsEvents.targetKind, analyticsEvents.targetId, analyticsEvents.eventType);
+ 
+diff --git a/apps/cli/src/commands/collection.ts b/apps/cli/src/commands/collection.ts
+index b85b6c3..ff3c5bc 100644
+--- a/apps/cli/src/commands/collection.ts
++++ b/apps/cli/src/commands/collection.ts
+@@ -110,8 +110,9 @@ export function registerCollectionCommands(program: Command) {
+           const byContent = new Map(items.map((i) => [i.contentId, i]));
+           let order = 1;
+           for (const slug of contentSlugs) {
+-            const cont = await tx.select({ id: contents.id }).from(contents).where(eq(contents.slug, slug)).limit(1);
++            const cont = await tx.select({ id: contents.id, type: contents.type }).from(contents).where(eq(contents.slug, slug)).limit(1);
+             if (!cont[0]) throw new Error(`内容不存在: ${slug}`);
++            if (cont[0].type !== "article") throw new Error(`合集仅支持文章: ${slug}`);
+             const item = byContent.get(cont[0]!.id);
+             if (!item) throw new Error(`内容不在合集中: ${slug}`);
+             await tx
+diff --git a/apps/web/app/api/[...path]/route.ts b/apps/web/app/api/[...path]/route.ts
+index 4b816c9..fca063e 100644
+--- a/apps/web/app/api/[...path]/route.ts
++++ b/apps/web/app/api/[...path]/route.ts
+@@ -9,7 +9,7 @@
+ import { type NextRequest, NextResponse } from "next/server";
+ import { buildApiHeaders, csrfCheck, getBffConfig, readBodyCapped, readBodyBytesCapped, readSessionCookie, resolvePlatformClientIp, clearSessionCookie, setSessionCookie } from "@/lib/bff";
+ 
+-const ALLOWED_PATH = /^\/api\/(search(?:\/locate)?|auth\/[a-z-]+|feed|paid-feed|member-feed|public\/(?:contents\/[^/]+|references\/[0-9a-fA-F-]{36})|contents\/[^/]+(?:\/comments(?:\/context)?)?|content-interactions(?:\/[0-9a-fA-F-]{36}\/like)?|comments\/liked|comments\/[0-9a-fA-F-]{36}(?:\/(?:like|replies|locate))?|collections(?:\/[^/]+(?:\/chapters\/[0-9a-fA-F-]{36})?)?|tags(?:\/[^/]+)?|media\/[0-9a-fA-F-]{36}|redemptions|me\/(?:entitlements|membership|profile|avatar)|users\/[0-9a-fA-F-]{36}\/profile|avatars\/[0-9a-fA-F-]{36}|questions(?:\/(?:public|mine|[0-9a-fA-F-]{36}(?:\/comments(?:\/(?:context|[0-9a-fA-F-]{36}\/replies))?)?))?|notifications(?:\/(?:unread-count|read-all|[0-9a-fA-F-]{36}\/read))?|analytics\/events)$/;
++const ALLOWED_PATH = /^\/api\/(search(?:\/locate)?|auth\/[a-z-]+|feed|post-feed|paid-feed|member-feed|public\/(?:contents\/[^/]+|references\/[0-9a-fA-F-]{36})|contents\/[^/]+(?:\/comments(?:\/context)?)?|content-interactions(?:\/[0-9a-fA-F-]{36}\/like)?|comments\/liked|comments\/[0-9a-fA-F-]{36}(?:\/(?:like|replies|locate))?|collections(?:\/[^/]+(?:\/chapters\/[0-9a-fA-F-]{36})?)?|tags(?:\/[^/]+)?|media\/[0-9a-fA-F-]{36}|redemptions|me\/(?:entitlements|membership|profile|avatar)|users\/[0-9a-fA-F-]{36}\/profile|avatars\/[0-9a-fA-F-]{36}|questions(?:\/(?:public|mine|[0-9a-fA-F-]{36}(?:\/comments(?:\/(?:context|[0-9a-fA-F-]{36}\/replies))?)?))?|notifications(?:\/(?:unread-count|read-all|[0-9a-fA-F-]{36}\/read))?|analytics\/events)$/;
+ 
+ /** analytics ingest 请求体字节上限（与 API 侧 MAX_BODY_BYTES 一致） */
+ const ANALYTICS_MAX_BODY_BYTES = 32 * 1024;
+diff --git a/apps/web/app/api/pages/[version]/[source]/[cursor]/route.ts b/apps/web/app/api/pages/[version]/[source]/[cursor]/route.ts
+index 6545437..a174db8 100644
+--- a/apps/web/app/api/pages/[version]/[source]/[cursor]/route.ts
++++ b/apps/web/app/api/pages/[version]/[source]/[cursor]/route.ts
+@@ -5,11 +5,11 @@ export const revalidate = 86400;
+ export async function GET(_request: Request, { params }: { params: Promise<{ version: string; source: string; cursor: string }> }) {
+   const { version, source, cursor } = await params;
+   if (!/^[a-f0-9-]{36}$/.test(version) || !/^[a-z0-9][a-z0-9-]*$/.test(source) || !/^[A-Za-z0-9_-]{1,512}$/.test(cursor)) return Response.json({ error: "invalid snapshot" }, { status: 400 });
+-  if (source !== "feed" && source !== "paid-feed" && source !== "member-feed" && !source.startsWith("tag-")) return Response.json({ error: "invalid source" }, { status: 400 });
++  if (source !== "feed" && source !== "post-feed" && source !== "paid-feed" && source !== "member-feed" && !source.startsWith("tag-")) return Response.json({ error: "invalid source" }, { status: 400 });
+   const tag = source.slice(4);
+-  const path = source === "feed" ? "/api/feed" : source === "paid-feed" ? "/api/paid-feed" : source === "member-feed" ? "/api/member-feed" : `/api/tags/${tag}`;
+-  const query = `?protocol=pin-v4&version=${version}${cursor === "start" ? "" : `&cursor=${encodeURIComponent(cursor)}`}`;
+-  const res = await publicFetch(path + query, { revalidate: 86400, tags: [(source === "feed" || source === "paid-feed" || source === "member-feed") ? "feed" : `tag:${tag}`] });
++  const path = source === "feed" ? "/api/feed" : source === "post-feed" ? "/api/post-feed" : source === "paid-feed" ? "/api/paid-feed" : source === "member-feed" ? "/api/member-feed" : `/api/tags/${tag}`;
++  const query = `?protocol=entry-v5&version=${version}${cursor === "start" ? "" : `&cursor=${encodeURIComponent(cursor)}`}`;
++  const res = await publicFetch(path + query, { revalidate: 86400, tags: [(source === "feed" || source === "post-feed" || source === "paid-feed" || source === "member-feed") ? "feed" : `tag:${tag}`] });
+   // 预期错误（invalid_cursor / snapshot_expired）透传状态与错误码，私有不缓存；客户端据此引导刷新而非 500
+   if (res.status === 400 || res.status === 409) {
+     return Response.json(await res.json(), { status: res.status, headers: { "Cache-Control": "private, no-store" } });
+diff --git a/apps/web/app/page.tsx b/apps/web/app/page.tsx
+index fb0d10c..c70c7e4 100644
+--- a/apps/web/app/page.tsx
++++ b/apps/web/app/page.tsx
+@@ -7,7 +7,7 @@ import { AnalyticsListProvider } from "@/components/analytics";
+ 
+ const revalidateSec = Number(process.env.FEED_REVALIDATE_SEC ?? 86400);
+ 
+-/** 首页以真实内容时间线为主；合集仍仅在 /c 展示。 */
++/** 首页只展示文章；帖子和合集各有独立入口。 */
+ export default async function HomePage() {
+   const res = await fetchCatalog("/api/feed", { revalidate: revalidateSec, tags: ["feed"] });
+   if (!res.ok) throw new Error(`feed API ${res.status}`);
+@@ -19,7 +19,7 @@ export default async function HomePage() {
+       <SiteHeader />
+       <main data-catalog-version={feed.version} className="pb-20">
+         {items.length === 0 ? (
+-          <p className="py-20 text-center text-sm text-muted-foreground">还没有内容，敬请期待。</p>
++          <p className="py-20 text-center text-sm text-muted-foreground">还没有文章，敬请期待。</p>
+         ) : (
+           // 首页列表浏览实例：其下所有卡片共享 placement=home_feed 与实例 id（含 LoadMore 追加部分）
+           <AnalyticsListProvider placement="home_feed">
+diff --git a/apps/web/app/sitemap.ts b/apps/web/app/sitemap.ts
+index 37b812f..3080d53 100644
+--- a/apps/web/app/sitemap.ts
++++ b/apps/web/app/sitemap.ts
+@@ -9,6 +9,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+   const data = await res.json() as { entries: { path: string; updatedAt: string }[] };
+   return [
+     { url: site, changeFrequency: "daily", priority: 1 },
++    { url: `${site}/posts`, changeFrequency: "daily", priority: 0.8 },
+     { url: `${site}/c`, changeFrequency: "weekly", priority: 0.8 },
+     { url: `${site}/tags`, changeFrequency: "weekly", priority: 0.5 },
+     ...data.entries.map(e => ({ url: `${site}${e.path}`, lastModified: e.updatedAt })),
+diff --git a/apps/web/components/collection-reader.tsx b/apps/web/components/collection-reader.tsx
+index a3250f0..3d8febc 100644
+--- a/apps/web/components/collection-reader.tsx
++++ b/apps/web/components/collection-reader.tsx
+@@ -10,7 +10,7 @@ import { collectionPositionKey, readCollectionPosition } from "@/lib/collection-
+ import { DetailTracker } from "./analytics";
+ import { chapterHref, useCollectionFlow, useCollectionTime } from "./collection-flow";
+ import { CollectionDescription } from "./collection-description";
+-import { imageSrcSet, publicImageUrl } from "@yoryon/config/image-variants";
++import { EntryCover } from "./entry-cover";
+ 
+ export function CollectionReader({ initial }: { initial: CollectionDetail }) {
+   const [collection, setCollection] = useState(initial);
+@@ -73,7 +73,7 @@ export function CollectionReader({ initial }: { initial: CollectionDetail }) {
+           <h1 className="mt-2 text-3xl font-semibold leading-tight">{collection.title}</h1>
+           {collection.description && <CollectionDescription description={collection.description} className="mt-3" />}
+         </div>
+-        {collection.coverMediaId && <div className="w-24 shrink-0 sm:w-36"><div className="aspect-square overflow-hidden rounded-lg bg-muted"><img src={publicImageUrl(collection.coverMediaId)} srcSet={imageSrcSet(collection.coverMediaId, undefined, true)} sizes="(min-width: 640px) 144px, 96px" alt={collection.title} decoding="async" className="h-full w-full object-cover" /></div></div>}
++        <div className="w-22 shrink-0 sm:w-28"><EntryCover mediaId={collection.coverMediaId} title={collection.title} /></div>
+       </div>
+       <p className="mt-3 text-xs text-muted-foreground"><time dateTime={collection.updatedAt}>更新于 {formatDate(collection.updatedAt)}</time></p>
+       {start && <div className="mt-5 flex min-h-11 flex-wrap items-center gap-3">
+diff --git a/apps/web/components/feed-timeline.tsx b/apps/web/components/feed-timeline.tsx
+index 818303a..5878d6b 100644
+--- a/apps/web/components/feed-timeline.tsx
++++ b/apps/web/components/feed-timeline.tsx
+@@ -1,100 +1,80 @@
+ import { ReaderLink } from "./reader-navigation";
+-import { imageSrcSet, publicImageUrl } from "@yoryon/config/image-variants";
+ import { Badge } from "@/components/ui/badge";
+ import { TrackClickLink, TrackImpression } from "@/components/analytics";
+ import type { CollectionListItem, FeedContentItem, FeedItem } from "@/lib/types";
+-import { PostEntry } from "./post-entry";
+ import { ContentActions, ContentInteractions } from "./content-actions";
+ import { formatDate } from "@/lib/date";
+ import { PostAnalytics } from "./post-analytics";
+ import { CollectionDescription } from "./collection-description";
++import { EntryCover } from "./entry-cover";
++import { PostEntry } from "./post-entry";
+ 
+-/** 信息流内容条目：标题 + 日期 / 封面 + 简介 / 类型 + 标签，点进详情。 */
++/** 文章使用统一图文入口；帖子保留正文、媒体与原地展开。 */
+ export function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem; showPinnedBadge?: boolean }) {
+   const Tracking = item.type === "post" ? PostAnalytics : ArticleAnalytics;
+-  return (
+-    <Tracking id={item.id}>
+-      <article className="editorial-entry group py-5">
+-        <div className="flex items-baseline justify-between gap-4">
+-          {item.type === "article" && <div className="flex min-w-0 items-baseline gap-2">
++  const badges = <>
++    {showPinnedBadge && item.isPinned && <Badge variant="secondary">置顶</Badge>}
++    {item.visibility === "paid" && <Badge variant="secondary" className="text-primary">付费</Badge>}
++  </>;
++  const date = <time dateTime={item.publishedAt ?? undefined} className="block text-xs leading-[18px] text-muted-foreground">{formatDate(item.publishedAt)}</time>;
++  return <Tracking id={item.id}>
++    <article className="editorial-entry group py-5">
++      {item.type === "article" ? <div className="flex items-start gap-4">
++        <div className="min-w-0 flex-1">
++          <div className="flex flex-wrap items-baseline gap-2">
+             <ReaderLink item={item} className="min-w-0">
+-              <h2 className="line-clamp-2 text-lg font-semibold leading-[26px] group-hover:underline underline-offset-4">
+-                {item.title || "未命名内容"}
+-              </h2>
++              <h2 className="line-clamp-2 text-lg font-semibold leading-[26px] group-hover:underline underline-offset-4">{item.title || "未命名内容"}</h2>
+             </ReaderLink>
+-            {showPinnedBadge && item.isPinned && (
+-              <Badge variant="secondary" className="shrink-0">
+-                置顶
+-              </Badge>
+-            )}
+-            {item.visibility === "paid" && <Badge variant="secondary" className="shrink-0 text-primary">付费</Badge>}
+-          </div>}
+-          {item.type === "post" && <div className="flex items-center gap-2">
+-            {showPinnedBadge && item.isPinned && <Badge variant="secondary">置顶</Badge>}
+-            {item.visibility === "paid" && <Badge variant="secondary" className="text-primary">付费</Badge>}
+-          </div>}
+-          {item.type === "post" ? <TrackClickLink enabled={false} targetKind="work" targetId={item.id} href={`/p/${item.slug}`} aria-label={`查看 ${formatDate(item.publishedAt)} 的帖子`} className="ml-auto shrink-0 text-xs leading-[18px] text-muted-foreground hover:text-foreground hover:underline">
+-            <time dateTime={item.publishedAt ?? undefined}>{formatDate(item.publishedAt)}</time>
+-          </TrackClickLink> : <time dateTime={item.publishedAt ?? undefined} className="shrink-0 text-xs leading-[18px] text-muted-foreground">{formatDate(item.publishedAt)}</time>}
+-        </div>
+-        {item.type === "article" ? <div className="mt-2 flex items-start justify-between gap-4">
+-          <div className="min-w-0 flex-1">
+-            {(item.description || item.excerpt) && <p className="editorial-excerpt line-clamp-3 text-[15px] leading-6 text-foreground">{item.description || item.excerpt}</p>}
++            {badges}
+           </div>
+-          {item.coverMediaId && <ReaderLink item={item} className="block w-28 shrink-0 sm:w-36">
+-            {/* 受控比例容器（明确的 UI 裁切选择）+ 加载前占位，消除封面 CLS（F08） */}
+-            <div className="aspect-[4/3] w-full overflow-hidden rounded-lg">
+-              {/* eslint-disable-next-line @next/next/no-img-element */}
+-              <img src={publicImageUrl(item.coverMediaId)} srcSet={imageSrcSet(item.coverMediaId, undefined, true)} sizes="144px" alt={item.title} loading="lazy" className="h-full w-full object-cover" />
+-            </div>
+-          </ReaderLink>}
+-        </div> : <PostEntry item={item} />}
++          {(item.description || item.excerpt) && <p className="editorial-excerpt mt-2 line-clamp-3 break-words text-[15px] leading-6 text-muted-foreground">{item.description || item.excerpt}</p>}
++          <div className="mt-3">{date}</div>
++        </div>
++        <ReaderLink item={item} aria-label={`查看文章：${item.title || "未命名内容"}`} className="block w-22 shrink-0 sm:w-28">
++          <EntryCover mediaId={item.coverMediaId} title={item.title} />
++        </ReaderLink>
++      </div> : <>
++        {(showPinnedBadge && item.isPinned || item.visibility === "paid") && <div className="mb-2 flex items-center gap-2">{badges}</div>}
++        <PostEntry item={item} />
++        <TrackClickLink enabled={false} targetKind="work" targetId={item.id} href={`/p/${item.slug}`} aria-label={`查看 ${formatDate(item.publishedAt)} 的帖子详情`} className="mt-3 block w-fit hover:underline">{date}</TrackClickLink>
++      </>}
+       <ContentActions id={item.id} slug={item.slug} trackClicks={item.type === "article"} />
+-      </article>
+-    </Tracking>
+-  );
++    </article>
++  </Tracking>;
+ }
+ 
+ function ArticleAnalytics({ id, children }: { id: string; children: React.ReactNode }) {
+   return <TrackImpression targetKind="work" targetId={id}>{children}</TrackImpression>;
+ }
+ 
+-/** 合集条目：用于合集列表和会员发现目录（首页 feed 不混入合集）。 */
++/** 合集列表与会员目录复用文章封面尺寸和图文节奏。 */
+ export function CollectionEntry({ item }: { item: CollectionListItem & { paidItemCount?: number } }) {
+-  return (
+-    <TrackImpression targetKind="collection" targetId={item.id}>
+-      <article className="group py-6">
+-        <div className="flex items-baseline justify-between gap-4">
+-          <TrackClickLink targetKind="collection" targetId={item.id} href={`/c/${item.slug}`} className="min-w-0">
+-            <h2 className="truncate text-lg font-medium leading-snug group-hover:underline underline-offset-4">
+-              {item.title}
+-            </h2>
++  return <TrackImpression targetKind="collection" targetId={item.id}>
++    <article className="group py-5">
++      <div className="flex items-start gap-4">
++        <div className="min-w-0 flex-1">
++          <TrackClickLink targetKind="collection" targetId={item.id} href={`/c/${item.slug}`} className="block">
++            <h2 className="line-clamp-2 text-lg font-medium leading-[26px] group-hover:underline underline-offset-4">{item.title}</h2>
+           </TrackClickLink>
+-          <time dateTime={item.updatedAt} className="shrink-0 text-xs text-muted-foreground">更新于 {formatDate(item.updatedAt)}</time>
++          {item.description && <CollectionDescription description={item.description} className="mt-2 line-clamp-3 text-muted-foreground" />}
++          <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs leading-[18px] text-muted-foreground">
++            <span>{item.paidItemCount === undefined ? `合集 · ${item.itemCount} 篇内容` : `合集 · 共 ${item.itemCount} 篇 · ${item.paidItemCount} 篇会员`}</span>
++            <span aria-hidden="true">·</span>
++            <time dateTime={item.updatedAt}>更新于 {formatDate(item.updatedAt)}</time>
++            {item.paidItemCount === undefined && item.isPinned && <Badge variant="secondary">置顶</Badge>}
++          </div>
+         </div>
+-      <div className="mt-2 flex items-start gap-4">
+-        <div className="min-w-0 flex-1">{item.description && <CollectionDescription description={item.description} className="line-clamp-3" />}</div>
+-        {item.coverMediaId && <TrackClickLink targetKind="collection" targetId={item.id} href={`/c/${item.slug}`} aria-label={`查看合集：${item.title}`} className="block w-28 shrink-0 sm:w-36">
+-          <div className="aspect-square overflow-hidden rounded-lg bg-muted"><img src={publicImageUrl(item.coverMediaId)} srcSet={imageSrcSet(item.coverMediaId, undefined, true)} sizes="(min-width: 640px) 144px, 112px" alt={item.title} loading="lazy" decoding="async" className="h-full w-full object-cover" /></div>
+-        </TrackClickLink>}
+-      </div>
+-      <div className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
+-        <span>{item.paidItemCount === undefined ? `合集 · ${item.itemCount} 篇内容` : `合集 · 共 ${item.itemCount} 篇 · ${item.paidItemCount} 篇会员`}</span>
+-        {item.paidItemCount === undefined && item.isPinned && <Badge variant="secondary">置顶</Badge>}
++        <TrackClickLink targetKind="collection" targetId={item.id} href={`/c/${item.slug}`} aria-label={`查看合集：${item.title}`} className="block w-22 shrink-0 sm:w-28">
++          <EntryCover mediaId={item.coverMediaId} title={item.title} />
++        </TrackClickLink>
+       </div>
+-      </article>
+-    </TrackImpression>
+-  );
++    </article>
++  </TrackImpression>;
+ }
+ 
+-/** 时间线：按 publishedAt 排序的内容列表，极简分隔线风格（父容器加 divide-y divide-border）。
+- *  showPinnedBadge 仅首页开启：置顶是 feed 排序语义，标签页不显示标记。 */
++/** 各列表共享入口展示，查询端决定类型、置顶和排序。 */
+ export function FeedTimeline({ items, showPinnedBadge = false }: { items: FeedItem[]; showPinnedBadge?: boolean }) {
+-  return (
+-    <ContentInteractions ids={items.map(item => item.id)}>
+-      {items.map((item) => (
+-        <ContentEntry key={item.id} item={item} showPinnedBadge={showPinnedBadge} />
+-      ))}
+-    </ContentInteractions>
+-  );
++  return <ContentInteractions ids={items.map(item => item.id)}>
++    {items.map(item => <ContentEntry key={item.id} item={item} showPinnedBadge={showPinnedBadge} />)}
++  </ContentInteractions>;
+ }
+diff --git a/apps/web/components/load-more.tsx b/apps/web/components/load-more.tsx
+index 3de065b..2c3ccbe 100644
+--- a/apps/web/components/load-more.tsx
++++ b/apps/web/components/load-more.tsx
+@@ -25,10 +25,10 @@ export function LoadMore({ initialCursor, version, basePath = "/api/feed", showP
+   const active = useRef<AbortController | null>(null);
+   useLayoutEffect(() => {
+     setReady(false); setError(false); setExpired(false); setLoading(false);
+-    const key = `feed:${currentBrowsePath()}:${basePath}`;
++    const key = `feed-v5:${currentBrowsePath()}:${basePath}`;
+     const saved = readBrowse<{ version: string; initialCursor: string; cursor: string | null; items: MemberFeedItem[] }>(key);
+     if (saved?.version === version && saved.initialCursor === initialCursor && Array.isArray(saved.items)
+-      && saved.items.every(item => typeof item?.id === "string" && typeof item.slug === "string" && (item.kind === "collection" ? basePath === "/api/member-feed" && typeof item.paidItemCount === "number" && typeof item.itemCount === "number" : item.kind === "content" && ["post", "article"].includes(item.type)))) {
++      && saved.items.every(item => typeof item?.id === "string" && typeof item.slug === "string" && (item.kind === "collection" ? basePath === "/api/member-feed" && typeof item.paidItemCount === "number" && typeof item.itemCount === "number" : item.kind === "content" && (basePath === "/api/feed" ? item.type === "article" : basePath === "/api/post-feed" ? item.type === "post" : ["post", "article"].includes(item.type))))) {
+       const restored: MemberFeedItem[][] = [];
+       for (let offset = 0; offset < saved.items.length; offset += 20) restored.push(saved.items.slice(offset, offset + 20));
+       setPages(restored); setCursor(saved.cursor);
+@@ -47,22 +47,22 @@ export function LoadMore({ initialCursor, version, basePath = "/api/feed", showP
+     setLoading(true);
+     setError(false);
+     try {
+-      const res = await fetch(`/api/pages/${version}/${basePath === "/api/feed" ? "feed" : basePath === "/api/paid-feed" ? "paid-feed" : basePath === "/api/member-feed" ? "member-feed" : `tag-${basePath.slice("/api/tags/".length)}`}/${encodeURIComponent(cursor)}`, {
++      const res = await fetch(`/api/pages/${version}/${basePath === "/api/feed" ? "feed" : basePath === "/api/post-feed" ? "post-feed" : basePath === "/api/paid-feed" ? "paid-feed" : basePath === "/api/member-feed" ? "member-feed" : `tag-${basePath.slice("/api/tags/".length)}`}/${encodeURIComponent(cursor)}`, {
+         signal: AbortSignal.any([controller.signal, AbortSignal.timeout(15_000)]),
+       });
+       if (controller.signal.aborted) return;
+-      if (res.status === 409) { setExpired(true); writeBrowse(`feed:${currentBrowsePath()}:${basePath}`, null); return; }
++      if (res.status === 409) { setExpired(true); writeBrowse(`feed-v5:${currentBrowsePath()}:${basePath}`, null); return; }
+       // 游标失效（如部署后旧格式残留）：与快照过期同一恢复路径——提示刷新，而不是带着旧游标重试
+       if (res.status === 400) {
+         const body = (await res.json().catch(() => null)) as { error?: { code?: string } } | null;
+         if (controller.signal.aborted) return;
+-        if (body?.error?.code === "invalid_cursor") { setExpired(true); writeBrowse(`feed:${currentBrowsePath()}:${basePath}`, null); return; }
++        if (body?.error?.code === "invalid_cursor") { setExpired(true); writeBrowse(`feed-v5:${currentBrowsePath()}:${basePath}`, null); return; }
+       }
+       if (!res.ok) throw new Error(String(res.status));
+       const data = (await res.json()) as MemberFeedResponse;
+       if (controller.signal.aborted) return;
+-      if (data.version !== version) { setExpired(true); writeBrowse(`feed:${currentBrowsePath()}:${basePath}`, null); return; }
+-      if (!Array.isArray(data.items) || !data.items.every(item => typeof item?.id === "string" && typeof item.slug === "string" && (item.kind === "collection" ? basePath === "/api/member-feed" && typeof item.paidItemCount === "number" && typeof item.itemCount === "number" : item.kind === "content" && ["post", "article"].includes(item.type)))
++      if (data.version !== version) { setExpired(true); writeBrowse(`feed-v5:${currentBrowsePath()}:${basePath}`, null); return; }
++      if (!Array.isArray(data.items) || !data.items.every(item => typeof item?.id === "string" && typeof item.slug === "string" && (item.kind === "collection" ? basePath === "/api/member-feed" && typeof item.paidItemCount === "number" && typeof item.itemCount === "number" : item.kind === "content" && (basePath === "/api/feed" ? item.type === "article" : basePath === "/api/post-feed" ? item.type === "post" : ["post", "article"].includes(item.type))))
+         || (data.nextCursor !== null && typeof data.nextCursor !== "string") || data.nextCursor === cursor) throw new Error("invalid page");
+       const items = pages.flat();
+       const seen = new Set(items.map(item => `${item.kind}:${item.id}`));
+@@ -71,7 +71,7 @@ export function LoadMore({ initialCursor, version, basePath = "/api/feed", showP
+       const appended = [...items, ...nextPage];
+       if (nextPage.length) setPages([...pages, nextPage]);
+       setCursor(data.nextCursor);
+-      writeBrowse(`feed:${currentBrowsePath()}:${basePath}`, { version, initialCursor, cursor: data.nextCursor, items: appended });
++      writeBrowse(`feed-v5:${currentBrowsePath()}:${basePath}`, { version, initialCursor, cursor: data.nextCursor, items: appended });
+     } catch {
+       if (!controller.signal.aborted) setError(true);
+     } finally {
+diff --git a/apps/web/components/post-analytics.tsx b/apps/web/components/post-analytics.tsx
+index eef9102..45cd4a4 100644
+--- a/apps/web/components/post-analytics.tsx
++++ b/apps/web/components/post-analytics.tsx
+@@ -14,19 +14,19 @@ export function PostAnalytics({ id, children }: { id: string; children: ReactNod
+   const progress = useRef({ elapsed: 0, done: false });
+   const stop = useRef<(() => void) | null>(null);
+   const read = useCallback(() => {
+-    if (!list || list.placement !== "home_feed" || analyticsDisabled() || document.visibilityState !== "visible") return;
++    if (!list || list.placement !== "post_feed" || analyticsDisabled() || document.visibilityState !== "visible") return;
+     if (progress.current.done) return;
+     progress.current.done = true;
+     stop.current?.();
+     trackOnce(`post-read:${list.listViewId}:${id}`, {
+       eventType: "read", targetKind: "work", targetId: id,
+-      placement: "home_feed", pageViewId: list.listViewId,
++      placement: "post_feed", pageViewId: list.listViewId,
+     });
+   }, [id, list]);
+ 
+   useEffect(() => {
+     const element = host.current;
+-    if (!element || !list || list.placement !== "home_feed" || analyticsDisabled()) return;
++    if (!element || !list || list.placement !== "post_feed" || analyticsDisabled()) return;
+     let intersecting = false;
+     let since: number | null = null;
+     let timer: ReturnType<typeof setTimeout> | null = null;
+diff --git a/apps/web/components/reader-navigation.tsx b/apps/web/components/reader-navigation.tsx
+index 6dd2bd6..c838efe 100644
+--- a/apps/web/components/reader-navigation.tsx
++++ b/apps/web/components/reader-navigation.tsx
+@@ -22,9 +22,9 @@ export function useReaderHint() {
+   return hint && pathname === `/p/${hint.slug}` ? hint : null;
+ }
+ 
+-export function ReaderLink({ item, className, children }: { item: FeedContentItem; className?: string; children: ReactNode }) {
++export function ReaderLink({ item, className, children, "aria-label": ariaLabel }: { item: FeedContentItem; className?: string; children: ReactNode; "aria-label"?: string }) {
+   const { setHint } = useContext(ReaderContext);
+-  return <TrackClickLink prefetchShell targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className={className ?? ""}
++  return <TrackClickLink prefetchShell targetKind="work" targetId={item.id} href={`/p/${item.slug}`} className={className ?? ""} {...(ariaLabel ? { "aria-label": ariaLabel } : {})}
+     onNavigate={() => {
+       const result = readerLayoutSchema.safeParse(item.readerLayout);
+       setHint({ slug: item.slug, title: item.title, publishedAt: item.publishedAt, layout: result.success ? result.data : [] });
+diff --git a/apps/web/components/site-header.tsx b/apps/web/components/site-header.tsx
+index 6b2eb37..cfbc8e0 100644
+--- a/apps/web/components/site-header.tsx
++++ b/apps/web/components/site-header.tsx
+@@ -42,21 +42,24 @@ export function SiteHeader() {
+           </DropdownMenu>
+         </div>
+       </div>
+-      <nav aria-label="主导航" className="flex items-center justify-between gap-4">
+-        <div className="flex gap-3 sm:gap-6">
++      <nav aria-label="主导航" className="flex items-center justify-between gap-1 sm:gap-4">
++        <div className="flex gap-1.5 sm:gap-6">
+           <Link prefetch={false} href="/" aria-current={pathname === "/" ? "page" : undefined} className={`${tabClass} ${pathname === "/" ? "font-semibold text-foreground after:bg-primary" : "text-muted-foreground hover:text-foreground"}`}>
+             首页
+           </Link>
++          <Link prefetch={false} href="/posts" aria-current={pathname === "/posts" ? "page" : undefined} className={`${tabClass} ${pathname === "/posts" ? "font-semibold text-foreground after:bg-primary" : "text-muted-foreground hover:text-foreground"}`}>
++            帖子
++          </Link>
+           <Link prefetch={false} href="/c" aria-current={collectionActive ? pathname === "/c" ? "page" : "location" : undefined} className={`${tabClass} ${collectionActive ? "font-semibold text-foreground after:bg-primary" : "text-muted-foreground hover:text-foreground"}`}>
+             合集
+           </Link>
+-          <Link prefetch={false} href="/subscription" aria-current={subscriptionActive ? pathname === "/subscription" ? "page" : "location" : undefined} className={`${tabClass} gap-2 ${subscriptionActive ? "font-semibold text-foreground after:bg-primary" : "text-muted-foreground hover:text-foreground"}`}>
++          <Link prefetch={false} href="/subscription" aria-current={subscriptionActive ? pathname === "/subscription" ? "page" : "location" : undefined} className={`${tabClass} gap-1 sm:gap-2 ${subscriptionActive ? "font-semibold text-foreground after:bg-primary" : "text-muted-foreground hover:text-foreground"}`}>
+             订阅 <Star className="size-3 text-primary" aria-hidden="true" />
+           </Link>
+         </div>
+         <DropdownMenu>
+           <DropdownMenuTrigger asChild>
+-            <Button variant="ghost" className={`min-h-11 gap-2 px-2 text-base ${exploreActive ? "text-foreground" : "text-muted-foreground"}`}>
++            <Button variant="ghost" className={`min-h-11 gap-1 px-1 text-base sm:gap-2 sm:px-2 ${exploreActive ? "text-foreground" : "text-muted-foreground"}`}>
+               探索 <ChevronDown className="size-4" aria-hidden="true" />
+             </Button>
+           </DropdownMenuTrigger>
+diff --git a/apps/web/lib/analytics.ts b/apps/web/lib/analytics.ts
+index 4ce0c20..855408f 100644
+--- a/apps/web/lib/analytics.ts
++++ b/apps/web/lib/analytics.ts
+@@ -14,13 +14,13 @@ export { analyticsDisabled } from "./analytics-visitor";
+ 
+ export type AnalyticsTargetKind = "work" | "collection";
+ export type AnalyticsEventType = "impression" | "click" | "view" | "read";
+-export type AnalyticsPlacement = "home_feed" | "collection_list";
++export type AnalyticsPlacement = "home_feed" | "post_feed" | "collection_list";
+ 
+ export interface TrackInput {
+   eventType: AnalyticsEventType;
+   targetKind: AnalyticsTargetKind;
+   targetId: string;
+-  /** impression/click 必填；帖子信息流 read 为 home_feed，详情 view/read 不传 */
++  /** impression/click 必填；帖子列表 read 为 post_feed，详情 view/read 不传 */
+   placement?: AnalyticsPlacement;
+   /** 浏览实例 id：列表页由 AnalyticsListProvider 生成，详情页由 DetailTracker 生成 */
+   pageViewId: string;
+diff --git a/apps/web/lib/public-catalog.ts b/apps/web/lib/public-catalog.ts
+index 56f2d1a..26ba107 100644
+--- a/apps/web/lib/public-catalog.ts
++++ b/apps/web/lib/public-catalog.ts
+@@ -7,9 +7,8 @@ export async function fetchCatalog(path: string, options: { revalidate: number;
+     const policy = await publicFetchNoStore(`/api/public/catalog-policy?attempt=${attempt}`);
+     if (!policy.ok) throw new Error(`catalog policy API ${policy.status}`);
+     const { version } = await policy.json() as { version: string };
+-    // Rendering v3 includes bounded public post bodies for local unfolding;
+-    // do not reuse a previous deployment's truncated Data Cache payload.
+-    const res = await publicFetch(`${path}?protocol=pin-v4&version=${encodeURIComponent(version)}`, options);
++    // 入口 v5：文章/帖子分流，不复用旧混合列表缓存。
++    const res = await publicFetch(`${path}?protocol=entry-v5&version=${encodeURIComponent(version)}`, options);
+     // 版本读取与内容查询之间发生提交时重新读取；避免返回混合快照。
+     if (res.status !== 409) return res;
+   }
+diff --git a/apps/web/lib/public-content.ts b/apps/web/lib/public-content.ts
+index 7116a18..356240a 100644
+--- a/apps/web/lib/public-content.ts
++++ b/apps/web/lib/public-content.ts
+@@ -2,7 +2,7 @@ import { publicFetch, publicFetchNoStore } from "./api";
+ import type { ContentDetail } from "./types";
+ 
+ export async function getPublicContent(slug: string, revision: string): Promise<ContentDetail | null> {
+-  const response = await publicFetch(`/api/public/contents/${slug}?revision=${revision}`, { revalidate: 86400, tags: [`content:${slug}`] });
++  const response = await publicFetch(`/api/public/contents/${slug}?protocol=entry-v5&revision=${revision}`, { revalidate: 86400, tags: [`content:${slug}`] });
+   if (response.status === 404) return null;
+   if (!response.ok) throw new Error(`public content API ${response.status}`);
+   const content = await response.json() as ContentDetail;
+diff --git a/apps/web/lib/types.ts b/apps/web/lib/types.ts
+index 768646c..6bd328c 100644
+--- a/apps/web/lib/types.ts
++++ b/apps/web/lib/types.ts
+@@ -19,7 +19,7 @@ export interface FeedContentItem {
+   visibility: "public" | "paid";
+   coverMediaId: string | null;
+   publishedAt: string | null;
+-  /** 首页置顶标记（仅 feed 排序使用；标签页同一合同但排序不置顶） */
++  /** 文章/帖子列表的置顶标记；标签页同一合同但排序不置顶。 */
+   isPinned: boolean;
+   tags: FeedTag[];
+   post?: { bodyMarkdown: string; collapsed: boolean; media: Pick<ContentMediaItem, "mediaId" | "mimeType" | "width" | "height" | "durationSec">[] } | null;
+diff --git a/docs/adr/0014-post-article-references.md b/docs/adr/0014-post-article-references.md
+index 4d9e4a3..db63996 100644
+--- a/docs/adr/0014-post-article-references.md
++++ b/docs/adr/0014-post-article-references.md
+@@ -4,6 +4,8 @@
+ 
+ 2026-10-15：帖子统计由 [ADR-0018](0018-post-feed-analytics.md) 修订：首页五秒／主动展开计有效阅读，帖子详情不再产生Click/View/Read；下文保留原发布与媒体设计背景。
+ 
++2026-10-15：文章、帖子、合集入口与媒体展示范围由 [ADR-0020](0020-unified-entry-lists.md) 修订。帖子列表保留原有媒体与原地展开；文章、合集入口的正文媒体在详情页呈现。
++
+ ## 目标与边界
+ 
+ 作品的阅读形态只有 `post` 和 `article`，媒体仍是 Markdown 中的内容块。长文要求标题；帖子标题可空，slug 仍必须由作者指定，页面名称回退为正文摘要或发布时间。CLI 是唯一作者发布入口，因此所有站内作品均属于同一创作者，不增加多作者管理界面。
+diff --git a/docs/adr/0018-post-feed-analytics.md b/docs/adr/0018-post-feed-analytics.md
+index 69853a9..811c507 100644
+--- a/docs/adr/0018-post-feed-analytics.md
++++ b/docs/adr/0018-post-feed-analytics.md
+@@ -2,6 +2,8 @@
+ 
+ 状态：已接受（2026-10-15，用户确认）
+ 
++2026-10-15：列表分流与文字入口由 [ADR-0020](0020-unified-entry-lists.md) 修订；新帖子来源为 post_feed，五秒／主动展开口径继续保留。以下是分流前的设计背景。
++
+ ## 目标与边界
+ 
+ 帖子在信息流直接消费，不应依赖详情点击判断阅读。帖子只保留曝光与有效阅读；不新增展开事件，点赞评论直接使用业务记录。文章和合集沿用现有口径。不扩大首页之外的采集表面。
+diff --git a/docs/analytics.md b/docs/analytics.md
+index cd5c550..786c7d2 100644
+--- a/docs/analytics.md
++++ b/docs/analytics.md
+@@ -13,11 +13,11 @@
+ 
+ | 指标 | 触发条件 | 适用对象 |
+ | --- | --- | --- |
+-| Impression | 列表卡片可视面积 ≥50%，连续可见 ≥1 秒，且页面处于前台；每个列表浏览实例对同一 Target 最多一次 | Work（首页 feed）、Collection（/c 列表） |
++| Impression | 列表卡片可视面积 ≥50%，连续可见 ≥1 秒，且页面处于前台；每个列表浏览实例对同一 Target 最多一次 | Work（文章首页／帖子列表）、Collection（/c 列表） |
+ | Click | 用户主动点击列表卡片的标题或封面入口；预取与自动导航不计入；卡片内其他链接（标签等）不计入 | 文章、Collection |
+ | View | 文章或合集详情页在浏览器真实展示（客户端 effect 执行）；每个详情页浏览实例最多一次；外部直达、刷新、客户端导航均计入；SSR / Prefetch 不产生 | Article、Collection |
+ | Read（文章） | 授权完整正文在前台累计展示 ≥10 秒，后台暂停；每个详情浏览实例最多一次 | Article |
+-| Read（帖子） | 首页卡片可视面积 ≥50% 时累计前台停留 ≥5 秒，滚出／后台暂停；主动成功展开正文立即满足。同一列表实例对同一帖子最多一次 | Post |
++| Read（帖子） | 帖子列表卡片可视面积 ≥50% 时累计前台停留 ≥5 秒，滚出／后台暂停；主动成功展开正文立即满足。同一列表实例对同一帖子最多一次 | Post |
+ | Read（合集） | 目录与授权章节正文在同一流程累计前台展示 ≥10 秒，流程最多一次 | Collection |
+ 
+ 派生指标：
+@@ -29,14 +29,15 @@
+ 
+ ## 3. Placement（列表来源）
+ 
+-首页 feed 是纯内容流（合集为顶层结构，只在 /c 列表曝光），因此列表事件按表面区分：
++首页只列文章，帖子单独在 /posts 展示，合集在 /c 展示。列表事件按表面区分：
+ 
+ | placement | 表面 | Target |
+ | --- | --- | --- |
+-| `home_feed` | 首页 `/`（含"加载更多"追加的条目） | Work |
++| `home_feed` | 首页 `/`（含自动追加分页） | Article |
++| `post_feed` | 帖子 `/posts`（含自动追加分页） | Post |
+ | `collection_list` | 合集列表 `/c` | Collection |
+ 
+-CTR 只在同一 placement 内计算；ingest 在服务端强制 placement 与 Target kind 的唯一对应（work ↔ home_feed、collection ↔ collection_list），不一致的事件静默丢弃，因此单 Target 的 CTR 无歧义。标签页等其他表面不采集 impression/click（无 Provider），其入口点击不混入 CTR。
++CTR 只在同一 placement 内计算；ingest 在服务端强制 placement 与 Target kind 的唯一对应（article ↔ home_feed、post ↔ post_feed、collection ↔ collection_list），不一致的事件静默丢弃，因此单 Target 的 CTR 无歧义。标签页等其他表面不采集 impression/click（无 Provider），其入口点击不混入 CTR。
+ 
+ ## 4. 事件合同
+ 
+@@ -48,7 +49,7 @@ POST /api/analytics/events        （经同源 BFF；批量，单批 ≤ 20 条
+     "eventType": "impression" | "click" | "view" | "read",
+     "targetKind": "work" | "collection",
+     "targetId":  uuid,
+-    "placement": "home_feed" | "collection_list" | null,   // impression/click 必填；帖子 read 为 home_feed；其他 view/read 为 null
++    "placement": "home_feed" | "post_feed" | "collection_list" | null,   // impression/click 必填；帖子 read 为 post_feed；其他 view/read 为 null
+     "pageViewId": uuid,            // 浏览实例 id（列表实例 / 详情页实例）
+     "sessionId":  uuid | null,     // 可选，sessionStorage 标签页会话，不做 30 分钟超时
+     "visitorId":  uuid | null      // 可选，主机限定第一方 Cookie 的随机匿名浏览器身份
+@@ -64,10 +65,12 @@ POST /api/analytics/events        （经同源 BFF；批量，单批 ≤ 20 条
+ 服务端规则：
+ 
+ - Zod 白名单校验；`received_at` 由服务端生成（`defaultNow()`），不信任客户端时钟。
+-- 帖子仅接受 `impression/read + home_feed`；帖子 click/view、旧客户端详情 read（placement=null）丢弃。文章／合集 read 必须 placement=null。展开不新增事件类型。
++- 帖子仅接受 `impression/read + post_feed`；帖子 click/view、旧客户端详情 read（placement=null）丢弃。文章／合集 read 必须 placement=null。展开不新增事件类型。
+ - 目标合法性在应用层校验：work 必须 `status='published'`，collection 必须存在。统计路径不读权益、不触碰付费内容。
+ - 失败隔离：采集请求失败只触发一次有界重试（复用 event_id），随后丢弃，不阻塞内容展示、导航与媒体访问。
+ 
++2026-10-15 分流后，帖子沿用原来的五秒可见／主动展开 read 口径；read 仍表示有效停留，不能证明完读。CLI 仍统计历史 home_feed 与新 post_feed 的帖子 impression/read，不改写原始事件。新请求中帖子 home_feed 事件会被丢弃。
++
+ ## 5. 存储与保留
+ 
+ 原始事件 `analytics_events`（迁移 0002，0013 新增可空 `visitor_id`）：`id`、`event_id`（唯一）、`event_type`、`target_kind`、`target_id`、`placement`、`page_view_id`、`session_id`、`visitor_id`、`received_at`；索引 `(target_kind, target_id, received_at)`、`(received_at)` 与 `(visitor_id, received_at)`。
+diff --git a/packages/core/src/publish.ts b/packages/core/src/publish.ts
+index 8e56bbf..2d92fc5 100644
+--- a/packages/core/src/publish.ts
++++ b/packages/core/src/publish.ts
+@@ -79,6 +79,7 @@ export async function parsePostDir(dir: string): Promise<ParsedPost> {
+     throw new Error(`${indexPath}: 请将 frontmatter media 移到正文图片、::video 或 ::audio；不会静默忽略主媒体`);
+   }
+   const fm = frontmatterSchema.parse(data ?? {});
++  if (fm.type === "post" && fm.collections.length) throw new Error(`${indexPath}: 合集仅支持文章，请移除帖子的 collections 或将 type 改为 article`);
+   if (fm.type === "article" && !fm.title) throw new Error(`${indexPath}: article 需要标题`);
+   if (!m[2]!.trim()) throw new Error(`${indexPath}: 正文不能为空`);
+   collectWorkReferences(parseMarkdown(m[2]!));
+diff --git a/packages/db/src/schema-analytics.ts b/packages/db/src/schema-analytics.ts
+index c69defc..64b6ee3 100644
+--- a/packages/db/src/schema-analytics.ts
++++ b/packages/db/src/schema-analytics.ts
+@@ -15,7 +15,7 @@ export const analyticsEvents = pgTable(
+     targetKind: text("target_kind", { enum: ["work", "collection"] }).notNull(),
+     targetId: uuid("target_id").notNull(),
+     /** impression/click 与帖子信息流 read 携带；详情 view/read 为 null */
+-    placement: text("placement", { enum: ["home_feed", "collection_list"] }),
++    placement: text("placement", { enum: ["home_feed", "post_feed", "collection_list"] }),
+     pageViewId: uuid("page_view_id").notNull(),
+     sessionId: uuid("session_id"),
+     /** 主机限定 Cookie 中的随机身份；历史/拒绝存储客户端允许缺省，不关联账号。 */
+diff --git a/apps/web/app/posts/page.tsx b/apps/web/app/posts/page.tsx
+new file mode 100644
+index 0000000..c647208
+--- /dev/null
++++ b/apps/web/app/posts/page.tsx
+@@ -0,0 +1,26 @@
++import type { Metadata } from "next";
++import { fetchCatalog } from "@/lib/public-catalog";
++import type { FeedResponse } from "@/lib/types";
++import { FeedTimeline } from "@/components/feed-timeline";
++import { SiteHeader } from "@/components/site-header";
++import { LoadMore } from "@/components/load-more";
++import { AnalyticsListProvider } from "@/components/analytics";
++
++export const metadata: Metadata = { title: "帖子" };
++const revalidateSec = Number(process.env.FEED_REVALIDATE_SEC ?? 86400);
++
++export default async function PostsPage() {
++  const res = await fetchCatalog("/api/post-feed", { revalidate: revalidateSec, tags: ["feed"] });
++  if (!res.ok) throw new Error(`post feed API ${res.status}`);
++  const feed = await res.json() as FeedResponse;
++  return <>
++    <SiteHeader />
++    <main data-catalog-version={feed.version} className="pb-20">
++      {feed.items.length === 0 ? <p className="py-20 text-center text-sm text-muted-foreground">还没有帖子，敬请期待。</p>
++        : <AnalyticsListProvider placement="post_feed">
++          <div className="divide-y divide-border"><FeedTimeline items={feed.items} showPinnedBadge /></div>
++          {feed.nextCursor && <LoadMore version={feed.version} initialCursor={feed.nextCursor} basePath="/api/post-feed" showPinnedBadge />}
++        </AnalyticsListProvider>}
++    </main>
++  </>;
++}
+diff --git a/apps/web/app/posts/loading.tsx b/apps/web/app/posts/loading.tsx
+new file mode 100644
+index 0000000..1644122
+--- /dev/null
++++ b/apps/web/app/posts/loading.tsx
+@@ -0,0 +1,5 @@
++import { SiteHeader } from "@/components/site-header";
++
++export default function LoadingPosts() {
++  return <><SiteHeader /><main className="py-20 text-center text-sm text-muted-foreground"><p role="status">正在加载帖子…</p></main></>;
++}
+diff --git a/apps/web/components/entry-cover.tsx b/apps/web/components/entry-cover.tsx
+new file mode 100644
+index 0000000..a86a201
+--- /dev/null
++++ b/apps/web/components/entry-cover.tsx
+@@ -0,0 +1,10 @@
++import { ImageIcon } from "lucide-react";
++import { imageSrcSet, publicImageUrl } from "@yoryon/config/image-variants";
++
++/** 列表封面统一占位与裁切；正文媒体仍按原始比例呈现。 */
++export function EntryCover({ mediaId, title }: { mediaId: string | null; title: string }) {
++  return <div className="flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-lg bg-muted text-muted-foreground">
++    {mediaId ? <img src={publicImageUrl(mediaId)} srcSet={imageSrcSet(mediaId, undefined, true)} sizes="(min-width: 640px) 112px, 88px" alt={title} loading="lazy" decoding="async" className="h-full w-full object-cover" />
++      : <span role="img" aria-label="暂无封面"><ImageIcon className="size-6 opacity-40" strokeWidth={1.3} aria-hidden="true" /></span>}
++  </div>;
++}
+diff --git a/docs/adr/0020-unified-entry-lists.md b/docs/adr/0020-unified-entry-lists.md
+new file mode 100644
+index 0000000..e2ff574
+--- /dev/null
++++ b/docs/adr/0020-unified-entry-lists.md
+@@ -0,0 +1,28 @@
++# ADR-0020：文章、帖子与合集入口统一
++
++状态：已接受（2026-10-15，用户提供设计图并确认实现）。
++
++## 目标与边界
++
++首页只列文章，帖子独立为首页和合集之间的 tab，合集保留 /c。文章与合集用相同图文入口，正文媒体在详情消费。用户最终确认：帖子完整保持原有信息流展示，包括媒体和原地展开／收起；合集只包含文章。
++
++## 决策与数据流
++
++- `/` → `/api/feed` 只查询 article；`/posts` → `/api/post-feed` 只查询 post。先过滤类型、发布状态及原 showInHome 展示开关，再按置顶、毫秒时间、ID 分页。保留现有开关含义，不批量改持久化数据。
++- 文章、合集标题和简介位于左侧，右侧封面固定 4:3，桌面 112×84、窄屏 88×66。缺封面时使用同尺寸图标占位；不重写原媒体文件，不改变正文图片比例。日期／合集篇数位于左侧简介下方，互动仍在图文区下方。
++- 帖子完整复用原 PostEntry、Markdown 与媒体展示，包括本地／远端展开和收起、付费预览、失败重试、取消与资源释放。匿名权限投影、有界列表传输及浏览记忆规则沿用原有实现。日期位于内容下方，并保留详情链接。
++- 合集目录、篇数、上下篇导航与会员合集聚合仅包含已发布文章；旧 post 关系不再对外呈现，但不自动删除数据库关系或更改已持久化权益。新发布拒绝 post 的非空 collections，要求作者明确移除合集设置或改为 article。会员目录中旧合集帖子作为独立作品呈现，避免因隐藏的旧关系而丢失入口。
++- 完整详情与作品内部引用保持原有媒体组合、权限与播放器生命周期。
++- 帖子曝光与五秒可见／主动展开 read 口径保留，来源改为 post_feed；read 仍是有效停留，不代表完读。详情仍不新增帖子 view/read。CLI 同时统计旧 home_feed 与新 post_feed 的帖子 impression/read，历史记录不改写。placement 是 text 列，仅更新协议／TypeScript 枚举，无数据库迁移。
++
++## 并发、缓存和故障
++
++首屏和追加页统一使用 entry-v5 缓存键；sessionStorage 列表记忆使用 feed-v5，避免复用旧混合列表。文章／帖子游标携带类型，拒绝跨列表或旧格式游标并提示刷新；目录版本快照、并发互斥、15 秒超时、失败重试与滚动恢复沿用原有机制。
++
++无封面保持稳定几何空间。帖子展开失败保留原内容并提供重试，卸载或取消时中断请求；付费展开由详情授权，不改变预览权益。媒体-only 帖子继续直接展示媒体。
++
++## 验证与回滚
++
++以隔离数据库、FS 存储与 API 完成分页、手机、展开／收起、详情多媒体、付费授权与版本失效验收。实际命令、回执和独立判断放在 artifacts/unified-entry-20261015/；不增加固定测试套件。
++
++本次不迁移内容或媒体数据；回滚应用即可恢复原入口。旧游标／缓存应刷新，不新增内部兼容渲染或双写。

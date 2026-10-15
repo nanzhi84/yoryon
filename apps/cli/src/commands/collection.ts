@@ -110,8 +110,9 @@ export function registerCollectionCommands(program: Command) {
           const byContent = new Map(items.map((i) => [i.contentId, i]));
           let order = 1;
           for (const slug of contentSlugs) {
-            const cont = await tx.select({ id: contents.id }).from(contents).where(eq(contents.slug, slug)).limit(1);
+            const cont = await tx.select({ id: contents.id, type: contents.type }).from(contents).where(eq(contents.slug, slug)).limit(1);
             if (!cont[0]) throw new Error(`内容不存在: ${slug}`);
+            if (cont[0].type !== "article") throw new Error(`合集仅支持文章: ${slug}`);
             const item = byContent.get(cont[0]!.id);
             if (!item) throw new Error(`内容不在合集中: ${slug}`);
             await tx

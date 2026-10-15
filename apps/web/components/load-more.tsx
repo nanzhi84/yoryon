@@ -25,10 +25,10 @@ export function LoadMore({ initialCursor, version, basePath = "/api/feed", showP
   const active = useRef<AbortController | null>(null);
   useLayoutEffect(() => {
     setReady(false); setError(false); setExpired(false); setLoading(false);
-    const key = `feed:${currentBrowsePath()}:${basePath}`;
+    const key = `feed-v5:${currentBrowsePath()}:${basePath}`;
     const saved = readBrowse<{ version: string; initialCursor: string; cursor: string | null; items: MemberFeedItem[] }>(key);
     if (saved?.version === version && saved.initialCursor === initialCursor && Array.isArray(saved.items)
-      && saved.items.every(item => typeof item?.id === "string" && typeof item.slug === "string" && (item.kind === "collection" ? basePath === "/api/member-feed" && typeof item.paidItemCount === "number" && typeof item.itemCount === "number" : item.kind === "content" && ["post", "article"].includes(item.type)))) {
+      && saved.items.every(item => typeof item?.id === "string" && typeof item.slug === "string" && (item.kind === "collection" ? basePath === "/api/member-feed" && typeof item.paidItemCount === "number" && typeof item.itemCount === "number" : item.kind === "content" && (basePath === "/api/feed" ? item.type === "article" : basePath === "/api/post-feed" ? item.type === "post" : ["post", "article"].includes(item.type))))) {
       const restored: MemberFeedItem[][] = [];
       for (let offset = 0; offset < saved.items.length; offset += 20) restored.push(saved.items.slice(offset, offset + 20));
       setPages(restored); setCursor(saved.cursor);
@@ -47,22 +47,22 @@ export function LoadMore({ initialCursor, version, basePath = "/api/feed", showP
     setLoading(true);
     setError(false);
     try {
-      const res = await fetch(`/api/pages/${version}/${basePath === "/api/feed" ? "feed" : basePath === "/api/paid-feed" ? "paid-feed" : basePath === "/api/member-feed" ? "member-feed" : `tag-${basePath.slice("/api/tags/".length)}`}/${encodeURIComponent(cursor)}`, {
+      const res = await fetch(`/api/pages/${version}/${basePath === "/api/feed" ? "feed" : basePath === "/api/post-feed" ? "post-feed" : basePath === "/api/paid-feed" ? "paid-feed" : basePath === "/api/member-feed" ? "member-feed" : `tag-${basePath.slice("/api/tags/".length)}`}/${encodeURIComponent(cursor)}`, {
         signal: AbortSignal.any([controller.signal, AbortSignal.timeout(15_000)]),
       });
       if (controller.signal.aborted) return;
-      if (res.status === 409) { setExpired(true); writeBrowse(`feed:${currentBrowsePath()}:${basePath}`, null); return; }
+      if (res.status === 409) { setExpired(true); writeBrowse(`feed-v5:${currentBrowsePath()}:${basePath}`, null); return; }
       // 游标失效（如部署后旧格式残留）：与快照过期同一恢复路径——提示刷新，而不是带着旧游标重试
       if (res.status === 400) {
         const body = (await res.json().catch(() => null)) as { error?: { code?: string } } | null;
         if (controller.signal.aborted) return;
-        if (body?.error?.code === "invalid_cursor") { setExpired(true); writeBrowse(`feed:${currentBrowsePath()}:${basePath}`, null); return; }
+        if (body?.error?.code === "invalid_cursor") { setExpired(true); writeBrowse(`feed-v5:${currentBrowsePath()}:${basePath}`, null); return; }
       }
       if (!res.ok) throw new Error(String(res.status));
       const data = (await res.json()) as MemberFeedResponse;
       if (controller.signal.aborted) return;
-      if (data.version !== version) { setExpired(true); writeBrowse(`feed:${currentBrowsePath()}:${basePath}`, null); return; }
-      if (!Array.isArray(data.items) || !data.items.every(item => typeof item?.id === "string" && typeof item.slug === "string" && (item.kind === "collection" ? basePath === "/api/member-feed" && typeof item.paidItemCount === "number" && typeof item.itemCount === "number" : item.kind === "content" && ["post", "article"].includes(item.type)))
+      if (data.version !== version) { setExpired(true); writeBrowse(`feed-v5:${currentBrowsePath()}:${basePath}`, null); return; }
+      if (!Array.isArray(data.items) || !data.items.every(item => typeof item?.id === "string" && typeof item.slug === "string" && (item.kind === "collection" ? basePath === "/api/member-feed" && typeof item.paidItemCount === "number" && typeof item.itemCount === "number" : item.kind === "content" && (basePath === "/api/feed" ? item.type === "article" : basePath === "/api/post-feed" ? item.type === "post" : ["post", "article"].includes(item.type))))
         || (data.nextCursor !== null && typeof data.nextCursor !== "string") || data.nextCursor === cursor) throw new Error("invalid page");
       const items = pages.flat();
       const seen = new Set(items.map(item => `${item.kind}:${item.id}`));
@@ -71,7 +71,7 @@ export function LoadMore({ initialCursor, version, basePath = "/api/feed", showP
       const appended = [...items, ...nextPage];
       if (nextPage.length) setPages([...pages, nextPage]);
       setCursor(data.nextCursor);
-      writeBrowse(`feed:${currentBrowsePath()}:${basePath}`, { version, initialCursor, cursor: data.nextCursor, items: appended });
+      writeBrowse(`feed-v5:${currentBrowsePath()}:${basePath}`, { version, initialCursor, cursor: data.nextCursor, items: appended });
     } catch {
       if (!controller.signal.aborted) setError(true);
     } finally {

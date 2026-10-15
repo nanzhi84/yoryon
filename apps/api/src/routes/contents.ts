@@ -32,23 +32,24 @@ const listContentColumns = {
 } as const;
 
 interface FeedCursor {
+  k: "article" | "post";
   p: boolean;
   t: Date;
   id: string;
 }
 
-/** feed 游标：完整三元组 (isPinned, 毫秒 sortKey, id)。置顶变更会推进版本使旧游标 409；残留旧格式在此拒绝而非静默回首页。 */
-function encodeCursor(p: boolean, t: Date, id: string): string {
-  return Buffer.from(JSON.stringify({ p, t: t.toISOString(), id }), "utf8").toString("base64url");
+/** feed 游标：类型绑定＋完整三元组 (isPinned, 毫秒 sortKey, id)。置顶变更会推进版本使旧游标 409；残留旧格式在此拒绝而非静默回首页。 */
+function encodeCursor(k: "article" | "post", p: boolean, t: Date, id: string): string {
+  return Buffer.from(JSON.stringify({ k, p, t: t.toISOString(), id }), "utf8").toString("base64url");
 }
 
-function decodeCursor(raw: string | undefined): FeedCursor | null {
+function decodeCursor(raw: string | undefined, kind: "article" | "post"): FeedCursor | null {
   if (!raw) return null;
   try {
-    const v = JSON.parse(Buffer.from(raw, "base64url").toString("utf8")) as { p?: unknown; t: string; id: string };
+    const v = JSON.parse(Buffer.from(raw, "base64url").toString("utf8")) as { k?: unknown; p?: unknown; t: string; id: string };
     const t = new Date(v.t);
-    if (typeof v.p !== "boolean" || Number.isNaN(t.getTime()) || typeof v.id !== "string") return null;
-    return { p: v.p, t, id: v.id };
+    if (v.k !== kind || typeof v.p !== "boolean" || Number.isNaN(t.getTime()) || typeof v.id !== "string") return null;
+    return { k: kind, p: v.p, t, id: v.id };
   } catch {
     return null;
   }
@@ -85,7 +86,7 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
   const app = new Hono<{ Variables: AppVariables }>();
 
   /**
-   * 首屏信息流：已发布且独立开启首页展示的作品；免费全文和会员匿名预览共用信息流，
+   * 分类型信息流：文章经 /feed，帖子经 /post-feed；已发布且开启列表展示的作品在分页前筛选类型。
    * 合集是顶层结构，只经 /api/collections → /c 入口曝光，不混排；公开缓存；不读 session —— ADR-0003 公开线）
    *
    * 分页不变量：
@@ -95,56 +96,58 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
    * - 全序 (isPinned desc, sortKey desc, id desc)；游标编码同一三元组，跨置顶边界不重复/不漏项；
    *   多取 1 条（N+1）探测终止，无更多时 nextCursor = null。
    */
-  app.get("/feed", async (c) => deps.db.transaction(async (tx) => {
-    const version = await policy.version(tx);
-    if (c.req.query("version") && c.req.query("version") !== version) return errorResponse(c, 409, "snapshot_expired", "列表已更新，请刷新页面");
-    const rawCursor = c.req.query("cursor");
-    const cursor = decodeCursor(rawCursor);
-    if (rawCursor && !cursor) return errorResponse(c, 400, "invalid_cursor", "分页游标无效，请刷新列表");
-    const contentSortKey = sql`date_trunc('milliseconds', coalesce(${contents.publishedAt}, ${contents.createdAt}))`;
-    const rows = await tx
-      .select(listContentColumns)
-      .from(contents)
-      .where(and(eq(contents.status, "published"), eq(contents.showInHome, true), keyset(cursor, contents.isPinned, contentSortKey, contents.id)))
-      .orderBy(desc(contents.isPinned), desc(contentSortKey), desc(contents.id))
-      .limit(FEED_PAGE_SIZE + 1);
-    const page = rows.slice(0, FEED_PAGE_SIZE);
+  for (const kind of ["article", "post"] as const) {
+    app.get(kind === "article" ? "/feed" : "/post-feed", async (c) => deps.db.transaction(async (tx) => {
+      const version = await policy.version(tx);
+      if (c.req.query("version") && c.req.query("version") !== version) return errorResponse(c, 409, "snapshot_expired", "列表已更新，请刷新页面");
+      const rawCursor = c.req.query("cursor");
+      const cursor = decodeCursor(rawCursor, kind);
+      if (rawCursor && !cursor) return errorResponse(c, 400, "invalid_cursor", "分页游标无效，请刷新列表");
+      const contentSortKey = sql`date_trunc('milliseconds', coalesce(${contents.publishedAt}, ${contents.createdAt}))`;
+      const rows = await tx
+        .select(listContentColumns)
+        .from(contents)
+        .where(and(eq(contents.status, "published"), eq(contents.showInHome, true), eq(contents.type, kind), keyset(cursor, contents.isPinned, contentSortKey, contents.id)))
+        .orderBy(desc(contents.isPinned), desc(contentSortKey), desc(contents.id))
+        .limit(FEED_PAGE_SIZE + 1);
+      const page = rows.slice(0, FEED_PAGE_SIZE);
 
-    const pageIds = page.map((r) => r.id);
-    const tagRows = pageIds.length
-      ? await tx
-          .select({ contentId: contentTags.contentId, slug: tags.slug, name: tags.name })
-          .from(contentTags)
-          .innerJoin(tags, eq(contentTags.tagId, tags.id))
-          .where(inArray(contentTags.contentId, pageIds))
-      : [];
+      const pageIds = page.map((r) => r.id);
+      const tagRows = pageIds.length
+        ? await tx
+            .select({ contentId: contentTags.contentId, slug: tags.slug, name: tags.name })
+            .from(contentTags)
+            .innerJoin(tags, eq(contentTags.tagId, tags.id))
+            .where(inArray(contentTags.contentId, pageIds))
+        : [];
 
-    const postBodies = await postFeedBodies(tx, page.filter(r => r.type === "post").map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
-    const excerpts = await articleFeedSummaries(tx, page.filter(r => r.type === "article").map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
-    const last = page[page.length - 1];
-    c.header("Cache-Control", "public, max-age=0, must-revalidate");
-    return c.json({
-      version,
-      items: page.map((r) => ({
-        kind: "content" as const,
-        id: r.id,
-        type: r.type,
-        slug: r.slug,
-        title: r.title,
-        description: r.description,
-        excerpt: excerpts.get(r.id)?.excerpt ?? "",
-        readerLayout: excerpts.get(r.id)?.layout ?? null,
-        visibility: r.visibility,
-        coverMediaId: r.coverMediaId,
-        publishedAt: r.publishedAt?.toISOString() ?? null,
-        isPinned: r.isPinned,
-        post: postBodies.get(r.id) ?? null,
-        tags: tagRows.filter((t) => t.contentId === r.id).map((t) => ({ slug: t.slug, name: t.name })),
-      })),
-      // 与 tags 同一终止条件：多拉 1 条才说明有下一页
-      nextCursor: rows.length > FEED_PAGE_SIZE && last ? encodeCursor(last.isPinned, last.publishedAt ?? last.createdAt, last.id) : null,
-    });
-  }, { isolationLevel: "repeatable read", accessMode: "read only" }));
+      const postBodies = await postFeedBodies(tx, page.filter(r => r.type === "post").map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
+      const excerpts = await articleFeedSummaries(tx, page.filter(r => r.type === "article").map(r => r.id), deps.env.MEDIA_BLOCK_WEIGHT);
+      const last = page[page.length - 1];
+      c.header("Cache-Control", "public, max-age=0, must-revalidate");
+      return c.json({
+        version,
+        items: page.map((r) => ({
+          kind: "content" as const,
+          id: r.id,
+          type: r.type,
+          slug: r.slug,
+          title: r.title,
+          description: r.description,
+          excerpt: excerpts.get(r.id)?.excerpt ?? "",
+          readerLayout: excerpts.get(r.id)?.layout ?? null,
+          visibility: r.visibility,
+          coverMediaId: r.coverMediaId,
+          publishedAt: r.publishedAt?.toISOString() ?? null,
+          isPinned: r.isPinned,
+          post: postBodies.get(r.id) ?? null,
+          tags: tagRows.filter((t) => t.contentId === r.id).map((t) => ({ slug: t.slug, name: t.name })),
+        })),
+        // 与 tags 同一终止条件：多拉 1 条才说明有下一页
+        nextCursor: rows.length > FEED_PAGE_SIZE && last ? encodeCursor(kind, last.isPinned, last.publishedAt ?? last.createdAt, last.id) : null,
+      });
+    }, { isolationLevel: "repeatable read", accessMode: "read only" }));
+  }
 
   /**
    * 付费内容列表（Issue #15 订阅页“付费内容”区）：与 /api/feed 对称的公开线端点。

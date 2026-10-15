@@ -1,0 +1,99 @@
+{
+  "browser": "Codex In-app Browser, dedicated background tab",
+  "desktopViewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "mobileViewport": {
+    "width": 390,
+    "height": 844
+  },
+  "home": {
+    "status": "PASS",
+    "firstPage": 20,
+    "afterScroll": 24,
+    "types": "article only",
+    "desktopCover": {
+      "width": 112,
+      "height": 84
+    },
+    "coverTopEqualsHeadingTop": true,
+    "mobileCover": {
+      "width": 88,
+      "height": 66
+    },
+    "mobileHorizontalOverflow": false,
+    "articleEntryBodyMediaMounted": false,
+    "missingCoverPlaceholder": true,
+    "returnRestoredLoaded24Entries": true
+  },
+  "posts": {
+    "status": "PASS",
+    "firstPage": 20,
+    "afterScroll": 24,
+    "hiddenPost25Absent": true,
+    "mediaOnlyPost24ImagePresent": true,
+    "post01ExpandedImageVideoAudio": true,
+    "post01Collapses": true,
+    "post03LocalExpandDetailRequests": 0,
+    "post04RemoteError": "帖子加载失败。重试",
+    "post04RetryFullTail": true,
+    "anonymousPaidExpansion": {
+      "hiddenText": false,
+      "hiddenAudio": false,
+      "previewWarning": true
+    },
+    "memberPaidExpansion": {
+      "hiddenText": true,
+      "hiddenAudio": true,
+      "previewWarning": false
+    },
+    "duringRemoteLoadNavigateHome": {
+      "status": "PASS",
+      "loadingStateObserved": true,
+      "noLateUiMutation": true,
+      "transportAbort": "UNVERIFIED - corresponding fetch had no loadingFailed cancellation receipt"
+    }
+  },
+  "collections": {
+    "status": "PASS",
+    "listEachArticleCount": 1,
+    "detailDirectoryArticleOnly": true,
+    "nextPreviousPostExcluded": true,
+    "desktopCover": {
+      "width": 112,
+      "height": 84
+    },
+    "mobileCover": {
+      "width": 88,
+      "height": 66
+    },
+    "mobileHorizontalOverflow": false
+  },
+  "detailMedia": {
+    "status": "PASS",
+    "imageShown": true,
+    "video": {
+      "durationSec": 2,
+      "readyState": 4,
+      "error": null
+    },
+    "audio": {
+      "durationSec": 2,
+      "readyState": 4,
+      "error": null
+    }
+  },
+  "temporaryBrowserControls": {
+    "blockedUrlsReset": true,
+    "networkLatencyReset": true,
+    "viewportReset": true
+  },
+  "finalAriaLabel": {
+    "status": "PASS",
+    "coverLinksPrefix": "查看文章：",
+    "placeholderCorrectDetail": "/p/accept-article-02",
+    "desktopWidth": 112,
+    "desktopHeight": 84
+  }
+}
