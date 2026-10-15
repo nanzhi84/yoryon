@@ -27,3 +27,7 @@
 - 高于视口两倍的卡片无法达到严格 50% 面积阈值，主动展开仍可记读；快速展开允许 read 早于 impression，阅读率可能超过 100%。已在 ADR 和验收报告明示，符合本次确认口径，无需伪造曝光或另加展开指标。
 - 同列表正常滚动保留累计；整页刷新产生新实例。没有引入跨任意卸载的永久去重。
 - 生产部署约束由既有 apps/web/vercel.json 的 main=false 保护；最终合并者仍需核对实际生产部署未变化。本轮未执行部署。
+
+## 最终配置复核
+
+`c7b291a` 仅追加本报告与 `apps/web/vercel.json` 的当前分支禁用项，业务源码未变。本轮使用 Python json.loads 实际解析配置成功，确认 `git.deploymentEnabled.main=false` 和 `git.deploymentEnabled["codex/post-feed-analytics"]=false` 同时存在；既有其他分支禁用项保留，无新增全局启用规则。**PASS**，本分支推送及 main 合并的 Git 自动部署均明确禁用。无需重复未变化的业务验收；实际生产最新部署仍由主 agent 在交付时核对。
