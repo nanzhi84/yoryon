@@ -22,17 +22,6 @@ export function rehypePostSpacing() {
       quoted ||= parent.tagName === "blockquote";
       let previous = parent.type === "root" ? 0 : (parent.position?.start.line ?? 1) - 1;
       const children = parent.children ?? [];
-      // HAST inserts layout newlines around nested blocks. Keep search offsets,
-      // but don't render those formatting characters as authored blank lines.
-      if (parent.tagName === "li") children.forEach((child, index) => {
-        const adjacent = [children[index - 1], children[index + 1]].some(node =>
-          ["p", "ul", "ol", "blockquote", "pre"].includes(node?.tagName ?? ""));
-        const text = child.children?.[0];
-        if (adjacent && child.properties?.["data-search-node"] !== undefined && child.children?.length === 1
-          && text?.type === "text" && /\n/.test(text.value ?? "") && /^\s*$/.test(text.value ?? "")) {
-          child.properties.hidden = true; child.properties.ariaHidden = true;
-        }
-      });
       for (const child of children) {
         if (child.type !== "element" || !child.position) continue;
         const count = blanks(previous, child.position.start.line - 1, quoted);

@@ -16,6 +16,17 @@ export function rehypeHardBreaks() {
     function walk(parent: Node) {
       if (parent.tagName === "pre") return;
       const children = parent.children ?? [];
+      // HAST inserts layout newlines around nested blocks. Keep search offsets,
+      // but don't render those formatting characters as authored blank lines.
+      if (parent.tagName === "li") children.forEach((child, index) => {
+        const adjacent = [children[index - 1], children[index + 1]].some(node =>
+          ["p", "ul", "ol", "blockquote", "pre"].includes(node?.tagName ?? ""));
+        const text = child.children?.[0];
+        if (adjacent && child.properties?.["data-search-node"] !== undefined && child.children?.length === 1
+          && text?.type === "text" && /\n/.test(text.value ?? "") && /^\s*$/.test(text.value ?? "")) {
+          child.properties.hidden = true; child.properties.ariaHidden = true;
+        }
+      });
       for (let i = 0; i < children.length; i++) {
         const node = children[i]!;
         const first = node.children?.[0];
