@@ -1,0 +1,15 @@
+HTTP/1.1 200 Connection established
+
+HTTP/2 200 
+age: 0
+cache-control: public, max-age=0, must-revalidate
+content-type: application/json
+date: Thu, 15 Oct 2026 12:18:29 GMT
+server: Vercel
+strict-transport-security: max-age=63072000
+vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+via: 1.1 Caddy
+x-matched-path: /api/[...path]
+x-vercel-cache: MISS
+x-vercel-id: sin1::sin1::bnxws-1792066709926-f82b5711d36e
+
