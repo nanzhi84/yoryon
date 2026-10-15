@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { LoginForm } from "@/components/login-form";
+import { noIndex } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "登录" };
+export const metadata: Metadata = { title: "登录", robots: noIndex };
 
 export default async function LoginPage({ searchParams }: { searchParams: Promise<{ returnTo?: string }> }) {
   const { returnTo } = await searchParams;

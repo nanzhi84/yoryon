@@ -1,0 +1,5 @@
+{
+  "path": "/p/editorial-paid-example?collection=editorial-preview&utm_source=seo",
+  "sameVisibleHTMLTextAtSameParameters": true,
+  "note": "Earlier final probe omitted collection param, so its collection navigation differed as expected. Same parameters are compared here."
+}

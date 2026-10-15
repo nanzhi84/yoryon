@@ -1,0 +1,30 @@
+Vercel CLI 54.14.5 (Node.js 24.20.0)
+Fetching deployment "yoryon.com" in zyy2740738166-7111s-projects
+> Fetched deployment "yoryon-2g12t521m-zyy2740738166-7111s-projects.vercel.app" in zyy2740738166-7111s-projects [542ms]
+
+  General
+
+    id		dpl_GFjj2oxssGicJSwe2Nwn7PUwKnrf
+    name	yoryon-web
+    target	production
+    status	● Ready
+    url		https://yoryon-2g12t521m-zyy2740738166-7111s-projects.vercel.app
+    created	Fri Oct 16 2026 01:58:49 GMT+0800 (Singapore Standard Time) [40m ago]
+
+
+  Aliases
+
+    ╶ https://yoryon-web-zyy2740738166-7111s-projects.vercel.app
+    
+
+  Builds
+
+    ┌ .        [0ms]
+    ├── λ index (3.63MB) [sin1]
+    ├── λ c (3.63MB) [sin1]
+    ├── λ c.rsc (3.63MB) [sin1]
+    ├── λ c/[slug] (3.63MB) [sin1]
+    ├── λ c/[slug].rsc (3.63MB) [sin1]
+    └── 53 output items hidden
+    
+

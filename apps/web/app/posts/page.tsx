@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
 import { fetchCatalog } from "@/lib/public-catalog";
 import type { FeedResponse } from "@/lib/types";
 import { FeedTimeline } from "@/components/feed-timeline";
 import { SiteHeader } from "@/components/site-header";
 import { LoadMore } from "@/components/load-more";
 import { AnalyticsListProvider } from "@/components/analytics";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "帖子" };
+export const metadata = pageMetadata("/posts", "帖子", "Yoryon 的帖子与日常记录。");
 const revalidateSec = Number(process.env.FEED_REVALIDATE_SEC ?? 86400);
 
 export default async function PostsPage() {

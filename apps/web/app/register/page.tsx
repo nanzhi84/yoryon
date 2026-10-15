@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { RegisterForm } from "@/components/register-form";
+import { noIndex } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "注册" };
+export const metadata: Metadata = { title: "注册", robots: noIndex };
 
 export default function RegisterPage() {
   return (

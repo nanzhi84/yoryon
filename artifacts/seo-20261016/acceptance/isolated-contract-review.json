@@ -1,0 +1,59 @@
+{
+  "sitemap": {
+    "sameDynamicPaths": true,
+    "timeMismatches": [],
+    "uniqueURLs": true,
+    "excludedFunctionalRoutes": [],
+    "fixedPagesWithoutInventedDate": true
+  },
+  "paid": {
+    "sameAnonymousAPIBeforeAfter": true,
+    "access": "preview",
+    "visibility": "paid",
+    "schemaAccessibleForFree": false,
+    "schemaKeys": [
+      "@context",
+      "@type",
+      "@id",
+      "headline",
+      "description",
+      "datePublished",
+      "dateModified",
+      "url",
+      "mainEntityOfPage",
+      "author",
+      "inLanguage",
+      "isAccessibleForFree",
+      "isPartOf"
+    ],
+    "noBodyFields": true,
+    "schemaAuthor": {
+      "@type": "Person",
+      "@id": "http://localhost:3216/#author",
+      "name": "Yoryon",
+      "url": "http://localhost:3216/"
+    },
+    "schemaCollections": [
+      {
+        "@type": "CollectionPage",
+        "@id": "http://localhost:3216/c/editorial-preview",
+        "url": "http://localhost:3216/c/editorial-preview",
+        "name": "长文排版预览"
+      }
+    ]
+  },
+  "collection": {
+    "sameAnonymousAPIBeforeAfter": true,
+    "schemaCount": 8,
+    "sameOrderedTitlesAndLinks": true,
+    "sameRights": true
+  },
+  "articleAssociation": [
+    {
+      "@type": "CollectionPage",
+      "@id": "http://localhost:3216/c/editorial-preview",
+      "url": "http://localhost:3216/c/editorial-preview",
+      "name": "长文排版预览"
+    }
+  ]
+}

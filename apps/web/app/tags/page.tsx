@@ -2,7 +2,8 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { BackButton } from "@/components/back-button";
 import { publicFetch } from "@/lib/api";
-export const metadata = { title: "标签" };
+import { pageMetadata } from "@/lib/seo";
+export const metadata = pageMetadata("/tags", "标签", "按标签浏览 Yoryon 的文章与帖子。");
 export default async function TagsPage() {
   const response = await publicFetch("/api/tags", { revalidate: 86400, tags: ["feed"] });
   if (!response.ok) throw new Error(`tags API ${response.status}`);

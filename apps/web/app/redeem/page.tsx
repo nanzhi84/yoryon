@@ -3,8 +3,9 @@ import { ArrowUpRight } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { RedeemClient } from "@/components/redeem-client";
 import { BackButton } from "@/components/back-button";
+import { noIndex } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "兑换激活码" };
+export const metadata: Metadata = { title: "兑换激活码", robots: noIndex };
 
 export default async function RedeemPage({ searchParams }: { searchParams: Promise<{ returnTo?: string }> }) {
   const { returnTo } = await searchParams;

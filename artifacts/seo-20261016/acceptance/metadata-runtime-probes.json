@@ -1,0 +1,38 @@
+{
+  "site": "https://yoryon.com/",
+  "descriptionProbes": [
+    {
+      "source": "记录我第一次的实习日常，包含从学校到工作中的感受和经验。\n可以给未工作的小伙伴提供一个参考。\n或者，**也可以融合成为你经历的一部分**。",
+      "result": "记录我第一次的实习日常，包含从学校到工作中的感受和经验。 可以给未工作的小伙伴提供一个参考。 或者，也可以融合成为你经历的一部分。"
+    },
+    {
+      "source": "# 标题\n\n**加粗**与[现有链接](https://example.com)，`命令`\n\n> 引用\n\n- 第一项\n- 第二项",
+      "result": "标题 加粗与现有链接，命令 引用 第一项 第二项"
+    },
+    {
+      "source": "<div>摘要内容</div>",
+      "result": ""
+    },
+    {
+      "source": "&lt;现有实体&gt; &amp; 文字",
+      "result": "<现有实体> & 文字"
+    },
+    {
+      "source": "  \n\t",
+      "result": ""
+    },
+    {
+      "source": "~~删除线~~",
+      "result": "~~删除线~~"
+    }
+  ],
+  "emptyFallback": "示例系列",
+  "jsonldEscaping": {
+    "serialized": "{\"name\":\"安全\\u003cscript>可见\\u003c/script> & \\\"引号\\\"\",\"description\":\"行\\n文\"}",
+    "parsed": {
+      "name": "安全<script>可见</script> & \"引号\"",
+      "description": "行\n文"
+    },
+    "containsRawLessThan": false
+  }
+}

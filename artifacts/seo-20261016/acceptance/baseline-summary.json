@@ -1,0 +1,862 @@
+{
+  "at": "2026-10-15T18:30:22.052798+00:00",
+  "base": "https://yoryon.com",
+  "commit": "20c1bd31d5d2abc09d1b0fc5c66bbd9c362b00d0",
+  "results": [
+    {
+      "path": "/",
+      "status": 200,
+      "finalUrl": "https://yoryon.com/",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "a3defdfaca4c6731e93ebabae89bba335aecbe17d4f5cd69ddc95b0c49dc0e67",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "先自由后财富 今天看了孙宇晨、邵艾伦的博客访谈。 难绷的是孙割讲话还是很有喜感，一直在那傻乐呵，一直输出观点。每次都是Alan被迫说：“我还想要继续往下推”去推进度。 全程孙割对于薄肌反复提及反复强调，乐此不疲。 信息密度比较低，但有些观点还是让我耳目一新。 我总结了几个我觉得有启发的观点： AI 化：让 AI 参与个人生活和工作中… 2026.10.09 评论 点赞 转发 Jev 技术图解：从文本生成到类型化决策 以客服分流为主线，解释 Jev 的类型化决策接口、并行判断、概率校准和 Agent 接入边界。 2026.09.19 评论 点赞 转发 深入 DeepSeek Harness：当 Agent Loop 也成为插件 拆解 DSH 的一切皆插件架构：从启动组装、Cordis 三件套到 turn/step 循环与 Session Log，核心是 agent loop 可整体热替换，为 agent 自进化铺好基础设施。 2026.08.19 评论 点赞 转发 从 Workflow 到 Agent：范式选择与构建模式 循序渐进讲清 Workflow 与 Agent：是什么、何时选哪种范式、各自有哪些构建形式与落地要点。 2026.08.05 评论 点赞 转发 经济学十大原理（3）：整体经济如何运行 整体经济三原理：生产率定生活水平，过多货币推高物价，短期通胀与失业权衡。 2026.05.10 评论 点赞 转发 经济学十大原理（2）：人们如何相互影响 贸易、市场与政府：比较优势扩大蛋糕，价格协调，失灵时谨慎介入。 2026.05.09 评论 点赞 转发 经济学十大原理（1）：人们如何做出决策 决策四原理：权衡、机会成本、边际量与激励反应。 2026.05.08 评论 点赞 转发 巴菲特：当前美国股市像是赌场 市场像附带赌场的教堂：控制能控制的，保留选择权。 2026.05.02 评论 点赞 转发 被优绩主义腌入味后，连痛苦都被剥夺了正当性 我为什么开始思考优绩主义呢？ 我曾经很相信这套东西，我甚至自诩为社会达尔文主义的信奉者。 我会认真规划每一个学期，想怎么把绩点再提一点，怎么让自己的履历更好看一点，怎么去争取一个更好的研究生去向。我把这些事想得很重要，也确实做得很认真。那时候我脑子不会想很多事情，只想着怎么拼命往上走。 于是我成了优绩主义最忠诚的执行者… 2026.04.02 评论 点赞 转发",
+      "visibleMainSha256": "a79b5abb583971181e4e30989c2bb4f182cfd5689e4eee1f30401a0fb46bc575",
+      "links": [
+        "/p/freedom-before-wealth",
+        "/p/freedom-before-wealth#comments",
+        "/p/jev-typed-decisions",
+        "/p/jev-typed-decisions#comments",
+        "/p/deepseek-harness",
+        "/p/deepseek-harness#comments",
+        "/p/workflow-to-agent-patterns",
+        "/p/workflow-to-agent-patterns#comments",
+        "/p/economics-principles-overall",
+        "/p/economics-principles-overall#comments",
+        "/p/economics-principles-interaction",
+        "/p/economics-principles-interaction#comments",
+        "/p/economics-principles-decision",
+        "/p/economics-principles-decision#comments",
+        "/p/buffett-casino-church",
+        "/p/buffett-casino-church#comments",
+        "/p/meritocracy-and-pain",
+        "/p/meritocracy-and-pain#comments"
+      ],
+      "media": []
+    },
+    {
+      "path": "/posts",
+      "status": 200,
+      "finalUrl": "https://yoryon.com/posts",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "a61e7f139bbf7f9e3c23fd06fce2d4d940ff36412f1f09d5e1a7bc3706747802",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "正在加载帖子… 以前我会认为只要一个人出了钱，就会把公司的命运与其绑定。 他不会想要浪费自己的投资，因此会努力工作扩大公司收益为公司谋取利益。 但是我现在发现不是这样。 让别人合伙并不天然让其会努力帮你干活。 别人合伙拿了钱实际上如果这笔钱对他来讲没啥关系的话，依然会啥也不想做。 反而是我自己陷入了被动。 我单方面以为大家利益一致，实际上真正承担所有推进成本和时间压力的只有我自己。 管理真的是个很困难的事情。 2026.09.27 评论 点赞 转发 正常人是：努力学习->获得更好学历->找到更好工作->搞钱。 为什么不是：直接思考怎么搞钱。 2026.09.20 评论 点赞 转发 我最近在重新搭一个学生项目的组织结构时，发现自己之前有一个很明显的习惯：只要看到别人把事情做得不够好，我就很容易产生一种冲动，觉得还是我自己来更快。 这个判断往往没有错。 我更熟悉项目，知道自己想要什么，很多工作自己做确实能做到八九十分，交给别人可能只有六七十分。问题在于，如果每一次结果不理想，我都选择亲自接管，那么短期得到的是更好的结果，长期形成的却是一个越来越依赖我的组织。大家负责尝试，我负责收尾；大家做到六十分，我再补到九十分。时间久了，所有关键工作都会重新回到我手里。 这种做法还会让我失去判断人的能力。 我很容易把结果解释成这个人能力不行，所以只能我自己做。但如果一个人每次做到一半就被接管，他实际上从来没有完整承担过目标、决策、执行和结果，也没有真正面对过失败的成本。最后我看到的只是一个被我反复打断的执行者，很难判断他究竟无法胜任，还是一直没机会成为真正的负责人。 所以管理者需要克制一种很强的本能：看到问题以后，马上自己把事情做好。真正需要判断的是，这个问题是否已经严重到必须介入。 如果涉及资金、法律、账号安全、重大声誉风险，当然应该直接处理。但如果只是内容没有我写得好，活动没有我设计得精细，结果只是七十分而不是九十分，那么更合理的动作应该是明确问题，让负责人自己修改并承担结果。 如果一个人经过几轮反馈依然达不到岗位要求，也不应该由管理者长期替他补位。那时需要解决的是岗位和人的匹配问题。继续亲自把他的工作做完，只会让一个不合格的人继续待在岗位上，同时让管理者多兼任一份工作。 管理者应该做的事情其实很有限：定标准，给资源，看结果，必要时换人。最难的部分反而是忍住，不要因为自己能做得更好，就把执行权重新拿回来。 因为组织能力的建立，本来就意味着接受一部分效率损失。别人第一次做可能只有六十分，第二次七十分，第三次才慢慢接近标准。如果每一次六十分都被我接管，我当然可以马上得到九十分，但永远不会得到第二个能够独立做到八十分的人。 这也是我现在对管理的一点重新理解：一个管理者有多能干，并不能直接说明这个组织有多强。 真正值得观察的是当创始人不亲自下场以后，事情还能不能继续向前推进。 2026.09.09 评论 点赞 转发 连接本身越来越不值钱。 微信时代以前，认识某个人可能就是壁垒。现在大量人脉关系已经高度数字化，LinkedIn、微信、行业社群、猎头、FA、专家网络公司都在降低连接成本。 所以认识很多人，甚至能把两个人介绍认识，本身没有多少护城河。 真正稀缺的是有效组织能力。 你必须同时有判断、信用、利益设计、执行和协调能力。 否则所谓连接资源只会退化成一个通讯录很厚的人。 很多人会产生一种错觉，以为做人脉枢纽比做专业能力重要。 实际上，真正的网络中心性通常是结果。 为什么别人愿意接你的电话？ 为什么愿意把信息告诉你？ 为什么愿意接受你的撮合？ 为什么愿意让你参与利益分配？ 为什么愿意把关键决策交给你？ 背后通常还是因为你长期创造过价值。 2026.09.08 评论 点赞 转发 感觉自己是个很嫉妒的人，看不得别人好，尤其是拥有了我曾感觉可以拥有却未能拥有的东西。 我总是在得到优势的时候渴望与别人比较，得到优越感；在失去优势的时候，难受、逃避、退出比赛，并且把这个东西说成一个不稀罕的东西。 可是每次看到别人变成了我以前想成为的闪闪发光的样子，我依然不甘、依然痛苦，即使和朋友聊起的时候假装大度，但是心里却依旧是如此的嫉妒很不爽。 我还把这种痛苦的缘由推给一切影响我的东西。 我不懂。 一直这样。 2026.09.05 评论 点赞 转发 我喜欢看虚拟主播，有时候会给别人刷礼物。 但是正常情怀刷了就刷了，有些主播就会经常嘘寒问暖。 刚开始还好，但是持续刷就持续有嘘寒问暖，甚至消息比会变成10:1，还会有小作文过来。 渐渐地就感觉这好像不是一种关心，而是一种束缚和压力。 好像自己不看她的直播就要报备，不然就很尴尬。 有时候找借口说不看了，我以为正常都应该明白，但是却好像不明白，结果还是来关心。 这个时候的关心就感觉更绑架，更让我莫名不爽和一股无名火。 不知道我是对的还是不对的。 而且有些主播虽然人看起来很好，好像人畜无害，但是明显让我感觉更偏圈米，就是一种渴望。 一个硬圈的和一个给我情绪价值我自发想刷完全不是一个感受，很明显。 幸好我情绪不稳定，感觉到不爽就不看了。 2026.08.24 评论 点赞 转发 越是急于证明自己，越容易被短期结果牵着走； 越想快速得到回报，越容易失去判断。 看淡一时的盈亏，把注意力放回自己的节奏和长期积累。 2026.08.04 评论 点赞 转发 迷茫是你不知道自己要什么。 恐惧是你很清楚自己要什么，但不知道该走哪条路到那里。 大多数人说“我很迷茫”的时候，其实是恐惧。 2026.07.24 评论 点赞 转发 今天和爸妈聊天时，我更清楚地感受到一种很典型的“东亚父母式”观念差异。 我爸的想法大致是： 以后好好工作； 找个伴侣； 生个孩子； 把家庭养活。 而我的顾虑是： 如果自己还没有能力提供相对好的条件，就不想轻易生孩子； 我担心孩子在条件不足的情况下会跟着受苦，所以我更倾向于“先具备能力，再考虑生育”。 但爸妈并不认同这种顺序。他们更相信： 先把孩子生下来； 再通过努力去把孩子养好。 我困惑的点在于：为什么传统父母会把“生育”看作一种必须先发生的事情，而不是建立在能力与准备之上的选择？ 2026.07.23 评论 点赞 转发 很多大学生会发现过去十几年积累的“优秀”，在市场里根本不能直接兑换 学校奖励的是完成任务，市场奖励的是解决问题。 2026.05.24 评论 点赞 转发 做决定的时候永远后悔，不做决定的时候更后悔 这他妈就是人生吧。 2026.05.02 评论 点赞 转发 以前我很在意自己是不是足够“优秀”。 现在我觉得“优秀”这个词只是学校里的语言。 它通常意味着听话、稳定、完成任务。 但赚钱需要的是另一套能力：判断需求，承担风险，接受反馈。 2026.04.27 评论 点赞 转发 人的精力是有限的 想的多必定导致做得少 做得少必然拿不到结果 拿不到结果又导致继续想得多 这是一个无限的恶性循环 2026.04.24 评论 点赞 转发 如何对抗不确定性对精神和情绪的持续摧残 我的一个缓解方法是 少想，事情来了再解决 你能解决的 2026.04.24 评论 点赞 转发 做规划的时候 哪些事应该多想点 哪些事应该别多想 2026.04.21 评论 点赞 转发 压力大的后果就是变成肥猪啊 2026.04.20 评论 点赞 转发",
+      "visibleMainSha256": "789af2f5b689c9063bee58ba5ce50cfdb57a666c53e235566149787101fe69e2",
+      "links": [
+        "/p/note-2026-09-27-1",
+        "/p/note-2026-09-27-1#comments",
+        "/p/note-2026-09-20-1",
+        "/p/note-2026-09-20-1#comments",
+        "/p/note-2026-09-09-1",
+        "/p/note-2026-09-09-1#comments",
+        "/p/note-2026-09-08-1",
+        "/p/note-2026-09-08-1#comments",
+        "/p/note-2026-09-05-1",
+        "/p/note-2026-09-05-1#comments",
+        "/p/note-2026-08-24-1",
+        "/p/note-2026-08-24-1#comments",
+        "/p/note-2026-08-04-1",
+        "/p/note-2026-08-04-1#comments",
+        "/p/note-2026-07-24-1",
+        "/p/note-2026-07-24-1#comments",
+        "/p/note-2026-07-23-1",
+        "/p/note-2026-07-23-1#comments",
+        "/p/note-2026-05-24-1",
+        "/p/note-2026-05-24-1#comments",
+        "/p/note-2026-05-02-1",
+        "/p/note-2026-05-02-1#comments",
+        "/p/note-2026-04-27-1",
+        "/p/note-2026-04-27-1#comments",
+        "/p/note-2026-04-24-2",
+        "/p/note-2026-04-24-2#comments",
+        "/p/note-2026-04-24-1",
+        "/p/note-2026-04-24-1#comments",
+        "/p/note-2026-04-21-1",
+        "/p/note-2026-04-21-1#comments",
+        "/p/note-2026-04-20-1",
+        "/p/note-2026-04-20-1#comments"
+      ],
+      "media": []
+    },
+    {
+      "path": "/c",
+      "status": 200,
+      "finalUrl": "https://yoryon.com/c",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "f35d90bbadbcff1c99a08c038e3c86f833b86155953cf9b6c7ffe5a55094dc1f",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "正在加载合集… 第一段AI PM实习日记 记录我第一次的实习日常，包含从学校到工作中的感受和经验。 可以给未工作的小伙伴提供一个参考。 或者， 也可以融合成为你经历的一部分 。 合集 · 37 篇内容 · 更新于 2026.10.15",
+      "visibleMainSha256": "b447a78519738d6133b49210154889875fa84d58f53a246cfb64a8940e6d3887",
+      "links": [
+        "/c/first-internship-diary"
+      ],
+      "media": []
+    },
+    {
+      "path": "/c/first-internship-diary",
+      "status": 200,
+      "finalUrl": "https://yoryon.com/c/first-internship-diary",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "4935ca012b87ede73da05ffba872d2419fb66da64a6b67d57d317852af83441c",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "记录我第一次的实习日常，包含从学校到工作中的感受和经验。\n可以给未工作的小伙伴提供一个参考。\n或者，**也可以融合成为你经历的一部分**。"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "正在加载合集… 返回合集 合集 · 37 篇 第一段AI PM实习日记 记录我第一次的实习日常，包含从学校到工作中的感受和经验。 可以给未工作的小伙伴提供一个参考。 或者， 也可以融合成为你经历的一部分 。 更新于 2026.10.15 章节目录 正序 倒序 01 AI PM实习Day 1 2026.08.10 免费 02 AI PM实习Day 2 2026.08.11 免费 03 AI PM实习Day 3 2026.08.12 免费 04 AI PM实习Day 4 2026.08.13 免费 05 AI PM实习Day 5 2026.08.14 免费 06 AI PM实习Day6、7（周末） 2026.08.15 免费 07 AI PM实习Day 8 2026.08.17 免费 08 AI PM实习Day 9 2026.08.18 免费 09 AI PM实习Day 10 2026.08.19 免费 10 AI PM实习Day 11 2026.08.20 免费 11 AI PM实习Day12（干货） 2026.08.21 免费 12 AI PM实习Day13、14 2026.08.24 免费 13 AI PM实习Day15 2026.08.25 免费 14 AI PM实习Day16 2026.08.25 免费 15 AI PM实习Day 17 2026.08.26 免费 16 AI PM实习Day 18 2026.08.27 会员 17 AI PM实习Day 19 2026.08.28 会员 18 AI PM实习Day20、21 2026.08.30 会员 19 AI PM实习Day22 2026.08.31 会员 20 AI PM实习Day23 2026.09.01 会员 21 AI PM实习Day 24 2026.09.02 会员 22 AI PM实习Day 25 2026.09.03 会员 23 AI PM实习Day 26 2026.09.04 会员 24 AI PM实习Day 27、28 2026.09.06 会员 25 AI PM实习Day 29 2026.09.07 会员 26 AI PM实习Day30 2026.09.08 会员 27 AI PM实习Day31 2026.09.09 会员 28 AI PM实习Day32 2026.09.11 会员 29 AI PM实习Day33 2026.09.11 会员 30 AI PM实习Day 34、35 2026.09.13 会员 31 AI PM实习Day 36 2026.09.14 会员 32 AI PM实习Day 37 2026.09.15 会员 33 AI PM实习Day38 2026.09.16 会员 34 AI PM实习Day39 2026.09.17 会员 35 AI PM实习Day40 2026.09.18 会员 36 AI PM实习Day41 2026.09.19 会员 37 AI PM实习Day42 2026.09.20 会员",
+      "visibleMainSha256": "8b8fc6d5b206e47c4f0eda64ec97777b11584fa2aa99ae636431f736060d6bd0",
+      "links": [
+        "/c",
+        "/p/first-internship-day-01?collection=first-internship-diary",
+        "/p/first-internship-day-02?collection=first-internship-diary",
+        "/p/first-internship-day-03?collection=first-internship-diary",
+        "/p/first-internship-day-04?collection=first-internship-diary",
+        "/p/first-internship-day-05?collection=first-internship-diary",
+        "/p/first-internship-day-06-07?collection=first-internship-diary",
+        "/p/first-internship-day-08?collection=first-internship-diary",
+        "/p/first-internship-day-09?collection=first-internship-diary",
+        "/p/first-internship-day-10?collection=first-internship-diary",
+        "/p/first-internship-day-11?collection=first-internship-diary",
+        "/p/first-internship-day-12?collection=first-internship-diary",
+        "/p/first-internship-day-13-14?collection=first-internship-diary",
+        "/p/first-internship-day-15?collection=first-internship-diary",
+        "/p/first-internship-day-16?collection=first-internship-diary",
+        "/p/first-internship-day-17?collection=first-internship-diary",
+        "/p/first-internship-day-18?collection=first-internship-diary",
+        "/p/first-internship-day-19?collection=first-internship-diary",
+        "/p/first-internship-day-20-21?collection=first-internship-diary",
+        "/p/first-internship-day-22?collection=first-internship-diary",
+        "/p/first-internship-day-23?collection=first-internship-diary",
+        "/p/first-internship-day-24?collection=first-internship-diary",
+        "/p/first-internship-day-25?collection=first-internship-diary",
+        "/p/first-internship-day-26?collection=first-internship-diary",
+        "/p/first-internship-day-27-28?collection=first-internship-diary",
+        "/p/first-internship-day-29?collection=first-internship-diary",
+        "/p/first-internship-day-30?collection=first-internship-diary",
+        "/p/first-internship-day-31?collection=first-internship-diary",
+        "/p/first-internship-day-32?collection=first-internship-diary",
+        "/p/first-internship-day-33?collection=first-internship-diary",
+        "/p/first-internship-day-34-35?collection=first-internship-diary",
+        "/p/first-internship-day-36?collection=first-internship-diary",
+        "/p/first-internship-day-37?collection=first-internship-diary",
+        "/p/first-internship-day-38?collection=first-internship-diary",
+        "/p/first-internship-day-39?collection=first-internship-diary",
+        "/p/first-internship-day-40?collection=first-internship-diary",
+        "/p/first-internship-day-41?collection=first-internship-diary",
+        "/p/first-internship-day-42?collection=first-internship-diary"
+      ],
+      "media": []
+    },
+    {
+      "path": "/tags",
+      "status": 200,
+      "finalUrl": "https://yoryon.com/tags",
+      "headers": {
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "eb45d2912d0aaf121ecd1758ee5ab05d3f84522497d57f3d9383d49b3de3eab6",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "返回 标签 # agents 3 # engineering 3",
+      "visibleMainSha256": "3b9dce68a1bffafffd53688849c2b7a115120015a71ac6ad26e3518a59b77063",
+      "links": [
+        "/tags/agents",
+        "/tags/engineering"
+      ],
+      "media": []
+    },
+    {
+      "path": "/tags/agents",
+      "status": 200,
+      "finalUrl": "https://yoryon.com/tags/agents",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "bbbb185c4e9634c1b9914eb7cc7deada99112f48f9d18befaa0f7186af39a7b9",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "返回 # agents Jev 技术图解：从文本生成到类型化决策 以客服分流为主线，解释 Jev 的类型化决策接口、并行判断、概率校准和 Agent 接入边界。 2026.09.19 评论 点赞 转发 深入 DeepSeek Harness：当 Agent Loop 也成为插件 拆解 DSH 的一切皆插件架构：从启动组装、Cordis 三件套到 turn/step 循环与 Session Log，核心是 agent loop 可整体热替换，为 agent 自进化铺好基础设施。 2026.08.19 评论 点赞 转发 从 Workflow 到 Agent：范式选择与构建模式 循序渐进讲清 Workflow 与 Agent：是什么、何时选哪种范式、各自有哪些构建形式与落地要点。 2026.08.05 评论 点赞 转发",
+      "visibleMainSha256": "0cedd982eab77c6461c5d3e84ebcc6d372e16ed0dccb4d3aefff67885df1591a",
+      "links": [
+        "/p/jev-typed-decisions",
+        "/p/jev-typed-decisions#comments",
+        "/p/deepseek-harness",
+        "/p/deepseek-harness#comments",
+        "/p/workflow-to-agent-patterns",
+        "/p/workflow-to-agent-patterns#comments"
+      ],
+      "media": []
+    },
+    {
+      "path": "/p/deepseek-harness",
+      "status": 200,
+      "finalUrl": "https://yoryon.com/p/deepseek-harness",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "b512a68f1681f5a9e7a69286cf248928a64ac7aedb2ab2e93055b59ed63a2c60",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "拆解 DSH 的一切皆插件架构：从启动组装、Cordis 三件套到 turn/step 循环与 Session Log，核心是 agent loop 可整体热替换，为 agent 自进化铺好基础设施。"
+        },
+        {
+          "rel": "canonical",
+          "href": "https://yoryon.com/p/deepseek-harness"
+        },
+        {
+          "property": "og:title",
+          "content": "深入 DeepSeek Harness：当 Agent Loop 也成为插件"
+        },
+        {
+          "property": "og:description",
+          "content": "拆解 DSH 的一切皆插件架构：从启动组装、Cordis 三件套到 turn/step 循环与 Session Log，核心是 agent loop 可整体热替换，为 agent 自进化铺好基础设施。"
+        },
+        {
+          "property": "og:url",
+          "content": "https://yoryon.com/p/deepseek-harness"
+        },
+        {
+          "property": "og:type",
+          "content": "article"
+        },
+        {
+          "property": "article:published_time",
+          "content": "2026-08-18T16:00:00.000Z"
+        },
+        {
+          "name": "twitter:card",
+          "content": "summary"
+        },
+        {
+          "name": "twitter:title",
+          "content": "深入 DeepSeek Harness：当 Agent Loop 也成为插件"
+        },
+        {
+          "name": "twitter:description",
+          "content": "拆解 DSH 的一切皆插件架构：从启动组装、Cordis 三件套到 turn/step 循环与 Session Log，核心是 agent loop 可整体热替换，为 agent 自进化铺好基础设施。"
+        }
+      ],
+      "structuredData": [
+        {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "深入 DeepSeek Harness：当 Agent Loop 也成为插件",
+          "description": "拆解 DSH 的一切皆插件架构：从启动组装、Cordis 三件套到 turn/step 循环与 Session Log，核心是 agent loop 可整体热替换，为 agent 自进化铺好基础设施。",
+          "datePublished": "2026-08-18T16:00:00.000Z",
+          "dateModified": "2026-10-14T08:04:30.186Z",
+          "url": "https://yoryon.com/p/deepseek-harness",
+          "isAccessibleForFree": true
+        }
+      ],
+      "visibleMain": "返回 正在加载文章 返回 深入 DeepSeek Harness：当 Agent Loop 也成为插件 2026.08.19 # agents # engineering 本文要点 拆解 DSH 的一切皆插件架构：从启动组装、Cordis 三件套到 turn/step 循环与 Session Log，核心是 agent loop 可整体热替换，为 agent 自进化铺好基础设施。 2026 年 8 月 13 日，DeepSeek 发布了自己的第一个 agent harness，名字就叫 DSH（DeepSeek Harness）。DSH 与 Codex、Claude Code 这些主流 harness 的差异是结构性的：其他 harness 把 agent loop 写死在内核里，DSH 把它做成了一个可以在运行中整体替换的插件，这个选择的后果延伸到了架构的每个角落。 这篇博客循序渐进地回答四个问题：DSH 是什么？一次运行如何组装出来？运行起来之后，循环与日志如何协作？以及这套架构究竟适合谁？ 一、DSH 是什么：没有内核的 harness 先看熟悉的结构。Codex、Claude Code 这类主流 harness 都有一个稳定的核心：一段硬编码的控制流负责组装上下文、请求模型、执行工具，扩展从边上挂进来。skill 是 Markdown 文件，MCP 是一段配置，hook 是事件触发的脚本。这种设计很稳，扩展也够用，但主干改不了，想换掉核心逻辑只有 fork 源码重新编译一条路。 DSH 可以压缩成一句话： 一个基于 Cordis 运行时的插件化 harness，一切皆插件 。工具是插件，模型 provider 是插件，session 是插件，连 agent loop 本身也是一个插件。这个 harness 没有特权内核，别的框架里要动内核才能做的事，在这里改一行配置就行。 两条路线的差异，本质上是两种插件模型： 声明式插件 ，Codex 的路线。插件是磁盘上的一个文件夹，装着声明性资源，插件本身不在 harness 进程里跑代码，harness 读取文件、按需拉起独立进程。好处是简单，进程的生死交给操作系统管，插件之间也不需要知道彼此存在；代价是插件只能给 harness 提供素材，注册不了有状态的服务，监听不了内部事件，也改不了 harness 自身的行为。 命令式插件 ，DSH 的路线。插件直接跑在 harness 进程里，带着自己的状态。装载时向框架注册自己提供什么能力，需要什么能力就声明依赖，框架把两边接上，插件之间通过框架相互调用。能力边界被彻底打开，但立刻出现一个声明式世界不存在的难题：一个插件被替换时，正握着它引用的其他插件怎么办？ 这个难题正是 Cordis 存在的意义。它替每个插件记住装载时做过的每一件事，卸载时逐件撤销；它盯着依赖关系，依赖到位通知启动，依赖离开通知停下；热更新失败时事务性回滚，永远不会卡在半新半旧的中间态。Cordis 在生产环境里支撑过 4000 多个插件的生态，这套机制是 DSH 后面一切设计的地基。 二、一次运行如何组装出来 DSH 启动时没有固定的功能清单，最终跑起来是什么样，完全由配置组合决定。 组合涉及三个概念，粒度从小到大： Plugin ：最小的功能单元，一个插件对应一个具体能力，比如一个工具、一个模型 provider、一个 session 实现； Bundle ：一份插件清单，把某类场景需要的一组插件配置打包成一层，方便整体引用； 评论 登录 后参与评论 评论加载中…",
+      "visibleMainSha256": "d7f1c12b2b1007c942dc003c4308fa7b2658cddcc025ffdb61309e8f34b8c4ab",
+      "links": [
+        "/tags/agents",
+        "/tags/engineering",
+        "/login?returnTo=%2Fp%2Fdeepseek-harness"
+      ],
+      "media": [
+        {
+          "src": "/api/images/v2/ea53dcee-de53-428b-b4e4-c0ccacd8ff06/1280",
+          "srcset": "/api/images/v2/ea53dcee-de53-428b-b4e4-c0ccacd8ff06/320 320w, /api/images/v2/ea53dcee-de53-428b-b4e4-c0ccacd8ff06/640 640w, /api/images/v2/ea53dcee-de53-428b-b4e4-c0ccacd8ff06/960 960w, /api/images/v2/ea53dcee-de53-428b-b4e4-c0ccacd8ff06/1280 1280w",
+          "alt": "图 1：声明式与命令式两种插件模型对比"
+        }
+      ]
+    },
+    {
+      "path": "/search?q=agents",
+      "status": 200,
+      "finalUrl": "https://yoryon.com/search?q=agents",
+      "headers": {
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "39a0e3772b28084e7d2e6ea895dff7f41c5f70ac8cacbd167234cc0c643ee3de",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        },
+        {
+          "name": "referrer",
+          "content": "no-referrer"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "搜索 输入想找的原文。区分大小写、空格与标点；至少三个连续文字或数字时，也会搜索正文。 搜索 搜索文章、帖子和正文中的内容。",
+      "visibleMainSha256": "072b5c2d7320e697612f90cb88aff945788bf2ed8dd37b11e66b1df677cc5da7",
+      "links": [],
+      "media": []
+    },
+    {
+      "path": "/login",
+      "status": 200,
+      "finalUrl": "https://yoryon.com/login",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "f512e09a55f02111ccdd4a3a8893ba8cbd6d506795add8c8150a63356019ca4e",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "登录 邮箱或用户名 密码 登录 没有账号？ 注册 · 忘记密码",
+      "visibleMainSha256": "49626aa70da963d5adca55c9ca4e123b2d142c946b82253c2984a2d67dc48943",
+      "links": [
+        "/register",
+        "/reset-password"
+      ],
+      "media": []
+    },
+    {
+      "path": "/register",
+      "status": 200,
+      "finalUrl": "https://yoryon.com/register",
+      "headers": {
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "721fb45eecae76c6a5eef0090a7b09592146d69c3076300412f17d5eaa76d55b",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "注册 邮箱 用户名 密码（至少 8 位） 注册 已有账号？ 登录",
+      "visibleMainSha256": "8198d816529c07872b5b0b6dfcb4b5ae42757e04eadf0404fa97f90c72039c9c",
+      "links": [
+        "/login"
+      ],
+      "media": []
+    },
+    {
+      "path": "/reset-password",
+      "status": 200,
+      "finalUrl": "https://yoryon.com/reset-password",
+      "headers": {
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "576190c14b6134541c433a836d12ed38f8d7ea458885dffc4f31da0c30ef866a",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "重置密码 注册邮箱 发送验证码 想起来了？ 登录",
+      "visibleMainSha256": "62c2797aef99a81f214bf44f8d17e9426ae84703e42caa1b58862d89f3f30742",
+      "links": [
+        "/login"
+      ],
+      "media": []
+    },
+    {
+      "path": "/redeem",
+      "status": 200,
+      "finalUrl": "https://yoryon.com/redeem",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "f2d898fcec8878cf4d3f6fc3885c0ce14576cbe75fa5d6183bebd7a384c76115",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "返回 兑换激活码 标准订阅 ¥29.9 / 月 兑换后即可解锁全部付费内容，到期自动失效。 还没有激活码？ 购买激活码（在新标签页打开）",
+      "visibleMainSha256": "e4225f2efd050475629936599f0d5bf1c9588af434a688569040aad2c76db8fc",
+      "links": [
+        "https://wzyp.cn/item/ay8uxj"
+      ],
+      "media": []
+    },
+    {
+      "path": "/notifications",
+      "status": 200,
+      "finalUrl": "https://yoryon.com/notifications",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "2fb216c9306b37bb7112bc31b3bc62d8c3dda45dc74e9758ba907ddfbe1918e8",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "通知 加载中…",
+      "visibleMainSha256": "8d4828ebf068ad406570cb2da741cc370c9ceb3871d438b654dab365ee9e6f9a",
+      "links": [],
+      "media": []
+    },
+    {
+      "path": "/settings/profile",
+      "status": 200,
+      "finalUrl": "https://yoryon.com/settings/profile",
+      "headers": {
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "7a6ef23b29f743b9e2bc348d7497d0e5b32a90e96bc61f6d891e565ccdf58ee6",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "个人资料 加载中…",
+      "visibleMainSha256": "bfa4b7c364e549b5eb831308e77c76db8af202855844a2c6dd7473f9c8ebd667",
+      "links": [],
+      "media": []
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "finalUrl": "https://yoryon.com/sitemap.xml",
+      "headers": {
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        "Content-Type": "application/xml"
+      },
+      "sha256": "955e15bf6d0629baf5217e520cfbe558322d8832ce8587ff7e8111e38962160f",
+      "entries": [
+        {
+          "url": "https://yoryon.com",
+          "lastmod": null
+        },
+        {
+          "url": "https://yoryon.com/posts",
+          "lastmod": null
+        },
+        {
+          "url": "https://yoryon.com/c",
+          "lastmod": null
+        },
+        {
+          "url": "https://yoryon.com/tags",
+          "lastmod": null
+        },
+        {
+          "url": "https://yoryon.com/p/jev-typed-decisions",
+          "lastmod": "2026-10-14T08:04:30.192Z"
+        },
+        {
+          "url": "https://yoryon.com/p/deepseek-harness",
+          "lastmod": "2026-10-14T08:04:30.186Z"
+        },
+        {
+          "url": "https://yoryon.com/p/workflow-to-agent-patterns",
+          "lastmod": "2026-10-14T08:04:30.170Z"
+        },
+        {
+          "url": "https://yoryon.com/p/economics-principles-interaction",
+          "lastmod": "2026-10-14T12:23:22.589Z"
+        },
+        {
+          "url": "https://yoryon.com/p/economics-principles-decision",
+          "lastmod": "2026-10-14T12:23:19.949Z"
+        },
+        {
+          "url": "https://yoryon.com/p/buffett-casino-church",
+          "lastmod": "2026-10-14T11:48:43.857Z"
+        },
+        {
+          "url": "https://yoryon.com/p/freedom-before-wealth",
+          "lastmod": "2026-10-14T12:15:31.939Z"
+        },
+        {
+          "url": "https://yoryon.com/p/note-2026-08-04-1",
+          "lastmod": "2026-10-14T17:00:09.548Z"
+        },
+        {
+          "url": "https://yoryon.com/p/note-2026-09-09-1",
+          "lastmod": "2026-10-14T17:00:14.821Z"
+        },
+        {
+          "url": "https://yoryon.com/p/note-2026-09-20-1",
+          "lastmod": "2026-10-14T17:00:15.762Z"
+        },
+        {
+          "url": "https://yoryon.com/p/economics-principles-overall",
+          "lastmod": "2026-10-14T12:23:23.842Z"
+        },
+        {
+          "url": "https://yoryon.com/p/note-2026-08-24-1",
+          "lastmod": "2026-10-14T17:00:10.425Z"
+        },
+        {
+          "url": "https://yoryon.com/p/note-2026-04-24-1",
+          "lastmod": "2026-10-14T17:00:02.442Z"
+        },
+        {
+          "url": "https://yoryon.com/p/meritocracy-and-pain",
+          "lastmod": "2026-10-14T12:23:24.937Z"
+        },
+        {
+          "url": "https://yoryon.com/p/note-2026-07-24-1",
+          "lastmod": "2026-10-14T17:00:08.677Z"
+        },
+        {
+          "url": "https://yoryon.com/p/note-2026-04-27-1",
+          "lastmod": "2026-10-14T17:00:05.075Z"
+        },
+        {
+          "url": "https://yoryon.com/p/note-2026-05-02-1",
+          "lastmod": "2026-10-14T17:00:05.998Z"
+        },
+        {
+          "url": "https://yoryon.com/p/note-2026-04-20-1",
+          "lastmod": "2026-10-14T16:59:55.127Z"
+        },
+        {
+          "url": "https://yoryon.com/p/note-2026-04-24-2",
+          "lastmod": "2026-10-14T17:00:04.225Z"
+        },
+        {
+          "url": "https://yoryon.com/p/note-2026-04-21-1",
+          "lastmod": "2026-10-14T17:00:01.326Z"
+        },
+        {
+          "url": "https://yoryon.com/p/note-2026-05-24-1",
+          "lastmod": "2026-10-14T17:00:06.873Z"
+        },
+        {
+          "url": "https://yoryon.com/p/note-2026-09-08-1",
+          "lastmod": "2026-10-14T17:00:13.826Z"
+        },
+        {
+          "url": "https://yoryon.com/p/note-2026-09-27-1",
+          "lastmod": "2026-10-14T17:00:16.620Z"
+        },
+        {
+          "url": "https://yoryon.com/p/note-2026-07-23-1",
+          "lastmod": "2026-10-14T17:00:07.725Z"
+        },
+        {
+          "url": "https://yoryon.com/p/note-2026-09-05-1",
+          "lastmod": "2026-10-14T17:00:12.199Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-06-07",
+          "lastmod": "2026-10-15T09:04:37.059Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-20-21",
+          "lastmod": "2026-10-15T09:04:37.125Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-27-28",
+          "lastmod": "2026-10-15T09:04:37.155Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-01",
+          "lastmod": "2026-10-15T09:04:36.952Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-02",
+          "lastmod": "2026-10-15T09:04:37.037Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-03",
+          "lastmod": "2026-10-15T09:04:37.043Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-04",
+          "lastmod": "2026-10-15T09:04:37.049Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-05",
+          "lastmod": "2026-10-15T09:04:37.055Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-08",
+          "lastmod": "2026-10-15T09:04:37.066Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-09",
+          "lastmod": "2026-10-15T09:04:37.070Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-10",
+          "lastmod": "2026-10-15T09:04:37.075Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-11",
+          "lastmod": "2026-10-15T09:04:37.081Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-12",
+          "lastmod": "2026-10-15T09:04:37.087Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-13-14",
+          "lastmod": "2026-10-15T09:04:37.095Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-32",
+          "lastmod": "2026-10-15T09:04:37.174Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-15",
+          "lastmod": "2026-10-15T09:04:37.099Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-16",
+          "lastmod": "2026-10-15T09:04:37.104Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-17",
+          "lastmod": "2026-10-15T09:04:37.110Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-18",
+          "lastmod": "2026-10-15T09:04:37.114Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-19",
+          "lastmod": "2026-10-15T09:04:37.120Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-33",
+          "lastmod": "2026-10-15T09:04:37.179Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-22",
+          "lastmod": "2026-10-15T09:04:37.130Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-23",
+          "lastmod": "2026-10-15T09:04:37.135Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-24",
+          "lastmod": "2026-10-15T09:04:37.141Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-25",
+          "lastmod": "2026-10-15T09:04:37.145Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-26",
+          "lastmod": "2026-10-15T09:04:37.151Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-29",
+          "lastmod": "2026-10-15T09:04:37.159Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-30",
+          "lastmod": "2026-10-15T09:04:37.164Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-31",
+          "lastmod": "2026-10-15T09:04:37.169Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-34-35",
+          "lastmod": "2026-10-15T09:04:37.184Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-36",
+          "lastmod": "2026-10-15T09:04:37.189Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-37",
+          "lastmod": "2026-10-15T09:04:37.194Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-38",
+          "lastmod": "2026-10-15T09:04:37.199Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-39",
+          "lastmod": "2026-10-15T09:04:37.203Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-40",
+          "lastmod": "2026-10-15T09:04:37.208Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-41",
+          "lastmod": "2026-10-15T09:04:37.211Z"
+        },
+        {
+          "url": "https://yoryon.com/p/first-internship-day-42",
+          "lastmod": "2026-10-15T09:04:37.215Z"
+        },
+        {
+          "url": "https://yoryon.com/c/first-internship-diary",
+          "lastmod": "2026-10-15T09:04:49.563Z"
+        }
+      ]
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200,
+      "finalUrl": "https://yoryon.com/robots.txt",
+      "headers": {
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        "Content-Type": "text/plain"
+      },
+      "sha256": "4e8d773938c9ba1e93a013ea51914ff697245f434e08d14da73c6c8de1f246cd"
+    }
+  ]
+}

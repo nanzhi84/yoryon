@@ -5,13 +5,14 @@ import { ReaderNavigationProvider } from "@/components/reader-navigation";
 import type { Metadata } from "next";
 import "./globals.css";
 import { NavigationMemory } from "@/components/navigation-memory";
+import { siteDescription } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: {
     default: "Yoryon",
     template: "%s · Yoryon",
   },
-  description: "Yoryon 的个人博客：文章、图片、视频与音频。",
+  description: siteDescription,
 };
 
 const themeScript = `

@@ -1,0 +1,20 @@
+{
+  "environment": "isolated API 4116; web 3216; anonymous GET only",
+  "collection": [
+    {
+      "method": "GET",
+      "path": "/api/collections/editorial-preview",
+      "status": 200,
+      "durationMs": 10
+    }
+  ],
+  "article": [
+    {
+      "method": "GET",
+      "path": "/api/public/policy/editorial-paid-example",
+      "status": 200,
+      "durationMs": 2
+    }
+  ],
+  "interpretation": "Warm isolated HTTP request observed one collection DTO request and one article public revision-policy gate. No schema-triggered requests for individual directory entries. This is bounded runtime observation plus source diff, not a cold-cache performance or full browser network comparison."
+}

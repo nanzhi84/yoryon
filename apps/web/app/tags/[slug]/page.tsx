@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/site-header";
 import { FeedTimeline } from "@/components/feed-timeline";
 import { LoadMore } from "@/components/load-more";
 import { BackButton } from "@/components/back-button";
+import { pageMetadata } from "@/lib/seo";
 
 const revalidateSec = Number(process.env.FEED_REVALIDATE_SEC ?? 86400);
 
@@ -23,8 +24,8 @@ async function getTag(slug: string): Promise<TagDetailResponse | null> {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const data = await getTag(slug);
-  if (!data) return { title: "标签不存在" };
-  return { title: `#${data.tag.name}` };
+  if (!data) return { title: "标签不存在", robots: { index: false } };
+  return pageMetadata(`/tags/${data.tag.slug}`, `#${data.tag.name}`, `浏览 Yoryon 中带有「${data.tag.name}」标签的文章与帖子。`);
 }
 
 export default async function TagPage({ params }: Props) {

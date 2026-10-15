@@ -1,0 +1,1865 @@
+{
+  "at": "2026-10-15T18:35:17.134568+00:00",
+  "base": "http://localhost:3216",
+  "results": [
+    {
+      "path": "/",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/",
+      "file": "isolated-home.html",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "d333a6d4f1df83551630fe769c13c80e86d5a824a7a120b2a299ce8f74081dd3",
+      "title": "Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        },
+        {
+          "rel": "canonical",
+          "href": "http://localhost:3216/"
+        },
+        {
+          "property": "og:title",
+          "content": "Yoryon"
+        },
+        {
+          "property": "og:description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        },
+        {
+          "property": "og:url",
+          "content": "http://localhost:3216/"
+        },
+        {
+          "property": "og:site_name",
+          "content": "Yoryon"
+        },
+        {
+          "property": "og:locale",
+          "content": "zh_CN"
+        },
+        {
+          "property": "og:type",
+          "content": "website"
+        },
+        {
+          "name": "twitter:card",
+          "content": "summary"
+        },
+        {
+          "name": "twitter:title",
+          "content": "Yoryon"
+        },
+        {
+          "name": "twitter:description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "在纸面与屏幕之间：一份图文混排的阅读观察 图片、图注、引文、结构化比较与长文的组合。 2026.10.14 评论 点赞 转发 一篇文章如何到达读者：从草稿、媒体到浏览器的技术手记 代码块、嵌套列表、长链接、故障说明与连续正文的组合。 2026.10.14 评论 点赞 转发 把一天慢慢读完：城市、散步与那些没有被记录的片刻 连续叙事、长短段落、引文与三级标题的长文示例。 2026.10.14 评论 点赞 转发 段落要点：把一天慢慢读完 放慢脚步，让街道、旧书店与那些没有结论的片刻，成为一天值得读完的部分。 2026.10.14 评论 点赞 转发 无序要点：把一天慢慢读完 放慢脚步，让街道、旧书店与那些没有结论的片刻，成为一天值得读完的部分。 2026.10.14 评论 点赞 转发 一句话要点：把一天慢慢读完 放慢脚步，让街道、旧书店与那些没有结论的片刻，成为一天值得读完的部分。 2026.10.14 评论 点赞 转发 2024 年字节跳动前实习生田柯宇 (Tian Keyu) 模型训练攻击事件：受害者陈述与证据整理 依据受害者陈述、内部记录与代码材料及公开报道整理 2026.10.12 评论 点赞 转发 示例系列 · 第二话 这是示例系列的第二篇正文。 2026.10.11 评论 点赞 转发 示例系列 · 第一话 这是示例系列的第一篇正文。 2026.10.11 评论 点赞 转发 测试文章 你好 这是一篇公开测试文章。 正文结束。 2026.10.11 评论 点赞 转发",
+      "visibleMainSha256": "c91adced3664f8e15d81c54e0a14805ecf40dbc878f8fb78cb57078fafd1c72d",
+      "links": [
+        "/p/editorial-visual",
+        "/p/editorial-visual#comments",
+        "/p/editorial-notes",
+        "/p/editorial-notes#comments",
+        "/p/editorial-essay",
+        "/p/editorial-essay#comments",
+        "/p/editorial-paragraph",
+        "/p/editorial-paragraph#comments",
+        "/p/editorial-bullets",
+        "/p/editorial-bullets#comments",
+        "/p/editorial-summary",
+        "/p/editorial-summary#comments",
+        "/p/editorial-reference",
+        "/p/editorial-reference#comments",
+        "/p/demo-ep2",
+        "/p/demo-ep2#comments",
+        "/p/demo-ep1",
+        "/p/demo-ep1#comments",
+        "/p/hello-world",
+        "/p/hello-world#comments"
+      ],
+      "media": []
+    },
+    {
+      "path": "/?utm_source=seo",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/?utm_source=seo",
+      "file": "isolated-_utm_source-seo.html",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "983a42e533132ab11e5d87f89dae3ff1dcea46b2a6fcc670ba7597238392fd0a",
+      "title": "Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        },
+        {
+          "rel": "canonical",
+          "href": "http://localhost:3216/"
+        },
+        {
+          "property": "og:title",
+          "content": "Yoryon"
+        },
+        {
+          "property": "og:description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        },
+        {
+          "property": "og:url",
+          "content": "http://localhost:3216/"
+        },
+        {
+          "property": "og:site_name",
+          "content": "Yoryon"
+        },
+        {
+          "property": "og:locale",
+          "content": "zh_CN"
+        },
+        {
+          "property": "og:type",
+          "content": "website"
+        },
+        {
+          "name": "twitter:card",
+          "content": "summary"
+        },
+        {
+          "name": "twitter:title",
+          "content": "Yoryon"
+        },
+        {
+          "name": "twitter:description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "在纸面与屏幕之间：一份图文混排的阅读观察 图片、图注、引文、结构化比较与长文的组合。 2026.10.14 评论 点赞 转发 一篇文章如何到达读者：从草稿、媒体到浏览器的技术手记 代码块、嵌套列表、长链接、故障说明与连续正文的组合。 2026.10.14 评论 点赞 转发 把一天慢慢读完：城市、散步与那些没有被记录的片刻 连续叙事、长短段落、引文与三级标题的长文示例。 2026.10.14 评论 点赞 转发 段落要点：把一天慢慢读完 放慢脚步，让街道、旧书店与那些没有结论的片刻，成为一天值得读完的部分。 2026.10.14 评论 点赞 转发 无序要点：把一天慢慢读完 放慢脚步，让街道、旧书店与那些没有结论的片刻，成为一天值得读完的部分。 2026.10.14 评论 点赞 转发 一句话要点：把一天慢慢读完 放慢脚步，让街道、旧书店与那些没有结论的片刻，成为一天值得读完的部分。 2026.10.14 评论 点赞 转发 2024 年字节跳动前实习生田柯宇 (Tian Keyu) 模型训练攻击事件：受害者陈述与证据整理 依据受害者陈述、内部记录与代码材料及公开报道整理 2026.10.12 评论 点赞 转发 示例系列 · 第二话 这是示例系列的第二篇正文。 2026.10.11 评论 点赞 转发 示例系列 · 第一话 这是示例系列的第一篇正文。 2026.10.11 评论 点赞 转发 测试文章 你好 这是一篇公开测试文章。 正文结束。 2026.10.11 评论 点赞 转发",
+      "visibleMainSha256": "c91adced3664f8e15d81c54e0a14805ecf40dbc878f8fb78cb57078fafd1c72d",
+      "links": [
+        "/p/editorial-visual",
+        "/p/editorial-visual#comments",
+        "/p/editorial-notes",
+        "/p/editorial-notes#comments",
+        "/p/editorial-essay",
+        "/p/editorial-essay#comments",
+        "/p/editorial-paragraph",
+        "/p/editorial-paragraph#comments",
+        "/p/editorial-bullets",
+        "/p/editorial-bullets#comments",
+        "/p/editorial-summary",
+        "/p/editorial-summary#comments",
+        "/p/editorial-reference",
+        "/p/editorial-reference#comments",
+        "/p/demo-ep2",
+        "/p/demo-ep2#comments",
+        "/p/demo-ep1",
+        "/p/demo-ep1#comments",
+        "/p/hello-world",
+        "/p/hello-world#comments"
+      ],
+      "media": []
+    },
+    {
+      "path": "/posts",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/posts",
+      "file": "isolated-posts.html",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "f84b77d690366d44add27b047085bd2e15563c170f1a828844047cb0fbf04111",
+      "title": "帖子 · Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的帖子与日常记录。"
+        },
+        {
+          "rel": "canonical",
+          "href": "http://localhost:3216/posts"
+        },
+        {
+          "property": "og:title",
+          "content": "帖子"
+        },
+        {
+          "property": "og:description",
+          "content": "Yoryon 的帖子与日常记录。"
+        },
+        {
+          "property": "og:url",
+          "content": "http://localhost:3216/posts"
+        },
+        {
+          "property": "og:site_name",
+          "content": "Yoryon"
+        },
+        {
+          "property": "og:locale",
+          "content": "zh_CN"
+        },
+        {
+          "property": "og:type",
+          "content": "website"
+        },
+        {
+          "name": "twitter:card",
+          "content": "summary"
+        },
+        {
+          "name": "twitter:title",
+          "content": "帖子"
+        },
+        {
+          "name": "twitter:description",
+          "content": "Yoryon 的帖子与日常记录。"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "正在加载帖子… 音频 00:00 / --:-- 这里是音频的文字说明（shownotes）：正文区域照常支持 Markdown，可以放时间轴、链接与参考资料。 2026.10.11 评论 点赞 转发 2026.10.11 评论 点赞 转发 2026.10.11 评论 点赞 转发",
+      "visibleMainSha256": "25b3b1c1705a67099dc402efe1018596fdb02659cf41f2b876e9ffbc10f1762c",
+      "links": [
+        "/p/demo-audio",
+        "/p/demo-audio#comments",
+        "/p/demo-video",
+        "/p/demo-video#comments",
+        "/p/demo-gallery",
+        "/p/demo-gallery#comments"
+      ],
+      "media": [
+        {},
+        {
+          "src": "/api/images/v2/4c480afa-eee1-411a-9d9a-102bbb4a799b/1280",
+          "alt": "作品图片"
+        }
+      ]
+    },
+    {
+      "path": "/posts?utm_source=seo",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/posts?utm_source=seo",
+      "file": "isolated-posts_utm_source-seo.html",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "f532c17b6b7ad1fe2861a2e21015a521f67804dccd07643cad0cecdbc7ea55ce",
+      "title": "帖子 · Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的帖子与日常记录。"
+        },
+        {
+          "rel": "canonical",
+          "href": "http://localhost:3216/posts"
+        },
+        {
+          "property": "og:title",
+          "content": "帖子"
+        },
+        {
+          "property": "og:description",
+          "content": "Yoryon 的帖子与日常记录。"
+        },
+        {
+          "property": "og:url",
+          "content": "http://localhost:3216/posts"
+        },
+        {
+          "property": "og:site_name",
+          "content": "Yoryon"
+        },
+        {
+          "property": "og:locale",
+          "content": "zh_CN"
+        },
+        {
+          "property": "og:type",
+          "content": "website"
+        },
+        {
+          "name": "twitter:card",
+          "content": "summary"
+        },
+        {
+          "name": "twitter:title",
+          "content": "帖子"
+        },
+        {
+          "name": "twitter:description",
+          "content": "Yoryon 的帖子与日常记录。"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "正在加载帖子… 音频 00:00 / --:-- 这里是音频的文字说明（shownotes）：正文区域照常支持 Markdown，可以放时间轴、链接与参考资料。 2026.10.11 评论 点赞 转发 2026.10.11 评论 点赞 转发 2026.10.11 评论 点赞 转发",
+      "visibleMainSha256": "25b3b1c1705a67099dc402efe1018596fdb02659cf41f2b876e9ffbc10f1762c",
+      "links": [
+        "/p/demo-audio",
+        "/p/demo-audio#comments",
+        "/p/demo-video",
+        "/p/demo-video#comments",
+        "/p/demo-gallery",
+        "/p/demo-gallery#comments"
+      ],
+      "media": [
+        {},
+        {
+          "src": "/api/images/v2/4c480afa-eee1-411a-9d9a-102bbb4a799b/1280",
+          "alt": "作品图片"
+        }
+      ]
+    },
+    {
+      "path": "/c",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/c",
+      "file": "isolated-c.html",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "fcb97be84d2e363058f36c5446923f1d3357e9f9bf032c1229324c3d21a94f5f",
+      "title": "合集 · Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的合集与文章目录。"
+        },
+        {
+          "rel": "canonical",
+          "href": "http://localhost:3216/c"
+        },
+        {
+          "property": "og:title",
+          "content": "合集"
+        },
+        {
+          "property": "og:description",
+          "content": "Yoryon 的合集与文章目录。"
+        },
+        {
+          "property": "og:url",
+          "content": "http://localhost:3216/c"
+        },
+        {
+          "property": "og:site_name",
+          "content": "Yoryon"
+        },
+        {
+          "property": "og:locale",
+          "content": "zh_CN"
+        },
+        {
+          "property": "og:type",
+          "content": "website"
+        },
+        {
+          "name": "twitter:card",
+          "content": "summary"
+        },
+        {
+          "name": "twitter:title",
+          "content": "合集"
+        },
+        {
+          "name": "twitter:description",
+          "content": "Yoryon 的合集与文章目录。"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "正在加载合集… 长文排版预览 这个合集把散文、技术手记、图文观察与会员文章放在同一个阅读目录里，用来观察不同内容长度、叙事节奏和媒体组合在真实页面中的呈现方式。你可以从一段轻松的城市散步开始，也可以直接阅读关于草稿、媒体与浏览器的技术说明，再转到图片、图注和引文交替出现的长文。免费章节可以完整阅读，会员章节则先展示公开预览，正文继续遵循各自的阅读权限。我们希望目录既能帮助第一次来到这里的读者理解内容，也能让已经读过几篇的人顺着上次的位置继续往下读。这段较长的简介专门用于检查封面与文字并排时的自然换行、标题与段落之间的间距，以及手机窄屏下是否仍然清楚舒展；它不代表正式合集文案，仅供本地预览。 合集 · 8 篇内容 · 更新于 2026.10.15 示例系列 用于预览合集 tab 的演示系列 合集 · 2 篇内容 · 更新于 2026.10.13",
+      "visibleMainSha256": "1136372abce712c4d6cc1d35b8fe23506bb4819d4bee10e2063d1507a814dfcf",
+      "links": [
+        "/c/editorial-preview",
+        "/c/demo-series"
+      ],
+      "media": []
+    },
+    {
+      "path": "/c/editorial-preview",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/c/editorial-preview",
+      "file": "isolated-c_editorial-preview.html",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "de5f64fb6e37371aee38ccbe6fde4c29065c582d94ed6bdf20be900518310b59",
+      "title": "长文排版预览 · Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "这个合集把散文、技术手记、图文观察与会员文章放在同一个阅读目录里，用来观察不同内容长度、叙事节奏和媒体组合在真实页面中的呈现方式。你可以从一段轻松的城市散步开始，也可以直接阅读关于草稿、媒体与浏览器的技术说明，再转到图片、图注和引文交替出现的长文。免费章节可以完整阅读，会员章节则先展示公开预览，正文继续遵循各自的阅读权限。我们希望目录既能帮助第一次来到这里的读者理解内容，也能让已经读过几篇的人顺着上次的位置继续往下读。这段较长的简介专门用于检查封面与文字并排时的自然换行、标题与段落之间的间距，以及手机窄屏下是否仍然清楚舒展；它不代表正式合集文案，仅供本地预览。"
+        },
+        {
+          "rel": "canonical",
+          "href": "http://localhost:3216/c/editorial-preview"
+        },
+        {
+          "property": "og:title",
+          "content": "长文排版预览"
+        },
+        {
+          "property": "og:description",
+          "content": "这个合集把散文、技术手记、图文观察与会员文章放在同一个阅读目录里，用来观察不同内容长度、叙事节奏和媒体组合在真实页面中的呈现方式。你可以从一段轻松的城市散步开始，也可以直接阅读关于草稿、媒体与浏览器的技术说明，再转到图片、图注和引文交替出现的长文。免费章节可以完整阅读，会员章节则先展示公开预览，正文继续遵循各自的阅读权限。我们希望目录既能帮助第一次来到这里的读者理解内容，也能让已经读过几篇的人顺着上次的位置继续往下读。这段较长的简介专门用于检查封面与文字并排时的自然换行、标题与段落之间的间距，以及手机窄屏下是否仍然清楚舒展；它不代表正式合集文案，仅供本地预览。"
+        },
+        {
+          "property": "og:url",
+          "content": "http://localhost:3216/c/editorial-preview"
+        },
+        {
+          "property": "og:site_name",
+          "content": "Yoryon"
+        },
+        {
+          "property": "og:locale",
+          "content": "zh_CN"
+        },
+        {
+          "property": "og:type",
+          "content": "website"
+        },
+        {
+          "name": "twitter:card",
+          "content": "summary"
+        },
+        {
+          "name": "twitter:title",
+          "content": "长文排版预览"
+        },
+        {
+          "name": "twitter:description",
+          "content": "这个合集把散文、技术手记、图文观察与会员文章放在同一个阅读目录里，用来观察不同内容长度、叙事节奏和媒体组合在真实页面中的呈现方式。你可以从一段轻松的城市散步开始，也可以直接阅读关于草稿、媒体与浏览器的技术说明，再转到图片、图注和引文交替出现的长文。免费章节可以完整阅读，会员章节则先展示公开预览，正文继续遵循各自的阅读权限。我们希望目录既能帮助第一次来到这里的读者理解内容，也能让已经读过几篇的人顺着上次的位置继续往下读。这段较长的简介专门用于检查封面与文字并排时的自然换行、标题与段落之间的间距，以及手机窄屏下是否仍然清楚舒展；它不代表正式合集文案，仅供本地预览。"
+        }
+      ],
+      "structuredData": [
+        {
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "@id": "http://localhost:3216/c/editorial-preview",
+          "url": "http://localhost:3216/c/editorial-preview",
+          "name": "长文排版预览",
+          "description": "这个合集把散文、技术手记、图文观察与会员文章放在同一个阅读目录里，用来观察不同内容长度、叙事节奏和媒体组合在真实页面中的呈现方式。你可以从一段轻松的城市散步开始，也可以直接阅读关于草稿、媒体与浏览器的技术说明，再转到图片、图注和引文交替出现的长文。免费章节可以完整阅读，会员章节则先展示公开预览，正文继续遵循各自的阅读权限。我们希望目录既能帮助第一次来到这里的读者理解内容，也能让已经读过几篇的人顺着上次的位置继续往下读。这段较长的简介专门用于检查封面与文字并排时的自然换行、标题与段落之间的间距，以及手机窄屏下是否仍然清楚舒展；它不代表正式合集文案，仅供本地预览。",
+          "dateModified": "2026-10-15T03:26:42.908Z",
+          "author": {
+            "@type": "Person",
+            "@id": "http://localhost:3216/#author",
+            "name": "Yoryon",
+            "url": "http://localhost:3216/"
+          },
+          "inLanguage": "zh-CN",
+          "mainEntity": {
+            "@type": "ItemList",
+            "numberOfItems": 8,
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                  "@type": "Article",
+                  "@id": "http://localhost:3216/p/editorial-essay#article",
+                  "url": "http://localhost:3216/p/editorial-essay",
+                  "name": "把一天慢慢读完：城市、散步与那些没有被记录的片刻",
+                  "isAccessibleForFree": true
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                  "@type": "Article",
+                  "@id": "http://localhost:3216/p/editorial-notes#article",
+                  "url": "http://localhost:3216/p/editorial-notes",
+                  "name": "一篇文章如何到达读者：从草稿、媒体到浏览器的技术手记",
+                  "isAccessibleForFree": true
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                  "@type": "Article",
+                  "@id": "http://localhost:3216/p/editorial-reference#article",
+                  "url": "http://localhost:3216/p/editorial-reference",
+                  "name": "2024 年字节跳动前实习生田柯宇 (Tian Keyu) 模型训练攻击事件：受害者陈述与证据整理",
+                  "isAccessibleForFree": true
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "item": {
+                  "@type": "Article",
+                  "@id": "http://localhost:3216/p/editorial-visual#article",
+                  "url": "http://localhost:3216/p/editorial-visual",
+                  "name": "在纸面与屏幕之间：一份图文混排的阅读观察",
+                  "isAccessibleForFree": true
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 5,
+                "item": {
+                  "@type": "Article",
+                  "@id": "http://localhost:3216/p/editorial-summary#article",
+                  "url": "http://localhost:3216/p/editorial-summary",
+                  "name": "一句话要点：把一天慢慢读完",
+                  "isAccessibleForFree": true
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 6,
+                "item": {
+                  "@type": "Article",
+                  "@id": "http://localhost:3216/p/editorial-bullets#article",
+                  "url": "http://localhost:3216/p/editorial-bullets",
+                  "name": "无序要点：把一天慢慢读完",
+                  "isAccessibleForFree": true
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 7,
+                "item": {
+                  "@type": "Article",
+                  "@id": "http://localhost:3216/p/editorial-paragraph#article",
+                  "url": "http://localhost:3216/p/editorial-paragraph",
+                  "name": "段落要点：把一天慢慢读完",
+                  "isAccessibleForFree": true
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 8,
+                "item": {
+                  "@type": "Article",
+                  "@id": "http://localhost:3216/p/editorial-paid-example#article",
+                  "url": "http://localhost:3216/p/editorial-paid-example",
+                  "name": "会员示例：把阅读留给重要的内容",
+                  "isAccessibleForFree": false
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "visibleMain": "正在加载合集… 返回合集 合集 · 8 篇 长文排版预览 这个合集把散文、技术手记、图文观察与会员文章放在同一个阅读目录里，用来观察不同内容长度、叙事节奏和媒体组合在真实页面中的呈现方式。你可以从一段轻松的城市散步开始，也可以直接阅读关于草稿、媒体与浏览器的技术说明，再转到图片、图注和引文交替出现的长文。免费章节可以完整阅读，会员章节则先展示公开预览，正文继续遵循各自的阅读权限。我们希望目录既能帮助第一次来到这里的读者理解内容，也能让已经读过几篇的人顺着上次的位置继续往下读。这段较长的简介专门用于检查封面与文字并排时的自然换行、标题与段落之间的间距，以及手机窄屏下是否仍然清楚舒展；它不代表正式合集文案，仅供本地预览。 更新于 2026.10.15 章节目录 正序 倒序 01 把一天慢慢读完：城市、散步与那些没有被记录的片刻 2026.10.14 免费 02 一篇文章如何到达读者：从草稿、媒体到浏览器的技术手记 2026.10.14 免费 03 2024 年字节跳动前实习生田柯宇 (Tian Keyu) 模型训练攻击事件：受害者陈述与证据整理 2026.10.12 免费 04 在纸面与屏幕之间：一份图文混排的阅读观察 2026.10.14 免费 05 一句话要点：把一天慢慢读完 2026.10.14 免费 06 无序要点：把一天慢慢读完 2026.10.14 免费 07 段落要点：把一天慢慢读完 2026.10.14 免费 08 会员示例：把阅读留给重要的内容 2026.10.15 会员",
+      "visibleMainSha256": "585a234ae02f00fa365423adc8f8940fc20aeb106d6d742b50fadc496f06ee56",
+      "links": [
+        "/c",
+        "/p/editorial-essay?collection=editorial-preview",
+        "/p/editorial-notes?collection=editorial-preview",
+        "/p/editorial-reference?collection=editorial-preview",
+        "/p/editorial-visual?collection=editorial-preview",
+        "/p/editorial-summary?collection=editorial-preview",
+        "/p/editorial-bullets?collection=editorial-preview",
+        "/p/editorial-paragraph?collection=editorial-preview",
+        "/p/editorial-paid-example?collection=editorial-preview"
+      ],
+      "media": []
+    },
+    {
+      "path": "/c/editorial-preview?utm_source=seo",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/c/editorial-preview?utm_source=seo",
+      "file": "isolated-c_editorial-preview_utm_source-seo.html",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "71d4e8b93785cffaa3bbc8256727b27ea3191ab7d580be626c8cac2600c30f99",
+      "title": "长文排版预览 · Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "这个合集把散文、技术手记、图文观察与会员文章放在同一个阅读目录里，用来观察不同内容长度、叙事节奏和媒体组合在真实页面中的呈现方式。你可以从一段轻松的城市散步开始，也可以直接阅读关于草稿、媒体与浏览器的技术说明，再转到图片、图注和引文交替出现的长文。免费章节可以完整阅读，会员章节则先展示公开预览，正文继续遵循各自的阅读权限。我们希望目录既能帮助第一次来到这里的读者理解内容，也能让已经读过几篇的人顺着上次的位置继续往下读。这段较长的简介专门用于检查封面与文字并排时的自然换行、标题与段落之间的间距，以及手机窄屏下是否仍然清楚舒展；它不代表正式合集文案，仅供本地预览。"
+        },
+        {
+          "rel": "canonical",
+          "href": "http://localhost:3216/c/editorial-preview"
+        },
+        {
+          "property": "og:title",
+          "content": "长文排版预览"
+        },
+        {
+          "property": "og:description",
+          "content": "这个合集把散文、技术手记、图文观察与会员文章放在同一个阅读目录里，用来观察不同内容长度、叙事节奏和媒体组合在真实页面中的呈现方式。你可以从一段轻松的城市散步开始，也可以直接阅读关于草稿、媒体与浏览器的技术说明，再转到图片、图注和引文交替出现的长文。免费章节可以完整阅读，会员章节则先展示公开预览，正文继续遵循各自的阅读权限。我们希望目录既能帮助第一次来到这里的读者理解内容，也能让已经读过几篇的人顺着上次的位置继续往下读。这段较长的简介专门用于检查封面与文字并排时的自然换行、标题与段落之间的间距，以及手机窄屏下是否仍然清楚舒展；它不代表正式合集文案，仅供本地预览。"
+        },
+        {
+          "property": "og:url",
+          "content": "http://localhost:3216/c/editorial-preview"
+        },
+        {
+          "property": "og:site_name",
+          "content": "Yoryon"
+        },
+        {
+          "property": "og:locale",
+          "content": "zh_CN"
+        },
+        {
+          "property": "og:type",
+          "content": "website"
+        },
+        {
+          "name": "twitter:card",
+          "content": "summary"
+        },
+        {
+          "name": "twitter:title",
+          "content": "长文排版预览"
+        },
+        {
+          "name": "twitter:description",
+          "content": "这个合集把散文、技术手记、图文观察与会员文章放在同一个阅读目录里，用来观察不同内容长度、叙事节奏和媒体组合在真实页面中的呈现方式。你可以从一段轻松的城市散步开始，也可以直接阅读关于草稿、媒体与浏览器的技术说明，再转到图片、图注和引文交替出现的长文。免费章节可以完整阅读，会员章节则先展示公开预览，正文继续遵循各自的阅读权限。我们希望目录既能帮助第一次来到这里的读者理解内容，也能让已经读过几篇的人顺着上次的位置继续往下读。这段较长的简介专门用于检查封面与文字并排时的自然换行、标题与段落之间的间距，以及手机窄屏下是否仍然清楚舒展；它不代表正式合集文案，仅供本地预览。"
+        }
+      ],
+      "structuredData": [
+        {
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "@id": "http://localhost:3216/c/editorial-preview",
+          "url": "http://localhost:3216/c/editorial-preview",
+          "name": "长文排版预览",
+          "description": "这个合集把散文、技术手记、图文观察与会员文章放在同一个阅读目录里，用来观察不同内容长度、叙事节奏和媒体组合在真实页面中的呈现方式。你可以从一段轻松的城市散步开始，也可以直接阅读关于草稿、媒体与浏览器的技术说明，再转到图片、图注和引文交替出现的长文。免费章节可以完整阅读，会员章节则先展示公开预览，正文继续遵循各自的阅读权限。我们希望目录既能帮助第一次来到这里的读者理解内容，也能让已经读过几篇的人顺着上次的位置继续往下读。这段较长的简介专门用于检查封面与文字并排时的自然换行、标题与段落之间的间距，以及手机窄屏下是否仍然清楚舒展；它不代表正式合集文案，仅供本地预览。",
+          "dateModified": "2026-10-15T03:26:42.908Z",
+          "author": {
+            "@type": "Person",
+            "@id": "http://localhost:3216/#author",
+            "name": "Yoryon",
+            "url": "http://localhost:3216/"
+          },
+          "inLanguage": "zh-CN",
+          "mainEntity": {
+            "@type": "ItemList",
+            "numberOfItems": 8,
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                  "@type": "Article",
+                  "@id": "http://localhost:3216/p/editorial-essay#article",
+                  "url": "http://localhost:3216/p/editorial-essay",
+                  "name": "把一天慢慢读完：城市、散步与那些没有被记录的片刻",
+                  "isAccessibleForFree": true
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                  "@type": "Article",
+                  "@id": "http://localhost:3216/p/editorial-notes#article",
+                  "url": "http://localhost:3216/p/editorial-notes",
+                  "name": "一篇文章如何到达读者：从草稿、媒体到浏览器的技术手记",
+                  "isAccessibleForFree": true
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                  "@type": "Article",
+                  "@id": "http://localhost:3216/p/editorial-reference#article",
+                  "url": "http://localhost:3216/p/editorial-reference",
+                  "name": "2024 年字节跳动前实习生田柯宇 (Tian Keyu) 模型训练攻击事件：受害者陈述与证据整理",
+                  "isAccessibleForFree": true
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "item": {
+                  "@type": "Article",
+                  "@id": "http://localhost:3216/p/editorial-visual#article",
+                  "url": "http://localhost:3216/p/editorial-visual",
+                  "name": "在纸面与屏幕之间：一份图文混排的阅读观察",
+                  "isAccessibleForFree": true
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 5,
+                "item": {
+                  "@type": "Article",
+                  "@id": "http://localhost:3216/p/editorial-summary#article",
+                  "url": "http://localhost:3216/p/editorial-summary",
+                  "name": "一句话要点：把一天慢慢读完",
+                  "isAccessibleForFree": true
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 6,
+                "item": {
+                  "@type": "Article",
+                  "@id": "http://localhost:3216/p/editorial-bullets#article",
+                  "url": "http://localhost:3216/p/editorial-bullets",
+                  "name": "无序要点：把一天慢慢读完",
+                  "isAccessibleForFree": true
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 7,
+                "item": {
+                  "@type": "Article",
+                  "@id": "http://localhost:3216/p/editorial-paragraph#article",
+                  "url": "http://localhost:3216/p/editorial-paragraph",
+                  "name": "段落要点：把一天慢慢读完",
+                  "isAccessibleForFree": true
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 8,
+                "item": {
+                  "@type": "Article",
+                  "@id": "http://localhost:3216/p/editorial-paid-example#article",
+                  "url": "http://localhost:3216/p/editorial-paid-example",
+                  "name": "会员示例：把阅读留给重要的内容",
+                  "isAccessibleForFree": false
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "visibleMain": "正在加载合集… 返回合集 合集 · 8 篇 长文排版预览 这个合集把散文、技术手记、图文观察与会员文章放在同一个阅读目录里，用来观察不同内容长度、叙事节奏和媒体组合在真实页面中的呈现方式。你可以从一段轻松的城市散步开始，也可以直接阅读关于草稿、媒体与浏览器的技术说明，再转到图片、图注和引文交替出现的长文。免费章节可以完整阅读，会员章节则先展示公开预览，正文继续遵循各自的阅读权限。我们希望目录既能帮助第一次来到这里的读者理解内容，也能让已经读过几篇的人顺着上次的位置继续往下读。这段较长的简介专门用于检查封面与文字并排时的自然换行、标题与段落之间的间距，以及手机窄屏下是否仍然清楚舒展；它不代表正式合集文案，仅供本地预览。 更新于 2026.10.15 章节目录 正序 倒序 01 把一天慢慢读完：城市、散步与那些没有被记录的片刻 2026.10.14 免费 02 一篇文章如何到达读者：从草稿、媒体到浏览器的技术手记 2026.10.14 免费 03 2024 年字节跳动前实习生田柯宇 (Tian Keyu) 模型训练攻击事件：受害者陈述与证据整理 2026.10.12 免费 04 在纸面与屏幕之间：一份图文混排的阅读观察 2026.10.14 免费 05 一句话要点：把一天慢慢读完 2026.10.14 免费 06 无序要点：把一天慢慢读完 2026.10.14 免费 07 段落要点：把一天慢慢读完 2026.10.14 免费 08 会员示例：把阅读留给重要的内容 2026.10.15 会员",
+      "visibleMainSha256": "585a234ae02f00fa365423adc8f8940fc20aeb106d6d742b50fadc496f06ee56",
+      "links": [
+        "/c",
+        "/p/editorial-essay?collection=editorial-preview",
+        "/p/editorial-notes?collection=editorial-preview",
+        "/p/editorial-reference?collection=editorial-preview",
+        "/p/editorial-visual?collection=editorial-preview",
+        "/p/editorial-summary?collection=editorial-preview",
+        "/p/editorial-bullets?collection=editorial-preview",
+        "/p/editorial-paragraph?collection=editorial-preview",
+        "/p/editorial-paid-example?collection=editorial-preview"
+      ],
+      "media": []
+    },
+    {
+      "path": "/tags",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/tags",
+      "file": "isolated-tags.html",
+      "headers": {
+        "Cache-Control": "s-maxage=86400, stale-while-revalidate=31449600",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "255bbe8f5734df8b4626db97a112c0e6dc3eacfb7d45d18340409aff7910a39e",
+      "title": "标签 · Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "按标签浏览 Yoryon 的文章与帖子。"
+        },
+        {
+          "rel": "canonical",
+          "href": "http://localhost:3216/tags"
+        },
+        {
+          "property": "og:title",
+          "content": "标签"
+        },
+        {
+          "property": "og:description",
+          "content": "按标签浏览 Yoryon 的文章与帖子。"
+        },
+        {
+          "property": "og:url",
+          "content": "http://localhost:3216/tags"
+        },
+        {
+          "property": "og:site_name",
+          "content": "Yoryon"
+        },
+        {
+          "property": "og:locale",
+          "content": "zh_CN"
+        },
+        {
+          "property": "og:type",
+          "content": "website"
+        },
+        {
+          "name": "twitter:card",
+          "content": "summary"
+        },
+        {
+          "name": "twitter:title",
+          "content": "标签"
+        },
+        {
+          "name": "twitter:description",
+          "content": "按标签浏览 Yoryon 的文章与帖子。"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "返回 标签 # layout-preview 8 # demo 6 # test 1",
+      "visibleMainSha256": "11b409cc797904657fce4802e438f1935e6f279d55f58218ade38a5536a9b85d",
+      "links": [
+        "/tags/layout-preview",
+        "/tags/demo",
+        "/tags/test"
+      ],
+      "media": []
+    },
+    {
+      "path": "/tags/layout-preview",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/tags/layout-preview",
+      "file": "isolated-tags_layout-preview.html",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "61e4857c8a6de747404099de3073d07ac65bc7c78042d4201ad2f3796c354cab",
+      "title": "#layout-preview · Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "浏览 Yoryon 中带有「layout-preview」标签的文章与帖子。"
+        },
+        {
+          "rel": "canonical",
+          "href": "http://localhost:3216/tags/layout-preview"
+        },
+        {
+          "property": "og:title",
+          "content": "#layout-preview"
+        },
+        {
+          "property": "og:description",
+          "content": "浏览 Yoryon 中带有「layout-preview」标签的文章与帖子。"
+        },
+        {
+          "property": "og:url",
+          "content": "http://localhost:3216/tags/layout-preview"
+        },
+        {
+          "property": "og:site_name",
+          "content": "Yoryon"
+        },
+        {
+          "property": "og:locale",
+          "content": "zh_CN"
+        },
+        {
+          "property": "og:type",
+          "content": "website"
+        },
+        {
+          "name": "twitter:card",
+          "content": "summary"
+        },
+        {
+          "name": "twitter:title",
+          "content": "#layout-preview"
+        },
+        {
+          "name": "twitter:description",
+          "content": "浏览 Yoryon 中带有「layout-preview」标签的文章与帖子。"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "返回 # layout-preview 会员示例：把阅读留给重要的内容 付费 本地付费作品示例，前半部分公开预览，后半部分需要会员权益。 2026.10.15 评论 点赞 转发 在纸面与屏幕之间：一份图文混排的阅读观察 图片、图注、引文、结构化比较与长文的组合。 2026.10.14 评论 点赞 转发 一篇文章如何到达读者：从草稿、媒体到浏览器的技术手记 代码块、嵌套列表、长链接、故障说明与连续正文的组合。 2026.10.14 评论 点赞 转发 把一天慢慢读完：城市、散步与那些没有被记录的片刻 连续叙事、长短段落、引文与三级标题的长文示例。 2026.10.14 评论 点赞 转发 段落要点：把一天慢慢读完 放慢脚步，让街道、旧书店与那些没有结论的片刻，成为一天值得读完的部分。 2026.10.14 评论 点赞 转发 无序要点：把一天慢慢读完 放慢脚步，让街道、旧书店与那些没有结论的片刻，成为一天值得读完的部分。 2026.10.14 评论 点赞 转发 一句话要点：把一天慢慢读完 放慢脚步，让街道、旧书店与那些没有结论的片刻，成为一天值得读完的部分。 2026.10.14 评论 点赞 转发 2024 年字节跳动前实习生田柯宇 (Tian Keyu) 模型训练攻击事件：受害者陈述与证据整理 依据受害者陈述、内部记录与代码材料及公开报道整理 2026.10.12 评论 点赞 转发",
+      "visibleMainSha256": "72a0907ebebdf90a62f8160152e88434c4dc0fc62e09e828f22519b906601b88",
+      "links": [
+        "/p/editorial-paid-example",
+        "/p/editorial-paid-example#comments",
+        "/p/editorial-visual",
+        "/p/editorial-visual#comments",
+        "/p/editorial-notes",
+        "/p/editorial-notes#comments",
+        "/p/editorial-essay",
+        "/p/editorial-essay#comments",
+        "/p/editorial-paragraph",
+        "/p/editorial-paragraph#comments",
+        "/p/editorial-bullets",
+        "/p/editorial-bullets#comments",
+        "/p/editorial-summary",
+        "/p/editorial-summary#comments",
+        "/p/editorial-reference",
+        "/p/editorial-reference#comments"
+      ],
+      "media": []
+    },
+    {
+      "path": "/tags/layout-preview?utm_source=seo",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/tags/layout-preview?utm_source=seo",
+      "file": "isolated-tags_layout-preview_utm_source-seo.html",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "6f35ea3128560ef5bd8c6667eb30621241dca90d73a4719ac07e0248dd8c509e",
+      "title": "#layout-preview · Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "浏览 Yoryon 中带有「layout-preview」标签的文章与帖子。"
+        },
+        {
+          "rel": "canonical",
+          "href": "http://localhost:3216/tags/layout-preview"
+        },
+        {
+          "property": "og:title",
+          "content": "#layout-preview"
+        },
+        {
+          "property": "og:description",
+          "content": "浏览 Yoryon 中带有「layout-preview」标签的文章与帖子。"
+        },
+        {
+          "property": "og:url",
+          "content": "http://localhost:3216/tags/layout-preview"
+        },
+        {
+          "property": "og:site_name",
+          "content": "Yoryon"
+        },
+        {
+          "property": "og:locale",
+          "content": "zh_CN"
+        },
+        {
+          "property": "og:type",
+          "content": "website"
+        },
+        {
+          "name": "twitter:card",
+          "content": "summary"
+        },
+        {
+          "name": "twitter:title",
+          "content": "#layout-preview"
+        },
+        {
+          "name": "twitter:description",
+          "content": "浏览 Yoryon 中带有「layout-preview」标签的文章与帖子。"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "返回 # layout-preview 会员示例：把阅读留给重要的内容 付费 本地付费作品示例，前半部分公开预览，后半部分需要会员权益。 2026.10.15 评论 点赞 转发 在纸面与屏幕之间：一份图文混排的阅读观察 图片、图注、引文、结构化比较与长文的组合。 2026.10.14 评论 点赞 转发 一篇文章如何到达读者：从草稿、媒体到浏览器的技术手记 代码块、嵌套列表、长链接、故障说明与连续正文的组合。 2026.10.14 评论 点赞 转发 把一天慢慢读完：城市、散步与那些没有被记录的片刻 连续叙事、长短段落、引文与三级标题的长文示例。 2026.10.14 评论 点赞 转发 段落要点：把一天慢慢读完 放慢脚步，让街道、旧书店与那些没有结论的片刻，成为一天值得读完的部分。 2026.10.14 评论 点赞 转发 无序要点：把一天慢慢读完 放慢脚步，让街道、旧书店与那些没有结论的片刻，成为一天值得读完的部分。 2026.10.14 评论 点赞 转发 一句话要点：把一天慢慢读完 放慢脚步，让街道、旧书店与那些没有结论的片刻，成为一天值得读完的部分。 2026.10.14 评论 点赞 转发 2024 年字节跳动前实习生田柯宇 (Tian Keyu) 模型训练攻击事件：受害者陈述与证据整理 依据受害者陈述、内部记录与代码材料及公开报道整理 2026.10.12 评论 点赞 转发",
+      "visibleMainSha256": "72a0907ebebdf90a62f8160152e88434c4dc0fc62e09e828f22519b906601b88",
+      "links": [
+        "/p/editorial-paid-example",
+        "/p/editorial-paid-example#comments",
+        "/p/editorial-visual",
+        "/p/editorial-visual#comments",
+        "/p/editorial-notes",
+        "/p/editorial-notes#comments",
+        "/p/editorial-essay",
+        "/p/editorial-essay#comments",
+        "/p/editorial-paragraph",
+        "/p/editorial-paragraph#comments",
+        "/p/editorial-bullets",
+        "/p/editorial-bullets#comments",
+        "/p/editorial-summary",
+        "/p/editorial-summary#comments",
+        "/p/editorial-reference",
+        "/p/editorial-reference#comments"
+      ],
+      "media": []
+    },
+    {
+      "path": "/p/editorial-essay",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/p/editorial-essay",
+      "file": "isolated-p_editorial-essay.html",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "b2e3983980ba8c8a7032fd98bb36a4e33d1079f3a325ec4890958b2138dc8314",
+      "title": "把一天慢慢读完：城市、散步与那些没有被记录的片刻 · Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "连续叙事、长短段落、引文与三级标题的长文示例。"
+        },
+        {
+          "rel": "canonical",
+          "href": "http://localhost:3216/p/editorial-essay"
+        },
+        {
+          "property": "og:title",
+          "content": "把一天慢慢读完：城市、散步与那些没有被记录的片刻"
+        },
+        {
+          "property": "og:description",
+          "content": "连续叙事、长短段落、引文与三级标题的长文示例。"
+        },
+        {
+          "property": "og:url",
+          "content": "http://localhost:3216/p/editorial-essay"
+        },
+        {
+          "property": "og:site_name",
+          "content": "Yoryon"
+        },
+        {
+          "property": "og:locale",
+          "content": "zh_CN"
+        },
+        {
+          "property": "og:type",
+          "content": "article"
+        },
+        {
+          "property": "article:published_time",
+          "content": "2026-10-14T00:00:00.000Z"
+        },
+        {
+          "property": "article:modified_time",
+          "content": "2026-10-15T03:26:42.915Z"
+        },
+        {
+          "name": "twitter:card",
+          "content": "summary"
+        },
+        {
+          "name": "twitter:title",
+          "content": "把一天慢慢读完：城市、散步与那些没有被记录的片刻"
+        },
+        {
+          "name": "twitter:description",
+          "content": "连续叙事、长短段落、引文与三级标题的长文示例。"
+        }
+      ],
+      "structuredData": [
+        {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "@id": "http://localhost:3216/p/editorial-essay#article",
+          "headline": "把一天慢慢读完：城市、散步与那些没有被记录的片刻",
+          "description": "连续叙事、长短段落、引文与三级标题的长文示例。",
+          "datePublished": "2026-10-14T00:00:00.000Z",
+          "dateModified": "2026-10-15T03:26:42.915Z",
+          "url": "http://localhost:3216/p/editorial-essay",
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http://localhost:3216/p/editorial-essay"
+          },
+          "author": {
+            "@type": "Person",
+            "@id": "http://localhost:3216/#author",
+            "name": "Yoryon",
+            "url": "http://localhost:3216/"
+          },
+          "inLanguage": "zh-CN",
+          "isAccessibleForFree": true,
+          "isPartOf": [
+            {
+              "@type": "CollectionPage",
+              "@id": "http://localhost:3216/c/editorial-preview",
+              "url": "http://localhost:3216/c/editorial-preview",
+              "name": "长文排版预览"
+            }
+          ]
+        }
+      ],
+      "visibleMain": "返回 正在加载文章 返回 把一天慢慢读完：城市、散步与那些没有被记录的片刻 2026.10.14 # layout-preview 合集： 长文排版预览 本文要点 从一条街道开始 一段散步中的观察，展示中文长段落与短段落交替的阅读节奏。 让叙事拥有停顿 引用、章节与三级标题共同组织长文，不打断句子之间的连接。 保留没有结论的片刻 从街道与旧书店回到文字，观察一篇纯文字长文如何自然结束。 这是一篇为本地排版预览创作的散文。人物与场景是虚构的，文字用于观察中文长段落、章节留白和阅读节奏。 一、从一条不熟悉的街开始 早晨离开家时，雨刚刚停下。路边的树叶仍然留着水，公交车经过的时候，轮胎把薄薄的积水推向两侧。街角的小店还没有把门完全打开，老板站在卷帘门下面，将一张塑料凳放到屋檐外。他没有急着擦干凳子，只是抬头看了一眼天空，好像这一天是否开始，仍然需要等待一个比时钟更明确的信号。 我原本想去一个很远的地方。地图上的路线已经画好，出门前也把需要携带的东西检查过一遍。但走到第一个路口，我突然决定向另一边走。这个决定并没有特别的原因，只是那边的光更柔和，路也更安静。我们经常以为改变需要一个充分的理由，其实有些微小的改变，只需要给自己留出几分钟没有安排的时间。 走得慢一些，不是为了错过目的地，而是让沿途也有机会成为这一天的一部分。 这句话当然不是旅行的准则。生活里有许多必须准时到达的地方，有人等着回复，有工作需要完成，也有迟到之后无法补救的约定。可是，在这些明确的事情之间，仍然可能存在一小段空白。空白并不一定要被填满，它可以只是空白。 看见与拍下之间 桥下有一只灰色的猫。它躲在自行车后面，望着水面上缓慢移动的树影。我拿出手机，又把手机放回口袋。如果拍下它，我会得到一张照片；如果继续站在那里，我会知道它什么时候起身，什么时候重新坐下，又在什么声音出现之后，转头望向另一条街。 照片能够保存形状，却未必能够保存等待。那几分钟的风、桥上经过的脚步以及没有发生任何事情的时间，都无法从一张小小的图片里完整取回。这并不是照片的缺陷，只是每一种记录都拥有自己的边界。 二、街道并不是一张地图 地图上的街道宽度相近，名字也排得整齐。真正走进去之后，才会发现每一条街都有自己的速度。学校旁边的路在清晨拥挤，中午忽然安静；菜市场附近的路一直有人停下来，让你不得不跟着放慢脚步；一条看起来没有特色的小巷，可能藏着整个街区最早亮起的灯。 我在一家旧书店前停下。玻璃橱窗里放着几本没有封面的书，纸张的边缘泛黄，但排列得很整齐。店里的人正在整理收银台，抬头问我是不是在找什么。我说只是看看。他点了点头，继续做手里的事。这种不需要立刻说明目的的停留，让人感到轻松。 一本书的第一页有前一位读者留下的铅笔痕迹。那行字被划掉过，又重新写了一遍。我不知道他为什么这样做，也没有办法从几笔浅浅的字里推断出完整的故事。能够确定的只有一件事：曾经有人在这里犹豫，而这份犹豫留下了可以被另一个人看见的痕迹。 关于那些不完整的故事 我们很容易替陌生人补齐故事。看到一张疲惫的脸，就猜测他昨夜没有睡好；看到一束花，就想象一次庆祝或一次告别。但真实的生活往往比猜测更普通，也更复杂。有时候，一束花只是因为经过花店时，刚好觉得颜色漂亮。 不急着给每个片刻命名，也许是一种更温和的观察。你可以记得书店里的灯，记得铅笔留下的浅灰色，记得那位店主没有追问的点头，而不必把它们组织成一个完整的寓意。 三、让段落有自己的呼吸 继续阅读 返回合集： 长文排版预览 上一篇 已是合集第一篇 下一篇 一篇文章如何到达读者：从草稿、媒体到浏览器的技术手记 评论 登录 后参与评论 评论加载中…",
+      "visibleMainSha256": "42f260b439eda6e02738ebc478024832b0cc306d2bc8c7413abc47c162b260ce",
+      "links": [
+        "/tags/layout-preview",
+        "/c/editorial-preview",
+        "/c/editorial-preview",
+        "/p/editorial-notes?collection=editorial-preview",
+        "/login?returnTo=%2Fp%2Feditorial-essay"
+      ],
+      "media": []
+    },
+    {
+      "path": "/p/editorial-paid-example?collection=editorial-preview&utm_source=seo",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/p/editorial-paid-example?collection=editorial-preview&utm_source=seo",
+      "file": "isolated-p_editorial-paid-example_collection-editorial-preview_utm_source-seo.html",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "a7bc1905bd74f8887ddaa545822f1197dbc9af98ba9831a0c90db3734e2f30bd",
+      "title": "会员示例：把阅读留给重要的内容 · Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "本地付费作品示例，前半部分公开预览，后半部分需要会员权益。"
+        },
+        {
+          "rel": "canonical",
+          "href": "http://localhost:3216/p/editorial-paid-example"
+        },
+        {
+          "property": "og:title",
+          "content": "会员示例：把阅读留给重要的内容"
+        },
+        {
+          "property": "og:description",
+          "content": "本地付费作品示例，前半部分公开预览，后半部分需要会员权益。"
+        },
+        {
+          "property": "og:url",
+          "content": "http://localhost:3216/p/editorial-paid-example"
+        },
+        {
+          "property": "og:site_name",
+          "content": "Yoryon"
+        },
+        {
+          "property": "og:locale",
+          "content": "zh_CN"
+        },
+        {
+          "property": "og:type",
+          "content": "article"
+        },
+        {
+          "property": "article:published_time",
+          "content": "2026-10-15T03:14:25.441Z"
+        },
+        {
+          "property": "article:modified_time",
+          "content": "2026-10-15T03:26:42.926Z"
+        },
+        {
+          "name": "twitter:card",
+          "content": "summary"
+        },
+        {
+          "name": "twitter:title",
+          "content": "会员示例：把阅读留给重要的内容"
+        },
+        {
+          "name": "twitter:description",
+          "content": "本地付费作品示例，前半部分公开预览，后半部分需要会员权益。"
+        }
+      ],
+      "structuredData": [
+        {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "@id": "http://localhost:3216/p/editorial-paid-example#article",
+          "headline": "会员示例：把阅读留给重要的内容",
+          "description": "本地付费作品示例，前半部分公开预览，后半部分需要会员权益。",
+          "datePublished": "2026-10-15T03:14:25.441Z",
+          "dateModified": "2026-10-15T03:26:42.926Z",
+          "url": "http://localhost:3216/p/editorial-paid-example",
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http://localhost:3216/p/editorial-paid-example"
+          },
+          "author": {
+            "@type": "Person",
+            "@id": "http://localhost:3216/#author",
+            "name": "Yoryon",
+            "url": "http://localhost:3216/"
+          },
+          "inLanguage": "zh-CN",
+          "isAccessibleForFree": false,
+          "isPartOf": [
+            {
+              "@type": "CollectionPage",
+              "@id": "http://localhost:3216/c/editorial-preview",
+              "url": "http://localhost:3216/c/editorial-preview",
+              "name": "长文排版预览"
+            }
+          ]
+        }
+      ],
+      "visibleMain": "返回 正在加载文章 返回合集 会员示例：把阅读留给重要的内容 2026.10.15 付费 # layout-preview 合集： 长文排版预览 正在核验阅读权限… 本文要点 本地付费作品示例，前半部分公开预览，后半部分需要会员权益。 这是一篇本地会员作品示例。你可以在同一个合集里先阅读免费文章，再打开这篇文章，查看公开预览和会员提示的排版。 本内容为订阅专享，以上为免费预览。 标准订阅 ¥29.9/月：解锁站内全部付费内容，到期自动恢复锁定。 兑换订阅激活码 正在加载章节导航… 评论 登录 后参与评论 评论加载中…",
+      "visibleMainSha256": "67a139b8ffcdf97533e76881959373a2b56228bf1940abb286255943a7a9e1f1",
+      "links": [
+        "/tags/layout-preview",
+        "/c/editorial-preview",
+        "/redeem",
+        "/login?returnTo=%2Fp%2Feditorial-paid-example"
+      ],
+      "media": []
+    },
+    {
+      "path": "/p/hello-world",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/p/hello-world",
+      "file": "isolated-p_hello-world.html",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "e4f67ca6fcc2ccba95312d5d5449811755755893f62ed969fa892ceb28a14a0f",
+      "title": "测试文章 · Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "测试文章"
+        },
+        {
+          "rel": "canonical",
+          "href": "http://localhost:3216/p/hello-world"
+        },
+        {
+          "property": "og:title",
+          "content": "测试文章"
+        },
+        {
+          "property": "og:description",
+          "content": "测试文章"
+        },
+        {
+          "property": "og:url",
+          "content": "http://localhost:3216/p/hello-world"
+        },
+        {
+          "property": "og:site_name",
+          "content": "Yoryon"
+        },
+        {
+          "property": "og:locale",
+          "content": "zh_CN"
+        },
+        {
+          "property": "og:type",
+          "content": "article"
+        },
+        {
+          "property": "article:published_time",
+          "content": "2026-10-10T18:24:04.084Z"
+        },
+        {
+          "property": "article:modified_time",
+          "content": "2026-10-13T03:16:56.521Z"
+        },
+        {
+          "name": "twitter:card",
+          "content": "summary"
+        },
+        {
+          "name": "twitter:title",
+          "content": "测试文章"
+        },
+        {
+          "name": "twitter:description",
+          "content": "测试文章"
+        }
+      ],
+      "structuredData": [
+        {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "@id": "http://localhost:3216/p/hello-world#article",
+          "headline": "测试文章",
+          "description": "测试文章",
+          "datePublished": "2026-10-10T18:24:04.084Z",
+          "dateModified": "2026-10-13T03:16:56.521Z",
+          "url": "http://localhost:3216/p/hello-world",
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http://localhost:3216/p/hello-world"
+          },
+          "author": {
+            "@type": "Person",
+            "@id": "http://localhost:3216/#author",
+            "name": "Yoryon",
+            "url": "http://localhost:3216/"
+          },
+          "inLanguage": "zh-CN",
+          "isAccessibleForFree": true,
+          "isPartOf": []
+        }
+      ],
+      "visibleMain": "返回 正在加载文章 返回 测试文章 2026.10.11 # test 你好 这是一篇公开测试文章。 正文结束。 评论 登录 后参与评论 评论加载中…",
+      "visibleMainSha256": "a79803e3b8e86caea7e1f753362ca7accadb9acba99541cc641f671bd10c2dbe",
+      "links": [
+        "/tags/test",
+        "/login?returnTo=%2Fp%2Fhello-world"
+      ],
+      "media": [
+        {
+          "src": "/api/images/v2/d6b16819-4df4-4219-8619-c72fb692cce6/1280",
+          "alt": "像素图"
+        }
+      ]
+    },
+    {
+      "path": "/search?q=agents",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/search?q=agents",
+      "file": "isolated-search_q-agents.html",
+      "headers": {
+        "Cache-Control": "s-maxage=31536000",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "d9c97f8fbc2bef78e172642ea7b93d88479ba6cc42a732ca5d9d75a9d01dbe1d",
+      "title": "搜索 · Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        },
+        {
+          "name": "referrer",
+          "content": "no-referrer"
+        },
+        {
+          "name": "robots",
+          "content": "noindex, follow"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "搜索 输入想找的原文。区分大小写、空格与标点；至少三个连续文字或数字时，也会搜索正文。 搜索 搜索文章、帖子和正文中的内容。",
+      "visibleMainSha256": "072b5c2d7320e697612f90cb88aff945788bf2ed8dd37b11e66b1df677cc5da7",
+      "links": [],
+      "media": []
+    },
+    {
+      "path": "/login?returnTo=%2Fsettings%2Fprofile",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/login?returnTo=%2Fsettings%2Fprofile",
+      "file": "isolated-login_returnTo-2Fsettings2Fprofile.html",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "485cf6ca3ae78fdddc837b74e82e0f73e3d90e07353f0c9623305ca9600e036e",
+      "title": "登录 · Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        },
+        {
+          "name": "robots",
+          "content": "noindex, follow"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "登录 邮箱或用户名 密码 登录 没有账号？ 注册 · 忘记密码",
+      "visibleMainSha256": "49626aa70da963d5adca55c9ca4e123b2d142c946b82253c2984a2d67dc48943",
+      "links": [
+        "/register",
+        "/reset-password"
+      ],
+      "media": []
+    },
+    {
+      "path": "/register",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/register",
+      "file": "isolated-register.html",
+      "headers": {
+        "Cache-Control": "s-maxage=31536000",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "d9e50480fb5d8a3f3410fd197388948b7974b4b077bb086cc38238953373840d",
+      "title": "注册 · Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        },
+        {
+          "name": "robots",
+          "content": "noindex, follow"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "注册 邮箱 用户名 密码（至少 8 位） 注册 已有账号？ 登录",
+      "visibleMainSha256": "8198d816529c07872b5b0b6dfcb4b5ae42757e04eadf0404fa97f90c72039c9c",
+      "links": [
+        "/login"
+      ],
+      "media": []
+    },
+    {
+      "path": "/reset-password",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/reset-password",
+      "file": "isolated-reset-password.html",
+      "headers": {
+        "Cache-Control": "s-maxage=31536000",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "1c656abf0838cf56c1f70914f882456ccc54d5d8a88f65e76f0f57d670aca907",
+      "title": "重置密码 · Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        },
+        {
+          "name": "robots",
+          "content": "noindex, follow"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "重置密码 注册邮箱 发送验证码 想起来了？ 登录",
+      "visibleMainSha256": "62c2797aef99a81f214bf44f8d17e9426ae84703e42caa1b58862d89f3f30742",
+      "links": [
+        "/login"
+      ],
+      "media": []
+    },
+    {
+      "path": "/redeem",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/redeem",
+      "file": "isolated-redeem.html",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "aa1c96779c418542877e3257c88057e62c754c6527e1f6bc713fda0aaed63d0d",
+      "title": "兑换激活码 · Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        },
+        {
+          "name": "robots",
+          "content": "noindex, follow"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "返回 兑换激活码 标准订阅 ¥29.9 / 月 兑换后即可解锁全部付费内容，到期自动失效。 还没有激活码？ 购买激活码（在新标签页打开）",
+      "visibleMainSha256": "e4225f2efd050475629936599f0d5bf1c9588af434a688569040aad2c76db8fc",
+      "links": [
+        "https://wzyp.cn/item/ay8uxj"
+      ],
+      "media": []
+    },
+    {
+      "path": "/notifications",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/notifications",
+      "file": "isolated-notifications.html",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "2b1202539f5b7dffd8ebaa9929908dee05d7efbf817df881833789b88d75abff",
+      "title": "通知 · Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        },
+        {
+          "name": "robots",
+          "content": "noindex, follow"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "通知 加载中…",
+      "visibleMainSha256": "8d4828ebf068ad406570cb2da741cc370c9ceb3871d438b654dab365ee9e6f9a",
+      "links": [],
+      "media": []
+    },
+    {
+      "path": "/settings/profile",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/settings/profile",
+      "file": "isolated-settings_profile.html",
+      "headers": {
+        "Cache-Control": "s-maxage=31536000",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "18d648a01dad6c1b58d5d252f4d99c871e8c74fe2e2b55219c848bfca33089c8",
+      "title": "个人资料 · Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        },
+        {
+          "name": "robots",
+          "content": "noindex, follow"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "个人资料 加载中…",
+      "visibleMainSha256": "bfa4b7c364e549b5eb831308e77c76db8af202855844a2c6dd7473f9c8ebd667",
+      "links": [],
+      "media": []
+    },
+    {
+      "path": "/c/seo-not-found",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/c/seo-not-found",
+      "file": "isolated-c_seo-not-found.html",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "07a29738fc011f2266dfcdf650d8f8606af121edc03e488d22a9ac531e7d1e1c",
+      "title": "合集不存在 · Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "robots",
+          "content": "noindex"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        },
+        {
+          "name": "robots",
+          "content": "noindex"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "正在加载合集…",
+      "visibleMainSha256": "87a4d9c3b51973d011f21117b6745327daf93b4a49783351d336fd954ffa4a12",
+      "links": [],
+      "media": []
+    },
+    {
+      "path": "/tags/seo-not-found",
+      "status": 404,
+      "finalUrl": "http://localhost:3216/tags/seo-not-found",
+      "file": "isolated-tags_seo-not-found.html",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "5d7d55592e513e2b3824f97da92dee90f4cf8fb081f1632c2fef97d8d53ad07e",
+      "title": "Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "robots",
+          "content": "noindex"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "",
+      "visibleMainSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "links": [],
+      "media": []
+    },
+    {
+      "path": "/p/seo-not-found",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/p/seo-not-found",
+      "file": "isolated-p_seo-not-found.html",
+      "headers": {
+        "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "Content-Type": "text/html; charset=utf-8"
+      },
+      "sha256": "5d9bd9700f6911dbcecd8309d784067682046339e255a18d4a98a0966832fc82",
+      "title": "内容不存在 · Yoryon",
+      "meta": [
+        {
+          "charset": "utf-8"
+        },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1"
+        },
+        {
+          "name": "robots",
+          "content": "noindex"
+        },
+        {
+          "name": "description",
+          "content": "Yoryon 的个人博客：文章、图片、视频与音频。"
+        },
+        {
+          "name": "robots",
+          "content": "noindex"
+        }
+      ],
+      "structuredData": [],
+      "visibleMain": "返回 正在加载文章",
+      "visibleMainSha256": "760415f926ea924ba96fb705c92bf260538e92d919c45204c811d2c41e86a7a0",
+      "links": [],
+      "media": []
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/sitemap.xml",
+      "file": "isolated-sitemap.xml.xml",
+      "headers": {
+        "cache-control": "public, max-age=0, must-revalidate",
+        "content-type": "application/xml"
+      },
+      "sha256": "71a2be1ee23610577cb2ca425787f0bf161bad2209986757d4ff6590719e997e",
+      "entries": [
+        {
+          "url": "http://localhost:3216/",
+          "lastmod": null
+        },
+        {
+          "url": "http://localhost:3216/posts",
+          "lastmod": null
+        },
+        {
+          "url": "http://localhost:3216/c",
+          "lastmod": null
+        },
+        {
+          "url": "http://localhost:3216/tags",
+          "lastmod": null
+        },
+        {
+          "url": "http://localhost:3216/p/hello-world",
+          "lastmod": "2026-10-13T03:16:56.521Z"
+        },
+        {
+          "url": "http://localhost:3216/p/demo-ep1",
+          "lastmod": "2026-10-13T03:16:56.522Z"
+        },
+        {
+          "url": "http://localhost:3216/p/demo-ep2",
+          "lastmod": "2026-10-13T03:16:56.522Z"
+        },
+        {
+          "url": "http://localhost:3216/p/editorial-reference",
+          "lastmod": "2026-10-15T03:26:42.919Z"
+        },
+        {
+          "url": "http://localhost:3216/p/editorial-visual",
+          "lastmod": "2026-10-15T03:26:42.921Z"
+        },
+        {
+          "url": "http://localhost:3216/p/editorial-bullets",
+          "lastmod": "2026-10-15T03:26:42.923Z"
+        },
+        {
+          "url": "http://localhost:3216/p/editorial-essay",
+          "lastmod": "2026-10-15T03:26:42.915Z"
+        },
+        {
+          "url": "http://localhost:3216/p/editorial-notes",
+          "lastmod": "2026-10-15T03:26:42.918Z"
+        },
+        {
+          "url": "http://localhost:3216/p/demo-paid",
+          "lastmod": "2026-10-13T03:16:56.529Z"
+        },
+        {
+          "url": "http://localhost:3216/p/demo-gallery",
+          "lastmod": "2026-10-13T03:16:56.530Z"
+        },
+        {
+          "url": "http://localhost:3216/p/demo-video",
+          "lastmod": "2026-10-13T03:16:56.531Z"
+        },
+        {
+          "url": "http://localhost:3216/p/demo-audio",
+          "lastmod": "2026-10-13T03:16:56.532Z"
+        },
+        {
+          "url": "http://localhost:3216/p/editorial-summary",
+          "lastmod": "2026-10-15T03:26:42.922Z"
+        },
+        {
+          "url": "http://localhost:3216/p/editorial-paragraph",
+          "lastmod": "2026-10-15T03:26:42.925Z"
+        },
+        {
+          "url": "http://localhost:3216/p/editorial-paid-example",
+          "lastmod": "2026-10-15T03:26:42.926Z"
+        },
+        {
+          "url": "http://localhost:3216/c/demo-series",
+          "lastmod": "2026-10-13T03:16:56.522Z"
+        },
+        {
+          "url": "http://localhost:3216/c/editorial-preview",
+          "lastmod": "2026-10-15T03:26:42.908Z"
+        }
+      ]
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200,
+      "finalUrl": "http://localhost:3216/robots.txt",
+      "file": "isolated-robots.txt.txt",
+      "headers": {
+        "cache-control": "public, max-age=0, must-revalidate",
+        "content-type": "text/plain"
+      },
+      "sha256": "5b0b1654e511d6173493220dd75bdca59f8da3e850038f13f7f2226a58fb23d0"
+    }
+  ]
+}

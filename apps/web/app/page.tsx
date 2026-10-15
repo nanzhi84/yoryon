@@ -4,6 +4,9 @@ import { FeedTimeline } from "@/components/feed-timeline";
 import { SiteHeader } from "@/components/site-header";
 import { LoadMore } from "@/components/load-more";
 import { AnalyticsListProvider } from "@/components/analytics";
+import { pageMetadata, siteDescription } from "@/lib/seo";
+
+export const metadata = { ...pageMetadata("/", "Yoryon", siteDescription), title: { absolute: "Yoryon" } };
 
 const revalidateSec = Number(process.env.FEED_REVALIDATE_SEC ?? 86400);
 

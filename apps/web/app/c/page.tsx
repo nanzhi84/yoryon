@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
 import { publicFetchNoStore } from "@/lib/api";
 import type { CollectionListItem } from "@/lib/types";
 import { SiteHeader } from "@/components/site-header";
 import { CollectionEntry } from "@/components/feed-timeline";
 import { AnalyticsListProvider } from "@/components/analytics";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "合集" };
+export const metadata = pageMetadata("/c", "合集", "Yoryon 的合集与文章目录。");
 
 export const dynamic = "force-dynamic";
 

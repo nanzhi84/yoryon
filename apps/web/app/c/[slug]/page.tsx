@@ -4,6 +4,9 @@ import { apiFetch } from "@/lib/api";
 import type { CollectionDetail } from "@/lib/types";
 import { SiteHeader } from "@/components/site-header";
 import { CollectionReader } from "@/components/collection-reader";
+import { pageMetadata } from "@/lib/seo";
+import { collectionStructuredData } from "@/lib/seo-structured";
+import { StructuredData } from "@/components/structured-data";
 
 export const dynamic = "force-dynamic";
 
@@ -21,8 +24,8 @@ async function getCollection(slug: string): Promise<CollectionDetail | null> {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const collection = await getCollection(slug);
-  if (!collection) return { title: "合集不存在" };
-  return { title: collection.title, description: collection.description || undefined };
+  if (!collection) return { title: "合集不存在", robots: { index: false } };
+  return pageMetadata(`/c/${collection.slug}`, collection.title, collection.description);
 }
 
 export default async function CollectionPage({ params }: Props) {
@@ -30,5 +33,5 @@ export default async function CollectionPage({ params }: Props) {
   const collection = await getCollection(slug);
   if (!collection) notFound();
 
-  return <><SiteHeader /><CollectionReader key={collection.id} initial={collection} /></>;
+  return <><StructuredData data={collectionStructuredData(collection)} /><SiteHeader /><CollectionReader key={collection.id} initial={collection} /></>;
 }
