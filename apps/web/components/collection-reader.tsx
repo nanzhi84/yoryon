@@ -8,6 +8,7 @@ import { formatDate } from "@/lib/date";
 import { collectionPositionKey, readCollectionPosition } from "@/lib/collection-memory";
 import { DetailTracker } from "./analytics";
 import { chapterHref, useCollectionFlow, useCollectionTime } from "./collection-flow";
+import { CollectionDescription } from "./collection-description";
 
 export function CollectionReader({ initial }: { initial: CollectionDetail }) {
   const [collection, setCollection] = useState(initial);
@@ -68,7 +69,7 @@ export function CollectionReader({ initial }: { initial: CollectionDetail }) {
         <div className="min-w-0 flex-1">
           <p className="text-sm text-muted-foreground">合集 · {collection.items.length} 篇</p>
           <h1 className="mt-2 text-3xl font-semibold leading-tight">{collection.title}</h1>
-          {collection.description && <p className="mt-3 text-[15px] leading-6 text-foreground">{collection.description}</p>}
+          {collection.description && <CollectionDescription description={collection.description} className="mt-3" />}
         </div>
         {collection.coverMediaId && <div className="w-24 shrink-0 sm:w-36"><div className="aspect-[4/3] overflow-hidden rounded-lg bg-muted"><img src={`/api/media/${collection.coverMediaId}`} alt={collection.title} className="h-full w-full object-cover" /></div></div>}
       </div>

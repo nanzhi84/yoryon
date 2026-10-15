@@ -7,6 +7,7 @@ import { PostEntry } from "./post-entry";
 import { ContentActions, ContentInteractions } from "./content-actions";
 import { formatDate } from "@/lib/date";
 import { PostAnalytics } from "./post-analytics";
+import { CollectionDescription } from "./collection-description";
 
 /** 信息流内容条目：标题 + 日期 / 封面 + 简介 / 类型 + 标签，点进详情。 */
 export function ContentEntry({ item, showPinnedBadge = false }: { item: FeedContentItem; showPinnedBadge?: boolean }) {
@@ -72,7 +73,7 @@ export function CollectionEntry({ item }: { item: CollectionListItem & { paidIte
           <time dateTime={item.updatedAt} className="shrink-0 text-xs text-muted-foreground">更新于 {formatDate(item.updatedAt)}</time>
         </div>
       <div className="mt-2 flex items-start gap-4">
-        <div className="min-w-0 flex-1">{item.description && <p className="line-clamp-3 text-[15px] leading-6 text-foreground">{item.description}</p>}</div>
+        <div className="min-w-0 flex-1">{item.description && <CollectionDescription description={item.description} className="line-clamp-3" />}</div>
         {item.coverMediaId && <TrackClickLink targetKind="collection" targetId={item.id} href={`/c/${item.slug}`} aria-label={`查看合集：${item.title}`} className="block w-28 shrink-0 sm:w-36">
           <div className="aspect-[4/3] overflow-hidden rounded-lg bg-muted"><img src={`/api/media/${item.coverMediaId}`} alt={item.title} loading="lazy" className="h-full w-full object-cover" /></div>
         </TrackClickLink>}
