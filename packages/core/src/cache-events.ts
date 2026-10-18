@@ -57,8 +57,20 @@ export async function deliverCacheEvents(db: Database, options: { retry?: boolea
         const time = String(Date.now());
         const res = await boundedFetch(endpoint, { method: "POST", body: row.payload, headers: { "content-type": "application/json", "x-cache-time": time, "x-cache-signature": sign(secret, time, row.payload) } });
         if (!res.ok) throw new Error(`invalidation HTTP ${res.status}`);
-        // 失效范围与预热范围分离：关联文章、合集、标签、sitemap 和分页只失效，访问时再生成。
-        const warmPaths = [...(event.tags.includes("feed") ? ["/"] : []), ...(event.contentSlug ? [`/p/${event.contentSlug}`] : [])];
+        // 失效范围与预热范围分离；重试旧发布事件时，作品可能已下架/删除。
+        // 先查当前公开投影，404 不预热。Next 流式 not-found 可以是 HTTP 200，不能据此验撤销。
+        let contentUpdatedAt: string | null = null;
+        if (event.contentSlug) {
+          const expected = await boundedFetch(new URL(`/api/public/contents/${event.contentSlug}`, process.env.API_PUBLIC_URL ?? site).href);
+          if (expected.status !== 404) {
+            if (!expected.ok) throw new Error(`verification API HTTP ${expected.status}`);
+            const current: unknown = await expected.json().catch(() => { throw new Error("verification API invalid JSON"); });
+            if (!current || typeof current !== "object" || !("updatedAt" in current) ||
+                typeof current.updatedAt !== "string" || Number.isNaN(Date.parse(current.updatedAt))) throw new Error("verification API invalid revision");
+            contentUpdatedAt = current.updatedAt;
+          }
+        }
+        const warmPaths = [...(event.tags.includes("feed") ? ["/"] : []), ...(event.contentSlug && contentUpdatedAt ? [`/p/${event.contentSlug}`] : [])];
         for (const p of warmPaths) {
           const response = await boundedFetch(new URL(p, site).href);
           const text = await response.text();
@@ -69,15 +81,8 @@ export async function deliverCacheEvents(db: Database, options: { retry?: boolea
             const { version } = await policy.json() as { version: string };
             if (response.status !== 200 || !text.includes(`data-catalog-version="${version}"`)) throw new Error("warmup /: catalog mismatch");
           }
-          if (p.startsWith("/p/")) {
-            const expected = await boundedFetch(new URL(`/api/public/contents/${p.slice(3)}`, process.env.API_PUBLIC_URL ?? site).href);
-            if (expected.status === 404) {
-              if (response.status !== 404) throw new Error(`warmup ${p}: expected 404`);
-            } else {
-              if (!expected.ok) throw new Error(`verification API HTTP ${expected.status}`);
-              const current = await expected.json() as { title: string; updatedAt: string };
-              if (response.status !== 200 || !text.includes(current.updatedAt)) throw new Error(`warmup ${p}: revision mismatch`);
-            }
+          if (p.startsWith("/p/") && (response.status !== 200 || !text.includes(contentUpdatedAt!))) {
+            throw new Error(`warmup ${p}: revision mismatch`);
           }
         }
         await db.update(cacheEvents).set({ state: "verified", verifiedAt: new Date(), lastError: null, attempts: row.attempts + attempt + 1 }).where(eq(cacheEvents.id, row.id));

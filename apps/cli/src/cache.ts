@@ -29,7 +29,7 @@ export async function mutateContent(slug: string, remove: boolean) {
         if (remove) await tx.delete(contents).where(eq(contents.slug, slug));
         else await tx.update(contents).set({ status: "draft", updatedAt: new Date() }).where(eq(contents.slug, slug));
         if (old.collections.length) await tx.update(collections).set({ updatedAt: new Date() }).where(inArray(collections.slug, old.collections));
-        await enqueueCacheEvent(tx, contentTargets(slug, old.tags, old.collections, old.listings), slug);
+        await enqueueCacheEvent(tx, contentTargets(slug, old.tags, old.collections, old.listings));
       });
       await deliverCacheEvents(ctx.db, { logger: console.log });
     } finally { await lock.release(); }

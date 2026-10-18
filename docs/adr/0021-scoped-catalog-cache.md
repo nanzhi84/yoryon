@@ -15,7 +15,7 @@
 - Web 首屏先 no-store 查询指定 scope，再读取该版本的 Data Cache；409 时有界重读。分页 Middleware 同样按 source 对应的 scope 校验旧版本，API 在 repeatable-read 事务中读取版本和分页数据。scope 参数必填且校验，未知范围拒绝；存储不使用进程内状态或事件历史扫描。
 - 首屏与分页数据缓存协议改为 catalog-v6，避免继承旧协议的共享 feed tag。保留 24h 兜底，仅相关列表换 key；本文不承诺完全消除列表重生成或 ISR 写入。
 - 合集更新省略 description/visibility 时保留原值，新建默认空描述/public；完全相同的元信息不产生事件。合集名称、简介和章节排序不改成员 revision/updatedAt/previewRevision。仍按 content:<slug> 失效嵌入的合集名和上下篇信息，在后续访问时更新。已有合集 visibility 变化才原子轮换成员 revision，previewRevision 与旧 revision 一致时同步轮换；章节成员关系仍由内容发布维护。
-- 投递器不再遍历 event.paths 发 GET。只在 feed 变化时预热首页；event.contentSlug 仅代表直接修改的作品，预热其 /p/<slug>。合集、标签、分页、sitemap 和关联引用者仅失效，按访问生成。不发送 cache-control:no-cache 强制刷新。
+- 投递器不再遍历 event.paths 发 GET。只在 feed 变化时预热首页；event.contentSlug 仅代表直接修改的作品，先读取当前公开投影，仍发布时才预热其 /p/<slug>；下架/删除事件不设置 contentSlug，重试历史事件遇当前 API 404 同样跳过正文预热。合集、标签、分页、sitemap 和关联引用者仅失效，按访问生成。不发送 cache-control:no-cache 强制刷新。
 - verified 表示签名失效回调成功及上述有限预热核对通过，不代表所有 paths 已生成、浏览器验收或平台计费下降。失败保留有界重试与人工 cache retry。
 
 ## 发布、隔离与回滚
@@ -24,6 +24,10 @@
 2. API、CLI 与 Web 需要配套更新：新 Web 的 catalog-policy 必须 scope 参数，新 API 不提供旧全局版本接口。不要让旧 CLI 在新 API/Web 上继续发布（旧写入器不会推进范围版本）。在维护窗口切换，完成后恢复 CLI。此变更没有添加旧内部路径兼容层。
 3. 真实运行验证命令为 pnpm typecheck、隔离 API 下 pnpm build；独立验收工件位于 artifacts/cache-scopes-20261018/acceptance/，包括 CLI/SQL/浏览器与失败回调、旧分页证据。不向生产写入验收数据。
 4. 回滚须配套恢复 API、CLI 和 Web 的旧版本；新表可保留，不需删内容或倒退 revision。重新发布前确认运行三端协议一致。若期间存在实际权限变化，不得恢复旧业务数据。
+
+## 生产验收补充（2026-10-18）
+
+生产删除验收发现 canonical 流式 not-found 页面可能 HTTP 200，原投递器期待 404，导致删除成功但事件误记 failed。撤销以当前匿名 API/实时门禁判定，不以 Next 流式页面 HTTP 状态判定；下架/删除只失效，重试历史事件在当前公开 API 返回404时跳过不存在页面。API 5xx、超时、非法投影仍保留失败和有界重试，存在作品仍校验页面版本。原失败事件 payload 保留，通过新投递器恢复，不手改为成功。
 
 ## 已知取舍
 
