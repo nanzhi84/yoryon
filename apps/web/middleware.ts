@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { catalogScopeForSource } from "@yoryon/config/cache";
 import { imageMiddleware } from "./lib/image-middleware";
 
 /** Middleware 先于共享正文缓存；revision key 隔离生成竞态，失败关闭。
@@ -10,9 +11,11 @@ export async function middleware(request: NextRequest) {
   const match = /^\/render\/([a-f0-9-]{36})\/([a-z0-9][a-z0-9-]*)$/.exec(path);
   const privateHeaders = { "Cache-Control": "private, no-store" };
   if (path.startsWith("/api/pages/")) {
-    const version = path.split("/")[3];
+    const [, , , version, source] = path.split("/");
+    const scope = catalogScopeForSource(source ?? "");
+    if (!scope) return NextResponse.json({ error: "invalid source" }, { status: 400, headers: privateHeaders });
     try {
-      const response = await fetch(`${process.env.API_INTERNAL_URL}/api/public/catalog-policy`, { cache: "no-store", redirect: "error", signal: AbortSignal.timeout(3000) });
+      const response = await fetch(`${process.env.API_INTERNAL_URL}/api/public/catalog-policy?scope=${encodeURIComponent(scope)}`, { cache: "no-store", redirect: "error", signal: AbortSignal.timeout(3000) });
       if (!response.ok) throw new Error("catalog policy unavailable");
       const current = await response.json() as { version: string };
       if (version !== current.version) return NextResponse.json({ error: "snapshot_expired" }, { status: 409, headers: privateHeaders });

@@ -57,6 +57,6 @@ export async function invalidateReferrers(tx: Tx, targetId: string) {
       previewRevision: sql`case when ${contents.previewRevision} = ${contents.revision} then ${revision}::uuid else ${contents.previewRevision} end`,
     }).where(eq(contents.id, parent.id));
     const related = await associations(tx, parent.id);
-    await enqueueCacheEvent(tx, contentTargets(parent.slug, related.tags, related.collections), parent.slug, changedAt.toISOString());
+    await enqueueCacheEvent(tx, contentTargets(parent.slug, related.tags, related.collections, related.listings));
   }
 }

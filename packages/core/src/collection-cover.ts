@@ -23,7 +23,7 @@ export async function setCollectionCover(deps: PublishDeps, slug: string, filena
       await tx.select({ id: collections.id }).from(collections).where(eq(collections.id, collection.id)).for("update");
       const id = media ? await upsertPreparedMedia(tx, media) : null;
       await tx.update(collections).set({ coverMediaId: id, updatedAt: new Date() }).where(eq(collections.id, collection.id));
-      await enqueueCacheEvent(tx, { tags: ["collections", "sitemap", `collection:${slug}`], paths: ["/c", `/c/${slug}`, "/sitemap.xml"] });
+      await enqueueCacheEvent(tx, { tags: ["collections", "member-feed", "sitemap", `collection:${slug}`], paths: ["/c", `/c/${slug}`, "/sitemap.xml"] });
       return id;
     });
     await deliverCacheEvents(db, { logger: log });

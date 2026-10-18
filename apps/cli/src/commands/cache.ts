@@ -23,7 +23,7 @@ export function registerCacheCommands(program: Command) {
           // 注意：缓存事件 payload 的 revision 字段是变更时间（ISO 时间戳语义），与 contents.revision（UUID 版本键）不同。
           const now = new Date();
           await tx.update(contents).set({ revision: randomUUID(), updatedAt: now }).where(eq(contents.id, rows[0].id));
-          await enqueueCacheEvent(tx, contentTargets(slug, related.tags, related.collections), slug, now.toISOString());
+          await enqueueCacheEvent(tx, contentTargets(slug, related.tags, related.collections, related.listings), slug, now.toISOString());
           await invalidateReferrers(tx, rows[0].id);
         });
         console.log(`✓ ${slug} revision rotated; page state is reported by cache event above`);

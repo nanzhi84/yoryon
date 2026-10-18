@@ -11,7 +11,7 @@ import { closeContext, getContext, withLockClient } from "../context";
 async function enqueueCollectionEvents(tx: Parameters<typeof enqueueCacheEvent>[0], slug: string, contentSlugs: string[]) {
   const chunks = contentSlugs.length ? Array.from({ length: Math.ceil(contentSlugs.length / 90) }, (_, index) => contentSlugs.slice(index * 90, (index + 1) * 90)) : [[]];
   for (const chunk of chunks) await enqueueCacheEvent(tx, {
-    tags: ["collections", "sitemap", `collection:${slug}`, ...chunk.map(content => `content:${content}`)],
+    tags: ["collections", "member-feed", "sitemap", `collection:${slug}`, ...chunk.map(content => `content:${content}`)],
     paths: ["/c", `/c/${slug}`, "/sitemap.xml", ...chunk.map(content => `/p/${content}`)],
   });
 }
@@ -23,27 +23,33 @@ export function registerCollectionCommands(program: Command) {
     .command("create")
     .argument("<slug>")
     .requiredOption("--title <title>", "合集标题")
-    .option("--description <desc>", "描述", "")
-    .option("--visibility <public|paid>", "可见性", "public")
-    .action(async (slug: string, opts: { title: string; description: string; visibility: string }) => {
+    .option("--description <desc>", "描述（更新时省略则保留）")
+    .option("--visibility <public|paid>", "可见性（新建默认 public，更新时省略则保留）")
+    .action(async (slug: string, opts: { title: string; description?: string; visibility?: string }) => {
       if (!/^[a-z0-9][a-z0-9-]*$/.test(slug)) throw new Error("slug 必须为 kebab-case");
-      if (!["public", "paid"].includes(opts.visibility)) throw new Error("visibility 必须为 public 或 paid");
+      if (opts.visibility !== undefined && !["public", "paid"].includes(opts.visibility)) throw new Error("visibility 必须为 public 或 paid");
       if (!opts.title.trim() || opts.title.length > 200) throw new Error("合集标题长度须为 1–200");
       const ctx = getContext();
       try {
         await withCacheTransaction(async tx => {
-        await tx
-          .insert(collections)
-          .values({ slug, title: opts.title, description: opts.description, visibility: opts.visibility as "public" | "paid" })
-          .onConflictDoUpdate({ target: collections.slug, set: { title: opts.title, description: opts.description, visibility: opts.visibility as "public" | "paid", updatedAt: new Date() } });
-        const related = await tx.select({ slug: contents.slug }).from(collectionItems).innerJoin(collections, eq(collectionItems.collectionId, collections.id)).innerJoin(contents, eq(collectionItems.contentId, contents.id)).where(eq(collections.slug, slug));
-        for (const row of related) {
-          const revision = randomUUID();
-          await tx.update(contents).set({ revision, updatedAt: new Date(),
-            previewRevision: sql`case when ${contents.previewRevision} = ${contents.revision} then ${revision}::uuid else ${contents.previewRevision} end`,
-          }).where(eq(contents.slug, row.slug));
-        }
-        await enqueueCollectionEvents(tx, slug, related.map(row => row.slug));
+          const [previous] = await tx.select({ title: collections.title, description: collections.description, visibility: collections.visibility }).from(collections)
+            .where(eq(collections.slug, slug)).for("update");
+          const description = opts.description ?? previous?.description ?? "";
+          const visibility = (opts.visibility ?? previous?.visibility ?? "public") as "public" | "paid";
+          if (previous && previous.title === opts.title && previous.description === description && previous.visibility === visibility) return;
+          await tx
+            .insert(collections)
+            .values({ slug, title: opts.title, description, visibility })
+            .onConflictDoUpdate({ target: collections.slug, set: { title: opts.title, description, visibility, updatedAt: new Date() } });
+          const related = await tx.select({ slug: contents.slug }).from(collectionItems).innerJoin(collections, eq(collectionItems.collectionId, collections.id)).innerJoin(contents, eq(collectionItems.contentId, contents.id)).where(eq(collections.slug, slug));
+          // 元信息只失效嵌入的合集信息；只有阅读权限变化才撤销成员正文版本。
+          if (previous && previous.visibility !== visibility) for (const row of related) {
+            const revision = randomUUID();
+            await tx.update(contents).set({ revision, updatedAt: new Date(),
+              previewRevision: sql`case when ${contents.previewRevision} = ${contents.revision} then ${revision}::uuid else ${contents.previewRevision} end`,
+            }).where(eq(contents.slug, row.slug));
+          }
+          await enqueueCollectionEvents(tx, slug, related.map(row => row.slug));
         });
         console.log(`✓ collection ${slug} upserted`);
       } finally {
@@ -73,7 +79,7 @@ export function registerCollectionCommands(program: Command) {
             if (!row) throw new Error(`合集不存在: ${slug}`);
             if (row.pinned === pinned) return;
             await tx.update(collections).set({ isPinned: pinned, updatedAt: new Date() }).where(eq(collections.id, row.id));
-            await enqueueCacheEvent(tx, { tags: ["collections", `collection:${slug}`], paths: ["/c", `/c/${slug}`] });
+            await enqueueCacheEvent(tx, { tags: ["collections", "member-feed", `collection:${slug}`], paths: ["/c", `/c/${slug}`] });
           });
           console.log(`✓ collection ${slug} ${pinned ? "pinned" : "unpinned"}`);
         } finally { await closeContext(); }

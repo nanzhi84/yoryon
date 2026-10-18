@@ -165,7 +165,7 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
     const txDb = drizzle(deps.lockClient, { schema }) as unknown as Database;
     const result = await txDb.transaction(async (tx) => {
       const prior = await tx.select({ id: contents.id, showInHome: contents.showInHome }).from(contents).where(eq(contents.slug, fm.slug)).limit(1);
-      const old = prior[0] ? await associations(tx, prior[0].id) : { tags: [], collections: [] };
+      const old = prior[0] ? await associations(tx, prior[0].id) : { tags: [], collections: [], listings: [] };
       const revision = new Date();
       const version = randomUUID();
       // media_assets upsert（ON CONFLICT oss_key DO NOTHING 后取 id）
@@ -287,7 +287,7 @@ export async function publishPost(deps: PublishDeps, dir: string): Promise<Publi
       }
 
       if (affectedSlugs.length) await tx.update(collections).set({ updatedAt: revision }).where(inArray(collections.slug, affectedSlugs));
-      await enqueueCacheEvent(tx, contentTargets(fm.slug, [...old.tags, ...fm.tags], [...old.collections, ...fm.collections]), fm.slug, revision.toISOString());
+      await enqueueCacheEvent(tx, contentTargets(fm.slug, [...old.tags, ...fm.tags], [...old.collections, ...fm.collections], [...old.listings, { type: fm.type, visibility: fm.visibility, status: "published", showInHome }]), fm.slug, revision.toISOString());
       await invalidateReferrers(tx, contentId);
       return { contentId };
     });

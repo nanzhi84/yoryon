@@ -1,6 +1,8 @@
-import { and, eq, desc, exists, or } from "drizzle-orm";
-import { cacheEvents, collections, contentMedia, contents, mediaAssets, type Database } from "@yoryon/db";
+import { and, eq, exists, or } from "drizzle-orm";
+import { cacheEvents, catalogVersions, collections, contentMedia, contents, mediaAssets, type Database } from "@yoryon/db";
 import { PUBLIC_IMAGE_MIMES } from "@yoryon/config/image-variants";
+
+import type { CatalogScope } from "@yoryon/config/cache";
 
 type PolicyReader = Database | Parameters<Parameters<Database["transaction"]>[0]>[0];
 
@@ -15,11 +17,10 @@ export function createPublicPolicy(db: Database) {
   }
   return {
     refresh,
-    async version(reader: PolicyReader = db) {
-      // pin/unpin 与事件同事务提交；投递失败也必须使旧排序的游标过期。
-      // Feed 可传入自己的 repeatable-read 事务，确保版本与分页数据来自同一快照。
-      const events = await reader.select({ id: cacheEvents.id }).from(cacheEvents).orderBy(desc(cacheEvents.createdAt), desc(cacheEvents.id)).limit(1);
-      return events[0]?.id ?? "00000000-0000-0000-0000-000000000000";
+    async version(scope: CatalogScope, reader: PolicyReader = db) {
+      const [current] = await reader.select({ version: catalogVersions.version }).from(catalogVersions)
+        .where(eq(catalogVersions.scope, scope)).limit(1);
+      return current?.version ?? "00000000-0000-0000-0000-000000000000";
     },
     async get(slug: string) {
       const rows = await db.select({ revision: contents.revision }).from(contents)

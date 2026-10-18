@@ -10,7 +10,7 @@ export const metadata = pageMetadata("/posts", "帖子", "Yoryon 的帖子与日
 const revalidateSec = Number(process.env.FEED_REVALIDATE_SEC ?? 86400);
 
 export default async function PostsPage() {
-  const res = await fetchCatalog("/api/post-feed", { revalidate: revalidateSec, tags: ["feed"] });
+  const res = await fetchCatalog("/api/post-feed", { revalidate: revalidateSec, tags: ["post-feed"] });
   if (!res.ok) throw new Error(`post feed API ${res.status}`);
   const feed = await res.json() as FeedResponse;
   return <>

@@ -21,7 +21,7 @@ type Entry = z.infer<typeof entrySchema>;
 export function memberFeedRoutes(deps: AppDeps, policy: PublicPolicy) {
   const app = new Hono<{ Variables: AppVariables }>();
   app.get("/member-feed", async c => deps.db.transaction(async tx => {
-    const version = await policy.version(tx);
+    const version = await policy.version("member-feed", tx);
     if (c.req.query("version") && c.req.query("version") !== version) return errorResponse(c, 409, "snapshot_expired", "列表已更新，请刷新页面");
     const raw = c.req.query("cursor");
     let cursor: z.infer<typeof cursorSchema> | null = null;

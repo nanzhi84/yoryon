@@ -3,7 +3,7 @@
  * 默认 cache: 'no-store'；仅私有线（内容详情等权益相关页面）使用。
  *
  * 公开线不转发 cookies()/headers()；正文数据用 publicFetch 缓存。
- * feed/tags 首屏通过 no-store 目录版本动态渲染，列表数据仍共享带版本的 Data Cache。
+ * feed/tags 首屏通过 no-store 目录范围版本动态渲染，列表数据仍共享带版本的 Data Cache。
  */
 import { cookies, headers } from "next/headers";
 import { buildApiHeaders, getBffConfig, readSessionCookie, resolvePlatformClientIp } from "./bff";

@@ -5,7 +5,7 @@ import { publicFetch } from "@/lib/api";
 import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata("/tags", "标签", "按标签浏览 Yoryon 的文章与帖子。");
 export default async function TagsPage() {
-  const response = await publicFetch("/api/tags", { revalidate: 86400, tags: ["feed"] });
+  const response = await publicFetch("/api/tags", { revalidate: 86400, tags: ["tags"] });
   if (!response.ok) throw new Error(`tags API ${response.status}`);
   const data = await response.json() as { tags: { slug: string; name: string; count: number }[] };
   return <><SiteHeader /><main className="py-5"><BackButton /><h1 className="text-2xl font-semibold">标签</h1>

@@ -303,6 +303,11 @@ export const cacheEvents = pgTable("cache_events", {
   verifiedAt: timestamp("verified_at", { withTimezone: true, mode: "date" }),
   createdAt: timestamp("created_at", { withTimezone: true, mode: "date" }).notNull().defaultNow(),
 });
+/** 目录范围的提交版本；与业务变更和 outbox 同事务更新，不依赖 webhook 成功。 */
+export const catalogVersions = pgTable("catalog_versions", {
+  scope: text("scope").primaryKey(),
+  version: uuid("version").notNull(),
+});
 export type Session = typeof sessions.$inferSelect;
 
 /**

@@ -46,7 +46,7 @@ export async function backfillContentPreviews(db: Database, mediaBlockWeight: nu
           .where(and(eq(contents.id, row.id), eq(contents.revision, row.revision)));
       }
       // 同事务推进版本，保证回填后的 Feed 不复用迁移中空预览的缓存。
-      await enqueueCacheEvent(tx, { tags: ["feed", "collections", "sitemap"], paths: ["/", "/c", "/sitemap.xml"] });
+      await enqueueCacheEvent(tx, { tags: ["feed", "post-feed", "paid-feed", "member-feed", "collections", "tags", "sitemap"], paths: ["/", "/c", "/sitemap.xml"] });
       return rows.length;
     });
     if (!count) return;

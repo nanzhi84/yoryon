@@ -102,9 +102,9 @@ export function registerContentCommands(program: Command) {
           await withCacheTransaction(async tx => {
             const [row] = await tx.select({ id: contents.id }).from(contents).where(eq(contents.slug, slug)).limit(1);
             if (!row) throw new Error(`内容不存在: ${slug}`);
-            await tx.update(contents).set({ showInHome }).where(eq(contents.id, row.id));
             const related = await associations(tx, row.id);
-            await enqueueCacheEvent(tx, contentTargets(slug, related.tags, related.collections), slug);
+            await tx.update(contents).set({ showInHome }).where(eq(contents.id, row.id));
+            await enqueueCacheEvent(tx, contentTargets(slug, related.tags, related.collections, [...related.listings, ...related.listings.map(item => ({ ...item, showInHome }))]), slug);
           });
           console.log(`✓ ${slug} ${showInHome ? "shown on home" : "hidden from home"}`);
         } finally { await closeContext(); }
@@ -130,11 +130,19 @@ export function registerContentCommands(program: Command) {
         console.log(`- ${slug} 已是${pinned ? "置顶" : "非置顶"}状态，无需变更`);
         return;
       }
-      if (pinned) await tx.update(contents).set({ isPinned: false }).where(eq(contents.isPinned, true));
+      if (pinned) {
+        // 全站只保留一个置顶；原置顶可能属于另一类列表，也要推进其范围版本。
+        const displaced = await tx.update(contents).set({ isPinned: false }).where(eq(contents.isPinned, true))
+          .returning({ id: contents.id, slug: contents.slug });
+        for (const previous of displaced) {
+          const related = await associations(tx, previous.id);
+          await enqueueCacheEvent(tx, contentTargets(previous.slug, related.tags, related.collections, related.listings));
+        }
+      }
       await tx.update(contents).set({ isPinned: pinned }).where(eq(contents.id, row.id));
       // 不动 revision/updated_at/published_at：正文与发布时间未变，重新发布也不清除置顶。
       const related = await associations(tx, row.id);
-      await enqueueCacheEvent(tx, contentTargets(slug, related.tags, related.collections), slug);
+      await enqueueCacheEvent(tx, contentTargets(slug, related.tags, related.collections, related.listings), slug);
     });
   }
 

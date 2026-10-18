@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { eq } from "drizzle-orm";
 import { cacheEvents } from "@yoryon/db";
+import { isCatalogScope } from "@yoryon/config/cache";
 import { verifyCacheSignature } from "@yoryon/config/cache-signing";
 import type { AppDeps } from "../deps";
 import type { PublicPolicy } from "../public-policy";
@@ -9,7 +10,12 @@ import { readBodyCapped } from "@yoryon/core";
 /** 只允许已签名且持久化的事件；不经用户 session。 */
 export function cacheRoutes(deps: AppDeps, policy: PublicPolicy) {
   const app = new Hono();
-  app.get("/public/catalog-policy", async c => { c.header("Cache-Control", "private, no-store"); return c.json({ version: await policy.version() }); });
+  app.get("/public/catalog-policy", async c => {
+    c.header("Cache-Control", "private, no-store");
+    const scope = c.req.query("scope");
+    if (!scope || !isCatalogScope(scope)) return c.json({ error: "invalid scope" }, 400);
+    return c.json({ version: await policy.version(scope) });
+  });
   app.get("/public/policy/:slug", async c => {
     c.header("Cache-Control", "private, no-store");
     const current = await policy.get(c.req.param("slug"));

@@ -1,18 +1,25 @@
 import { createHmac, randomUUID } from "node:crypto";
 import { and, eq, lt, ne } from "drizzle-orm";
-import { cacheEvents, collectionItems, collections, contentTags, tags, type Database } from "@yoryon/db";
-import { contentTargets, validCacheEvent, type CacheEvent, type CacheTargets } from "@yoryon/config/cache";
+import { cacheEvents, catalogVersions, contents, collectionItems, collections, contentTags, tags, type Database } from "@yoryon/db";
+import { contentTargets, isCatalogScope, validCacheEvent, type CacheEvent, type CacheTargets } from "@yoryon/config/cache";
 
 type Tx = Parameters<Parameters<Database["transaction"]>[0]>[0];
 export async function associations(tx: Tx, contentId: string) {
   const tagRows = await tx.select({ slug: tags.slug }).from(contentTags).innerJoin(tags, eq(contentTags.tagId, tags.id)).where(eq(contentTags.contentId, contentId));
   const collRows = await tx.select({ slug: collections.slug }).from(collectionItems).innerJoin(collections, eq(collectionItems.collectionId, collections.id)).where(eq(collectionItems.contentId, contentId));
-  return { tags: tagRows.map(t => t.slug), collections: collRows.map(c => c.slug) };
+  const listings = await tx.select({ type: contents.type, visibility: contents.visibility, status: contents.status, showInHome: contents.showInHome })
+    .from(contents).where(eq(contents.id, contentId));
+  return { tags: tagRows.map(t => t.slug), collections: collRows.map(c => c.slug), listings };
 }
 export async function enqueueCacheEvent(tx: Tx, targets: CacheTargets, contentSlug: string | null = null, revision: string | null = null) {
   const event: CacheEvent = { id: randomUUID(), ...targets, contentSlug, revision };
   if (!validCacheEvent(event)) throw new Error("Invalid cache targets: use valid slugs and at most 100 targets per mutation");
   await tx.insert(cacheEvents).values({ id: event.id, payload: JSON.stringify(event) });
+  // 固定加锁顺序；版本随事务回滚，重投递事件不会倒退或推进目录版本。
+  for (const scope of [...new Set(event.tags.filter(isCatalogScope))].sort()) {
+    await tx.insert(catalogVersions).values({ scope, version: event.id })
+      .onConflictDoUpdate({ target: catalogVersions.scope, set: { version: event.id } });
+  }
   return event;
 }
 export { contentTargets };
@@ -50,23 +57,17 @@ export async function deliverCacheEvents(db: Database, options: { retry?: boolea
         const time = String(Date.now());
         const res = await boundedFetch(endpoint, { method: "POST", body: row.payload, headers: { "content-type": "application/json", "x-cache-time": time, "x-cache-signature": sign(secret, time, row.payload) } });
         if (!res.ok) throw new Error(`invalidation HTTP ${res.status}`);
-        // 仅允许协议白名单路径，绝不消费 webhook 中任意 URL。
-        for (const p of event.paths) {
-          const response = await boundedFetch(new URL(p, site).href, { headers: { "cache-control": "no-cache" } });
+        // 失效范围与预热范围分离：关联文章、合集、标签、sitemap 和分页只失效，访问时再生成。
+        const warmPaths = [...(event.tags.includes("feed") ? ["/"] : []), ...(event.contentSlug ? [`/p/${event.contentSlug}`] : [])];
+        for (const p of warmPaths) {
+          const response = await boundedFetch(new URL(p, site).href);
           const text = await response.text();
           if (response.status !== 200 && response.status !== 404) throw new Error(`warmup ${p}: HTTP ${response.status}`);
-          if (p === "/" || p === "/c" || p.startsWith("/tags/")) {
-            const policy = await boundedFetch(new URL("/api/public/catalog-policy", process.env.API_PUBLIC_URL ?? site).href);
+          if (p === "/") {
+            const policy = await boundedFetch(new URL("/api/public/catalog-policy?scope=feed", process.env.API_PUBLIC_URL ?? site).href);
             if (!policy.ok) throw new Error(`verification policy HTTP ${policy.status}`);
             const { version } = await policy.json() as { version: string };
-            if (response.status === 200 && !text.includes(`data-catalog-version="${version}"`)) throw new Error(`warmup ${p}: catalog mismatch`);
-          }
-          if (p === "/sitemap.xml") {
-            const expected = await boundedFetch(new URL("/api/sitemap", process.env.API_PUBLIC_URL ?? site).href);
-            if (!expected.ok) throw new Error(`verification sitemap API HTTP ${expected.status}`);
-            const data = await expected.json() as { entries: { path: string }[] };
-            const actual = [...text.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => new URL(m[1]!).pathname).filter(path => path.startsWith("/p/") || path.startsWith("/c/"));
-            if (JSON.stringify(actual.sort()) !== JSON.stringify(data.entries.map(e => e.path).sort())) throw new Error("warmup sitemap: membership mismatch");
+            if (response.status !== 200 || !text.includes(`data-catalog-version="${version}"`)) throw new Error("warmup /: catalog mismatch");
           }
           if (p.startsWith("/p/")) {
             const expected = await boundedFetch(new URL(`/api/public/contents/${p.slice(3)}`, process.env.API_PUBLIC_URL ?? site).href);

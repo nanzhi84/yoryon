@@ -98,7 +98,7 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
    */
   for (const kind of ["article", "post"] as const) {
     app.get(kind === "article" ? "/feed" : "/post-feed", async (c) => deps.db.transaction(async (tx) => {
-      const version = await policy.version(tx);
+      const version = await policy.version(kind === "article" ? "feed" : "post-feed", tx);
       if (c.req.query("version") && c.req.query("version") !== version) return errorResponse(c, 409, "snapshot_expired", "列表已更新，请刷新页面");
       const rawCursor = c.req.query("cursor");
       const cursor = decodeCursor(rawCursor, kind);
@@ -155,7 +155,7 @@ export function contentRoutes(deps: AppDeps, policy: PublicPolicy) {
    * 排序无置顶（置顶是首页概念），二元游标 (sortKey, id)。
    */
   app.get("/paid-feed", async (c) => deps.db.transaction(async tx => {
-    const version = await policy.version(tx);
+    const version = await policy.version("paid-feed", tx);
     if (c.req.query("version") && c.req.query("version") !== version) return errorResponse(c, 409, "snapshot_expired", "列表已更新，请刷新页面");
     const rawCursor = c.req.query("cursor");
     const cursor = decodeTagCursor(rawCursor);
@@ -243,7 +243,7 @@ function tagKeyset(cursor: { t: Date; id: string } | null, timeCol: SQL | any, i
 
 /** 标签筛选（公开缓存）；items 与 feed 的内容项同一合同（含 tags），供 LoadMore 直接渲染 */
   app.get("/tags/:slug", async (c) => deps.db.transaction(async (tx) => {
-    const version = await policy.version(tx);
+    const version = await policy.version(`tag:${c.req.param("slug")}`, tx);
     if (c.req.query("version") && c.req.query("version") !== version) return errorResponse(c, 409, "snapshot_expired", "列表已更新，请刷新页面");
     const tagRows = await tx.select().from(tags).where(eq(tags.slug, c.req.param("slug"))).limit(1);
     const tag = tagRows[0];

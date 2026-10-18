@@ -19,7 +19,7 @@ const snapshot = { isolationLevel: "repeatable read", accessMode: "read only" } 
 export function collectionRoutes(deps: AppDeps, policy: PublicPolicy) {
   const app = new Hono<{ Variables: AppVariables }>();
   app.get("/collections", async c => deps.db.transaction(async tx => {
-    const version = await policy.version(tx);
+    const version = await policy.version("collections", tx);
     const rows = await tx.select({ ...collectionColumns, cover: coverColumns }).from(collections)
       .leftJoin(mediaAssets, eq(collections.coverMediaId, mediaAssets.id))
       .orderBy(desc(collections.isPinned), desc(collections.updatedAt), asc(collections.id));
