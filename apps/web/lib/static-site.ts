@@ -3,17 +3,28 @@ import { resolve } from "node:path";
 import { cache } from "react";
 import {
   staticSiteSchema,
+  publicCollections,
   type StaticContent,
   type StaticCollection,
 } from "@yoryon/config/static-site";
 import type { FeedContentItem } from "./types";
 
 /** Build-time boundary: only a validated, already public snapshot enters rendered files. */
-export const getSite = cache(() =>
-  staticSiteSchema.parse(
+export const getSite = cache(() => {
+  const site = staticSiteSchema.parse(
     JSON.parse(readFileSync(resolve(process.cwd(), "../../content/site.json"), "utf8"))
-  )
-);
+  );
+  const collections = publicCollections(site.collections, site.contents);
+  const visibleIds = new Set(collections.map((collection) => collection.id));
+  return {
+    ...site,
+    collections,
+    contents: site.contents.map((content) => ({
+      ...content,
+      collections: content.collections.filter((collection) => visibleIds.has(collection.id)),
+    })),
+  };
+});
 export const getContents = () => getSite().contents;
 export const getContent = (slug: string) => getContents().find((c) => c.slug === slug) ?? null;
 export const getCollections = () => getSite().collections;

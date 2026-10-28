@@ -96,3 +96,25 @@ export const staticSiteSchema = z.object({
 export type StaticContent = z.infer<typeof staticContentSchema>;
 export type StaticCollection = z.infer<typeof staticCollectionSchema>;
 export type StaticSite = z.infer<typeof staticSiteSchema>;
+
+/** A directory is public only when every published chapter is fully public. */
+export function publicCollections(
+  collections: readonly StaticCollection[],
+  contents: readonly StaticContent[]
+) {
+  const byId = new Map(contents.map((content) => [content.id, content]));
+  return collections.filter(
+    (collection) =>
+      collection.visibility === "public" &&
+      collection.items.every((item) => {
+        const content = byId.get(item.id);
+        return (
+          item.visibility === "public" &&
+          item.access === "full" &&
+          content?.slug === item.slug &&
+          content.visibility === "public" &&
+          content.access === "full"
+        );
+      })
+  );
+}

@@ -9,6 +9,7 @@ import {
 } from "@yoryon/core";
 import {
   staticSiteSchema,
+  publicCollections,
   type StaticContent,
   type StaticCollection,
 } from "@yoryon/config/static-site";
@@ -76,33 +77,36 @@ async function exportSite(stage: string) {
     };
   });
   const byId = new Map(contents.map((c) => [c.id, c]));
-  const collections: StaticCollection[] = source.collections.map((c) => ({
-    id: c.id,
-    slug: c.slug,
-    title: c.title,
-    description: c.description,
-    visibility: c.visibility,
-    coverMediaId: c.cover_media_id,
-    updatedAt: iso(c.updated_at)!,
-    isPinned: c.is_pinned,
-    items: source.items
-      .filter((i) => i.collection_id === c.id)
-      .map((i) => {
-        const item = byId.get(i.content_id)!;
-        return {
-          id: item.id,
-          slug: item.slug,
-          title: item.title,
-          description: item.description,
-          type: item.type,
-          visibility: item.visibility,
-          publishedAt: item.publishedAt,
-          coverMediaId: item.coverMediaId,
-          access: item.access,
-          sortOrder: i.sort_order,
-        };
-      }),
-  }));
+  const collections: StaticCollection[] = publicCollections(
+    source.collections.map((c) => ({
+      id: c.id,
+      slug: c.slug,
+      title: c.title,
+      description: c.description,
+      visibility: c.visibility,
+      coverMediaId: c.cover_media_id,
+      updatedAt: iso(c.updated_at)!,
+      isPinned: c.is_pinned,
+      items: source.items
+        .filter((i) => i.collection_id === c.id)
+        .map((i) => {
+          const item = byId.get(i.content_id)!;
+          return {
+            id: item.id,
+            slug: item.slug,
+            title: item.title,
+            description: item.description,
+            type: item.type,
+            visibility: item.visibility,
+            publishedAt: item.publishedAt,
+            coverMediaId: item.coverMediaId,
+            access: item.access,
+            sortOrder: i.sort_order,
+          };
+        }),
+    })),
+    contents
+  );
   for (const collection of collections)
     for (const [index, item] of collection.items.entries()) {
       const neighbour = (offset: number) => {
