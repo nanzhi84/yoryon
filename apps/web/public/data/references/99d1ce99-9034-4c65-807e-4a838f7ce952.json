@@ -1,0 +1,1 @@
+{"available":true,"slug":"first-internship-day-02","type":"article","title":"AI PM实习Day 2","summary":"早上九点半左右到，依旧没人理我，就自己看了看 Anthropic 和 OpenAI 之前发的工具设计相关的博客。\n十一点多 +1 发来一个原型让我看。看了一下挺常规的，就是把输入路由到不同的 agent，每个 agent 里挂不同的 skill、plugin 和 tools，没啥特别的。\n下午看到三四点，感觉真没啥可看","description":"","coverMediaId":null,"visibility":"public","media":null}

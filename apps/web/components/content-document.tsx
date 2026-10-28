@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import type { ContentDetail } from "@/lib/types";
+import type { StaticContent as ContentDetail } from "@yoryon/config/static-site";
 import { ContentView } from "./content-view";
 import { pageMetadata } from "@/lib/seo";
 import { contentStructuredData } from "@/lib/seo-structured";

@@ -1,4 +1,4 @@
-/** 共享站内返回路径校验，兑换/登录复用；拒绝协议相对、反斜杠和控制字符。 */
+/** 共享站内返回路径校验，浏览历史与返回控件复用；拒绝协议相对、反斜杠和控制字符。 */
 export function safeReturnTo(value: string | null | undefined): string | null {
   if (!value || value.length > 2048 || !value.startsWith("/") || value.startsWith("//") || /[\\\u0000-\u001f\u007f]/.test(value)) return null;
   try {

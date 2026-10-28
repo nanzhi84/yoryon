@@ -14,7 +14,9 @@
     "db:generate": "pnpm --filter @yoryon/db generate",
     "db:migrate": "pnpm --filter @yoryon/api migrate",
     "docker:dev": "docker compose -f deploy/docker-compose.dev.yml up -d",
-    "dev": "(pnpm dev:api &) && pnpm dev:web"
+    "dev": "pnpm dev:web",
+    "static:export": "tsx apps/cli/src/static-export/index.ts",
+    "preview": "node scripts/preview-static.mjs"
   },
   "devDependencies": {
     "typescript": "^5.9.3",

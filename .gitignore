@@ -31,3 +31,6 @@ artifacts/**/*.tar.gz
 
 # Local authoring drafts (never publish or commit automatically)
 .local/
+
+# Generated static build output
+apps/web/out/

@@ -1,35 +1,22 @@
-import { publicFetchNoStore } from "@/lib/api";
-import type { CollectionListItem } from "@/lib/types";
+import { getCollections, collectionList } from "@/lib/static-site";
 import { SiteHeader } from "@/components/site-header";
 import { CollectionEntry } from "@/components/feed-timeline";
-import { AnalyticsListProvider } from "@/components/analytics";
 import { pageMetadata } from "@/lib/seo";
-
 export const metadata = pageMetadata("/c", "合集", "Yoryon 的合集与文章目录。");
-
-export const dynamic = "force-dynamic";
-
-export default async function CollectionsPage() {
-  const res = await publicFetchNoStore("/api/collections");
-  if (!res.ok) throw new Error(`collections API ${res.status}`);
-  const data = await res.json() as { items: CollectionListItem[]; version: string };
-  const items = data.items;
-
+export default function CollectionsPage() {
+  const items = getCollections();
   return (
     <>
       <SiteHeader />
-      <main data-catalog-version={data.version}>
-        {items.length === 0 ? (
-          <p className="py-6 text-center text-sm text-muted-foreground">还没有合集。</p>
+      <main>
+        {items.length ? (
+          <div className="divide-y divide-border">
+            {items.map((c) => (
+              <CollectionEntry key={c.id} item={collectionList(c)} />
+            ))}
+          </div>
         ) : (
-          // 合集列表是合集的唯一列表曝光面（feed 纯内容流），placement=collection_list
-          <AnalyticsListProvider placement="collection_list">
-            <div className="divide-y divide-border">
-              {items.map((c) => (
-                <CollectionEntry key={c.slug} item={c} />
-              ))}
-            </div>
-          </AnalyticsListProvider>
+          <p className="py-6 text-center text-sm text-muted-foreground">还没有合集。</p>
         )}
       </main>
     </>

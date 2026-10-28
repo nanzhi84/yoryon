@@ -1,4 +1,3 @@
-import { CollectionFlowProvider, CollectionFlowRoute } from "@/components/collection-flow";
 import { BrowseNavigationProvider } from "@/components/browse-navigation";
 import { Suspense } from "react";
 import { ReaderNavigationProvider } from "@/components/reader-navigation";
@@ -32,14 +31,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="min-h-screen antialiased">
-        <CollectionFlowProvider>
         <BrowseNavigationProvider>
-        <Suspense fallback={null}><NavigationMemory /><CollectionFlowRoute /></Suspense>
-        <div className="mx-auto min-h-screen max-w-[708px] px-6">
-          <ReaderNavigationProvider>{children}</ReaderNavigationProvider>
-        </div>
+          <Suspense fallback={null}>
+            <NavigationMemory />
+          </Suspense>
+          <div className="mx-auto min-h-screen max-w-[708px] px-6">
+            <ReaderNavigationProvider>{children}</ReaderNavigationProvider>
+          </div>
         </BrowseNavigationProvider>
-        </CollectionFlowProvider>
       </body>
     </html>
   );

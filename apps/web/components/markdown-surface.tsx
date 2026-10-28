@@ -1,6 +1,6 @@
 import { rehypePostSpacing } from "@/lib/rehype-post-spacing";
 import { rehypeSearchText } from "@yoryon/config/search-text";
-import { imageSrcSet, publicImageUrl } from "@yoryon/config/image-variants";
+import { mediaUrl } from "@/lib/media";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkDirective from "remark-directive";
 import remarkCjkFriendly from "remark-cjk-friendly/parseOnly";
@@ -18,9 +18,17 @@ import { rehypeHardBreaks } from "@/lib/rehype-hard-breaks";
 function remarkMediaDirectives() {
   return (tree: Root) => {
     visit(tree, (node: any) => {
-      if (node.type === "leafDirective" && (node.name === "video" || node.name === "audio" || node.name === "work")) {
+      if (
+        node.type === "leafDirective" &&
+        (node.name === "video" || node.name === "audio" || node.name === "work")
+      ) {
         const data = node.data || (node.data = {});
-        data.hName = node.name === "work" ? "work-reference" : node.name === "video" ? "video-player" : "audio-player";
+        data.hName =
+          node.name === "work"
+            ? "work-reference"
+            : node.name === "video"
+              ? "video-player"
+              : "audio-player";
         data.hProperties = { src: node.attributes?.src ?? "", id: node.attributes?.id ?? "" };
       }
     });
@@ -33,30 +41,72 @@ function mediaIdFromSrc(src: unknown): string | null {
   return m ? m[1]! : null;
 }
 
-export function MarkdownSurface({ markdown, className, mediaSizes, publicImages = false, preserveBlankLines = false, components = {} }: {
-  markdown: string; className?: string | undefined; publicImages?: boolean; preserveBlankLines?: boolean;
-  mediaSizes?: Record<string, { width: number | null; height: number | null; mimeType?: string; durationSec?: number | null }> | undefined;
+export function MarkdownSurface({
+  markdown,
+  className,
+  mediaSizes,
+  publicImages = false,
+  preserveBlankLines = false,
+  components = {},
+}: {
+  markdown: string;
+  className?: string | undefined;
+  publicImages?: boolean;
+  preserveBlankLines?: boolean;
+  mediaSizes?:
+    | Record<
+        string,
+        {
+          width: number | null;
+          height: number | null;
+          mimeType?: string;
+          durationSec?: number | null;
+        }
+      >
+    | undefined;
   components?: Components;
 }) {
-  return <div data-search-body className={cn("prose prose-zinc dark:prose-invert prose-yoryon max-w-none", className, preserveBlankLines && "prose-post")}>
-    <ReactMarkdown rehypePlugins={[rehypeSearchText, rehypeHardBreaks, rehypeEditorialSummary, rehypeCaption, ...(preserveBlankLines ? [rehypePostSpacing] : [])]} remarkPlugins={[remarkCjkFriendly, remarkDirective, remarkMediaDirectives]} components={{
-            p: ({ node: _node, className, ...props }) => className?.split(" ").includes("editorial-caption")
-              ? <Caption className={className} {...props} />
-              : <p className={className} {...props} />,
+  return (
+    <div
+      data-search-body
+      className={cn(
+        "prose prose-zinc dark:prose-invert prose-yoryon max-w-none",
+        className,
+        preserveBlankLines && "prose-post"
+      )}
+    >
+      <ReactMarkdown
+        rehypePlugins={[
+          rehypeSearchText,
+          rehypeHardBreaks,
+          rehypeEditorialSummary,
+          rehypeCaption,
+          ...(preserveBlankLines ? [rehypePostSpacing] : []),
+        ]}
+        remarkPlugins={[remarkCjkFriendly, remarkDirective, remarkMediaDirectives]}
+        components={
+          {
+            p: ({ node: _node, className, ...props }) =>
+              className?.split(" ").includes("editorial-caption") ? (
+                <Caption className={className} {...props} />
+              ) : (
+                <p className={className} {...props} />
+              ),
             img: ({ src, alt, node: _node, ...props }) => {
               const size = mediaSizes ? mediaSizes[mediaIdFromSrc(src) ?? ""] : undefined;
               const id = mediaIdFromSrc(src);
-              const svg = size?.mimeType === "image/svg+xml";
               return (
                 // eslint-disable-next-line @next/next/no-img-element
                 <MarkdownImage
-                  src={id && publicImages ? publicImageUrl(id, svg ? "original" : 1280) : typeof src === "string" ? src : ""}
-                  srcSet={size?.width && id && !svg ? imageSrcSet(id, size.width, publicImages) : undefined}
+                  src={id ? mediaUrl(id) : typeof src === "string" ? src : ""}
+
                   sizes="(max-width: 768px) 100vw, 768px"
                   alt={alt ?? ""}
                   loading="lazy"
                   decoding="async"
-                  {...(size?.width && size.height ? { width: size.width, height: size.height } : {})}
+                  {...(size?.width && size.height
+                    ? { width: size.width, height: size.height }
+                    : {})}
                   className="h-auto w-full max-w-full rounded-lg"
                   {...props}
                 />
@@ -65,20 +115,43 @@ export function MarkdownSurface({ markdown, className, mediaSizes, publicImages 
             "video-player": ({ src }: { src?: string }) => {
               const id = mediaIdFromSrc(src);
               if (!id) return null;
-              return <InlineMedia mediaId={id} kind="video" durationSec={mediaSizes?.[id]?.durationSec} />;
+              return (
+                <InlineMedia
+                  mediaId={id}
+                  kind="video"
+                  durationSec={mediaSizes?.[id]?.durationSec}
+                />
+              );
             },
             "audio-player": ({ src }: { src?: string }) => {
               const id = mediaIdFromSrc(src);
               if (!id) return null;
-              return <InlineMedia mediaId={id} kind="audio" durationSec={mediaSizes?.[id]?.durationSec} />;
+              return (
+                <InlineMedia
+                  mediaId={id}
+                  kind="audio"
+                  durationSec={mediaSizes?.[id]?.durationSec}
+                />
+              );
             },
-            "work-reference": ({ id }: { id?: string }) => id && /^[0-9a-f-]{36}$/i.test(id) ? <WorkReference id={id} /> : null,
+            "work-reference": ({ id }: { id?: string }) =>
+              id && /^[0-9a-f-]{36}$/i.test(id) ? <WorkReference id={id} /> : null,
             a: ({ href, children, ...props }) => (
-              <a href={href} target={href?.startsWith("http") ? "_blank" : undefined} rel="noreferrer" {...props}>
+              <a
+                href={href}
+                target={href?.startsWith("http") ? "_blank" : undefined}
+                rel="noreferrer"
+                {...props}
+              >
                 {children}
               </a>
             ),
-      ...components,
-    } as Components}>{markdown}</ReactMarkdown>
-  </div>;
+            ...components,
+          } as Components
+        }
+      >
+        {markdown}
+      </ReactMarkdown>
+    </div>
+  );
 }

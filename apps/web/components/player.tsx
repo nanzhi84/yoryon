@@ -1,10 +1,11 @@
 "use client";
+import { mediaUrl } from "@/lib/media";
 
 /**
- * 私有媒体播放器（ADR-0005 §8.4）。
- * - src 恒指向 /api/media/:id（302 → 15 分钟签名 URL）；
- * - 签名 URL 过期或网络错误 → 重新请求端点获取新 URL、重置 src 并恢复 currentTime；
- * - 有界重试（F06）：自动重签名刷新最多 1 次，退避后执行；持续失败停止并展示手动重试；
+ * 静态媒体播放器（ADR-0005 §8.4）。
+ * - src 只指向随站点导出的同源媒体文件；
+ * - 网络错误 → 有界重载静态文件并恢复 currentTime；
+ * - 有界重试（F06）：自动重新加载最多 1 次，退避后执行；持续失败停止并展示手动重试；
  *   任何 error 不再无限循环改 URL；卸载时取消挂起的重试定时器与事件监听。
  * - 经 next/dynamic 按需加载（见 media-player.tsx），首页信息流不含播放器代码。
  *
@@ -15,7 +16,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { VideoPlayer, VideoSkin, Video } from "@videojs/react/video";
 import "@videojs/react/video/skin.css";
 
-/** 自动重试上限：签名过期一次刷新即可恢复；仍失败视为持续故障，转人工 */
+/** 自动重试上限：瞬时网络故障一次刷新可能恢复；仍失败视为持续故障，转人工 */
 const AUTO_RETRY_MAX = 1;
 /** 自动重试退避（毫秒） */
 const RETRY_DELAY_MS = 1500;
@@ -81,7 +82,11 @@ function useRefreshableSource(mediaId: string) {
       if (timerRef.current !== null) clearTimeout(timerRef.current);
       detachRef.current?.();
       const el = mediaRef.current;
-      if (el) { el.pause(); el.removeAttribute("src"); el.load(); }
+      if (el) {
+        el.pause();
+        el.removeAttribute("src");
+        el.load();
+      }
     };
   }, []);
 
@@ -107,7 +112,7 @@ function useRefreshableSource(mediaId: string) {
         handleLoadedMetadata();
       }
     },
-    [handleError, handleLoadedMetadata],
+    [handleError, handleLoadedMetadata]
   );
 
   /** 手动重试：重置自动重试计数，强制媒体元素重建 */
@@ -121,8 +126,8 @@ function useRefreshableSource(mediaId: string) {
     setState((s) => ({ retry: s.retry + 1, failed: false }));
   }, []);
 
-  // cache-bust 参数仅用于强制浏览器重新解析 302（端点对付费媒体 no-store）
-  const src = `/api/media/${mediaId}${state.retry > 0 ? `?r=${state.retry}` : ""}`;
+  // 地址保持为静态资源路径，重试通过重建媒体元素完成
+  const src = mediaUrl(mediaId);
   return { src, attachMedia, manualRetry, retry: state.retry, failed: state.failed };
 }
 
@@ -136,7 +141,11 @@ function FailedPanel({ onRetry, compact }: { onRetry: () => void; compact?: bool
       }`}
     >
       <span className="text-sm">媒体加载失败</span>
-      <button type="button" onClick={onRetry} className="rounded-md border border-border px-3 py-1 text-sm hover:text-foreground">
+      <button
+        type="button"
+        onClick={onRetry}
+        className="rounded-md border border-border px-3 py-1 text-sm hover:text-foreground"
+      >
         重试
       </button>
     </div>
@@ -149,7 +158,13 @@ export function VideoPlayerView({ mediaId }: { mediaId: string }) {
   return (
     <VideoPlayer>
       <VideoSkin className="rounded-lg overflow-hidden">
-        <Video key={retry} src={src} ref={attachMedia as React.Ref<HTMLVideoElement>} playsInline preload="metadata" />
+        <Video
+          key={retry}
+          src={src}
+          ref={attachMedia as React.Ref<HTMLVideoElement>}
+          playsInline
+          preload="metadata"
+        />
       </VideoSkin>
     </VideoPlayer>
   );

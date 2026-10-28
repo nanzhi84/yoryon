@@ -1,101 +1,120 @@
 "use client";
-
 import Link from "next/link";
-import { BackLink } from "./back-link";
-import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Lock } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowRight } from "lucide-react";
 import type { CollectionDetail } from "@/lib/types";
+import { BackLink } from "./back-link";
 import { formatDate } from "@/lib/date";
 import { collectionPositionKey, readCollectionPosition } from "@/lib/collection-memory";
-import { DetailTracker } from "./analytics";
-import { chapterHref, useCollectionFlow, useCollectionTime } from "./collection-flow";
+import { chapterHref } from "@/lib/collection-links";
 import { CollectionDescription } from "./collection-description";
-
-export function CollectionReader({ initial }: { initial: CollectionDetail }) {
-  const [collection, setCollection] = useState(initial);
+export function CollectionReader({ initial: collection }: { initial: CollectionDetail }) {
   const [lastId, setLastId] = useState<string | null>(null);
-  const [ready, setReady] = useState(false);
   const [reverse, setReverse] = useState(false);
-  const [error, setError] = useState(false);
-  const [flowId, setFlowId] = useState<string | null>(null);
-  const holder = useCollectionFlow();
-  const startedId = useRef<string | null>(null);
   useEffect(() => {
-    const old = holder.current;
-    const requested = new URL(location.href).searchParams.get("flow");
-    if (!old || old.collectionId !== initial.id || (requested && requested !== old.id && startedId.current !== old.id)) {
-      holder.current = { id: crypto.randomUUID(), collectionId: initial.id, slug: initial.slug, elapsed: 0, sent: false, navigating: false };
-    }
-    startedId.current = holder.current!.id;
-    setFlowId(holder.current!.id);
-  }, [holder, initial.id, initial.slug]);
-  useCollectionTime(flowId, true);
-
-  useEffect(() => {
-    let controller: AbortController | null = null;
-    let current = initial;
-    const restore = () => {
-      const position = readCollectionPosition(current.id, new Set(current.items.map(item => item.id)));
-      setLastId(position?.chapterId ?? null);
-      setReady(true);
-    };
-    const refresh = async () => {
-      controller?.abort(); controller = new AbortController();
-      const active = controller;
-      try {
-        const response = await fetch(`/api/collections/${initial.slug}`, { cache: "no-store", signal: active.signal });
-        if (!response.ok) throw new Error("directory unavailable");
-        const data = await response.json() as CollectionDetail;
-        if (data.id !== initial.id || !Array.isArray(data.items)) throw new Error("invalid directory");
-        current = data; setCollection(data); setError(false); restore();
-      } catch { if (!active.signal.aborted) { setError(true); restore(); } }
-    };
+    const restore = () =>
+      setLastId(
+        readCollectionPosition(collection.id, new Set(collection.items.map((c) => c.id)))
+          ?.chapterId ?? null
+      );
     restore();
-    const storage = (event: StorageEvent) => { if (event.key === null || event.key === collectionPositionKey(initial.id)) restore(); };
-    const visibility = () => { if (document.visibilityState === "visible") void refresh(); };
+    const storage = (e: StorageEvent) => {
+      if (e.key === null || e.key === collectionPositionKey(collection.id)) restore();
+    };
     window.addEventListener("storage", storage);
-    document.addEventListener("visibilitychange", visibility);
-    window.addEventListener("focus", visibility);
-    return () => { controller?.abort(); window.removeEventListener("storage", storage); document.removeEventListener("visibilitychange", visibility); window.removeEventListener("focus", visibility); };
-  }, [initial]);
-
-  const last = collection.items.find(item => item.id === lastId);
+    window.addEventListener("focus", restore);
+    return () => {
+      window.removeEventListener("storage", storage);
+      window.removeEventListener("focus", restore);
+    };
+  }, [collection]);
+  const last = collection.items.find((c) => c.id === lastId);
   const start = last ?? collection.items[0];
   const ordered = reverse ? [...collection.items].reverse() : collection.items;
-  return <main className="py-5">
-    <DetailTracker targetKind="collection" targetId={collection.id} readEnabled={false} />
-    <BackLink href="/c">返回合集</BackLink>
-    <header className="mt-3">
-      <div className="flex items-start gap-5">
-        <div className="min-w-0 flex-1">
-          <p className="text-sm text-muted-foreground">合集 · {collection.items.length} 篇</p>
-          <h1 className="mt-2 text-3xl font-semibold leading-tight">{collection.title}</h1>
-          {collection.description && <CollectionDescription description={collection.description} className="mt-3" />}
+  return (
+    <main className="py-5">
+      <BackLink href="/c">返回合集</BackLink>
+      <header className="mt-3">
+        <p className="text-sm text-muted-foreground">合集 · {collection.items.length} 篇</p>
+        <h1 className="mt-2 text-3xl font-semibold leading-tight">{collection.title}</h1>
+        {collection.description && (
+          <CollectionDescription description={collection.description} className="mt-3" />
+        )}
+        <p className="mt-3 text-xs text-muted-foreground">
+          <time dateTime={collection.updatedAt}>更新于 {formatDate(collection.updatedAt)}</time>
+        </p>
+        {start && (
+          <div className="mt-5 flex min-h-11 flex-wrap items-center gap-3">
+            <Link
+              prefetch={false}
+              href={chapterHref(start.slug, collection.slug)}
+              className="inline-flex min-h-11 items-center gap-2 rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground"
+            >
+              {last ? "继续阅读" : "开始阅读"}
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </Link>
+            {last && (
+              <p className="text-xs text-muted-foreground">上次读到：{last.title || last.slug}</p>
+            )}
+          </div>
+        )}
+      </header>
+      <section className="mt-6 border-t border-border pt-4" aria-label="章节目录">
+        <div className="flex items-center justify-between gap-3">
+          <h2 className="font-semibold">章节目录</h2>
+          <div className="flex items-center gap-3 text-sm">
+            <button
+              type="button"
+              className="min-h-11"
+              aria-pressed={!reverse}
+              onClick={() => setReverse(false)}
+            >
+              正序
+            </button>
+            <button
+              type="button"
+              className="min-h-11"
+              aria-pressed={reverse}
+              onClick={() => setReverse(true)}
+            >
+              倒序
+            </button>
+          </div>
         </div>
-      </div>
-      <p className="mt-3 text-xs text-muted-foreground"><time dateTime={collection.updatedAt}>更新于 {formatDate(collection.updatedAt)}</time></p>
-      {start && <div className="mt-5 flex min-h-11 flex-wrap items-center gap-3">
-        {ready && flowId ? <Link prefetch={false} href={chapterHref(start.slug, collection.slug, flowId)} className="inline-flex min-h-11 items-center gap-2 rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground">{last ? "继续阅读" : "开始阅读"}<ArrowRight className="size-4" /></Link> : <div className="h-11 w-32 animate-pulse rounded-md bg-muted" aria-label="正在读取阅读位置" />}
-        {ready && last && <p className="text-xs text-muted-foreground">上次读到：{last.title || last.slug}</p>}
-      </div>}
-    </header>
-    {error && <p className="mt-4 text-sm text-muted-foreground" role="status">目录更新暂时失败。<button className="min-h-11 text-primary underline" onClick={() => location.reload()}>重新加载</button></p>}
-    <section className="mt-6 border-t border-border pt-4" aria-label="章节目录">
-      <div className="flex items-center justify-between gap-3">
-        <h2 className="font-semibold">章节目录</h2>
-        <div className="flex items-center gap-3 text-sm"><button className="min-h-11" aria-pressed={!reverse} onClick={() => setReverse(false)}>正序</button><button className="min-h-11" aria-pressed={reverse} onClick={() => setReverse(true)}>倒序</button></div>
-      </div>
-      {!ordered.length && <p className="py-6 text-center text-sm text-muted-foreground">合集暂无已发布章节。</p>}
-      <ol className="divide-y divide-border">
-        {ordered.map(item => <li key={item.id} className={item.id === lastId ? "rounded-md bg-primary/5" : ""}>
-          <Link prefetch={false} href={chapterHref(item.slug, collection.slug, flowId)} className="flex min-h-12 items-center gap-3 py-3 text-sm hover:text-primary">
-            <span className="w-6 shrink-0 text-xs tabular-nums text-muted-foreground">{String(collection.items.indexOf(item) + 1).padStart(2, "0")}</span>
-            <span className="min-w-0 flex-1 break-words">{item.title || item.slug}{item.id === lastId && <span className="ml-2 text-xs text-primary">上次阅读</span>}</span>
-            <time dateTime={item.publishedAt ?? undefined} className="shrink-0 text-xs text-muted-foreground">{formatDate(item.publishedAt)}</time>
-            <span className="inline-flex shrink-0 items-center gap-1 text-xs text-muted-foreground">{item.visibility === "paid" ? <><Lock className="size-3" />会员</> : "免费"}</span>
-          </Link>
-        </li>)}
-      </ol>
-    </section>
-  </main>;
+        {!ordered.length && (
+          <p className="py-6 text-center text-sm text-muted-foreground">合集暂无已发布章节。</p>
+        )}
+        <ol className="divide-y divide-border">
+          {ordered.map((item) => (
+            <li key={item.id} className={item.id === lastId ? "rounded-md bg-primary/5" : ""}>
+              <Link
+                prefetch={false}
+                href={chapterHref(item.slug, collection.slug)}
+                className="flex min-h-12 items-center gap-3 py-3 text-sm hover:text-primary"
+              >
+                <span className="w-6 shrink-0 text-xs tabular-nums text-muted-foreground">
+                  {String(collection.items.indexOf(item) + 1).padStart(2, "0")}
+                </span>
+                <span className="min-w-0 flex-1 break-words">
+                  {item.title || item.slug}
+                  {item.id === lastId && (
+                    <span className="ml-2 text-xs text-primary">上次阅读</span>
+                  )}
+                </span>
+                <time
+                  dateTime={item.publishedAt ?? undefined}
+                  className="shrink-0 text-xs text-muted-foreground"
+                >
+                  {formatDate(item.publishedAt)}
+                </time>
+                {item.access === "preview" && (
+                  <span className="shrink-0 text-xs text-muted-foreground">预览</span>
+                )}
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </section>
+    </main>
+  );
 }

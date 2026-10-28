@@ -1,23 +1,18 @@
 import { notFound } from "next/navigation";
-import { connection } from "next/server";
-import { cache } from "react";
-import { getCurrentPublicContent } from "@/lib/public-content";
+import { getContent, getContents } from "@/lib/static-site";
 import { ContentDocument, contentMetadata } from "@/components/content-document";
-
-interface Props { params: Promise<{ slug: string }> }
-// Keep canonical HTML/RSC dynamic while the revision-keyed public Data Cache
-// remains reusable. The current-revision gate runs inside the loading boundary.
-const currentContent = cache(async (slug: string) => {
-  await connection();
-  return getCurrentPublicContent(slug);
-});
-
-export async function generateMetadata({ params }: Props) {
-  return contentMetadata(await currentContent((await params).slug));
+interface Props {
+  params: Promise<{ slug: string }>;
 }
-
+export const dynamicParams = false;
+export function generateStaticParams() {
+  return getContents().map((c) => ({ slug: c.slug }));
+}
+export async function generateMetadata({ params }: Props) {
+  return contentMetadata(getContent((await params).slug));
+}
 export default async function Page({ params }: Props) {
-  const content = await currentContent((await params).slug);
+  const content = getContent((await params).slug);
   if (!content) notFound();
   return <ContentDocument content={content} />;
 }
