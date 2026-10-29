@@ -19,6 +19,7 @@
     "preview": "node scripts/preview-static.mjs"
   },
   "devDependencies": {
+    "htmlparser2": "8.0.2",
     "typescript": "^5.9.3",
     "tsx": "^4.20.6"
   },
