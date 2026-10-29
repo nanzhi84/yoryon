@@ -5,6 +5,7 @@ import type { CollectionListItem, FeedContentItem, FeedItem } from "@/lib/types"
 import { formatDate } from "@/lib/date";
 import { CollectionDescription } from "./collection-description";
 import { PostEntry } from "./post-entry";
+import { MarkdownSurface } from "./markdown-surface";
 export function ContentEntry({
   item,
   showPinnedBadge = false,
@@ -25,7 +26,10 @@ export function ContentEntry({
       {item.type === "article" ? (
         <div className="min-w-0">
           <div className="flex flex-wrap items-baseline gap-2">
-            <ReaderLink item={item} className="min-w-0">
+            <ReaderLink
+              item={{ slug: item.slug, title: item.title, publishedAt: item.publishedAt }}
+              className="min-w-0"
+            >
               <h2 className="line-clamp-2 text-lg font-semibold leading-[26px] group-hover:underline underline-offset-4">
                 {item.title || "未命名内容"}
               </h2>
@@ -40,7 +44,14 @@ export function ContentEntry({
       ) : (
         <>
           {showPinnedBadge && item.isPinned && <Badge variant="secondary">置顶</Badge>}
-          <PostEntry item={item} />
+          <PostEntry id={item.id}>
+            <MarkdownSurface
+              preserveBlankLines
+              className="prose-feed"
+              markdown={item.post?.bodyMarkdown ?? ""}
+              mediaSizes={Object.fromEntries((item.post?.media ?? []).map((m) => [m.mediaId, m]))}
+            />
+          </PostEntry>
           <Link
             prefetch={false}
             href={`/p/${item.slug}`}

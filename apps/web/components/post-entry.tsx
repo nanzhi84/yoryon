@@ -1,15 +1,14 @@
 "use client";
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import type { FeedContentItem } from "@/lib/types";
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { currentBrowsePath, readBrowse, writeBrowse } from "@/lib/browse-memory";
-import { MarkdownSurface } from "./markdown-surface";
-export function PostEntry({ item }: { item: FeedContentItem }) {
+/** Static post markup is rendered at build time; only expansion belongs in the browser. */
+export function PostEntry({ id, children }: { id: string; children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const [clipped, setClipped] = useState(false);
   const host = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
-    setOpen((readBrowse<string[]>(`post-open:${currentBrowsePath()}`) ?? []).includes(item.id));
-  }, [item.id]);
+    setOpen((readBrowse<string[]>(`post-open:${currentBrowsePath()}`) ?? []).includes(id));
+  }, [id]);
   useEffect(() => {
     const element = host.current;
     if (!element) return;
@@ -24,7 +23,7 @@ export function PostEntry({ item }: { item: FeedContentItem }) {
     observer.observe(element);
     measure();
     return () => observer.disconnect();
-  }, [open, item.post]);
+  }, [open, children]);
   function toggle() {
     const value = !open;
     setOpen(value);
@@ -32,35 +31,24 @@ export function PostEntry({ item }: { item: FeedContentItem }) {
     const ids = readBrowse<string[]>(key) ?? [];
     writeBrowse(
       key,
-      [...ids.filter((id) => id !== item.id), ...(value ? [item.id] : [])].slice(-100)
+      [...ids.filter((entry) => entry !== id), ...(value ? [id] : [])].slice(-100)
     );
   }
-  const body = useMemo(() => {
-    const mediaSizes = Object.fromEntries((item.post?.media ?? []).map((m) => [m.mediaId, m]));
-    return (
-      <MarkdownSurface
-        preserveBlankLines
-        className="prose-feed"
-        markdown={item.post?.bodyMarkdown ?? ""}
-        mediaSizes={mediaSizes}
-      />
-    );
-  }, [item.post]);
   return (
     <div className="mt-2">
       <div
         ref={host}
-        id={`post-${item.id}`}
+        id={`post-${id}`}
         className={open ? "" : "post-preview max-h-[32rem] overflow-hidden"}
       >
-        {body}
+        {children}
       </div>
       {(clipped || open) && (
         <button
           type="button"
           onClick={toggle}
           aria-expanded={open}
-          aria-controls={`post-${item.id}`}
+          aria-controls={`post-${id}`}
           className="mt-1 min-h-8 text-[13px] leading-5 text-primary hover:underline"
         >
           {open ? "收起" : "展开"}

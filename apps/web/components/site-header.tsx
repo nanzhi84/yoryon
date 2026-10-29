@@ -32,11 +32,12 @@ export function SiteHeader() {
             className="flex min-h-11 shrink-0 items-center gap-2.5 rounded-sm text-[22px] font-semibold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary max-[360px]:gap-1.5 max-[360px]:text-lg"
           >
             <Image
-              src="/images/author-avatar.jpg"
+              src="/apple-icon.png"
               alt=""
               width={32}
               height={32}
-              priority
+              loading="eager"
+              fetchPriority="low"
               className="size-8 rounded-full border border-surface-border object-cover object-[50%_30%] max-[360px]:size-6"
             />
             <span>Yoryon</span>

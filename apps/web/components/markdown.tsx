@@ -1,4 +1,4 @@
-/** 服务端语法高亮；同步 MarkdownSurface 同时服务客户端帖子展开。 */
+/** 构建时语法高亮；帖子列表也在构建时渲染 MarkdownSurface。 */
 import { bundledLanguages, getSingletonHighlighter } from "shiki";
 import type { CSSProperties } from "react";
 import { MarkdownSurface } from "./markdown-surface";

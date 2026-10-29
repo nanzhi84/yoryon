@@ -2,11 +2,10 @@
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
-import { readerLayoutSchema, type ReaderLayout } from "@yoryon/config/reader-layout";
 import Link from "next/link";
 import type { FeedContentItem } from "@/lib/types";
 
-type Hint = { slug: string; title: string; publishedAt: string | null; layout: ReaderLayout };
+type Hint = Pick<FeedContentItem, "slug" | "title" | "publishedAt">;
 const ReaderContext = createContext<{ hint: Hint | null; setHint: (hint: Hint) => void }>({
   hint: null,
   setHint: () => {},
@@ -33,7 +32,7 @@ export function ReaderLink({
   children,
   "aria-label": ariaLabel,
 }: {
-  item: FeedContentItem;
+  item: Hint;
   className?: string;
   children: ReactNode;
   "aria-label"?: string;
@@ -41,18 +40,12 @@ export function ReaderLink({
   const { setHint } = useContext(ReaderContext);
   return (
     <Link
-      prefetch={false}
+      prefetch={true}
       href={`/p/${item.slug}`}
       className={className ?? ""}
       {...(ariaLabel ? { "aria-label": ariaLabel } : {})}
       onNavigate={() => {
-        const result = readerLayoutSchema.safeParse(item.readerLayout);
-        setHint({
-          slug: item.slug,
-          title: item.title,
-          publishedAt: item.publishedAt,
-          layout: result.success ? result.data : [],
-        });
+        setHint(item);
       }}
     >
       {children}

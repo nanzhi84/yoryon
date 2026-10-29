@@ -1,0 +1,40 @@
+diff --git a/dist/client/components/router-reducer/fetch-server-response.js b/dist/client/components/router-reducer/fetch-server-response.js
+index 1b5e66b4cc684002e1600235f9f81296b255a6a7..3828518c23e4e407b22eed07a1c06160afbed54c 100644
+--- a/dist/client/components/router-reducer/fetch-server-response.js
++++ b/dist/client/components/router-reducer/fetch-server-response.js
+@@ -155,14 +155,7 @@ async function fetchServerResponse(url, options) {
+         // If fetch fails handle it like a mpa navigation
+         // TODO-APP: Add a test for the case where a CORS request fails, e.g. external url redirect coming from the response.
+         // See https://github.com/vercel/next.js/issues/43605#issuecomment-1451617521 for a reproduction.
+-        return {
+-            flightData: url.toString(),
+-            canonicalUrl: undefined,
+-            couldBeIntercepted: false,
+-            prerendered: false,
+-            postponed: false,
+-            staleTime: -1
+-        };
++        return doMpaNavigation(url.toString());
+     }
+ }
+ async function createFetch(url, headers, fetchPriority, signal) {
+diff --git a/dist/esm/client/components/router-reducer/fetch-server-response.js b/dist/esm/client/components/router-reducer/fetch-server-response.js
+index 06c09762991d266a9d0932d3ec51e503f8c1da77..8c4722344a90c9166a757b28634f355b13e35e1d 100644
+--- a/dist/esm/client/components/router-reducer/fetch-server-response.js
++++ b/dist/esm/client/components/router-reducer/fetch-server-response.js
+@@ -134,14 +134,7 @@ if (typeof window !== 'undefined') {
+         // If fetch fails handle it like a mpa navigation
+         // TODO-APP: Add a test for the case where a CORS request fails, e.g. external url redirect coming from the response.
+         // See https://github.com/vercel/next.js/issues/43605#issuecomment-1451617521 for a reproduction.
+-        return {
+-            flightData: url.toString(),
+-            canonicalUrl: undefined,
+-            couldBeIntercepted: false,
+-            prerendered: false,
+-            postponed: false,
+-            staleTime: -1
+-        };
++        return doMpaNavigation(url.toString());
+     }
+ }
+ export async function createFetch(url, headers, fetchPriority, signal) {

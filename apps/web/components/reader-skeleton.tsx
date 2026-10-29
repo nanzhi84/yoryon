@@ -1,15 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { ReaderLayout } from "@yoryon/config/reader-layout";
 import { Skeleton } from "./ui/skeleton";
 import { useReaderHint } from "./reader-navigation";
 import { formatDate } from "@/lib/date";
 
-const fallback: ReaderLayout = [
-  { kind: "paragraph", lengths: [100] }, { kind: "paragraph", lengths: [150] },
-  { kind: "paragraph", lengths: [80] },
-];
+// Static snapshots have no dynamic body geometry; keep the existing paragraph fallback.
+const paragraphLengths = [100, 150, 80];
 function Bar({ width = "100%", height = 17 }: { width?: string; height?: number }) {
   return <Skeleton className="reader-skeleton animate-none" style={{ width, height }} />;
 }
@@ -39,17 +36,10 @@ export function ReaderSkeleton() {
       {hint?.publishedAt ? <time className="mt-5 block text-xs text-muted-foreground">{formatDate(hint.publishedAt)}</time> :
         <div className="mx-auto mt-5 w-24"><Bar height={12} /></div>}
     </div>
-    {(hint?.layout.length ? hint.layout : fallback).map((block, index) => {
-      const lines = <Lines lengths={block.lengths} width={width - (["quote", "list", "code"].includes(block.kind) ? 36 : 0)} />;
-      return <div key={index} data-skeleton-block={block.kind} style={{ marginBottom: 20 }}>
-        {block.kind === "media" ? <Bar height={Math.min(360, width * 0.6)} /> :
-          block.kind === "rule" ? <div className="my-10 border-t border-border" /> :
-          block.kind === "heading" ? <div style={{ marginTop: block.level === 2 ? 52 : 36, marginBottom: 18 }}><Lines lengths={block.lengths} width={width} font={block.level === 2 ? 23 : 19} /></div> :
-          block.kind === "list" ? <div className="space-y-3 pl-5">{block.lengths.map((length, i) => <div key={i} className="flex gap-3"><span className="mt-1 size-2 shrink-0 rounded-full bg-muted" /><div className="flex-1"><Lines lengths={[length]} width={width - 36} /></div></div>)}</div> :
-          block.kind === "code" ? <div className="rounded-md bg-muted/40 px-[18px] py-4"><Lines lengths={block.lengths} width={width - 36} font={13} /></div> :
-          block.kind === "quote" ? <div className="border-l-2 border-border pl-4">{lines}</div> :
-          block.kind === "summary" ? <section className="editorial-keypoints"><div className="mb-4 w-16"><Bar height={12} /></div>{lines}</section> : lines}
-      </div>;
-    })}
+    {paragraphLengths.map((length, index) => (
+      <div key={index} data-skeleton-block="paragraph" style={{ marginBottom: 20 }}>
+        <Lines lengths={[length]} width={width} />
+      </div>
+    ))}
   </div>;
 }
