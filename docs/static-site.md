@@ -34,6 +34,12 @@ pnpm preview --port 3100
 - 内容撤回/删除需要重新导出、构建和部署，并按所选托管平台的方式撤销旧部署；已经下载的公开文件无法收回。
 - GitHub Actions只部署仓库内的公开快照，不修改生产数据库或原API/OSS。本地验收证据位于 `artifacts/static-20261028/`，设计见ADR-0018。
 
+## 社交账号入口
+
+名字旁边的「关注我」统一展示 X、GitHub、公众号、小红书与抖音。桌面使用下拉菜单，小于 640px 时使用底部弹层；改变断点会关闭当前展开层。菜单、弹层支持键盘与 Escape，移动端同时支持关闭按钮及遮罩关闭。
+
+公开账号唯一配置为 `apps/web/lib/social-links.ts`，与文章快照导出独立。外链在新标签页打开，使用 HTTPS 和 `noopener noreferrer`，只在点击时连接平台。X 使用用户提供的 `@yoryon_`；GitHub、小红书、抖音沿用 `nanzhi84/yoryon-homepage` 首页公开链接。公众号直接显示「釉蓝yoryon」并支持复制；复制失败会提示手动复制或重试，不包含二维码或名片。
+
 ## GitHub Pages 发布与域名
 
 工作流为 `.github/workflows/pages.yml`，推送 `codex/static` 后依次执行冻结依赖安装、`pnpm typecheck`、`pnpm build`、上传 `apps/web/out/` 和 Pages 部署。运行不需要数据库、OSS或阿里云凭据。生产域名为 `yoryon.com`，`www.yoryon.com` 跳转至主域名；Pages 设置使用 GitHub Actions 作为发布源。

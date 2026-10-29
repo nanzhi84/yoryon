@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { ThemeToggle } from "./theme-toggle";
+import { FollowMenu } from "./follow-menu";
 
 export function SiteHeader() {
   const pathname = usePathname().replace(/\/$/, "") || "/";
@@ -23,23 +24,26 @@ export function SiteHeader() {
 
   return (
     <header className="border-b border-border pt-5">
-      <div className="flex items-center justify-between gap-3 pb-4">
-        <Link
-          prefetch={false}
-          href="/"
-          className="flex min-h-11 shrink-0 items-center gap-2.5 rounded-sm text-[22px] font-semibold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-        >
-          <Image
-            src="/images/author-avatar.jpg"
-            alt=""
-            width={32}
-            height={32}
-            priority
-            className="size-8 rounded-full border border-surface-border object-cover object-[50%_30%]"
-          />
-          <span>Yoryon</span>
-        </Link>
-        <div className="flex items-center gap-1">
+      <div className="flex items-center justify-between gap-2 pb-4 max-[360px]:gap-1.5">
+        <div className="flex min-w-0 items-center gap-2 max-[360px]:gap-1.5 sm:gap-3">
+          <Link
+            prefetch={false}
+            href="/"
+            className="flex min-h-11 shrink-0 items-center gap-2.5 rounded-sm text-[22px] font-semibold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary max-[360px]:gap-1.5 max-[360px]:text-lg"
+          >
+            <Image
+              src="/images/author-avatar.jpg"
+              alt=""
+              width={32}
+              height={32}
+              priority
+              className="size-8 rounded-full border border-surface-border object-cover object-[50%_30%] max-[360px]:size-6"
+            />
+            <span>Yoryon</span>
+          </Link>
+          <FollowMenu />
+        </div>
+        <div className="flex shrink-0 items-center gap-1 max-[360px]:gap-0">
           <Link
             href="/search"
             prefetch={false}
