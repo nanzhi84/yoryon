@@ -102,9 +102,10 @@ body {
 .editorial-entry h2, .editorial-excerpt { font-family: var(--font-serif); }
 /* Match the six-block feed preview without parsing/replacing a small post on click. */
 .post-preview > [data-search-body] > :nth-child(n+7) { display: none; }
-.prose-yoryon :where(h2):not(:where([class~="not-prose"] *)) { font-size: 23px; line-height: 1.4; margin: 52px 0 18px; font-weight: 600; text-wrap: balance; }
+/* Body headings fill the reading column; balancing leaves large early gaps on phones. */
+.prose-yoryon :where(h2):not(:where([class~="not-prose"] *)) { font-size: 23px; line-height: 1.4; margin: 52px 0 18px; font-weight: 600; text-wrap: wrap; }
 .prose-yoryon :where(h1):not(:where([class~="not-prose"] *)) { font-size: clamp(25px, 5.2vw, 31px); line-height: 1.38; font-weight: 600; }
-.prose-yoryon :where(h3):not(:where([class~="not-prose"] *)) { font-size: 19px; line-height: 1.4; margin: 36px 0 14px; font-weight: 600; text-wrap: balance; }
+.prose-yoryon :where(h3):not(:where([class~="not-prose"] *)) { font-size: 19px; line-height: 1.4; margin: 36px 0 14px; font-weight: 600; text-wrap: wrap; }
 .prose-yoryon :where(strong):not(:where([class~="not-prose"] *)) { font-weight: 650; }
 .prose-yoryon :where(a):not(:where([class~="not-prose"] *)) { text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .prose-yoryon :where(blockquote):not(:where([class~="not-prose"] *)) { border-left-width: 2px; border-left-color: var(--primary); font-style: normal; font-weight: 400; }
