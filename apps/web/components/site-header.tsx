@@ -4,17 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Search } from "lucide-react";
-import { Button } from "./ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+import { HeaderMenu } from "./header-menu";
 import { ThemeToggle } from "./theme-toggle";
 import { FollowMenu } from "./follow-menu";
 
-const avatar = new URL("../app/apple-icon.png", import.meta.url).href;
+const avatar = new URL("./header-avatar.png", import.meta.url).href;
 
 export function SiteHeader() {
   const pathname = usePathname().replace(/\/$/, "") || "/";
@@ -85,23 +79,18 @@ export function SiteHeader() {
             合集
           </Link>
         </div>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              className={`min-h-11 gap-1 px-1 text-base sm:gap-2 sm:px-2 ${exploreActive ? "text-foreground" : "text-muted-foreground"}`}
-            >
-              探索 <ChevronDown className="size-4" aria-hidden="true" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="min-w-40 [&_[role=menuitem]]:min-h-11">
-            <DropdownMenuItem asChild>
-              <Link prefetch={false} href="/tags">
-                标签
-              </Link>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <HeaderMenu
+          label="探索"
+          trigger={<>探索 <ChevronDown className="size-4" aria-hidden="true" /></>}
+          triggerClassName={`min-h-11 gap-1 px-1 text-base sm:gap-2 sm:px-2 ${exploreActive ? "text-foreground" : "text-muted-foreground"}`}
+          panelClassName="w-40 p-1"
+          align="end"
+        >
+          <Link prefetch={false} href="/tags" role="menuitem" tabIndex={-1}
+            className="flex min-h-11 items-center rounded-sm px-2 py-1.5 text-sm outline-none hover:bg-muted focus:bg-muted">
+            标签
+          </Link>
+        </HeaderMenu>
       </nav>
     </header>
   );

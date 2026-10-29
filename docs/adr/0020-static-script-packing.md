@@ -12,19 +12,21 @@
 
 每段webpack注册脚本保留独立函数作用域，并以self作为顶层this，防止前一段的`use strict`影响后续脚本。第一轮直接拼接曾实际触发Next的`_N_E`严格模式异常，失败证据和修复后真实路径均保留。仅支持当前固定Next版本的webpack注册/运行时格式；未知属性、缺少bootstrap/preload、越界或缺失资产等导致构建失败。内联正文出现不区分大小写的`</script`或`<!--`时直接拒绝构建，避免改变HTML脚本解析状态；不通过正则改写任意JavaScript字符串。框架升级必须重新核对格式与行为，不能删除校验绕过失败。
 
-页头用URL依赖导入现有180px PNG；webpack规则仅对这个文件的URL依赖强制选择asset的内联分支。SSR与客户端得到同一data URI，解码后的26070字节与原图一致，不改写像素、不仅替换SSR标签。使用asset的自动类型以兼容Next已有filename生成器；显式asset/inline在本版本会产生配置校验错误，失败构建记录保留。
+页头用URL依赖导入`components/header-avatar.png`；它是从既有favicon.ico封装中直接提取的48×48 PNG条目（6044字节），不重绘、不重编码，保留32px显示尺寸。相比180px图，高像素比屏幕的细节较少，换取明显减少传输。webpack规则仅对这个文件的URL依赖强制选择asset的内联分支，SSR与客户端得到同一data URI。使用asset的自动类型以兼容Next已有filename生成器；显式asset/inline在本版本会产生配置校验错误，失败构建记录保留。
+
+第二阶段内联180px头像后的公网load中位数仍为1302.8ms，5次均超过1秒，说明减少往返不足以抵消HTML体积。第三阶段进一步减小头像与页头菜单：两个现有菜单共享小型HeaderMenu，使用原生popover处理显示、顶层呈现、外侧点击和Escape；保留方向键、Home/End、Tab、文字定位及链接Space/Enter激活。窄屏关注弹层使用原生dialog，保留焦点循环、滚动锁与关闭/断点清理，复制流程仍去重并提供失败重试。移除无其他使用的Radix dropdown/dialog封装和依赖，不额外请求或延迟初始化菜单。原生API参考：[popover](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using)、[dialog](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog)；目标为支持这两个标准的现代浏览器，旧浏览器未增加polyfill。
 
 原始chunk与RSC文件保留，由Next继续管理动态导入、预取、客户端导航和失败回退。应用不新增客户端加载器、定时延后脚本或依赖load事件的初始化。当前74个导出HTML含6种初始脚本组合；首页现代浏览器初始外部JS请求12→1→0，头像请求也消除。内联经典脚本在原bootstrap位置同步执行，会占用解析线程；必须检查FCP、长任务、hydration和早点击，不能只用load证明体验改善。
 
 ## 缓存与兼容代价
 
-首页HTML由约28KB gzip增为249KB gzip，包括全部首屏JS和头像。data URI在SSR图像与客户端模块中各出现一次，因此总传输字节也有增加。普通SPA导航继续复用已注册模块，只加载缺少的路由chunk；整页访问其他页面会重新传输内联共有框架与头像，HTTP缓存无法单独复用它们。本次优先改善首次访问，不宣称所有热缓存流量也减少。原始chunk保留不等于永久保留历史部署资产，既有Pages跨版本缓存边界不变。
+首页HTML由约28KB gzip增为约179KB gzip，包括全部首屏JS和头像；这比第二阶段249KB减少约28%。data URI在SSR图像与客户端模块中各出现一次，压缩结果已包含重复成本。普通SPA导航继续复用已注册模块，只加载缺少的路由chunk；整页访问其他页面会重新传输内联共有框架与头像，HTTP缓存无法单独复用它们。本次优先改善首次访问，不宣称所有热缓存流量也减少。原始chunk保留不等于永久保留历史部署资产，既有Pages跨版本缓存边界不变。
 
 保留普通链接与服务端正文，但不承诺完全无JS阅读：文章的Suspense导出仍依赖内联reveal脚本，禁用全部JS会停留在骨架（见PERF-03）。正常脚本环境中的RSC网络失败可回退到HTML。已有nonce保持，async与crossorigin仅对外部请求有意义，内联后移除。当前Pages未配置禁止内联脚本的CSP；未来引入CSP/SRI须明确适配后再发布，本流程不会自动修改响应安全策略。本次没有引入第三方运行时服务。
 
 ## 验收与回退
 
-证据位于`artifacts/static-load-under-1s-20261029/`。使用干净worktree避免本机未发布文件影响构建。IAB的CDP网络模拟没有覆盖主HTML，不能据此比较内联前后；最终受控实验通过临时服务端限速同时约束全部HTML和子资源（每请求150ms、共享500000 B/s、浏览器CPU4倍、1280×720/DPR1、冷HTTP缓存）。三组load中位数842→717.2ms；FCP240→264ms，分别反映完整就绪改善与前段传输变大的代价。公网冷HTTP缓存另测，不将本机受控条件解释为全球SLA。内联后JS字节计入HTML，不能将外部脚本0字节解释成没有JS成本。
+证据位于`artifacts/static-load-under-1s-20261029/`。使用干净worktree避免本机未发布文件影响构建。IAB的CDP网络模拟没有覆盖主HTML，不能据此比较内联前后；最终受控实验通过临时服务端限速同时约束全部HTML和子资源（每请求150ms、共享500000 B/s、浏览器CPU4倍、1280×720/DPR1、冷HTTP缓存）。每版本三组：load中位数842→717.2→566.7ms，FCP240→264→224ms；阶段三预取后文章点击35.8/37.9/112.7ms，慢样本保留。公网冷HTTP缓存另测，不将本机受控条件解释为全球SLA。内联后JS字节计入HTML，不能将外部脚本0字节解释成没有JS成本。
 
 独立核对完整HTML、原资产、脚本顺序与作用域；真实浏览器覆盖搜索高亮、图解预览、主题/窄屏菜单、帖子展开、导航、RSC失败及禁用全部脚本的边界。浏览器HTTP缓存与跨模板传输量另列，不把本地no-cache预览当作公网缓存验收。
 

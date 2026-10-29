@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
     // This URL import is the existing header avatar, not all page/media images.
     // Use the same data URI in SSR and hydration; no image bytes are re-encoded.
     config.module.rules.push({
-      test: /[\\/]app[\\/]apple-icon\.png$/,
+      test: /[\\/]components[\\/]header-avatar\.png$/,
       dependency: "url",
       // Next 15 supplies an asset filename generator, so use the auto asset
       // schema and explicitly choose its inline branch for this single file.
