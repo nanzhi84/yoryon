@@ -22,8 +22,6 @@ export interface FeedContentItem {
   /** 文章/帖子列表的置顶标记；标签页同一合同但排序不置顶。 */
   isPinned: boolean;
   tags: FeedTag[];
-  likeCount?: number;
-  commentCount?: number;
   post?: {
     bodyMarkdown: string;
     collapsed: boolean;

@@ -61,18 +61,6 @@ async function exportSite(stage: string) {
         durationSec: m.duration_sec,
       })),
       collections: [],
-      likeCount: source.likes.find((l) => l.content_id === c.id)?.n ?? 0,
-      comments: source.comments
-        .filter((x) => x.content_id === c.id)
-        .map((x) => ({
-          id: x.id,
-          parentId: x.parent_id,
-          author: x.author,
-          body: x.body,
-          createdAt: iso(x.created_at)!,
-          likeCount: x.like_count,
-          deleted: x.deleted,
-        })),
       searchText: searchProjection(body).text,
     };
   });
@@ -169,7 +157,6 @@ async function exportSite(stage: string) {
       media: assets.length,
       bytes: assets.reduce((n, a) => n + a.bytes, 0),
       paidBodies: "existing public previews only",
-      comments: contents.reduce((n, c) => n + c.comments.length, 0),
       largeFiles: assets
         .filter((a) => a.bytes > 25 * 1024 * 1024)
         .map((a) => ({ path: a.path, bytes: a.bytes })),

@@ -51,8 +51,6 @@ export function toFeed(c: StaticContent): FeedContentItem {
     publishedAt: c.publishedAt,
     isPinned: c.isPinned,
     tags: c.tags,
-    likeCount: c.likeCount,
-    commentCount: c.comments.filter((x) => !x.deleted).length,
     post:
       c.type === "post" ? { bodyMarkdown: c.bodyMarkdown, collapsed: false, media: c.media } : null,
   };

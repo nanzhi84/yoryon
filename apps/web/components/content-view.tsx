@@ -5,7 +5,6 @@ import { SiteHeader } from "./site-header";
 import { formatDate } from "@/lib/date";
 import { ChapterContextProvider } from "./chapter-reading";
 import { ContentBody } from "./content-body";
-import { CommentSection } from "./comment-section";
 import { CollectionNavigation } from "./collection-navigation";
 import { ChapterBackButton } from "./chapter-back-button";
 import { SearchLocation } from "./search-location";
@@ -60,7 +59,6 @@ export function ContentView({ initial: content }: { initial: StaticContent }) {
             </header>
             <ContentBody content={content} />
             <CollectionNavigation contentId={content.id} collections={content.collections} />
-            <CommentSection comments={content.comments} />
           </main>
         </ChapterContextProvider>
       </Suspense>

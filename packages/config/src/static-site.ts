@@ -14,15 +14,6 @@ const media = z.object({
   height: z.number().nullable(),
   durationSec: z.number().nullable(),
 });
-const comment = z.object({
-  id: uuid,
-  parentId: uuid.nullable(),
-  author: z.string(),
-  body: z.string(),
-  createdAt: timestamp,
-  likeCount: z.number().int().nonnegative(),
-  deleted: z.boolean(),
-});
 export const staticContentSchema = z.object({
   id: uuid,
   revision: uuid,
@@ -50,8 +41,6 @@ export const staticContentSchema = z.object({
       next: chapter.nullable(),
     })
   ),
-  likeCount: z.number().int().nonnegative(),
-  comments: z.array(comment),
   searchText: z.string(),
 });
 export const staticCollectionSchema = z.object({

@@ -55,21 +55,8 @@ export async function readSource(path: string) {
       EXISTS(SELECT 1 FROM contents c WHERE c.status='published' AND c.cover_media_id=m.id)
       OR EXISTS(SELECT 1 FROM collections c WHERE c.cover_media_id=m.id)`)
     ).rows;
-    const likes = (
-      await client.query(`SELECT cl.content_id,count(*)::int n FROM content_likes cl
-      JOIN contents c ON c.id=cl.content_id WHERE c.status='published' GROUP BY cl.content_id`)
-    ).rows;
-    const comments = (
-      await client.query(`SELECT co.id,co.content_id,co.parent_id,
-      CASE WHEN co.deleted_at IS NULL THEN co.body ELSE '' END body,
-      CASE WHEN co.deleted_at IS NULL THEN coalesce(u.display_name,u.username::text) ELSE '' END author,
-      co.created_at,CASE WHEN co.deleted_at IS NULL THEN co.like_count ELSE 0 END like_count,
-      (co.deleted_at IS NOT NULL) deleted
-      FROM comments co JOIN contents c ON c.id=co.content_id JOIN users u ON u.id=co.user_id
-      WHERE co.target_kind='content' AND c.status='published' ORDER BY co.like_count DESC,co.created_at,co.id`)
-    ).rows;
     await client.query("ROLLBACK");
-    return { contents, tags, media, collections, items, covers, likes, comments };
+    return { contents, tags, media, collections, items, covers };
   } catch (error) {
     if (error instanceof Error && error.message.startsWith("付费预览")) throw error;
     throw new Error("只读内容导出失败；连接与查询参数已隐藏");

@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ReaderLink } from "./reader-navigation";
 import { Badge } from "./ui/badge";
 import type { CollectionListItem, FeedContentItem, FeedItem } from "@/lib/types";
-import { ContentActions } from "./content-actions";
 import { formatDate } from "@/lib/date";
 import { CollectionDescription } from "./collection-description";
 import { PostEntry } from "./post-entry";
@@ -52,11 +51,6 @@ export function ContentEntry({
           </Link>
         </>
       )}
-      <ContentActions
-        slug={item.slug}
-        likeCount={item.likeCount ?? 0}
-        commentCount={item.commentCount ?? 0}
-      />
     </article>
   );
 }
