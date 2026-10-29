@@ -13,6 +13,50 @@ interface Item {
   publishedAt: string | null;
   type: "article" | "post";
 }
+
+interface MatchedText {
+  before: string;
+  match: string;
+  after: string;
+}
+
+function matchText(text: string, pattern: RegExp, excerpt = false): MatchedText | null {
+  const match = pattern.exec(text);
+  if (!match) return null;
+  const hitStart = match.index;
+  const hitEnd = hitStart + match[0].length;
+  let start = 0;
+  let end = text.length;
+  if (excerpt) {
+    start = Math.max(0, hitStart - 45);
+    // Look from the next position so overlapping occurrences also stop the excerpt.
+    const next = pattern.exec(text.slice(hitStart + 1));
+    end = Math.min(
+      text.length,
+      hitEnd + 65,
+      next ? Math.max(hitEnd, hitStart + 1 + next.index) : Infinity
+    );
+    // Keep emoji and other surrogate pairs intact at the context boundaries.
+    if (start > 0 && /[\uDC00-\uDFFF]/.test(text[start]!)) start++;
+    if (end < text.length && /[\uD800-\uDBFF]/.test(text[end - 1]!)) end--;
+  }
+  return {
+    before: `${start > 0 ? "…" : ""}${text.slice(start, hitStart)}`,
+    match: match[0],
+    after: `${text.slice(hitEnd, end)}${end < text.length ? "…" : ""}`,
+  };
+}
+
+function HighlightedText({ text }: { text: MatchedText }) {
+  return (
+    <>
+      {text.before}
+      <mark className="rounded-sm bg-yellow-300 text-zinc-900">{text.match}</mark>
+      {text.after}
+    </>
+  );
+}
+
 export function SearchPageClient({ items }: { items: Item[] }) {
   const params = useSearchParams();
   const selected = (params.get("q") ?? "").slice(0, 120);
@@ -25,17 +69,19 @@ export function SearchPageClient({ items }: { items: Item[] }) {
     setLimit(20);
   }, [selected]);
   const results = useMemo(() => {
-    const q = query.trim().toLocaleLowerCase();
+    const q = query.trim();
     if (!q) return [];
+    // Escape literal input; matching original text keeps highlight offsets correct.
+    const pattern = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "iu");
     return items.flatMap((item) => {
-      const body = item.text.toLocaleLowerCase().indexOf(q);
-      if (body < 0 && !`${item.title} ${item.description}`.toLocaleLowerCase().includes(q))
-        return [];
-      const start = Math.max(0, body - 45);
+      const titleMatch = matchText(item.title, pattern);
+      const snippet = matchText(item.text, pattern, true) ?? matchText(item.description, pattern, true);
+      if (!titleMatch && !snippet) return [];
       return [
         {
           ...item,
-          snippet: body < 0 ? item.description : item.text.slice(start, body + query.length + 65),
+          titleMatch,
+          snippet,
         },
       ];
     });
@@ -79,12 +125,16 @@ export function SearchPageClient({ items }: { items: Item[] }) {
             <Link
               prefetch={false}
               href={`/p/${item.slug}?q=${encodeURIComponent(query)}`}
-              className="text-lg font-semibold hover:underline"
+              className="break-words text-lg font-semibold hover:underline"
             >
-              {item.title || `帖子 · ${formatDate(item.publishedAt)}`}
+              {item.titleMatch ? (
+                <HighlightedText text={item.titleMatch} />
+              ) : (
+                item.title || `帖子 · ${formatDate(item.publishedAt)}`
+              )}
             </Link>
             <p className="mt-2 whitespace-pre-wrap break-words text-sm leading-6 text-muted-foreground">
-              {item.snippet}
+              {item.snippet ? <HighlightedText text={item.snippet} /> : item.description}
             </p>
             <time
               dateTime={item.publishedAt ?? undefined}
