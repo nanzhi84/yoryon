@@ -14,6 +14,8 @@ import {
 import { ThemeToggle } from "./theme-toggle";
 import { FollowMenu } from "./follow-menu";
 
+const avatar = new URL("../app/apple-icon.png", import.meta.url).href;
+
 export function SiteHeader() {
   const pathname = usePathname().replace(/\/$/, "") || "/";
   const collectionActive = pathname === "/c" || pathname.startsWith("/c/");
@@ -32,7 +34,7 @@ export function SiteHeader() {
             className="flex min-h-11 shrink-0 items-center gap-2.5 rounded-sm text-[22px] font-semibold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary max-[360px]:gap-1.5 max-[360px]:text-lg"
           >
             <Image
-              src="/apple-icon.png"
+              src={avatar}
               alt=""
               width={32}
               height={32}

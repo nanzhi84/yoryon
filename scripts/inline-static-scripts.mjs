@@ -1,13 +1,12 @@
 import { createHash } from "node:crypto";
-import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
+import { readFile, readdir, writeFile } from "node:fs/promises";
 import { resolve, sep } from "node:path";
 import { parseDocument } from "htmlparser2";
 
 const output = resolve(import.meta.dirname, "../apps/web/out");
 const chunkPrefix = "/_next/static/chunks/";
-const bundlePrefix = "/_next/static/bootstrap/";
 const sources = new Map();
-const bundles = new Map();
+const bundles = new Set();
 const documents = [];
 
 async function* htmlFiles(directory) {
@@ -92,14 +91,17 @@ for await (const file of htmlFiles(output)) {
   if (!parts.at(-1).startsWith('(()=>{"use strict";'))
     throw new Error(`Unrecognized webpack runtime in ${file}`);
   const body = parts.map(part => `(function(){\n${part}\n}).call(self);`).join("\n") + "\n";
+  // These sequences can end or change the HTML script-data tokenizer state.
+  // Do not rewrite JavaScript tokens with a regex: reject unsupported output.
+  if (/<\/script|<!--/i.test(body))
+    throw new Error(`Webpack output cannot safely be inlined in ${file}`);
   const hash = createHash("sha256").update(body).digest("hex").slice(0, 24);
-  const url = `${bundlePrefix}${hash}.js`;
-  bundles.set(url, body);
+  bundles.add(hash);
+  const { src: _src, async: _async, crossorigin: _crossorigin, ...inlineAttributes } = bootstrap.attribs;
   const edits = [
     ...scripts.map(node => replaceNode(node, node === bootstrap
-      ? `<script${attributes({ ...bootstrap.attribs, src: url })}></script>` : "")),
-    ...preloads.map(node => replaceNode(node, node === preload
-      ? `<link${attributes({ ...preload.attribs, href: url, fetchpriority: "high" })}/>` : "")),
+      ? `<script${attributes({ ...inlineAttributes, "data-static-bootstrap": hash })}>${body}</script>` : "")),
+    ...preloads.map(node => replaceNode(node, "")),
   ].sort((a, b) => b.start - a.start);
   let packed = html;
   for (const edit of edits) packed = packed.slice(0, edit.start) + edit.text + packed.slice(edit.end);
@@ -107,15 +109,13 @@ for await (const file of htmlFiles(output)) {
 }
 
 // Validate every document before writing; a changed Next output format fails the build.
-await mkdir(resolve(output, `.${bundlePrefix}`), { recursive: true });
-for (const [url, body] of bundles) await writeFile(resolve(output, `.${url}`), body);
 for (const document of documents) await writeFile(document.file, document.html);
 console.log(JSON.stringify({
   staticScriptPacking: {
     documents: documents.length,
     bundles: bundles.size,
     before: documents.reduce((sum, document) => sum + document.scripts, 0),
-    after: documents.length,
+    externalInitialScriptsAfter: 0,
     originalChunksRetained: true,
   },
 }));

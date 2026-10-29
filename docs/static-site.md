@@ -28,12 +28,12 @@ pnpm preview --port 3100
 
 ## 首次加载
 
-- 页头复用既有的 180px `apple-icon.png`（26 KB），不再预加载 2.3 MB 原图；原图文件保留供既有公开链接访问。
+- 页头复用既有的180px `apple-icon.png`（26KB），通过仅限此URL依赖的webpack规则生成data URI，SSR与客户端一致，消除头像请求；原PNG字节不变，原图文件保留供既有公开链接访问。
 - 帖子 Markdown 在构建时渲染，客户端只接收已渲染内容并管理展开状态。列表到阅读页的客户端提示只传标题、slug 和日期；静态快照没有动态正文几何布局，加载态继续使用原段落骨架，不引入旧 API 的布局校验依赖。
 - 文章链接使用 Next 的可见区域预取，提前读取公开静态 RSC 与共享阅读脚本。快速点击或预取未完成时仍走普通导航/加载反馈；不会预取完整媒体或第三方社交页面。预取会增加少量可能未被阅读的文章数据传输，以换取第一次点击响应。Next 15.5.27 的网络失败回退有静态URL错误，已用pnpm最小依赖补丁修复；原因、验收与移除条件见ADR-0019。
 - 固定 Next 15 版本启用 `experimental.inlineCss`，把本站单一小样式表内联到静态 HTML，消除首屏 CSS 请求往返。该选项仍属框架实验功能；代价是 HTML 增大、初始 RSC 重复样式及整页导航不能单独复用 CSS 缓存。客户端导航、深色/窄屏样式与首屏性能需在每次升级 Next 后重新验收；出现回归时删除该选项、重新构建发布即可回退。
-- `pnpm build`在Next静态导出后，将每页已有的初始async脚本合成一个内容寻址文件，减少请求排队；不延后执行，不改正文、RSC和原始chunk。普通SPA导航仍由Next管理。整页跨不同模板会重复传输一部分公共框架，这是首次加载与HTTP缓存粒度的取舍。格式约束、实际故障与回退见[ADR-0020](adr/0020-static-script-packing.md)。
-- 实验及现场验收证据：`artifacts/static-performance-20261029/`。本地受控耗时不等于公网 SLA；公网 DNS/TLS、接入网络和 GitHub Pages 链路耗时需另行测量。
+- `pnpm build`在Next静态导出后运行`scripts/inline-static-scripts.mjs`，将每页已有初始脚本放入原bootstrap位置的内联script，消除首页剩余的脚本网络往返；不延后初始化，不改正文、RSC和原始chunk，普通SPA导航仍由Next管理。首页HTML约249KB gzip，内联会增加HTML与解析成本，并失去跨页面复用框架HTTP缓存的粒度。格式约束、实际故障、CSP前提与回退见[ADR-0020](adr/0020-static-script-packing.md)。
+- 实验及现场验收证据：`artifacts/static-performance-20261029/`与`artifacts/static-load-under-1s-20261029/`。本地受控耗时不等于公网SLA；公网DNS/TLS、接入网络和GitHub Pages链路耗时需另行测量。
 
 ## 运行边界
 
