@@ -1,0 +1,23 @@
+{
+  "idsUnchanged": true,
+  "changedContents": [
+    [
+      "vibe-coder-computer-networks",
+      [
+        "tags"
+      ]
+    ]
+  ],
+  "targetTags": [
+    [
+      {
+        "slug": "vibe-coder-crash-course",
+        "name": "Vibe Coder速成科普"
+      }
+    ]
+  ],
+  "otherRootChanges": [
+    "exportedAt"
+  ],
+  "assetsUnchanged": true
+}

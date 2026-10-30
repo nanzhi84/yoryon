@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "exportedAt": "2026-10-30T02:22:23.630Z",
+  "exportedAt": "2026-10-30T02:58:14.619Z",
   "contents": [
     {
       "id": "f6f180aa-35e8-4acb-a71d-a190a0e75c66",
@@ -18,7 +18,12 @@
       "isPinned": false,
       "showInHome": true,
       "coverMediaId": null,
-      "tags": [],
+      "tags": [
+        {
+          "slug": "vibe-coder-crash-course",
+          "name": "Vibe Coder速成科普"
+        }
+      ],
       "media": [
         {
           "mediaId": "b5d8114e-e191-47ee-9d3e-de2c1ee1beb3",

@@ -20,6 +20,8 @@ pnpm preview --port 3100
 
 ## 更新内容快照
 
+「Vibe Coder速成科普」系列统一使用标签 slug `vibe-coder-crash-course`，显示名称为「Vibe Coder速成科普」。同步或重新发布系列文章时，发布源 frontmatter 的 `tags` 应包含该 slug，并保留文章已有标签；系列入口为 `/tags/vibe-coder-crash-course/`。
+
 执行 `pnpm static:export`。它直接只读连接内容数据库，不依赖阿里云服务器。凭据默认从本机受保护目录 `~/.config/yoryon-production/` 的 `secrets.json`（`database_api_url`）和 `oss-credentials.json`（只读API身份）读取；也可用 `YORYON_STATIC_CONFIG_DIR` 指定同样结构的受保护目录。不要把这些文件复制到仓库或公开产物中。
 
 导出仅读取已发布内容；检查付费预览版本，过滤不允许公开的媒体。媒体下载最多3路并发、每个请求60秒超时、最多2次尝试，核对原始SHA256和尺寸后才提交。完整新内容先写入忽略的暂存目录，再替换导出工具管理的目录，移除不再使用的引用和媒体；失败时保留上一份完整快照。不要并行执行导出和构建。异常退出留下 `.local/static-export.lock` 时，确认没有导出进程后再删除该锁。
