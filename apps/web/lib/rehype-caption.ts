@@ -23,9 +23,13 @@ export function rehypeCaption() {
         const meaningful = node.children?.filter(child => child.type !== "text" || !!child.value?.trim()) ?? [];
         const first = meaningful[0];
         const labelled = first?.tagName === "strong" && /^(?:(?:代码|图|列表)\s*\d+|卡片组)$/.test(textOf(first).trim());
-        const imageCaption = meaningful.length === 1 && first?.tagName === "em" && previous && hasImage(previous) && /^图\s*\d+\s*[:：]/.test(textOf(node));
+        // Only attach numbered captions to an image-only block, not ordinary prose mentioning a figure.
+        const imageCaption = previous?.tagName === "p" && hasImage(previous) && !textOf(previous).trim() && /^图\s*\d+(?:\s|[:：])/.test(textOf(node).trim());
         if (labelled || imageCaption) {
           node.properties = { ...node.properties, className: ["editorial-caption"] };
+        }
+        if (imageCaption && previous) {
+          previous.properties = { ...previous.properties, className: ["captioned-image"] };
         }
       }
       previous = node;

@@ -112,6 +112,9 @@ body {
 .prose-yoryon .editorial-caption { font-family: var(--font-editorial-sans); font-size: 13px; line-height: 1.55; font-weight: 400; font-style: normal; color: var(--reading-muted, var(--muted-foreground)); margin-top: 12px; }
 .prose-yoryon .editorial-caption :is(strong,b) { color: var(--reading-fg, var(--foreground)); font-weight: 600; }
 .prose-yoryon .editorial-caption em { font-style: normal; }
+.prose-yoryon .captioned-image { margin-bottom: 0; }
+.prose-yoryon .captioned-image img { margin-bottom: 0; }
+.prose-yoryon .captioned-image + .editorial-caption { margin-top: 6px; }
 .prose-yoryon .not-prose { font-family: var(--font-sans); }
 .prose-yoryon pre { border-radius: 4px; font-size: 13px; line-height: 1.6; }
 /* Keypoints accept a sentence or list; only ordered lists get numbered badges. */
