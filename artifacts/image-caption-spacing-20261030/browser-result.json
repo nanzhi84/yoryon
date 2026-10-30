@@ -1,0 +1,128 @@
+[
+  {
+    "name": "desktop",
+    "captions": [
+      {
+        "text": "图 1　IP、端口与 DNS 知识结构：左侧是找到机器和进程的 IP、网卡、端口与监听，右侧是把域名翻译成 IP 的 DNS 体系",
+        "font": "13px",
+        "color": "rgb(107, 104, 102)",
+        "gap": 6,
+        "loaded": true
+      },
+      {
+        "text": "图 2　传输、代理、证书与网络边界知识结构：左侧是数据如何传输、转发、加密和在容器间流动，右侧是安全组、浏览器跨域与 SSH 隧道这几道边界",
+        "font": "13px",
+        "color": "rgb(107, 104, 102)",
+        "gap": 6,
+        "loaded": true
+      },
+      {
+        "text": "图 3　HTTP 报文、登录状态与传输提速知识结构：左侧是 HTTP 请求的组成、状态码和登录状态的保持，右侧是 Webhook 回调、大文件上传、压缩与 CDN 缓存这几种传输优化",
+        "font": "13px",
+        "color": "rgb(107, 104, 102)",
+        "gap": 6,
+        "loaded": true
+      },
+      {
+        "text": "图 4　实时通信与爬虫攻防知识结构：左侧是 SSE、WebSocket、WebRTC、HTTP/3 和 MQTT 五种实时传输方式，右侧是请求头、TLS 指纹和 IP 信誉三层识别与伪装",
+        "font": "13px",
+        "color": "rgb(107, 104, 102)",
+        "gap": 6,
+        "loaded": true
+      },
+      {
+        "text": "图 5　发信通道、DNS 认证与域名信誉知识结构：左侧是邮件怎样发出、投递和被客户端收取，右侧是 SPF、DKIM、DMARC 三道认证以及点击追踪和退信保护",
+        "font": "13px",
+        "color": "rgb(107, 104, 102)",
+        "gap": 6,
+        "loaded": true
+      }
+    ],
+    "overflow": false,
+    "imageDialog": "open and Escape close PASS"
+  },
+  {
+    "name": "mobile",
+    "captions": [
+      {
+        "text": "图 1　IP、端口与 DNS 知识结构：左侧是找到机器和进程的 IP、网卡、端口与监听，右侧是把域名翻译成 IP 的 DNS 体系",
+        "font": "13px",
+        "color": "rgb(107, 104, 102)",
+        "gap": 6,
+        "loaded": true
+      },
+      {
+        "text": "图 2　传输、代理、证书与网络边界知识结构：左侧是数据如何传输、转发、加密和在容器间流动，右侧是安全组、浏览器跨域与 SSH 隧道这几道边界",
+        "font": "13px",
+        "color": "rgb(107, 104, 102)",
+        "gap": 6,
+        "loaded": true
+      },
+      {
+        "text": "图 3　HTTP 报文、登录状态与传输提速知识结构：左侧是 HTTP 请求的组成、状态码和登录状态的保持，右侧是 Webhook 回调、大文件上传、压缩与 CDN 缓存这几种传输优化",
+        "font": "13px",
+        "color": "rgb(107, 104, 102)",
+        "gap": 6,
+        "loaded": true
+      },
+      {
+        "text": "图 4　实时通信与爬虫攻防知识结构：左侧是 SSE、WebSocket、WebRTC、HTTP/3 和 MQTT 五种实时传输方式，右侧是请求头、TLS 指纹和 IP 信誉三层识别与伪装",
+        "font": "13px",
+        "color": "rgb(107, 104, 102)",
+        "gap": 6,
+        "loaded": true
+      },
+      {
+        "text": "图 5　发信通道、DNS 认证与域名信誉知识结构：左侧是邮件怎样发出、投递和被客户端收取，右侧是 SPF、DKIM、DMARC 三道认证以及点击追踪和退信保护",
+        "font": "13px",
+        "color": "rgb(107, 104, 102)",
+        "gap": 6,
+        "loaded": true
+      }
+    ],
+    "overflow": false,
+    "imageDialog": "open and Escape close PASS"
+  },
+  {
+    "name": "dark",
+    "captions": [
+      {
+        "text": "图 1　IP、端口与 DNS 知识结构：左侧是找到机器和进程的 IP、网卡、端口与监听，右侧是把域名翻译成 IP 的 DNS 体系",
+        "font": "13px",
+        "color": "rgb(156, 151, 142)",
+        "gap": 6,
+        "loaded": true
+      },
+      {
+        "text": "图 2　传输、代理、证书与网络边界知识结构：左侧是数据如何传输、转发、加密和在容器间流动，右侧是安全组、浏览器跨域与 SSH 隧道这几道边界",
+        "font": "13px",
+        "color": "rgb(156, 151, 142)",
+        "gap": 6,
+        "loaded": true
+      },
+      {
+        "text": "图 3　HTTP 报文、登录状态与传输提速知识结构：左侧是 HTTP 请求的组成、状态码和登录状态的保持，右侧是 Webhook 回调、大文件上传、压缩与 CDN 缓存这几种传输优化",
+        "font": "13px",
+        "color": "rgb(156, 151, 142)",
+        "gap": 6,
+        "loaded": true
+      },
+      {
+        "text": "图 4　实时通信与爬虫攻防知识结构：左侧是 SSE、WebSocket、WebRTC、HTTP/3 和 MQTT 五种实时传输方式，右侧是请求头、TLS 指纹和 IP 信誉三层识别与伪装",
+        "font": "13px",
+        "color": "rgb(156, 151, 142)",
+        "gap": 6,
+        "loaded": true
+      },
+      {
+        "text": "图 5　发信通道、DNS 认证与域名信誉知识结构：左侧是邮件怎样发出、投递和被客户端收取，右侧是 SPF、DKIM、DMARC 三道认证以及点击追踪和退信保护",
+        "font": "13px",
+        "color": "rgb(156, 151, 142)",
+        "gap": 6,
+        "loaded": true
+      }
+    ],
+    "overflow": false,
+    "imageDialog": "open and Escape close PASS"
+  }
+]
