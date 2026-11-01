@@ -3,6 +3,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { Listing } from "@/lib/listing";
 import { cachedListing, loadListing } from "@/lib/listing-client";
 import { ListingItems } from "./listing-items";
+import { ListLoading } from "./list-loading";
 export function ListingSegment({ url, page, expected, initial, height, onHeight, lastId }: {
   url: string; page: number; expected: Listing; initial?: Listing | undefined;
   height: number; onHeight: (page: number, height: number) => void; lastId?: string | undefined;
@@ -53,7 +54,7 @@ export function ListingSegment({ url, page, expected, initial, height, onHeight,
   }, [near, url, page, expected, initial, retry]);
   return <div ref={host} data-list-block={page} style={data ? undefined : { minHeight: measured.current || height }}>
     {data ? <ListingItems chunk={data} lastId={lastId} /> : near && <div className="flex min-h-16 items-center justify-center gap-3 py-4 text-sm text-muted-foreground">
-      {error ? <><span role="alert">{error}</span><button type="button" className="min-h-11 underline" onClick={() => setRetry(n => n + 1)}>重试</button></> : <span role="status">正在加载…</span>}
+      {error ? <><span role="alert">{error}</span><button type="button" className="min-h-11 underline" onClick={() => setRetry(n => n + 1)}>重试</button></> : <ListLoading />}
     </div>}
   </div>;
 }

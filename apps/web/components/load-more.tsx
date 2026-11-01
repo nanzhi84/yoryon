@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { ListLoading } from "./list-loading";
 export function LoadMore({ more, loading, error, onLoad, onPrefetch, fallback }: {
   more: boolean; loading: boolean; error: string | null;
   onLoad: (retry: boolean) => void; onPrefetch?: (() => void) | undefined; fallback?: string | undefined;
@@ -21,7 +22,7 @@ export function LoadMore({ more, loading, error, onLoad, onPrefetch, fallback }:
   }, [more, loading, error, onLoad, onPrefetch]);
   if (!more) return null;
   return <div ref={host} className="flex min-h-16 items-center justify-center gap-3 py-4 text-sm text-muted-foreground">
-    {loading && <span role="status">正在加载…</span>}
+    {loading && <ListLoading />}
     {error ? <><span role="alert">{error}</span><button type="button" className="min-h-11 text-primary underline" onClick={() => onLoad(true)}>重试</button>
       {fallback && <a href={fallback} className="text-primary underline">直接打开</a>}</>
       : manual && !loading && <button type="button" className="min-h-11 text-primary underline" onClick={() => onLoad(false)}>加载更多</button>}
