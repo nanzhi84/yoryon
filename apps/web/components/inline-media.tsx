@@ -1,5 +1,4 @@
 "use client";
-import { mediaUrl } from "@/lib/media";
 import { useEffect, useId, useRef, useState } from "react";
 import { VideoPlayerLazy } from "./media-player";
 import { Play } from "lucide-react";
@@ -16,26 +15,26 @@ function duration(seconds: number | null | undefined) {
 
 /** 控件无卡片底色；仅视口内视频读取真实首帧，播放器仍在点击后才挂载。 */
 export function InlineMedia({
-  mediaId,
+  src,
   kind,
   durationSec,
 }: {
-  mediaId: string;
+  src: string;
   kind: "audio" | "video";
   durationSec?: number | null | undefined;
 }) {
   return kind === "audio" ? (
-    <InlineAudio mediaId={mediaId} durationSec={durationSec} />
+    <InlineAudio src={src} durationSec={durationSec} />
   ) : (
-    <InlineVideo mediaId={mediaId} durationSec={durationSec} />
+    <InlineVideo src={src} durationSec={durationSec} />
   );
 }
 
 function InlineVideo({
-  mediaId,
+  src,
   durationSec,
 }: {
-  mediaId: string;
+  src: string;
   durationSec?: number | null | undefined;
 }) {
   const [active, setActive] = useState(false);
@@ -80,7 +79,7 @@ function InlineVideo({
     <div ref={host} className="not-prose my-2">
       {active ? (
         <>
-          <VideoPlayerLazy mediaId={mediaId} />
+          <VideoPlayerLazy src={src} />
           <button
             type="button"
             onClick={() => setActive(false)}
@@ -99,7 +98,7 @@ function InlineVideo({
           {visible && !previewFailed && (
             <video
               ref={preview}
-              src={mediaUrl(mediaId)}
+              src={src}
               muted
               playsInline
               preload="metadata"

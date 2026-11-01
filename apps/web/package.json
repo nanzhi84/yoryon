@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev -p 3000",
-    "build": "next build && node ../../scripts/inline-static-scripts.mjs",
+    "dev": "tsx ../../scripts/prepare-static-data.ts && next dev -p 3000",
+    "build": "tsx ../../scripts/prepare-static-data.ts && next build",
     "start": "next start -p 3000",
     "typecheck": "tsc --noEmit"
   },

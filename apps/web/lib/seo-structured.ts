@@ -20,8 +20,8 @@ export function contentStructuredData(content: ContentDetail) {
   };
 }
 
-export function collectionStructuredData(collection: CollectionDetail) {
-  const url = siteUrl(`/c/${collection.slug}`);
+export function collectionStructuredData(collection: CollectionDetail, items = collection.items, positions = items.map((_, i) => i + 1), path = `/c/${collection.slug}`) {
+  const url = siteUrl(path);
   return {
     "@context": "https://schema.org", "@type": "CollectionPage", "@id": url,
     url, name: collection.title, description: seoDescription(collection.description) || collection.title,
@@ -29,8 +29,8 @@ export function collectionStructuredData(collection: CollectionDetail) {
     // Directory entries are public metadata. Rights and chapter bodies are not serialized.
     mainEntity: {
       "@type": "ItemList", numberOfItems: collection.items.length,
-      itemListElement: collection.items.map((item, index) => ({
-        "@type": "ListItem", position: index + 1,
+      itemListElement: items.map((item, index) => ({
+        "@type": "ListItem", position: positions[index],
         item: { "@type": "Article", "@id": `${siteUrl(`/p/${item.slug}`)}#article`,
           url: siteUrl(`/p/${item.slug}`), name: item.title,
           isAccessibleForFree: item.visibility === "public" },

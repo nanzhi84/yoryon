@@ -1,6 +1,7 @@
 import { rehypePostSpacing } from "@/lib/rehype-post-spacing";
 import { rehypeSearchText } from "@yoryon/config/search-text";
 import { mediaUrl } from "@/lib/media";
+import { staticDataRoot } from "@/lib/static-site";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkDirective from "remark-directive";
 import remarkCjkFriendly from "remark-cjk-friendly/parseOnly";
@@ -117,7 +118,7 @@ export function MarkdownSurface({
               if (!id) return null;
               return (
                 <InlineMedia
-                  mediaId={id}
+                  src={mediaUrl(id)}
                   kind="video"
                   durationSec={mediaSizes?.[id]?.durationSec}
                 />
@@ -128,14 +129,14 @@ export function MarkdownSurface({
               if (!id) return null;
               return (
                 <InlineMedia
-                  mediaId={id}
+                  src={mediaUrl(id)}
                   kind="audio"
                   durationSec={mediaSizes?.[id]?.durationSec}
                 />
               );
             },
             "work-reference": ({ id }: { id?: string }) =>
-              id && /^[0-9a-f-]{36}$/i.test(id) ? <WorkReference id={id} /> : null,
+              id && /^[0-9a-f-]{36}$/i.test(id) ? <WorkReference id={id} dataRoot={staticDataRoot()} /> : null,
             a: ({ href, children, ...props }) => (
               <a
                 href={href}

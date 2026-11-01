@@ -34,3 +34,5 @@ artifacts/**/*.tar.gz
 
 # Generated static build output
 apps/web/out/
+
+apps/web/public/data/static/

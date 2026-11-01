@@ -3,6 +3,11 @@ import { bundledLanguages, getSingletonHighlighter } from "shiki";
 import type { CSSProperties } from "react";
 import { MarkdownSurface } from "./markdown-surface";
 import type { Components } from "react-markdown";
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import { visit } from "unist-util-visit";
+
+const parser = unified().use(remarkParse);
 export async function MarkdownBody({
   markdown,
   className,
@@ -22,13 +27,16 @@ export async function MarkdownBody({
   preserveBlankLines?: boolean;
 }) {
   // Load only supported fenced languages; the shared server highlighter reuses grammars.
-  const languages = [...markdown.matchAll(/^\s*(`{3,}|~{3,})([\w+-]+)/gm)]
-    .map((match) => match[2]!)
-    .filter((language) => language in bundledLanguages);
-  const highlighter = languages.length
+  // Fences also occur inside quotes/lists; source-line regexes miss their languages.
+  const languages = new Set<keyof typeof bundledLanguages>();
+  visit(parser.parse(markdown), "code", (node) => {
+    if (node.lang && node.lang in bundledLanguages)
+      languages.add(node.lang as keyof typeof bundledLanguages);
+  });
+  const highlighter = languages.size
     ? await getSingletonHighlighter({
         themes: ["github-light", "github-dark"],
-        langs: languages as (keyof typeof bundledLanguages)[],
+        langs: [...languages],
       })
     : undefined;
   return (

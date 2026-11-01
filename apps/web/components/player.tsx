@@ -1,5 +1,4 @@
 "use client";
-import { mediaUrl } from "@/lib/media";
 
 /**
  * 静态媒体播放器（ADR-0005 §8.4）。
@@ -28,7 +27,7 @@ interface PlayerState {
   failed: boolean;
 }
 
-function useRefreshableSource(mediaId: string) {
+function useRefreshableSource(src: string) {
   const [state, setState] = useState<PlayerState>({ retry: 0, failed: false });
   const mediaRef = useRef<HTMLVideoElement | HTMLAudioElement | null>(null);
   /** 已用自动重试次数（手动重试后重置） */
@@ -127,7 +126,6 @@ function useRefreshableSource(mediaId: string) {
   }, []);
 
   // 地址保持为静态资源路径，重试通过重建媒体元素完成
-  const src = mediaUrl(mediaId);
   return { src, attachMedia, manualRetry, retry: state.retry, failed: state.failed };
 }
 
@@ -152,8 +150,8 @@ function FailedPanel({ onRetry, compact }: { onRetry: () => void; compact?: bool
   );
 }
 
-export function VideoPlayerView({ mediaId }: { mediaId: string }) {
-  const { src, attachMedia, manualRetry, retry, failed } = useRefreshableSource(mediaId);
+export function VideoPlayerView({ src }: { src: string }) {
+  const { attachMedia, manualRetry, retry, failed } = useRefreshableSource(src);
   if (failed) return <FailedPanel onRetry={manualRetry} />;
   return (
     <VideoPlayer>

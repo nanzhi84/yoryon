@@ -68,7 +68,7 @@ export function ContentEntry({
 export function CollectionEntry({ item }: { item: CollectionListItem }) {
   return (
     <article className="group py-5">
-      <Link prefetch={false} href={`/c/${item.slug}`} className="block">
+      <Link prefetch={true} href={`/c/${item.slug}`} className="block">
         <h2 className="text-lg font-medium leading-[26px] group-hover:underline underline-offset-4">
           {item.title}
         </h2>

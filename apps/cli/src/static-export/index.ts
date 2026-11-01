@@ -22,10 +22,23 @@ const config =
   process.env.YORYON_STATIC_CONFIG_DIR ?? resolve(homedir(), ".config/yoryon-production");
 const iso = (date: Date | null) => date?.toISOString() ?? null;
 
+function groupBy<T>(rows: T[], key: (row: T) => string) {
+  const groups = new Map<string, T[]>();
+  for (const row of rows) {
+    const id = key(row);
+    if (!groups.has(id)) groups.set(id, []);
+    groups.get(id)!.push(row);
+  }
+  return groups;
+}
+
 async function exportSite(stage: string) {
   const source = await readSource(resolve(config, "secrets.json"));
+  const mediaByContent = groupBy(source.media, m => m.content_id);
+  const tagsByContent = groupBy(source.tags, t => t.content_id);
+  const itemsByCollection = groupBy(source.items, i => i.collection_id);
   const contents: StaticContent[] = source.contents.map((c) => {
-    const allowed = source.media.filter((m) => m.content_id === c.id);
+    const allowed = mediaByContent.get(c.id) ?? [];
     const body =
       c.visibility === "public"
         ? c.body
@@ -48,8 +61,7 @@ async function exportSite(stage: string) {
       isPinned: c.is_pinned,
       showInHome: c.show_in_home,
       coverMediaId: c.cover_media_id,
-      tags: source.tags
-        .filter((t) => t.content_id === c.id)
+      tags: (tagsByContent.get(c.id) ?? [])
         .map((t) => ({ slug: t.slug, name: t.name })),
       media: allowed.map((m) => ({
         mediaId: m.media_id,
@@ -75,8 +87,7 @@ async function exportSite(stage: string) {
       coverMediaId: c.cover_media_id,
       updatedAt: iso(c.updated_at)!,
       isPinned: c.is_pinned,
-      items: source.items
-        .filter((i) => i.collection_id === c.id)
+      items: (itemsByCollection.get(c.id) ?? [])
         .map((i) => {
           const item = byId.get(i.content_id)!;
           return {

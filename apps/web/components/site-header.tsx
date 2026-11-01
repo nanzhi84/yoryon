@@ -12,11 +12,16 @@ const avatar = new URL("./header-avatar.png", import.meta.url).href;
 
 export function SiteHeader() {
   const pathname = usePathname().replace(/\/$/, "") || "/";
+  const homeActive = pathname === "/" || pathname.startsWith("/page/");
+  const postsActive = pathname.startsWith("/posts");
   const collectionActive = pathname === "/c" || pathname.startsWith("/c/");
   const exploreActive =
     pathname === "/explore" || pathname === "/tags" || pathname.startsWith("/tags/");
   const tabClass =
-    "relative flex min-h-11 min-w-11 items-center text-base transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary";
+    "flex min-h-11 min-w-11 items-center text-base transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary";
+  // The underline follows the label; the surrounding link keeps its 44px hit target.
+  const tabLabelClass =
+    "relative flex self-stretch items-center after:absolute after:inset-x-0 after:bottom-0 after:h-0.5";
 
   return (
     <header className="border-b border-border pt-5">
@@ -57,26 +62,26 @@ export function SiteHeader() {
           <Link
             prefetch={false}
             href="/"
-            aria-current={pathname === "/" ? "page" : undefined}
-            className={`${tabClass} ${pathname === "/" ? "font-semibold text-foreground after:bg-primary" : "text-muted-foreground hover:text-foreground"}`}
+            aria-current={homeActive ? "page" : undefined}
+            className={`${tabClass} ${homeActive ? "font-semibold text-foreground" : "text-muted-foreground hover:text-foreground"}`}
           >
-            首页
+            <span className={`${tabLabelClass} ${homeActive ? "after:bg-primary" : ""}`}>首页</span>
           </Link>
           <Link
             prefetch={false}
             href="/posts"
-            aria-current={pathname === "/posts" ? "page" : undefined}
-            className={`${tabClass} ${pathname === "/posts" ? "font-semibold text-foreground after:bg-primary" : "text-muted-foreground hover:text-foreground"}`}
+            aria-current={postsActive ? "page" : undefined}
+            className={`${tabClass} ${postsActive ? "font-semibold text-foreground" : "text-muted-foreground hover:text-foreground"}`}
           >
-            帖子
+            <span className={`${tabLabelClass} ${postsActive ? "after:bg-primary" : ""}`}>帖子</span>
           </Link>
           <Link
-            prefetch={false}
+            prefetch={true}
             href="/c"
             aria-current={collectionActive ? (pathname === "/c" ? "page" : "location") : undefined}
-            className={`${tabClass} ${collectionActive ? "font-semibold text-foreground after:bg-primary" : "text-muted-foreground hover:text-foreground"}`}
+            className={`${tabClass} ${collectionActive ? "font-semibold text-foreground" : "text-muted-foreground hover:text-foreground"}`}
           >
-            合集
+            <span className={`${tabLabelClass} ${collectionActive ? "after:bg-primary" : ""}`}>合集</span>
           </Link>
         </div>
         <HeaderMenu

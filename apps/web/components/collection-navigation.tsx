@@ -26,7 +26,7 @@ export function CollectionNavigation({
           <div className="flex items-baseline justify-between gap-3">
             <h2 className="text-[15px] font-semibold leading-6">继续阅读</h2>
             <Link
-              prefetch={false}
+              prefetch={true}
               href={`/c/${collection.slug}`}
               className="inline-flex min-w-0 items-center gap-1 text-xs leading-[18px] text-primary hover:underline underline-offset-4"
             >
@@ -37,7 +37,7 @@ export function CollectionNavigation({
           <div className="mt-3 grid grid-cols-2 gap-3">
             {collection.previous ? (
               <Link
-                prefetch={false}
+                prefetch={true}
                 href={href(collection.previous.slug, collection.slug)}
                 rel="prev"
                 className={linkClass}
@@ -58,7 +58,7 @@ export function CollectionNavigation({
             )}
             {collection.next ? (
               <Link
-                prefetch={false}
+                prefetch={true}
                 href={href(collection.next.slug, collection.slug)}
                 rel="next"
                 className={linkClass}

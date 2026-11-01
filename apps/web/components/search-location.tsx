@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "./ui/button";
+import { literalPattern } from "@/lib/search/format";
 interface Hit {
   first: Text;
   last: Text;
@@ -22,7 +23,6 @@ export function SearchLocation({ slug }: { slug: string }) {
     if (!body) return;
     const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT);
     const found: Hit[] = [];
-    const q = query.toLocaleLowerCase();
     const segments: { node: Text; start: number; end: number }[] = [];
     let text = "";
     while (walker.nextNode()) {
@@ -30,21 +30,19 @@ export function SearchLocation({ slug }: { slug: string }) {
       segments.push({ node, start: text.length, end: text.length + node.length });
       text += node.data;
     }
-    const normalized = text.toLocaleLowerCase();
-    for (let from = 0; found.length < 500;) {
-      const start = normalized.indexOf(q, from);
-      if (start < 0) break;
-      const end = start + query.length;
-      const first = segments.find((s) => s.end > start);
-      const last = segments.find((s) => s.end >= end);
-      if (first && last)
-        found.push({
-          first: first.node,
-          last: last.node,
-          start: start - first.start,
-          end: end - last.start,
-        });
-      from = start + Math.max(1, query.length);
+    function segmentAt(offset: number) {
+      let low = 0, high = segments.length;
+      while (low < high) {
+        const middle = (low + high) >>> 1;
+        if (segments[middle]!.end <= offset) low = middle + 1; else high = middle;
+      }
+      return segments[low];
+    }
+    for (const match of text.matchAll(literalPattern(query, true))) {
+      const start = match.index, end = start + match[0].length;
+      const first = segmentAt(start), last = segmentAt(end - 1);
+      if (first && last) found.push({ first: first.node, last: last.node, start: start - first.start, end: end - last.start });
+      if (found.length >= 500) break;
     }
     setHits(found);
     setIndex(0);

@@ -5,14 +5,14 @@ export const collectionPositionKey = (collectionId: string) => `yoryon:collectio
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 /** Optional positioning data is never a URL or an authorization credential. */
-export function readCollectionPosition(collectionId: string, chapterIds: Set<string>): Position | null {
+export function readCollectionPosition(collectionId: string): Position | null {
   try {
     const raw = localStorage.getItem(collectionPositionKey(collectionId));
     if (!raw) return null;
     const value: unknown = JSON.parse(raw);
     if (!value || typeof value !== "object" || !("version" in value) || value.version !== 1 ||
       !("chapterId" in value) || typeof value.chapterId !== "string" || !uuid.test(value.chapterId) ||
-      !chapterIds.has(value.chapterId) || !("updatedAt" in value) || typeof value.updatedAt !== "number" ||
+      !("updatedAt" in value) || typeof value.updatedAt !== "number" ||
       !Number.isFinite(value.updatedAt) || value.updatedAt <= 0) {
       localStorage.removeItem(collectionPositionKey(collectionId));
       return null;

@@ -1,6 +1,4 @@
-import paths from "../../../content/media.json";
+import { getCatalog } from "./static-site";
 
-/** Local exported assets are the only media source; no signing or origin fallback. */
-export function mediaUrl(id: string) {
-  return (paths as Record<string, string>)[id] ?? "";
-}
+/** Build-time lookup; client components receive only their own resolved media URL. */
+export function mediaUrl(id: string) { return getCatalog().mediaById.get(id)?.path ?? ""; }

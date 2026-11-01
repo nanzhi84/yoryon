@@ -1,5 +1,4 @@
 "use client";
-import { mediaUrl } from "@/lib/media";
 import { useEffect, useId, useRef, useState } from "react";
 import { Loader2, Pause, Play } from "lucide-react";
 
@@ -13,10 +12,10 @@ function time(value: number) {
 
 /** 控件与audio元素始终不替换，src和play在同一用户手势内设置；只加载正在使用的音频。 */
 export function InlineAudio({
-  mediaId,
+  src,
   durationSec,
 }: {
-  mediaId: string;
+  src: string;
   durationSec?: number | null | undefined;
 }) {
   const id = useId();
@@ -53,7 +52,7 @@ export function InlineAudio({
     setError(false);
     setLoading(true);
     if (!element.getAttribute("src") || reload) {
-      element.src = mediaUrl(mediaId);
+      element.src = src;
       element.load();
     }
     if (deadline.current) clearTimeout(deadline.current);

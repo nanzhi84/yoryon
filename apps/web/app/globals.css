@@ -1,4 +1,8 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+/* Only UI source owns utility classes; public content and generated data must not grow the stylesheet. */
+@source "./";
+@source "../components";
+@source "../lib";
 @plugin "@tailwindcss/typography";
 
 /* 品牌控件沿用 ADR-0005；阅读背景使用参考页中性色，dark 经 class 策略。 */

@@ -46,7 +46,7 @@ export function ContentView({ initial: content }: { initial: StaticContent }) {
                   ))}
                   {content.collections.map((c) => (
                     <Link
-                      prefetch={false}
+                      prefetch={true}
                       key={c.slug}
                       href={`/c/${c.slug}`}
                       className="hover:text-foreground"

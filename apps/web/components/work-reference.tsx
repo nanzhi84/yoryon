@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { mediaUrl } from "@/lib/media";
 import { InlineMedia } from "./inline-media";
 import { MarkdownImage } from "./markdown-image";
 
@@ -14,22 +13,22 @@ interface Reference {
   description: string;
   coverMediaId: string | null;
   visibility: string;
-  media: { mediaId: string; mimeType: string; width: number | null; height: number | null } | null;
+  media: { src: string; mediaId: string; mimeType: string; width: number | null; height: number | null } | null;
 }
-export function WorkReference({ id }: { id: string }) {
+export function WorkReference({ id, dataRoot }: { id: string; dataRoot: string }) {
   const [card, setCard] = useState<Reference | null>(null);
   const [state, setState] = useState<"loading" | "ready" | "unavailable" | "error">("loading");
   const host = useRef<HTMLDivElement>(null);
   const active = useRef<AbortController | null>(null);
-  const load = useCallback(async () => {
+  const load = useCallback(async (reload = false) => {
     active.current?.abort();
     const controller = new AbortController();
     active.current = controller;
     setCard(null);
     setState("loading");
     try {
-      const response = await fetch(`/data/references/${id}.json`, {
-        cache: "force-cache",
+      const response = await fetch(`${dataRoot}/references/${id}.json`, {
+        cache: reload ? "reload" : "force-cache",
         signal: AbortSignal.any([controller.signal, AbortSignal.timeout(15_000)]),
       });
       if (response.status === 404) {
@@ -37,7 +36,13 @@ export function WorkReference({ id }: { id: string }) {
         return;
       }
       if (!response.ok) throw new Error("reference unavailable");
-      const data = (await response.json()) as Reference;
+      const raw: unknown = await response.json();
+      if (!raw || typeof raw !== "object") throw new Error("invalid reference");
+      const data = raw as Reference;
+      if (data.available !== true || typeof data.slug !== "string" || !/^[a-z0-9][a-z0-9-]*$/.test(data.slug) ||
+        !["article", "post"].includes(data.type) || !["title", "summary", "description", "visibility"].every(key => typeof (raw as Record<string, unknown>)[key] === "string") ||
+        (data.media !== null && (!data.media || typeof data.media.mediaId !== "string" || typeof data.media.mimeType !== "string" ||
+          typeof data.media.src !== "string" || !/^\/media\/[a-f0-9-]{36}\.[a-z0-9]+$/.test(data.media.src)))) throw new Error("invalid reference");
       if (!controller.signal.aborted) {
         setCard(data);
         setState("ready");
@@ -45,7 +50,7 @@ export function WorkReference({ id }: { id: string }) {
     } catch {
       if (!controller.signal.aborted) setState("error");
     }
-  }, [id]);
+  }, [id, dataRoot]);
   useEffect(() => {
     let visible = false;
     const observer = new IntersectionObserver((entries) => {
@@ -72,7 +77,7 @@ export function WorkReference({ id }: { id: string }) {
       {state === "error" && (
         <p role="alert">
           引用加载失败。
-          <button onClick={() => void load()} className="underline">
+          <button onClick={() => void load(true)} className="underline">
             重试
           </button>
         </p>
@@ -98,14 +103,14 @@ export function WorkReference({ id }: { id: string }) {
         card.media.mediaId !== card.coverMediaId &&
         (card.media.mimeType.startsWith("image/") ? (
           <MarkdownImage
-            src={mediaUrl(card.media.mediaId)}
+            src={card.media.src}
             alt="引用帖子的图片预览"
             loading="lazy"
             className="mt-3 max-h-48 rounded-lg"
           />
         ) : card.media.mimeType.startsWith("video/") || card.media.mimeType.startsWith("audio/") ? (
           <InlineMedia
-            mediaId={card.media.mediaId}
+            src={card.media.src}
             kind={card.media.mimeType.startsWith("video/") ? "video" : "audio"}
           />
         ) : null)}
