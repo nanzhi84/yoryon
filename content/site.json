@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "exportedAt": "2026-11-01T06:35:57.181Z",
+  "exportedAt": "2026-11-01T06:39:12.830Z",
   "contents": [
     {
       "id": "f545eb38-096c-4241-87e2-e9ce263f0db2",
@@ -1722,49 +1722,13 @@
   ],
   "collections": [
     {
-      "id": "b74c9070-a389-4c5a-9a44-328471960dc8",
-      "slug": "investment-thoughts",
-      "title": "投资思考",
-      "description": "",
-      "visibility": "public",
-      "coverMediaId": null,
-      "updatedAt": "2026-11-01T06:35:21.802Z",
-      "isPinned": false,
-      "items": [
-        {
-          "id": "def2910e-665d-4ba2-baa1-2efbece5acf7",
-          "slug": "pop-mart-wang-ning-interview",
-          "title": "在泡泡玛特股价跳水后，我重新看了王宁的访谈",
-          "description": "",
-          "type": "article",
-          "visibility": "public",
-          "publishedAt": "2026-03-24T16:00:00.000Z",
-          "coverMediaId": null,
-          "access": "full",
-          "sortOrder": 1
-        },
-        {
-          "id": "c88982e5-95c4-4905-aae4-3ee43cc9efe5",
-          "slug": "pop-mart-beyond-blind-boxes",
-          "title": "泡泡玛特卖的不只是盲盒",
-          "description": "",
-          "type": "article",
-          "visibility": "public",
-          "publishedAt": "2026-03-25T16:00:00.000Z",
-          "coverMediaId": null,
-          "access": "full",
-          "sortOrder": 2
-        }
-      ]
-    },
-    {
       "id": "50d46f60-2dc8-4f62-84b3-99d3bb47aae7",
       "slug": "a-life-of-confusion",
       "title": "迷茫的一生",
-      "description": "",
+      "description": "记录我的挫折、无奈和痛苦",
       "visibility": "public",
       "coverMediaId": null,
-      "updatedAt": "2026-11-01T06:20:25.782Z",
+      "updatedAt": "2026-11-01T06:38:45.472Z",
       "isPinned": false,
       "items": [
         {
@@ -1787,6 +1751,42 @@
           "type": "article",
           "visibility": "public",
           "publishedAt": "2026-10-30T16:00:00.000Z",
+          "coverMediaId": null,
+          "access": "full",
+          "sortOrder": 2
+        }
+      ]
+    },
+    {
+      "id": "b74c9070-a389-4c5a-9a44-328471960dc8",
+      "slug": "investment-thoughts",
+      "title": "投资思考",
+      "description": "记录我的一些投资决策和思考",
+      "visibility": "public",
+      "coverMediaId": null,
+      "updatedAt": "2026-11-01T06:38:35.881Z",
+      "isPinned": false,
+      "items": [
+        {
+          "id": "def2910e-665d-4ba2-baa1-2efbece5acf7",
+          "slug": "pop-mart-wang-ning-interview",
+          "title": "在泡泡玛特股价跳水后，我重新看了王宁的访谈",
+          "description": "",
+          "type": "article",
+          "visibility": "public",
+          "publishedAt": "2026-03-24T16:00:00.000Z",
+          "coverMediaId": null,
+          "access": "full",
+          "sortOrder": 1
+        },
+        {
+          "id": "c88982e5-95c4-4905-aae4-3ee43cc9efe5",
+          "slug": "pop-mart-beyond-blind-boxes",
+          "title": "泡泡玛特卖的不只是盲盒",
+          "description": "",
+          "type": "article",
+          "visibility": "public",
+          "publishedAt": "2026-03-25T16:00:00.000Z",
           "coverMediaId": null,
           "access": "full",
           "sortOrder": 2
