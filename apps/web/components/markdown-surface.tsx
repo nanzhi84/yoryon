@@ -5,8 +5,7 @@ import { staticDataRoot } from "@/lib/static-site";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkDirective from "remark-directive";
 import remarkCjkFriendly from "remark-cjk-friendly/parseOnly";
-import { visit } from "unist-util-visit";
-import type { Root } from "mdast";
+import { remarkMediaDirectives } from "@/lib/remark-media-directives";
 import { InlineMedia } from "./inline-media";
 import { WorkReference } from "./work-reference";
 import { MarkdownImage } from "./markdown-image";
@@ -15,26 +14,6 @@ import { rehypeEditorialSummary } from "@/lib/rehype-editorial-summary";
 import { rehypeCaption } from "@/lib/rehype-caption";
 import { Caption } from "./caption";
 import { rehypeHardBreaks } from "@/lib/rehype-hard-breaks";
-/** 把 leaf directive 转成自定义 HTML 元素，供 components 映射。 */
-function remarkMediaDirectives() {
-  return (tree: Root) => {
-    visit(tree, (node: any) => {
-      if (
-        node.type === "leafDirective" &&
-        (node.name === "video" || node.name === "audio" || node.name === "work")
-      ) {
-        const data = node.data || (node.data = {});
-        data.hName =
-          node.name === "work"
-            ? "work-reference"
-            : node.name === "video"
-              ? "video-player"
-              : "audio-player";
-        data.hProperties = { src: node.attributes?.src ?? "", id: node.attributes?.id ?? "" };
-      }
-    });
-  };
-}
 
 function mediaIdFromSrc(src: unknown): string | null {
   if (typeof src !== "string") return null;

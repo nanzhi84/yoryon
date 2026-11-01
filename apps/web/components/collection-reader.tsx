@@ -7,13 +7,15 @@ import { formatDate } from "@/lib/date";
 import { chapterHref } from "@/lib/collection-links";
 import { useCollectionResume, type ChapterItem } from "@/lib/collection-resume";
 import { PAGE_SIZE, pagePath } from "@/lib/pagination";
-import { Pagination } from "./pagination";
+import { InfiniteList } from "./infinite-list";
+import type { Listing } from "@/lib/listing";
 
-export function CollectionReader({ collection, items, first, page, reverse, description, lookup }: {
+export function CollectionReader({ collection, listing, source, first, page, reverse, description, lookup }: {
   collection: { id: string; slug: string; title: string; updatedAt: string; total: number };
-  items: ChapterItem[]; first: ChapterItem | null; page: number; reverse: boolean;
+  listing: Listing; source: string; first: ChapterItem | null; page: number; reverse: boolean;
   description: ReactNode; lookup: string;
 }) {
+  const items = listing.kind === "chapters" ? listing.items : [];
   const { last, failed, retry } = useCollectionResume(collection.id, lookup, items, first, collection.total);
   const start = last ?? first;
   const base = `/c/${collection.slug}`;
@@ -31,7 +33,7 @@ export function CollectionReader({ collection, items, first, page, reverse, desc
           {last ? "继续阅读" : "开始阅读"}<ArrowRight className="size-4" aria-hidden="true" />
         </Link>
         {last && <p className="text-xs text-muted-foreground">上次读到：{last.title || last.slug}
-          {lastPage !== page && <Link href={pagePath(orderedBase, lastPage)} className="ml-2 text-primary underline">查看所在目录页</Link>}
+          {lastPage !== page && <Link href={pagePath(orderedBase, lastPage)} className="ml-2 text-primary underline">定位上次阅读</Link>}
         </p>}
       </div>}
       {failed && <p role="alert" className="mt-3 text-sm text-muted-foreground">续读位置暂时无法读取。<button onClick={retry} className="ml-2 min-h-11 underline">重试</button></p>}
@@ -45,16 +47,7 @@ export function CollectionReader({ collection, items, first, page, reverse, desc
         </nav>
       </div>
       {!items.length && <p className="py-6 text-center text-sm text-muted-foreground">合集暂无已发布章节。</p>}
-      <ol className="divide-y divide-border">
-        {items.map(item => <li key={item.id} className={item.id === last?.id ? "rounded-md bg-primary/5" : ""}>
-          <Link prefetch href={chapterHref(item.slug, collection.slug)} className="flex min-h-12 items-center gap-3 py-3 text-sm hover:text-primary">
-            <span className="min-w-6 shrink-0 text-xs tabular-nums text-muted-foreground">{String(item.position).padStart(2, "0")}</span>
-            <span className="min-w-0 flex-1 break-words">{item.title || item.slug}{item.id === last?.id && <span className="ml-2 text-xs text-primary">上次阅读</span>}</span>
-            <time dateTime={item.publishedAt ?? undefined} className="shrink-0 text-xs text-muted-foreground">{formatDate(item.publishedAt)}</time>
-          </Link>
-        </li>)}
-      </ol>
-      <Pagination base={orderedBase} page={page} total={collection.total} />
+      <InfiniteList key={`${orderedBase}:${page}`} initial={listing} source={source} base={orderedBase} lastId={last?.id} />
     </section>
   </main>;
 }

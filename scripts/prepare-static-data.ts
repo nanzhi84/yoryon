@@ -2,6 +2,7 @@ import { mkdir, mkdtemp, open, rename, rm, writeFile } from "node:fs/promises";
 import { resolve, join } from "node:path";
 import { readStaticCatalog } from "../packages/config/src/static-catalog";
 import { writeSearch } from "./static-search";
+import { writeListings } from "./static-listings";
 
 const root = resolve(import.meta.dirname, "..");
 const local = resolve(root, ".local");
@@ -41,6 +42,7 @@ try {
     slug: c.slug, title: c.title, description: c.description, text: c.searchText,
     publishedAt: c.publishedAt, type: c.type,
   })));
+  await writeListings(directory, catalog);
   const destination = resolve(root, "apps/web/public/data/static");
   await mkdir(resolve(destination, ".."), { recursive: true });
   await rm(destination, { recursive: true, force: true });

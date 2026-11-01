@@ -1,16 +1,16 @@
+"use client";
 import Link from "next/link";
 import { ReaderLink } from "./reader-navigation";
 import { Badge } from "./ui/badge";
-import type { CollectionListItem, FeedContentItem, FeedItem } from "@/lib/types";
+import type { CollectionRow, FeedRow } from "@/lib/listing";
 import { formatDate } from "@/lib/date";
-import { CollectionDescription } from "./collection-description";
+import { ListingRichText } from "./listing-rich-text";
 import { PostEntry } from "./post-entry";
-import { MarkdownSurface } from "./markdown-surface";
 export function ContentEntry({
   item,
   showPinnedBadge = false,
 }: {
-  item: FeedContentItem;
+  item: FeedRow;
   showPinnedBadge?: boolean;
 }) {
   const date = (
@@ -45,12 +45,9 @@ export function ContentEntry({
         <>
           {showPinnedBadge && item.isPinned && <Badge variant="secondary">置顶</Badge>}
           <PostEntry id={item.id}>
-            <MarkdownSurface
-              preserveBlankLines
-              className="prose-feed"
-              markdown={item.post?.bodyMarkdown ?? ""}
-              mediaSizes={Object.fromEntries((item.post?.media ?? []).map((m) => [m.mediaId, m]))}
-            />
+            <div data-search-body className="prose prose-zinc dark:prose-invert prose-yoryon max-w-none prose-feed prose-post">
+              <ListingRichText nodes={item.body ?? []} />
+            </div>
           </PostEntry>
           <Link
             prefetch={false}
@@ -65,7 +62,7 @@ export function ContentEntry({
     </article>
   );
 }
-export function CollectionEntry({ item }: { item: CollectionListItem }) {
+export function CollectionEntry({ item }: { item: CollectionRow }) {
   return (
     <article className="group py-5">
       <Link prefetch={true} href={`/c/${item.slug}`} className="block">
@@ -73,10 +70,9 @@ export function CollectionEntry({ item }: { item: CollectionListItem }) {
           {item.title}
         </h2>
       </Link>
-      <CollectionDescription
-        description={item.description}
-        className="mt-2 line-clamp-3 text-muted-foreground [&_p+p]:mt-0"
-      />
+      <div className="mt-2 line-clamp-3 whitespace-pre-wrap break-words text-[15px] leading-6 text-muted-foreground [&_p+p]:mt-0">
+        <ListingRichText nodes={item.introduction} />
+      </div>
       <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs leading-[18px] text-muted-foreground">
         <span>合集 · {item.itemCount} 篇内容</span>
         <span aria-hidden="true">·</span>
@@ -90,7 +86,7 @@ export function FeedTimeline({
   items,
   showPinnedBadge = false,
 }: {
-  items: FeedItem[];
+  items: FeedRow[];
   showPinnedBadge?: boolean;
 }) {
   return (
