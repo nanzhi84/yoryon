@@ -1,7 +1,28 @@
 {
   "schemaVersion": 1,
-  "exportedAt": "2026-11-02T19:38:03.504Z",
+  "exportedAt": "2026-11-03T04:27:54.626Z",
   "contents": [
+    {
+      "id": "3a330de2-2199-4ce0-905f-cf199d077f23",
+      "revision": "9bed5085-74ed-430a-9ecb-dacf805bc9ad",
+      "type": "post",
+      "slug": "note-2026-11-03-break-even",
+      "title": "",
+      "description": "",
+      "bodyMarkdown": "今天回本了，开心开心开心\n",
+      "visibility": "public",
+      "access": "full",
+      "hasPaidContent": false,
+      "updatedAt": "2026-11-03T04:27:34.522Z",
+      "publishedAt": "2026-11-03T04:27:28.592Z",
+      "isPinned": false,
+      "showInHome": true,
+      "coverMediaId": null,
+      "tags": [],
+      "media": [],
+      "collections": [],
+      "searchText": "今天回本了，开心开心开心\n"
+    },
     {
       "id": "d98e804c-0e28-4a0e-9390-4e82abe1a710",
       "revision": "2e5bb496-2c84-49dc-a3d1-df6828c1c1cd",
