@@ -90,8 +90,21 @@ body {
   font-size: 17px;
   line-height: 1.85;
   font-weight: 400;
+  /* Visual spacing keeps authored text and literal-search offsets intact. */
+  text-autospace: normal;
   /* Long source URLs wrap; preformatted code retains its own scrolling area. */
   overflow-wrap: anywhere;
+}
+.prose-yoryon :where(pre, code, .not-prose) { text-autospace: no-autospace; }
+/* Long-form reading only: short posts retain their authored line rhythm. */
+@media (min-width: 768px) {
+  .editorial-reader .prose-yoryon:not(.prose-post) {
+    text-align: justify;
+    text-align-last: start;
+  }
+  .editorial-reader .prose-yoryon :where(h1, h2, h3, h4, h5, h6, pre, .editorial-caption, .editorial-keypoints, .not-prose) {
+    text-align: start;
+  }
 }
 .prose-yoryon :where(p):not(:where([class~="not-prose"] *)) {
   margin-top: 0;
@@ -107,10 +120,25 @@ body {
 /* Match the six-block feed preview without parsing/replacing a small post on click. */
 .post-preview > [data-search-body] > :nth-child(n+7) { display: none; }
 /* Body headings fill the reading column; balancing leaves large early gaps on phones. */
-.prose-yoryon :where(h2):not(:where([class~="not-prose"] *)) { font-size: 23px; line-height: 1.4; margin: 52px 0 18px; font-weight: 600; text-wrap: wrap; }
+.prose-yoryon :where(h2):not(:where([class~="not-prose"] *)) { font-size: 22px; line-height: 1.45; margin: 52px 0 20px; font-weight: 700; letter-spacing: .01em; text-wrap: wrap; }
 .prose-yoryon :where(h1):not(:where([class~="not-prose"] *)) { font-size: clamp(25px, 5.2vw, 31px); line-height: 1.38; font-weight: 600; }
-.prose-yoryon :where(h3):not(:where([class~="not-prose"] *)) { font-size: 19px; line-height: 1.4; margin: 36px 0 14px; font-weight: 600; text-wrap: wrap; }
-.prose-yoryon :where(strong):not(:where([class~="not-prose"] *)) { font-weight: 650; }
+.prose-yoryon :where(h3):not(:where([class~="not-prose"] *)) { font-size: 18px; line-height: 1.45; margin: 34px 0 14px; font-weight: 700; letter-spacing: .01em; text-wrap: wrap; }
+/* Chapter labels are presentation, never part of authored/search text. */
+.prose-numbered { --heading-number-color: #b5442e; }
+.dark .prose-numbered { --heading-number-color: #d29a8b; }
+.prose-numbered > :is(.heading-section, .heading-subsection)::before {
+  content: attr(data-heading-number);
+  color: var(--heading-number-color);
+  margin-inline-end: .45em;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+/* Songti jumps from Bold to Black at 800; a fine stroke adds emphasis between those faces. */
+.prose-yoryon :where(strong):not(:where([class~="not-prose"] *, .editorial-caption *)) {
+  font-weight: 750;
+  -webkit-text-stroke: 0.012em currentColor;
+}
+/* Inline code retains its own weight even when nested inside emphasis. */
+.prose-yoryon :where(code) { -webkit-text-stroke: 0; }
 .prose-yoryon :where(a):not(:where([class~="not-prose"] *)) { text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .prose-yoryon :where(blockquote):not(:where([class~="not-prose"] *)) { border-left-width: 2px; border-left-color: var(--primary); font-style: normal; font-weight: 400; }
 .prose-yoryon .editorial-caption { font-family: var(--font-editorial-sans); font-size: 13px; line-height: 1.55; font-weight: 400; font-style: normal; color: var(--reading-muted, var(--muted-foreground)); margin-top: 12px; }

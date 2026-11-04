@@ -1,4 +1,5 @@
 export * from "./markdown";
+export * from "./article-headings";
 export * from "./preview";
 export * from "./auth";
 export * from "./entitlements";

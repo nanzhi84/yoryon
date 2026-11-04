@@ -14,6 +14,7 @@ import { rehypeEditorialSummary } from "@/lib/rehype-editorial-summary";
 import { rehypeCaption } from "@/lib/rehype-caption";
 import { Caption } from "./caption";
 import { rehypeHardBreaks } from "@/lib/rehype-hard-breaks";
+import { rehypeHeadingNumbers } from "@/lib/rehype-heading-numbers";
 
 function mediaIdFromSrc(src: unknown): string | null {
   if (typeof src !== "string") return null;
@@ -27,12 +28,14 @@ export function MarkdownSurface({
   mediaSizes,
   publicImages = false,
   preserveBlankLines = false,
+  numberHeadings = false,
   components = {},
 }: {
   markdown: string;
   className?: string | undefined;
   publicImages?: boolean;
   preserveBlankLines?: boolean;
+  numberHeadings?: boolean;
   mediaSizes?:
     | Record<
         string,
@@ -52,7 +55,8 @@ export function MarkdownSurface({
       className={cn(
         "prose prose-zinc dark:prose-invert prose-yoryon max-w-none",
         className,
-        preserveBlankLines && "prose-post"
+        preserveBlankLines && "prose-post",
+        numberHeadings && "prose-numbered"
       )}
     >
       <ReactMarkdown
@@ -61,6 +65,7 @@ export function MarkdownSurface({
           rehypeHardBreaks,
           rehypeEditorialSummary,
           rehypeCaption,
+          ...(numberHeadings ? [rehypeHeadingNumbers] : []),
           ...(preserveBlankLines ? [rehypePostSpacing] : []),
         ]}
         remarkPlugins={[remarkCjkFriendly, remarkDirective, remarkMediaDirectives]}

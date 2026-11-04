@@ -14,6 +14,7 @@ export async function MarkdownBody({
   mediaSizes,
   publicImages = false,
   preserveBlankLines = false,
+  numberHeadings = false,
 }: {
   markdown: string;
   className?: string;
@@ -25,6 +26,7 @@ export async function MarkdownBody({
   /** Only the anonymous public DTO may use the gated shared byte cache. */
   publicImages?: boolean;
   preserveBlankLines?: boolean;
+  numberHeadings?: boolean;
 }) {
   // Load only supported fenced languages; the shared server highlighter reuses grammars.
   // Fences also occur inside quotes/lists; source-line regexes miss their languages.
@@ -42,6 +44,7 @@ export async function MarkdownBody({
   return (
     <MarkdownSurface
       preserveBlankLines={preserveBlankLines}
+      numberHeadings={numberHeadings}
       markdown={markdown}
       className={className}
       mediaSizes={mediaSizes}

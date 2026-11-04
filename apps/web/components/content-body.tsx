@@ -12,6 +12,7 @@ export function ContentBody({ content }: { content: ContentDetail }) {
         <div className="mt-5" data-search-content={content.slug}>
           <MarkdownBody
             preserveBlankLines={content.type === "post"}
+            numberHeadings={content.type === "article"}
             markdown={content.bodyMarkdown}
             mediaSizes={mediaSizes}
           />

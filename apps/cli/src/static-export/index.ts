@@ -6,6 +6,7 @@ import {
   parseMarkdown,
   stringifyMarkdown,
   searchProjection,
+  normalizeArticleHeadings,
 } from "@yoryon/core";
 import {
   staticSiteSchema,
@@ -39,12 +40,13 @@ async function exportSite(stage: string) {
   const itemsByCollection = groupBy(source.items, i => i.collection_id);
   const contents: StaticContent[] = source.contents.map((c) => {
     const allowed = mediaByContent.get(c.id) ?? [];
-    const body =
+    const visibleBody =
       c.visibility === "public"
         ? c.body
         : stringifyMarkdown(
             filterStoredMediaRefs(parseMarkdown(c.body), new Set(allowed.map((m) => m.media_id)))
           );
+    const body = c.type === "article" ? normalizeArticleHeadings(visibleBody) : visibleBody;
     return {
       id: c.id,
       revision: c.revision,
