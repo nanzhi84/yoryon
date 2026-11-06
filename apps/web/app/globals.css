@@ -132,13 +132,9 @@ body {
   margin-inline-end: .45em;
   font-variant-numeric: lining-nums tabular-nums;
 }
-/* Songti jumps from Bold to Black at 800; a fine stroke adds emphasis between those faces. */
 .prose-yoryon :where(strong):not(:where([class~="not-prose"] *, .editorial-caption *)) {
   font-weight: 750;
-  -webkit-text-stroke: 0.012em currentColor;
 }
-/* Inline code retains its own weight even when nested inside emphasis. */
-.prose-yoryon :where(code) { -webkit-text-stroke: 0; }
 .prose-yoryon :where(a):not(:where([class~="not-prose"] *)) { text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .prose-yoryon :where(blockquote):not(:where([class~="not-prose"] *)) { border-left-width: 2px; border-left-color: var(--primary); font-style: normal; font-weight: 400; }
 .prose-yoryon .editorial-caption { font-family: var(--font-editorial-sans); font-size: 13px; line-height: 1.55; font-weight: 400; font-style: normal; color: var(--reading-muted, var(--muted-foreground)); margin-top: 12px; }
