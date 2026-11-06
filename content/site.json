@@ -1920,7 +1920,7 @@
       "id": "26a6f97e-e175-4c3b-a3eb-ec8ae425c5c1",
       "slug": "vibe-coder-crash-course",
       "title": "Vibe Coder速成科普",
-      "description": "现在AI已经可以实现绝大部分的代码撰写，Vibe Coder的痛苦和大部分苦恼主要并非来自于不能写、不会写，而是**不知道**。\n**不知道术语是什么、不知道如何描述、看不懂AI在干嘛。**\n这个系列就是为vibe coder速成软件工程基础而生。",
+      "description": "现在AI已经可以实现绝大部分的代码撰写，Vibe Coder的痛苦和大部分苦恼主要并非来自于不能写、不会写，而是**不知道**。 **不知道术语是什么、不知道如何描述、看不懂AI在干嘛。**\n这个系列就是为vibe coder速成软件工程基础而生。",
       "visibility": "public",
       "coverMediaId": null,
       "updatedAt": "2026-11-06T15:18:06.776452Z",
