@@ -1,7 +1,28 @@
 {
   "schemaVersion": 1,
-  "exportedAt": "2026-11-03T06:45:51.125Z",
+  "exportedAt": "2026-11-07T14:37:45.307Z",
   "contents": [
+    {
+      "id": "bb0081d1-a9cd-4601-abdb-345db950341f",
+      "revision": "c5f29c9e-2ad1-4115-b885-4d399ead5fd3",
+      "type": "post",
+      "slug": "note-2026-11-07-exile",
+      "title": "",
+      "description": "",
+      "bodyMarkdown": "一个人如果曾在某片土地上毫无防备地快乐过，那他余生每一次回望，都会像是一场流放。\n",
+      "visibility": "public",
+      "access": "full",
+      "hasPaidContent": false,
+      "updatedAt": "2026-11-07T14:37:36.282Z",
+      "publishedAt": "2026-11-07T14:37:27.060Z",
+      "isPinned": false,
+      "showInHome": true,
+      "coverMediaId": null,
+      "tags": [],
+      "media": [],
+      "collections": [],
+      "searchText": "一个人如果曾在某片土地上毫无防备地快乐过，那他余生每一次回望，都会像是一场流放。\n"
+    },
     {
       "id": "3a330de2-2199-4ce0-905f-cf199d077f23",
       "revision": "9bed5085-74ed-430a-9ecb-dacf805bc9ad",
