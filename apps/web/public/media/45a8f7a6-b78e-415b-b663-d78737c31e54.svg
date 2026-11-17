@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 440" width="920" height="440" role="img" aria-label="Merge、Rebase 与 Cherry-Pick 对比及区间语法">
+  <defs>
+    <marker id="arr-dark" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#2C2C2B"/></marker>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#2783DE"/></marker>
+    <marker id="arr-purple" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#9A5CC6"/></marker>
+    <marker id="arr-orange" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#D9741C"/></marker>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#D9363E"/></marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#1D8A56"/></marker>
+    <marker id="arr-gray" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#666664"/></marker>
+  </defs>
+  <rect width="920" height="440" fill="#FFFFFF"/>
+  <text x="460" y="26" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="14" font-weight="600" fill="#2C2C2B" text-anchor="middle">Merge、Rebase 与 Cherry-Pick 对比（初始状态：main 为 M1-&gt;M2，feat 为 M1-&gt;F1-&gt;F2-&gt;F3）</text>
+  <rect x="30" y="46" width="860" height="108" rx="8" fill="#F7F7F5" stroke="#D4D4D0" stroke-width="1.5"/>
+  <text x="52" y="72" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="12.5" font-weight="600" fill="#2783DE" text-anchor="start">1. git merge feat（在 main 上执行）</text>
+  <text x="52" y="92" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#666664" text-anchor="start">对比起点 Base = M1（两条分支的分叉点）</text>
+  <text x="52" y="113" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#2C2C2B" text-anchor="start">生成带有两个父节点的合并提交 M3，保留真实历史，</text>
+  <text x="52" y="132" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#666664" text-anchor="start">适合把整条已完成的功能分支整合进来。</text>
+  <rect x="393" y="62" width="54" height="30" rx="8" fill="#E5F2FC" stroke="#2783DE" stroke-width="1.5"/>
+  <text x="420" y="82" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#2783DE" text-anchor="middle">M1</text>
+  <rect x="493" y="62" width="54" height="30" rx="8" fill="#E5F2FC" stroke="#2783DE" stroke-width="1.5"/>
+  <text x="520" y="82" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#2783DE" text-anchor="middle">M2</text>
+  <rect x="626" y="62" width="88" height="30" rx="8" fill="#E8F6EF" stroke="#1D8A56" stroke-width="1.5"/>
+  <text x="670" y="82" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#1D8A56" text-anchor="middle">M3 (合并)</text>
+  <line x1="447" y1="78" x2="491" y2="78" stroke="#2783DE" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="547" y1="78" x2="624" y2="78" stroke="#1D8A56" stroke-width="1.7" marker-end="url(#arr-green)"/>
+  <rect x="456" y="113" width="48" height="28" rx="8" fill="#F3EAF9" stroke="#9A5CC6" stroke-width="1.5"/>
+  <text x="480" y="132" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#9A5CC6" text-anchor="middle">F1</text>
+  <rect x="526" y="113" width="48" height="28" rx="8" fill="#F3EAF9" stroke="#9A5CC6" stroke-width="1.5"/>
+  <text x="550" y="132" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#9A5CC6" text-anchor="middle">F2</text>
+  <rect x="596" y="113" width="48" height="28" rx="8" fill="#F3EAF9" stroke="#9A5CC6" stroke-width="1.5"/>
+  <text x="620" y="132" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#9A5CC6" text-anchor="middle">F3</text>
+  <path d="M 432 94 L 456 128" fill="none" stroke="#9A5CC6" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+  <line x1="504" y1="128" x2="524" y2="128" stroke="#9A5CC6" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+  <line x1="574" y1="128" x2="594" y2="128" stroke="#9A5CC6" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+  <path d="M 644 128 L 670 94" fill="none" stroke="#1D8A56" stroke-width="1.7" marker-end="url(#arr-green)"/>
+  <text x="742" y="82" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#1D8A56" text-anchor="start">main</text>
+  <rect x="30" y="168" width="860" height="116" rx="8" fill="#F7F7F5" stroke="#D4D4D0" stroke-width="1.5"/>
+  <text x="52" y="194" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="12.5" font-weight="600" fill="#9A5CC6" text-anchor="start">2. git rebase main（在 feat 上执行）</text>
+  <text x="52" y="214" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#666664" text-anchor="start">本质是自动把 F1、F2、F3 按顺序依次 cherry-pick</text>
+  <text x="52" y="234" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#2C2C2B" text-anchor="start">到 M2 后面，生成全新 Hash 的 F1'..F3'，</text>
+  <text x="52" y="253" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#666664" text-anchor="start">让分支历史整理成一条没有分叉的直线。</text>
+  <rect x="395" y="185" width="50" height="28" rx="8" fill="#E5F2FC" stroke="#2783DE" stroke-width="1.5"/>
+  <text x="420" y="204" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#2783DE" text-anchor="middle">M1</text>
+  <rect x="475" y="185" width="50" height="28" rx="8" fill="#E5F2FC" stroke="#2783DE" stroke-width="1.5"/>
+  <text x="500" y="204" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#2783DE" text-anchor="middle">M2</text>
+  <rect x="560" y="185" width="50" height="28" rx="8" fill="#E8F6EF" stroke="#1D8A56" stroke-width="1.5"/>
+  <text x="585" y="204" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#1D8A56" text-anchor="middle">F1'</text>
+  <rect x="640" y="185" width="50" height="28" rx="8" fill="#E8F6EF" stroke="#1D8A56" stroke-width="1.5"/>
+  <text x="665" y="204" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#1D8A56" text-anchor="middle">F2'</text>
+  <rect x="720" y="185" width="50" height="28" rx="8" fill="#E8F6EF" stroke="#1D8A56" stroke-width="1.5"/>
+  <text x="745" y="204" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#1D8A56" text-anchor="middle">F3'</text>
+  <line x1="445" y1="200" x2="473" y2="200" stroke="#2783DE" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="525" y1="200" x2="558" y2="200" stroke="#1D8A56" stroke-width="1.6" marker-end="url(#arr-green)"/>
+  <line x1="610" y1="200" x2="638" y2="200" stroke="#1D8A56" stroke-width="1.6" marker-end="url(#arr-green)"/>
+  <line x1="690" y1="200" x2="718" y2="200" stroke="#1D8A56" stroke-width="1.6" marker-end="url(#arr-green)"/>
+  <text x="782" y="204" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#1D8A56" text-anchor="start">feat (新)</text>
+  <rect x="456" y="238" width="48" height="26" rx="8" fill="#F7F7F5" stroke="#B8B8B2" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="480" y="256" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="normal" fill="#666664" text-anchor="middle">F1</text>
+  <rect x="526" y="238" width="48" height="26" rx="8" fill="#F7F7F5" stroke="#B8B8B2" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="550" y="256" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="normal" fill="#666664" text-anchor="middle">F2</text>
+  <rect x="596" y="238" width="48" height="26" rx="8" fill="#F7F7F5" stroke="#B8B8B2" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="620" y="256" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="normal" fill="#666664" text-anchor="middle">F3</text>
+  <path d="M 432 215 L 456 252" fill="none" stroke="#666664" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arr-gray)"/>
+  <line x1="504" y1="252" x2="524" y2="252" stroke="#666664" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arr-gray)"/>
+  <line x1="574" y1="252" x2="594" y2="252" stroke="#666664" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#arr-gray)"/>
+  <text x="656" y="256" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#666664" text-anchor="start">旧提交不再被 feat 指向</text>
+  <rect x="30" y="298" width="860" height="126" rx="8" fill="#F7F7F5" stroke="#D4D4D0" stroke-width="1.5"/>
+  <text x="52" y="324" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="12.5" font-weight="600" fill="#D9741C" text-anchor="start">3. git cherry-pick（局部拣选与区间语法）</text>
+  <text x="52" y="346" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="normal" fill="#D9363E" text-anchor="start">F1..F3   不包含起点 F1（只取 F2、F3）</text>
+  <text x="52" y="368" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="normal" fill="#1D8A56" text-anchor="start">F1^..F3  包含起点 F1（连同 F1 一起取）</text>
+  <text x="52" y="392" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#666664" text-anchor="start">注意：若整个分支稍后就要 merge，不要提前零散</text>
+  <text x="52" y="410" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#666664" text-anchor="start">cherry-pick，避免制造内容重复的不同 Hash 提交。</text>
+  <rect x="395" y="316" width="50" height="27" rx="8" fill="#E5F2FC" stroke="#2783DE" stroke-width="1.5"/>
+  <text x="420" y="334" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#2783DE" text-anchor="middle">M1</text>
+  <rect x="475" y="316" width="50" height="27" rx="8" fill="#E5F2FC" stroke="#2783DE" stroke-width="1.5"/>
+  <text x="500" y="334" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#2783DE" text-anchor="middle">M2</text>
+  <rect x="560" y="316" width="50" height="27" rx="8" fill="#E8F6EF" stroke="#1D8A56" stroke-width="1.5"/>
+  <text x="585" y="334" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#1D8A56" text-anchor="middle">F2'</text>
+  <line x1="445" y1="330" x2="473" y2="330" stroke="#2783DE" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="525" y1="330" x2="558" y2="330" stroke="#1D8A56" stroke-width="1.7" marker-end="url(#arr-green)"/>
+  <text x="622" y="334" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#1D8A56" text-anchor="start">main</text>
+  <rect x="456" y="370" width="48" height="27" rx="8" fill="#F3EAF9" stroke="#9A5CC6" stroke-width="1.5"/>
+  <text x="480" y="388" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#9A5CC6" text-anchor="middle">F1</text>
+  <rect x="536" y="370" width="48" height="27" rx="8" fill="#FDF3E7" stroke="#D9741C" stroke-width="1.5"/>
+  <text x="560" y="388" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#D9741C" text-anchor="middle">F2</text>
+  <rect x="616" y="370" width="48" height="27" rx="8" fill="#F3EAF9" stroke="#9A5CC6" stroke-width="1.5"/>
+  <text x="640" y="388" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#9A5CC6" text-anchor="middle">F3</text>
+  <line x1="504" y1="384" x2="534" y2="384" stroke="#9A5CC6" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+  <line x1="584" y1="384" x2="614" y2="384" stroke="#9A5CC6" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+  <rect x="690" y="314" width="180" height="44" rx="8" fill="#FDECEE" stroke="#D9363E" stroke-width="1.5"/>
+  <text x="780" y="333" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#D9363E" text-anchor="middle">F1..F3</text>
+  <text x="780" y="350" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#2C2C2B" text-anchor="middle">选中：F2, F3（不含 F1）</text>
+  <rect x="690" y="368" width="180" height="44" rx="8" fill="#E8F6EF" stroke="#1D8A56" stroke-width="1.5"/>
+  <text x="780" y="387" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#1D8A56" text-anchor="middle">F1^..F3</text>
+  <text x="780" y="404" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#2C2C2B" text-anchor="middle">选中：F1, F2, F3（全含）</text>
+</svg>

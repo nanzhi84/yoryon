@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 440" width="920" height="440" role="img" aria-label="按代码所处阶段选择撤销命令及 Reflog 兜底找回">
+  <defs>
+    <marker id="arr-dark" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#2C2C2B"/></marker>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#2783DE"/></marker>
+    <marker id="arr-purple" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#9A5CC6"/></marker>
+    <marker id="arr-orange" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#D9741C"/></marker>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#D9363E"/></marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#1D8A56"/></marker>
+    <marker id="arr-gray" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#666664"/></marker>
+  </defs>
+  <rect width="920" height="440" fill="#FFFFFF"/>
+  <text x="460" y="26" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="15" font-weight="600" fill="#2C2C2B" text-anchor="middle">撤销变更与找回代码：按修改所处阶段选择策略</text>
+  <rect x="28" y="46" width="272" height="186" rx="8" fill="#F3EAF9" stroke="#9A5CC6" stroke-width="1.5"/>
+  <text x="164" y="72" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="13" font-weight="600" fill="#9A5CC6" text-anchor="middle">阶段 1：尚未提交的修改</text>
+  <text x="164" y="96" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="600" fill="#2C2C2B" text-anchor="middle">git restore --staged &lt;文件&gt;</text>
+  <text x="164" y="114" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#666664" text-anchor="middle">撤出暂存区，保留工作区文件修改</text>
+  <text x="164" y="146" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="600" fill="#D9363E" text-anchor="middle">git restore &lt;文件&gt;</text>
+  <text x="164" y="164" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#2C2C2B" text-anchor="middle">放弃工作区改动，还原到上次版本</text>
+  <text x="164" y="198" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#D9363E" text-anchor="middle">注意：从未提交的改动丢弃后无法找回</text>
+  <rect x="324" y="46" width="272" height="186" rx="8" fill="#FDF3E7" stroke="#D9741C" stroke-width="1.5"/>
+  <text x="460" y="72" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="13" font-weight="600" fill="#D9741C" text-anchor="middle">阶段 2：仅在本地提交（未推送）</text>
+  <text x="460" y="96" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="600" fill="#2C2C2B" text-anchor="middle">git reset --soft HEAD~1</text>
+  <text x="460" y="114" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#666664" text-anchor="middle">仅回退分支指针，改动保留在暂存区</text>
+  <text x="460" y="138" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="600" fill="#2C2C2B" text-anchor="middle">git reset HEAD~1（默认 mixed）</text>
+  <text x="460" y="156" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#666664" text-anchor="middle">回退指针与暂存区，改动保留在工作区</text>
+  <text x="460" y="180" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="600" fill="#D9363E" text-anchor="middle">git reset --hard HEAD~1</text>
+  <text x="460" y="198" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#2C2C2B" text-anchor="middle">连同工作区已跟踪文件一起退回旧快照</text>
+  <rect x="620" y="46" width="272" height="186" rx="8" fill="#E5F2FC" stroke="#2783DE" stroke-width="1.5"/>
+  <text x="756" y="72" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="13" font-weight="600" fill="#2783DE" text-anchor="middle">阶段 3：已推送到团队公共分支</text>
+  <text x="756" y="98" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#1D8A56" text-anchor="middle">git revert &lt;提交ID&gt;</text>
+  <text x="756" y="122" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#2C2C2B" text-anchor="middle">不改写已有历史，而是算出反向补丁</text>
+  <text x="756" y="142" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#2C2C2B" text-anchor="middle">在分支末尾追加一个新提交 R 来抵消</text>
+  <text x="756" y="168" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#666664" text-anchor="middle">合并提交需加 -m 1 指定主干父节点</text>
+  <text x="756" y="198" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#1D8A56" text-anchor="middle">可直接执行 git push，不破坏队友历史</text>
+  <rect x="28" y="250" width="864" height="172" rx="8" fill="#F7F7F5" stroke="#D4D4D0" stroke-width="1.5"/>
+  <text x="460" y="274" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="13.5" font-weight="600" fill="#2C2C2B" text-anchor="middle">兜底找回：即使执行了 git reset --hard，已提交的版本仍可通过 git reflog 恢复</text>
+  <rect x="50" y="294" width="326" height="108" rx="8" fill="#FDF3E7" stroke="#D9741C" stroke-width="1.5"/>
+  <text x="213" y="317" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="12" font-weight="600" fill="#D9741C" text-anchor="middle">.git/logs/HEAD（本地操作日志）</text>
+  <text x="66" y="341" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="10.5" font-weight="normal" fill="#2C2C2B" text-anchor="start">HEAD@{0}: reset: moving to M2 (7b3f686)</text>
+  <text x="66" y="362" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="10.5" font-weight="600" fill="#1D8A56" text-anchor="start">HEAD@{1}: cherry-pick: F2'   (a5989e6)</text>
+  <text x="66" y="384" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#666664" text-anchor="start">仅存本地，默认保留脱离分支的旧提交 30 天</text>
+  <rect x="412" y="294" width="122" height="46" rx="8" fill="#E5F2FC" stroke="#2783DE" stroke-width="1.5"/>
+  <text x="473" y="315" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#2783DE" text-anchor="middle">M2 (7b3f686)</text>
+  <text x="473" y="332" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10" font-weight="normal" fill="#666664" text-anchor="middle">main 目前指向</text>
+  <rect x="584" y="294" width="162" height="46" rx="8" fill="#E8F6EF" stroke="#1D8A56" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="665" y="315" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#1D8A56" text-anchor="middle">F2' (a5989e6)</text>
+  <text x="665" y="332" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10" font-weight="normal" fill="#1D8A56" text-anchor="middle">仍完整保留在对象库中</text>
+  <rect x="584" y="354" width="286" height="48" rx="8" fill="#E8F6EF" stroke="#1D8A56" stroke-width="1.5"/>
+  <text x="727" y="374" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="600" fill="#1D8A56" text-anchor="middle">直接恢复：git reset --hard HEAD@{1}</text>
+  <text x="727" y="392" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="10" font-weight="normal" fill="#2C2C2B" text-anchor="middle">或先建分支检查：git branch recover a5989e6</text>
+  <line x1="584" y1="317" x2="536" y2="317" stroke="#666664" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arr-gray)"/>
+  <path d="M 376 358 L 558 358 L 558 322 L 582 322" fill="none" stroke="#1D8A56" stroke-width="1.7" marker-end="url(#arr-green)"/>
+</svg>

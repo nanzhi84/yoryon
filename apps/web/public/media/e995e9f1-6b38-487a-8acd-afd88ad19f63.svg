@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 410" width="920" height="410" role="img" aria-label="分支指针、HEAD 与分离头指针状态对比">
+  <defs>
+    <marker id="arr-dark" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#2C2C2B"/></marker>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#2783DE"/></marker>
+    <marker id="arr-purple" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#9A5CC6"/></marker>
+    <marker id="arr-orange" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#D9741C"/></marker>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#D9363E"/></marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#1D8A56"/></marker>
+    <marker id="arr-gray" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#666664"/></marker>
+  </defs>
+  <rect width="920" height="410" fill="#FFFFFF"/>
+  <rect x="28" y="18" width="864" height="198" rx="8" fill="#F7F7F5" stroke="#D4D4D0" stroke-width="1.5"/>
+  <text x="460" y="44" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="14" font-weight="600" fill="#2C2C2B" text-anchor="middle">分支与 HEAD 的真实形态：指向某个具体提交的轻量标签</text>
+  <rect x="67" y="76" width="56" height="32" rx="8" fill="#E5F2FC" stroke="#2783DE" stroke-width="1.5"/>
+  <text x="95" y="96" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="12.5" font-weight="600" fill="#2783DE" text-anchor="middle">C1</text>
+  <rect x="177" y="76" width="56" height="32" rx="8" fill="#E5F2FC" stroke="#2783DE" stroke-width="1.5"/>
+  <text x="205" y="96" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="12.5" font-weight="600" fill="#2783DE" text-anchor="middle">C2</text>
+  <rect x="297" y="76" width="56" height="32" rx="8" fill="#E5F2FC" stroke="#2783DE" stroke-width="1.5"/>
+  <text x="325" y="96" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="12.5" font-weight="600" fill="#2783DE" text-anchor="middle">C3</text>
+  <line x1="123" y1="92" x2="175" y2="92" stroke="#2783DE" stroke-width="1.6" marker-end="url(#arr-blue)"/>
+  <line x1="233" y1="92" x2="295" y2="92" stroke="#2783DE" stroke-width="1.6" marker-end="url(#arr-blue)"/>
+  <rect x="410" y="76" width="86" height="32" rx="8" fill="#F3EAF9" stroke="#9A5CC6" stroke-width="1.5"/>
+  <text x="453" y="96" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="12" font-weight="600" fill="#9A5CC6" text-anchor="middle">main</text>
+  <line x1="410" y1="92" x2="355" y2="92" stroke="#9A5CC6" stroke-width="1.6" marker-end="url(#arr-purple)"/>
+  <rect x="297" y="130" width="56" height="32" rx="8" fill="#F3EAF9" stroke="#9A5CC6" stroke-width="1.5"/>
+  <text x="325" y="150" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="12.5" font-weight="600" fill="#9A5CC6" text-anchor="middle">F1</text>
+  <rect x="407" y="130" width="56" height="32" rx="8" fill="#F3EAF9" stroke="#9A5CC6" stroke-width="1.5"/>
+  <text x="435" y="150" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="12.5" font-weight="600" fill="#9A5CC6" text-anchor="middle">F2</text>
+  <path d="M 225 108 L 265 146 L 295 146" fill="none" stroke="#9A5CC6" stroke-width="1.6" marker-end="url(#arr-purple)"/>
+  <line x1="353" y1="146" x2="405" y2="146" stroke="#9A5CC6" stroke-width="1.6" marker-end="url(#arr-purple)"/>
+  <rect x="518" y="130" width="114" height="32" rx="8" fill="#FDF3E7" stroke="#D9741C" stroke-width="1.5"/>
+  <text x="575" y="150" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#D9741C" text-anchor="middle">feat-login</text>
+  <line x1="518" y1="146" x2="465" y2="146" stroke="#D9741C" stroke-width="1.6" marker-end="url(#arr-orange)"/>
+  <rect x="682" y="130" width="116" height="32" rx="8" fill="#E8F6EF" stroke="#1D8A56" stroke-width="1.5"/>
+  <text x="740" y="150" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#1D8A56" text-anchor="middle">HEAD (当前)</text>
+  <line x1="682" y1="146" x2="634" y2="146" stroke="#1D8A56" stroke-width="1.7" marker-end="url(#arr-green)"/>
+  <text x="460" y="198" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11.5" font-weight="normal" fill="#666664" text-anchor="middle">分支只是保存 40 位 Commit 哈希的 41 字节文件；新建或切换分支仅移动指针并更新工作区，不复制整个仓库。</text>
+  <rect x="28" y="232" width="418" height="160" rx="8" fill="#F7F7F5" stroke="#D4D4D0" stroke-width="1.5"/>
+  <text x="237" y="256" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="13" font-weight="600" fill="#2C2C2B" text-anchor="middle">正常状态：HEAD 挂载在分支上</text>
+  <rect x="48" y="276" width="108" height="42" rx="8" fill="#E8F6EF" stroke="#1D8A56" stroke-width="1.5"/>
+  <text x="102" y="294" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="12" font-weight="600" fill="#1D8A56" text-anchor="middle">HEAD</text>
+  <text x="102" y="310" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="9.5" font-weight="normal" fill="#666664" text-anchor="middle">指向 feat-login</text>
+  <rect x="184" y="276" width="110" height="42" rx="8" fill="#FDF3E7" stroke="#D9741C" stroke-width="1.5"/>
+  <text x="239" y="294" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#D9741C" text-anchor="middle">feat-login</text>
+  <text x="239" y="310" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="9.5" font-weight="normal" fill="#666664" text-anchor="middle">当前指向 F2</text>
+  <rect x="324" y="276" width="98" height="42" rx="8" fill="#F3EAF9" stroke="#9A5CC6" stroke-width="1.5"/>
+  <text x="373" y="301" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11.5" font-weight="600" fill="#9A5CC6" text-anchor="middle">提交 F2</text>
+  <line x1="156" y1="297" x2="182" y2="297" stroke="#1D8A56" stroke-width="1.6" marker-end="url(#arr-green)"/>
+  <line x1="294" y1="297" x2="322" y2="297" stroke="#D9741C" stroke-width="1.6" marker-end="url(#arr-orange)"/>
+  <text x="237" y="344" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11.5" font-weight="normal" fill="#2C2C2B" text-anchor="middle">提交新版本 F3 时，HEAD 保持指向 feat-login，</text>
+  <text x="237" y="364" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11.5" font-weight="normal" fill="#666664" text-anchor="middle">Git 自动把 feat-login 向前移动到 F3。</text>
+  <rect x="474" y="232" width="418" height="160" rx="8" fill="#F7F7F5" stroke="#D4D4D0" stroke-width="1.5"/>
+  <text x="683" y="256" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="13" font-weight="600" fill="#2C2C2B" text-anchor="middle">分离头指针（Detached HEAD）</text>
+  <rect x="494" y="274" width="120" height="42" rx="8" fill="#FDF3E7" stroke="#D9741C" stroke-width="1.5"/>
+  <text x="554" y="292" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="12" font-weight="600" fill="#D9741C" text-anchor="middle">HEAD</text>
+  <text x="554" y="308" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10" font-weight="normal" fill="#D9741C" text-anchor="middle">直接指向 C2</text>
+  <rect x="656" y="274" width="88" height="42" rx="8" fill="#E5F2FC" stroke="#2783DE" stroke-width="1.5"/>
+  <text x="700" y="299" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11.5" font-weight="600" fill="#2783DE" text-anchor="middle">历史 C2</text>
+  <rect x="774" y="274" width="96" height="42" rx="8" fill="#E5F2FC" stroke="#2783DE" stroke-width="1.5"/>
+  <text x="822" y="299" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11.5" font-weight="600" fill="#2783DE" text-anchor="middle">当前 C3</text>
+  <line x1="614" y1="295" x2="654" y2="295" stroke="#D9741C" stroke-width="1.6" marker-end="url(#arr-orange)"/>
+  <line x1="774" y1="295" x2="746" y2="295" stroke="#2783DE" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="683" y="344" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11.5" font-weight="normal" fill="#2C2C2B" text-anchor="middle">适合临时查看或测试旧版本，不会影响 main；</text>
+  <text x="683" y="364" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11.5" font-weight="normal" fill="#666664" text-anchor="middle">若在此处产生新提交并要保留，需用 git switch -c 建分支。</text>
+</svg>

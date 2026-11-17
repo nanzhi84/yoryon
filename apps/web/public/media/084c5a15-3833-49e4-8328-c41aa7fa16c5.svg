@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 390" width="920" height="390" role="img" aria-label="全量快照模型与 .git/objects 文件复用机制">
+  <defs>
+    <marker id="arr-dark" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#2C2C2B"/></marker>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#2783DE"/></marker>
+    <marker id="arr-purple" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#9A5CC6"/></marker>
+    <marker id="arr-orange" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#D9741C"/></marker>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#D9363E"/></marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#1D8A56"/></marker>
+    <marker id="arr-gray" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#666664"/></marker>
+  </defs>
+  <rect width="920" height="390" fill="#FFFFFF"/>
+  <text x="460" y="28" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="15" font-weight="600" fill="#2C2C2B" text-anchor="middle">全量快照与底层存储：每个版本记录完整目录，未修改文件自动复用</text>
+  <text x="38" y="86" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="12" font-weight="600" fill="#666664" text-anchor="start">Commit</text>
+  <rect x="135" y="52" width="235" height="68" rx="8" fill="#E5F2FC" stroke="#2783DE" stroke-width="1.5"/>
+  <text x="252" y="76" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="13" font-weight="600" fill="#2783DE" text-anchor="middle">版本 V1 (4ecd02b)</text>
+  <text x="252" y="96" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="10.5" font-weight="normal" fill="#2C2C2B" text-anchor="middle">目录树: 8a1c90  |  parent: beb49a7</text>
+  <text x="252" y="112" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#666664" text-anchor="middle">init: setup base app</text>
+  <rect x="520" y="52" width="250" height="68" rx="8" fill="#E5F2FC" stroke="#2783DE" stroke-width="1.5"/>
+  <text x="645" y="76" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="13" font-weight="600" fill="#2783DE" text-anchor="middle">版本 V2 (fdab0ed)</text>
+  <text x="645" y="96" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="10.5" font-weight="normal" fill="#2C2C2B" text-anchor="middle">目录树: 3f92d1  |  parent: 4ecd02b</text>
+  <text x="645" y="112" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#666664" text-anchor="middle">仅修改 config.json 的超时时间</text>
+  <line x1="520" y1="86" x2="372" y2="86" stroke="#2783DE" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="446" y="78" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="600" fill="#2783DE" text-anchor="middle">parent</text>
+  <text x="38" y="190" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="12" font-weight="600" fill="#666664" text-anchor="start">Tree</text>
+  <rect x="150" y="158" width="205" height="58" rx="8" fill="#F3EAF9" stroke="#9A5CC6" stroke-width="1.5"/>
+  <text x="252" y="182" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="12.5" font-weight="600" fill="#9A5CC6" text-anchor="middle">目录清单 tree 8a1c90</text>
+  <text x="252" y="202" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#666664" text-anchor="middle">记录 V1 全部文件名与文件哈希</text>
+  <rect x="540" y="158" width="210" height="58" rx="8" fill="#F3EAF9" stroke="#9A5CC6" stroke-width="1.5"/>
+  <text x="645" y="182" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="12.5" font-weight="600" fill="#9A5CC6" text-anchor="middle">目录清单 tree 3f92d1</text>
+  <text x="645" y="202" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#666664" text-anchor="middle">记录 V2 全部文件名与文件哈希</text>
+  <line x1="252" y1="120" x2="252" y2="156" stroke="#9A5CC6" stroke-width="1.6" marker-end="url(#arr-purple)"/>
+  <line x1="645" y1="120" x2="645" y2="156" stroke="#9A5CC6" stroke-width="1.6" marker-end="url(#arr-purple)"/>
+  <text x="38" y="306" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="12" font-weight="600" fill="#666664" text-anchor="start">Blob</text>
+  <rect x="98" y="272" width="178" height="72" rx="8" fill="#F7F7F5" stroke="#B8B8B2" stroke-width="1.5"/>
+  <text x="187" y="295" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="12" font-weight="600" fill="#2C2C2B" text-anchor="middle">blob 1c7a08</text>
+  <text x="187" y="314" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="normal" fill="#2C2C2B" text-anchor="middle">config.json (旧)</text>
+  <text x="187" y="332" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="normal" fill="#666664" text-anchor="middle">timeout: 30</text>
+  <rect x="294" y="272" width="158" height="72" rx="8" fill="#E8F6EF" stroke="#1D8A56" stroke-width="1.5"/>
+  <text x="373" y="295" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="12" font-weight="600" fill="#1D8A56" text-anchor="middle">blob 51b0e4</text>
+  <text x="373" y="314" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="normal" fill="#2C2C2B" text-anchor="middle">app.py</text>
+  <text x="373" y="332" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#1D8A56" text-anchor="middle">未修改：直接复用</text>
+  <rect x="470" y="272" width="158" height="72" rx="8" fill="#E8F6EF" stroke="#1D8A56" stroke-width="1.5"/>
+  <text x="549" y="295" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="12" font-weight="600" fill="#1D8A56" text-anchor="middle">blob 9d4ea2</text>
+  <text x="549" y="314" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="normal" fill="#2C2C2B" text-anchor="middle">validator.py</text>
+  <text x="549" y="332" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#1D8A56" text-anchor="middle">未修改：直接复用</text>
+  <rect x="646" y="272" width="198" height="72" rx="8" fill="#FDF3E7" stroke="#D9741C" stroke-width="1.5"/>
+  <text x="745" y="295" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="12" font-weight="600" fill="#D9741C" text-anchor="middle">blob 7e2b19</text>
+  <text x="745" y="314" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="normal" fill="#2C2C2B" text-anchor="middle">config.json (新)</text>
+  <text x="745" y="332" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#D9741C" text-anchor="middle">timeout: 60（新建对象）</text>
+  <line x1="202" y1="216" x2="187" y2="270" stroke="#666664" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="252" y1="216" x2="355" y2="270" stroke="#1D8A56" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="302" y1="216" x2="522" y2="270" stroke="#1D8A56" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="595" y1="216" x2="392" y2="270" stroke="#1D8A56" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arr-green)"/>
+  <line x1="638" y1="216" x2="562" y2="270" stroke="#1D8A56" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arr-green)"/>
+  <line x1="690" y1="216" x2="745" y2="270" stroke="#D9741C" stroke-width="1.7" marker-end="url(#arr-orange)"/>
+  <text x="460" y="368" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11.5" font-weight="normal" fill="#666664" text-anchor="middle">对象库只新增不覆盖：所有历史对象均按内容计算哈希，内容不变的文件不会重复占空间。</text>
+</svg>

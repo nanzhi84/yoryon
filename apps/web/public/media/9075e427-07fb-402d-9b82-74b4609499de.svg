@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 440" width="920" height="440" role="img" aria-label="快进合并、三路合并与远程仓库同步链路">
+  <defs>
+    <marker id="arr-dark" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#2C2C2B"/></marker>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#2783DE"/></marker>
+    <marker id="arr-purple" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#9A5CC6"/></marker>
+    <marker id="arr-orange" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#D9741C"/></marker>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#D9363E"/></marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#1D8A56"/></marker>
+    <marker id="arr-gray" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#666664"/></marker>
+  </defs>
+  <rect width="920" height="440" fill="#FFFFFF"/>
+  <rect x="28" y="18" width="418" height="190" rx="8" fill="#F7F7F5" stroke="#D4D4D0" stroke-width="1.5"/>
+  <text x="237" y="44" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="13.5" font-weight="600" fill="#1D8A56" text-anchor="middle">情况 1：快进合并（Fast-Forward）</text>
+  <text x="237" y="64" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#666664" text-anchor="middle">分叉后 main 一直停在 C2，未产生其他提交</text>
+  <rect x="50" y="82" width="48" height="30" rx="8" fill="#E5F2FC" stroke="#2783DE" stroke-width="1.5"/>
+  <text x="74" y="101" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#2783DE" text-anchor="middle">C1</text>
+  <rect x="140" y="82" width="48" height="30" rx="8" fill="#E5F2FC" stroke="#2783DE" stroke-width="1.5"/>
+  <text x="164" y="101" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#2783DE" text-anchor="middle">C2</text>
+  <rect x="230" y="82" width="48" height="30" rx="8" fill="#F3EAF9" stroke="#9A5CC6" stroke-width="1.5"/>
+  <text x="254" y="101" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#9A5CC6" text-anchor="middle">F1</text>
+  <rect x="320" y="82" width="48" height="30" rx="8" fill="#F3EAF9" stroke="#9A5CC6" stroke-width="1.5"/>
+  <text x="344" y="101" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#9A5CC6" text-anchor="middle">F2</text>
+  <line x1="98" y1="97" x2="138" y2="97" stroke="#2783DE" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="188" y1="97" x2="228" y2="97" stroke="#9A5CC6" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+  <line x1="278" y1="97" x2="318" y2="97" stroke="#9A5CC6" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+  <rect x="134" y="128" width="60" height="24" rx="8" fill="#F7F7F5" stroke="#B8B8B2" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="164" y="144" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10" font-weight="normal" fill="#666664" text-anchor="middle">原 main</text>
+  <rect x="314" y="128" width="60" height="24" rx="8" fill="#E8F6EF" stroke="#1D8A56" stroke-width="1.5"/>
+  <text x="344" y="144" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10" font-weight="600" fill="#1D8A56" text-anchor="middle">新 main</text>
+  <line x1="194" y1="140" x2="312" y2="140" stroke="#1D8A56" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arr-green)"/>
+  <text x="237" y="184" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#2C2C2B" text-anchor="middle">直接把 main 指针向前移动到 F2，不产生额外合并节点</text>
+  <rect x="474" y="18" width="418" height="190" rx="8" fill="#F7F7F5" stroke="#D4D4D0" stroke-width="1.5"/>
+  <text x="683" y="44" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="13.5" font-weight="600" fill="#2783DE" text-anchor="middle">情况 2：分叉后的三路合并（Three-Way Merge）</text>
+  <text x="683" y="64" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#666664" text-anchor="middle">分叉后两边各有新提交，Git 找到共同起点 C2 自动整合</text>
+  <rect x="506" y="86" width="68" height="30" rx="8" fill="#FDF3E7" stroke="#D9741C" stroke-width="1.5"/>
+  <text x="540" y="105" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="10.5" font-weight="600" fill="#D9741C" text-anchor="middle">C2(Base)</text>
+  <rect x="628" y="74" width="68" height="28" rx="8" fill="#E5F2FC" stroke="#2783DE" stroke-width="1.5"/>
+  <text x="662" y="92" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="10.5" font-weight="600" fill="#2783DE" text-anchor="middle">C3(main)</text>
+  <rect x="628" y="124" width="68" height="28" rx="8" fill="#F3EAF9" stroke="#9A5CC6" stroke-width="1.5"/>
+  <text x="662" y="142" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="10.5" font-weight="600" fill="#9A5CC6" text-anchor="middle">F2(feat)</text>
+  <rect x="756" y="98" width="92" height="32" rx="8" fill="#E8F6EF" stroke="#1D8A56" stroke-width="1.5"/>
+  <text x="802" y="118" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="600" fill="#1D8A56" text-anchor="middle">M4 (合并)</text>
+  <line x1="574" y1="96" x2="626" y2="88" stroke="#2783DE" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="574" y1="106" x2="626" y2="136" stroke="#9A5CC6" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+  <line x1="696" y1="88" x2="754" y2="110" stroke="#1D8A56" stroke-width="1.6" marker-end="url(#arr-green)"/>
+  <line x1="696" y1="138" x2="754" y2="120" stroke="#1D8A56" stroke-width="1.6" marker-end="url(#arr-green)"/>
+  <text x="683" y="184" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#2C2C2B" text-anchor="middle">对比 C2-&gt;C3 与 C2-&gt;F2；仅当修改重叠行时触发冲突标记</text>
+  <rect x="28" y="224" width="864" height="200" rx="8" fill="#F7F7F5" stroke="#D4D4D0" stroke-width="1.5"/>
+  <text x="460" y="248" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="14" font-weight="600" fill="#2C2C2B" text-anchor="middle">本地仓库与远程仓库（GitHub origin）的同步链路</text>
+  <text x="460" y="269" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="600" fill="#1D8A56" text-anchor="middle">git pull = git fetch + git merge</text>
+  <path d="M 238 292 L 238 276 L 682 276 L 682 290" fill="none" stroke="#1D8A56" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#arr-green)"/>
+  <rect x="52" y="294" width="206" height="84" rx="8" fill="#E5F2FC" stroke="#2783DE" stroke-width="1.5"/>
+  <text x="155" y="318" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="12.5" font-weight="600" fill="#2783DE" text-anchor="middle">远程仓库（GitHub）</text>
+  <text x="155" y="339" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#2C2C2B" text-anchor="middle">托管在服务器上的版本库</text>
+  <text x="155" y="358" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#666664" text-anchor="middle">保存团队共享的 main 分支</text>
+  <rect x="356" y="294" width="208" height="84" rx="8" fill="#F3EAF9" stroke="#9A5CC6" stroke-width="1.5"/>
+  <text x="460" y="318" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="12.5" font-weight="600" fill="#9A5CC6" text-anchor="middle">本地远端记录 origin/main</text>
+  <text x="460" y="339" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#2C2C2B" text-anchor="middle">上次联网时下载的服务器快照</text>
+  <text x="460" y="358" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#666664" text-anchor="middle">只读记录，不直接修改工作区</text>
+  <rect x="662" y="294" width="206" height="84" rx="8" fill="#E8F6EF" stroke="#1D8A56" stroke-width="1.5"/>
+  <text x="765" y="318" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="12.5" font-weight="600" fill="#1D8A56" text-anchor="middle">本地 main 与工作区</text>
+  <text x="765" y="339" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#2C2C2B" text-anchor="middle">开发者日常编辑与提交的位置</text>
+  <text x="765" y="358" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#666664" text-anchor="middle">合并 origin/main 后完成同步</text>
+  <line x1="258" y1="336" x2="354" y2="336" stroke="#9A5CC6" stroke-width="1.8" marker-end="url(#arr-purple)"/>
+  <text x="306" y="326" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="600" fill="#9A5CC6" text-anchor="middle">git fetch</text>
+  <line x1="564" y1="336" x2="660" y2="336" stroke="#1D8A56" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <text x="612" y="326" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="600" fill="#1D8A56" text-anchor="middle">git merge</text>
+  <path d="M 765 378 L 765 408 L 155 408 L 155 380" fill="none" stroke="#2783DE" stroke-width="1.7" marker-end="url(#arr-blue)"/>
+  <text x="460" y="401" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="600" fill="#2783DE" text-anchor="middle">git push origin main：把本地已提交的新版本上传至远程仓库</text>
+</svg>

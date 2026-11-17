@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 390" width="920" height="390" role="img" aria-label="Git 本地版本管理的三个区域与提交流程">
+  <defs>
+    <marker id="arr-dark" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#2C2C2B"/></marker>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#2783DE"/></marker>
+    <marker id="arr-purple" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#9A5CC6"/></marker>
+    <marker id="arr-orange" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#D9741C"/></marker>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#D9363E"/></marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#1D8A56"/></marker>
+    <marker id="arr-gray" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#666664"/></marker>
+  </defs>
+  <rect width="920" height="390" fill="#FFFFFF"/>
+  <text x="460" y="28" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="15" font-weight="600" fill="#2C2C2B" text-anchor="middle">Git 本地版本管理的三个核心区域与一次完整提交流程</text>
+  <rect x="32" y="52" width="238" height="252" rx="8" fill="#F7F7F5" stroke="#D4D4D0" stroke-width="1.5"/>
+  <text x="151" y="78" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="13.5" font-weight="600" fill="#2C2C2B" text-anchor="middle">1. 工作区（项目文件夹）</text>
+  <text x="151" y="98" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#666664" text-anchor="middle">在编辑器中直接修改的源码文件</text>
+  <rect x="48" y="114" width="206" height="46" rx="8" fill="#E8F6EF" stroke="#1D8A56" stroke-width="1.5"/>
+  <text x="151" y="134" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="12" font-weight="600" fill="#1D8A56" text-anchor="middle">app.py</text>
+  <text x="151" y="151" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#2C2C2B" text-anchor="middle">修复逻辑已完成，准备提交</text>
+  <rect x="48" y="170" width="206" height="46" rx="8" fill="#E8F6EF" stroke="#1D8A56" stroke-width="1.5"/>
+  <text x="151" y="190" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="12" font-weight="600" fill="#1D8A56" text-anchor="middle">validator.py</text>
+  <text x="151" y="207" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#2C2C2B" text-anchor="middle">校验规则已完成，准备提交</text>
+  <rect x="48" y="226" width="206" height="56" rx="8" fill="#F7F7F5" stroke="#B8B8B2" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="151" y="248" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="12" font-weight="600" fill="#666664" text-anchor="middle">debug.py</text>
+  <text x="151" y="267" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#666664" text-anchor="middle">临时调试代码（暂不纳入本次版本）</text>
+  <line x1="270" y1="178" x2="344" y2="178" stroke="#D9741C" stroke-width="1.8" marker-end="url(#arr-orange)"/>
+  <text x="307" y="162" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11.5" font-weight="600" fill="#D9741C" text-anchor="middle">git add</text>
+  <text x="307" y="196" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#666664" text-anchor="middle">挑选并登记</text>
+  <rect x="346" y="52" width="228" height="252" rx="8" fill="#FDF3E7" stroke="#D9741C" stroke-width="1.5"/>
+  <text x="460" y="78" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="13.5" font-weight="600" fill="#D9741C" text-anchor="middle">2. 暂存区（.git/index）</text>
+  <text x="460" y="98" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#666664" text-anchor="middle">准备写入下一版本的待提交清单</text>
+  <rect x="366" y="122" width="188" height="42" rx="8" fill="#E8F6EF" stroke="#1D8A56" stroke-width="1.5"/>
+  <text x="460" y="148" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11.5" font-weight="600" fill="#1D8A56" text-anchor="middle">app.py（已暂存快照）</text>
+  <rect x="366" y="176" width="188" height="42" rx="8" fill="#E8F6EF" stroke="#1D8A56" stroke-width="1.5"/>
+  <text x="460" y="202" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11.5" font-weight="600" fill="#1D8A56" text-anchor="middle">validator.py（已暂存快照）</text>
+  <text x="460" y="246" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#2C2C2B" text-anchor="middle">git commit 只打包此清单里的文件，</text>
+  <text x="460" y="265" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#666664" text-anchor="middle">工作区里的 debug.py 不会混入版本</text>
+  <line x1="574" y1="178" x2="648" y2="178" stroke="#2783DE" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="611" y="162" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="600" fill="#2783DE" text-anchor="middle">git commit</text>
+  <text x="611" y="196" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#666664" text-anchor="middle">正式存档</text>
+  <rect x="650" y="52" width="238" height="252" rx="8" fill="#E5F2FC" stroke="#2783DE" stroke-width="1.5"/>
+  <text x="769" y="78" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="13.5" font-weight="600" fill="#2783DE" text-anchor="middle">3. 本地版本库（.git 目录）</text>
+  <text x="769" y="98" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#666664" text-anchor="middle">永久保存每次提交的完整项目快照</text>
+  <rect x="672" y="120" width="194" height="60" rx="8" fill="#E8F6EF" stroke="#1D8A56" stroke-width="1.5"/>
+  <text x="769" y="144" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="12" font-weight="600" fill="#1D8A56" text-anchor="middle">版本 V2（最新提交）</text>
+  <text x="769" y="165" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#2C2C2B" text-anchor="middle">含 app.py 与 validator.py 新状态</text>
+  <line x1="769" y1="180" x2="769" y2="212" stroke="#2783DE" stroke-width="1.6" marker-end="url(#arr-blue)"/>
+  <text x="812" y="199" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="10.5" font-weight="normal" fill="#2783DE" text-anchor="middle">parent</text>
+  <rect x="672" y="214" width="194" height="58" rx="8" fill="#F7F7F5" stroke="#D4D4D0" stroke-width="1.5"/>
+  <text x="769" y="238" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="12" font-weight="600" fill="#2C2C2B" text-anchor="middle">版本 V1（上一历史版本）</text>
+  <text x="769" y="257" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#666664" text-anchor="middle">初始完整项目快照</text>
+  <text x="460" y="336" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11.5" font-weight="normal" fill="#2C2C2B" text-anchor="middle">为什么需要中间的暂存区：它允许你在一次提交前筛除调试代码或未完成改动，</text>
+  <text x="460" y="358" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11.5" font-weight="normal" fill="#666664" text-anchor="middle">把逻辑相关的变更整理成一个干净、可独立运行的历史版本。</text>
+</svg>

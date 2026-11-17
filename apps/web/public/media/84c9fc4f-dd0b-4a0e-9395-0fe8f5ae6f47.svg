@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 380" width="920" height="380" role="img" aria-label="同分支排他约束与合规并发检出方式">
+  <defs>
+    <marker id="arr-dark" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#2C2C2B"/></marker>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#2783DE"/></marker>
+    <marker id="arr-purple" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#9A5CC6"/></marker>
+    <marker id="arr-orange" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#D9741C"/></marker>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#D9363E"/></marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#1D8A56"/></marker>
+    <marker id="arr-gray" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0.5 1.2 L 9 5 L 0.5 8.8 L 2.5 5 z" fill="#666664"/></marker>
+  </defs>
+  <rect width="920" height="380" fill="#FFFFFF"/>
+  <rect x="28" y="22" width="420" height="336" rx="8" fill="#FDECEE" stroke="#D9363E" stroke-width="1.5"/>
+  <text x="238" y="48" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="13.5" font-weight="600" fill="#D9363E" text-anchor="middle">禁止状态：两个目录同时停在同一个分支 main</text>
+  <rect x="50" y="70" width="175" height="92" rx="8" fill="#F7F7F5" stroke="#D4D4D0" stroke-width="1.5"/>
+  <text x="137" y="94" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="12.5" font-weight="600" fill="#2C2C2B" text-anchor="middle">工作树 A</text>
+  <text x="137" y="115" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11.5" font-weight="600" fill="#2783DE" text-anchor="middle">刚提交版本 M2</text>
+  <text x="137" y="134" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#666664" text-anchor="middle">目录文件 = M2</text>
+  <text x="137" y="150" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="10.5" font-weight="normal" fill="#666664" text-anchor="middle">HEAD -&gt; main</text>
+  <rect x="250" y="70" width="175" height="92" rx="8" fill="#F7F7F5" stroke="#D4D4D0" stroke-width="1.5"/>
+  <text x="337" y="94" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="12.5" font-weight="600" fill="#2C2C2B" text-anchor="middle">工作树 B</text>
+  <text x="337" y="115" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11.5" font-weight="600" fill="#D9363E" text-anchor="middle">文件仍停留在 M1</text>
+  <text x="337" y="134" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="10.5" font-weight="normal" fill="#D9363E" text-anchor="middle">目录文件 = M1</text>
+  <text x="337" y="150" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="10.5" font-weight="normal" fill="#D9363E" text-anchor="middle">HEAD -&gt; main (已前移)</text>
+  <rect x="120" y="200" width="235" height="58" rx="8" fill="#F3EAF9" stroke="#9A5CC6" stroke-width="1.5"/>
+  <text x="237" y="223" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="12.5" font-weight="600" fill="#9A5CC6" text-anchor="middle">共享分支指针 main</text>
+  <text x="237" y="243" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#2C2C2B" text-anchor="middle">指针由 M1 被 A 推进至 M2</text>
+  <line x1="137" y1="162" x2="185" y2="198" stroke="#2783DE" stroke-width="1.6" marker-end="url(#arr-blue)"/>
+  <line x1="337" y1="162" x2="290" y2="198" stroke="#D9363E" stroke-width="1.6" marker-end="url(#arr-red)"/>
+  <text x="238" y="286" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11.5" font-weight="normal" fill="#2C2C2B" text-anchor="middle">B 的 HEAD 已指向 M2，但目录文件与暂存区仍为 M1；</text>
+  <text x="238" y="305" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11.5" font-weight="normal" fill="#D9363E" text-anchor="middle">Git 会将差值误判为 B 手动撤销了 M2 的全部改动。</text>
+  <text x="238" y="336" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="10.5" font-weight="600" fill="#D9363E" text-anchor="middle">fatal: 'main' is already used by worktree at '...'</text>
+  <rect x="472" y="22" width="420" height="336" rx="8" fill="#E8F6EF" stroke="#1D8A56" stroke-width="1.5"/>
+  <text x="682" y="48" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="13.5" font-weight="600" fill="#1D8A56" text-anchor="middle">合规做法：新分支隔离或游离头指针只读检出</text>
+  <rect x="494" y="72" width="376" height="125" rx="8" fill="#E5F2FC" stroke="#2783DE" stroke-width="1.5"/>
+  <text x="682" y="96" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="12.5" font-weight="600" fill="#2783DE" text-anchor="middle">模式 1：新建分支隔离开发（需要修改提交）</text>
+  <text x="682" y="118" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="600" fill="#2C2C2B" text-anchor="middle">git worktree add -b hotfix ../wt-hotfix main</text>
+  <text x="682" y="143" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#666664" text-anchor="middle">主目录：停在 main 分支</text>
+  <text x="682" y="163" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#1D8A56" text-anchor="middle">新目录：停在新建的 hotfix 分支（各自往前推进）</text>
+  <text x="682" y="183" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#666664" text-anchor="middle">两边同时开发与提交，互不干涉</text>
+  <rect x="494" y="214" width="376" height="125" rx="8" fill="#FDF3E7" stroke="#D9741C" stroke-width="1.5"/>
+  <text x="682" y="238" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="12.5" font-weight="600" fill="#D9741C" text-anchor="middle">模式 2：以 Detached HEAD 检出（测试 / 复现）</text>
+  <text x="682" y="260" font-family="Menlo,Consolas,'DejaVu Sans Mono',monospace" font-size="11" font-weight="600" fill="#2C2C2B" text-anchor="middle">git worktree add --detach ../wt-bench main</text>
+  <text x="682" y="285" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#666664" text-anchor="middle">主目录：继续正常推进 main</text>
+  <text x="682" y="305" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#D9741C" text-anchor="middle">新目录：HEAD 直接定格在当前版本的 Commit 哈希</text>
+  <text x="682" y="325" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC','Noto Sans CJK SC',sans-serif" font-size="11" font-weight="normal" fill="#666664" text-anchor="middle">不占用任何分支名，主目录更新也不影响它</text>
+</svg>
