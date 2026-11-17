@@ -12,7 +12,7 @@ export type Listing = Header & (
   | { kind: "tags"; items: { slug: string; name: string; count: number }[] }
 );
 export const richTags = new Set("p strong em br a img ul ol li blockquote pre code span div hr h1 h2 h3 h4 h5 h6 del table thead tbody tr th td input video-player audio-player work-reference".split(" "));
-const properties = new Set("className href src alt title width height start type checked disabled id data-search-node data-post-blank-lines data-post-trailing-lines aria-hidden ariaHidden hidden durationSec dataRoot".split(" "));
+const properties = new Set("className href src alt title width height start type checked disabled id align data-search-node data-post-blank-lines data-post-trailing-lines aria-hidden ariaHidden hidden durationSec dataRoot".split(" "));
 export function safeRichProps(input: Record<string, unknown>) {
   const props: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(input)) {

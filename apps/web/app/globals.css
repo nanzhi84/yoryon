@@ -102,7 +102,7 @@ body {
     text-align: justify;
     text-align-last: start;
   }
-  .editorial-reader .prose-yoryon :where(h1, h2, h3, h4, h5, h6, pre, .editorial-caption, .editorial-keypoints, .not-prose) {
+  .editorial-reader .prose-yoryon :where(h1, h2, h3, h4, h5, h6, pre, table, .editorial-caption, .editorial-keypoints, .not-prose) {
     text-align: start;
   }
 }
@@ -145,6 +145,13 @@ body {
 .prose-yoryon .captioned-image + .editorial-caption { margin-top: 6px; }
 .prose-yoryon .not-prose { font-family: var(--font-sans); }
 .prose-yoryon pre { border-radius: 4px; font-size: 13px; line-height: 1.6; }
+.prose-yoryon :where(li > pre):not(:where([class~="not-prose"] *)) { margin-block: 12px 16px; }
+.prose-yoryon .table-scroll { overflow-x: auto; margin-block: 24px; -webkit-overflow-scrolling: touch; }
+.prose-yoryon .table-scroll > table { margin-block: 0; font-size: 14px; line-height: 1.65; }
+.prose-yoryon :where(thead th):not(:where([class~="not-prose"] *)) { font-family: var(--font-editorial-sans); font-weight: 600; padding: 8px 12px; }
+.prose-yoryon :where(tbody td):not(:where([class~="not-prose"] *)) { padding: 10px 12px; vertical-align: top; }
+.prose-yoryon :where(thead th:first-child, tbody td:first-child):not(:where([class~="not-prose"] *)) { padding-inline-start: 0; }
+.prose-yoryon :where(thead th:last-child, tbody td:last-child):not(:where([class~="not-prose"] *)) { padding-inline-end: 0; }
 /* Keypoints accept a sentence or list; only ordered lists get numbered badges. */
 .editorial-keypoints { margin: 0 0 40px; padding: 18px 20px 6px; background: #f3f3f2; border-radius: 6px; }
 .dark .editorial-keypoints { background: #1f1e1c; }
@@ -216,7 +223,8 @@ body {
 .editorial-reader .prose-yoryon pre { padding: 16px 18px; color: var(--reading-code); background: var(--reading-surface); tab-size: 4; }
 .editorial-reader .prose-yoryon pre code { font-size: 13px; line-height: 1.6; white-space: pre; }
 @media (max-width: 640px) {
-  .editorial-reader .prose-yoryon pre { padding: 14px; margin-inline: -8px; }
+  .editorial-reader .prose-yoryon pre { padding: 14px; }
+  .editorial-reader .prose-yoryon > pre { margin-inline: -8px; }
   .editorial-reader .prose-yoryon pre code { font-size: 12px; }
 }
 
@@ -252,7 +260,7 @@ body {
 /* Short posts preserve authored blank lines instead of collapsing Markdown block gaps. */
 .prose-post { display: flow-root; --post-line-height: 31.45px; }
 .prose-post.prose-feed { --post-line-height: 24px; }
-.prose-post :where(p, ul, ol, li, blockquote, pre, h1, h2, h3, h4, h5, h6, hr) { margin-block: 0; }
+.prose-post :where(p, ul, ol, li, blockquote, pre, table, .table-scroll, h1, h2, h3, h4, h5, h6, hr) { margin-block: 0; }
 @media (max-width: 640px) {
   .editorial-reader .prose-post { --post-line-height: 29.6px; }
 }

@@ -2,6 +2,7 @@ import { Fragment, isValidElement, type ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkCjkFriendly from "remark-cjk-friendly/parseOnly";
 import remarkDirective from "remark-directive";
+import { remarkGfmSubset } from "@yoryon/config/markdown-extensions";
 import { rehypeSearchText } from "@yoryon/config/search-text";
 import { rehypePostSpacing } from "./rehype-post-spacing";
 import { rehypeHardBreaks } from "./rehype-hard-breaks";
@@ -18,7 +19,7 @@ export function listingMarkdown(markdown: string, options: {
 }): RichNode[] {
   const tree = ReactMarkdown({
     children: markdown, skipHtml: true,
-    remarkPlugins: options.simple ? [remarkCjkFriendly] : [remarkCjkFriendly, remarkDirective, remarkMediaDirectives],
+    remarkPlugins: options.simple ? [remarkCjkFriendly] : [remarkCjkFriendly, remarkGfmSubset, remarkDirective, remarkMediaDirectives],
     rehypePlugins: options.simple ? [] : [rehypeSearchText, rehypeHardBreaks, rehypeEditorialSummary, rehypeCaption, rehypePostSpacing],
     ...(options.simple ? { allowedElements: ["p", "strong", "em", "br"], unwrapDisallowed: true } : {}),
   });

@@ -3,7 +3,8 @@
  */
 export interface SearchNode { id: string; start: number; end: number }
 type Node = { type: string; value?: string; tagName?: string; properties?: Record<string, unknown>; children?: Node[] };
-const blocks = new Set(['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'pre', 'li', 'blockquote', 'hr']);
+const blocks = new Set(['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'pre', 'li', 'blockquote', 'hr', 'table', 'tr', 'th', 'td']);
+const structural = new Set(['ul', 'ol', 'blockquote', 'table', 'thead', 'tbody', 'tfoot', 'tr']);
 export function mapSearchText(tree: Node, decorate = false) {
   let text = '';
   const nodes: SearchNode[] = [];
@@ -17,7 +18,7 @@ export function mapSearchText(tree: Node, decorate = false) {
     for (let i = 0; i < children.length; i++) {
       const child = children[i]!;
       if (child.type === 'text') {
-        if ((node.type === 'root' || ['ul', 'ol', 'blockquote'].includes(node.tagName ?? '')) && /^\s*$/.test(child.value ?? '')) continue;
+        if ((node.type === 'root' || structural.has(node.tagName ?? '')) && /^\s*$/.test(child.value ?? '')) continue;
         const value = child.value ?? '';
         if (!value) continue;
         const id = `t${nodes.length}`;

@@ -5,6 +5,7 @@ import { staticDataRoot } from "@/lib/static-site";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkDirective from "remark-directive";
 import remarkCjkFriendly from "remark-cjk-friendly/parseOnly";
+import { remarkGfmSubset } from "@yoryon/config/markdown-extensions";
 import { remarkMediaDirectives } from "@/lib/remark-media-directives";
 import { InlineMedia } from "./inline-media";
 import { WorkReference } from "./work-reference";
@@ -68,7 +69,7 @@ export function MarkdownSurface({
           ...(numberHeadings ? [rehypeHeadingNumbers] : []),
           ...(preserveBlankLines ? [rehypePostSpacing] : []),
         ]}
-        remarkPlugins={[remarkCjkFriendly, remarkDirective, remarkMediaDirectives]}
+        remarkPlugins={[remarkCjkFriendly, remarkGfmSubset, remarkDirective, remarkMediaDirectives]}
         components={
           {
             p: ({ node: _node, className, ...props }) =>
@@ -77,6 +78,11 @@ export function MarkdownSurface({
               ) : (
                 <p className={className} {...props} />
               ),
+            table: ({ node: _node, className, ...props }) => (
+              <div className="table-scroll">
+                <table className={className} {...props} />
+              </div>
+            ),
             img: ({ src, alt, node: _node, ...props }) => {
               const size = mediaSizes ? mediaSizes[mediaIdFromSrc(src) ?? ""] : undefined;
               const id = mediaIdFromSrc(src);
