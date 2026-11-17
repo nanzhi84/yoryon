@@ -26,8 +26,8 @@ e2e/.data/
 *.tsbuildinfo
 .vercel
 
-# acceptance artifacts: exclude heavyweight archives (screenshots/logs stay)
-artifacts/**/*.tar.gz
+# local acceptance artifacts
+artifacts/
 
 # Local authoring drafts (never publish or commit automatically)
 .local/
