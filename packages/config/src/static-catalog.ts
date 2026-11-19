@@ -65,7 +65,7 @@ function catalog(source: string) {
     tags: [...tags.values()].sort((a, b) => a.name.localeCompare(b.name, "zh-CN")),
     tagsBySlug: tags as ReadonlyMap<string, { slug: string; name: string; count: number }>,
     tagged: tagged as ReadonlyMap<string, readonly StaticContent[]>,
-    articles: home.filter(c => c.type === "article" && c.showInHome).slice(0, HOME_ARTICLE_LIMIT),
+    articles: home.filter(c => c.type === "article" && (c.showInHome || c.collections.length > 0)).slice(0, HOME_ARTICLE_LIMIT),
     posts: home.filter(c => c.type === "post" && c.showInHome),
   };
 }
