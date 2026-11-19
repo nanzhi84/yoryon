@@ -1,7 +1,25 @@
 import { createHash } from "node:crypto";
 import { readFileSync, statSync } from "node:fs";
-import { publicCollections, staticSiteSchema, type StaticContent } from "./static-site";
+import { publicCollections, staticSiteSchema, type StaticCollection, type StaticContent } from "./static-site";
 
+export const HOME_ARTICLE_LIMIT = 10;
+
+function compareIsoDesc(a: string, b: string) {
+  return Date.parse(b) - Date.parse(a) || b.localeCompare(a);
+}
+function latestCollectionUpdatedAt(collection: StaticCollection) {
+  let latest: string | null = null;
+  let latestMs = Number.NEGATIVE_INFINITY;
+  for (const item of collection.items) {
+    if (!item.publishedAt) continue;
+    const ms = Date.parse(item.publishedAt);
+    if (ms > latestMs || (ms === latestMs && (!latest || item.publishedAt > latest))) {
+      latest = item.publishedAt;
+      latestMs = ms;
+    }
+  }
+  return latest ?? collection.updatedAt;
+}
 function chronological(a: StaticContent, b: StaticContent) {
   return (b.publishedAt ?? "").localeCompare(a.publishedAt ?? "") || b.id.localeCompare(a.id);
 }
@@ -18,7 +36,9 @@ function unique<T>(items: readonly T[], key: (item: T) => string) {
 function catalog(source: string) {
   const parsed = staticSiteSchema.parse(JSON.parse(source));
   unique(parsed.contents, c => c.id);
-  const collections = publicCollections(parsed.collections, parsed.contents);
+  const collections = publicCollections(parsed.collections, parsed.contents)
+    .map(c => ({ ...c, updatedAt: latestCollectionUpdatedAt(c) }))
+    .sort((a, b) => Number(b.isPinned) - Number(a.isPinned) || compareIsoDesc(a.updatedAt, b.updatedAt) || b.id.localeCompare(a.id));
   unique(collections, c => c.id);
   for (const collection of collections) unique(collection.items, item => item.id);
   const visible = new Set(collections.map(c => c.id));
@@ -45,7 +65,7 @@ function catalog(source: string) {
     tags: [...tags.values()].sort((a, b) => a.name.localeCompare(b.name, "zh-CN")),
     tagsBySlug: tags as ReadonlyMap<string, { slug: string; name: string; count: number }>,
     tagged: tagged as ReadonlyMap<string, readonly StaticContent[]>,
-    articles: home.filter(c => c.type === "article" && c.showInHome),
+    articles: home.filter(c => c.type === "article" && c.showInHome).slice(0, HOME_ARTICLE_LIMIT),
     posts: home.filter(c => c.type === "post" && c.showInHome),
   };
 }

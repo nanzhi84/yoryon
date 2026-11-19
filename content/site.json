@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "exportedAt": "2026-11-19T14:25:45.926Z",
+  "exportedAt": "2026-11-19T14:36:58.530Z",
   "contents": [
     {
       "id": "6e68edbe-b868-452c-a964-320861968d67",
@@ -495,7 +495,18 @@
           "durationSec": null
         }
       ],
-      "collections": [],
+      "collections": [
+        {
+          "id": "325b7eac-8987-480f-9b74-36e1af5fafa8",
+          "slug": "tech-notes",
+          "title": "技术杂谈",
+          "previous": {
+            "slug": "deepseek-harness",
+            "title": "深入 DeepSeek Harness：当 Agent Loop 也成为插件"
+          },
+          "next": null
+        }
+      ],
       "searchText": "Jev 最近很火。它是 TypeSafe AI 推出的一类决策模型，专门处理这类“需要理解，但不需要生成”的任务。\n很多 AI 任务都需要模型理解复杂的自然语言，但真正需要返回给程序的结果，可能只有一个类别、一个分数，或者一个明确的真假判断。\n传统 LLM 通常会把这类问题也转化成生成任务：读取上下文，生成一段文本或 JSON，再由程序解析结果。TypeSafe AI 最近发布的 Jev 走了另一条路线。它不负责生成文本，而是接收当前状态和一组预先定义的问题，直接返回类型化的答案、概率和置信度。TypeSafe 将这一类模型称为 System One Model，希望把模型从面向人的文本生成器，变成可以直接嵌入软件控制流的决策组件。\n通用的决策模型\nBERT 时代已经存在大量分类模型。输入一段文本，模型将它编码成 representation，再接一个分类头输出类别。它们执行效率很高，但通常围绕具体任务训练。情感分类、意图识别、文本匹配往往需要分别准备数据和微调模型。\n随后 GPT 代表的 decoder only 模型逐渐把这些任务统一成了 generation。分类可以写成 prompt，信息抽取可以生成 JSON，判断问题可以输出 Yes 或 No。随着 instruction tuning 和上下文学习能力提升，自然语言逐渐成为了一种通用任务接口。\n这带来了巨大的灵活性。与此同时，很多原本很简单的判别任务，也被统一包装成了文本生成。虽然这解决了分类模型的通用性问题，却也带来了新的计算冗余。\n很多任务本质上只需要从几个候选答案中做出选择，模型却仍然按照生成模型的方式逐 token 解码。输入可能有几千个 token，最终真正需要的信息只有一个类别、一个分数或者一个布尔值。\n这类任务可以概括成一个特点：输入复杂，输出熵很低。\n传统 LLM 可以完成这些判断，但自回归的 generation 并不总是必要。对于一个已经被程序明确拆分出来的 decision node，如果判断所需的信息能够完整表示为显式 state，完全可以进一步将 generation 直接转化为对有限答案空间的直接判别。\nJev 所代表的就是这种思路。它在尝试重新探索一个长期缺失的位置：通用判别模型。\nBERT 时代的 classifier 很快，却缺乏任务通用性；GPT 时代的模型非常通用，却把判别任务也统一成了生成。Jev 希望保留自然语言定义任务和答案空间的能力，同时让模型直接完成 decision，从而把通用性与判别效率结合起来。\nJev 的调用方式：State + Questions → Typed Answers\nJev 是一个通用分类器，它把这一步组织成 state + questions → typed answers：调用方提前定义问题和答案空间，直接消费分类、评分和概率。\n每次 Jev 调用主要包含两部分：state 和 questions。\nstate 表示模型当前需要理解的状态，可以包含用户消息、订单信息、业务规则、工具执行结果以及其他上下文。\nquestions 表示需要模型完成的一组判断。每个问题通过 instructions 描述判断目标，再通过 criteria 定义允许的答案及含义。\n例如，一个客服系统可以这样组织一次调用：\nresult = client.system_one(\n    state={\n        \"message\": \"订单 C-204 好像扣了两次款，请帮我处理。\",\n        \"payment_records_checked\": False,\n        \"order_status\": \"paid\",\n    },\n    questions={\n        \"team\": Choice(\n            instructions=\"这个请求应该由哪个团队处理？\",\n            criteria={\n                \"billing\": \"付款、账单或退款问题\",\n                \"technical\": \"软件故障或接口问题\",\n                \"other\": \"无法归入以上类别\",\n            },\n        ),\n        \"effort\": Score(\n            instructions=\"处理这个请求需要多少核对工作？\",\n            criteria=[\n                \"标准查询\",\n                \"需要核对多项事实\",\n                \"需要人工介入\",\n            ],\n        ),\n        \"refund_requested\": Noul(\n            instructions=\"用户是否明确要求退款？\",\n        ),\n    },\n)\n这里的 message、payment_records_checked 和 order_status 都是应用自行定义的业务状态，并非 Jev 预设字段。你也可以换成 user_plan、account_balance、risk_level 等任何当前判断需要的信息。三个问题共享同一份 state，分别从中读取自己需要的信息完成判断。\nJev的三个原语\nJev 提供三种基本原语，对应三类判断任务：\nChoice 用于互斥分类。 预先给出若干候选项，模型必须从中选择一个。例如判断请求应由账务、技术还是其他团队处理。返回 choice 表示最终选择，probabilities 表示各选项的概率分布，confidence 表示模型对选择的置信度。Choice 只适用于互斥类别；如果多个标签可以同时成立，应拆成多个独立问题判断。\nScore 用于有序评分。 各档位必须沿同一维度递进，例如将处理难度定义为 1 档标准查询、2 档多项核对、3 档人工介入。模型会为每个档位分配概率，并计算加权得分，例如 1×0.2 + 2×0.5 + 3×0.3 = 2.1。返回的 score 可以直接参与规则判断，例如超过 2.5 时转人工，legend 用于说明各档位含义。Score 也会返回 confidence。\nNoul 用于是非判断。 它只判断某个命题是否成立，例如用户是否明确提出退款请求，返回 noul 表示“是”的概率，范围为 0 到 1。数值越接近 1 越倾向“是”，越接近 0 越倾向“否”，接近 0.5 则表示难以判断。如果问题表达的是程度高低，应改用 Score。\n因此，选择原语时只需要看答案空间：几个互斥类别用 Choice，连续尺度用 Score，只判断一个命题是否成立用 Noul。\n真正影响效果的往往不是原语本身，而是答案空间如何设计。Choice 如果只提供业务相关选项，那么遇到无关请求时，模型仍然必须二选一。因此实际设计中通常需要保留 other、unknown 或类似兜底项，并明确它们的适用条件，让应用能够识别输入是否超出了当前分类范围。\nJev为什么速度这么快\nJev 的内部架构目前没有完整公开，一些想法是：\n生成式模型即使通过 constrained decoding 强制输出合法 JSON，本质上仍然要一个 token 一个 token 地生成结果。对于分类这类任务，最终可能只需要返回几个标签，但模型仍然要把整段 JSON 生成出来，JSON 序列化本身会引入额外的 latency。\n更直接的做法是让模型不再生成完整答案，而是直接比较几个候选项。例如把 billing、technical、other 分别映射成固定的 token。在模型 prompt prefill 完成后直接读取下一 token 的 logits，再对候选 token 的分数归一化得到概率分布。最终的标签和 JSON 结构由业务代码负责组装。\n这样一来，原本的“生成一段答案”，就变成了“在几个候选项之间做一次选择”。模型省去了后续的文本生成过程，因此对于分类、评分这类输出很短的任务，通常可以获得更低的延迟。\n如果一次需要做多个相互独立的判断，还可以进一步并行处理。例如同一条用户消息既要判断所属团队，又要判断处理难度，还要判断用户是否明确提出退款请求。这几个问题读取的是同一份上下文，彼此之间又没有依赖关系，因此可以共享输入处理结果，并在同一轮中一起计算。\nJev 的接口设计也体现了这一点。同一次请求里可以提交多个问题，它们共享同一个 state，但分别独立得到答案。\nJev 如何嵌入 Agent\nJev 在 Agent 中更适合作为局部决策器，负责对当前状态做快速、结构化判断。任务状态、流程推进和长期目标仍由 Agent 应用层维护。\n第一，Jev 可以嵌入 Agent Loop，负责决定当前一步怎么走。 Agent 应用维护目标、已确认事实和当前进度，再把一个边界明确的决策交给 Jev。工具执行后，应用更新状态，再进行下一轮判断。整个过程可以表示为：State → Jev 选择 Action → 执行 Tool → 更新 State → 再次选择\n第二，候选空间较大时，可以使用分层决策逐步缩小范围。 例如系统拥有上百个工具时，可以先判断当前请求属于支付、账户、内容处理等哪个工具域，再从对应工具域中筛选具体工具。这样可以避免每一步都把全部工具暴露给决策模型，也让路由逻辑更加稳定。\n第三，Jev 还可以参与 Context Selection。 当 Agent 持有大量历史消息、记忆、文档片段或工具结果时，可以先让 Jev 判断哪些信息与当前子任务相关，再由应用层读取并组装真正需要的上下文。例如先对若干记忆片段进行相关性判断，只把高相关内容加入下一轮模型输入。\n参考文献\n[1] TypeSafe AI. Introducing System One Models and Jev. https://typesafe.ai/blog/introducing-system-one-models-and-jev\n[2] Goedecke, S. Jev Means Structured Output Is Interesting Again. https://www.seangoedecke.com/jev-means-structured-output-is-interesting-again/\n[3] Goedecke, S. Two Techniques for Working with System One Models. https://www.seangoedecke.com/two-techniques-for-working-with-system-one-models/\n[4] Valyu. How to Use Jev: A Practical Guide to TypeSafe's System One Model. https://dev.to/valyuai/how-to-use-jev-a-practical-guide-to-typesafes-system-one-model-g5e\n[5] Latent.Space. Here Are 6 Clones of Jev in 2 Days. https://www.latent.space/p/ainews-here-are-6-clones-of-jev-in\n[6] TypeSafe AI. TypeSafe Skill 说明. https://github.com/typesafe-ai/skills/blob/main/skills/typesafe-ai/SKILL.md\n[7] TypeSafe AI. TypeSafe Python SDK. https://github.com/typesafe-ai/typesafe-sdk-python\n[8] Lee, T. SemIf. https://github.com/TheoLeeCJ/SemIf\n[9] Palmer, J. Kev. https://github.com/jaredpalmer/kev\n[10] Bespoke Labs. Nimble. https://github.com/bespokelabsai/nimble\n"
     },
     {
@@ -1233,14 +1244,17 @@
       ],
       "collections": [
         {
-          "id": "6391687a-3c75-4306-896c-545d9ef989cd",
-          "slug": "agent",
-          "title": "Agent",
+          "id": "325b7eac-8987-480f-9b74-36e1af5fafa8",
+          "slug": "tech-notes",
+          "title": "技术杂谈",
           "previous": {
             "slug": "workflow-to-agent-patterns",
             "title": "从 Workflow 到 Agent：范式选择与构建模式"
           },
-          "next": null
+          "next": {
+            "slug": "jev-typed-decisions",
+            "title": "Jev 技术图解：从文本生成到类型化决策"
+          }
         }
       ],
       "searchText": "2026 年 8 月 13 日，DeepSeek 发布了自己的第一个 agent harness，名字就叫 DSH（DeepSeek Harness）。DSH 与 Codex、Claude Code 这些主流 harness 的差异是结构性的：其他 harness 把 agent loop 写死在内核里，DSH 把它做成了一个可以在运行中整体替换的插件，这个选择的后果延伸到了架构的每个角落。\n这篇博客循序渐进地回答四个问题：DSH 是什么？一次运行如何组装出来？运行起来之后，循环与日志如何协作？以及这套架构究竟适合谁？\nDSH 是什么：没有内核的 harness\n先看熟悉的结构。Codex、Claude Code 这类主流 harness 都有一个稳定的核心：一段硬编码的控制流负责组装上下文、请求模型、执行工具，扩展从边上挂进来。skill 是 Markdown 文件，MCP 是一段配置，hook 是事件触发的脚本。这种设计很稳，扩展也够用，但主干改不了，想换掉核心逻辑只有 fork 源码重新编译一条路。\nDSH 可以压缩成一句话：一个基于 Cordis 运行时的插件化 harness，一切皆插件。工具是插件，模型 provider 是插件，session 是插件，连 agent loop 本身也是一个插件。这个 harness 没有特权内核，别的框架里要动内核才能做的事，在这里改一行配置就行。\n两条路线的差异，本质上是两种插件模型：\n声明式插件，Codex 的路线。插件是磁盘上的一个文件夹，装着声明性资源，插件本身不在 harness 进程里跑代码，harness 读取文件、按需拉起独立进程。好处是简单，进程的生死交给操作系统管，插件之间也不需要知道彼此存在；代价是插件只能给 harness 提供素材，注册不了有状态的服务，监听不了内部事件，也改不了 harness 自身的行为。\n命令式插件，DSH 的路线。插件直接跑在 harness 进程里，带着自己的状态。装载时向框架注册自己提供什么能力，需要什么能力就声明依赖，框架把两边接上，插件之间通过框架相互调用。能力边界被彻底打开，但立刻出现一个声明式世界不存在的难题：一个插件被替换时，正握着它引用的其他插件怎么办？\n这个难题正是 Cordis 存在的意义。它替每个插件记住装载时做过的每一件事，卸载时逐件撤销；它盯着依赖关系，依赖到位通知启动，依赖离开通知停下；热更新失败时事务性回滚，永远不会卡在半新半旧的中间态。Cordis 在生产环境里支撑过 4000 多个插件的生态，这套机制是 DSH 后面一切设计的地基。\n一次运行如何组装出来\nDSH 启动时没有固定的功能清单，最终跑起来是什么样，完全由配置组合决定。\n组合涉及三个概念，粒度从小到大：\nPlugin：最小的功能单元，一个插件对应一个具体能力，比如一个工具、一个模型 provider、一个 session 实现；\nBundle：一份插件清单，把某类场景需要的一组插件配置打包成一层，方便整体引用；\nProfile：一次启动的组合方案，声明本次启动要叠加哪些 bundle。\n组装的全过程：Profile 挑选 Bundle，Bundle 圈定 Plugin，最终在进程里运行的只有 Plugin。\n启动：三层配置按顺序叠加\n以默认的 web profile 为例，这份 profile 声明了 dsh-base 和 dsh-web-app 两个 bundle。dsh CLI 从一棵空的插件配置树开始，依次叠上三层：\ndsh-base：基础 bundle，带来模型、agent loop、session、工具、shell、审批、沙箱等基础能力的插件配置；\ndsh-web-app：界面 bundle，带来 Web Server、API 和 UI 等 web-app 插件配置；\n用户 patch：本地覆盖层，按 id 定位前两层的任意条目，整条替换它的配置。\n叠加规则只有一条：后叠的层优先。树上每个条目对应一个插件的配置，所以两个 bundle 装进来的任何插件，都可以被 patch 定位、替换或禁用。\n配置树定下来之后，插件还不会立刻运行：每个插件用 inject 声明自己需要的服务，缺依赖就等待，依赖到齐才激活。分工因此很清楚：装什么，归配置顺序管；何时运行，归依赖图管。\n运行：插件只做三类事\n装载之后，一个插件与框架的全部交互可以归成三类：\n注册 Service：向共享 context 挂出稳定的能力接口，比如 ctx.tools、ctx.llm、ctx.sessions；\n监听 Event：通过带类型的事件参与流程中的某一段；\n登记 Effect：把每个副作用登记成可撤销的操作，插件卸载时由框架逐一撤掉，现场恢复干净。\nService 对外提供能力，Event 参与流程，Effect 保证卸载干净。三件套合在一起，一切皆插件才没有退化成一堆全局回调。\nAgent Loop：turn、step 与四个扩展点\n两个层次与一台状态机\n默认的 loop 实现叫 ReactLoopAgent。它实现 core/agent 定义的 Agent 接口，其他插件只依赖这个接口，从不依赖具体实现，这是循环可以整体换掉的前提。\n循环把工作组织成两个嵌套层次：\nturn：一轮完整的工作，包含零个或多个 step。收到第一条输入时打开，没有挂起的输入、也没有待处理的工具结果时关闭；\nstep：一次模型请求，加上这次请求发起的工具调用。\nstep 数量不固定的原因很直接：模型第一次请求可能只返回工具调用，工具结果落进日志后，模型要在下一次请求里看到它，才能继续推理或给出最终答案。每多一轮工具调用，就多一个 step。\n驱动器由一台小状态机门控，只有 idle、maintenance、running 三个相位。状态切换会发出 agent/status 事件，任何插件都能旁观循环的生命周期。\n一个 turn 的完整流转\n一轮流转切成三个阶段看，逻辑就很清楚。\n阶段一：接收输入，组装上下文\n输入通过 send、followup、steer、inject 进入 Inbox 队列，唤醒驱动器，写入 turn/start；\n驱动器认领本步的输入批次，systemPrompt.assemble() 组装 prompt 段落、变量和工具 schema；\nagent/pre-step 给插件第一次介入机会：拒绝本步，或改写输入批次。\n阶段二：发起一次流式的模型请求\n写入 step/start，认领的输入此刻才落成持久化的 user/message；\nagent/request 允许插件替换 provider、模型与调用参数，历史消息从会话日志投影而来；\n响应逐段写成 assistant/chunk，完成后再写一条完整的 assistant/message，实时展示与最终语义分开保存；请求失败时由 agent/request-error 决定是否重试。\n阶段三：决定继续还是结束\n有工具调用：执行工具，tool/result 落进日志，开下一个 step；\n没有工具调用：agent/turn-stopping 给插件最后一次反对机会，没人反对就写入 turn/end，本轮结束。\n工具执行的流水线\n工具调度按执行模式分组：\n互斥调用：独占执行窗口，一次只跑一个；\n并行调用：进入有界池，由 maxParallelToolCalls 控制并发上限。\n每个调用都经过 tools/pre-execute、tools/execute、tools/post-execute 三段流水线，超时、审批、限流、观测这类策略全部挂在这三段上。\n还有一个容易忽略的细节：结果按模型发起调用的顺序提交，先完成的调用要等前面的槽位就绪，保证模型看到的世界始终一致。\n两类构件：持久化事件与扩展点\n纵观整个循环，其实只有两类构件：\n持久化事件：turn/start、user/message、assistant/message、tool/call 这些边界全部写进会话日志，负责记录事实；\n扩展点：agent/pre-step、agent/request、agent/request-error、agent/turn-stopping 四个接缝，负责让插件介入。\nLoop 只维护状态机和持久化顺序，策略全部住在接缝上。是否批准工具、如何改请求、prompt 里多加一段什么内容，都由事件或 Service 插件完成。大多数定制根本不需要碰循环本身。\n两条不变量：Session Log 与 Capability Seam\nSession Log：模型可见即已记录\n很多 agent 原型在内存里维护一个 messages 数组，再顺手渲染到 UI。DSH 把方向倒了过来：先把事实写进追记式的 Session Log，再为不同用途生成投影。\n模型可见的历史从不单独存储，每次请求前由 deriveMessages() 从日志现算出来。同一份日志派生出所有下游视图：\n下一次模型请求的上下文；\n持久化的 JSONL 文件；\nWeb UI 的实时事件流；\nFork、Resume 与 Replay；\nTranscript、Telemetry 与压缩后的新历史。\n这条不变量可以概括成：任何进入模型请求的内容，都必须能从日志重建。直接的好处是，无论换成哪个 loop 实现，审计、回放、恢复用的都是同一套日志工具。\nCapability Seam：换实现不改调用者\n可插拔最容易停留在接口层，DSH 把一项能力拆成三个角色：\nService Definition：只声明能力契约，比如 shell 定义 ShellService；\nService Provider：提供一种实现，比如 bash-local、bash-sandbox、pwsh-local；\nConsumer：使用能力，常见形式是暴露给模型的工具，比如 tool-bash。\n关键在于 Consumer 注入的只是契约。把 bash-local 换成 bash-sandbox，工具和 agent loop 一行代码都不用改，也不会出现平台分支。\n适用边界：谁真的需要 DSH\n上限相同，下限不同\n先把 agent loop 放到一边，声明式和命令式两条路线的能力上限其实一样，最终取决于业务代码本身的质量。想给 Codex 的常驻 MCP server 加运行时热替换，加一个 reload 端点就能做到，只是撤销、清理、依赖协调这些坑要自己踩。DSH 把这些基础设施全部铺好，单是 fiber.ts 一个文件就有 750 行，代价是更高的开发门槛：通过框架接口注册副作用、声明依赖、返回撤销函数，还要理解插件生命周期状态机。\n日常场景里，声明式几乎总是够用。搜索服务本来就是短交互，改配置重启一次两三秒；skill 是纯文本，下次读取自动生效。真正配得上运行时热替换的组件要同时满足两个条件：在进程内持有跨 turn 的状态，且这种状态没有持久化到 Session Log。满足条件的组件少之又少，上下文管理器算一个典型，它持有哪些内容保留、哪些压缩的策略状态。\n声明式追不上的一点：loop 可整体替换\n不过有一个能力，声明式模型补多少代码都追不上。硬编码的 run_turn() 只在预设时间点开放 hook，你没办法在运行时把单 agent 循环换成多 agent 协作循环，也没办法把发起请求、等待响应、执行工具的串行逻辑改成流式解析加并行执行。DSH 里换一套 loop，只需要写一个实现相同 Agent 接口的插件，在配置里替换上去，框架自动卸载旧插件，把注册过的事件和服务干净撤销，等依赖就位后平滑启动新循环。\n真正的目标：为 agent 自进化铺路\n回头看，Cordis 那整套机制，副作用跟踪、依赖通知、事务性热更新，本质上都在支撑 loop 可替换这一个目标，其余特性更像副产品。这套架构真正铺平的是 agent 自进化的基础设施：agent 在运行中给自己生成一个新工具插件，框架不重启进程、不中断任务就把它热加载进来；生成的代码出了错，事务性回滚退回上一个稳定状态。模型这一侧的条件也已成熟，生成几十行的工具插件早就是日常操作，生成几百行、能处理状态与调度的完整 loop 也踩在顶尖模型的能力边界之内。DSH 的 loop 本身就是可读可改的 TypeScript 插件，接口规范、代码结构、生命周期约束对模型天然可见；反观把 loop 编译进二进制的方案，就算模型写得出新循环，系统里也没有一个插槽能把它装上去。\n如果日常用 Codex 或 Claude Code 写码，DSH 不会让体验变好：声明式模型足够简单，重启两三秒完全可以接受，Cordis 的机制对你更多是额外的复杂度。如果你想让 harness 自我演化，动态切换 loop 策略，一边运行一边长出新能力，DSH 则是目前唯一把底层基础设施搭建完整的方案。\n参考文章\n[1] DeepSeek. (2026). deepseek-harness [Source code]. GitHub. https://github.com/deepseek-ai/deepseek-harness\n[2] Cordiverse. (2026). A programming paradigm for spatiotemporal composability [Source code]. GitHub. https://github.com/cordiverse/paper\n[3] Yage. (2026). 深度剖析 DeepSeek 最新的 Harness DSH：为了自进化这盘醋包了一整盘饺子. yage.ai. https://yage.ai/share/dsh-deep-analysis-20260813.html\n[4] 【图解】DeepSeek Harness 架构解析. (2026). CSDN. https://deepseek.csdn.net/6a7f254310ee7a33f29b0548.html\n[5] sing1ee. (2026). DeepSeek Harness Agent Loop 2026：驱动每一轮对话的可替换插件内部解析. 博客园. https://www.cnblogs.com/sing1ee/p/22479295\n"
@@ -1488,9 +1502,9 @@
       ],
       "collections": [
         {
-          "id": "6391687a-3c75-4306-896c-545d9ef989cd",
-          "slug": "agent",
-          "title": "Agent",
+          "id": "325b7eac-8987-480f-9b74-36e1af5fafa8",
+          "slug": "tech-notes",
+          "title": "技术杂谈",
           "previous": null,
           "next": {
             "slug": "deepseek-harness",
@@ -2147,150 +2161,6 @@
   ],
   "collections": [
     {
-      "id": "50d46f60-2dc8-4f62-84b3-99d3bb47aae7",
-      "slug": "a-life-of-confusion",
-      "title": "迷茫的一生",
-      "description": "记录我的挫折、无奈和痛苦",
-      "visibility": "public",
-      "coverMediaId": null,
-      "updatedAt": "2026-11-19T14:25:45.926Z",
-      "isPinned": false,
-      "items": [
-        {
-          "id": "bf76536e-cae9-455f-afdb-4520b0f63b26",
-          "slug": "meritocracy-and-pain",
-          "title": "被优绩主义腌入味后，连痛苦都被剥夺了正当性",
-          "description": "",
-          "type": "article",
-          "visibility": "public",
-          "publishedAt": "2026-04-01T16:00:00.000Z",
-          "coverMediaId": "dc81eaf0-f57a-4291-ba1f-14b2413e5380",
-          "access": "full",
-          "sortOrder": 1
-        },
-        {
-          "id": "53d382d0-4b6f-4f47-b685-4237983d2ec8",
-          "slug": "freedom-before-wealth",
-          "title": "先自由后财富",
-          "description": "",
-          "type": "article",
-          "visibility": "public",
-          "publishedAt": "2026-10-08T16:00:00.000Z",
-          "coverMediaId": "c94067b3-3d47-475e-8df2-bb1219cd50c3",
-          "access": "full",
-          "sortOrder": 2
-        },
-        {
-          "id": "f545eb38-096c-4241-87e2-e9ce263f0db2",
-          "slug": "wangjing-morning",
-          "title": "那个想掀起风浪的少年，死在了挤往望京的清晨",
-          "description": "",
-          "type": "article",
-          "visibility": "public",
-          "publishedAt": "2026-10-30T16:00:00.000Z",
-          "coverMediaId": null,
-          "access": "full",
-          "sortOrder": 3
-        },
-        {
-          "id": "eb0faaf3-6aba-4d0f-b7ed-ce90fbdf2417",
-          "slug": "i-hate-shang-an",
-          "title": "我很讨厌“上岸”",
-          "description": "",
-          "type": "article",
-          "visibility": "public",
-          "publishedAt": "2026-10-31T16:00:00.000Z",
-          "coverMediaId": null,
-          "access": "full",
-          "sortOrder": 4
-        },
-        {
-          "id": "d98e804c-0e28-4a0e-9390-4e82abe1a710",
-          "slug": "in-my-twenties-i-want-everything",
-          "title": "二十几岁，我好像什么都想要",
-          "description": "",
-          "type": "article",
-          "visibility": "public",
-          "publishedAt": "2026-11-02T16:00:00.000Z",
-          "coverMediaId": null,
-          "access": "full",
-          "sortOrder": 5
-        },
-        {
-          "id": "6e68edbe-b868-452c-a964-320861968d67",
-          "slug": "note-2026-11-15-school-leave-memories",
-          "title": "我让GPT梳理一下我当时决定休学时候的原话",
-          "description": "",
-          "type": "article",
-          "visibility": "public",
-          "publishedAt": "2026-11-15T14:54:33.144Z",
-          "coverMediaId": null,
-          "access": "full",
-          "sortOrder": 6
-        }
-      ]
-    },
-    {
-      "id": "b74c9070-a389-4c5a-9a44-328471960dc8",
-      "slug": "investment-thoughts",
-      "title": "投资思考",
-      "description": "记录我的一些投资决策和思考",
-      "visibility": "public",
-      "coverMediaId": null,
-      "updatedAt": "2026-11-01T06:38:35.881Z",
-      "isPinned": false,
-      "items": [
-        {
-          "id": "def2910e-665d-4ba2-baa1-2efbece5acf7",
-          "slug": "pop-mart-wang-ning-interview",
-          "title": "在泡泡玛特股价跳水后，我重新看了王宁的访谈",
-          "description": "",
-          "type": "article",
-          "visibility": "public",
-          "publishedAt": "2026-03-24T16:00:00.000Z",
-          "coverMediaId": null,
-          "access": "full",
-          "sortOrder": 1
-        },
-        {
-          "id": "c88982e5-95c4-4905-aae4-3ee43cc9efe5",
-          "slug": "pop-mart-beyond-blind-boxes",
-          "title": "泡泡玛特卖的不只是盲盒",
-          "description": "",
-          "type": "article",
-          "visibility": "public",
-          "publishedAt": "2026-03-25T16:00:00.000Z",
-          "coverMediaId": null,
-          "access": "full",
-          "sortOrder": 2
-        }
-      ]
-    },
-    {
-      "id": "26a6f97e-e175-4c3b-a3eb-ec8ae425c5c1",
-      "slug": "vibe-coder-crash-course",
-      "title": "Vibe Coder速成科普",
-      "description": "现在AI已经可以实现绝大部分的代码撰写，Vibe Coder的痛苦和大部分苦恼主要并非来自于不能写、不会写，而是**不知道**。 **不知道术语是什么、不知道如何描述、看不懂AI在干嘛。**\n这个系列就是为vibe coder速成软件工程基础而生。",
-      "visibility": "public",
-      "coverMediaId": null,
-      "updatedAt": "2026-11-06T15:18:06.776452Z",
-      "isPinned": false,
-      "items": [
-        {
-          "id": "f6f180aa-35e8-4acb-a71d-a190a0e75c66",
-          "slug": "vibe-coder-computer-networks",
-          "title": "Vibe Coder速成科普（1）：计算机网络",
-          "description": "",
-          "type": "article",
-          "visibility": "public",
-          "publishedAt": "2026-10-29T00:00:00.000Z",
-          "coverMediaId": null,
-          "access": "full",
-          "sortOrder": 1
-        }
-      ]
-    },
-    {
       "id": "553f9396-10dd-439c-9b42-6be8d7a2c340",
       "slug": "git-from-scratch",
       "title": "Git零基础学习",
@@ -2375,13 +2245,121 @@
       ]
     },
     {
-      "id": "6391687a-3c75-4306-896c-545d9ef989cd",
-      "slug": "agent",
-      "title": "Agent",
-      "description": "围绕 Agent 系统的范式选择、架构设计与工程实践，探讨模型如何自主规划、调用工具并持续演化。",
+      "id": "50d46f60-2dc8-4f62-84b3-99d3bb47aae7",
+      "slug": "a-life-of-confusion",
+      "title": "迷茫的一生",
+      "description": "记录我的挫折、无奈和痛苦",
       "visibility": "public",
       "coverMediaId": null,
-      "updatedAt": "2026-11-19T14:25:45.926Z",
+      "updatedAt": "2026-11-15T14:54:33.144Z",
+      "isPinned": false,
+      "items": [
+        {
+          "id": "bf76536e-cae9-455f-afdb-4520b0f63b26",
+          "slug": "meritocracy-and-pain",
+          "title": "被优绩主义腌入味后，连痛苦都被剥夺了正当性",
+          "description": "",
+          "type": "article",
+          "visibility": "public",
+          "publishedAt": "2026-04-01T16:00:00.000Z",
+          "coverMediaId": "dc81eaf0-f57a-4291-ba1f-14b2413e5380",
+          "access": "full",
+          "sortOrder": 1
+        },
+        {
+          "id": "53d382d0-4b6f-4f47-b685-4237983d2ec8",
+          "slug": "freedom-before-wealth",
+          "title": "先自由后财富",
+          "description": "",
+          "type": "article",
+          "visibility": "public",
+          "publishedAt": "2026-10-08T16:00:00.000Z",
+          "coverMediaId": "c94067b3-3d47-475e-8df2-bb1219cd50c3",
+          "access": "full",
+          "sortOrder": 2
+        },
+        {
+          "id": "f545eb38-096c-4241-87e2-e9ce263f0db2",
+          "slug": "wangjing-morning",
+          "title": "那个想掀起风浪的少年，死在了挤往望京的清晨",
+          "description": "",
+          "type": "article",
+          "visibility": "public",
+          "publishedAt": "2026-10-30T16:00:00.000Z",
+          "coverMediaId": null,
+          "access": "full",
+          "sortOrder": 3
+        },
+        {
+          "id": "eb0faaf3-6aba-4d0f-b7ed-ce90fbdf2417",
+          "slug": "i-hate-shang-an",
+          "title": "我很讨厌“上岸”",
+          "description": "",
+          "type": "article",
+          "visibility": "public",
+          "publishedAt": "2026-10-31T16:00:00.000Z",
+          "coverMediaId": null,
+          "access": "full",
+          "sortOrder": 4
+        },
+        {
+          "id": "d98e804c-0e28-4a0e-9390-4e82abe1a710",
+          "slug": "in-my-twenties-i-want-everything",
+          "title": "二十几岁，我好像什么都想要",
+          "description": "",
+          "type": "article",
+          "visibility": "public",
+          "publishedAt": "2026-11-02T16:00:00.000Z",
+          "coverMediaId": null,
+          "access": "full",
+          "sortOrder": 5
+        },
+        {
+          "id": "6e68edbe-b868-452c-a964-320861968d67",
+          "slug": "note-2026-11-15-school-leave-memories",
+          "title": "我让GPT梳理一下我当时决定休学时候的原话",
+          "description": "",
+          "type": "article",
+          "visibility": "public",
+          "publishedAt": "2026-11-15T14:54:33.144Z",
+          "coverMediaId": null,
+          "access": "full",
+          "sortOrder": 6
+        }
+      ]
+    },
+    {
+      "id": "26a6f97e-e175-4c3b-a3eb-ec8ae425c5c1",
+      "slug": "vibe-coder-crash-course",
+      "title": "Vibe Coder速成科普",
+      "description": "现在AI已经可以实现绝大部分的代码撰写，Vibe Coder的痛苦和大部分苦恼主要并非来自于不能写、不会写，而是**不知道**。 **不知道术语是什么、不知道如何描述、看不懂AI在干嘛。**\n这个系列就是为vibe coder速成软件工程基础而生。",
+      "visibility": "public",
+      "coverMediaId": null,
+      "updatedAt": "2026-10-29T00:00:00.000Z",
+      "isPinned": false,
+      "items": [
+        {
+          "id": "f6f180aa-35e8-4acb-a71d-a190a0e75c66",
+          "slug": "vibe-coder-computer-networks",
+          "title": "Vibe Coder速成科普（1）：计算机网络",
+          "description": "",
+          "type": "article",
+          "visibility": "public",
+          "publishedAt": "2026-10-29T00:00:00.000Z",
+          "coverMediaId": null,
+          "access": "full",
+          "sortOrder": 1
+        }
+      ]
+    },
+    {
+      "id": "325b7eac-8987-480f-9b74-36e1af5fafa8",
+      "slug": "tech-notes",
+      "title": "技术杂谈",
+      "description": "不设固定主题的技术随笔与原理图解，记录平时研究到的架构设计、工程实践与新范式。",
+      "visibility": "public",
+      "coverMediaId": null,
+      "updatedAt": "2026-09-18T16:00:00.000Z",
       "isPinned": false,
       "items": [
         {
@@ -2405,6 +2383,54 @@
           "visibility": "public",
           "publishedAt": "2026-08-18T16:00:00.000Z",
           "coverMediaId": "3b031183-9907-4247-8004-a324a3aa9b5d",
+          "access": "full",
+          "sortOrder": 2
+        },
+        {
+          "id": "64b0a462-67e5-4bcb-a249-44b71687ea03",
+          "slug": "jev-typed-decisions",
+          "title": "Jev 技术图解：从文本生成到类型化决策",
+          "description": "以客服分流为主线，解释 Jev 的类型化决策接口、并行判断、概率校准和 Agent 接入边界。",
+          "type": "article",
+          "visibility": "public",
+          "publishedAt": "2026-09-18T16:00:00.000Z",
+          "coverMediaId": "d857e6ca-dcc4-4aea-9262-cc0a55bc6ac4",
+          "access": "full",
+          "sortOrder": 3
+        }
+      ]
+    },
+    {
+      "id": "b74c9070-a389-4c5a-9a44-328471960dc8",
+      "slug": "investment-thoughts",
+      "title": "投资思考",
+      "description": "记录我的一些投资决策和思考",
+      "visibility": "public",
+      "coverMediaId": null,
+      "updatedAt": "2026-03-25T16:00:00.000Z",
+      "isPinned": false,
+      "items": [
+        {
+          "id": "def2910e-665d-4ba2-baa1-2efbece5acf7",
+          "slug": "pop-mart-wang-ning-interview",
+          "title": "在泡泡玛特股价跳水后，我重新看了王宁的访谈",
+          "description": "",
+          "type": "article",
+          "visibility": "public",
+          "publishedAt": "2026-03-24T16:00:00.000Z",
+          "coverMediaId": null,
+          "access": "full",
+          "sortOrder": 1
+        },
+        {
+          "id": "c88982e5-95c4-4905-aae4-3ee43cc9efe5",
+          "slug": "pop-mart-beyond-blind-boxes",
+          "title": "泡泡玛特卖的不只是盲盒",
+          "description": "",
+          "type": "article",
+          "visibility": "public",
+          "publishedAt": "2026-03-25T16:00:00.000Z",
+          "coverMediaId": null,
           "access": "full",
           "sortOrder": 2
         }
