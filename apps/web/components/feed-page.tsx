@@ -24,7 +24,7 @@ export function FeedPage({ kind, page = 1, slug }: {
         <InfiniteList key={`${base}:${page}`} initial={feedListing(getCatalog(), all, page, kind !== "tag")} source={`${staticDataRoot()}/lists${base || "/home"}`} base={base} />
         {kind === "home" && (
           <p className="mt-6 border-t border-border pt-6 text-center text-sm text-muted-foreground">
-            首页只放最新 10 篇，更多内容请看
+            首页只放 10 篇，更多内容请看
             <Link href="/c" prefetch className="ml-1 text-foreground underline underline-offset-4 hover:text-primary">
               合集
             </Link>
